@@ -1,0 +1,79 @@
+//MATLAB INCLUDES
+#include <matrix.h>
+#include <mex.h>
+
+//LIBUSBK INCLUDES
+#include <windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include "libusbk.h"
+
+//MISC INCLUDES
+#include <math.h>
+#include <string.h>
+
+#define BUFFERSIZE 256
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
+{
+    //Internals
+	WINUSB_SETUP_PACKET setupPacket;
+    KUSB_HANDLE handle;
+    char *HANDLE_CHAR;
+    char *RequestType_CHAR;
+    char *Request_CHAR;
+    char *Value_CHAR;
+    char *Index_CHAR;
+    char *Length_CHAR;
+    unsigned char controlSuccess;
+    UINT bytesTransferred = 0;
+    unsigned int n;
+    
+    //To Export
+    unsigned char *controlBuffer;
+    int dims[2] = {1,BUFFERSIZE};
+    unsigned char *out_ptr;
+    
+    //Actual functions:    
+    HANDLE_CHAR = mxArrayToString(prhs[0]);  
+    sscanf(HANDLE_CHAR, "%16x", &handle);
+    
+    RequestType_CHAR = mxArrayToString(prhs[1]);  
+    sscanf(RequestType_CHAR, "%2x", &setupPacket.RequestType);
+
+    Request_CHAR = mxArrayToString(prhs[2]);  
+    sscanf(Request_CHAR, "%2x", &setupPacket.Request);
+
+    Value_CHAR = mxArrayToString(prhs[3]);  
+    sscanf(Value_CHAR, "%4x", &setupPacket.Value);
+  
+    Index_CHAR = mxArrayToString(prhs[4]);  
+    sscanf(Index_CHAR, "%4x", &setupPacket.Index);
+    
+    Length_CHAR = mxArrayToString(prhs[5]);  
+    sscanf(Length_CHAR, "%4x", &setupPacket.Length);
+    
+    mexPrintf("Value = %d\n", setupPacket.Value);
+	mexPrintf("Index = %d\n", setupPacket.Index);
+	mexPrintf("Length = %d\n", setupPacket.Length);
+    
+    controlBuffer = mxGetData(prhs[6]);
+
+    mexPrintf("controlBuffer = %d\n", controlBuffer);
+
+	mexPrintf("SENDING CONTROL PACKET\n");
+	controlSuccess = UsbK_ControlTransfer(handle, setupPacket, controlBuffer, setupPacket.Length, &bytesTransferred, NULL);
+	if (controlSuccess) mexPrintf("%d BYTES TRANSFERRED", bytesTransferred);
+	else mexPrintf("ERROR");
+    
+    out_ptr = mxMalloc(BUFFERSIZE);
+    for (n=0;n<BUFFERSIZE;n++){
+        out_ptr[n] = controlBuffer[n];
+    }
+    
+    plhs[0] = mxCreateNumericArray(2, dims, mxUINT8_CLASS, 0);
+    mxSetData(plhs[0], out_ptr);
+    
+    return;    
+}

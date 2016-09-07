@@ -1,0 +1,17 @@
+clear
+clear global
+clear functions
+global num_lc
+num_lc = 0
+set(0,'RecursionLimit',100000)
+setscopewindowsize(1, 0, 5)
+first_gui_test
+pause(0.01)
+max_n = 100000000;
+setscopemode(0,0.5,0.5)
+%setpsu(0,1000)
+tiny_send_waveform(sin(linspace(0,2*pi, 128)),255,432)
+%tiny_send_waveform(1:100, 255, 100)]
+signal_trip(3);
+mex_usb_iso_loop
+%%plot(saved_waveform)

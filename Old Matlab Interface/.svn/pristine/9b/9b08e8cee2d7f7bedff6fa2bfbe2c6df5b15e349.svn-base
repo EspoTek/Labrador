@@ -1,0 +1,88 @@
+//MATLAB INCLUDES
+#include <matrix.h>
+#include <mex.h>
+
+//LIBUSBK INCLUDES
+#include <windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include "libusbk.h"
+
+#define DEBUG_SHOWCTRL 1
+#define ISO_PACKETS_TO_READ 30
+#define ISO_PACKET_SIZE 750
+#define HALFBUFFER_SIZE (ISO_PACKETS_TO_READ*ISO_PACKET_SIZE)
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
+{
+    
+    //Vars:
+        //Imports
+            char *HANDLE_CHAR;
+            char *ISOCTX_CHAR;
+            char *OVLKHANDLE_CHAR;
+            char *OVLPOOL_CHAR;
+            char *ISOBUFFER_CHAR;
+            KUSB_HANDLE handle = NULL;
+            unsigned char pipeID = 0x83;
+            unsigned char *mode_ptr;
+            unsigned int offset;
+        //Internals
+            PKISO_CONTEXT isoCtx;
+            KOVL_HANDLE ovlkHandle;
+            KOVL_POOL_HANDLE ovlPool;
+            char *isoBuffer;
+            unsigned char success;
+            unsigned int transferred;
+            DWORD errorCode = ERROR_SUCCESS;
+            unsigned int n;
+        //Exports
+            char *transfer_contents;
+            unsigned int *error_export;
+    
+    //Initialise Data
+        HANDLE_CHAR = mxArrayToString(prhs[0]);  
+        sscanf(HANDLE_CHAR, "%16x", &handle);
+
+        ISOCTX_CHAR = mxArrayToString(prhs[1]);  
+        sscanf(ISOCTX_CHAR, "%16x", &isoCtx);
+
+        OVLKHANDLE_CHAR = mxArrayToString(prhs[2]);  
+        sscanf(OVLKHANDLE_CHAR, "%16x", &ovlkHandle);
+
+        OVLPOOL_CHAR = mxArrayToString(prhs[3]);  
+        sscanf(OVLPOOL_CHAR, "%16x", &ovlPool);
+
+        ISOBUFFER_CHAR = mxArrayToString(prhs[4]);  
+        sscanf(ISOBUFFER_CHAR, "%16x", &isoBuffer);
+        
+        mode_ptr = mxGetData(prhs[5]);
+        offset = (*mode_ptr) * HALFBUFFER_SIZE;
+
+        //Actual Function
+            success = OvlK_WaitAndRelease(ovlkHandle, 1000, &transferred);
+			if (!success)	{
+				errorCode = GetLastError();
+				printf("IsoReadPipe failed. ErrorCode: %08Xh\n", errorCode);
+			}
+
+			IsoK_Init(&isoCtx, ISO_PACKETS_TO_READ, ISO_PACKETS_TO_READ);
+			IsoK_SetPackets(isoCtx, ISO_PACKET_SIZE);
+			OvlK_Acquire(&ovlkHandle, ovlPool);
+            UsbK_IsoReadPipe(handle, pipeID, (isoBuffer+offset), HALFBUFFER_SIZE, ovlkHandle, isoCtx);
+        
+    //Export Data
+            transfer_contents = mxMalloc(HALFBUFFER_SIZE);
+            for (n=0;n<HALFBUFFER_SIZE;n++){
+                transfer_contents[n] = isoBuffer[n+offset];
+            }
+            
+            plhs[0] = mxCreateNumericMatrix(1,HALFBUFFER_SIZE, mxINT8_CLASS, 0);
+            mxSetData(plhs[0], transfer_contents);
+            
+            error_export = mxMalloc(4);
+            error_export[0] = errorCode;
+            plhs[1] = mxCreateNumericMatrix(1,1, mxUINT32_CLASS, 0);
+            mxSetData(plhs[1], error_export);
+}

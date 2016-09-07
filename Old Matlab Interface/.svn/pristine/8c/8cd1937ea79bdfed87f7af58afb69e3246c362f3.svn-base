@@ -1,0 +1,2 @@
+clear all
+avrbreak

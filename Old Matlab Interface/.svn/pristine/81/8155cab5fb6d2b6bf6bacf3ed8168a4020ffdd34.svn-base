@@ -1,0 +1,7 @@
+function [err] = verr(vex, r)
+
+if r<50
+    error('R IS TOO LOW!!!')
+end
+r = (1/r + 1/250)^-1;
+err = ((vex + 1.5)^4 / (80 * r))

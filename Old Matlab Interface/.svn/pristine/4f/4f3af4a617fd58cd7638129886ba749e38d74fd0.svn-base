@@ -1,0 +1,97 @@
+//MATLAB INCLUDES
+#include <matrix.h>
+#include <mex.h>
+
+//LIBUSBK INCLUDES
+#include <windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include "libusbk.h"
+
+#define DEBUG_SHOWCTRL 1
+#define ISO_PACKETS_TO_READ 30
+#define ISO_PACKET_SIZE 750
+#define HALFBUFFER_SIZE (ISO_PACKETS_TO_READ*ISO_PACKET_SIZE)
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
+{
+    //Vars:
+        //Imports
+            char* HANDLE_CHAR;
+            KUSB_HANDLE handle = NULL;
+            unsigned char pipeID = 0x83;
+        //Internals
+            unsigned char success;
+            unsigned int transferred;
+            DWORD errorCode = ERROR_SUCCESS;
+            PKISO_CONTEXT isoCtx[2] = { NULL, NULL };
+            KOVL_HANDLE ovlkHandle[2] = { NULL, NULL };
+            KOVL_POOL_HANDLE ovlPool = NULL;
+            char *isoBuffer;
+        //Exports
+            char isoCtx0_string[17];
+            char isoCtx1_string[17];
+            char ovlkHandle0_string[17];
+            char ovlkHandle1_string[17];
+            char ovlPool_string[17];
+            char isoBuffer_string[17];
+
+    
+    //Initialise Data
+        HANDLE_CHAR = mxArrayToString(prhs[0]);  
+        sscanf(HANDLE_CHAR, "%16x", &handle);
+        
+        isoBuffer = malloc(2*HALFBUFFER_SIZE);
+
+        //Actual Function
+            success = UsbK_ResetPipe(handle, pipeID);
+            if (~success){
+                errorCode = GetLastError();
+                if (errorCode != 0x3E5){
+                    printf("UsbK_ResetPipe failed. ErrorCode: %08Xh\n", errorCode);
+                }
+            }
+            
+            //Define Iso Context
+            IsoK_Init(&isoCtx[0], ISO_PACKETS_TO_READ, 0);
+            IsoK_SetPackets(isoCtx[0], ISO_PACKET_SIZE);
+
+            IsoK_Init(&isoCtx[1], ISO_PACKETS_TO_READ, ISO_PACKETS_TO_READ);
+            IsoK_SetPackets(isoCtx[1], ISO_PACKET_SIZE);
+
+            //What is this overlapped pool?  Virtual Addresses for I/O?  Black magic?  The source of my errors.
+            OvlK_Init(&ovlPool, handle, 4, 0);
+            printf("OvlPool = %d", ovlPool);
+
+            OvlK_Acquire(&ovlkHandle[0], ovlPool);
+
+            OvlK_Acquire(&ovlkHandle[1], ovlPool);
+
+            //Set up iso pipe for n reads.
+            UsbK_IsoReadPipe(handle, pipeID, isoBuffer, HALFBUFFER_SIZE, ovlkHandle[0], isoCtx[0]);
+            UsbK_IsoReadPipe(handle, pipeID, (isoBuffer+HALFBUFFER_SIZE), HALFBUFFER_SIZE, ovlkHandle[1], isoCtx[1]);
+        
+    //Export Data
+            
+    sprintf(isoCtx0_string, "%016x", isoCtx[0]);    
+    plhs[0] = mxCreateString(isoCtx0_string); 
+    
+    sprintf(isoCtx1_string, "%016x", isoCtx[1]);    
+    plhs[1] = mxCreateString(isoCtx1_string); 
+    
+    sprintf(ovlkHandle0_string, "%016x", ovlkHandle[0]);    
+    plhs[2] = mxCreateString(ovlkHandle0_string);  
+
+    sprintf(ovlkHandle1_string, "%016x", ovlkHandle[1]);    
+    plhs[3] = mxCreateString(ovlkHandle1_string);  
+    
+    sprintf(ovlPool_string, "%016x", ovlPool);    
+    plhs[4] = mxCreateString(ovlPool_string); 
+   
+    sprintf(isoBuffer_string, "%016x", isoBuffer);    
+    plhs[5] = mxCreateString(isoBuffer_string);  
+ 
+            
+    return;
+}

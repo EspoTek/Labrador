@@ -1,0 +1,14 @@
+function [wave] = tiny_wave_conv_aux(wave, amplitude);
+
+if length(wave)>128
+    wave=imresize(wave,128/length(wave));
+    warning('Vector length is greater than max_length.  It has been scaled down.')
+end
+
+if (amplitude>255 | amplitude<0 | amplitude ~= round(amplitude))
+    error('Amplitude must be an integer between 0 and 255 for an 8 bit waveform!')
+end
+
+wave = wave - min(wave);
+wave = wave * amplitude / max(wave);
+wave = round(wave);

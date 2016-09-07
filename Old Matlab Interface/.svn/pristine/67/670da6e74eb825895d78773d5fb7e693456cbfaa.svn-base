@@ -1,0 +1,125 @@
+%mex USB_ISO_LOOP.c -Iincludes -llibusbK -Lbin\lib\amd64 
+%clear all
+
+global usb_handle
+global scope_gain
+global scope_window_time
+global scope_window_max
+global scope_window_min
+global scope_mode
+global gui_scope_running
+
+global gui_hori_cursor_a_pos
+global gui_hori_cursor_b_pos
+global gui_vert_cursor_a_pos
+global gui_vert_cursor_b_pos
+global gui_cursor_mode
+
+dotheplot
+
+if ~length(usb_handle)
+    warning('USB Handle not initialised.  Initialising!')
+    mex_usb_init('03eb', 'a000')
+end
+
+[isoCtx_0, isoCtx_1, ovlkHandle_0, ovlkHandle_1, ovlPool, isoBuffer] = USB_ISO_INIT(usb_handle)
+
+refreshrate = 4;
+refreshrate_temp = refreshrate;
+
+if(isempty(max_n))
+    max_n = 10
+end
+saved_waveform = int8([]);
+
+if isempty(scope_mode)
+    error('You didn''t set the scope mode!');
+end
+
+if isempty(scope_window_time)
+    error('You didn''t set the window time (x) value!');
+end
+
+if (scope_window_time < 1/375000)
+    error('Scope window size is too small!');
+end
+
+if(scope_mode==0)
+    if isempty(scope_gain)
+        error('You didn''t set the gain!');
+    end
+
+    if isempty(scope_window_min)
+        error('You didn''t set the minimum window voltage value!');
+    end
+
+    if isempty(scope_window_max)
+        error('You didn''t set the maximum window voltage value!');
+    end
+end
+
+dropped_packets = 0;
+waveform_exists = 0;
+
+for n=1:max_n              
+    %[transfer_contents_0] = USB_ISO_LOOP(usb_handle, isoCtx_0, ovlkHandle_0, ovlPool, isoBuffer, uint8(0));
+    [transfer_contents_0, libk_error] = USB_ISO_LOOP(usb_handle, isoCtx_0, ovlkHandle_0, ovlPool, isoBuffer, uint8(0));
+    keep_in_sync
+    transfer_contents_temp = [];
+    for tempovar = 0:length(transfer_contents_0)/750 - 1
+        transfer_contents_temp = [transfer_contents_temp transfer_contents_0((tempovar*750+1):(tempovar*750+374))];
+    end
+    saved_waveform = [saved_waveform transfer_contents_temp];
+    if(gui_scope_running)
+        updatescopeaxes
+    else 
+            switch(gui_cursor_mode)
+                case 1
+                    plot(gui_axes, taxis, cool_waveform, 'y');
+                case 2
+                    plot(gui_axes, taxis, cool_waveform, 'y', [-scope_window_time 0], [gui_hori_cursor_a_pos gui_hori_cursor_a_pos], 'w', [-scope_window_time 0], [gui_hori_cursor_b_pos gui_hori_cursor_b_pos], 'w:');
+                case 3
+                    plot(gui_axes, taxis, cool_waveform, 'y', [gui_vert_cursor_a_pos gui_vert_cursor_a_pos], [scope_window_min scope_window_max], 'w', [gui_vert_cursor_b_pos gui_vert_cursor_b_pos], [scope_window_min scope_window_max], 'w:');
+                case 4
+                    plot(gui_axes, taxis, cool_waveform, 'y', [gui_vert_cursor_a_pos gui_vert_cursor_a_pos], [scope_window_min scope_window_max], 'w', [gui_vert_cursor_b_pos gui_vert_cursor_b_pos], [scope_window_min scope_window_max], 'w:', [-scope_window_time 0], [gui_hori_cursor_a_pos gui_hori_cursor_a_pos], 'w', [-scope_window_time 0], [gui_hori_cursor_b_pos gui_hori_cursor_b_pos], 'w:');
+
+                otherwise
+                    error('Gui_axes is in an invalid state');
+            end
+         set(gui_axes, 'Ylim', [scope_window_min, scope_window_max], 'Xlim', [-scope_window_time, 0], 'Color', [0 0 0], 'Box', 'on', 'XColor', [1 1 1], 'Ycolor', [1 1 1]);
+        drawnow
+    end
+    
+    %[transfer_contents_1] = USB_ISO_LOOP(usb_handle, isoCtx_1, ovlkHandle_1, ovlPool, isoBuffer, uint8(1));    
+    [transfer_contents_1, libk_error] = USB_ISO_LOOP(usb_handle, isoCtx_1, ovlkHandle_1, ovlPool, isoBuffer, uint8(1));    
+    keep_in_sync
+    
+    transfer_contents_temp = [];
+    for tempovar = 0:length(transfer_contents_1)/750 - 1
+        transfer_contents_temp = [transfer_contents_temp transfer_contents_1((tempovar*750+1):(tempovar*750+374))];
+    end
+    saved_waveform = [saved_waveform transfer_contents_temp];
+    if(gui_scope_running)
+        updatescopeaxes
+    else          
+        switch(gui_cursor_mode)
+            case 1
+                plot(gui_axes, taxis, cool_waveform, 'y');
+            case 2
+                plot(gui_axes, taxis, cool_waveform, 'y', [-scope_window_time 0], [gui_hori_cursor_a_pos gui_hori_cursor_a_pos], 'w', [-scope_window_time 0], [gui_hori_cursor_b_pos gui_hori_cursor_b_pos], 'w:');
+            case 3
+                plot(gui_axes, taxis, cool_waveform, 'y', [gui_vert_cursor_a_pos gui_vert_cursor_a_pos], [scope_window_min scope_window_max], 'w', [gui_vert_cursor_b_pos gui_vert_cursor_b_pos], [scope_window_min scope_window_max], 'w:');
+            case 4
+                plot(gui_axes, taxis, cool_waveform, 'y', [gui_vert_cursor_a_pos gui_vert_cursor_a_pos], [scope_window_min scope_window_max], 'w', [gui_vert_cursor_b_pos gui_vert_cursor_b_pos], [scope_window_min scope_window_max], 'w:', [-scope_window_time 0], [gui_hori_cursor_a_pos gui_hori_cursor_a_pos], 'w', [-scope_window_time 0], [gui_hori_cursor_b_pos gui_hori_cursor_b_pos], 'w:');
+
+            otherwise
+                error('Gui_axes is in an invalid state');
+        end
+     set(gui_axes, 'Ylim', [scope_window_min, scope_window_max], 'Xlim', [-scope_window_time, 0], 'Color', [0 0 0], 'Box', 'on', 'XColor', [1 1 1], 'Ycolor', [1 1 1]);
+    drawnow
+    end
+end
+
+clear all
+max_n = 2000
+mex_usb_iso_loop

@@ -1,0 +1,2 @@
+function returnval = returnempty()
+    returnval = [];

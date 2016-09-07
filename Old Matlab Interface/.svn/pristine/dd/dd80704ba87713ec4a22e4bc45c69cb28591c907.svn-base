@@ -1,0 +1,13 @@
+function [] = displaypacket(new_packets)
+
+global saved_waveform_ch1
+global saved_waveform_ch2
+global scope_mode
+
+if scope_mode < 5
+    transfer_contents_temp = [];
+    for tempovar = 0:length(new_packets)/750 - 1
+        transfer_contents_temp = [transfer_contents_temp new_packets((tempovar*750+1):(tempovar*750+374))];
+    end
+    saved_waveform_ch1 = [saved_waveform_ch1 transfer_contents_temp];
+end

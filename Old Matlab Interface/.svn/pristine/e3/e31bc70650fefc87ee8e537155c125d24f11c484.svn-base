@@ -1,0 +1,10 @@
+clear all
+first_gui_test
+pause(0.01)
+max_n = 10000;
+setscopemode(0,1,1)
+setpsu(0,1000)
+tiny_send_waveform(sin(linspace(0,2*pi, 750)),255,300)
+%tiny_send_waveform(1:100, 255, 100)
+mex_usb_iso_loop
+%%plot(saved_waveform)

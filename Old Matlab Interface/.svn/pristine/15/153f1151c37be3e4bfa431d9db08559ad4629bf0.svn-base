@@ -1,0 +1,49 @@
+global scope_window_time
+global scope_window_max
+global scope_window_min
+global scope_mode
+global gui_axes
+global text_box_1
+global gui_hori_cursor_a_pos
+global gui_hori_cursor_b_pos
+global gui_vert_cursor_a_pos
+global gui_vert_cursor_b_pos
+global gui_cursor_mode
+global saved_waveform_ch1
+global saved_waveform_ch2
+
+refreshrate_temp = refreshrate_temp - 1;
+
+tic
+switch(scope_mode)
+    case 0
+        if (refreshrate_temp == 0)
+            refreshrate_temp = refreshrate;
+            [taxis, cool_waveform] = conv_ana(saved_waveform_ch1, 375000*scope_window_time);
+            plotcursors
+            waveform_exists = 1;
+        else
+                if (waveform_exists)
+                    set(text_box_1, 'String', sprintf(' ---------------------\n   Vmin = %.2fV\n ---------------------\n   Vmax = %.2f\n ---------------------\n   Vmean = %.2f\n ---------------------\n   Vrms = %.2f\n ---------------------\n   ', min(cool_waveform), max(cool_waveform), mean(cool_waveform), rms(cool_waveform)));
+                    %title(titlestring);
+                    xlabel(gui_axes, 'Time (s)')
+                    ylabel(gui_axes, 'Voltage (V)')
+                    drawnow
+                end
+        end
+    case 3
+        if (refreshrate_temp == 0)
+        refreshrate_temp = refreshrate;
+        [taxis, temp_waveform] = conv_dig(saved_waveform_ch1, 375000*scope_window_time);
+        stairs(gui_axes, taxis, temp_waveform, 'y');
+        else
+            set(gui_axes, 'Ylim', [-0.1, 1.1], 'Xlim', [-scope_window_time, 0], 'Color', [0 0 0], 'Box', 'on', 'XColor', [1 1 1], 'Ycolor', [1 1 1]);
+            set(text_box_1, 'String', 'Scope in dig mode');
+            xlabel(gui_axes, 'Time (s)')
+            ylabel(gui_axes, 'Logic Value')
+            drawnow
+        end
+    otherwise
+        error('scope_mode invalid!')
+end
+toc

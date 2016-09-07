@@ -1,0 +1,17 @@
+function [taxis, cool_waveform] = conv_ana(buffer, samplestoshow)
+
+        global scope_window_time
+        
+        if length(buffer)>samplestoshow
+            if (samplestoshow>500)
+                temp_waveform = buffer((length(buffer) - samplestoshow):samplestoshow/500: length(buffer));
+            else
+                temp_waveform = buffer((length(buffer) - samplestoshow): length(buffer));
+            end
+            undofrontend;
+            taxis = linspace(-scope_window_time,0,length(cool_waveform));
+            return
+        end
+        
+        taxis = [];
+        cool_waveform = [];

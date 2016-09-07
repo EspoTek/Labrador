@@ -1,0 +1,56 @@
+function [] = displaypacket(new_packets)
+
+global saved_waveform_ch1
+global saved_waveform_ch2
+global scope_mode
+global gui_scope_running
+
+
+%Keep the arrays small(ish)
+if length(saved_waveform_ch1)>10e6
+    saved_waveform_ch1 = saved_waveform_ch1(length(saved_waveform_ch1)-1e6:end);
+end
+if length(saved_waveform_ch2)>10e6
+    saved_waveform_ch2 = saved_waveform_ch2(length(saved_waveform_ch2)-1e6:end);
+end
+
+
+%%Insta-return if scope is paused
+if(~gui_scope_running)
+    return
+end
+
+%%Exception for mode 6
+if scope_mode == 6
+    transfer_contents_temp = [];
+    for tempovar = 0:length(new_packets)/750 - 1
+        transfer_contents_temp = [transfer_contents_temp new_packets((tempovar*750+1):(tempovar*750+748))];
+    end
+    saved_waveform_ch1 = [saved_waveform_ch1 transfer_contents_temp];
+    return
+end
+
+%%Pull out CH1 data
+if scope_mode < 5
+    transfer_contents_temp = [];
+    for tempovar = 0:length(new_packets)/750 - 1
+        transfer_contents_temp = [transfer_contents_temp new_packets((tempovar*750+1):(tempovar*750+374))];
+    end
+    saved_waveform_ch1 = [saved_waveform_ch1 transfer_contents_temp];
+end
+
+%%Pull out CH2 data for relevant states
+if (scope_mode == 1 | scope_mode == 2 | scope_mode == 4)
+    transfer_contents_temp = [];
+    for tempovar = 0:length(new_packets)/750 - 1
+        transfer_contents_temp = [transfer_contents_temp new_packets((tempovar*750+376):(tempovar*750+749))];
+    end
+    saved_waveform_ch2 = [saved_waveform_ch2 transfer_contents_temp];
+end
+
+%     transfer_contents_whole = [transfer_contents_0 transfer_contents_1]
+%         transfer_contents_temp = [];
+%     for tempovar = 0:length(transfer_contents_whole)/750 - 1
+%         transfer_contents_temp = [transfer_contents_temp transfer_contents_whole((tempovar*750+1):(tempovar*750+748))];
+%     end
+%     plot(transfer_contents_temp)

@@ -1,0 +1,26 @@
+function [cool_waveform] = undofrontend(temp_waveform,channel)
+
+Vcc = 3.3;
+TOP = 128;
+R4 = 75e3;
+R3 = 1e6;
+R2 = 1e3;
+R1 = 1e3;
+
+global scope_gain_0
+global scope_gain_1
+global CH1_AC
+global CH2_AC
+
+if channel == 1
+    scope_gain = scope_gain_1
+    AC_offset = CH2_AC * 1.65
+else
+    scope_gain = scope_gain_0
+    AC_offset = CH1_AC * 1.65
+end
+
+cool_waveform = double(temp_waveform);
+
+cool_waveform = (cool_waveform * (Vcc/2)) / (R4/(R3+R4)*scope_gain*TOP) + Vcc*(R2/(R1+R2));
+cool_waveform = cool_waveform - AC_offset;

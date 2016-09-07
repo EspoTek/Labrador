@@ -1,0 +1,28 @@
+//MATLAB INCLUDES
+#include <matrix.h>
+#include <mex.h>
+
+//LIBUSBK INCLUDES
+#include <windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include "libusbk.h"
+
+void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
+{
+    //Vars:
+        //Imports
+            char* POOL_CHAR;
+            KOVL_POOL_HANDLE ovlPool = NULL;
+
+
+    
+        //Initialise Data
+            POOL_CHAR = mxArrayToString(prhs[0]);  
+            sscanf(POOL_CHAR, "%16x", &ovlPool);
+
+        //Actual Function 
+            OvlK_Free(ovlPool);           
+    return;
+}

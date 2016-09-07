@@ -1,0 +1,12 @@
+Vcc = 3.3;
+TOP = 128;
+R4 = 75e3;
+R3 = 1e6;
+R2 = 1e3;
+R1 = 1e3;
+
+global scope_gain
+
+cool_waveform = double(temp_waveform);
+
+cool_waveform = (cool_waveform * (Vcc/2)) / (R4/(R3+R4)*scope_gain*TOP) + Vcc*(R2/(R1+R2));

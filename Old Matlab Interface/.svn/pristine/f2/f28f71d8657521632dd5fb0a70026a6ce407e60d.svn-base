@@ -1,0 +1,99 @@
+global scope_window_time
+global scope_window_max
+global scope_window_min
+global scope_mode
+global gui_axes
+global text_box_1
+global gui_hori_cursor_a_pos
+global gui_hori_cursor_b_pos
+global gui_vert_cursor_a_pos
+global gui_vert_cursor_b_pos
+global gui_cursor_mode
+
+samplestoshow = 375000*scope_window_time;
+refreshrate_temp = refreshrate_temp - 1;
+
+tic
+if(scope_mode==0)  %analog mode
+    if (refreshrate_temp == 0)
+        refreshrate_temp = refreshrate;
+        if length(saved_waveform)>samplestoshow
+            if (samplestoshow>500)
+                temp_waveform = saved_waveform((length(saved_waveform) - samplestoshow):samplestoshow/500: length(saved_waveform));
+            else
+                temp_waveform = saved_waveform((length(saved_waveform) - samplestoshow): length(saved_waveform));
+            end
+            undofrontend;
+            taxis = linspace(-scope_window_time,0,length(cool_waveform));
+            switch(gui_cursor_mode)
+                case 1
+                    plot(gui_axes, taxis, cool_waveform, 'y');
+                case 2
+                    plot(gui_axes, taxis, cool_waveform, 'y', [-scope_window_time 0], [gui_hori_cursor_a_pos gui_hori_cursor_a_pos], 'w', [-scope_window_time 0], [gui_hori_cursor_b_pos gui_hori_cursor_b_pos], 'w:');
+                case 3
+                    plot(gui_axes, taxis, cool_waveform, 'y', [gui_vert_cursor_a_pos gui_vert_cursor_a_pos], [scope_window_min scope_window_max], 'w', [gui_vert_cursor_b_pos gui_vert_cursor_b_pos], [scope_window_min scope_window_max], 'w:');
+                case 4
+                    plot(gui_axes, taxis, cool_waveform, 'y', [gui_vert_cursor_a_pos gui_vert_cursor_a_pos], [scope_window_min scope_window_max], 'w', [gui_vert_cursor_b_pos gui_vert_cursor_b_pos], [scope_window_min scope_window_max], 'w:', [-scope_window_time 0], [gui_hori_cursor_a_pos gui_hori_cursor_a_pos], 'w', [-scope_window_time 0], [gui_hori_cursor_b_pos gui_hori_cursor_b_pos], 'w:');
+
+                otherwise
+                    error('Gui_axes is in an invalid state');
+            end
+            
+%             if(gui_cursor_mode == 3 | gui_cursor_mode == 4)
+%                 plot(gui_axes, [gui_vert_cursor_pos gui_vert_cursor_pos], [scope_window_min scope_window_max], 'w')
+%             end
+%             if (gui_cursor_mode == 2 | gui_cursor_mode == 4)
+%                 plot(gui_axes, [-scope_window_time 0], [gui_hori_cursor_pos gui_hori_cursor_pos], 'w')
+%             end
+            set(gui_axes, 'Ylim', [scope_window_min, scope_window_max], 'Xlim', [-scope_window_time, 0], 'Color', [0 0 0], 'Box', 'on', 'XColor', [1 1 1], 'Ycolor', [1 1 1]);
+            waveform_exists = 1;
+            %axis([-scope_window_time 0 scope_window_min scope_window_max])
+            %titlestring = sprintf('Showing ADC waveform.  Window size = %es \nMin=%.2fV      Max=%.2fV      Mean=%.2fV      RMS=%.2fV', samplestoshow/375000, min(cool_waveform), max(cool_waveform), mean(cool_waveform), rms(cool_waveform));
+        end
+    else
+            if (waveform_exists)
+                set(text_box_1, 'String', sprintf(' ---------------------\n   Vmin = %.2fV\n ---------------------\n   Vmax = %.2f\n ---------------------\n   Vmean = %.2f\n ---------------------\n   Vrms = %.2f\n ---------------------\n   ', min(cool_waveform), max(cool_waveform), mean(cool_waveform), rms(cool_waveform)));
+                %title(titlestring);
+                xlabel(gui_axes, 'Time (s)')
+                ylabel(gui_axes, 'Voltage (V)')
+                drawnow
+            end
+    end
+else %digital mode
+    if (refreshrate_temp == 0)
+        refreshrate_temp = refreshrate;
+        if length(saved_waveform)>samplestoshow
+            if (scope_window_time>(500/375000))
+                temp_waveform = saved_waveform((length(saved_waveform) - samplestoshow):samplestoshow/500: length(saved_waveform));
+                temp_waveform = typecast(temp_waveform, 'uint8');
+                temp_waveform = logical(bitand(temp_waveform,16));
+            else
+                throwaway = round((ceil(samplestoshow)-samplestoshow)*8);
+                dig_samples = saved_waveform((length(saved_waveform) - samplestoshow) : length(saved_waveform));
+                dig_samples = typecast(dig_samples, 'uint8');
+                temp_waveform = false(1,length(dig_samples)*8);
+                temp_waveform(1:8:length(temp_waveform)) = bitand(dig_samples,128);
+                temp_waveform(2:8:length(temp_waveform)) = bitand(dig_samples,64);
+                temp_waveform(3:8:length(temp_waveform)) = bitand(dig_samples,32);
+                temp_waveform(4:8:length(temp_waveform)) = bitand(dig_samples,16);
+                temp_waveform(5:8:length(temp_waveform)) = bitand(dig_samples,8);
+                temp_waveform(6:8:length(temp_waveform)) = bitand(dig_samples,4);
+                temp_waveform(7:8:length(temp_waveform)) = bitand(dig_samples,2);
+                temp_waveform(8:8:length(temp_waveform)) = bitand(dig_samples,1);
+                
+                temp_waveform = temp_waveform((throwaway+1):end);
+                temp_waveform = temp_waveform(1:length(temp_waveform)/500:end);
+            end
+            taxis = linspace(-scope_window_time,0,length(temp_waveform));
+            stairs(taxis, temp_waveform);
+        end
+    else
+            axis([-scope_window_time 0 -0.1 1.1])
+            titlestring = sprintf('Showing Digital Waveform\nInsert Information here! (Baud Rate?)');
+            title(titlestring);
+            xlabel('Time')
+            ylabel('Logic Value')
+            drawnow
+    end
+end
+toc
