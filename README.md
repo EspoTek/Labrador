@@ -1,15 +1,17 @@
-This is the project page for the EspoTek Labrador.
+This is the project page for the EspoTek Labrador. 
+
 http://espotek.com/labrador
 https://www.crowdsupply.com/espotek/labrador
 
 #Licence
 All software files are licenced under GNU GPL v3.  https://www.gnu.org/licenses/gpl.html
+
 All hardware files (schematics, PCB) are licenced under Creative Commons 4.0 (CC BY-NC-SA).  https://creativecommons.org/licenses/by-nc-sa/4.0/
 
-The intention is to move to a less restrictive licence in future, where commercial hardware derivatives are allowed but the use of the Labrador name or any branding is not.  If anyone knows how to implement such a licence, please contact me.
+The intention is to move to a less restrictive licence in future, where commercial hardware derivatives are allowed but the use of the Labrador name or any branding is not.  If anyone knows how to implement such a licence, please share your wisdom.
 
 #Known bugs.
-This software is very much so pre-beta.
+This software is very much pre-beta.
 Those of you with sharp eyes will notice that there are some bugs.
 A few biggies include:
  - The software is compatible with Windows (x64) only.
@@ -29,4 +31,5 @@ Those who selected the "Shape the Development" reward on Crowd Supply will be se
 Welcome to suggestions at this stage as to how you think any collaboration will proceed!
 
 Thanks to all.
+
 ~Chris
