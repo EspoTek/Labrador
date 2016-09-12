@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "USB_BULK_TEST", "USB_BULK_TEST\USB_BULK_TEST.cproj", "{BD2AA8D9-491B-4ECD-9255-825EAABC7BA4}"
 EndProject
 Global
@@ -11,8 +13,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BD2AA8D9-491B-4ECD-9255-825EAABC7BA4}.Debug|AVR.ActiveCfg = Debug|AVR
 		{BD2AA8D9-491B-4ECD-9255-825EAABC7BA4}.Debug|AVR.Build.0 = Debug|AVR
-		{BD2AA8D9-491B-4ECD-9255-825EAABC7BA4}.Release|AVR.ActiveCfg = Debug|AVR
-		{BD2AA8D9-491B-4ECD-9255-825EAABC7BA4}.Release|AVR.Build.0 = Debug|AVR
+		{BD2AA8D9-491B-4ECD-9255-825EAABC7BA4}.Release|AVR.ActiveCfg = Release|AVR
+		{BD2AA8D9-491B-4ECD-9255-825EAABC7BA4}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

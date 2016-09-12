@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectVersion>6.2</ProjectVersion>
+    <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
     <ProjectGuid>{bd2aa8d9-491b-4ecd-9255-825eaabc7ba4}</ProjectGuid>
     <avrdevice>atxmega32a4u</avrdevice>
@@ -117,7 +117,7 @@
     <com_atmel_avrdbg_tool_atmelice>
       <ToolOptions>
         <InterfaceProperties>
-          <PdiClock>7500000</PdiClock>
+          <PdiClock>4000000</PdiClock>
           <JtagDbgClock>7500000</JtagDbgClock>
         </InterfaceProperties>
         <InterfaceName>PDI</InterfaceName>
@@ -138,10 +138,14 @@
       </ToolNumber>
       <ToolName>Simulator</ToolName>
     </com_atmel_avrdbg_tool_simulator>
+    <avrtoolserialnumber>J41800006314</avrtoolserialnumber>
+    <avrdeviceexpectedsignature>0x1E9541</avrdeviceexpectedsignature>
+    <avrtoolinterfaceclock>4000000</avrtoolinterfaceclock>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <AvrGcc>
+        <avrgcc.common.Device>-mmcu=atxmega32a4u -B "%24(PackRepoDir)\atmel\XMEGAA_DFP\1.0.39\gcc\dev\atxmega32a4u"</avrgcc.common.Device>
         <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
         <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
         <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
@@ -177,6 +181,7 @@
             <Value>../src</Value>
             <Value>../src/ASF/common/boards/user_board</Value>
             <Value>../src/ASF/common/services/ioport</Value>
+            <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.0.39\include</Value>
           </ListValues>
         </avrgcc.compiler.directories.IncludePaths>
         <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
@@ -215,6 +220,7 @@
             <Value>../src</Value>
             <Value>../src/ASF/common/boards/user_board</Value>
             <Value>../src/ASF/common/services/ioport</Value>
+            <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.0.39\include</Value>
           </ListValues>
         </avrgcc.assembler.general.IncludePaths>
       </AvrGcc>
@@ -223,6 +229,7 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
+        <avrgcc.common.Device>-mmcu=atxmega32a4u -B "%24(PackRepoDir)\atmel\XMEGAA_DFP\1.0.39\gcc\dev\atxmega32a4u"</avrgcc.common.Device>
         <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
         <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
         <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
@@ -258,6 +265,7 @@
             <Value>../src</Value>
             <Value>../src/ASF/common/boards/user_board</Value>
             <Value>../src/ASF/common/services/ioport</Value>
+            <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.0.39\include</Value>
           </ListValues>
         </avrgcc.compiler.directories.IncludePaths>
         <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -297,6 +305,7 @@
             <Value>../src</Value>
             <Value>../src/ASF/common/boards/user_board</Value>
             <Value>../src/ASF/common/services/ioport</Value>
+            <Value>%24(PackRepoDir)\atmel\XMEGAA_DFP\1.0.39\include</Value>
           </ListValues>
         </avrgcc.assembler.general.IncludePaths>
         <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>

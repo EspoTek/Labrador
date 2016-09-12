@@ -22,7 +22,7 @@
 #define PSU_PERIOD 100
 #define PSU_ADC_TOP 128
 
-//#define INVERT_TRIPLE
-//#define INVERT_MM
+#define INVERT_TRIPLE
+#define INVERT_MM
 
 #endif // XMEGA_H

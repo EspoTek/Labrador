@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QLabel>
 #include <QDebug>
+#include <QDir>
+#include <QFile>
 #include "xmega.h"
 
 class functionGenControl : public QLabel
@@ -14,7 +16,6 @@ public:
     unsigned char *samples_CH1, *samples_CH2;
     int length_CH1, divisibility_CH1, length_CH2, divisibility_CH2;
     double freq_CH1 = 1000, amplitude_CH1 = 0, offset_CH1 = 0, freq_CH2 = 1000, amplitude_CH2 = 0, offset_CH2 = 0;
-private:
 signals:
     void functionGenToUpdate(int channel, functionGenControl *fGenControl);
     void setMaxFreq_CH1(double maxFreq);

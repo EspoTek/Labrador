@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QComboBox>
 #include <QDebug>
+#include <QDir>
+#include <QFile>
 
 class espoComboBox : public QComboBox
 {
@@ -11,6 +13,7 @@ class espoComboBox : public QComboBox
 public:
     explicit espoComboBox(QWidget *parent = 0);
     void readWaveformList(void);
+private:
 signals:
 
 public slots:

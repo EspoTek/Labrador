@@ -61,3 +61,5 @@ DEPENDPATH += $$PWD/libusbk/includes
 
 
 DESTDIR = bin
+
+RC_ICONS = appicon.ico

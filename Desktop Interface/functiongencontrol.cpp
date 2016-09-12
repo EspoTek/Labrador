@@ -13,10 +13,12 @@ void functionGenControl::waveformName_CH1(QString newName)
     qDebug() << "newName = " << newName;
     newName.append(".tlw");
 
-    QString *directory = new QString("C:/kfvcc/waveforms/");
+    QDir *dir = new QDir();
+    QString directory = dir->currentPath();
 
-    directory->append(newName);
-    QByteArray temp = directory->toLatin1();
+    directory.append("/waveforms/");
+    directory.append(newName);
+    QByteArray temp = directory.toLatin1();
     char *fileName = temp.data();
 
     qDebug() << "opening" << fileName;
@@ -80,10 +82,12 @@ void functionGenControl::waveformName_CH2(QString newName)
     qDebug() << "newName = " << newName;
     newName.append(".tlw");
 
-    QString *directory = new QString("C:/kfvcc/waveforms/");
+    QDir *dir = new QDir();
+    QString directory = dir->currentPath();
 
-    directory->append(newName);
-    QByteArray temp = directory->toLatin1();
+    directory.append("/waveforms/");
+    directory.append(newName);
+    QByteArray temp = directory.toLatin1();
     char *fileName = temp.data();
 
     qDebug() << "opening" << fileName;
