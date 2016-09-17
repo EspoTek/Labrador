@@ -1079,6 +1079,16 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
+            <widget class="QCheckBox" name="pause_LA">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Pause</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QGroupBox" name="serialDecodingCheck_CH1">
              <property name="title">
               <string>Serial Decoding</string>
@@ -2264,7 +2274,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1124</x>
-     <y>606</y>
+     <y>583</y>
     </hint>
    </hints>
   </connection>
@@ -2328,7 +2338,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1124</x>
-     <y>606</y>
+     <y>583</y>
     </hint>
    </hints>
   </connection>
@@ -2407,8 +2417,8 @@
      <y>308</y>
     </hint>
     <hint type="destinationlabel">
-     <x>979</x>
-     <y>345</y>
+     <x>1002</x>
+     <y>332</y>
     </hint>
    </hints>
   </connection>
@@ -2420,11 +2430,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>1002</x>
-     <y>355</y>
+     <y>332</y>
     </hint>
     <hint type="destinationlabel">
      <x>1086</x>
-     <y>420</y>
+     <y>397</y>
     </hint>
    </hints>
   </connection>
@@ -2616,7 +2626,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1124</x>
-     <y>528</y>
+     <y>505</y>
     </hint>
    </hints>
   </connection>
@@ -2632,7 +2642,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1124</x>
-     <y>606</y>
+     <y>583</y>
     </hint>
    </hints>
   </connection>
@@ -2644,7 +2654,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1124</x>
-     <y>528</y>
+     <y>505</y>
     </hint>
     <hint type="destinationlabel">
      <x>1065</x>
@@ -2660,7 +2670,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1124</x>
-     <y>606</y>
+     <y>583</y>
     </hint>
     <hint type="destinationlabel">
      <x>1065</x>
@@ -3012,11 +3022,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>1115</x>
-     <y>378</y>
+     <y>355</y>
     </hint>
     <hint type="destinationlabel">
      <x>1002</x>
-     <y>355</y>
+     <y>332</y>
     </hint>
    </hints>
   </connection>
@@ -3140,7 +3150,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3160,7 +3170,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
    </hints>
   </connection>
@@ -3172,7 +3182,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>659</x>
@@ -3188,11 +3198,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>1002</x>
-     <y>355</y>
+     <y>332</y>
     </hint>
     <hint type="destinationlabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
    </hints>
   </connection>
@@ -3208,7 +3218,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
    </hints>
   </connection>
@@ -3224,7 +3234,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
    </hints>
   </connection>
@@ -3236,7 +3246,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3252,7 +3262,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3272,7 +3282,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
    </hints>
   </connection>
@@ -3284,7 +3294,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3396,7 +3406,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3476,7 +3486,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1114</x>
-     <y>518</y>
+     <y>495</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3492,7 +3502,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1114</x>
-     <y>596</y>
+     <y>573</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3508,7 +3518,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1114</x>
-     <y>518</y>
+     <y>495</y>
     </hint>
     <hint type="destinationlabel">
      <x>384</x>
@@ -3524,7 +3534,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1114</x>
-     <y>596</y>
+     <y>573</y>
     </hint>
     <hint type="destinationlabel">
      <x>488</x>
@@ -3556,7 +3566,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>876</x>
@@ -3588,7 +3598,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1124</x>
-     <y>606</y>
+     <y>583</y>
     </hint>
     <hint type="destinationlabel">
      <x>959</x>
@@ -3700,7 +3710,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>449</y>
+     <y>426</y>
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
@@ -3847,8 +3857,8 @@
      <y>707</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1060</x>
-     <y>444</y>
+     <x>1125</x>
+     <y>426</y>
     </hint>
    </hints>
   </connection>
@@ -3859,12 +3869,12 @@
    <slot>resetTimer(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1036</x>
-     <y>372</y>
+     <x>1115</x>
+     <y>355</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1018</x>
-     <y>371</y>
+     <x>1115</x>
+     <y>355</y>
     </hint>
    </hints>
   </connection>
@@ -3875,12 +3885,12 @@
    <slot>resetTimer()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1054</x>
-     <y>370</y>
+     <x>1115</x>
+     <y>355</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1013</x>
-     <y>371</y>
+     <x>1115</x>
+     <y>355</y>
     </hint>
    </hints>
   </connection>
@@ -3895,8 +3905,40 @@
      <y>113</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1071</x>
-     <y>368</y>
+     <x>1115</x>
+     <y>355</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pause_LA</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pausedLabeL_CH1</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>998</x>
+     <y>594</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>722</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pausedLabeL_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pause_LA</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>762</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1022</x>
+     <y>598</y>
     </hint>
    </hints>
   </connection>

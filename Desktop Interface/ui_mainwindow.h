@@ -219,6 +219,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QGroupBox *busSifferGroup_CH1;
     QVBoxLayout *verticalLayout_7;
+    QCheckBox *pause_LA;
     QGroupBox *serialDecodingCheck_CH1;
     QVBoxLayout *verticalLayout_6;
     QComboBox *serialDecodingModeSelect_CH1;
@@ -1107,6 +1108,12 @@ public:
         verticalLayout_7->setSpacing(6);
         verticalLayout_7->setContentsMargins(11, 11, 11, 11);
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
+        pause_LA = new QCheckBox(busSifferGroup_CH1);
+        pause_LA->setObjectName(QStringLiteral("pause_LA"));
+        pause_LA->setEnabled(true);
+
+        verticalLayout_7->addWidget(pause_LA);
+
         serialDecodingCheck_CH1 = new QGroupBox(busSifferGroup_CH1);
         serialDecodingCheck_CH1->setObjectName(QStringLiteral("serialDecodingCheck_CH1"));
         serialDecodingCheck_CH1->setFlat(true);
@@ -1451,6 +1458,8 @@ public:
         QObject::connect(lockPsuCheckBox, SIGNAL(toggled(bool)), lockPsuCheckBox, SLOT(resetTimer(bool)));
         QObject::connect(lockPsuCheckBox, SIGNAL(toggled(bool)), lockPsuCheckBox, SLOT(resetTimer()));
         QObject::connect(psuSlider, SIGNAL(sliderMoved(int)), lockPsuCheckBox, SLOT(resetTimer()));
+        QObject::connect(pause_LA, SIGNAL(toggled(bool)), pausedLabeL_CH1, SLOT(setChecked(bool)));
+        QObject::connect(pausedLabeL_CH1, SIGNAL(toggled(bool)), pause_LA, SLOT(setChecked(bool)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -1590,6 +1599,7 @@ public:
         lockPsuCheckBox->setText(QApplication::translate("MainWindow", "Lock PSU", 0));
         controller_usb->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS USB DRIVER", 0));
         busSifferGroup_CH1->setTitle(QApplication::translate("MainWindow", "Bus Sniffer CH1", 0));
+        pause_LA->setText(QApplication::translate("MainWindow", "Pause", 0));
         serialDecodingCheck_CH1->setTitle(QApplication::translate("MainWindow", "Serial Decoding", 0));
         serialDecodingModeSelect_CH1->clear();
         serialDecodingModeSelect_CH1->insertItems(0, QStringList()
