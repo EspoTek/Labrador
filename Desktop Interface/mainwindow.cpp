@@ -726,6 +726,9 @@ void MainWindow::initShortcuts(){
     shortcut_cycleBaudRateBackwards_CH1 = new QShortcut(QKeySequence("Ctrl+Shift+B"), ui->menuBar);
     shortcut_cycleBaudRate_CH2 = new QShortcut(QKeySequence("Ctrl+Alt+B"), ui->menuBar);
     shortcut_cycleBaudRateBackwards_CH2 = new QShortcut(QKeySequence("Ctrl+Shift+Alt+B"), ui->menuBar);
+    shortcut_snapScopeToCursors = new QShortcut(QKeySequence("Z"), ui->menuBar);
+    shortcut_manualRange = new QShortcut(QKeySequence("M"), ui->menuBar);
+
 
     shortcut_ArrowUp = new QShortcut(QKeySequence("Up"), ui->menuBar);
     shortcut_ArrowDown = new QShortcut(QKeySequence("Down"), ui->menuBar);
@@ -763,9 +766,8 @@ void MainWindow::initShortcuts(){
     connect(shortcut_ArrowLeft, SIGNAL(activated()), this, SLOT(cycleDelayLeft()));
     connect(shortcut_ArrowRight, SIGNAL(activated()), this, SLOT(cycleDelayRight()));
 
-
-
-
+    connect(shortcut_snapScopeToCursors, SIGNAL(activated()), this, SLOT(on_actionSnap_to_Cursors_triggered()));
+    connect(shortcut_manualRange, SIGNAL(activated()), this, SLOT(on_actionEnter_Manually_triggered()));
 
 }
 
@@ -888,4 +890,40 @@ void MainWindow::on_actionAuto_Lock_toggled(bool arg1)
 {
     ui->lockPsuCheckBox->enableTimer(arg1);
     ui->lockPsuCheckBox->timer->start(ui->lockPsuCheckBox->timerLength);
+}
+
+void MainWindow::on_actionSnap_to_Cursors_triggered()
+{
+    double xLeft, xRight, yBot, yTop;
+
+    yTop = ui->controller_iso->y1 > ui->controller_iso->y0 ? ui->controller_iso->y1 : ui->controller_iso->y0;
+    yBot = ui->controller_iso->y1 > ui->controller_iso->y0 ? ui->controller_iso->y0 : ui->controller_iso->y1;
+
+    xRight = ui->controller_iso->x1 > ui->controller_iso->x0 ? ui->controller_iso->x1 : ui->controller_iso->x0;
+    xLeft = ui->controller_iso->x1 > ui->controller_iso->x0 ? ui->controller_iso->x0 : ui->controller_iso->x1;
+
+    if((yBot-yTop) != 0){
+        ui->controller_iso->topRange = yTop;
+        ui->controller_iso->botRange = yBot;
+    }
+
+    if((xLeft - xRight) != 0){
+        ui->controller_iso->delay = - xRight;
+        ui->controller_iso->window = xRight - xLeft;
+    }
+}
+
+void MainWindow::on_actionEnter_Manually_triggered()
+{
+    ui->controller_iso->delay = 0;
+    scopeRangeEnterDialog dialog(this, ui->controller_iso->topRange, ui->controller_iso->botRange, ui->controller_iso->window, ui->controller_iso->delay);
+    dialog.setModal(true);
+    connect(&dialog, SIGNAL(yTopUpdated(double)), ui->controller_iso, SLOT(setTopRange(double)));
+    connect(&dialog, SIGNAL(yBotUpdated(double)), ui->controller_iso, SLOT(setBotRange(double)));
+    connect(&dialog, SIGNAL(windowUpdated(double)), ui->controller_iso, SLOT(setTimeWindow(double)));
+    dialog.exec();
+}
+
+void MainWindow::helloWorld(){
+    qDebug() << "Hello World!";
 }

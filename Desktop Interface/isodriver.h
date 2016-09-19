@@ -23,6 +23,8 @@ public:
     int baudRate_CH1 = 9600, baudRate_CH2 = 9600;
     double delay = 0, window = 0.01;
     QCPItemText *cursorTextPtr;
+    double y0=0, y1=0, x0=0, x1=0;
+    double topRange=2.5, botRange=-0.5;
 private:
     winUsbDriver *driver;
     QCustomPlot *axes;
@@ -32,7 +34,6 @@ private:
     long total_read = 0;
     void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC);
     void digitalConvert(short *shortPtr, QVector<double> *doublePtr);
-    double topRange=2.5, botRange=-0.5;
     bool paused_CH1 = false, paused_CH2 = false, paused_multimeter = false;
     void recoverIsoStream(void);
     void frameActionGeneric(char CH1_mode, char CH2_mode);
@@ -43,7 +44,6 @@ private:
     double multi = 0;
     bool autoGainEnabled = true;
     bool placingHoriAxes = false, placingVertAxes = false, horiCursorEnabled = false, vertCursorEnabled = false;
-    double y0=0, y1=0, x0=0, x1=0;
     void udateCursors(void);
     short reverseFrontEnd(double voltage);
     int trigger(void);
@@ -139,6 +139,9 @@ public slots:
     void setXYmode(bool enabled);
     void triggerGroupStateChange(bool enabled);
     void slowTimerTick();
+    void setTopRange(double newTop);
+    void setBotRange(double newBot);
+    void setTimeWindow(double newWindow);
 };
 
 #endif // ISODRIVER_H

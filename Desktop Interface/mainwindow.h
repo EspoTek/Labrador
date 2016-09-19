@@ -8,6 +8,7 @@
 #include <QShortcut>
 #include "qcustomplot.h"
 #include <QFont>
+#include "scoperangeenterdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -88,6 +89,12 @@ private slots:
 
     void on_actionAuto_Lock_toggled(bool arg1);
 
+    void on_actionSnap_to_Cursors_triggered();
+
+    void on_actionEnter_Manually_triggered();
+
+    void helloWorld();
+
 private:
     Ui::MainWindow *ui;
     void initialisePlot();
@@ -117,8 +124,8 @@ private:
     QShortcut *shortcut_d;
     QShortcut *shortcut_ArrowLeft;
     QShortcut *shortcut_ArrowRight;
-
-
+    QShortcut *shortcut_snapScopeToCursors;\
+    QShortcut *shortcut_manualRange;
 
     QWheelEvent *wheelEmu;
 

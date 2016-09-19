@@ -28,7 +28,9 @@ SOURCES += main.cpp\
     cursorenabler.cpp \
     desktop_settings.cpp \
     deviceconnecteddisplay.cpp \
-    timedtickbox.cpp
+    timedtickbox.cpp \
+    scoperangeenterdialog.cpp \
+    voltagespinbox.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -46,9 +48,12 @@ HEADERS  += mainwindow.h \
     noclosemenu.h \
     cursorenabler.h \
     deviceconnecteddisplay.h \
-    timedtickbox.h
+    timedtickbox.h \
+    scoperangeenterdialog.h \
+    voltagespinbox.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    scoperangeenterdialog.ui
 
 RESOURCES += \
     resources.qrc

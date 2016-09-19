@@ -986,3 +986,15 @@ void isoDriver::slowTimerTick(){
     update_CH1 = true;
     update_CH2 = true;
 }
+
+void isoDriver::setTopRange(double newTop){
+    topRange = newTop;
+}
+
+void isoDriver::setBotRange(double newBot){
+    botRange = newBot;
+}
+
+void isoDriver::setTimeWindow(double newWindow){
+    window = newWindow;
+}

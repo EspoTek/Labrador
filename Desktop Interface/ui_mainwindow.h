@@ -113,6 +113,8 @@ public:
     QAction *action10FPS;
     QAction *action5FPS;
     QAction *actionAuto_Lock;
+    QAction *actionSnap_to_Cursors;
+    QAction *actionEnter_Manually;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
@@ -243,6 +245,7 @@ public:
     noCloseMenu *menuCH1_Stats;
     noCloseMenu *menuCH2_Stats;
     QMenu *menuFrame_rate;
+    QMenu *menuRange;
     QMenu *menuMultimeter_2;
     QMenu *menuV_2;
     QMenu *menuI_2;
@@ -462,6 +465,10 @@ public:
         actionAuto_Lock->setObjectName(QStringLiteral("actionAuto_Lock"));
         actionAuto_Lock->setCheckable(true);
         actionAuto_Lock->setChecked(true);
+        actionSnap_to_Cursors = new QAction(MainWindow);
+        actionSnap_to_Cursors->setObjectName(QStringLiteral("actionSnap_to_Cursors"));
+        actionEnter_Manually = new QAction(MainWindow);
+        actionEnter_Manually->setObjectName(QStringLiteral("actionEnter_Manually"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
@@ -927,9 +934,10 @@ public:
         frequencyValue_CH1 = new espoSpinBox(signalGenGroup_CH1);
         frequencyValue_CH1->setObjectName(QStringLiteral("frequencyValue_CH1"));
         frequencyValue_CH1->setSuffix(QStringLiteral("Hz"));
-        frequencyValue_CH1->setDecimals(4);
-        frequencyValue_CH1->setMinimum(0.2);
+        frequencyValue_CH1->setDecimals(2);
+        frequencyValue_CH1->setMinimum(0);
         frequencyValue_CH1->setMaximum(1e+6);
+        frequencyValue_CH1->setSingleStep(100);
         frequencyValue_CH1->setValue(1000);
 
         verticalLayout_19->addWidget(frequencyValue_CH1);
@@ -994,6 +1002,7 @@ public:
         frequencyValue_CH2->setSuffix(QStringLiteral("Hz"));
         frequencyValue_CH2->setDecimals(2);
         frequencyValue_CH2->setMaximum(1e+6);
+        frequencyValue_CH2->setSingleStep(100);
         frequencyValue_CH2->setValue(1000);
 
         verticalLayout_21->addWidget(frequencyValue_CH2);
@@ -1233,6 +1242,8 @@ public:
         menuCH2_Stats->setObjectName(QStringLiteral("menuCH2_Stats"));
         menuFrame_rate = new QMenu(menuOscilloscope_2);
         menuFrame_rate->setObjectName(QStringLiteral("menuFrame_rate"));
+        menuRange = new QMenu(menuOscilloscope_2);
+        menuRange->setObjectName(QStringLiteral("menuRange"));
         menuMultimeter_2 = new QMenu(menuBar);
         menuMultimeter_2->setObjectName(QStringLiteral("menuMultimeter_2"));
         menuV_2 = new QMenu(menuMultimeter_2);
@@ -1269,6 +1280,8 @@ public:
         menuBar->addAction(menuBus_Sniffer->menuAction());
         menuBar->addAction(menuPower_Supply->menuAction());
         menuFile->addAction(actionComing_Soon);
+        menuOscilloscope_2->addAction(menuRange->menuAction());
+        menuOscilloscope_2->addSeparator();
         menuOscilloscope_2->addAction(menuFrame_rate->menuAction());
         menuOscilloscope_2->addSeparator();
         menuOscilloscope_2->addAction(menuGain_2->menuAction());
@@ -1303,6 +1316,8 @@ public:
         menuFrame_rate->addAction(action15FPS);
         menuFrame_rate->addAction(action10FPS);
         menuFrame_rate->addAction(action5FPS);
+        menuRange->addAction(actionSnap_to_Cursors);
+        menuRange->addAction(actionEnter_Manually);
         menuMultimeter_2->addSeparator();
         menuMultimeter_2->addAction(menuV_2->menuAction());
         menuMultimeter_2->addAction(menuI_2->menuAction());
@@ -1372,11 +1387,8 @@ public:
         QObject::connect(dcOffsetValue_CH2, SIGNAL(valueChanged(double)), amplitudeValue_CH2, SLOT(maximumChanged(double)));
         QObject::connect(waveformSelect_CH1, SIGNAL(currentTextChanged(QString)), controller_fg, SLOT(waveformName_CH1(QString)));
         QObject::connect(waveformSelect_CH2, SIGNAL(currentTextChanged(QString)), controller_fg, SLOT(waveformName_CH2(QString)));
-        QObject::connect(frequencyValue_CH1, SIGNAL(valueChanged(double)), controller_fg, SLOT(freqUpdate_CH1(double)));
         QObject::connect(amplitudeValue_CH1, SIGNAL(valueChanged(double)), controller_fg, SLOT(amplitudeUpdate_CH1(double)));
         QObject::connect(dcOffsetValue_CH1, SIGNAL(valueChanged(double)), controller_fg, SLOT(offsetUpdate_CH1(double)));
-        QObject::connect(controller_fg, SIGNAL(setMaxFreq_CH1(double)), frequencyValue_CH1, SLOT(setMax(double)));
-        QObject::connect(controller_fg, SIGNAL(setMinFreq_CH1(double)), frequencyValue_CH1, SLOT(setMin(double)));
         QObject::connect(bufferDisplay, SIGNAL(busSnifferOut_CH1(bool)), busSifferGroup_CH1, SLOT(setEnabled(bool)));
         QObject::connect(bufferDisplay, SIGNAL(busSnifferOut_CH2(bool)), busSnifferGroup_CH2, SLOT(setEnabled(bool)));
         QObject::connect(busSifferGroup_CH1, SIGNAL(toggled(bool)), bufferDisplay, SLOT(busSnifferIn_CH1(bool)));
@@ -1385,9 +1397,6 @@ public:
         QObject::connect(digitalOutCheckbox_CH2, SIGNAL(toggled(bool)), bufferDisplay, SLOT(digIn_CH2(bool)));
         QObject::connect(digitalOutCheckbox_CH3, SIGNAL(toggled(bool)), bufferDisplay, SLOT(digIn_CH3(bool)));
         QObject::connect(digitalOutCheckbox_CH4, SIGNAL(toggled(bool)), bufferDisplay, SLOT(digIn_CH4(bool)));
-        QObject::connect(controller_fg, SIGNAL(setMaxFreq_CH2(double)), frequencyValue_CH2, SLOT(setMax(double)));
-        QObject::connect(controller_fg, SIGNAL(setMinFreq_CH2(double)), frequencyValue_CH2, SLOT(setMin(double)));
-        QObject::connect(frequencyValue_CH2, SIGNAL(valueChanged(double)), controller_fg, SLOT(freqUpdate_CH2(double)));
         QObject::connect(amplitudeValue_CH2, SIGNAL(valueChanged(double)), controller_fg, SLOT(amplitudeUpdate_CH2(double)));
         QObject::connect(dcOffsetValue_CH2, SIGNAL(valueChanged(double)), controller_fg, SLOT(offsetUpdate_CH2(double)));
         QObject::connect(timeBaseSlider, SIGNAL(valueChanged(int)), controller_iso, SLOT(setWindow(int)));
@@ -1460,6 +1469,14 @@ public:
         QObject::connect(psuSlider, SIGNAL(sliderMoved(int)), lockPsuCheckBox, SLOT(resetTimer()));
         QObject::connect(pause_LA, SIGNAL(toggled(bool)), pausedLabeL_CH1, SLOT(setChecked(bool)));
         QObject::connect(pausedLabeL_CH1, SIGNAL(toggled(bool)), pause_LA, SLOT(setChecked(bool)));
+        QObject::connect(controller_fg, SIGNAL(setMaxFreq_CH2(double)), frequencyValue_CH2, SLOT(setMax(double)));
+        QObject::connect(controller_fg, SIGNAL(setMinFreq_CH2(double)), frequencyValue_CH2, SLOT(setMin(double)));
+        QObject::connect(frequencyValue_CH2, SIGNAL(valueChanged(double)), controller_fg, SLOT(freqUpdate_CH2(double)));
+        QObject::connect(frequencyValue_CH1, SIGNAL(valueChanged(double)), controller_fg, SLOT(freqUpdate_CH1(double)));
+        QObject::connect(controller_fg, SIGNAL(setMaxFreq_CH1(double)), frequencyValue_CH1, SLOT(setMax(double)));
+        QObject::connect(controller_fg, SIGNAL(setMinFreq_CH1(double)), frequencyValue_CH1, SLOT(setMin(double)));
+        QObject::connect(frequencyValue_CH1, SIGNAL(valueChanged(double)), frequencyValue_CH1, SLOT(changeStepping(double)));
+        QObject::connect(frequencyValue_CH2, SIGNAL(valueChanged(double)), frequencyValue_CH2, SLOT(changeStepping(double)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -1530,6 +1547,8 @@ public:
         action10FPS->setText(QApplication::translate("MainWindow", "10FPS", 0));
         action5FPS->setText(QApplication::translate("MainWindow", "5FPS", 0));
         actionAuto_Lock->setText(QApplication::translate("MainWindow", "Auto Lock", 0));
+        actionSnap_to_Cursors->setText(QApplication::translate("MainWindow", "Snap to Cursors", 0));
+        actionEnter_Manually->setText(QApplication::translate("MainWindow", "Enter Manually", 0));
         deviceConnected->setText(QApplication::translate("MainWindow", "Device disconnected!", 0));
         scopeGroup_CH1->setTitle(QApplication::translate("MainWindow", "Oscilloscope CH1", 0));
         pausedLabeL_CH1->setText(QApplication::translate("MainWindow", "Paused", 0));
@@ -1628,6 +1647,7 @@ public:
         menuCH1_Stats->setTitle(QApplication::translate("MainWindow", "CH1 Stats", 0));
         menuCH2_Stats->setTitle(QApplication::translate("MainWindow", "CH2 Stats", 0));
         menuFrame_rate->setTitle(QApplication::translate("MainWindow", "Frame rate", 0));
+        menuRange->setTitle(QApplication::translate("MainWindow", "Range", 0));
         menuMultimeter_2->setTitle(QApplication::translate("MainWindow", "Multimeter", 0));
         menuV_2->setTitle(QApplication::translate("MainWindow", "Range (V)", 0));
         menuI_2->setTitle(QApplication::translate("MainWindow", "Range (I)", 0));

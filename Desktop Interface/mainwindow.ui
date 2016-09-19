@@ -781,13 +781,16 @@
               <string notr="true">Hz</string>
              </property>
              <property name="decimals">
-              <number>4</number>
+              <number>2</number>
              </property>
              <property name="minimum">
-              <double>0.200000000000000</double>
+              <double>0.000000000000000</double>
              </property>
              <property name="maximum">
               <double>1000000.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>100.000000000000000</double>
              </property>
              <property name="value">
               <double>1000.000000000000000</double>
@@ -892,6 +895,9 @@
              </property>
              <property name="maximum">
               <double>1000000.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>100.000000000000000</double>
              </property>
              <property name="value">
               <double>1000.000000000000000</double>
@@ -1351,6 +1357,15 @@
      <addaction name="action10FPS"/>
      <addaction name="action5FPS"/>
     </widget>
+    <widget class="QMenu" name="menuRange">
+     <property name="title">
+      <string>Range</string>
+     </property>
+     <addaction name="actionSnap_to_Cursors"/>
+     <addaction name="actionEnter_Manually"/>
+    </widget>
+    <addaction name="menuRange"/>
+    <addaction name="separator"/>
     <addaction name="menuFrame_rate"/>
     <addaction name="separator"/>
     <addaction name="menuGain_2"/>
@@ -2014,6 +2029,16 @@
     <string>Auto Lock</string>
    </property>
   </action>
+  <action name="actionSnap_to_Cursors">
+   <property name="text">
+    <string>Snap to Cursors</string>
+   </property>
+  </action>
+  <action name="actionEnter_Manually">
+   <property name="text">
+    <string>Enter Manually</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -2077,6 +2102,7 @@
     <slot>maximumChanged(double)</slot>
     <slot>setMax(double)</slot>
     <slot>setMin(double)</slot>
+    <slot>changeStepping(double)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -2535,22 +2561,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>frequencyValue_CH1</sender>
-   <signal>valueChanged(double)</signal>
-   <receiver>controller_fg</receiver>
-   <slot>freqUpdate_CH1(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>806</x>
-     <y>623</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>960</x>
-     <y>509</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>amplitudeValue_CH1</sender>
    <signal>valueChanged(double)</signal>
    <receiver>controller_fg</receiver>
@@ -2579,38 +2589,6 @@
     <hint type="destinationlabel">
      <x>960</x>
      <y>509</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_fg</sender>
-   <signal>setMaxFreq_CH1(double)</signal>
-   <receiver>frequencyValue_CH1</receiver>
-   <slot>setMax(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>509</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>806</x>
-     <y>623</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_fg</sender>
-   <signal>setMinFreq_CH1(double)</signal>
-   <receiver>frequencyValue_CH1</receiver>
-   <slot>setMin(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>509</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>806</x>
-     <y>623</y>
     </hint>
    </hints>
   </connection>
@@ -2739,54 +2717,6 @@
     <hint type="destinationlabel">
      <x>1065</x>
      <y>756</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_fg</sender>
-   <signal>setMaxFreq_CH2(double)</signal>
-   <receiver>frequencyValue_CH2</receiver>
-   <slot>setMax(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>509</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>949</x>
-     <y>623</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_fg</sender>
-   <signal>setMinFreq_CH2(double)</signal>
-   <receiver>frequencyValue_CH2</receiver>
-   <slot>setMin(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>509</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>949</x>
-     <y>623</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>frequencyValue_CH2</sender>
-   <signal>valueChanged(double)</signal>
-   <receiver>controller_fg</receiver>
-   <slot>freqUpdate_CH2(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>949</x>
-     <y>623</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>960</x>
-     <y>509</y>
     </hint>
    </hints>
   </connection>
@@ -3917,8 +3847,8 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>998</x>
-     <y>594</y>
+     <x>1114</x>
+     <y>473</y>
     </hint>
     <hint type="destinationlabel">
      <x>722</x>
@@ -3937,8 +3867,136 @@
      <y>80</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1022</x>
-     <y>598</y>
+     <x>1114</x>
+     <y>473</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_fg</sender>
+   <signal>setMaxFreq_CH2(double)</signal>
+   <receiver>frequencyValue_CH2</receiver>
+   <slot>setMax(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>623</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_fg</sender>
+   <signal>setMinFreq_CH2(double)</signal>
+   <receiver>frequencyValue_CH2</receiver>
+   <slot>setMin(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>623</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>frequencyValue_CH2</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>freqUpdate_CH2(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>949</x>
+     <y>623</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>frequencyValue_CH1</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>freqUpdate_CH1(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>806</x>
+     <y>623</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_fg</sender>
+   <signal>setMaxFreq_CH1(double)</signal>
+   <receiver>frequencyValue_CH1</receiver>
+   <slot>setMax(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>806</x>
+     <y>623</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_fg</sender>
+   <signal>setMinFreq_CH1(double)</signal>
+   <receiver>frequencyValue_CH1</receiver>
+   <slot>setMin(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>806</x>
+     <y>623</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>frequencyValue_CH1</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>frequencyValue_CH1</receiver>
+   <slot>changeStepping(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>740</x>
+     <y>611</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>701</x>
+     <y>611</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>frequencyValue_CH2</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>frequencyValue_CH2</receiver>
+   <slot>changeStepping(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>881</x>
+     <y>608</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>904</x>
+     <y>613</y>
     </hint>
    </hints>
   </connection>

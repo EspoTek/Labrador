@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_isoDriver_t {
-    QByteArrayData data[78];
-    char stringdata0[1080];
+    QByteArrayData data[83];
+    char stringdata0[1132];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -106,7 +106,12 @@ QT_MOC_LITERAL(73, 978, 26), // "setSerialDecodeEnabled_CH1"
 QT_MOC_LITERAL(74, 1005, 26), // "setSerialDecodeEnabled_CH2"
 QT_MOC_LITERAL(75, 1032, 9), // "setXYmode"
 QT_MOC_LITERAL(76, 1042, 23), // "triggerGroupStateChange"
-QT_MOC_LITERAL(77, 1066, 13) // "slowTimerTick"
+QT_MOC_LITERAL(77, 1066, 13), // "slowTimerTick"
+QT_MOC_LITERAL(78, 1080, 11), // "setTopRange"
+QT_MOC_LITERAL(79, 1092, 6), // "newTop"
+QT_MOC_LITERAL(80, 1099, 11), // "setBotRange"
+QT_MOC_LITERAL(81, 1111, 6), // "newBot"
+QT_MOC_LITERAL(82, 1118, 13) // "setTimeWindow"
 
     },
     "isoDriver\0setGain\0\0newGain\0disableWindow\0"
@@ -138,7 +143,9 @@ QT_MOC_LITERAL(77, 1066, 13) // "slowTimerTick"
     "setForceVolts\0setForceAmps\0"
     "setSerialDecodeEnabled_CH1\0"
     "setSerialDecodeEnabled_CH2\0setXYmode\0"
-    "triggerGroupStateChange\0slowTimerTick"
+    "triggerGroupStateChange\0slowTimerTick\0"
+    "setTopRange\0newTop\0setBotRange\0newBot\0"
+    "setTimeWindow"
 };
 #undef QT_MOC_LITERAL
 
@@ -148,7 +155,7 @@ static const uint qt_meta_data_isoDriver[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      58,   14, // methods
+      61,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -156,66 +163,69 @@ static const uint qt_meta_data_isoDriver[] = {
       19,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  304,    2, 0x06 /* Public */,
-       4,    1,  307,    2, 0x06 /* Public */,
-       6,    1,  310,    2, 0x06 /* Public */,
-       7,    1,  313,    2, 0x06 /* Public */,
-       9,    1,  316,    2, 0x06 /* Public */,
-      11,    1,  319,    2, 0x06 /* Public */,
-      12,    1,  322,    2, 0x06 /* Public */,
-      13,    1,  325,    2, 0x06 /* Public */,
-      14,    1,  328,    2, 0x06 /* Public */,
-      15,    1,  331,    2, 0x06 /* Public */,
-      16,    1,  334,    2, 0x06 /* Public */,
-      17,    1,  337,    2, 0x06 /* Public */,
-      19,    1,  340,    2, 0x06 /* Public */,
-      20,    1,  343,    2, 0x06 /* Public */,
-      21,    1,  346,    2, 0x06 /* Public */,
-      22,    1,  349,    2, 0x06 /* Public */,
-      23,    1,  352,    2, 0x06 /* Public */,
-      24,    1,  355,    2, 0x06 /* Public */,
-      25,    1,  358,    2, 0x06 /* Public */,
+       1,    1,  319,    2, 0x06 /* Public */,
+       4,    1,  322,    2, 0x06 /* Public */,
+       6,    1,  325,    2, 0x06 /* Public */,
+       7,    1,  328,    2, 0x06 /* Public */,
+       9,    1,  331,    2, 0x06 /* Public */,
+      11,    1,  334,    2, 0x06 /* Public */,
+      12,    1,  337,    2, 0x06 /* Public */,
+      13,    1,  340,    2, 0x06 /* Public */,
+      14,    1,  343,    2, 0x06 /* Public */,
+      15,    1,  346,    2, 0x06 /* Public */,
+      16,    1,  349,    2, 0x06 /* Public */,
+      17,    1,  352,    2, 0x06 /* Public */,
+      19,    1,  355,    2, 0x06 /* Public */,
+      20,    1,  358,    2, 0x06 /* Public */,
+      21,    1,  361,    2, 0x06 /* Public */,
+      22,    1,  364,    2, 0x06 /* Public */,
+      23,    1,  367,    2, 0x06 /* Public */,
+      24,    1,  370,    2, 0x06 /* Public */,
+      25,    1,  373,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      26,    1,  361,    2, 0x0a /* Public */,
-      28,    1,  364,    2, 0x0a /* Public */,
-      31,    0,  367,    2, 0x0a /* Public */,
-      32,    0,  368,    2, 0x0a /* Public */,
-      33,    1,  369,    2, 0x0a /* Public */,
-      34,    1,  372,    2, 0x0a /* Public */,
-      35,    1,  375,    2, 0x0a /* Public */,
-      36,    0,  378,    2, 0x0a /* Public */,
-      37,    3,  379,    2, 0x0a /* Public */,
-      41,    1,  386,    2, 0x0a /* Public */,
-      43,    1,  389,    2, 0x0a /* Public */,
-      45,    0,  392,    2, 0x0a /* Public */,
-      46,    1,  393,    2, 0x0a /* Public */,
-      47,    1,  396,    2, 0x0a /* Public */,
-      49,    1,  399,    2, 0x0a /* Public */,
-      50,    1,  402,    2, 0x0a /* Public */,
-      51,    1,  405,    2, 0x0a /* Public */,
-      52,    1,  408,    2, 0x0a /* Public */,
-      53,    1,  411,    2, 0x0a /* Public */,
-      54,    1,  414,    2, 0x0a /* Public */,
-      56,    1,  417,    2, 0x0a /* Public */,
-      57,    1,  420,    2, 0x0a /* Public */,
-      59,    1,  423,    2, 0x0a /* Public */,
-      60,    1,  426,    2, 0x0a /* Public */,
-      61,    1,  429,    2, 0x0a /* Public */,
-      63,    1,  432,    2, 0x0a /* Public */,
-      65,    0,  435,    2, 0x0a /* Public */,
-      66,    0,  436,    2, 0x0a /* Public */,
-      67,    1,  437,    2, 0x0a /* Public */,
-      68,    1,  440,    2, 0x0a /* Public */,
-      69,    1,  443,    2, 0x0a /* Public */,
-      70,    1,  446,    2, 0x0a /* Public */,
-      71,    1,  449,    2, 0x0a /* Public */,
-      72,    1,  452,    2, 0x0a /* Public */,
-      73,    1,  455,    2, 0x0a /* Public */,
-      74,    1,  458,    2, 0x0a /* Public */,
-      75,    1,  461,    2, 0x0a /* Public */,
-      76,    1,  464,    2, 0x0a /* Public */,
-      77,    0,  467,    2, 0x0a /* Public */,
+      26,    1,  376,    2, 0x0a /* Public */,
+      28,    1,  379,    2, 0x0a /* Public */,
+      31,    0,  382,    2, 0x0a /* Public */,
+      32,    0,  383,    2, 0x0a /* Public */,
+      33,    1,  384,    2, 0x0a /* Public */,
+      34,    1,  387,    2, 0x0a /* Public */,
+      35,    1,  390,    2, 0x0a /* Public */,
+      36,    0,  393,    2, 0x0a /* Public */,
+      37,    3,  394,    2, 0x0a /* Public */,
+      41,    1,  401,    2, 0x0a /* Public */,
+      43,    1,  404,    2, 0x0a /* Public */,
+      45,    0,  407,    2, 0x0a /* Public */,
+      46,    1,  408,    2, 0x0a /* Public */,
+      47,    1,  411,    2, 0x0a /* Public */,
+      49,    1,  414,    2, 0x0a /* Public */,
+      50,    1,  417,    2, 0x0a /* Public */,
+      51,    1,  420,    2, 0x0a /* Public */,
+      52,    1,  423,    2, 0x0a /* Public */,
+      53,    1,  426,    2, 0x0a /* Public */,
+      54,    1,  429,    2, 0x0a /* Public */,
+      56,    1,  432,    2, 0x0a /* Public */,
+      57,    1,  435,    2, 0x0a /* Public */,
+      59,    1,  438,    2, 0x0a /* Public */,
+      60,    1,  441,    2, 0x0a /* Public */,
+      61,    1,  444,    2, 0x0a /* Public */,
+      63,    1,  447,    2, 0x0a /* Public */,
+      65,    0,  450,    2, 0x0a /* Public */,
+      66,    0,  451,    2, 0x0a /* Public */,
+      67,    1,  452,    2, 0x0a /* Public */,
+      68,    1,  455,    2, 0x0a /* Public */,
+      69,    1,  458,    2, 0x0a /* Public */,
+      70,    1,  461,    2, 0x0a /* Public */,
+      71,    1,  464,    2, 0x0a /* Public */,
+      72,    1,  467,    2, 0x0a /* Public */,
+      73,    1,  470,    2, 0x0a /* Public */,
+      74,    1,  473,    2, 0x0a /* Public */,
+      75,    1,  476,    2, 0x0a /* Public */,
+      76,    1,  479,    2, 0x0a /* Public */,
+      77,    0,  482,    2, 0x0a /* Public */,
+      78,    1,  483,    2, 0x0a /* Public */,
+      80,    1,  486,    2, 0x0a /* Public */,
+      82,    1,  489,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Double,    3,
@@ -278,6 +288,9 @@ static const uint qt_meta_data_isoDriver[] = {
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Double,   79,
+    QMetaType::Void, QMetaType::Double,   81,
+    QMetaType::Void, QMetaType::Double,   27,
 
        0        // eod
 };
@@ -346,6 +359,9 @@ void isoDriver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 55: _t->setXYmode((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 56: _t->triggerGroupStateChange((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 57: _t->slowTimerTick(); break;
+        case 58: _t->setTopRange((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 59: _t->setBotRange((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 60: _t->setTimeWindow((*reinterpret_cast< double(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -512,13 +528,13 @@ int isoDriver::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 58)
+        if (_id < 61)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 58;
+        _id -= 61;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 58)
+        if (_id < 61)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 58;
+        _id -= 61;
     }
     return _id;
 }
