@@ -27,7 +27,6 @@ void isoBuffer::openFile(QString newFile)
 
 void isoBuffer::writeBuffer_char(char* data, int len)
 {
-    //for (int i=(len-1);i>-1;i--){
     for (int i=0; i<len;i++){
         //qDebug() << "i = " << i;
         buffer[back] = (short) data[i];
@@ -36,6 +35,19 @@ void isoBuffer::writeBuffer_char(char* data, int len)
             firstTime = false;
         }
         else back++;
+
+        //Output to CSV
+        if(fileIOEnabled){
+            char numStr[32];
+            sprintf(numStr,"%d, ", data[i]);
+            currentFile->write(numStr);
+            currentColumn++;
+            if (currentColumn > COLUMN_BREAK){
+                currentFile->write("\n");
+                currentColumn = 0;
+            }
+
+        }
     }
     return;
 }
@@ -252,3 +264,18 @@ void isoBuffer::marchSerialPtr(int bitPeriod_samples)
 unsigned char isoBuffer::numOnes(unsigned short var){
     return ((var&0x01) ? 1 : 0) + ((var&0x02) ? 1 : 0) + ((var&0x04) ? 1 : 0) + ((var&0x08) ? 1 : 0) + ((var&0x10) ? 1 : 0) + ((var&0x20) ? 1 : 0) + ((var&0x40) ? 1 : 0) + ((var&0x80) ? 1 : 0);
 }
+
+void isoBuffer::enableFileIO(QFile *file){
+    file->open(QIODevice::WriteOnly);
+    currentFile = file;
+    fileIOEnabled = true;
+    return;
+}
+
+void isoBuffer::disableFileIO(){
+    fileIOEnabled = false;
+    currentColumn = 0;
+    currentFile->close();
+    return;
+}
+

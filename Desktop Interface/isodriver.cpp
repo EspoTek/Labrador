@@ -723,6 +723,30 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
         axes->yAxis->setRange(topRange, botRange);
     }
 
+    if(snapshotEnabled){
+        snapshotFile_CH1->open(QIODevice::WriteOnly);
+        snapshotFile_CH1->write("t, v\n");
+
+        snapshotFile_CH2->open(QIODevice::WriteOnly);
+        snapshotFile_CH2->write("t, v\n");
+
+        char tempchar[32];
+        for(int i=0; i<GRAPH_SAMPLES; i++){
+            sprintf(tempchar, "%f, %f\n", x.at(i), CH1.at(i));
+            snapshotFile_CH1->write(tempchar);
+
+            sprintf(tempchar, "%f, %f\n", x.at(i), CH2.at(i));
+            snapshotFile_CH2->write(tempchar);
+        }
+        snapshotEnabled = false;
+        snapshotFile_CH1->close();
+        delete(snapshotFile_CH1);
+
+        snapshotFile_CH2->close();
+        delete(snapshotFile_CH2);
+
+    }
+
     axes->replot();
 }
 
@@ -997,4 +1021,25 @@ void isoDriver::setBotRange(double newBot){
 
 void isoDriver::setTimeWindow(double newWindow){
     window = newWindow;
+    windowAtPause = window;
+}
+
+void isoDriver::takeSnapshot(){
+    snapshotEnabled = true;
+
+    QDateTime now = QDateTime::currentDateTime();
+    QString fileName_CH1 = now.toString("yyyyMMddhhmmsszzz");
+    fileName_CH1.append("_CH1.csv");
+
+    QString fileName_CH2 = now.toString("yyyyMMddhhmmsszzz");
+    fileName_CH2.append("_CH2.csv");
+
+    QDir *dir = new QDir();
+    dir->mkdir("snapshots");
+    dir->cd("snapshots");
+
+    snapshotFile_CH1 = new QFile(dir->filePath(fileName_CH1));
+    snapshotFile_CH2 = new QFile(dir->filePath(fileName_CH2));
+
+    free(dir);
 }

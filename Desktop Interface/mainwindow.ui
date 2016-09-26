@@ -1308,7 +1308,8 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionComing_Soon"/>
+    <addaction name="actionRecord"/>
+    <addaction name="actionTake_Snapshot"/>
    </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
     <property name="title">
@@ -1943,9 +1944,12 @@
     <string>None</string>
    </property>
   </action>
-  <action name="actionComing_Soon">
+  <action name="actionRecord">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Coming Soon!</string>
+    <string>Record</string>
    </property>
   </action>
   <action name="actionForce_Square">
@@ -2037,6 +2041,11 @@
   <action name="actionEnter_Manually">
    <property name="text">
     <string>Enter Manually</string>
+   </property>
+  </action>
+  <action name="actionTake_Snapshot">
+   <property name="text">
+    <string>Take Snapshot</string>
    </property>
   </action>
  </widget>

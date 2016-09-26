@@ -77,6 +77,9 @@ private:
     double xmin = 20, xmax = -20, ymin = 20, ymax = -20;
     bool update_CH1 = true, update_CH2 = true;
     void broadcastStats(bool CH2);
+    bool snapshotEnabled = false;
+    QFile *snapshotFile_CH1;
+    QFile *snapshotFile_CH2;
 
 signals:
     void setGain(double newGain);
@@ -142,6 +145,7 @@ public slots:
     void setTopRange(double newTop);
     void setBotRange(double newBot);
     void setTimeWindow(double newWindow);
+    void takeSnapshot();
 };
 
 #endif // ISODRIVER_H

@@ -103,7 +103,7 @@ public:
     QAction *action115200_2;
     QAction *action8_2;
     QAction *actionNone_2;
-    QAction *actionComing_Soon;
+    QAction *actionRecord;
     QAction *actionForce_Square;
     QAction *actionAutomatically_Enable_Cursors;
     QAction *action60FPS;
@@ -115,6 +115,7 @@ public:
     QAction *actionAuto_Lock;
     QAction *actionSnap_to_Cursors;
     QAction *actionEnter_Manually;
+    QAction *actionTake_Snapshot;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
@@ -433,8 +434,9 @@ public:
         actionNone_2 = new QAction(MainWindow);
         actionNone_2->setObjectName(QStringLiteral("actionNone_2"));
         actionNone_2->setCheckable(true);
-        actionComing_Soon = new QAction(MainWindow);
-        actionComing_Soon->setObjectName(QStringLiteral("actionComing_Soon"));
+        actionRecord = new QAction(MainWindow);
+        actionRecord->setObjectName(QStringLiteral("actionRecord"));
+        actionRecord->setCheckable(true);
         actionForce_Square = new QAction(MainWindow);
         actionForce_Square->setObjectName(QStringLiteral("actionForce_Square"));
         actionForce_Square->setCheckable(true);
@@ -469,6 +471,8 @@ public:
         actionSnap_to_Cursors->setObjectName(QStringLiteral("actionSnap_to_Cursors"));
         actionEnter_Manually = new QAction(MainWindow);
         actionEnter_Manually->setObjectName(QStringLiteral("actionEnter_Manually"));
+        actionTake_Snapshot = new QAction(MainWindow);
+        actionTake_Snapshot->setObjectName(QStringLiteral("actionTake_Snapshot"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
@@ -1279,7 +1283,8 @@ public:
         menuBar->addAction(menuMultimeter_2->menuAction());
         menuBar->addAction(menuBus_Sniffer->menuAction());
         menuBar->addAction(menuPower_Supply->menuAction());
-        menuFile->addAction(actionComing_Soon);
+        menuFile->addAction(actionRecord);
+        menuFile->addAction(actionTake_Snapshot);
         menuOscilloscope_2->addAction(menuRange->menuAction());
         menuOscilloscope_2->addSeparator();
         menuOscilloscope_2->addAction(menuFrame_rate->menuAction());
@@ -1537,7 +1542,7 @@ public:
         action115200_2->setText(QApplication::translate("MainWindow", "115200 (Glitchy)", 0));
         action8_2->setText(QApplication::translate("MainWindow", "8", 0));
         actionNone_2->setText(QApplication::translate("MainWindow", "None", 0));
-        actionComing_Soon->setText(QApplication::translate("MainWindow", "Coming Soon!", 0));
+        actionRecord->setText(QApplication::translate("MainWindow", "Record", 0));
         actionForce_Square->setText(QApplication::translate("MainWindow", "Force Square Display (Not Officially Supported)", 0));
         actionAutomatically_Enable_Cursors->setText(QApplication::translate("MainWindow", "Enable Cursors on Click", 0));
         action60FPS->setText(QApplication::translate("MainWindow", "60FPS", 0));
@@ -1549,6 +1554,7 @@ public:
         actionAuto_Lock->setText(QApplication::translate("MainWindow", "Auto Lock", 0));
         actionSnap_to_Cursors->setText(QApplication::translate("MainWindow", "Snap to Cursors", 0));
         actionEnter_Manually->setText(QApplication::translate("MainWindow", "Enter Manually", 0));
+        actionTake_Snapshot->setText(QApplication::translate("MainWindow", "Take Snapshot", 0));
         deviceConnected->setText(QApplication::translate("MainWindow", "Device disconnected!", 0));
         scopeGroup_CH1->setTitle(QApplication::translate("MainWindow", "Oscilloscope CH1", 0));
         pausedLabeL_CH1->setText(QApplication::translate("MainWindow", "Paused", 0));

@@ -19,5 +19,8 @@ extern int MULTIMETER_PERIOD;
 
 extern double SERIAL_DELAY;
 
+#define DEBUG_SETTINGSDOTSET
+#define COLUMN_BREAK 749
+
 #endif // DESKTOP_SETTINGS_H
 

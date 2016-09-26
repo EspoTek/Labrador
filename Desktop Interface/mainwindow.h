@@ -9,6 +9,9 @@
 #include "qcustomplot.h"
 #include <QFont>
 #include "scoperangeenterdialog.h"
+#include <QDateTime>
+#include <Qdir>
+#include <QFile>
 
 namespace Ui {
 class MainWindow;
@@ -95,12 +98,17 @@ private slots:
 
     void helloWorld();
 
+    void on_actionRecord_triggered(bool checked);
+
+    void on_actionTake_Snapshot_triggered();
+
 private:
     Ui::MainWindow *ui;
     void initialisePlot();
     void labelPsu();
     void menuSetup();
     void initShortcuts();
+    void readSettingsFile();
 
     QActionGroup *gainGroup;
     QActionGroup *rangeGroupV;
@@ -126,6 +134,7 @@ private:
     QShortcut *shortcut_ArrowRight;
     QShortcut *shortcut_snapScopeToCursors;\
     QShortcut *shortcut_manualRange;
+    QShortcut *shortcut_snapshot;
 
     QWheelEvent *wheelEmu;
 
@@ -133,6 +142,8 @@ private:
 
     QCPItemText *textLabel;
 
+    QDir *outputDir;
+    QFile *output375_CH1, *output375_CH2, *output750;
 };
 
 #endif // MAINWINDOW_H

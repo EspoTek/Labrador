@@ -8,6 +8,8 @@
 #include "xmega.h"
 #include "desktop_settings.h"
 #include <QPlainTextEdit>
+#include <Qdir>
+#include <QFile>
 
 class isoBuffer
 {
@@ -39,6 +41,13 @@ private:
     void marchSerialPtr(int bitPeriod_samples);
     char serialPhase = 0;
     unsigned char numOnes(unsigned short var);
+    QFile *currentFile;
+    bool fileIOEnabled = false;
+    unsigned int currentColumn = 0;
+public slots:
+    void enableFileIO(QFile *file);
+    void disableFileIO();
+
 };
 
 #endif // ISOBUFFER_H

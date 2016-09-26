@@ -491,12 +491,12 @@ void tiny_dma_set_mode_5(void){
 	DMA.CH3.TRIGSRC = DMA_CH_TRIGSRC_EVSYS_CH2_gc;	//Triggered from TCC0 when it hits PER
 	DMA.CH3.TRFCNT = dacBuf_len;
 
-	DMA.CH3.SRCADDR0 = (( (uint16_t) &isoBuf[0]) >> 0) & 0xFF; //Source address is dacbuf
-	DMA.CH3.SRCADDR1 = (( (uint16_t) &isoBuf[0]) >> 8) & 0xFF;
+	DMA.CH3.SRCADDR0 = (( (uint16_t) &dacBuf_CH2[0]) >> 0) & 0xFF; //Source address is dacbuf
+	DMA.CH3.SRCADDR1 = (( (uint16_t) &dacBuf_CH2[0]) >> 8) & 0xFF;
 	DMA.CH3.SRCADDR2 = 0x00;
 		
-	DMA.CH3.DESTADDR0 = (( (uint16_t) &DACB.CH0DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
-	DMA.CH3.DESTADDR1 = (( (uint16_t) &DACB.CH0DATAH) >> 8) & 0xFF;
+	DMA.CH3.DESTADDR0 = (( (uint16_t) &DACB.CH1DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
+	DMA.CH3.DESTADDR1 = (( (uint16_t) &DACB.CH1DATAH) >> 8) & 0xFF;
 	DMA.CH3.DESTADDR2 = 0x00;
 		
 	//Must enable last for REPCNT won't work!

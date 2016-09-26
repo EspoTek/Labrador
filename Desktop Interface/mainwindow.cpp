@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    readSettingsFile();
     ui->setupUi(this);
     ui->psuDisplay->display("4.00");
     ui->bufferDisplay->refreshImage();
@@ -48,6 +49,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->console1->setVisible(0);
     ui->console2->setVisible(0);
     ui->timeBaseSlider->setVisible(0);
+
+    //ui->pausedLabel_CH2->setVisible(0);
+    ui->filterLabel_CH1->setVisible(0);
+    ui->filterLabel_CH2->setVisible(0);
 
     /*
     ui->multimeterModeLabel->setVisible(0);
@@ -728,7 +733,7 @@ void MainWindow::initShortcuts(){
     shortcut_cycleBaudRateBackwards_CH2 = new QShortcut(QKeySequence("Ctrl+Shift+Alt+B"), ui->menuBar);
     shortcut_snapScopeToCursors = new QShortcut(QKeySequence("Z"), ui->menuBar);
     shortcut_manualRange = new QShortcut(QKeySequence("M"), ui->menuBar);
-
+    shortcut_snapshot = new QShortcut(QKeySequence("c"), this);
 
     shortcut_ArrowUp = new QShortcut(QKeySequence("Up"), ui->menuBar);
     shortcut_ArrowDown = new QShortcut(QKeySequence("Down"), ui->menuBar);
@@ -750,6 +755,7 @@ void MainWindow::initShortcuts(){
     connect(shortcut_cycleBaudRateBackwards_CH1, SIGNAL(activated()), this, SLOT(cycleBaudRateBackwards_CH1()));
     connect(shortcut_cycleBaudRate_CH2, SIGNAL(activated()), this, SLOT(cycleBaudRate_CH2()));
     connect(shortcut_cycleBaudRateBackwards_CH2, SIGNAL(activated()), this, SLOT(cycleBaudRateBackwards_CH2()));
+    connect(shortcut_snapshot, SIGNAL(activated()), this, SLOT(on_actionTake_Snapshot_triggered()));
 
     connect(shortcut_ArrowUp, SIGNAL(activated()), this, SLOT(arrowUpTriggered()));
     connect(shortcut_ArrowDown, SIGNAL(activated()), this, SLOT(arrowDownTriggered()));
@@ -926,4 +932,63 @@ void MainWindow::on_actionEnter_Manually_triggered()
 
 void MainWindow::helloWorld(){
     qDebug() << "Hello World!";
+}
+
+void MainWindow::readSettingsFile(){
+    QFile *settings;
+    settings = new QFile("settings.set");
+#ifdef DEBUG_SETTINGSDOTSET
+    goto createFile;
+#endif
+    if (!settings->open(QIODevice::ReadOnly | QIODevice::Text)){
+        createFile:
+        qDebug() << "settings.set does not exist!!!!  Creating...";
+        settings->open(QIODevice::WriteOnly | QIODevice::Text);
+        //Default init;
+        settings->write("420\n");
+        //Reset and continue;
+        settings->close();
+        settings->open(QIODevice::ReadOnly | QIODevice::Text);
+    }
+}
+
+void MainWindow::on_actionRecord_triggered(bool checked)
+{
+    if(!checked){
+        ui->controller_iso->internalBuffer375_CH1->disableFileIO();
+        ui->controller_iso->internalBuffer375_CH2->disableFileIO();
+        ui->controller_iso->internalBuffer750->disableFileIO();
+
+        delete(output375_CH1);
+        delete(output375_CH2);
+        delete(output750);
+        return;
+    }
+    QDateTime now = QDateTime::currentDateTime();
+    QString dateString = now.toString("yyyyMMddhhmmsszzz");
+    qDebug() << dateString;
+
+    outputDir = new QDir();
+    outputDir->mkdir("recordings");
+    outputDir->cd("recordings");
+    outputDir->mkdir(dateString);
+    outputDir->cd(dateString);
+
+    qDebug() << outputDir->absolutePath();
+
+    output375_CH1 = new QFile(outputDir->filePath("375_CH1.csv"));
+    output375_CH2 = new QFile(outputDir->filePath("375_CH2.csv"));
+    output750 = new QFile(outputDir->filePath("750.csv"));
+
+    ui->controller_iso->internalBuffer375_CH1->enableFileIO(output375_CH1);
+    ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2);
+    ui->controller_iso->internalBuffer750->enableFileIO(output750);
+
+    delete(outputDir);
+    return;
+}
+
+void MainWindow::on_actionTake_Snapshot_triggered()
+{
+    ui->controller_iso->takeSnapshot();
 }
