@@ -11,10 +11,12 @@
 #include <Qdir>
 #include <QFile>
 
+class isoDriver;
+
 class isoBuffer
 {
 public:
-    isoBuffer(int bufferLen);
+    isoBuffer(int bufferLen, isoDriver *caller, unsigned char channel_value);
     void openFile(QString newFile);
     void writeBuffer_char(char *data, int len);
     void writeBuffer_short(short *data, int len);
@@ -22,11 +24,12 @@ public:
     void clearBuffer();
     void gainBuffer(int gain_log);
     void glitchInsert(short type);
-    void serialDecode(double baudRate, unsigned char channel);
+    void serialDecode(double baudRate);
     int serialDistance();
     void serialBegin();
     QPlainTextEdit *console, *console1, *console2;
     bool serialAutoScroll = true;
+    unsigned char channel = 255;
 private:
     short *buffer, *readData = NULL;
     FILE* fptr = NULL;
@@ -44,6 +47,8 @@ private:
     QFile *currentFile;
     bool fileIOEnabled = false;
     unsigned int currentColumn = 0;
+    isoDriver *parent;
+    double sampleConvert(short sample, int TOP, bool AC);
 public slots:
     void enableFileIO(QFile *file);
     void disableFileIO();

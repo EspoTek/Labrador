@@ -1,11 +1,15 @@
 #include "isobuffer.h"
+#include "isodriver.h"
 
-isoBuffer::isoBuffer(int bufferLen)
+
+isoBuffer::isoBuffer(int bufferLen, isoDriver *caller, unsigned char channel_value)
 {
     buffer = (short *) calloc(bufferLen*2, sizeof(short));
     bufferEnd = bufferLen-1;
     samplesPerSecond = (double) bufferLen/(double)21;
     samplesPerSecond = samplesPerSecond/375*374;  //BABABOOEY
+    parent = caller;
+    channel = channel_value;
 }
 void isoBuffer::openFile(QString newFile)
 {
@@ -27,6 +31,7 @@ void isoBuffer::openFile(QString newFile)
 
 void isoBuffer::writeBuffer_char(char* data, int len)
 {
+    double convertedSample;
     for (int i=0; i<len;i++){
         //qDebug() << "i = " << i;
         buffer[back] = (short) data[i];
@@ -38,8 +43,9 @@ void isoBuffer::writeBuffer_char(char* data, int len)
 
         //Output to CSV
         if(fileIOEnabled){
+            convertedSample = sampleConvert(data[i], 128, channel==1 ? parent->AC_CH1 : parent->AC_CH2);
             char numStr[32];
-            sprintf(numStr,"%d, ", data[i]);
+            sprintf(numStr,"%f, ", convertedSample);
             currentFile->write(numStr);
             currentColumn++;
             if (currentColumn > COLUMN_BREAK){
@@ -154,7 +160,7 @@ void isoBuffer::glitchInsert(short type)
 
 }
 
-void isoBuffer::serialDecode(double baudRate, unsigned char channel)
+void isoBuffer::serialDecode(double baudRate)
 {
     double dist_seconds = (double)serialDistance()/samplesPerSecond;
     double bitPeriod_seconds = 1/baudRate;
@@ -277,5 +283,22 @@ void isoBuffer::disableFileIO(){
     currentColumn = 0;
     currentFile->close();
     return;
+}
+
+double isoBuffer::sampleConvert(short sample, int TOP, bool AC){
+
+    double scope_gain = (double)(parent->driver->scopeGain);
+    double voltageLevel;
+
+    voltageLevel = (sample * (vcc/2)) / (R4/(R3+R4)*scope_gain*TOP);
+    if (parent->driver->deviceMode != 7) voltageLevel += vcc*(R2/(R1+R2));
+    #ifdef INVERT_MM
+        if(parent->driver->deviceMode == 7) voltageLevel *= -1;
+    #endif
+
+    if(AC){
+        voltageLevel -= parent->currentVmean; //This is old (1 frame in past) value and might not be good for signals with large variations in DC level (although the cap should filter that anyway)??
+    }
+    return voltageLevel;
 }
 

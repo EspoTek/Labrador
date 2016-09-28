@@ -7,9 +7,10 @@
 #include <QVector>
 #include "qcustomplot.h"
 #include "winusbdriver.h"
-#include "isobuffer.h"
 #include "desktop_settings.h"
 #include "siprint.h"
+
+class isoBuffer;
 
 class isoDriver : public QLabel
 {
@@ -25,8 +26,10 @@ public:
     QCPItemText *cursorTextPtr;
     double y0=0, y1=0, x0=0, x1=0;
     double topRange=2.5, botRange=-0.5;
-private:
+    bool AC_CH1 = false, AC_CH2 = false;
     winUsbDriver *driver;
+    double currentVmean;
+private:
     QCustomPlot *axes;
     double windowAtPause = 0.01;
     QTimer* isoTimer = NULL, *recoveryTimer = NULL, *slowTimer = NULL;
@@ -60,8 +63,7 @@ private:
     unsigned char triggerWaiting = 0;
     bool firstFrame = true;
     void multimeterAction();
-    bool AC_CH1 = false, AC_CH2 = false;
-    double currentVmax, currentVmin, currentVmean;
+    double currentVmax, currentVmin;
     enum multimeterType_enum {V = 0, I = 1, R = 2, C = 3};
     multimeterType_enum multimeterType = V;
     double seriesResistance = 0;

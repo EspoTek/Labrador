@@ -1,11 +1,13 @@
 #include "isodriver.h"
+#include "isobuffer.h"
+
 
 isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 {
     this->hide();
-    internalBuffer375_CH1 = new isoBuffer(MAX_WINDOW_SIZE*ADC_SPS/20*21);
-    internalBuffer375_CH2 = new isoBuffer(MAX_WINDOW_SIZE*ADC_SPS/20*21);
-    internalBuffer750 = new isoBuffer(MAX_WINDOW_SIZE*ADC_SPS/10*21);  
+    internalBuffer375_CH1 = new isoBuffer(MAX_WINDOW_SIZE*ADC_SPS/20*21, this, 1);
+    internalBuffer375_CH2 = new isoBuffer(MAX_WINDOW_SIZE*ADC_SPS/20*21, this, 1);
+    internalBuffer750 = new isoBuffer(MAX_WINDOW_SIZE*ADC_SPS/10*21, this, 1);
 
     isoTemp = (char *) malloc(TIMER_PERIOD*ADC_SPF + 8); //8-byte header contains (unsigned long) length
 
@@ -73,7 +75,7 @@ void isoDriver::timerTick(void){
         case 1:
             frameActionGeneric(1,2);
             if(serialDecodeEnabled_CH1){
-                internalBuffer375_CH2->serialDecode(baudRate_CH1, 1);
+                internalBuffer375_CH2->serialDecode(baudRate_CH1);
             }
             break;
         case 2:
@@ -82,16 +84,16 @@ void isoDriver::timerTick(void){
         case 3:
             frameActionGeneric(2,0);
             if(serialDecodeEnabled_CH1){
-                internalBuffer375_CH1->serialDecode(baudRate_CH1, 1);
+                internalBuffer375_CH1->serialDecode(baudRate_CH1);
             }
             break;
         case 4:
             frameActionGeneric(2,2);
             if(serialDecodeEnabled_CH1){
-                internalBuffer375_CH1->serialDecode(baudRate_CH1, 1);
+                internalBuffer375_CH1->serialDecode(baudRate_CH1);
             }
             if(serialDecodeEnabled_CH2){
-                internalBuffer375_CH2->serialDecode(baudRate_CH2, 2);
+                internalBuffer375_CH2->serialDecode(baudRate_CH2);
             }
             break;
         case 5:
