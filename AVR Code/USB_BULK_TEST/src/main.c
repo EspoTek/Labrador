@@ -31,6 +31,8 @@ volatile char PSU_target = 0;
 
 volatile unsigned char test_byte = 123;
 
+uint32_t debug_counter;
+
 int main(void){
 	irq_initialize_vectors();
 	cpu_irq_enable();
@@ -51,20 +53,11 @@ int main(void){
 	//asm("nop");
 	
 	while (true) {
-	asm("nop");
-	asm("nop");
-	asm("nop");
-	asm("nop");
-	asm("nop");
-	asm("nop");
-	asm("nop");
-	asm("nop");
-	asm("nop");
-	asm("nop");
-	asm("nop");
-	asm("nop");
-	asm("nop");
-	asm("nop");
+		debug_counter++;
+		if(debug_counter > 100000000){
+			debug_counter = 0;
+		}
+
 	//test_byte = ADCA.CH1.RESH;
 	//DO NOTHING!
 	}
@@ -139,6 +132,7 @@ bool main_setup_in_received(void)
 
 void iso_callback(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
 	udi_vendor_iso_in_run((uint8_t *)&isoBuf[!b1_state * PACKET_SIZE], PACKET_SIZE, iso_callback);
+	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
 	return;
 }
 
