@@ -129,19 +129,19 @@ void functionGenControl::waveformName_CH2(QString newName)
 }
 
 void functionGenControl::freqUpdate_CH2(double newFreq){
-    qDebug() << "newFreq = " << newFreq;
+    qDebug() << "newFreq2 = " << newFreq;
     freq_CH2 = newFreq;
     functionGenToUpdate(1, this);
 }
 
 void functionGenControl::amplitudeUpdate_CH2(double newAmplitude){
-    qDebug() << "newAmplitude = " << newAmplitude;
+    qDebug() << "newAmplitude2 = " << newAmplitude;
     amplitude_CH2 = newAmplitude;
     functionGenToUpdate(1, this);
 }
 
 void functionGenControl::offsetUpdate_CH2(double newOffset){
-    qDebug() << "newOffset = " << newOffset;
+    qDebug() << "newOffset2 = " << newOffset;
     offset_CH2 = newOffset;
     functionGenToUpdate(1, this);
 }

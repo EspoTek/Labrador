@@ -345,7 +345,7 @@ void winUsbDriver::setBufferPtr(bufferControl *newPtr){
 void winUsbDriver::setDeviceMode(int mode){
     int oldMode = deviceMode;
     deviceMode = mode;
-    usbSendControl(0x40, 0xa5, (mode == 5 ? 0:mode), gainMask, 0, NULL);
+    usbSendControl(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
 
     if (fGenPtr_CH1!=NULL) setFunctionGen(0, fGenPtr_CH1);
     if (fGenPtr_CH2!=NULL) setFunctionGen(1, fGenPtr_CH2);

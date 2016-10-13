@@ -1131,12 +1131,11 @@ static bool udc_reqvend(void){
 			return 1;
 		case 0xa2: //CH2 waveform
 			TC_AUXDAC.CTRLA = 0x00;
-			auxDacBufLen = udd_g_ctrlreq.req.wLength;
 			TC_AUXDAC.PERBUF = udd_g_ctrlreq.req.wValue;
 			TC_AUXDAC.CTRLA = (unsigned char) udd_g_ctrlreq.req.wIndex & 0x0F;
 			udd_set_setup_payload(dacBuf_CH2, udd_g_ctrlreq.req.wLength);
-			if(dacBuf_len != udd_g_ctrlreq.req.wLength){
-				dacBuf_len = udd_g_ctrlreq.req.wLength;
+			if(auxDacBufLen != udd_g_ctrlreq.req.wLength){
+				auxDacBufLen = udd_g_ctrlreq.req.wLength;
 				switch(global_mode){
 					case 0:
 					tiny_dma_set_mode_0();
