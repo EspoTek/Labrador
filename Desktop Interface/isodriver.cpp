@@ -52,18 +52,15 @@ void isoDriver::timerTick(void){
         autoGain();
         firstFrame = false;
     }
-    //qDebug() << "TICK!" << QDateTime::currentMSecsSinceEpoch();
-    if (driver->recoveryInProcess){
-        //qDebug() << "Recovery in process!  Aborting";
-        return;
-    }
 
-    isoTemp = driver->isoRead(TIMER_PERIOD*ADC_SPF*2);
+    isoTemp = driver->isoRead();
     length = *((PUINT)isoTemp);
+    qDebug() << "READING IN" << length;
     total_read += length;
+    qDebug() << "TOTAL READ" << total_read;
 
-    if (driver->recoveryInProcess){
-        recoverIsoStream();
+
+    if (length==0){
         free(isoTemp);
         return;
     }
@@ -160,32 +157,6 @@ void isoDriver::startTimer(){
     isoTimer->start(TIMER_PERIOD);
     connect(isoTimer, SIGNAL(timeout()), this, SLOT(timerTick()));
     //qFatal("ISO TIMER STARTED");
-}
-
-void isoDriver::recoverIsoStream(void){
-    QTimer::singleShot(ISO_RECOVERY_TIME, this, SLOT(recoveryTick()));
-}
-
-void isoDriver::recoveryTick(void){
-    //qDebug() << "(recovery) TICK";
-
-    //axes->yAxis->setAutoTickCount((axes->height() + TICK_SEPARATION / 2) / TICK_SEPARATION);
-    //axes->xAxis->setAutoTickCount((axes->width() + TICK_SEPARATION / 2) / TICK_SEPARATION);
-
-
-    if(driver->recoverySuccess){
-        //isoTimer->start(TIMER_PERIOD);
-        //connect(isoTimer, SIGNAL(timeout()), this, SLOT(timerTick()));
-        driver->recoveryInProcess = false;
-        driver->dutyTemp = 0;
-        disableWindow(1);
-        //qDebug() << "recoveryTick() completed successfully";
-    }
-    else{
-        driver->reinitialise(1);
-        QTimer::singleShot(ISO_RECOVERY_TIME, this, SLOT(recoveryTick()));
-        //qDebug() << "recoveryTick() completed with errors.  Retrying...";
-    }
 }
 
 void isoDriver::clearBuffers(bool ch3751, bool ch3752, bool ch750){

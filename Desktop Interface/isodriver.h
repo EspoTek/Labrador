@@ -38,7 +38,6 @@ private:
     void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC);
     void digitalConvert(short *shortPtr, QVector<double> *doublePtr);
     bool paused_CH1 = false, paused_CH2 = false, paused_multimeter = false;
-    void recoverIsoStream(void);
     void frameActionGeneric(char CH1_mode, char CH2_mode);
     char *isoTemp = NULL;
     short *isoTemp_short = NULL;
@@ -108,7 +107,6 @@ public slots:
     void setWindow(int newWindow);
     void setVoltageRange(QWheelEvent *event);
     void timerTick(void);
-    void recoveryTick(void);
     void pauseEnable_CH1(bool enabled);
     void pauseEnable_CH2(bool enabled);
     void pauseEnable_multimeter(bool enabled);

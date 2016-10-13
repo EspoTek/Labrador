@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_isoDriver_t {
-    QByteArrayData data[84];
-    char stringdata0[1145];
+    QByteArrayData data[83];
+    char stringdata0[1132];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -61,58 +61,57 @@ QT_MOC_LITERAL(28, 373, 15), // "setVoltageRange"
 QT_MOC_LITERAL(29, 389, 12), // "QWheelEvent*"
 QT_MOC_LITERAL(30, 402, 5), // "event"
 QT_MOC_LITERAL(31, 408, 9), // "timerTick"
-QT_MOC_LITERAL(32, 418, 12), // "recoveryTick"
-QT_MOC_LITERAL(33, 431, 15), // "pauseEnable_CH1"
-QT_MOC_LITERAL(34, 447, 15), // "pauseEnable_CH2"
-QT_MOC_LITERAL(35, 463, 22), // "pauseEnable_multimeter"
-QT_MOC_LITERAL(36, 486, 10), // "startTimer"
-QT_MOC_LITERAL(37, 497, 12), // "clearBuffers"
-QT_MOC_LITERAL(38, 510, 6), // "ch3751"
-QT_MOC_LITERAL(39, 517, 6), // "ch3752"
-QT_MOC_LITERAL(40, 524, 5), // "ch750"
-QT_MOC_LITERAL(41, 530, 14), // "setVisible_CH2"
-QT_MOC_LITERAL(42, 545, 7), // "visible"
-QT_MOC_LITERAL(43, 553, 11), // "gainBuffers"
-QT_MOC_LITERAL(44, 565, 10), // "multiplier"
-QT_MOC_LITERAL(45, 576, 8), // "gainTick"
-QT_MOC_LITERAL(46, 585, 11), // "setAutoGain"
-QT_MOC_LITERAL(47, 597, 15), // "graphMousePress"
-QT_MOC_LITERAL(48, 613, 12), // "QMouseEvent*"
-QT_MOC_LITERAL(49, 626, 17), // "graphMouseRelease"
-QT_MOC_LITERAL(50, 644, 14), // "graphMouseMove"
-QT_MOC_LITERAL(51, 659, 16), // "cursorEnableHori"
-QT_MOC_LITERAL(52, 676, 16), // "cursorEnableVert"
-QT_MOC_LITERAL(53, 693, 17), // "setTriggerEnabled"
-QT_MOC_LITERAL(54, 711, 15), // "setTriggerLevel"
-QT_MOC_LITERAL(55, 727, 5), // "level"
-QT_MOC_LITERAL(56, 733, 20), // "setSingleShotEnabled"
-QT_MOC_LITERAL(57, 754, 14), // "setTriggerMode"
-QT_MOC_LITERAL(58, 769, 7), // "newMode"
-QT_MOC_LITERAL(59, 777, 9), // "setAC_CH1"
-QT_MOC_LITERAL(60, 787, 9), // "setAC_CH2"
-QT_MOC_LITERAL(61, 797, 17), // "setMultimeterType"
-QT_MOC_LITERAL(62, 815, 4), // "type"
-QT_MOC_LITERAL(63, 820, 19), // "setSeriesResistance"
-QT_MOC_LITERAL(64, 840, 10), // "resistance"
-QT_MOC_LITERAL(65, 851, 15), // "multimeterStats"
-QT_MOC_LITERAL(66, 867, 8), // "enableMM"
-QT_MOC_LITERAL(67, 876, 18), // "setAutoMultimeterV"
-QT_MOC_LITERAL(68, 895, 18), // "setAutoMultimeterI"
-QT_MOC_LITERAL(69, 914, 18), // "setForceMillivolts"
-QT_MOC_LITERAL(70, 933, 17), // "setForceMilliamps"
-QT_MOC_LITERAL(71, 951, 13), // "setForceVolts"
-QT_MOC_LITERAL(72, 965, 12), // "setForceAmps"
-QT_MOC_LITERAL(73, 978, 26), // "setSerialDecodeEnabled_CH1"
-QT_MOC_LITERAL(74, 1005, 26), // "setSerialDecodeEnabled_CH2"
-QT_MOC_LITERAL(75, 1032, 9), // "setXYmode"
-QT_MOC_LITERAL(76, 1042, 23), // "triggerGroupStateChange"
-QT_MOC_LITERAL(77, 1066, 13), // "slowTimerTick"
-QT_MOC_LITERAL(78, 1080, 11), // "setTopRange"
-QT_MOC_LITERAL(79, 1092, 6), // "newTop"
-QT_MOC_LITERAL(80, 1099, 11), // "setBotRange"
-QT_MOC_LITERAL(81, 1111, 6), // "newBot"
-QT_MOC_LITERAL(82, 1118, 13), // "setTimeWindow"
-QT_MOC_LITERAL(83, 1132, 12) // "takeSnapshot"
+QT_MOC_LITERAL(32, 418, 15), // "pauseEnable_CH1"
+QT_MOC_LITERAL(33, 434, 15), // "pauseEnable_CH2"
+QT_MOC_LITERAL(34, 450, 22), // "pauseEnable_multimeter"
+QT_MOC_LITERAL(35, 473, 10), // "startTimer"
+QT_MOC_LITERAL(36, 484, 12), // "clearBuffers"
+QT_MOC_LITERAL(37, 497, 6), // "ch3751"
+QT_MOC_LITERAL(38, 504, 6), // "ch3752"
+QT_MOC_LITERAL(39, 511, 5), // "ch750"
+QT_MOC_LITERAL(40, 517, 14), // "setVisible_CH2"
+QT_MOC_LITERAL(41, 532, 7), // "visible"
+QT_MOC_LITERAL(42, 540, 11), // "gainBuffers"
+QT_MOC_LITERAL(43, 552, 10), // "multiplier"
+QT_MOC_LITERAL(44, 563, 8), // "gainTick"
+QT_MOC_LITERAL(45, 572, 11), // "setAutoGain"
+QT_MOC_LITERAL(46, 584, 15), // "graphMousePress"
+QT_MOC_LITERAL(47, 600, 12), // "QMouseEvent*"
+QT_MOC_LITERAL(48, 613, 17), // "graphMouseRelease"
+QT_MOC_LITERAL(49, 631, 14), // "graphMouseMove"
+QT_MOC_LITERAL(50, 646, 16), // "cursorEnableHori"
+QT_MOC_LITERAL(51, 663, 16), // "cursorEnableVert"
+QT_MOC_LITERAL(52, 680, 17), // "setTriggerEnabled"
+QT_MOC_LITERAL(53, 698, 15), // "setTriggerLevel"
+QT_MOC_LITERAL(54, 714, 5), // "level"
+QT_MOC_LITERAL(55, 720, 20), // "setSingleShotEnabled"
+QT_MOC_LITERAL(56, 741, 14), // "setTriggerMode"
+QT_MOC_LITERAL(57, 756, 7), // "newMode"
+QT_MOC_LITERAL(58, 764, 9), // "setAC_CH1"
+QT_MOC_LITERAL(59, 774, 9), // "setAC_CH2"
+QT_MOC_LITERAL(60, 784, 17), // "setMultimeterType"
+QT_MOC_LITERAL(61, 802, 4), // "type"
+QT_MOC_LITERAL(62, 807, 19), // "setSeriesResistance"
+QT_MOC_LITERAL(63, 827, 10), // "resistance"
+QT_MOC_LITERAL(64, 838, 15), // "multimeterStats"
+QT_MOC_LITERAL(65, 854, 8), // "enableMM"
+QT_MOC_LITERAL(66, 863, 18), // "setAutoMultimeterV"
+QT_MOC_LITERAL(67, 882, 18), // "setAutoMultimeterI"
+QT_MOC_LITERAL(68, 901, 18), // "setForceMillivolts"
+QT_MOC_LITERAL(69, 920, 17), // "setForceMilliamps"
+QT_MOC_LITERAL(70, 938, 13), // "setForceVolts"
+QT_MOC_LITERAL(71, 952, 12), // "setForceAmps"
+QT_MOC_LITERAL(72, 965, 26), // "setSerialDecodeEnabled_CH1"
+QT_MOC_LITERAL(73, 992, 26), // "setSerialDecodeEnabled_CH2"
+QT_MOC_LITERAL(74, 1019, 9), // "setXYmode"
+QT_MOC_LITERAL(75, 1029, 23), // "triggerGroupStateChange"
+QT_MOC_LITERAL(76, 1053, 13), // "slowTimerTick"
+QT_MOC_LITERAL(77, 1067, 11), // "setTopRange"
+QT_MOC_LITERAL(78, 1079, 6), // "newTop"
+QT_MOC_LITERAL(79, 1086, 11), // "setBotRange"
+QT_MOC_LITERAL(80, 1098, 6), // "newBot"
+QT_MOC_LITERAL(81, 1105, 13), // "setTimeWindow"
+QT_MOC_LITERAL(82, 1119, 12) // "takeSnapshot"
 
     },
     "isoDriver\0setGain\0\0newGain\0disableWindow\0"
@@ -125,7 +124,7 @@ QT_MOC_LITERAL(83, 1132, 12) // "takeSnapshot"
     "sendVmax_CH1\0sendVmin_CH1\0sendVmean_CH1\0"
     "sendVmax_CH2\0sendVmin_CH2\0sendVmean_CH2\0"
     "setWindow\0newWindow\0setVoltageRange\0"
-    "QWheelEvent*\0event\0timerTick\0recoveryTick\0"
+    "QWheelEvent*\0event\0timerTick\0"
     "pauseEnable_CH1\0pauseEnable_CH2\0"
     "pauseEnable_multimeter\0startTimer\0"
     "clearBuffers\0ch3751\0ch3752\0ch750\0"
@@ -156,7 +155,7 @@ static const uint qt_meta_data_isoDriver[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      62,   14, // methods
+      61,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -164,70 +163,69 @@ static const uint qt_meta_data_isoDriver[] = {
       19,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  324,    2, 0x06 /* Public */,
-       4,    1,  327,    2, 0x06 /* Public */,
-       6,    1,  330,    2, 0x06 /* Public */,
-       7,    1,  333,    2, 0x06 /* Public */,
-       9,    1,  336,    2, 0x06 /* Public */,
-      11,    1,  339,    2, 0x06 /* Public */,
-      12,    1,  342,    2, 0x06 /* Public */,
-      13,    1,  345,    2, 0x06 /* Public */,
-      14,    1,  348,    2, 0x06 /* Public */,
-      15,    1,  351,    2, 0x06 /* Public */,
-      16,    1,  354,    2, 0x06 /* Public */,
-      17,    1,  357,    2, 0x06 /* Public */,
-      19,    1,  360,    2, 0x06 /* Public */,
-      20,    1,  363,    2, 0x06 /* Public */,
-      21,    1,  366,    2, 0x06 /* Public */,
-      22,    1,  369,    2, 0x06 /* Public */,
-      23,    1,  372,    2, 0x06 /* Public */,
-      24,    1,  375,    2, 0x06 /* Public */,
-      25,    1,  378,    2, 0x06 /* Public */,
+       1,    1,  319,    2, 0x06 /* Public */,
+       4,    1,  322,    2, 0x06 /* Public */,
+       6,    1,  325,    2, 0x06 /* Public */,
+       7,    1,  328,    2, 0x06 /* Public */,
+       9,    1,  331,    2, 0x06 /* Public */,
+      11,    1,  334,    2, 0x06 /* Public */,
+      12,    1,  337,    2, 0x06 /* Public */,
+      13,    1,  340,    2, 0x06 /* Public */,
+      14,    1,  343,    2, 0x06 /* Public */,
+      15,    1,  346,    2, 0x06 /* Public */,
+      16,    1,  349,    2, 0x06 /* Public */,
+      17,    1,  352,    2, 0x06 /* Public */,
+      19,    1,  355,    2, 0x06 /* Public */,
+      20,    1,  358,    2, 0x06 /* Public */,
+      21,    1,  361,    2, 0x06 /* Public */,
+      22,    1,  364,    2, 0x06 /* Public */,
+      23,    1,  367,    2, 0x06 /* Public */,
+      24,    1,  370,    2, 0x06 /* Public */,
+      25,    1,  373,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      26,    1,  381,    2, 0x0a /* Public */,
-      28,    1,  384,    2, 0x0a /* Public */,
-      31,    0,  387,    2, 0x0a /* Public */,
-      32,    0,  388,    2, 0x0a /* Public */,
-      33,    1,  389,    2, 0x0a /* Public */,
-      34,    1,  392,    2, 0x0a /* Public */,
-      35,    1,  395,    2, 0x0a /* Public */,
-      36,    0,  398,    2, 0x0a /* Public */,
-      37,    3,  399,    2, 0x0a /* Public */,
-      41,    1,  406,    2, 0x0a /* Public */,
-      43,    1,  409,    2, 0x0a /* Public */,
-      45,    0,  412,    2, 0x0a /* Public */,
-      46,    1,  413,    2, 0x0a /* Public */,
-      47,    1,  416,    2, 0x0a /* Public */,
-      49,    1,  419,    2, 0x0a /* Public */,
-      50,    1,  422,    2, 0x0a /* Public */,
-      51,    1,  425,    2, 0x0a /* Public */,
-      52,    1,  428,    2, 0x0a /* Public */,
-      53,    1,  431,    2, 0x0a /* Public */,
-      54,    1,  434,    2, 0x0a /* Public */,
-      56,    1,  437,    2, 0x0a /* Public */,
-      57,    1,  440,    2, 0x0a /* Public */,
-      59,    1,  443,    2, 0x0a /* Public */,
-      60,    1,  446,    2, 0x0a /* Public */,
-      61,    1,  449,    2, 0x0a /* Public */,
-      63,    1,  452,    2, 0x0a /* Public */,
-      65,    0,  455,    2, 0x0a /* Public */,
-      66,    0,  456,    2, 0x0a /* Public */,
-      67,    1,  457,    2, 0x0a /* Public */,
-      68,    1,  460,    2, 0x0a /* Public */,
-      69,    1,  463,    2, 0x0a /* Public */,
-      70,    1,  466,    2, 0x0a /* Public */,
-      71,    1,  469,    2, 0x0a /* Public */,
-      72,    1,  472,    2, 0x0a /* Public */,
-      73,    1,  475,    2, 0x0a /* Public */,
-      74,    1,  478,    2, 0x0a /* Public */,
-      75,    1,  481,    2, 0x0a /* Public */,
-      76,    1,  484,    2, 0x0a /* Public */,
-      77,    0,  487,    2, 0x0a /* Public */,
-      78,    1,  488,    2, 0x0a /* Public */,
-      80,    1,  491,    2, 0x0a /* Public */,
-      82,    1,  494,    2, 0x0a /* Public */,
-      83,    0,  497,    2, 0x0a /* Public */,
+      26,    1,  376,    2, 0x0a /* Public */,
+      28,    1,  379,    2, 0x0a /* Public */,
+      31,    0,  382,    2, 0x0a /* Public */,
+      32,    1,  383,    2, 0x0a /* Public */,
+      33,    1,  386,    2, 0x0a /* Public */,
+      34,    1,  389,    2, 0x0a /* Public */,
+      35,    0,  392,    2, 0x0a /* Public */,
+      36,    3,  393,    2, 0x0a /* Public */,
+      40,    1,  400,    2, 0x0a /* Public */,
+      42,    1,  403,    2, 0x0a /* Public */,
+      44,    0,  406,    2, 0x0a /* Public */,
+      45,    1,  407,    2, 0x0a /* Public */,
+      46,    1,  410,    2, 0x0a /* Public */,
+      48,    1,  413,    2, 0x0a /* Public */,
+      49,    1,  416,    2, 0x0a /* Public */,
+      50,    1,  419,    2, 0x0a /* Public */,
+      51,    1,  422,    2, 0x0a /* Public */,
+      52,    1,  425,    2, 0x0a /* Public */,
+      53,    1,  428,    2, 0x0a /* Public */,
+      55,    1,  431,    2, 0x0a /* Public */,
+      56,    1,  434,    2, 0x0a /* Public */,
+      58,    1,  437,    2, 0x0a /* Public */,
+      59,    1,  440,    2, 0x0a /* Public */,
+      60,    1,  443,    2, 0x0a /* Public */,
+      62,    1,  446,    2, 0x0a /* Public */,
+      64,    0,  449,    2, 0x0a /* Public */,
+      65,    0,  450,    2, 0x0a /* Public */,
+      66,    1,  451,    2, 0x0a /* Public */,
+      67,    1,  454,    2, 0x0a /* Public */,
+      68,    1,  457,    2, 0x0a /* Public */,
+      69,    1,  460,    2, 0x0a /* Public */,
+      70,    1,  463,    2, 0x0a /* Public */,
+      71,    1,  466,    2, 0x0a /* Public */,
+      72,    1,  469,    2, 0x0a /* Public */,
+      73,    1,  472,    2, 0x0a /* Public */,
+      74,    1,  475,    2, 0x0a /* Public */,
+      75,    1,  478,    2, 0x0a /* Public */,
+      76,    0,  481,    2, 0x0a /* Public */,
+      77,    1,  482,    2, 0x0a /* Public */,
+      79,    1,  485,    2, 0x0a /* Public */,
+      81,    1,  488,    2, 0x0a /* Public */,
+      82,    0,  491,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Double,    3,
@@ -254,29 +252,28 @@ static const uint qt_meta_data_isoDriver[] = {
     QMetaType::Void, QMetaType::Int,   27,
     QMetaType::Void, 0x80000000 | 29,   30,
     QMetaType::Void,
-    QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool, QMetaType::Bool, QMetaType::Bool,   38,   39,   40,
-    QMetaType::Void, QMetaType::Bool,   42,
-    QMetaType::Void, QMetaType::Double,   44,
+    QMetaType::Void, QMetaType::Bool, QMetaType::Bool, QMetaType::Bool,   37,   38,   39,
+    QMetaType::Void, QMetaType::Bool,   41,
+    QMetaType::Void, QMetaType::Double,   43,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,    5,
-    QMetaType::Void, 0x80000000 | 48,   30,
-    QMetaType::Void, 0x80000000 | 48,   30,
-    QMetaType::Void, 0x80000000 | 48,   30,
+    QMetaType::Void, 0x80000000 | 47,   30,
+    QMetaType::Void, 0x80000000 | 47,   30,
+    QMetaType::Void, 0x80000000 | 47,   30,
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void, QMetaType::Bool,    5,
-    QMetaType::Void, QMetaType::Double,   55,
+    QMetaType::Void, QMetaType::Double,   54,
     QMetaType::Void, QMetaType::Bool,    5,
-    QMetaType::Void, QMetaType::Int,   58,
+    QMetaType::Void, QMetaType::Int,   57,
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void, QMetaType::Bool,    5,
-    QMetaType::Void, QMetaType::Int,   62,
-    QMetaType::Void, QMetaType::Double,   64,
+    QMetaType::Void, QMetaType::Int,   61,
+    QMetaType::Void, QMetaType::Double,   63,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,    5,
@@ -290,8 +287,8 @@ static const uint qt_meta_data_isoDriver[] = {
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Double,   79,
-    QMetaType::Void, QMetaType::Double,   81,
+    QMetaType::Void, QMetaType::Double,   78,
+    QMetaType::Void, QMetaType::Double,   80,
     QMetaType::Void, QMetaType::Double,   27,
     QMetaType::Void,
 
@@ -326,46 +323,45 @@ void isoDriver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 19: _t->setWindow((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 20: _t->setVoltageRange((*reinterpret_cast< QWheelEvent*(*)>(_a[1]))); break;
         case 21: _t->timerTick(); break;
-        case 22: _t->recoveryTick(); break;
-        case 23: _t->pauseEnable_CH1((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 24: _t->pauseEnable_CH2((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 25: _t->pauseEnable_multimeter((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 26: _t->startTimer(); break;
-        case 27: _t->clearBuffers((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< bool(*)>(_a[3]))); break;
-        case 28: _t->setVisible_CH2((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 29: _t->gainBuffers((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 30: _t->gainTick(); break;
-        case 31: _t->setAutoGain((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 32: _t->graphMousePress((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 33: _t->graphMouseRelease((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 34: _t->graphMouseMove((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 35: _t->cursorEnableHori((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 36: _t->cursorEnableVert((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 37: _t->setTriggerEnabled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 38: _t->setTriggerLevel((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 39: _t->setSingleShotEnabled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 40: _t->setTriggerMode((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 41: _t->setAC_CH1((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 42: _t->setAC_CH2((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 43: _t->setMultimeterType((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 44: _t->setSeriesResistance((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 45: _t->multimeterStats(); break;
-        case 46: _t->enableMM(); break;
-        case 47: _t->setAutoMultimeterV((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 48: _t->setAutoMultimeterI((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 49: _t->setForceMillivolts((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 50: _t->setForceMilliamps((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 51: _t->setForceVolts((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 52: _t->setForceAmps((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 53: _t->setSerialDecodeEnabled_CH1((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 54: _t->setSerialDecodeEnabled_CH2((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 55: _t->setXYmode((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 56: _t->triggerGroupStateChange((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 57: _t->slowTimerTick(); break;
-        case 58: _t->setTopRange((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 59: _t->setBotRange((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 60: _t->setTimeWindow((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 61: _t->takeSnapshot(); break;
+        case 22: _t->pauseEnable_CH1((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 23: _t->pauseEnable_CH2((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 24: _t->pauseEnable_multimeter((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 25: _t->startTimer(); break;
+        case 26: _t->clearBuffers((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< bool(*)>(_a[3]))); break;
+        case 27: _t->setVisible_CH2((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 28: _t->gainBuffers((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 29: _t->gainTick(); break;
+        case 30: _t->setAutoGain((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 31: _t->graphMousePress((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 32: _t->graphMouseRelease((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 33: _t->graphMouseMove((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 34: _t->cursorEnableHori((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 35: _t->cursorEnableVert((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 36: _t->setTriggerEnabled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 37: _t->setTriggerLevel((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 38: _t->setSingleShotEnabled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 39: _t->setTriggerMode((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 40: _t->setAC_CH1((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 41: _t->setAC_CH2((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 42: _t->setMultimeterType((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 43: _t->setSeriesResistance((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 44: _t->multimeterStats(); break;
+        case 45: _t->enableMM(); break;
+        case 46: _t->setAutoMultimeterV((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 47: _t->setAutoMultimeterI((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 48: _t->setForceMillivolts((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 49: _t->setForceMilliamps((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 50: _t->setForceVolts((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 51: _t->setForceAmps((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 52: _t->setSerialDecodeEnabled_CH1((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 53: _t->setSerialDecodeEnabled_CH2((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 54: _t->setXYmode((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 55: _t->triggerGroupStateChange((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 56: _t->slowTimerTick(); break;
+        case 57: _t->setTopRange((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 58: _t->setBotRange((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 59: _t->setTimeWindow((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 60: _t->takeSnapshot(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -532,13 +528,13 @@ int isoDriver::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 62)
+        if (_id < 61)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 62;
+        _id -= 61;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 62)
+        if (_id < 61)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 62;
+        _id -= 61;
     }
     return _id;
 }
