@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_winUsbDriver_t {
-    QByteArrayData data[28];
-    char stringdata0[278];
+    QByteArrayData data[29];
+    char stringdata0[291];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -56,7 +56,8 @@ QT_MOC_LITERAL(23, 236, 8), // "digState"
 QT_MOC_LITERAL(24, 245, 7), // "psuTick"
 QT_MOC_LITERAL(25, 253, 7), // "setGain"
 QT_MOC_LITERAL(26, 261, 7), // "newGain"
-QT_MOC_LITERAL(27, 269, 8) // "avrDebug"
+QT_MOC_LITERAL(27, 269, 8), // "avrDebug"
+QT_MOC_LITERAL(28, 278, 12) // "isoTimerTick"
 
     },
     "winUsbDriver\0sendClearBuffer\0\0ch3751\0"
@@ -66,7 +67,8 @@ QT_MOC_LITERAL(27, 269, 8) // "avrDebug"
     "voltage\0setFunctionGen\0channel\0"
     "functionGenControl*\0fGenControl\0"
     "setDeviceMode\0mode\0newDig\0digState\0"
-    "psuTick\0setGain\0newGain\0avrDebug"
+    "psuTick\0setGain\0newGain\0avrDebug\0"
+    "isoTimerTick"
 };
 #undef QT_MOC_LITERAL
 
@@ -76,7 +78,7 @@ static const uint qt_meta_data_winUsbDriver[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -84,21 +86,22 @@ static const uint qt_meta_data_winUsbDriver[] = {
        6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    3,   79,    2, 0x06 /* Public */,
-       6,    1,   86,    2, 0x06 /* Public */,
-       8,    1,   89,    2, 0x06 /* Public */,
-      10,    1,   92,    2, 0x06 /* Public */,
-      12,    0,   95,    2, 0x06 /* Public */,
-      13,    1,   96,    2, 0x06 /* Public */,
+       1,    3,   84,    2, 0x06 /* Public */,
+       6,    1,   91,    2, 0x06 /* Public */,
+       8,    1,   94,    2, 0x06 /* Public */,
+      10,    1,   97,    2, 0x06 /* Public */,
+      12,    0,  100,    2, 0x06 /* Public */,
+      13,    1,  101,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      14,    1,   99,    2, 0x0a /* Public */,
-      16,    2,  102,    2, 0x0a /* Public */,
-      20,    1,  107,    2, 0x0a /* Public */,
-      22,    1,  110,    2, 0x0a /* Public */,
-      24,    0,  113,    2, 0x0a /* Public */,
-      25,    1,  114,    2, 0x0a /* Public */,
-      27,    0,  117,    2, 0x0a /* Public */,
+      14,    1,  104,    2, 0x0a /* Public */,
+      16,    2,  107,    2, 0x0a /* Public */,
+      20,    1,  112,    2, 0x0a /* Public */,
+      22,    1,  115,    2, 0x0a /* Public */,
+      24,    0,  118,    2, 0x0a /* Public */,
+      25,    1,  119,    2, 0x0a /* Public */,
+      27,    0,  122,    2, 0x0a /* Public */,
+      28,    0,  123,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool, QMetaType::Bool, QMetaType::Bool,    3,    4,    5,
@@ -115,6 +118,7 @@ static const uint qt_meta_data_winUsbDriver[] = {
     QMetaType::Void, QMetaType::Int,   23,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Double,   26,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -139,6 +143,7 @@ void winUsbDriver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 10: _t->psuTick(); break;
         case 11: _t->setGain((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 12: _t->avrDebug(); break;
+        case 13: _t->isoTimerTick(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -225,13 +230,13 @@ int winUsbDriver::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }

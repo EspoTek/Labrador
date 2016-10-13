@@ -18,7 +18,12 @@
 #include <conio.h>
 #include "libusbk.h"
 
-
+#define ISO_PACKET_SIZE 1023
+#define ISO_PACKETS_PER_CTX 50
+#define NUM_FUTURE_CTX 4
+#define MAX_OVERLAP NUM_FUTURE_CTX+1
+#define ISO_TIMER_PERIOD 30
+#define MAX_VALID_INDEX 374
 
 class winUsbDriver : public QLabel
 {
@@ -32,6 +37,17 @@ public:
     double scopeGain = 0.5;
     int dutyTemp = 0;
 private:
+    //
+    PKISO_CONTEXT isoCtx[NUM_FUTURE_CTX];
+    KOVL_HANDLE ovlkHandle[NUM_FUTURE_CTX];
+    KOVL_POOL_HANDLE ovlPool;
+    unsigned char dataBuffer[NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
+    QTimer *isoTimer;
+    //
+    unsigned long timerCount = 0;
+    QFile *outputFile = NULL;
+    QTextStream *outputStream = NULL;
+    //
     unsigned char fGenTriple=0;
     KUSB_HANDLE handle = NULL;
     unsigned short gainMask = 2056;
@@ -70,6 +86,7 @@ public slots:
     void psuTick(void);
     void setGain(double newGain);
     void avrDebug(void);
+    void isoTimerTick(void);
 };
 
 #endif // WINUSBDRIVER_H
