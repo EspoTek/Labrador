@@ -277,7 +277,7 @@ void isoDriver::pauseEnable_CH1(bool enabled){
 
     if(!properlyPaused()) {
         delay = 0;
-        window = windowAtPause;
+        //window = windowAtPause;
     }
 
     if(!enabled) clearBuffers(1,0,1);
@@ -290,7 +290,7 @@ void isoDriver::pauseEnable_CH2(bool enabled){
 
     if(!properlyPaused()){
         delay = 0;
-        window = windowAtPause;
+        //window = windowAtPause;
     }
 
     if(!enabled) clearBuffers(0,1,0);
@@ -301,7 +301,7 @@ void isoDriver::pauseEnable_multimeter(bool enabled){
 
     if(!properlyPaused()) {
         delay = 0;
-        window = windowAtPause;
+        //window = windowAtPause;
     }
 
     if(!enabled) clearBuffers(1,0,0);

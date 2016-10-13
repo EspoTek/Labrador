@@ -19,8 +19,8 @@
 #include "libusbk.h"
 
 #define ISO_PACKET_SIZE 1023
-#define ISO_PACKETS_PER_CTX 30
-#define NUM_FUTURE_CTX 4
+#define ISO_PACKETS_PER_CTX 17
+#define NUM_FUTURE_CTX 16
 #define MAX_OVERLAP NUM_FUTURE_CTX+1
 #define ISO_TIMER_PERIOD 8
 #define MAX_VALID_INDEX 374
