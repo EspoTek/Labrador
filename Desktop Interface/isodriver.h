@@ -54,7 +54,7 @@ private:
     double triggerLevel = 0;
     enum triggerType_enum {rising_ch1 = 0, falling_ch1 = 1, rising_ch2 = 2, falling_ch2 = 3};
     triggerType_enum triggerType = rising_ch1;
-    int length;
+    unsigned int length;
     siprint *v0, *v1, *dv, *t0, *t1, *dt, *f;
     bool singleShotEnabled = false;
     double triggerDelay;

@@ -19,10 +19,10 @@
 #include "libusbk.h"
 
 #define ISO_PACKET_SIZE 1023
-#define ISO_PACKETS_PER_CTX 50
+#define ISO_PACKETS_PER_CTX 30
 #define NUM_FUTURE_CTX 4
 #define MAX_OVERLAP NUM_FUTURE_CTX+1
-#define ISO_TIMER_PERIOD 30
+#define ISO_TIMER_PERIOD 8
 #define MAX_VALID_INDEX 374
 
 class winUsbDriver : public QLabel
@@ -30,12 +30,14 @@ class winUsbDriver : public QLabel
     Q_OBJECT
 public:
     explicit winUsbDriver(QWidget *parent = 0);
-    char *isoRead(int numSamples);
+    char *isoRead(unsigned int *newLength);
     ~winUsbDriver();
     int deviceMode = INIT_DEVICE_MODE;
     void setBufferPtr(bufferControl *newPtr);
     double scopeGain = 0.5;
     int dutyTemp = 0;
+    unsigned char *outBuffers[2];
+    unsigned int bufferLengths[2];
 private:
     //
     PKISO_CONTEXT isoCtx[NUM_FUTURE_CTX];
@@ -43,10 +45,9 @@ private:
     KOVL_POOL_HANDLE ovlPool;
     unsigned char dataBuffer[NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
     QTimer *isoTimer;
+    unsigned char currentWriteBuffer = 0;
     //
     unsigned long timerCount = 0;
-    QFile *outputFile = NULL;
-    QTextStream *outputStream = NULL;
     //
     unsigned char fGenTriple=0;
     KUSB_HANDLE handle = NULL;

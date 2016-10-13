@@ -6,6 +6,12 @@ winUsbDriver::winUsbDriver(QWidget *parent) : QLabel(parent)
     this->hide();
     //Load stack so that reset signal can be sent
 
+    outBuffers[0] = (unsigned char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX + 8, 1);
+    outBuffers[1] = (unsigned char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX + 8, 1);
+
+    bufferLengths[0] = 0;
+    bufferLengths[1] = 0;
+
     usbInit(0x03eb, 0xa000);
     setDeviceMode(deviceMode);
     newDig(digitalPinState);
@@ -263,12 +269,6 @@ void winUsbDriver::newDig(int digState){
 }
 
 unsigned char winUsbDriver::usbIsoInit(void){
-    //Setup the output file
-    qDebug() << "Creating output.csv";
-    outputFile = new QFile("output.csv");
-    outputFile->open(QIODevice::WriteOnly);
-    outputStream = new QTextStream(outputFile);
-
     //Setup the iso stack
     int n;
     bool success;
@@ -324,11 +324,14 @@ unsigned char winUsbDriver::usbIsoInit(void){
     return 1;
 }
 
-char *winUsbDriver::isoRead(int numSamples){
-    unsigned char *returnBuffer;
-    returnBuffer = (unsigned char *) malloc(numSamples + 8); //8-byte header contains (unsigned long) length
-    ((unsigned int *)returnBuffer)[0] = 0;
-    return (char*) returnBuffer;
+char *winUsbDriver::isoRead(unsigned int *newLength){
+    //unsigned char *returnBuffer;
+    //returnBuffer = (unsigned char *) malloc(numSamples + 8); //8-byte header contains (unsigned long) length
+    //((unsigned int *)returnBuffer)[0] = 0;
+    //return (char*) returnBuffer;
+    qDebug() << (unsigned char) !currentWriteBuffer;
+    *(newLength) = bufferLengths[!currentWriteBuffer];
+    return (char*) outBuffers[(unsigned char) !currentWriteBuffer];
 }
 
 winUsbDriver::~winUsbDriver(void){
@@ -466,28 +469,26 @@ void winUsbDriver::isoTimerTick(void){
 
     bool success;
     DWORD errorCode = ERROR_SUCCESS;
-    unsigned int mallocBytes = 8;
+    int n, i, j, k;
+    unsigned int dataBufferOffset;
+    unsigned int packetLength = 0;
 
-    for (int n=0; n<NUM_FUTURE_CTX; n++){
+    for (n=0; n<NUM_FUTURE_CTX; n++){
         if(OvlK_IsComplete(ovlkHandle[n])){
             qDebug("Transfer %d is complete!!", n);
-            for(int iter=0;iter<isoCtx[n]->NumberOfPackets;iter++){
-                mallocBytes +=isoCtx[n]->IsoPackets[iter].Length;
-            }
 
-            //Write the iso data to file
-            unsigned int offset;
-            char currentString[8];
-            for(int i=0;i<ISO_PACKETS_PER_CTX;i++){
-                offset = isoCtx[n]->IsoPackets[i].Offset;
-                for(int j=0;j<MAX_VALID_INDEX;j++){
-                    sprintf(currentString, "%d\n", (char)dataBuffer[n][offset+j]);
-                    *(outputStream) << currentString;
-                    //*(outputStream) << dataBuffer[n][offset+j] << "\n";
-                }
-                //*(outputStream) << "\n";
+            //qDebug() << "Max =" << ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX + 8;
+            //Copy iso data into buffer
+            for(int i=0;i<isoCtx[n]->NumberOfPackets;i++){
+                dataBufferOffset = isoCtx[n]->IsoPackets[i].Offset;
+                //qDebug() << packetLength;
+                memcpy(&(outBuffers[currentWriteBuffer][packetLength]), &dataBuffer[n][dataBufferOffset], isoCtx[n]->IsoPackets[i].Length);
+                packetLength += isoCtx[n]->IsoPackets[i].Length;
             }
-
+            //Control data for isoDriver
+            qDebug() << packetLength;
+            bufferLengths[currentWriteBuffer] = packetLength;
+            currentWriteBuffer = !currentWriteBuffer;
 
             //Setup next transfer
             UINT oldStart = isoCtx[n]->StartFrame;
@@ -499,8 +500,8 @@ void winUsbDriver::isoTimerTick(void){
                 return;
             }
             isoCtx[n]->StartFrame = oldStart + ISO_PACKETS_PER_CTX*NUM_FUTURE_CTX;
-            qDebug() << oldStart;
-            qDebug() << isoCtx[n]->StartFrame;
+            //qDebug() << oldStart;
+            //qDebug() << isoCtx[n]->StartFrame;
 
             success = OvlK_ReUse(ovlkHandle[n]);
             if(!success){
@@ -510,7 +511,8 @@ void winUsbDriver::isoTimerTick(void){
                 return;
             }
             success = UsbK_IsoReadPipe(handle, pipeID, dataBuffer[n], sizeof(dataBuffer[n]), (LPOVERLAPPED) ovlkHandle[n], isoCtx[n]);
+            qDebug("%d bytes will go to isoDriver", packetLength);
+            return;
         }
     }
-    qDebug("%d bytes need to be allocated", mallocBytes);
 }

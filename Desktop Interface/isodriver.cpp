@@ -48,17 +48,18 @@ void isoDriver::setWindow(int newWindow){
 }
 
 void isoDriver::timerTick(void){
+    qDebug() << "isoDriver SEZ Tick!";
     if(firstFrame){
         autoGain();
         firstFrame = false;
     }
 
-    isoTemp = driver->isoRead(TIMER_PERIOD*ADC_SPF*2);
-    length = *((PUINT)isoTemp);
+    isoTemp = driver->isoRead(&length);
+    qDebug() << length << "read in!!";
     total_read += length;
 
     if (length==0){
-        free(isoTemp);
+        //free(isoTemp);
         return;
     }
 
@@ -101,7 +102,7 @@ void isoDriver::timerTick(void){
         default:
             qFatal("Error in isoDriver::timerTick.  Invalid device mode.");
     }
-    free(isoTemp);
+    //free(isoTemp);
 }
 
 void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC){
@@ -474,11 +475,11 @@ int isoDriver::trigger(void){
 
             //qDebug() << isoTemp_short[i+4];
 
-            if(isoTemp_short[i+4] >= target){
+            if(isoTemp_short[i] >= target){
                 triggerCountSeeking = (triggerType % 2) ? 0 : triggerCountSeeking + 1;
                 triggerCountNotSeeking = (triggerType % 2) ? triggerCountNotSeeking + 1 : 0;
             }
-            else if (isoTemp_short[i+4] < lowThresh){
+            else if (isoTemp_short[i] < lowThresh){
                 triggerCountNotSeeking = (triggerType % 2) ? 0 : triggerCountNotSeeking + 1;
                 triggerCountSeeking = (triggerType % 2) ? triggerCountSeeking + 1 : 0;
             }
@@ -506,11 +507,11 @@ int isoDriver::trigger(void){
             //A bit of thresholding...
             //Gives DAT STABILITY
 
-            if(isoTemp[i+8] >= target){
+            if(isoTemp[i] >= target){
                 triggerCountSeeking = (triggerType % 2) ? 0 : triggerCountSeeking + 1;
                 triggerCountNotSeeking = (triggerType % 2) ? triggerCountNotSeeking + 1 : 0;
             }
-            else if (isoTemp[i+8] < lowThresh){
+            else if (isoTemp[i] < lowThresh){
                 triggerCountNotSeeking = (triggerType % 2) ? 0 : triggerCountNotSeeking + 1;
                 triggerCountSeeking = (triggerType % 2) ? triggerCountSeeking + 1 : 0;
             }
@@ -583,19 +584,19 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 {
     if(!paused_CH1 && CH1_mode == - 1){
         for (int i=0;i<(length/ADC_SPF);i++){
-            internalBuffer750->writeBuffer_char(&isoTemp[ADC_SPF*i+8], ADC_SPF-2);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
+            internalBuffer750->writeBuffer_char(&isoTemp[ADC_SPF*i], ADC_SPF-2);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
         }
     }
 
     if(!paused_CH1 && CH1_mode > 0){
         for (int i=0;i<(length/ADC_SPF);i++){
-            internalBuffer375_CH1->writeBuffer_char(&isoTemp[ADC_SPF*i+8], ADC_SPF/2-1);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
+            internalBuffer375_CH1->writeBuffer_char(&isoTemp[ADC_SPF*i], ADC_SPF/2-1);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
         }
     }
 
     if(!paused_CH2 && CH2_mode > 0){
         for (int i=0;i<(length/ADC_SPF);i++){
-            internalBuffer375_CH2->writeBuffer_char(&isoTemp[ADC_SPF*i+8+ADC_SPF/2], ADC_SPF/2-1);  //+375 to get the second half of the packet
+            internalBuffer375_CH2->writeBuffer_char(&isoTemp[ADC_SPF*i+ADC_SPF/2], ADC_SPF/2-1);  //+375 to get the second half of the packet
         }
     }
 
@@ -724,7 +725,7 @@ void isoDriver::multimeterAction(){
     isoTemp_short = (short *)isoTemp;
     if(!paused_multimeter){
         for (int i=0;i<(length/ADC_SPF);i++){
-            internalBuffer375_CH1->writeBuffer_short(&isoTemp_short[ADC_SPF/2*i+(8/sizeof(short))], ADC_SPF/2-1);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
+            internalBuffer375_CH1->writeBuffer_short(&isoTemp_short[ADC_SPF/2*i], ADC_SPF/2-1);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
         }
     }
 
