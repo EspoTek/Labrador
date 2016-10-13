@@ -53,12 +53,9 @@ void isoDriver::timerTick(void){
         firstFrame = false;
     }
 
-    isoTemp = driver->isoRead();
+    isoTemp = driver->isoRead(TIMER_PERIOD*ADC_SPF*2);
     length = *((PUINT)isoTemp);
-    qDebug() << "READING IN" << length;
     total_read += length;
-    qDebug() << "TOTAL READ" << total_read;
-
 
     if (length==0){
         free(isoTemp);

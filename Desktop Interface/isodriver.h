@@ -32,7 +32,7 @@ public:
 private:
     QCustomPlot *axes;
     double windowAtPause = 0.01;
-    QTimer* isoTimer = NULL, *recoveryTimer = NULL, *slowTimer = NULL;
+    QTimer* isoTimer = NULL, *slowTimer = NULL;
     short *readData375_CH1, *readData375_CH2, *readData750;
     long total_read = 0;
     void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC);

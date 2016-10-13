@@ -5,10 +5,12 @@ winUsbDriver::winUsbDriver(QWidget *parent) : QLabel(parent)
     qDebug() << "Making USB Driver invisible!!";
     this->hide();
     //Load stack so that reset signal can be sent
+
     usbInit(0x03eb, 0xa000);
     setDeviceMode(deviceMode);
     newDig(digitalPinState);
     usbIsoInit();
+
 
     psuTimer = new QTimer();
     psuTimer->setTimerType(Qt::PreciseTimer);
@@ -261,121 +263,52 @@ void winUsbDriver::newDig(int digState){
 }
 
 unsigned char winUsbDriver::usbIsoInit(void){
-    int n;
-    bool success;
+    unsigned char success;
+    unsigned int transferred;
     DWORD errorCode = ERROR_SUCCESS;
 
-    success = OvlK_Init(&ovlPool, handle, MAX_OVERLAP, (KOVL_POOL_FLAG) 0);
-    if(!success){
-        errorCode = GetLastError();
-        qDebug() << "OvlK_Init failed with error code" << errorCode;
-        return 0;
-    }
-    success = UsbK_ResetPipe(handle, pipeID);
-    if(!success){
-        errorCode = GetLastError();
-        qDebug() << "UsbK_ResetPipe failed with error code" << errorCode;
-        return 0;
-    }
-
-    for(n=0;n<NUM_FUTURE_CTX;n++){
-        success = IsoK_Init(&isoCtx[n], ISO_PACKETS_PER_CTX, n*ISO_PACKETS_PER_CTX);
-        if(!success){
+    success = StmK_Init(
+                  &stm_handle,
+                  handle,
+                  pipeID,
+                  MAX_TRANSFER_SIZE,
+                  MAX_PENDING_TRANSFERS,
+                  MAX_PENDING_IO,
+                  NULL,
+                  KSTM_FLAG_NONE);
+        if (!success){
             errorCode = GetLastError();
-            qDebug() << "IsoK_Init failed with error code" << errorCode;
-            qDebug() << "n =" << n;
+            qDebug("StmK_Init failed. ErrorCode: %08Xh\n", errorCode);
             return 0;
         }
 
-        success = IsoK_SetPackets(isoCtx[n], ISO_PACKET_SIZE);
-        if(!success){
+        success = StmK_Start(stm_handle);
+        if (!success){
             errorCode = GetLastError();
-            qDebug() << "IsoK_SetPackets failed with error code" << errorCode;
-            qDebug() << "n =" << n;
+            qDebug("StmK_Start failed. ErrorCode: %08Xh\n", errorCode);
             return 0;
         }
 
-        success = OvlK_Acquire(&ovlkHandle[n], ovlPool);
-        if(!success){
-            errorCode = GetLastError();
-            qDebug() << "OvlK_Acquire failed with error code" << errorCode;
-            qDebug() << "n =" << n;
-            return 0;
-        }
-
-        success = UsbK_IsoReadPipe(handle, pipeID, dataBuffer[n], sizeof(dataBuffer[n]), (LPOVERLAPPED) ovlkHandle[n], isoCtx[n]);
-    }
-    qDebug() << "Iso Setup Successful";
-    return 1;
+        qDebug("[Start Stream] successful!\n");
+        return 1;
 }
 
-char *winUsbDriver::isoRead(){
+char *winUsbDriver::isoRead(int numSamples){
     unsigned char *returnBuffer;
-
-    bool success;
+    unsigned char success;
     DWORD errorCode = ERROR_SUCCESS;
-    unsigned int allocBytes = 0;
-    int n, i, j;
-    unsigned int returnBufferOffset = 8;
-    unsigned int dataBufferOffset;
 
-    //Calculate how much data needs to be allocated
-    for (n=0; n<NUM_FUTURE_CTX; n++){
-        if(OvlK_IsComplete(ovlkHandle[n])){
-            for(i=0;i<isoCtx[n]->NumberOfPackets;i++){
-                allocBytes +=isoCtx[n]->IsoPackets[i].Length;
-            }
-        }
+    returnBuffer = (unsigned char *) malloc(numSamples + 8); //8-byte header contains (unsigned long) length
+
+    success = StmK_Read(stm_handle, returnBuffer+8, 0, numSamples, (PUINT) returnBuffer);
+    //qDebug("%d bytes copied, out of a possible %d\n", *((PUINT)returnBuffer), numSamples);
+    if (!success)	{
+        errorCode = GetLastError();
+        qDebug("StmkK_Read failed. ErrorCode: %08Xh\n", errorCode);
+        free(returnBuffer);
+        return (char*) malloc(numSamples + 8);
+        //printf("No more items = %08Xh\n", ERROR_NO_MORE_ITEMS);
     }
-    //Allocate it (why am I allocating a new buffer every time?)
-    returnBuffer = (unsigned char *) malloc(allocBytes + 8); //Extra 8 bytes for the "header" that contains length of "packet" as unsigned int.
-    ((unsigned int *) returnBuffer)[0] = allocBytes;
-
-    //Fill the memory with the relevant samples
-    //Note that this will return garbage if more than one isoCtx has completed.
-    //The above condition should only ever occur if the polling rate is slower than ISO_PACKETS_PER_CTX, though.
-    //(Or if some heinous external force stops the polling and gives it a long "temporary period"!!)
-    for (n=0; n<NUM_FUTURE_CTX; n++){
-        if(OvlK_IsComplete(ovlkHandle[n])){
-            //qDebug("Transfer %d is complete!!", n);
-
-            //Copy the iso packet
-            char currentString[8];
-            for(i=0;i<isoCtx[n]->NumberOfPackets;i++){
-                dataBufferOffset = isoCtx[n]->IsoPackets[i].Offset;
-                //memcpy(&returnBuffer[returnBufferOffset], &dataBuffer[n][dataBufferOffset], isoCtx[n]->IsoPackets[i].Length);
-                for(int j=0;j<isoCtx[n]->IsoPackets[i].Length;j++){
-                    returnBuffer[returnBufferOffset+j] = dataBuffer[n][dataBufferOffset+j];
-                }
-                returnBufferOffset += isoCtx[n]->IsoPackets[i].Length;
-                }
-            }
-
-
-            //Setup next transfer
-            UINT oldStart = isoCtx[n]->StartFrame;
-            success = IsoK_ReUse(isoCtx[n]);
-            if(!success){
-                errorCode = GetLastError();
-                qDebug() << "IsoK_Init failed with error code" << errorCode;
-                qDebug() << "n =" << n;
-                return (char*) returnBuffer;
-            }
-            isoCtx[n]->StartFrame = oldStart + ISO_PACKETS_PER_CTX*NUM_FUTURE_CTX;
-            //qDebug() << oldStart;
-            //qDebug() << isoCtx[n]->StartFrame;
-            //qDebug() << handle;
-
-            success = OvlK_ReUse(ovlkHandle[n]);
-            if(!success){
-                errorCode = GetLastError();
-                qDebug() << "OvlK_ReUse failed with error code" << errorCode;
-                qDebug() << "n =" << n;
-                return (char*) returnBuffer;
-            }
-            success = UsbK_IsoReadPipe(handle, pipeID, dataBuffer[n], sizeof(dataBuffer[n]), (LPOVERLAPPED) ovlkHandle[n], isoCtx[n]);
-        }
-    //qDebug("%d bytes need to be allocated", allocBytes);
 
     return (char*) returnBuffer;
 }
@@ -384,6 +317,21 @@ winUsbDriver::~winUsbDriver(void){
     qDebug() << "\n\nwinUsbDriver destructor ran!";
     unsigned char success;
     DWORD errorCode = ERROR_SUCCESS;
+
+    success = StmK_Stop(stm_handle, 0);
+    if (!success)
+    {
+        errorCode = GetLastError();
+        qDebug("StmK_Stop failed. ErrorCode: %08Xh\n", errorCode);
+    }
+    qDebug("[Stop Stream] successful!\n");
+
+    success = StmK_Free(stm_handle);
+    if (!success)
+    {
+        errorCode = GetLastError();
+        qDebug("StmK_Free failed. ErrorCode: %08Xh\n", errorCode);
+    }
 
     UsbK_Free(handle);
 }
