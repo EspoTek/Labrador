@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     deviceconnecteddisplay.cpp \
     timedtickbox.cpp \
     scoperangeenterdialog.cpp \
-    voltagespinbox.cpp
+    voltagespinbox.cpp \
+    genericusbdriver.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -50,7 +51,8 @@ HEADERS  += mainwindow.h \
     deviceconnecteddisplay.h \
     timedtickbox.h \
     scoperangeenterdialog.h \
-    voltagespinbox.h
+    voltagespinbox.h \
+    genericusbdriver.h
 
 FORMS    += mainwindow.ui \
     scoperangeenterdialog.ui

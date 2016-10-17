@@ -72,6 +72,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->multimeterMeanDisplay->setVisible(0);
     ui->multimeterRmsDisplay->setVisible(0);
     */
+
+    //Reset the device to ensure Labrador_libusbk gets handle!!
+    ui->controller_usb->usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
+
 }
 
 MainWindow::~MainWindow()
@@ -241,49 +245,49 @@ void MainWindow::menuSetup(){
 
 void MainWindow::on_actionGain0_5_triggered()
 {
-    ui->controller_usb->setGain(0.5);
+    ui->controller_iso->driver->setGain(0.5);
     ui->controller_iso->setAutoGain(0);
 }
 
 void MainWindow::on_actionGain1_triggered()
 {
-    ui->controller_usb->setGain(1);
+    ui->controller_iso->driver->setGain(1);
     ui->controller_iso->setAutoGain(0);
 }
 
 void MainWindow::on_actionGain2_triggered()
 {
-    ui->controller_usb->setGain(2);
+    ui->controller_iso->driver->setGain(2);
     ui->controller_iso->setAutoGain(0);
 }
 
 void MainWindow::on_actionGain4_triggered()
 {
-    ui->controller_usb->setGain(4);
+    ui->controller_iso->driver->setGain(4);
     ui->controller_iso->setAutoGain(0);
 }
 
 void MainWindow::on_actionGain8_triggered()
 {
-    ui->controller_usb->setGain(8);
+    ui->controller_iso->driver->setGain(8);
     ui->controller_iso->setAutoGain(0);
 }
 
 void MainWindow::on_actionGain16_triggered()
 {
-    ui->controller_usb->setGain(16);
+    ui->controller_iso->driver->setGain(16);
     ui->controller_iso->setAutoGain(0);
 }
 
 void MainWindow::on_actionGain32_triggered()
 {
-    ui->controller_usb->setGain(32);
+    ui->controller_iso->driver->setGain(32);
     ui->controller_iso->setAutoGain(0);
 }
 
 void MainWindow::on_actionGain64_triggered()
 {
-    ui->controller_usb->setGain(64);
+    ui->controller_iso->driver->setGain(64);
     ui->controller_iso->setAutoGain(0);
 }
 void MainWindow::on_actionGainAuto_triggered()
@@ -1002,7 +1006,6 @@ void MainWindow::reinitUsb(void){
     ui->controller_iso->driver->saveState(&deviceMode, &scopeGain, &currentPsuVoltage, &digitalPinState);
 
     delete(ui->controller_iso->driver);
-    QThread::msleep(1024);  //Wait a second for the dust to settle.
     ui->controller_iso->driver = new winUsbDriver();
 
     //Reconnect the other objects.
