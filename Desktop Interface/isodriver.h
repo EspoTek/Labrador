@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QVector>
 #include "qcustomplot.h"
-#include "winusbdriver.h"
+#include "genericusbdriver.h"
 #include "desktop_settings.h"
 #include "siprint.h"
 
@@ -17,7 +17,7 @@ class isoDriver : public QLabel
     Q_OBJECT
 public:
     explicit isoDriver(QWidget *parent = 0);
-    void setDriver(winUsbDriver *newDriver);
+    void setDriver(genericUsbDriver *newDriver);
     void setAxes(QCustomPlot *newAxes);
     bool cursorStatsEnabled = true;
     isoBuffer *internalBuffer375_CH1, *internalBuffer375_CH2, *internalBuffer750;
@@ -27,7 +27,7 @@ public:
     double y0=0, y1=0, x0=0, x1=0;
     double topRange=2.5, botRange=-0.5;
     bool AC_CH1 = false, AC_CH2 = false;
-    winUsbDriver *driver;
+    genericUsbDriver *driver;
     double currentVmean;
 private:
     QCustomPlot *axes;
