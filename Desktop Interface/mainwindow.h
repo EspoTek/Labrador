@@ -12,6 +12,7 @@
 #include <QDateTime>
 #include <Qdir>
 #include <QFile>
+#include <QThread>
 
 namespace Ui {
 class MainWindow;
@@ -101,6 +102,7 @@ private slots:
     void on_actionRecord_triggered(bool checked);
 
     void on_actionTake_Snapshot_triggered();
+    void reinitUsb(void);
 
 private:
     Ui::MainWindow *ui;

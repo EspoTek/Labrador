@@ -48,14 +48,14 @@ void isoDriver::setWindow(int newWindow){
 }
 
 void isoDriver::timerTick(void){
-    qDebug() << "isoDriver SEZ Tick!";
+    //qDebug() << "isoDriver SEZ Tick!";
     if(firstFrame){
         autoGain();
         firstFrame = false;
     }
 
     isoTemp = driver->isoRead(&length);
-    qDebug() << length << "read in!!";
+    //qDebug() << length << "read in!!";
     total_read += length;
 
     if (length==0){
@@ -146,7 +146,7 @@ void isoDriver::digitalConvert(short *shortPtr, QVector<double> *doublePtr){
 
 
 void isoDriver::startTimer(){
-    if (isoTimer!=NULL){
+    /*if (isoTimer!=NULL){
         delete isoTimer;
         isoTimer = NULL;
     }
@@ -154,7 +154,7 @@ void isoDriver::startTimer(){
     isoTimer->setTimerType(Qt::PreciseTimer);
     isoTimer->start(TIMER_PERIOD);
     connect(isoTimer, SIGNAL(timeout()), this, SLOT(timerTick()));
-    //qFatal("ISO TIMER STARTED");
+    //qFatal("ISO TIMER STARTED");*/
 }
 
 void isoDriver::clearBuffers(bool ch3751, bool ch3752, bool ch750){
@@ -467,7 +467,7 @@ int isoDriver::trigger(void){
     int location = -1;
 
     if(driver->deviceMode == 7){
-        for (int i=0;i<length/2;i++){
+        for (unsigned int i=0;i<length/2;i++){
             if(i%750 == 749) continue; //Not a valid sample
 
             //A bit of thresholding...
@@ -501,7 +501,7 @@ int isoDriver::trigger(void){
         }
     }
     else{
-        for (int i=0;i<length;i++){
+        for (unsigned int i=0;i<length;i++){
             if(((i%750 > 374) && (triggerType<2)) || (((i%750 < 375) || (i%750 == 749)) && (triggerType>1))) continue; //Not a valid sample
 
             //A bit of thresholding...
@@ -583,19 +583,19 @@ void isoDriver::setTriggerMode(int newMode){
 void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1 for ana, 2 for dig, -1 for ana750
 {
     if(!paused_CH1 && CH1_mode == - 1){
-        for (int i=0;i<(length/ADC_SPF);i++){
+        for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer750->writeBuffer_char(&isoTemp[ADC_SPF*i], ADC_SPF-2);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
         }
     }
 
     if(!paused_CH1 && CH1_mode > 0){
-        for (int i=0;i<(length/ADC_SPF);i++){
+        for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer375_CH1->writeBuffer_char(&isoTemp[ADC_SPF*i], ADC_SPF/2-1);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
         }
     }
 
     if(!paused_CH2 && CH2_mode > 0){
-        for (int i=0;i<(length/ADC_SPF);i++){
+        for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer375_CH2->writeBuffer_char(&isoTemp[ADC_SPF*i+ADC_SPF/2], ADC_SPF/2-1);  //+375 to get the second half of the packet
         }
     }
@@ -724,7 +724,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 void isoDriver::multimeterAction(){
     isoTemp_short = (short *)isoTemp;
     if(!paused_multimeter){
-        for (int i=0;i<(length/ADC_SPF);i++){
+        for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer375_CH1->writeBuffer_short(&isoTemp_short[ADC_SPF/2*i], ADC_SPF/2-1);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
         }
     }

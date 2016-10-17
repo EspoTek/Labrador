@@ -12,7 +12,10 @@ winUsbDriver::winUsbDriver(QWidget *parent) : QLabel(parent)
     bufferLengths[0] = 0;
     bufferLengths[1] = 0;
 
-    usbInit(0x03eb, 0xa000);
+    bool connected = false;
+    while(!connected){
+        connected = usbInit(0x03eb, 0xa000);
+    }
     setDeviceMode(deviceMode);
     newDig(digitalPinState);
     usbIsoInit();
@@ -24,8 +27,31 @@ winUsbDriver::winUsbDriver(QWidget *parent) : QLabel(parent)
     connect(psuTimer, SIGNAL(timeout()), this, SLOT(psuTick()));
 }
 
+winUsbDriver::~winUsbDriver(void){
+    qDebug() << "\n\nwinUsbDriver destructor ran!";
+    for(int n=0;n<NUM_FUTURE_CTX;n++){
+        IsoK_Free(isoCtx[n]);
+    }
+    for(int i=0;i<MAX_OVERLAP;i++){
+        OvlK_Release(ovlkHandle[i]);
+    }
+    UsbK_FlushPipe(handle, pipeID);
+    UsbK_AbortPipe(handle, pipeID);
+    OvlK_Free(ovlPool);
+    free(outBuffers[0]);
+    free(outBuffers[1]);
+    UsbK_Free(handle);
+}
+
 unsigned char winUsbDriver::usbInit(ULONG VIDin, ULONG PIDin){
     unsigned char success;
+    KLST_DEVINFO_HANDLE deviceInfo = NULL;
+    WINUSB_PIPE_INFORMATION pipeInfo;
+    UINT deviceCount = 0;
+    UCHAR pipeIndex = 0;
+    DWORD ec = ERROR_SUCCESS;
+    KLST_HANDLE deviceList = NULL;
+
 
     //qDebug() << "usbInit() entered";
     if (!LstK_Init(&deviceList, (KLST_FLAG) 0))	{
@@ -139,7 +165,6 @@ void winUsbDriver::setFunctionGen(int channel, functionGenControl *fGenControl){
     unsigned char *samples;
 
     //For recalling on crash.
-    fGenChannel = channel;
     if (channel == 0) fGenPtr_CH1 = fGenControl;
     else fGenPtr_CH2 = fGenControl;
 
@@ -329,32 +354,9 @@ char *winUsbDriver::isoRead(unsigned int *newLength){
     //returnBuffer = (unsigned char *) malloc(numSamples + 8); //8-byte header contains (unsigned long) length
     //((unsigned int *)returnBuffer)[0] = 0;
     //return (char*) returnBuffer;
-    qDebug() << (unsigned char) !currentWriteBuffer;
+    //qDebug() << (unsigned char) !currentWriteBuffer;
     *(newLength) = bufferLengths[!currentWriteBuffer];
     return (char*) outBuffers[(unsigned char) !currentWriteBuffer];
-}
-
-winUsbDriver::~winUsbDriver(void){
-    qDebug() << "\n\nwinUsbDriver destructor ran!";
-    unsigned char success;
-    DWORD errorCode = ERROR_SUCCESS;
-
-    success = StmK_Stop(stm_handle, 0);
-    if (!success)
-    {
-        errorCode = GetLastError();
-        qDebug("StmK_Stop failed. ErrorCode: %08Xh\n", errorCode);
-    }
-    qDebug("[Stop Stream] successful!\n");
-
-    success = StmK_Free(stm_handle);
-    if (!success)
-    {
-        errorCode = GetLastError();
-        qDebug("StmK_Free failed. ErrorCode: %08Xh\n", errorCode);
-    }
-
-    UsbK_Free(handle);
 }
 
 void winUsbDriver::setBufferPtr(bufferControl *newPtr){
@@ -465,54 +467,76 @@ void winUsbDriver::isoTimerTick(void){
     if(timerCount%10 == 3) strcpy(subString, "rd");
     if((timerCount<20) && (timerCount > 10)) strcpy(subString, "th");
 
-    qDebug("\n\nThis is the %d%s Tick!", timerCount, subString);
+    //qDebug("\n\nThis is the %d%s Tick!", timerCount, subString);
 
     bool success;
     DWORD errorCode = ERROR_SUCCESS;
-    int n, i, j, k;
+    int n, i, j, k, earliest = MAX_OVERLAP, minFrame = 2147483647;
     unsigned int dataBufferOffset;
     unsigned int packetLength = 0;
 
     for (n=0; n<NUM_FUTURE_CTX; n++){
         if(OvlK_IsComplete(ovlkHandle[n])){
-            qDebug("Transfer %d is complete!!", n);
-
-            //qDebug() << "Max =" << ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX + 8;
-            //Copy iso data into buffer
-            for(int i=0;i<isoCtx[n]->NumberOfPackets;i++){
-                dataBufferOffset = isoCtx[n]->IsoPackets[i].Offset;
-                //qDebug() << packetLength;
-                memcpy(&(outBuffers[currentWriteBuffer][packetLength]), &dataBuffer[n][dataBufferOffset], isoCtx[n]->IsoPackets[i].Length);
-                packetLength += isoCtx[n]->IsoPackets[i].Length;
+            //qDebug("Transfer %d is complete!!", n);
+            if(isoCtx[n]->StartFrame < minFrame){
+                minFrame = isoCtx[n]->StartFrame;
+                earliest = n;
             }
-            //Control data for isoDriver
-            qDebug() << packetLength;
-            bufferLengths[currentWriteBuffer] = packetLength;
-            currentWriteBuffer = !currentWriteBuffer;
-
-            //Setup next transfer
-            UINT oldStart = isoCtx[n]->StartFrame;
-            success = IsoK_ReUse(isoCtx[n]);
-            if(!success){
-                errorCode = GetLastError();
-                qDebug() << "IsoK_Init failed with error code" << errorCode;
-                qDebug() << "n =" << n;
-                return;
-            }
-            isoCtx[n]->StartFrame = oldStart + ISO_PACKETS_PER_CTX*NUM_FUTURE_CTX;
-            //qDebug() << oldStart;
-            //qDebug() << isoCtx[n]->StartFrame;
-
-            success = OvlK_ReUse(ovlkHandle[n]);
-            if(!success){
-                errorCode = GetLastError();
-                qDebug() << "OvlK_ReUse failed with error code" << errorCode;
-                qDebug() << "n =" << n;
-                return;
-            }
-            success = UsbK_IsoReadPipe(handle, pipeID, dataBuffer[n], sizeof(dataBuffer[n]), (LPOVERLAPPED) ovlkHandle[n], isoCtx[n]);
-            qDebug("%d bytes will go to isoDriver", packetLength);
-            return;
         }
     }
+
+    if (earliest == MAX_OVERLAP){
+        return;
+    }
+
+    //qDebug() << "Max =" << ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX + 8;
+    //Copy iso data into buffer
+    for(int i=0;i<isoCtx[earliest]->NumberOfPackets;i++){
+        dataBufferOffset = isoCtx[earliest]->IsoPackets[i].Offset;
+        //qDebug() << packetLength;
+        memcpy(&(outBuffers[currentWriteBuffer][packetLength]), &dataBuffer[earliest][dataBufferOffset], isoCtx[earliest]->IsoPackets[i].Length);
+        packetLength += isoCtx[earliest]->IsoPackets[i].Length;
+    }
+    //Control data for isoDriver
+    bufferLengths[currentWriteBuffer] = packetLength;
+    currentWriteBuffer = !currentWriteBuffer;
+
+    //Zero length packet means something's gone wrong.  Probably a disconnect.
+    if(packetLength == 0){
+        qDebug() << "Zero length iso packet.  An hero!";
+        killMe();
+    }
+
+    //Setup next transfer
+    UINT oldStart = isoCtx[earliest]->StartFrame;
+    success = IsoK_ReUse(isoCtx[earliest]);
+    if(!success){
+        errorCode = GetLastError();
+        qDebug() << "IsoK_Init failed with error code" << errorCode;
+        qDebug() << "n =" << n;
+        return;
+    }
+    isoCtx[earliest]->StartFrame = oldStart + ISO_PACKETS_PER_CTX*NUM_FUTURE_CTX;
+    //qDebug() << oldStart;
+    //qDebug() << isoCtx[n]->StartFrame;
+
+    success = OvlK_ReUse(ovlkHandle[earliest]);
+    if(!success){
+        errorCode = GetLastError();
+        qDebug() << "OvlK_ReUse failed with error code" << errorCode;
+        qDebug() << "n =" << n;
+        return;
+    }
+    success = UsbK_IsoReadPipe(handle, pipeID, dataBuffer[earliest], sizeof(dataBuffer[earliest]), (LPOVERLAPPED) ovlkHandle[earliest], isoCtx[earliest]);
+    //qDebug("%d bytes will go to isoDriver", packetLength);
+    upTick();
+    return;
+}
+
+void winUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState){
+    *(_out_deviceMode) = deviceMode;
+    *(_out_scopeGain) = scopeGain;
+    *(_out_currentPsuVoltage) = currentPsuVoltage;
+    *(_out_digitalPinState) = digitalPinState;
+    return;
 }

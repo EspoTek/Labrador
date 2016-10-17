@@ -238,6 +238,7 @@ public:
     QCheckBox *digitalOutCheckbox_CH1;
     QCheckBox *digitalOutCheckbox_CH4;
     QPushButton *pushButton;
+    QPushButton *pushButton_2;
     bufferControl *bufferDisplay;
     QMenuBar *menuBar;
     QMenu *menuFile;
@@ -1216,6 +1217,11 @@ public:
 
         verticalLayout_3->addWidget(pushButton);
 
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+
+        verticalLayout_3->addWidget(pushButton_2);
+
         bufferDisplay = new bufferControl(centralWidget);
         bufferDisplay->setObjectName(QStringLiteral("bufferDisplay"));
         bufferDisplay->setMinimumSize(QSize(96, 36));
@@ -1482,6 +1488,9 @@ public:
         QObject::connect(controller_fg, SIGNAL(setMinFreq_CH1(double)), frequencyValue_CH1, SLOT(setMin(double)));
         QObject::connect(frequencyValue_CH1, SIGNAL(valueChanged(double)), frequencyValue_CH1, SLOT(changeStepping(double)));
         QObject::connect(frequencyValue_CH2, SIGNAL(valueChanged(double)), frequencyValue_CH2, SLOT(changeStepping(double)));
+        QObject::connect(controller_usb, SIGNAL(upTick()), controller_iso, SLOT(timerTick()));
+        QObject::connect(pushButton_2, SIGNAL(clicked()), MainWindow, SLOT(reinitUsb()));
+        QObject::connect(controller_usb, SIGNAL(killMe()), MainWindow, SLOT(reinitUsb()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -1646,6 +1655,7 @@ public:
         digitalOutCheckbox_CH1->setText(QApplication::translate("MainWindow", "Pin 1", 0));
         digitalOutCheckbox_CH4->setText(QApplication::translate("MainWindow", "Pin 4", 0));
         pushButton->setText(QApplication::translate("MainWindow", "Debug!", 0));
+        pushButton_2->setText(QApplication::translate("MainWindow", "ReinitUsb()", 0));
         bufferDisplay->setText(QApplication::translate("MainWindow", "BUFFER IMAGE HERE", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuOscilloscope_2->setTitle(QApplication::translate("MainWindow", "Oscilloscope", 0));

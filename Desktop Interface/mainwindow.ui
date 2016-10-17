@@ -1268,6 +1268,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>ReinitUsb()</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="bufferControl" name="bufferDisplay">
           <property name="minimumSize">
            <size>
@@ -2126,6 +2133,8 @@
     <signal>disableWindow(bool)</signal>
     <signal>enableMMTimer()</signal>
     <signal>checkXY(bool)</signal>
+    <signal>upTick()</signal>
+    <signal>killMe()</signal>
     <slot>setPsu(double)</slot>
     <slot>setFunctionGen(int,functionGenControl*)</slot>
     <slot>newDig(int)</slot>
@@ -2211,6 +2220,7 @@
     <slot>setXYmode(bool)</slot>
     <slot>triggerGroupStateChange(bool)</slot>
     <slot>pauseEnable_multimeter(bool)</slot>
+    <slot>timerTick()</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -2309,7 +2319,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1124</x>
-     <y>583</y>
+     <y>577</y>
     </hint>
    </hints>
   </connection>
@@ -2373,7 +2383,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1124</x>
-     <y>583</y>
+     <y>577</y>
     </hint>
    </hints>
   </connection>
@@ -2448,12 +2458,12 @@
    <slot>selfMoved(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>979</x>
-     <y>308</y>
+     <x>1002</x>
+     <y>303</y>
     </hint>
     <hint type="destinationlabel">
      <x>1002</x>
-     <y>332</y>
+     <y>303</y>
     </hint>
    </hints>
   </connection>
@@ -2465,11 +2475,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>1002</x>
-     <y>332</y>
+     <y>303</y>
     </hint>
     <hint type="destinationlabel">
      <x>1086</x>
-     <y>397</y>
+     <y>368</y>
     </hint>
    </hints>
   </connection>
@@ -2613,7 +2623,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1124</x>
-     <y>505</y>
+     <y>499</y>
     </hint>
    </hints>
   </connection>
@@ -2629,7 +2639,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1124</x>
-     <y>583</y>
+     <y>577</y>
     </hint>
    </hints>
   </connection>
@@ -2641,7 +2651,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1124</x>
-     <y>505</y>
+     <y>499</y>
     </hint>
     <hint type="destinationlabel">
      <x>1065</x>
@@ -2657,7 +2667,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1124</x>
-     <y>583</y>
+     <y>577</y>
     </hint>
     <hint type="destinationlabel">
      <x>1065</x>
@@ -2673,7 +2683,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1044</x>
-     <y>652</y>
+     <y>623</y>
     </hint>
     <hint type="destinationlabel">
      <x>1065</x>
@@ -2689,7 +2699,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1114</x>
-     <y>652</y>
+     <y>623</y>
     </hint>
     <hint type="destinationlabel">
      <x>1065</x>
@@ -2705,7 +2715,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1044</x>
-     <y>675</y>
+     <y>646</y>
     </hint>
     <hint type="destinationlabel">
      <x>1065</x>
@@ -2721,7 +2731,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1114</x>
-     <y>675</y>
+     <y>646</y>
     </hint>
     <hint type="destinationlabel">
      <x>1065</x>
@@ -2961,11 +2971,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>1115</x>
-     <y>355</y>
+     <y>326</y>
     </hint>
     <hint type="destinationlabel">
      <x>1002</x>
-     <y>332</y>
+     <y>303</y>
     </hint>
    </hints>
   </connection>
@@ -3089,7 +3099,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3109,7 +3119,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
    </hints>
   </connection>
@@ -3121,7 +3131,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
     <hint type="destinationlabel">
      <x>659</x>
@@ -3137,11 +3147,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>1002</x>
-     <y>332</y>
+     <y>303</y>
     </hint>
     <hint type="destinationlabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
    </hints>
   </connection>
@@ -3157,7 +3167,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
    </hints>
   </connection>
@@ -3173,7 +3183,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
    </hints>
   </connection>
@@ -3185,7 +3195,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3201,7 +3211,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3221,7 +3231,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
    </hints>
   </connection>
@@ -3233,7 +3243,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3345,7 +3355,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3425,7 +3435,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1114</x>
-     <y>495</y>
+     <y>489</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3441,7 +3451,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1114</x>
-     <y>573</y>
+     <y>567</y>
     </hint>
     <hint type="destinationlabel">
      <x>960</x>
@@ -3457,7 +3467,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1114</x>
-     <y>495</y>
+     <y>489</y>
     </hint>
     <hint type="destinationlabel">
      <x>384</x>
@@ -3473,7 +3483,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1114</x>
-     <y>573</y>
+     <y>567</y>
     </hint>
     <hint type="destinationlabel">
      <x>488</x>
@@ -3505,7 +3515,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
     <hint type="destinationlabel">
      <x>876</x>
@@ -3537,7 +3547,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1124</x>
-     <y>583</y>
+     <y>577</y>
     </hint>
     <hint type="destinationlabel">
      <x>959</x>
@@ -3649,7 +3659,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
@@ -3792,12 +3802,12 @@
    <slot>avrDebug()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1023</x>
-     <y>707</y>
+     <x>1124</x>
+     <y>685</y>
     </hint>
     <hint type="destinationlabel">
      <x>1125</x>
-     <y>426</y>
+     <y>397</y>
     </hint>
    </hints>
   </connection>
@@ -3809,11 +3819,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>1115</x>
-     <y>355</y>
+     <y>326</y>
     </hint>
     <hint type="destinationlabel">
      <x>1115</x>
-     <y>355</y>
+     <y>326</y>
     </hint>
    </hints>
   </connection>
@@ -3825,11 +3835,11 @@
    <hints>
     <hint type="sourcelabel">
      <x>1115</x>
-     <y>355</y>
+     <y>326</y>
     </hint>
     <hint type="destinationlabel">
      <x>1115</x>
-     <y>355</y>
+     <y>326</y>
     </hint>
    </hints>
   </connection>
@@ -3845,7 +3855,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1115</x>
-     <y>355</y>
+     <y>326</y>
     </hint>
    </hints>
   </connection>
@@ -3857,7 +3867,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1114</x>
-     <y>473</y>
+     <y>444</y>
     </hint>
     <hint type="destinationlabel">
      <x>722</x>
@@ -3877,7 +3887,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>1114</x>
-     <y>473</y>
+     <y>444</y>
     </hint>
    </hints>
   </connection>
@@ -4009,8 +4019,57 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>controller_usb</sender>
+   <signal>upTick()</signal>
+   <receiver>controller_iso</receiver>
+   <slot>timerTick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1125</x>
+     <y>397</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>727</x>
+     <y>752</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>reinitUsb()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1038</x>
+     <y>700</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>682</x>
+     <y>738</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_usb</sender>
+   <signal>killMe()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>reinitUsb()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1063</x>
+     <y>389</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>675</x>
+     <y>657</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>timeBaseNeedsChanging(bool)</slot>
+  <slot>reinitUsb()</slot>
  </slots>
 </ui>

@@ -992,3 +992,48 @@ void MainWindow::on_actionTake_Snapshot_triggered()
 {
     ui->controller_iso->takeSnapshot();
 }
+
+void MainWindow::reinitUsb(void){
+    int deviceMode;
+    double scopeGain;
+    double currentPsuVoltage;
+    int digitalPinState;
+
+    ui->controller_iso->driver->saveState(&deviceMode, &scopeGain, &currentPsuVoltage, &digitalPinState);
+
+    delete(ui->controller_iso->driver);
+    QThread::msleep(1024);  //Wait a second for the dust to settle.
+    ui->controller_iso->driver = new winUsbDriver();
+
+    //Reconnect the other objects.
+    ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
+    connect(ui->pushButton, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
+    connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
+    connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
+    connect(ui->controller_fg, SIGNAL(functionGenToUpdate(int,functionGenControl*)), ui->controller_iso->driver, SLOT(setFunctionGen(int,functionGenControl*)));
+    connect(ui->bufferDisplay, SIGNAL(modeChange(int)), ui->controller_iso->driver, SLOT(setDeviceMode(int)));
+    connect(ui->bufferDisplay, SIGNAL(updateDig(int)), ui->controller_iso->driver, SLOT(newDig(int)));
+
+    //Set the settings again!
+    connect(ui->controller_iso->driver, SIGNAL(gainBuffers(double)), ui->controller_iso, SLOT(gainBuffers(double)));
+    connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), this, SLOT(setEnabled(bool)));
+    connect(ui->controller_iso->driver, SIGNAL(sendClearBuffer(bool,bool,bool)), ui->controller_iso, SLOT(clearBuffers(bool,bool,bool)));
+    //connect(ui->controller_iso->driver, SIGNAL(startIsoTimer()), ui->controller_iso, SLOT(startTimer()));
+    connect(ui->controller_iso->driver, SIGNAL(setVisible_CH2(bool)), ui->controller_iso, SLOT(setVisible_CH2(bool)));
+    //connect(ui->controller_iso->driver, SIGNAL(enableMMTimer()), ui->controller_iso, SLOT(enableMM()));
+    connect(ui->controller_iso->driver, SIGNAL(checkXY(bool)), ui->xyDisplayLabel, SLOT(setChecked(bool)));
+    connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
+    connect(ui->controller_iso->driver, SIGNAL(upTick()), ui->controller_iso, SLOT(timerTick()));
+    connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
+
+    //Setup all necessary state data;
+    ui->controller_iso->driver->setDeviceMode(deviceMode);
+    ui->controller_iso->driver->setGain(scopeGain);
+    ui->controller_iso->driver->setPsu(currentPsuVoltage);
+    ui->controller_iso->driver->newDig(digitalPinState);
+    ui->controller_iso->driver->setFunctionGen(0,ui->controller_fg);
+    ui->controller_iso->driver->setFunctionGen(1,ui->controller_fg);
+
+    ui->controller_iso->clearBuffers(1,1,1);
+}
+
