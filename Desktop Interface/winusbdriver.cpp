@@ -92,7 +92,7 @@ unsigned char winUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     return success;
 }
 
-void winUsbDriver::usbSendControl(int RequestType, int Request, int Value, int Index, int Length, unsigned char *LDATA){
+void winUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA){
 
     //////////////////////////////////////////////////////////////////////////////////////////
     //IF YOU'RE SEEING AN ERROR, CHECK THAT REQUESTTYPE AND REQUEST ARE FORMATTED AS HEX

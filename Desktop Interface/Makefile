@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -Ibuild_linux -I../../../Qt/5.7/gcc_64/include -I../../../Qt/5.7/gcc_64/include/QtPrintSupport -I../../../Qt/5.7/gcc_64/include/QtWidgets -I../../../Qt/5.7/gcc_64/include/QtGui -I../../../Qt/5.7/gcc_64/include/QtCore -I. -I. -I../../../Qt/5.7/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -Ibuild_linux -Ibuild_linux/libusb -I../../../Qt/5.7/gcc_64/include -I../../../Qt/5.7/gcc_64/include/QtPrintSupport -I../../../Qt/5.7/gcc_64/include/QtWidgets -I../../../Qt/5.7/gcc_64/include/QtGui -I../../../Qt/5.7/gcc_64/include/QtCore -I. -I. -I../../../Qt/5.7/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/esposch/Qt/5.7/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = Labrador1.0.0
 DISTDIR = /home/esposch/git/Labrador/Desktop\ Interface/.tmp/Labrador1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/esposch/Qt/5.7/gcc_64/lib
-LIBS          = $(SUBLIBS) -lushghkjdfsghb-1.0 -L/home/esposch/Qt/5.7/gcc_64/lib -lQt5PrintSupport -L/usr/lib64 -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -Lbuild_linux/libusb -lusb-1.0 -L/home/esposch/Qt/5.7/gcc_64/lib -lQt5PrintSupport -L/usr/lib64 -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -1166,18 +1166,22 @@ moc_mainwindow.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QMainWindow \
 		../../../Qt/5.7/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
 		build_linux/platformspecific.h \
 		gahnooslashlinuxusbdriver.h \
+		genericusbdriver.h \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
+		functiongencontrol.h \
+		xmega.h \
+		desktop_settings.h \
+		buffercontrol.h \
 		ui_mainwindow.h \
 		scoperangeenterdialog.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QDialog \
 		isobuffer.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
-		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QPlainTextEdit \
-		xmega.h \
-		desktop_settings.h \
 		mainwindow.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_qcustomplot.cpp: ../../../Qt/5.7/gcc_64/include/QtCore/QObject \
 		../../../Qt/5.7/gcc_64/include/QtCore/qobject.h \
@@ -1650,7 +1654,7 @@ moc_qcustomplot.cpp: ../../../Qt/5.7/gcc_64/include/QtCore/QObject \
 		../../../Qt/5.7/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
 		qcustomplot.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
 
 moc_buffercontrol.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -1755,7 +1759,7 @@ moc_buffercontrol.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtCore/QDebug \
 		buffercontrol.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include buffercontrol.h -o moc_buffercontrol.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include buffercontrol.h -o moc_buffercontrol.cpp
 
 moc_esposlider.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QSlider \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qslider.h \
@@ -1867,7 +1871,7 @@ moc_esposlider.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QSlider \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qgridlayout.h \
 		esposlider.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include esposlider.h -o moc_esposlider.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include esposlider.h -o moc_esposlider.cpp
 
 moc_espospinbox.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -1976,7 +1980,7 @@ moc_espospinbox.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtCore/QDebug \
 		espospinbox.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include espospinbox.h -o moc_espospinbox.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include espospinbox.h -o moc_espospinbox.cpp
 
 moc_espocombobox.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -2098,7 +2102,7 @@ moc_espocombobox.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtCore/QFile \
 		espocombobox.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include espocombobox.h -o moc_espocombobox.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include espocombobox.h -o moc_espocombobox.cpp
 
 moc_functiongencontrol.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -2208,7 +2212,7 @@ moc_functiongencontrol.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		xmega.h \
 		functiongencontrol.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include functiongencontrol.h -o moc_functiongencontrol.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include functiongencontrol.h -o moc_functiongencontrol.cpp
 
 moc_isodriver.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -2693,7 +2697,7 @@ moc_isodriver.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		siprint.h \
 		isodriver.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include isodriver.h -o moc_isodriver.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include isodriver.h -o moc_isodriver.cpp
 
 moc_noclosemenu.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -2799,7 +2803,7 @@ moc_noclosemenu.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
 		noclosemenu.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include noclosemenu.h -o moc_noclosemenu.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include noclosemenu.h -o moc_noclosemenu.cpp
 
 moc_cursorenabler.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -2904,7 +2908,7 @@ moc_cursorenabler.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtGui/QMouseEvent \
 		cursorenabler.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include cursorenabler.h -o moc_cursorenabler.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include cursorenabler.h -o moc_cursorenabler.cpp
 
 moc_deviceconnecteddisplay.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -3009,7 +3013,7 @@ moc_deviceconnecteddisplay.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget
 		../../../Qt/5.7/gcc_64/include/QtCore/QDebug \
 		deviceconnecteddisplay.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include deviceconnecteddisplay.h -o moc_deviceconnecteddisplay.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include deviceconnecteddisplay.h -o moc_deviceconnecteddisplay.cpp
 
 moc_timedtickbox.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QCheckBox \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qcheckbox.h \
@@ -3117,7 +3121,7 @@ moc_timedtickbox.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QCheckBox \
 		../../../Qt/5.7/gcc_64/include/QtCore/QDebug \
 		timedtickbox.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include timedtickbox.h -o moc_timedtickbox.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include timedtickbox.h -o moc_timedtickbox.cpp
 
 moc_scoperangeenterdialog.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QDialog \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qdialog.h \
@@ -3220,7 +3224,7 @@ moc_scoperangeenterdialog.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QDialog 
 		../../../Qt/5.7/gcc_64/include/QtCore/QDebug \
 		scoperangeenterdialog.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include scoperangeenterdialog.h -o moc_scoperangeenterdialog.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include scoperangeenterdialog.h -o moc_scoperangeenterdialog.cpp
 
 moc_voltagespinbox.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -3326,7 +3330,7 @@ moc_voltagespinbox.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtCore/qregularexpression.h \
 		voltagespinbox.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include voltagespinbox.h -o moc_voltagespinbox.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include voltagespinbox.h -o moc_voltagespinbox.cpp
 
 moc_genericusbdriver.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -3444,7 +3448,7 @@ moc_genericusbdriver.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		buffercontrol.h \
 		genericusbdriver.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include genericusbdriver.h -o moc_genericusbdriver.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include genericusbdriver.h -o moc_genericusbdriver.cpp
 
 moc_gahnooslashlinuxusbdriver.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qwidget.h \
@@ -3543,9 +3547,27 @@ moc_gahnooslashlinuxusbdriver.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWid
 		../../../Qt/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qvector2d.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		genericusbdriver.h \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QDebug \
+		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
+		../../../Qt/5.7/gcc_64/include/QtCore/qtimer.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/qbasictimer.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QThread \
+		../../../Qt/5.7/gcc_64/include/QtCore/qthread.h \
+		functiongencontrol.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QDir \
+		../../../Qt/5.7/gcc_64/include/QtCore/qdir.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/qfileinfo.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QFile \
+		xmega.h \
+		desktop_settings.h \
+		buffercontrol.h \
 		gahnooslashlinuxusbdriver.h \
 		../../../Qt/5.7/gcc_64/bin/moc
-	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include gahnooslashlinuxusbdriver.h -o moc_gahnooslashlinuxusbdriver.cpp
+	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include gahnooslashlinuxusbdriver.h -o moc_gahnooslashlinuxusbdriver.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -6064,15 +6086,19 @@ main.o: main.cpp mainwindow.h \
 		../../../Qt/5.7/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
 		build_linux/platformspecific.h \
 		gahnooslashlinuxusbdriver.h \
+		genericusbdriver.h \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
+		functiongencontrol.h \
+		xmega.h \
+		desktop_settings.h \
+		buffercontrol.h \
 		ui_mainwindow.h \
 		scoperangeenterdialog.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QDialog \
 		isobuffer.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
-		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QPlainTextEdit \
-		xmega.h \
-		desktop_settings.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
@@ -6560,15 +6586,19 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../Qt/5.7/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
 		build_linux/platformspecific.h \
 		gahnooslashlinuxusbdriver.h \
+		genericusbdriver.h \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
+		functiongencontrol.h \
+		xmega.h \
+		desktop_settings.h \
+		buffercontrol.h \
 		ui_mainwindow.h \
 		scoperangeenterdialog.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QDialog \
 		isobuffer.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QByteArray \
-		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
-		../../../Qt/5.7/gcc_64/include/QtWidgets/QPlainTextEdit \
-		xmega.h \
-		desktop_settings.h
+		../../../Qt/5.7/gcc_64/include/QtWidgets/QPlainTextEdit
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 qcustomplot.o: qcustomplot.cpp qcustomplot.h \
@@ -9480,7 +9510,25 @@ gahnooslashlinuxusbdriver.o: gahnooslashlinuxusbdriver.cpp gahnooslashlinuxusbdr
 		../../../Qt/5.7/gcc_64/include/QtCore/qfile.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qvector2d.h \
-		../../../Qt/5.7/gcc_64/include/QtGui/qtouchdevice.h
+		../../../Qt/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		genericusbdriver.h \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/qlabel.h \
+		../../../Qt/5.7/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QDebug \
+		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
+		../../../Qt/5.7/gcc_64/include/QtCore/qtimer.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/qbasictimer.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QThread \
+		../../../Qt/5.7/gcc_64/include/QtCore/qthread.h \
+		functiongencontrol.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QDir \
+		../../../Qt/5.7/gcc_64/include/QtCore/qdir.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/qfileinfo.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QFile \
+		xmega.h \
+		desktop_settings.h \
+		buffercontrol.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gahnooslashlinuxusbdriver.o gahnooslashlinuxusbdriver.cpp
 
 qrc_resources.o: qrc_resources.cpp 

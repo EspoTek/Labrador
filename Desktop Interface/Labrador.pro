@@ -89,7 +89,9 @@ unix:!macx:SOURCES += gahnooslashlinuxusbdriver.cpp
 unix:!macx:HEADERS += gahnooslashlinuxusbdriver.h
 
 #libusb include
-#unix:!macx:LIBS += -lusb-1.0
+unix:!macx:LIBS += -Lbuild_linux/libusb -lusb-1.0
+unix:!macx:INCLUDEPATH += build_linux/libusb
+unix:!macx:DEPENDPATH += build_linux/libusb
 
 #libusb1 include
 

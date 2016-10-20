@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include "libusbk.h"
-
+0
 #include "genericusbdriver.h"
 
 class winUsbDriver : public genericUsbDriver
@@ -17,7 +17,7 @@ public:
     //Generic Functions
     explicit winUsbDriver(QWidget *parent = 0);
     ~winUsbDriver();
-    void usbSendControl(int RequestType, int Request, int Value, int Index, int Length, unsigned char *LDATA);
+    void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA);
     char *isoRead(unsigned int *newLength);
 private:
     //USB Vars
@@ -36,7 +36,6 @@ private:
     unsigned char usbIsoInit(void);
 signals:
 public slots:
-    void isoTimerTick(void);
 };
 
 #endif // WINUSBDRIVER_H

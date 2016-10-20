@@ -47,27 +47,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->filterLabel_CH1->setVisible(0);
     ui->filterLabel_CH2->setVisible(0);
 
-    /*
-    ui->multimeterModeLabel->setVisible(0);
-    ui->multimeterModeSelect->setVisible(0);
-    ui->multimeterResistanceLabel->setVisible(0);
-    ui->multimeterResistanceSelect->setVisible(0);
-    */
-
-    /*
-    ui->multimeterMaxLabel->setVisible(0);
-    ui->multimeterMinLabel->setVisible(0);
-    ui->multimeterMeanLabel->setVisible(0);
-    ui->multimeterRmsLabel->setVisible(0);
-
-    ui->multimeterMaxDisplay->setVisible(0);
-    ui->multimeterMinDisplay->setVisible(0);
-    ui->multimeterMeanDisplay->setVisible(0);
-    ui->multimeterRmsDisplay->setVisible(0);
-    */
-
     //Reset the device to ensure Labrador_libusbk gets handle!!
-    ui->controller_iso->driver->usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
+    #ifdef PLATFORM_WINDOWS
+        ui->controller_iso->driver->usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
+    #else
+        reinitUsb();
+    #endif
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
 }
 
