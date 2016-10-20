@@ -30,7 +30,7 @@ SOURCES += main.cpp\
     timedtickbox.cpp \
     scoperangeenterdialog.cpp \
     voltagespinbox.cpp \
-    genericusbdriver.cpp
+    genericusbdriver.cpp \
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -50,10 +50,7 @@ HEADERS  += mainwindow.h \
     timedtickbox.h \
     scoperangeenterdialog.h \
     voltagespinbox.h \
-    genericusbdriver.h
-
-win32:SOURCES += winusbdriver.cpp
-win32:HEADERS += winusbdriver.h
+    genericusbdriver.h \
 
 FORMS    += mainwindow.ui \
     scoperangeenterdialog.ui
@@ -61,14 +58,38 @@ FORMS    += mainwindow.ui \
 RESOURCES += \
     resources.qrc
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
 
-win32:INCLUDEPATH += $$PWD/build_win/libusbk/includes
-win32:DEPENDPATH += $$PWD/build/win/libusbk/includes
 
-win32:INCLUDEPATH += $$PWD/build_win
+
 
 DESTDIR = bin
 
 RC_ICONS = appicon.ico
+
+###########################################################
+################    WINDOWS BUILD ONLY    ################
+#########################################################
+
+win32:INCLUDEPATH += $$PWD/build_win
+win32:SOURCES += winusbdriver.cpp
+win32:HEADERS += winusbdriver.h
+
+#libusbk include
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
+win32:INCLUDEPATH += $$PWD/build_win/libusbk/includes
+win32:DEPENDPATH += $$PWD/build/win/libusbk/includes
+
+#############################################################
+################    GNU/LINUX BUILD ONLY    ################
+###########################################################
+
+unix:!macx:INCLUDEPATH += $$PWD/build_linux
+unix:!macx:SOURCES += gahnooslashlinuxusbdriver.cpp
+unix:!macx:HEADERS += gahnooslashlinuxusbdriver.h
+
+#libusb include
+#unix:!macx:LIBS += -lusb-1.0
+
+#libusb1 include
+

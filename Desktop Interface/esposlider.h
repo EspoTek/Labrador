@@ -1,10 +1,10 @@
 #ifndef ESPOSLIDER_H
 #define ESPOSLIDER_H
 
-#include <Qslider>
+#include <QSlider>
 #include <QString>
 //#include <QDebug>
-#include <Qlabel>
+#include <QLabel>
 #include <QLayout>
 #include <QString>
 
