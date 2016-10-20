@@ -1,6 +1,13 @@
 #ifndef WINUSBDRIVER_H
 #define WINUSBDRIVER_H
 
+//libusbK includes
+#include <windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include "libusbk.h"
+
 #include "genericusbdriver.h"
 
 class winUsbDriver : public genericUsbDriver
@@ -25,7 +32,7 @@ private:
     unsigned char currentWriteBuffer = 0;
     unsigned long timerCount = 0;
     //Generic Functions
-    unsigned char usbInit(ULONG VIDin, ULONG PIDin);
+    unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
     unsigned char usbIsoInit(void);
 signals:
 public slots:

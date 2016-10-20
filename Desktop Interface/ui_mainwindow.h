@@ -42,7 +42,6 @@
 #include <isodriver.h>
 #include <noclosemenu.h>
 #include <timedtickbox.h>
-#include <winusbdriver.h>
 #include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
@@ -218,7 +217,6 @@ public:
     espoSlider *psuSlider;
     timedTickBox *lockPsuCheckBox;
     QLCDNumber *psuDisplay;
-    winUsbDriver *controller_usb;
     QVBoxLayout *verticalLayout_3;
     QGroupBox *busSifferGroup_CH1;
     QVBoxLayout *verticalLayout_7;
@@ -1106,11 +1104,6 @@ public:
 
         verticalLayout_18->addWidget(psuGroup);
 
-        controller_usb = new winUsbDriver(centralWidget);
-        controller_usb->setObjectName(QStringLiteral("controller_usb"));
-
-        verticalLayout_18->addWidget(controller_usb);
-
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
@@ -1430,23 +1423,12 @@ public:
         QObject::connect(triggerChannelSelect, SIGNAL(currentIndexChanged(int)), controller_iso, SLOT(setTriggerMode(int)));
         QObject::connect(acCoupledLabel_CH1, SIGNAL(toggled(bool)), controller_iso, SLOT(setAC_CH1(bool)));
         QObject::connect(acCoupledLabel_CH2, SIGNAL(toggled(bool)), controller_iso, SLOT(setAC_CH2(bool)));
-        QObject::connect(controller_usb, SIGNAL(gainBuffers(double)), controller_iso, SLOT(gainBuffers(double)));
-        QObject::connect(controller_iso, SIGNAL(setGain(double)), controller_usb, SLOT(setGain(double)));
-        QObject::connect(controller_usb, SIGNAL(disableWindow(bool)), MainWindow, SLOT(setEnabled(bool)));
-        QObject::connect(psuSlider, SIGNAL(voltageChanged(double)), controller_usb, SLOT(setPsu(double)));
-        QObject::connect(controller_fg, SIGNAL(functionGenToUpdate(int,functionGenControl*)), controller_usb, SLOT(setFunctionGen(int,functionGenControl*)));
-        QObject::connect(bufferDisplay, SIGNAL(updateDig(int)), controller_usb, SLOT(newDig(int)));
-        QObject::connect(controller_usb, SIGNAL(sendClearBuffer(bool,bool,bool)), controller_iso, SLOT(clearBuffers(bool,bool,bool)));
-        QObject::connect(controller_usb, SIGNAL(startIsoTimer()), controller_iso, SLOT(startTimer()));
-        QObject::connect(bufferDisplay, SIGNAL(modeChange(int)), controller_usb, SLOT(setDeviceMode(int)));
-        QObject::connect(controller_usb, SIGNAL(setVisible_CH2(bool)), controller_iso, SLOT(setVisible_CH2(bool)));
         QObject::connect(multimeterGroup, SIGNAL(toggled(bool)), bufferDisplay, SLOT(multimeterIn(bool)));
         QObject::connect(bufferDisplay, SIGNAL(multimeterOut(bool)), multimeterGroup, SLOT(setEnabled(bool)));
         QObject::connect(multimeterModeSelect, SIGNAL(currentIndexChanged(int)), controller_iso, SLOT(setMultimeterType(int)));
         QObject::connect(controller_iso, SIGNAL(multimeterMax(double)), multimeterMaxDisplay, SLOT(display(double)));
         QObject::connect(controller_iso, SIGNAL(multimeterMin(double)), multimeterMinDisplay, SLOT(display(double)));
         QObject::connect(controller_iso, SIGNAL(multimeterMean(double)), multimeterMeanDisplay, SLOT(display(double)));
-        QObject::connect(controller_usb, SIGNAL(enableMMTimer()), controller_iso, SLOT(enableMM()));
         QObject::connect(multimeterResistanceSelect, SIGNAL(valueChanged(double)), controller_iso, SLOT(setSeriesResistance(double)));
         QObject::connect(controller_iso, SIGNAL(sendMultimeterLabel1(QString)), multimeterMaxLabel, SLOT(setText(QString)));
         QObject::connect(controller_iso, SIGNAL(sendMultimeterLabel2(QString)), multimeterMinLabel, SLOT(setText(QString)));
@@ -1456,7 +1438,6 @@ public:
         QObject::connect(serialDecodingCheck_CH1, SIGNAL(toggled(bool)), console1, SLOT(setVisible(bool)));
         QObject::connect(serialDecodingCheck_CH2, SIGNAL(toggled(bool)), console2, SLOT(setVisible(bool)));
         QObject::connect(controller_iso, SIGNAL(changeTimeAxis(bool)), MainWindow, SLOT(timeBaseNeedsChanging(bool)));
-        QObject::connect(controller_usb, SIGNAL(checkXY(bool)), xyDisplayLabel, SLOT(setChecked(bool)));
         QObject::connect(xyDisplayLabel, SIGNAL(toggled(bool)), controller_iso, SLOT(setXYmode(bool)));
         QObject::connect(busSnifferGroup_CH2, SIGNAL(toggled(bool)), signalGenGroup_CH2, SLOT(setDisabled(bool)));
         QObject::connect(scopeAxes, SIGNAL(mousePress(QMouseEvent*)), makeCursorsNicer, SLOT(clickDetected(QMouseEvent*)));
@@ -1465,7 +1446,6 @@ public:
         QObject::connect(makeCursorsNicer, SIGNAL(passOnSignal(QMouseEvent*)), controller_iso, SLOT(graphMousePress(QMouseEvent*)));
         QObject::connect(controller_iso, SIGNAL(sendTriggerValue(double)), triggerLevelValue, SLOT(setValue(double)));
         QObject::connect(triggerGroup, SIGNAL(toggled(bool)), controller_iso, SLOT(triggerGroupStateChange(bool)));
-        QObject::connect(controller_usb, SIGNAL(disableWindow(bool)), deviceConnected, SLOT(connectedStatusChanged(bool)));
         QObject::connect(controller_iso, SIGNAL(disableWindow(bool)), deviceConnected, SLOT(connectedStatusChanged(bool)));
         QObject::connect(multimeterPauseCheckBox, SIGNAL(toggled(bool)), controller_iso, SLOT(pauseEnable_multimeter(bool)));
         QObject::connect(controller_iso, SIGNAL(sendVmax_CH1(double)), voltageInfoMaxDisplay_CH1, SLOT(display(double)));
@@ -1474,7 +1454,6 @@ public:
         QObject::connect(controller_iso, SIGNAL(sendVmax_CH2(double)), voltageInfoMaxDisplay_CH2, SLOT(display(double)));
         QObject::connect(controller_iso, SIGNAL(sendVmin_CH2(double)), voltageInfoMinDisplay_CH2, SLOT(display(double)));
         QObject::connect(controller_iso, SIGNAL(sendVmean_CH2(double)), voltageInfoMeanDisplay_CH2, SLOT(display(double)));
-        QObject::connect(pushButton, SIGNAL(clicked()), controller_usb, SLOT(avrDebug()));
         QObject::connect(lockPsuCheckBox, SIGNAL(toggled(bool)), lockPsuCheckBox, SLOT(resetTimer(bool)));
         QObject::connect(lockPsuCheckBox, SIGNAL(toggled(bool)), lockPsuCheckBox, SLOT(resetTimer()));
         QObject::connect(psuSlider, SIGNAL(sliderMoved(int)), lockPsuCheckBox, SLOT(resetTimer()));
@@ -1488,9 +1467,7 @@ public:
         QObject::connect(controller_fg, SIGNAL(setMinFreq_CH1(double)), frequencyValue_CH1, SLOT(setMin(double)));
         QObject::connect(frequencyValue_CH1, SIGNAL(valueChanged(double)), frequencyValue_CH1, SLOT(changeStepping(double)));
         QObject::connect(frequencyValue_CH2, SIGNAL(valueChanged(double)), frequencyValue_CH2, SLOT(changeStepping(double)));
-        QObject::connect(controller_usb, SIGNAL(upTick()), controller_iso, SLOT(timerTick()));
         QObject::connect(pushButton_2, SIGNAL(clicked()), MainWindow, SLOT(reinitUsb()));
-        QObject::connect(controller_usb, SIGNAL(killMe()), MainWindow, SLOT(reinitUsb()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -1631,7 +1608,6 @@ public:
         controller_iso->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS ISO DRIVER", 0));
         psuGroup->setTitle(QApplication::translate("MainWindow", "PSU", 0));
         lockPsuCheckBox->setText(QApplication::translate("MainWindow", "Lock PSU", 0));
-        controller_usb->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS USB DRIVER", 0));
         busSifferGroup_CH1->setTitle(QApplication::translate("MainWindow", "Bus Sniffer CH1", 0));
         pause_LA->setText(QApplication::translate("MainWindow", "Pause", 0));
         serialDecodingCheck_CH1->setTitle(QApplication::translate("MainWindow", "Serial Decoding", 0));

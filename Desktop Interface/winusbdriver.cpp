@@ -44,12 +44,10 @@ winUsbDriver::~winUsbDriver(void){
     UsbK_Free(handle);
 }
 
-unsigned char winUsbDriver::usbInit(ULONG VIDin, ULONG PIDin){
+unsigned char winUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     unsigned char success;
     KLST_DEVINFO_HANDLE deviceInfo = NULL;
-    WINUSB_PIPE_INFORMATION pipeInfo;
     UINT deviceCount = 0;
-    UCHAR pipeIndex = 0;
     DWORD ec = ERROR_SUCCESS;
     KLST_HANDLE deviceList = NULL;
 
@@ -205,7 +203,8 @@ void winUsbDriver::isoTimerTick(void){
 
     bool success;
     DWORD errorCode = ERROR_SUCCESS;
-    int n, i, j, k, earliest = MAX_OVERLAP, minFrame = 2147483647;
+    int n, earliest = MAX_OVERLAP;
+    unsigned int minFrame = 4294967295;
     unsigned int dataBufferOffset;
     unsigned int packetLength = 0;
 

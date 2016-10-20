@@ -5,11 +5,12 @@
 #include <QByteArray>
 #include <QDebug>
 #include <QTimer>
+#include <QPlainTextEdit>
+#include <QDir>
+#include <QFile>
+
 #include "xmega.h"
 #include "desktop_settings.h"
-#include <QPlainTextEdit>
-#include <Qdir>
-#include <QFile>
 
 class isoDriver;
 

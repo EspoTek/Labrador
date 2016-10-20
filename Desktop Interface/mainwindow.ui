@@ -1064,13 +1064,6 @@
        </widget>
       </item>
       <item>
-       <widget class="winUsbDriver" name="controller_usb">
-        <property name="text">
-         <string>SALUTON MI ESTAS USB DRIVER</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="QGroupBox" name="busSifferGroup_CH1">
@@ -2122,28 +2115,6 @@
    </slots>
   </customwidget>
   <customwidget>
-   <class>winUsbDriver</class>
-   <extends>QLabel</extends>
-   <header location="global">winusbdriver.h</header>
-   <slots>
-    <signal>startIsoTimer()</signal>
-    <signal>sendClearBuffer(bool,bool,bool)</signal>
-    <signal>setVisible_CH2(bool)</signal>
-    <signal>gainBuffers(double)</signal>
-    <signal>disableWindow(bool)</signal>
-    <signal>enableMMTimer()</signal>
-    <signal>checkXY(bool)</signal>
-    <signal>upTick()</signal>
-    <signal>killMe()</signal>
-    <slot>setPsu(double)</slot>
-    <slot>setFunctionGen(int,functionGenControl*)</slot>
-    <slot>newDig(int)</slot>
-    <slot>setDeviceMode(int)</slot>
-    <slot>setGain(double)</slot>
-    <slot>avrDebug()</slot>
-   </slots>
-  </customwidget>
-  <customwidget>
    <class>espoComboBox</class>
    <extends>QComboBox</extends>
    <header location="global">espocombobox.h</header>
@@ -3092,166 +3063,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>controller_usb</sender>
-   <signal>gainBuffers(double)</signal>
-   <receiver>controller_iso</receiver>
-   <slot>gainBuffers(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>setGain(double)</signal>
-   <receiver>controller_usb</receiver>
-   <slot>setGain(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_usb</sender>
-   <signal>disableWindow(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>659</x>
-     <y>767</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>psuSlider</sender>
-   <signal>voltageChanged(double)</signal>
-   <receiver>controller_usb</receiver>
-   <slot>setPsu(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1002</x>
-     <y>303</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_fg</sender>
-   <signal>functionGenToUpdate(int,functionGenControl*)</signal>
-   <receiver>controller_usb</receiver>
-   <slot>setFunctionGen(int,functionGenControl*)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>509</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bufferDisplay</sender>
-   <signal>updateDig(int)</signal>
-   <receiver>controller_usb</receiver>
-   <slot>newDig(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_usb</sender>
-   <signal>sendClearBuffer(bool,bool,bool)</signal>
-   <receiver>controller_iso</receiver>
-   <slot>clearBuffers(bool,bool,bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_usb</sender>
-   <signal>startIsoTimer()</signal>
-   <receiver>controller_iso</receiver>
-   <slot>startTimer()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bufferDisplay</sender>
-   <signal>modeChange(int)</signal>
-   <receiver>controller_usb</receiver>
-   <slot>setDeviceMode(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_usb</sender>
-   <signal>setVisible_CH2(bool)</signal>
-   <receiver>controller_iso</receiver>
-   <slot>setVisible_CH2(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>multimeterGroup</sender>
    <signal>toggled(bool)</signal>
    <receiver>bufferDisplay</receiver>
@@ -3344,22 +3155,6 @@
     <hint type="destinationlabel">
      <x>949</x>
      <y>434</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_usb</sender>
-   <signal>enableMMTimer()</signal>
-   <receiver>controller_iso</receiver>
-   <slot>enableMM()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
     </hint>
    </hints>
   </connection>
@@ -3508,22 +3303,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>controller_usb</sender>
-   <signal>checkXY(bool)</signal>
-   <receiver>xyDisplayLabel</receiver>
-   <slot>setChecked(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>876</x>
-     <y>152</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>xyDisplayLabel</sender>
    <signal>toggled(bool)</signal>
    <receiver>controller_iso</receiver>
@@ -3652,22 +3431,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>controller_usb</sender>
-   <signal>disableWindow(bool)</signal>
-   <receiver>deviceConnected</receiver>
-   <slot>connectedStatusChanged(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>905</x>
-     <y>36</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>controller_iso</sender>
    <signal>disableWindow(bool)</signal>
    <receiver>deviceConnected</receiver>
@@ -3792,22 +3555,6 @@
     <hint type="destinationlabel">
      <x>940</x>
      <y>196</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>controller_usb</receiver>
-   <slot>avrDebug()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1124</x>
-     <y>685</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1125</x>
-     <y>397</y>
     </hint>
    </hints>
   </connection>
@@ -4020,22 +3767,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>controller_usb</sender>
-   <signal>upTick()</signal>
-   <receiver>controller_iso</receiver>
-   <slot>timerTick()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1125</x>
-     <y>397</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>727</x>
-     <y>752</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>pushButton_2</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -4048,22 +3779,6 @@
     <hint type="destinationlabel">
      <x>682</x>
      <y>738</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_usb</sender>
-   <signal>killMe()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>reinitUsb()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1063</x>
-     <y>389</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>675</x>
-     <y>657</y>
     </hint>
    </hints>
   </connection>

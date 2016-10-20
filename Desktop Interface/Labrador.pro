@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
-TARGET = Labrador_libusbk
+TARGET = Labrador
 TEMPLATE = app
 
 
@@ -18,7 +18,6 @@ SOURCES += main.cpp\
     buffercontrol.cpp \
     esposlider.cpp \
     espospinbox.cpp \
-    winusbdriver.cpp \
     espocombobox.cpp \
     functiongencontrol.cpp \
     isodriver.cpp \
@@ -38,7 +37,6 @@ HEADERS  += mainwindow.h \
     buffercontrol.h \
     esposlider.h \
     espospinbox.h \
-    winusbdriver.h \
     espocombobox.h \
     functiongencontrol.h \
     xmega.h \
@@ -54,18 +52,22 @@ HEADERS  += mainwindow.h \
     voltagespinbox.h \
     genericusbdriver.h
 
+win32:SOURCES += winusbdriver.cpp
+win32:HEADERS += winusbdriver.h
+
 FORMS    += mainwindow.ui \
     scoperangeenterdialog.ui
 
 RESOURCES += \
     resources.qrc
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libusbk/bin/lib/amd64/ -llibusbK
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libusbk/bin/lib/amd64/ -llibusbK
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
 
-INCLUDEPATH += $$PWD/libusbk/includes
-DEPENDPATH += $$PWD/libusbk/includes
+win32:INCLUDEPATH += $$PWD/build_win/libusbk/includes
+win32:DEPENDPATH += $$PWD/build/win/libusbk/includes
 
+win32:INCLUDEPATH += $$PWD/build_win
 
 DESTDIR = bin
 

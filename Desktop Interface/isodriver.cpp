@@ -1,7 +1,6 @@
 #include "isodriver.h"
 #include "isobuffer.h"
 
-
 isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 {
     this->hide();

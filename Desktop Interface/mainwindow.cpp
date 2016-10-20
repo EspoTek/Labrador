@@ -1,11 +1,4 @@
 #include "mainwindow.h"
-#include "qcustomplot.h"
-#include "ui_mainwindow.h"
-#include <QPalette>
-#include <QDebug>
-#include <QBrush>
-#include <math.h>
-#include <QGridLayout>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,12 +16,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->psuDisplay->display("4.50");
 
-    ui->controller_iso->setDriver(ui->controller_usb);
+    ui->controller_iso->setDriver(new _PLATFORM_DEPENDENT_USB_OBJECT());
     ui->controller_iso->setAxes(ui->scopeAxes);
 
     ui->timeBaseSlider->setMaximum(10*log10(MAX_WINDOW_SIZE));
 
-    ui->controller_usb->setBufferPtr(ui->bufferDisplay);
+    ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
     ui->cursorStatsLabel->hide();
     initialisePlot();
     menuSetup();
@@ -74,8 +67,8 @@ MainWindow::MainWindow(QWidget *parent) :
     */
 
     //Reset the device to ensure Labrador_libusbk gets handle!!
-    ui->controller_usb->usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
-
+    ui->controller_iso->driver->usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
+    connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
 }
 
 MainWindow::~MainWindow()
@@ -1006,7 +999,7 @@ void MainWindow::reinitUsb(void){
     ui->controller_iso->driver->saveState(&deviceMode, &scopeGain, &currentPsuVoltage, &digitalPinState);
 
     delete(ui->controller_iso->driver);
-    ui->controller_iso->driver = new winUsbDriver();
+    ui->controller_iso->driver = new _PLATFORM_DEPENDENT_USB_OBJECT();
 
     //Reconnect the other objects.
     ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);

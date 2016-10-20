@@ -27,8 +27,8 @@ VS_VERSION_INFO VERSIONINFO
 				VALUE "FileDescription", "\0"
 				VALUE "FileVersion", "0.0.0.0\0"
 				VALUE "LegalCopyright", "\0"
-				VALUE "OriginalFilename", "Labrador_libusbk.exe\0"
-				VALUE "ProductName", "Labrador_libusbk\0"
+				VALUE "OriginalFilename", "Labrador.exe\0"
+				VALUE "ProductName", "Labrador\0"
 				VALUE "ProductVersion", "0.0.0.0\0"
 			END
 		END

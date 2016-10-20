@@ -12,13 +12,6 @@
 #include "desktop_settings.h"
 #include "buffercontrol.h"
 
-//libusbK includes
-#include <windows.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <conio.h>
-#include "libusbk.h"
-
 #define ISO_PACKET_SIZE 1023
 #define ISO_PACKETS_PER_CTX 17
 #define NUM_FUTURE_CTX 56
@@ -55,7 +48,7 @@ protected:
     bufferControl *bufferPtr = NULL;
     QTimer *psuTimer;
     //Generic Functions
-    virtual unsigned char usbInit(ULONG VIDin, ULONG PIDin) = 0;
+    virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin) = 0;
     virtual unsigned char usbIsoInit(void) = 0;
 
 signals:

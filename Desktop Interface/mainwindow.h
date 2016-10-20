@@ -2,17 +2,32 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "isobuffer.h"
 #include <QActionGroup>
 #include <QAction>
 #include <QShortcut>
-#include "qcustomplot.h"
 #include <QFont>
-#include "scoperangeenterdialog.h"
 #include <QDateTime>
-#include <Qdir>
+#include <QDir>
 #include <QFile>
 #include <QThread>
+#include <QPalette>
+#include <QDebug>
+#include <QBrush>
+#include <QGridLayout>
+
+#include <math.h>
+#include "qcustomplot.h"
+
+#include "platformspecific.h"
+#include "qcustomplot.h"
+#include "ui_mainwindow.h"
+#include "scoperangeenterdialog.h"
+#include "isobuffer.h"
+
+
+
+
+
 
 namespace Ui {
 class MainWindow;
