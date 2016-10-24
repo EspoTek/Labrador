@@ -2,6 +2,14 @@
 
 genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
 {
+    qDebug() << "Making USB Driver invisible!!";
+    this->hide();
+
+    //Double buffers are used to send the transfers to isoDriver.  outBuffers and bufferLengths store the actual data from each transfer as well as length.  They are read by isoDriver when it calls isoRead().
+    outBuffers[0] = (unsigned char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX + 8, 1);
+    outBuffers[1] = (unsigned char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX + 8, 1);
+    bufferLengths[0] = 0;
+    bufferLengths[1] = 0;
 }
 
 

@@ -51,15 +51,11 @@ private:
     //USB Vars
     libusb_context *ctx;
     libusb_device_handle *handle = NULL;
-    unsigned char pipeID = 0x83;
     QTimer *recoveryTimer;
     //USBIso Vars
     libusb_transfer *isoCtx[NUM_FUTURE_CTX];
     tcBlock transferCompleted[NUM_FUTURE_CTX];
     unsigned char dataBuffer[NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
-    QTimer *isoTimer;
-    unsigned char currentWriteBuffer = 0;
-    unsigned long timerCount = 0;
     worker *isoHandler;
     QThread *workerThread;
     //Generic Functions

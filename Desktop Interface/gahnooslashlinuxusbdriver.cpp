@@ -4,15 +4,6 @@ QMutex tcBlockMutex;
 
 gahnooSlashLinuxUsbDriver::gahnooSlashLinuxUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
-    qDebug() << "Making USB Driver invisible!!";
-    this->hide();
-
-    outBuffers[0] = (unsigned char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX + 8, 1);
-    outBuffers[1] = (unsigned char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX + 8, 1);
-
-    bufferLengths[0] = 0;
-    bufferLengths[1] = 0;
-
     unsigned char error = 1;
     while(error){
         error = usbInit(0x03eb, 0xa000);

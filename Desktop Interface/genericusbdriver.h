@@ -47,10 +47,13 @@ protected:
     //Generic Vars
     bufferControl *bufferPtr = NULL;
     QTimer *psuTimer;
+    unsigned char pipeID = 0x83;
+    QTimer *isoTimer;
+    unsigned char currentWriteBuffer = 0;
+    unsigned long timerCount = 0;
     //Generic Functions
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin) = 0;
     virtual unsigned char usbIsoInit(void) = 0;
-
 signals:
     void sendClearBuffer(bool ch3751, bool ch3752, bool ch750);
     void setVisible_CH2(bool visible);
