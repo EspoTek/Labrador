@@ -1166,6 +1166,7 @@ moc_mainwindow.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QMainWindow \
 		../../../Qt/5.7/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
 		build_linux/platformspecific.h \
 		gahnooslashlinuxusbdriver.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QMutex \
 		genericusbdriver.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QLabel \
 		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
@@ -1173,6 +1174,7 @@ moc_mainwindow.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QMainWindow \
 		xmega.h \
 		desktop_settings.h \
 		buffercontrol.h \
+		build_linux/libusb/libusb.h \
 		ui_mainwindow.h \
 		scoperangeenterdialog.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QDialog \
@@ -3547,6 +3549,9 @@ moc_gahnooslashlinuxusbdriver.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWid
 		../../../Qt/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qvector2d.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QThread \
+		../../../Qt/5.7/gcc_64/include/QtCore/qthread.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QMutex \
 		genericusbdriver.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QLabel \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qlabel.h \
@@ -3555,8 +3560,6 @@ moc_gahnooslashlinuxusbdriver.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWid
 		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
 		../../../Qt/5.7/gcc_64/include/QtCore/qtimer.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/qbasictimer.h \
-		../../../Qt/5.7/gcc_64/include/QtCore/QThread \
-		../../../Qt/5.7/gcc_64/include/QtCore/qthread.h \
 		functiongencontrol.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QDir \
 		../../../Qt/5.7/gcc_64/include/QtCore/qdir.h \
@@ -3565,6 +3568,7 @@ moc_gahnooslashlinuxusbdriver.cpp: ../../../Qt/5.7/gcc_64/include/QtWidgets/QWid
 		xmega.h \
 		desktop_settings.h \
 		buffercontrol.h \
+		build_linux/libusb/libusb.h \
 		gahnooslashlinuxusbdriver.h \
 		../../../Qt/5.7/gcc_64/bin/moc
 	/home/esposch/Qt/5.7/gcc_64/bin/moc $(DEFINES) -I/home/esposch/Qt/5.7/gcc_64/mkspecs/linux-g++ -I'/home/esposch/git/Labrador/Desktop Interface' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux' -I'/home/esposch/git/Labrador/Desktop Interface/build_linux/libusb' -I/home/esposch/Qt/5.7/gcc_64/include -I/home/esposch/Qt/5.7/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.7/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.7/gcc_64/include/QtGui -I/home/esposch/Qt/5.7/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include gahnooslashlinuxusbdriver.h -o moc_gahnooslashlinuxusbdriver.cpp
@@ -6086,6 +6090,7 @@ main.o: main.cpp mainwindow.h \
 		../../../Qt/5.7/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
 		build_linux/platformspecific.h \
 		gahnooslashlinuxusbdriver.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QMutex \
 		genericusbdriver.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QLabel \
 		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
@@ -6093,6 +6098,7 @@ main.o: main.cpp mainwindow.h \
 		xmega.h \
 		desktop_settings.h \
 		buffercontrol.h \
+		build_linux/libusb/libusb.h \
 		ui_mainwindow.h \
 		scoperangeenterdialog.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QDialog \
@@ -6586,6 +6592,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../Qt/5.7/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
 		build_linux/platformspecific.h \
 		gahnooslashlinuxusbdriver.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QMutex \
 		genericusbdriver.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QLabel \
 		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
@@ -6593,6 +6600,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		xmega.h \
 		desktop_settings.h \
 		buffercontrol.h \
+		build_linux/libusb/libusb.h \
 		ui_mainwindow.h \
 		scoperangeenterdialog.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QDialog \
@@ -9511,6 +9519,9 @@ gahnooslashlinuxusbdriver.o: gahnooslashlinuxusbdriver.cpp gahnooslashlinuxusbdr
 		../../../Qt/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qvector2d.h \
 		../../../Qt/5.7/gcc_64/include/QtGui/qtouchdevice.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QThread \
+		../../../Qt/5.7/gcc_64/include/QtCore/qthread.h \
+		../../../Qt/5.7/gcc_64/include/QtCore/QMutex \
 		genericusbdriver.h \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/QLabel \
 		../../../Qt/5.7/gcc_64/include/QtWidgets/qlabel.h \
@@ -9519,8 +9530,6 @@ gahnooslashlinuxusbdriver.o: gahnooslashlinuxusbdriver.cpp gahnooslashlinuxusbdr
 		../../../Qt/5.7/gcc_64/include/QtCore/QTimer \
 		../../../Qt/5.7/gcc_64/include/QtCore/qtimer.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/qbasictimer.h \
-		../../../Qt/5.7/gcc_64/include/QtCore/QThread \
-		../../../Qt/5.7/gcc_64/include/QtCore/qthread.h \
 		functiongencontrol.h \
 		../../../Qt/5.7/gcc_64/include/QtCore/QDir \
 		../../../Qt/5.7/gcc_64/include/QtCore/qdir.h \
@@ -9528,7 +9537,8 @@ gahnooslashlinuxusbdriver.o: gahnooslashlinuxusbdriver.cpp gahnooslashlinuxusbdr
 		../../../Qt/5.7/gcc_64/include/QtCore/QFile \
 		xmega.h \
 		desktop_settings.h \
-		buffercontrol.h
+		buffercontrol.h \
+		build_linux/libusb/libusb.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gahnooslashlinuxusbdriver.o gahnooslashlinuxusbdriver.cpp
 
 qrc_resources.o: qrc_resources.cpp 

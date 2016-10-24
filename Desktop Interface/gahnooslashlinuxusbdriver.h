@@ -3,17 +3,21 @@
 
 #include <QWidget>
 #include <QThread>
+#include <QMutex>
+#include <QDateTime>
 
 #include "genericusbdriver.h"
 #include "libusb.h"
 
-/*while(1){
-    if(libusb_event_handling_ok(ctx)){
-        libusb_handle_events(ctx);
-        qDebug() << "HANDLED";
-    }
-}*/
+#define RECOVERY_PERIOD 250
 
+typedef struct tcBlock{
+    int number;
+    bool completed;
+    qint64 timeReceived;
+} tcBlock;
+
+extern QMutex tcBlockMutex;
 
 class worker : public QObject
 {
@@ -25,7 +29,13 @@ public:
     libusb_context *ctx;
 public slots:
     void handle(){
-        while(1);
+        qDebug() << "SUB THREAD ID" << QThread::currentThreadId();
+        while(1){
+            if(libusb_event_handling_ok(ctx)){
+                libusb_handle_events(ctx);
+                //qDebug() << "HANDLED";
+            }
+        }
     }
 };
 
@@ -42,8 +52,10 @@ private:
     libusb_context *ctx;
     libusb_device_handle *handle = NULL;
     unsigned char pipeID = 0x83;
+    QTimer *recoveryTimer;
     //USBIso Vars
     libusb_transfer *isoCtx[NUM_FUTURE_CTX];
+    tcBlock transferCompleted[NUM_FUTURE_CTX];
     unsigned char dataBuffer[NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
     QTimer *isoTimer;
     unsigned char currentWriteBuffer = 0;
@@ -56,6 +68,7 @@ private:
 signals:
 public slots:
     void isoTimerTick(void);
+    void recoveryTick(void);
 };
 
 static void LIBUSB_CALL isoCallback(struct libusb_transfer *transfer);

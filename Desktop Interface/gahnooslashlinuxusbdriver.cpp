@@ -1,5 +1,7 @@
 #include "gahnooslashlinuxusbdriver.h"
 
+QMutex tcBlockMutex;
+
 gahnooSlashLinuxUsbDriver::gahnooSlashLinuxUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
     qDebug() << "Making USB Driver invisible!!";
@@ -20,17 +22,24 @@ gahnooSlashLinuxUsbDriver::gahnooSlashLinuxUsbDriver(QWidget *parent) : genericU
     newDig(digitalPinState);
     usbIsoInit();
 
-
     psuTimer = new QTimer();
     psuTimer->setTimerType(Qt::PreciseTimer);
     psuTimer->start(PSU_PERIOD);
-    connect(psuTimer, SIGNAL(timeout()), this, SLOT(psuTick()));
+
+    recoveryTimer = new QTimer();
+    recoveryTimer->setTimerType(Qt::PreciseTimer);
+    recoveryTimer->start(RECOVERY_PERIOD);
+    connect(recoveryTimer, SIGNAL(timeout()), this, SLOT(recoveryTick()));
 }
 
 gahnooSlashLinuxUsbDriver::~gahnooSlashLinuxUsbDriver(void){
     qDebug() << "\n\ngahnooSlashLinuxUsbDriver destructor ran!";
     workerThread->quit();
-    workerThread->wait();
+    workerThread->deleteLater();
+    delete(isoHandler);
+    delete(psuTimer);
+    delete(recoveryTimer);
+    delete(isoTimer);
     libusb_release_interface(handle, 0);
     libusb_exit(ctx);
 }
@@ -73,6 +82,10 @@ void gahnooSlashLinuxUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Requ
     if(error){
         qDebug("gahnooSlashLinuxUsbDriver::usbSendControl FAILED with error %s", libusb_error_name(error));
     } else qDebug() << "gahnooSlashLinuxUsbDriver::usbSendControl SUCCESS";
+    if(error == LIBUSB_ERROR_NO_DEVICE){
+        qDebug() << "Device not found.  Becoming an hero.";
+        killMe();
+    }
     return;
 }
 
@@ -81,7 +94,9 @@ unsigned char gahnooSlashLinuxUsbDriver::usbIsoInit(void){
 
     for(int n=0;n<NUM_FUTURE_CTX;n++){
         isoCtx[n] = libusb_alloc_transfer(ISO_PACKETS_PER_CTX);
-        libusb_fill_iso_transfer(isoCtx[n], handle, pipeID, dataBuffer[n], ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX, ISO_PACKETS_PER_CTX, isoCallback, (void*)n, 4000);
+        transferCompleted[n].number = n;
+        transferCompleted[n].completed = false;
+        libusb_fill_iso_transfer(isoCtx[n], handle, pipeID, dataBuffer[n], ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX, ISO_PACKETS_PER_CTX, isoCallback, (void*)&transferCompleted[n], 4000);
         libusb_set_iso_packet_lengths(isoCtx[n], ISO_PACKET_SIZE);
         error = libusb_submit_transfer(isoCtx[n]);
         if(error){
@@ -102,8 +117,12 @@ unsigned char gahnooSlashLinuxUsbDriver::usbIsoInit(void){
     isoHandler->ctx = ctx;
     isoHandler->moveToThread(workerThread);
     connect(workerThread, SIGNAL(started()), isoHandler, SLOT(handle()));
-    //workerThread->start();
 
+    workerThread->start();
+
+    qDebug() << "MAIN THREAD ID" << QThread::currentThreadId();
+    //QThread::sleep(1);
+    qDebug() << "Iso Stack initialised!";
     return 1;
 }
 
@@ -117,23 +136,75 @@ void gahnooSlashLinuxUsbDriver::isoTimerTick(void){
     if((timerCount<20) && (timerCount > 10)) strcpy(subString, "th");
 
     //qDebug("\n\nThis is the %d%s Tick!", timerCount, subString);
-    return;
 
-    int n;
+    int n, error, earliest = MAX_OVERLAP;
+    qint64 minFrame = 9223372036854775807; //max value for 64 bit signed
+
+    unsigned int i, packetLength = 0;
+    unsigned char* packetPointer;
+
+    tcBlockMutex.lock();
     for (n=0; n<NUM_FUTURE_CTX; n++){
-        if(isoCtx[n]->status==LIBUSB_TRANSFER_COMPLETED){
-            qDebug("Transfer %d is complete!!", n);
+        if(transferCompleted[n].completed){
+            //qDebug("Transfer %d is complete!!", n);
+            if(transferCompleted[n].timeReceived < minFrame){
+                minFrame = transferCompleted[n].timeReceived;
+                earliest = n;
+            }
         }
     }
+    if (earliest == MAX_OVERLAP){
+        tcBlockMutex.unlock();
+        return;
+    }
+
+    //Copy iso data into buffer
+    for(i=0;i<isoCtx[earliest]->num_iso_packets;i++){
+        packetPointer = libusb_get_iso_packet_buffer_simple(isoCtx[earliest], i);
+        //qDebug() << packetLength;
+        memcpy(&(outBuffers[currentWriteBuffer][packetLength]), packetPointer, isoCtx[earliest]->iso_packet_desc[i].actual_length);
+        packetLength += isoCtx[earliest]->iso_packet_desc[i].actual_length;
+    }
+
+    //Control data for isoDriver
+    bufferLengths[currentWriteBuffer] = packetLength;
+    currentWriteBuffer = !currentWriteBuffer;
+
+    //Setup next transfer
+    transferCompleted[earliest].completed = false;
+    error = libusb_submit_transfer(isoCtx[earliest]);
+    if(error){
+        qDebug() << "libusb_submit_transfer FAILED";
+        qDebug() << "ERROR" << libusb_error_name(error);
+    } //else qDebug() << "isoCtx submitted successfully!";
+    tcBlockMutex.unlock();
+    upTick();
    return;
 }
 
 char *gahnooSlashLinuxUsbDriver::isoRead(unsigned int *newLength){
-    *(newLength) = 0;
-    return (char*) NULL;
+    //*(newLength) = 0;
+    //return (char*) NULL;
+    qDebug() << "gahnooSlashLinuxUsbDriver::isoRead";
+    *(newLength) = bufferLengths[!currentWriteBuffer];
+    return (char*) outBuffers[(unsigned char) !currentWriteBuffer];
+}
+
+void gahnooSlashLinuxUsbDriver::recoveryTick(void){
+    avrDebug();
 }
 
 static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
-    qDebug() << "CALLBACK" << (long) transfer->user_data;
+    tcBlockMutex.lock();
+    //int number = ((tcBlock *)transfer->user_data)->number;
+    //bool completed = ((tcBlock *)transfer->user_data)->completed;
+
+    //qDebug() << "CALLBACK" << number;
+    //qDebug() << completed;
+
+    ((tcBlock *)transfer->user_data)->completed = true;
+    ((tcBlock *)transfer->user_data)->timeReceived = QDateTime::currentMSecsSinceEpoch();
+    //qDebug() << ((tcBlock *)transfer->user_data)->timeReceived;
+    tcBlockMutex.unlock();
     return;
 }
