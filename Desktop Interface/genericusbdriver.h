@@ -35,7 +35,7 @@ public:
     virtual char *isoRead(unsigned int *newLength) = 0;
     void setBufferPtr(bufferControl *newPtr);
     void saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState);
-    virtual void usbSendControl(int RequestType, int Request, int Value, int Index, int Length, unsigned char *LDATA) = 0;
+    virtual void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA) = 0;
 protected:
     //State Vars
     unsigned char fGenTriple=0;
@@ -47,10 +47,13 @@ protected:
     //Generic Vars
     bufferControl *bufferPtr = NULL;
     QTimer *psuTimer;
+    unsigned char pipeID = 0x83;
+    QTimer *isoTimer;
+    unsigned char currentWriteBuffer = 0;
+    unsigned long timerCount = 0;
     //Generic Functions
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin) = 0;
     virtual unsigned char usbIsoInit(void) = 0;
-
 signals:
     void sendClearBuffer(bool ch3751, bool ch3752, bool ch750);
     void setVisible_CH2(bool visible);
