@@ -30,7 +30,7 @@ SOURCES += main.cpp\
     timedtickbox.cpp \
     scoperangeenterdialog.cpp \
     voltagespinbox.cpp \
-    genericusbdriver.cpp \
+    genericusbdriver.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -50,7 +50,7 @@ HEADERS  += mainwindow.h \
     timedtickbox.h \
     scoperangeenterdialog.h \
     voltagespinbox.h \
-    genericusbdriver.h \
+    genericusbdriver.h
 
 FORMS    += mainwindow.ui \
     scoperangeenterdialog.ui
@@ -85,13 +85,26 @@ win32:DEPENDPATH += $$PWD/build/win/libusbk/includes
 ###########################################################
 
 unix:!macx:INCLUDEPATH += $$PWD/build_linux
-unix:!macx:SOURCES += gahnooslashlinuxusbdriver.cpp
-unix:!macx:HEADERS += gahnooslashlinuxusbdriver.h
 
 #libusb include
-unix:!macx:LIBS += -Lbuild_linux/libusb -lusb-1.0
+unix:!macx:LIBS += -Lbuild_linux/libusb -lusb-1.0  ##I suspect the -L here does nothing!
 unix:!macx:INCLUDEPATH += build_linux/libusb
 unix:!macx:DEPENDPATH += build_linux/libusb
 
-#libusb1 include
+#############################################################
+################    MAC OSX BUILD ONLY    ##################
+###########################################################
 
+macx:INCLUDEPATH += $$PWD/build_mac
+
+#libusb dylib include
+macx:LIBS += -L$$PWD/build_mac/libusb/lib -lusb-1.0
+macx:INCLUDEPATH += $$PWD/build_mac/libusb/include/libusb-1.0
+macx:DEPENDPATH += $$PWD/build_mac/libusb/include/libusb-1.0
+
+#############################################################
+########   SHARED UNIX-LIKE BUILDS (MAC + LINUX)   #########
+###########################################################
+
+unix:SOURCES += unixusbdriver.cpp
+unix:HEADERS += unixusbdriver.h

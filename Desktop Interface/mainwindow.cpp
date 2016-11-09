@@ -50,8 +50,31 @@ MainWindow::MainWindow(QWidget *parent) :
     //Reset the device to ensure Labrador_libusbk gets handle!!
     #ifdef PLATFORM_WINDOWS
         ui->controller_iso->driver->usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
-    #else
+    #endif  //damn son that's some beautiful code
+    #ifdef PLATFORM_LINUX
         reinitUsb();
+    #endif
+    #ifdef PLATFORM_MAC
+        //Reconnect the other objects.
+        ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
+        connect(ui->pushButton, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
+        connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
+        connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
+        connect(ui->controller_fg, SIGNAL(functionGenToUpdate(int,functionGenControl*)), ui->controller_iso->driver, SLOT(setFunctionGen(int,functionGenControl*)));
+        connect(ui->bufferDisplay, SIGNAL(modeChange(int)), ui->controller_iso->driver, SLOT(setDeviceMode(int)));
+        connect(ui->bufferDisplay, SIGNAL(updateDig(int)), ui->controller_iso->driver, SLOT(newDig(int)));
+
+        //Set the settings again!
+        connect(ui->controller_iso->driver, SIGNAL(gainBuffers(double)), ui->controller_iso, SLOT(gainBuffers(double)));
+        connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), this, SLOT(setEnabled(bool)));
+        connect(ui->controller_iso->driver, SIGNAL(sendClearBuffer(bool,bool,bool)), ui->controller_iso, SLOT(clearBuffers(bool,bool,bool)));
+        //connect(ui->controller_iso->driver, SIGNAL(startIsoTimer()), ui->controller_iso, SLOT(startTimer()));
+        connect(ui->controller_iso->driver, SIGNAL(setVisible_CH2(bool)), ui->controller_iso, SLOT(setVisible_CH2(bool)));
+        //connect(ui->controller_iso->driver, SIGNAL(enableMMTimer()), ui->controller_iso, SLOT(enableMM()));
+        connect(ui->controller_iso->driver, SIGNAL(checkXY(bool)), ui->xyDisplayLabel, SLOT(setChecked(bool)));
+        connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
+        connect(ui->controller_iso->driver, SIGNAL(upTick()), ui->controller_iso, SLOT(timerTick()));
+        connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
     #endif
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
 }

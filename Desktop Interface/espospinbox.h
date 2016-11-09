@@ -6,6 +6,7 @@
 #include <QString>
 #include <QTextStream>
 #include <QDebug>
+#include <math.h>
 
 class espoSpinBox : public QDoubleSpinBox
 {

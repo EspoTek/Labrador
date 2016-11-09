@@ -4,5 +4,7 @@
 #include "winusbdriver.h"
 #define _PLATFORM_DEPENDENT_USB_OBJECT winUsbDriver
 #define PLATFORM_WINDOWS
+#define _PLATFORM_DEPENDENT_FOLDER_ACTION
+
 
 #endif // PLATFORMSPECIFIC_H

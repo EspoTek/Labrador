@@ -1,8 +1,8 @@
-#include "gahnooslashlinuxusbdriver.h"
+#include "macUsbDriver.h"
 
 QMutex tcBlockMutex;
 
-gahnooSlashLinuxUsbDriver::gahnooSlashLinuxUsbDriver(QWidget *parent) : genericUsbDriver(parent)
+macUsbDriver::macUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
     unsigned char error = 1;
     while(error){
@@ -23,8 +23,8 @@ gahnooSlashLinuxUsbDriver::gahnooSlashLinuxUsbDriver(QWidget *parent) : genericU
     connect(recoveryTimer, SIGNAL(timeout()), this, SLOT(recoveryTick()));
 }
 
-gahnooSlashLinuxUsbDriver::~gahnooSlashLinuxUsbDriver(void){
-    qDebug() << "\n\ngahnooSlashLinuxUsbDriver destructor ran!";
+macUsbDriver::~macUsbDriver(void){
+    qDebug() << "\n\nmacUsbDriver destructor ran!";
     workerThread->quit();
     workerThread->deleteLater();
     delete(isoHandler);
@@ -35,8 +35,8 @@ gahnooSlashLinuxUsbDriver::~gahnooSlashLinuxUsbDriver(void){
     libusb_exit(ctx);
 }
 
-unsigned char gahnooSlashLinuxUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
-    qDebug() << "Entering gahnooSlashLinuxUsbDriver::usbInit";
+unsigned char macUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
+    qDebug() << "Entering macUsbDriver::usbInit";
 
     int error = libusb_init(&ctx);
     if(error){
@@ -67,12 +67,12 @@ unsigned char gahnooSlashLinuxUsbDriver::usbInit(unsigned long VIDin, unsigned l
     return 0;
 }
 
-void gahnooSlashLinuxUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA){
+void macUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA){
     qDebug("Sending Control packet! 0x%x,\t0x%x,\t%u,\t%u,\t%d,\t%u", RequestType, Request, Value, Index, LDATA, Length);
     int error = libusb_control_transfer(handle, RequestType, Request, Value, Index, LDATA, Length, 4000);
     if(error){
-        qDebug("gahnooSlashLinuxUsbDriver::usbSendControl FAILED with error %s", libusb_error_name(error));
-    } else qDebug() << "gahnooSlashLinuxUsbDriver::usbSendControl SUCCESS";
+        qDebug("macUsbDriver::usbSendControl FAILED with error %s", libusb_error_name(error));
+    } else qDebug() << "macUsbDriver::usbSendControl SUCCESS";
     if(error == LIBUSB_ERROR_NO_DEVICE){
         qDebug() << "Device not found.  Becoming an hero.";
         killMe();
@@ -80,7 +80,7 @@ void gahnooSlashLinuxUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Requ
     return;
 }
 
-unsigned char gahnooSlashLinuxUsbDriver::usbIsoInit(void){
+unsigned char macUsbDriver::usbIsoInit(void){
     int error;
 
     for(int n=0;n<NUM_FUTURE_CTX;n++){
@@ -117,7 +117,7 @@ unsigned char gahnooSlashLinuxUsbDriver::usbIsoInit(void){
     return 1;
 }
 
-void gahnooSlashLinuxUsbDriver::isoTimerTick(void){
+void macUsbDriver::isoTimerTick(void){
     timerCount++;
 
     char subString[3] = "th";
@@ -145,6 +145,7 @@ void gahnooSlashLinuxUsbDriver::isoTimerTick(void){
         }
     }
     if (earliest == MAX_OVERLAP){
+        qDebug() << "Returning at (earliest == MAX_OVERLAP)";
         tcBlockMutex.unlock();
         return;
     }
@@ -169,20 +170,21 @@ void gahnooSlashLinuxUsbDriver::isoTimerTick(void){
         qDebug() << "ERROR" << libusb_error_name(error);
     } //else qDebug() << "isoCtx submitted successfully!";
     tcBlockMutex.unlock();
+    qDebug() << "Returning at Uptick()";
     upTick();
    return;
 }
 
-char *gahnooSlashLinuxUsbDriver::isoRead(unsigned int *newLength){
+char *macUsbDriver::isoRead(unsigned int *newLength){
     //*(newLength) = 0;
     //return (char*) NULL;
-    qDebug() << "gahnooSlashLinuxUsbDriver::isoRead";
+    qDebug() << "macUsbDriver::isoRead";
     *(newLength) = bufferLengths[!currentWriteBuffer];
     return (char*) outBuffers[(unsigned char) !currentWriteBuffer];
 }
 
-void gahnooSlashLinuxUsbDriver::recoveryTick(void){
-    avrDebug();
+void macUsbDriver::recoveryTick(void){
+    //avrDebug();
 }
 
 static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
@@ -190,7 +192,7 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
     //int number = ((tcBlock *)transfer->user_data)->number;
     //bool completed = ((tcBlock *)transfer->user_data)->completed;
 
-    //qDebug() << "CALLBACK" << number;
+    //qDebug() << "CALLBACK";
     //qDebug() << completed;
 
     ((tcBlock *)transfer->user_data)->completed = true;

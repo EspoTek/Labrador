@@ -47,7 +47,7 @@ void isoDriver::setWindow(int newWindow){
 }
 
 void isoDriver::timerTick(void){
-    //qDebug() << "isoDriver SEZ Tick!";
+    qDebug() << "isoDriver SEZ Tick!";
     if(firstFrame){
         autoGain();
         firstFrame = false;
@@ -59,7 +59,7 @@ void isoDriver::timerTick(void){
 
     if (length==0){
         //Zero length packet means something's gone wrong.  Probably a disconnect.
-        //qDebug() << "Zero length iso packet.  An hero!";
+        qDebug() << "Zero length iso packet.  An hero!";
         //driver->killMe();
         return;
     }
@@ -313,7 +313,7 @@ void isoDriver::pauseEnable_multimeter(bool enabled){
 void isoDriver::autoGain(){
     double maxgain = vcc / (2 * ((double)topRange - vref) * R4/(R3+R4));
     double mingain = vcc / (2 * ((double)botRange - vref) * R4/(R3+R4));
-    maxgain = std::min(abs(mingain) * 0.98, abs(maxgain) * 0.98);
+    maxgain = std::min(std::abs(mingain) * 0.98, std::abs(maxgain) * 0.98);
 
     double snap[8] = {64, 32, 16, 8, 4, 2, 1, 0.5};
 
@@ -432,7 +432,7 @@ void isoDriver::udateCursors(void){
     dv->value = y0-y1;
     t0->value = x0;
     t1->value = x1;
-    dt->value = abs(x0-x1);
+    dt->value = std::abs(x0-x1);
     f->value = 1/(x1-x0);
 
     char temp_hori[64];

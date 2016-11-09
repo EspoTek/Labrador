@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
+#include "platformspecific.h"
 
 class espoComboBox : public QComboBox
 {

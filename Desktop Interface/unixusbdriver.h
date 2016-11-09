@@ -1,5 +1,5 @@
-#ifndef GAHNOOSLASHLINUXUSBDRIVER_H
-#define GAHNOOSLASHLINUXUSBDRIVER_H
+#ifndef unixUsbDriver_H
+#define unixUsbDriver_H
 
 #include <QWidget>
 #include <QThread>
@@ -39,12 +39,12 @@ public slots:
     }
 };
 
-class gahnooSlashLinuxUsbDriver : public genericUsbDriver
+class unixUsbDriver : public genericUsbDriver
 {
     Q_OBJECT
 public:
-    explicit gahnooSlashLinuxUsbDriver(QWidget *parent = 0);
-    ~gahnooSlashLinuxUsbDriver();
+    explicit unixUsbDriver(QWidget *parent = 0);
+    ~unixUsbDriver();
     void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA);
     char *isoRead(unsigned int *newLength);
 private:
@@ -69,4 +69,4 @@ public slots:
 
 static void LIBUSB_CALL isoCallback(struct libusb_transfer *transfer);
 
-#endif // GAHNOOSLASHLINUXUSBDRIVER_H
+#endif // unixUsbDriver_H

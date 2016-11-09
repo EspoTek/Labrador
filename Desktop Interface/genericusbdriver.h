@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QThread>
+#include <math.h>
 
 #include "functiongencontrol.h"
 #include "xmega.h"
