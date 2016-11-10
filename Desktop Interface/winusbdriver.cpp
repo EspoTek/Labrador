@@ -5,7 +5,7 @@ winUsbDriver::winUsbDriver(QWidget *parent) : genericUsbDriver(parent)
     //This opens the USB connection.  Nothing can continue until the board is up and running.
     bool connected = false;
     while(!connected){
-        QThread::msleep(32);
+        QThread::msleep(USB_RECONNECT_PERIOD);
         connected = usbInit(0x03eb, 0xa000);
     }
 

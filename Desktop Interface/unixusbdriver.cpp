@@ -6,8 +6,8 @@ unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
     unsigned char error = 1;
     while(error){
+        QThread::msleep(USB_RECONNECT_PERIOD);
         error = usbInit(0x03eb, 0xa000);
-        if(error)QThread::msleep(64);
     }
     setDeviceMode(deviceMode);
     newDig(digitalPinState);
