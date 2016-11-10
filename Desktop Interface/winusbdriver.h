@@ -32,6 +32,7 @@ private:
     unsigned char usbIsoInit(void);
 signals:
 public slots:
+    void isoTimerTick(void);
 };
 
 #endif // WINUSBDRIVER_H

@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QThread>
 #include <math.h>
+#include <stdint.h>
 
 #include "functiongencontrol.h"
 #include "xmega.h"
