@@ -800,7 +800,7 @@
            <item>
             <widget class="QLabel" name="amplitudeLabel_CH1">
              <property name="text">
-              <string>Amplitude</string>
+              <string>Amplitude (Peak-Peak)</string>
              </property>
             </widget>
            </item>
@@ -820,7 +820,7 @@
            <item>
             <widget class="QLabel" name="dcOffsetLabel_CH1">
              <property name="text">
-              <string>DC Offset</string>
+              <string>Offset</string>
              </property>
             </widget>
            </item>
@@ -910,7 +910,7 @@
               <bool>true</bool>
              </property>
              <property name="text">
-              <string>Amplitude</string>
+              <string>Amplitude (Peak-Peak)</string>
              </property>
             </widget>
            </item>
@@ -936,7 +936,7 @@
               <bool>true</bool>
              </property>
              <property name="text">
-              <string>DC Offset</string>
+              <string>Offset</string>
              </property>
             </widget>
            </item>
@@ -1068,7 +1068,7 @@
         <item>
          <widget class="QGroupBox" name="busSifferGroup_CH1">
           <property name="title">
-           <string>Bus Sniffer CH1</string>
+           <string>Logic Analyzer CH1</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -1148,7 +1148,7 @@
            <bool>false</bool>
           </property>
           <property name="title">
-           <string>Bus Sniffer CH2</string>
+           <string>Logic Analyzer CH2</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -1405,7 +1405,7 @@
    </widget>
    <widget class="QMenu" name="menuBus_Sniffer">
     <property name="title">
-     <string>Bus Sniffer</string>
+     <string>Logic Analyzer</string>
     </property>
     <widget class="QMenu" name="menuUART_1">
      <property name="title">
