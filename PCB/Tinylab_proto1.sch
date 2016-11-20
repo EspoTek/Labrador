@@ -549,7 +549,7 @@ U 1 1 560735FE
 P 16350 5350
 F 0 "C15" H 16375 5450 50  0000 L CNN
 F 1 "CP1" H 16375 5250 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Radial_D6.3_L11.2_P2.5" H 16350 5350 60  0001 C CNN
+F 2 "Capacitors_SMD:c_elec_4x5.3" H 16350 5350 60  0001 C CNN
 F 3 "" H 16350 5350 60  0000 C CNN
 	1    16350 5350
 	1    0    0    -1  
@@ -654,7 +654,7 @@ U 1 1 566F5A75
 P 4050 6900
 F 0 "C6" H 4075 7000 50  0000 L CNN
 F 1 "CP1" H 4075 6800 50  0000 L CNN
-F 2 "Capacitors_SMD:c_elec_5x5.3" H 4050 6900 60  0001 C CNN
+F 2 "Capacitors_SMD:c_elec_4x5.3" H 4050 6900 60  0001 C CNN
 F 3 "" H 4050 6900 60  0000 C CNN
 	1    4050 6900
 	1    0    0    -1  
@@ -1483,4 +1483,8 @@ Connection ~ 1850 9950
 Wire Wire Line
 	1250 9750 1850 9750
 Connection ~ 1850 9850
+Text Label 12100 4600 0    60   ~ 0
+PSU_UF
+Text Label 10650 5050 0    60   ~ 0
+QTop
 $EndSCHEMATC
