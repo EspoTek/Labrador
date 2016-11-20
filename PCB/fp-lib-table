@@ -10,4 +10,5 @@
   (lib (name Resistors_SMD)(type KiCad)(uri C:\Users\Esposch\Documents\KICAD_LIB\Resistors_SMD.pretty)(options "")(descr ""))
   (lib (name TO_SOT_Packages_SMD)(type KiCad)(uri C:\Users\Esposch\Documents\KICAD_LIB\TO_SOT_Packages_SMD.pretty)(options "")(descr ""))
   (lib (name SMD)(type KiCad)(uri C:\Users\Esposch\Documents\KiCAD\KiCad-Libraries-master\modules\SMD.pretty)(options "")(descr ""))
+  (lib (name labralogo)(type KiCad)(uri "$(KIPRJMOD)\\labralogo.pretty")(options "")(descr ""))
 )
