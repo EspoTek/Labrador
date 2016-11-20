@@ -1483,8 +1483,82 @@ Connection ~ 1850 9950
 Wire Wire Line
 	1250 9750 1850 9750
 Connection ~ 1850 9850
-Text Label 12100 4600 0    60   ~ 0
-PSU_UF
 Text Label 10650 5050 0    60   ~ 0
 QTop
+Text Label 1300 9100 0    60   ~ 0
+Scope_CH1_DC
+Text Label 1300 9300 0    60   ~ 0
+Scoe_CH1_AC
+Text Label 1300 9750 0    60   ~ 0
+Scope_CH2_DC
+Text Label 1300 9950 0    60   ~ 0
+Scope_CH2_AC
+Text Label 12250 10400 0    60   ~ 0
+S-Gen_CH1_DC
+Text Label 12150 10050 0    60   ~ 0
+S-Gen_CH1_AC
+Text Label 11950 11100 0    60   ~ 0
+S-Gen_CH2_DC
+Text Label 12100 11350 0    60   ~ 0
+S-Gen_CH2_AC
+Text Label 7950 9650 0    60   ~ 0
+V_minus_dac_out
+Text Label 7900 11900 0    60   ~ 0
+V_minus_dac_out2
+Text Label 9300 9250 0    60   ~ 0
+Buffered_DAC_CH1
+Text Label 9050 11550 0    60   ~ 0
+Buffered_DAC_CH2
+Text Label 8150 10350 0    60   ~ 0
+S-Gen_Drain_Top_CH1
+Text Label 7150 12350 0    60   ~ 0
+S-Gen_Drain_Top_CH2
+Text Label 2650 8650 0    60   ~ 0
+Scope_Buffer_Input_CH1
+Text Label 2500 10450 0    60   ~ 0
+Scope_Buffer_Input_CH2
+Text Label 3800 5150 0    60   ~ 0
+D0_OUT
+Text Label 3800 5250 0    60   ~ 0
+D1_OUT
+Text Label 3800 5350 0    60   ~ 0
+D2-OUT
+Text Label 3800 5450 0    60   ~ 0
+D3-OUT
+Text Label 4950 5000 0    60   ~ 0
+D0-prefuse
+Text Label 4900 5200 0    60   ~ 0
+D1-prefuse
+Text Label 4900 5400 0    60   ~ 0
+D2-prefuse
+Text Label 4900 5600 0    60   ~ 0
+D3-prefuse
+Text Label 4300 4000 0    60   ~ 0
+PDI_CLK
+Text Label 4950 4400 0    60   ~ 0
+PDI_DATA
+Text Label 3750 4300 0    60   ~ 0
+3V3_OUT
+Text Label 13200 4850 0    60   ~ 0
+Switch_OC
+Text Label 1950 6950 0    60   ~ 0
+Disconnected_USB
+Text Label 4500 5000 0    60   ~ 0
+D0_MID
+Text Label 4550 5200 0    60   ~ 0
+D1_MID
+Text Label 4500 5400 0    60   ~ 0
+D2_MID
+Text Label 4550 5600 0    60   ~ 0
+D3_MID
+Text Label 12250 4600 0    60   ~ 0
+PSU_Unfiltered_Raw
+Text Label 13650 2950 0    60   ~ 0
+L-Ana_IN_CH1
+Text Label 14950 2950 0    60   ~ 0
+L-Ana_IN_CH2
+Text Label 10800 9250 0    60   ~ 0
+R22-R24
+Text Label 11000 11550 0    60   ~ 0
+R23-R25
 $EndSCHEMATC
