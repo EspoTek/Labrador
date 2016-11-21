@@ -1560,5 +1560,5 @@ L-Ana_IN_CH2
 Text Label 10800 9250 0    60   ~ 0
 R22-R24
 Text Label 11000 11550 0    60   ~ 0
-R22-R24
+R23-R25
 $EndSCHEMATC
