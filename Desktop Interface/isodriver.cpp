@@ -469,7 +469,7 @@ int isoDriver::trigger(void){
 
     if(driver->deviceMode == 7){
         for (unsigned int i=0;i<length/2;i++){
-            if(i%750 == 749) continue; //Not a valid sample
+            if(i%750 == VALID_DATA_PER_750) continue; //Not a valid sample
 
             //A bit of thresholding...
             //Gives DAT STABILITY
@@ -503,7 +503,7 @@ int isoDriver::trigger(void){
     }
     else{
         for (unsigned int i=0;i<length;i++){
-            if(((i%750 > 374) && (triggerType<2)) || (((i%750 < 375) || (i%750 == 749)) && (triggerType>1))) continue; //Not a valid sample
+            if(((i%750 > VALID_DATA_PER_375) && (triggerType<2)) || (((i%750 < 375) || (i%750 == VALID_DATA_PER_750)) && (triggerType>1))) continue; //Not a valid sample
 
             //A bit of thresholding...
             //Gives DAT STABILITY
@@ -585,19 +585,19 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 {
     if(!paused_CH1 && CH1_mode == - 1){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
-            internalBuffer750->writeBuffer_char(&isoTemp[ADC_SPF*i], ADC_SPF-2);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
+            internalBuffer750->writeBuffer_char(&isoTemp[ADC_SPF*i], VALID_DATA_PER_750);
         }
     }
 
     if(!paused_CH1 && CH1_mode > 0){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
-            internalBuffer375_CH1->writeBuffer_char(&isoTemp[ADC_SPF*i], ADC_SPF/2-1);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
+            internalBuffer375_CH1->writeBuffer_char(&isoTemp[ADC_SPF*i], VALID_DATA_PER_375);
         }
     }
 
     if(!paused_CH2 && CH2_mode > 0){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
-            internalBuffer375_CH2->writeBuffer_char(&isoTemp[ADC_SPF*i+ADC_SPF/2], ADC_SPF/2-1);  //+375 to get the second half of the packet
+            internalBuffer375_CH2->writeBuffer_char(&isoTemp[ADC_SPF*i+ADC_SPF/2], VALID_DATA_PER_375);  //+375 to get the second half of the packet
         }
     }
 
@@ -613,12 +613,12 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
         //qDebug() << "offset =" << offset;
 
         int backLength = length/750;
-        backLength *= (CH1_mode == -1) ? 748 : 374;
+        backLength *= (CH1_mode == -1) ? VALID_DATA_PER_750 : VALID_DATA_PER_375;
 
         if(offset>0){
             int temp_offset = offset % 750;
             offset /= 750;
-            offset *= (CH1_mode == -1) ? 748 : 374;
+            offset *= (CH1_mode == -1) ? VALID_DATA_PER_750 : VALID_DATA_PER_375;
             offset += temp_offset;
         }
 
@@ -626,7 +626,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 
         if((!paused_CH1) && triggerEnabled && (triggerWaiting == 0)){
             triggerDelay = backLength - offset;
-            triggerDelay /= (CH1_mode == -1) ? 748000 : 374000;
+            triggerDelay /= (CH1_mode == -1) ? (VALID_DATA_PER_750 * 1000) : (VALID_DATA_PER_375*1000);
             triggerDelay += delay;
             triggerWaiting = (triggerDelay<(window/2)) * 2;
         }
@@ -742,12 +742,12 @@ void isoDriver::multimeterAction(){
         qDebug() << "offset =" << offset;
 
         int backLength = length/750;
-        backLength *= 374;
+        backLength *= VALID_DATA_PER_375;
 
         if(offset>0){
             int temp_offset = offset % 750;
             offset /= 750;
-            offset *= 374;
+            offset *= VALID_DATA_PER_375;
             offset += temp_offset;
         }
 
@@ -755,7 +755,7 @@ void isoDriver::multimeterAction(){
 
         if((!paused_CH1) && triggerEnabled && (triggerWaiting == 0)){
             triggerDelay = backLength - offset;
-            triggerDelay /= 374000;
+            triggerDelay /= (VALID_DATA_PER_375*1000);
             triggerDelay += delay;
             triggerWaiting = (triggerDelay<(window/2)) * 2;
         }

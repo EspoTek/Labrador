@@ -7,7 +7,7 @@ isoBuffer::isoBuffer(int bufferLen, isoDriver *caller, unsigned char channel_val
     buffer = (short *) calloc(bufferLen*2, sizeof(short));
     bufferEnd = bufferLen-1;
     samplesPerSecond = (double) bufferLen/(double)21;
-    samplesPerSecond = samplesPerSecond/375*374;  //BABABOOEY
+    samplesPerSecond = samplesPerSecond/375*VALID_DATA_PER_375;
     parent = caller;
     channel = channel_value;
 }

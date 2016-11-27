@@ -1608,7 +1608,7 @@ public:
         controller_iso->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS ISO DRIVER", 0));
         psuGroup->setTitle(QApplication::translate("MainWindow", "PSU", 0));
         lockPsuCheckBox->setText(QApplication::translate("MainWindow", "Lock PSU", 0));
-        busSifferGroup_CH1->setTitle(QApplication::translate("MainWindow", "Bus Sniffer CH1", 0));
+        busSifferGroup_CH1->setTitle(QApplication::translate("MainWindow", "Logic Analyzer CH1", 0));
         pause_LA->setText(QApplication::translate("MainWindow", "Pause", 0));
         serialDecodingCheck_CH1->setTitle(QApplication::translate("MainWindow", "Serial Decoding", 0));
         serialDecodingModeSelect_CH1->clear();
@@ -1617,7 +1617,7 @@ public:
          << QApplication::translate("MainWindow", "SPI", 0)
          << QApplication::translate("MainWindow", "I2C", 0)
         );
-        busSnifferGroup_CH2->setTitle(QApplication::translate("MainWindow", "Bus Sniffer CH2", 0));
+        busSnifferGroup_CH2->setTitle(QApplication::translate("MainWindow", "Logic Analyzer CH2", 0));
         serialDecodingCheck_CH2->setTitle(QApplication::translate("MainWindow", "Serial Decoding", 0));
         serialDecodingModeSelect_CH2->clear();
         serialDecodingModeSelect_CH2->insertItems(0, QStringList()
@@ -1643,7 +1643,7 @@ public:
         menuMultimeter_2->setTitle(QApplication::translate("MainWindow", "Multimeter", 0));
         menuV_2->setTitle(QApplication::translate("MainWindow", "Range (V)", 0));
         menuI_2->setTitle(QApplication::translate("MainWindow", "Range (I)", 0));
-        menuBus_Sniffer->setTitle(QApplication::translate("MainWindow", "Bus Sniffer", 0));
+        menuBus_Sniffer->setTitle(QApplication::translate("MainWindow", "Logic Analyzer", 0));
         menuUART_1->setTitle(QApplication::translate("MainWindow", "UART 1", 0));
         menuBaud_Rate->setTitle(QApplication::translate("MainWindow", "Baud Rate", 0));
         menuType_Here_2->setTitle(QApplication::translate("MainWindow", "Type Here", 0));

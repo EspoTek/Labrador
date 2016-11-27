@@ -1,0 +1,27 @@
+Id,Designator,Package,Quantity,Designation,Description,Notes
+1,"C6,C9,C15",c_elec_4x5.3,3,CP1,"SMD Electrolytic Capacitor, 33uH 16V","Exact brand is not important but should be reputable (Nichicon, Panasonic, Rubycon etc.)"
+2,IC1,LQFP-44_10x10mm_Pitch0.8mm,1,ATXMEGA16A4U-A,ATXMEGA32A4U-AU,Please be careful!  There is a similar chip called the ATXMEGA32-A4-AU that will cause the product to fail!
+3,P2,USB_Micro-B_WIDE,1,USB_OTG,Micro USB-B connector,
+5,"C1,C2,C7,C8,C10,C11,C13,C14,C16,C17,C18",C_0603,11,C,1uF 0603 Ceramic Cap,"Exact brand is not important but should be reputable (Vishay, Kemet, Murata etc.)"
+6,"C3,C4,C5",C_0603,3,C_Small,1uF 0603 Ceramic Cap,"Exact brand is not important but should be reputable (Vishay, Kemet, Murata etc.)"
+7,D1,SMA_Standard,1,D_Schottky,"SMA Schottky Diode, 1.5V 1A",http://il.farnell.com/multicomp/ss14/schottky-diode-1a-40v-sma-full/dp/1843479
+8,D2,LED_0603,1,LED,0603 LED,Exact brand is not important but should be reputable.
+9,F1,C_1210,1,F_Small,"PTC Fuse, 150-250mA, 1210",
+10,L1,SELF-WE-PD-XXL,1,INDUCTOR,SMD Inductor (self-wound package),"Haven’t found exact unit yet.  Must be at least 100uH, though."
+11,"L2,L3,L4",R_1206,3,INDUCTOR,SMD Inductor 15uH 1206,
+4,"P1,P5",Pin_Header_Straight_1x04,2,SCOPE_OUT,Female 1x4 header,
+12,"P3, P4, P6",-,1,DIG_OUT,Stackable 1x10 Header,"P3, P4 and P6 share a single header.  Please do not use flimsy/weak pins!"
+,P7,Pin_Header_Straight_1x02,1,PSU,Stackable 1x2 Header,"“Stackable” refers to the pins that are female on one side and male on the other, like on many Arduino shields."
+16,P8,Pin_Header_Straight_1x02,1,DIG_IN,Female 1x2 Header,
+17,P10,Pin_Header_Straight_1x03,1,EXPANSION,-,Unpopulated
+18,P11,Pin_Header_Straight_1x03,1,SWITCH,Male 1x3 Header,
+26,REF**,Pin_Header_Straight_1x02,1,Pin_Header_Straight_1x02,Male 1x2 Header,This will need to be soldered on to the bottom of the board.
+19,Q1,SOT-23-3,1,Q_NMOS_GSD,TSM2302CX,
+20,"R1,R2",R_0603,2,1M,"1M Resistor, 0603, 20V ","Exact brand is not important but should be reputable (Vishay, Kemet, Yageo etc.)"
+21,"R3,R4",R_0603,2,75K,"75K Resistor, 0603, 6.3V","Exact brand is not important but should be reputable (Vishay, Kemet, Yageo etc.)"
+22,"R5,R6,R15,R16,R17,R18,R19,R20,R21,R26,R28,R29,R30,R31,R32",R_0603,15,1K,"1K Resistor, 0603, 16V","Exact brand is not important but should be reputable (Vishay, Kemet, Yageo etc.)"
+23,"R7,R8,R9,R10,R11,R12,R13,R14,R22,R23,R24,R25",R_0603,12,28R,"28R Resistor, 0603, 6.3V","Exact brand is not important but should be reputable (Vishay, Kemet, Yageo etc.)"
+24,R27,R_0603,1,100R,"100R Resistor, 6.3V","Exact brand is not important but should be reputable (Vishay, Kemet, Yageo etc.)"
+25,U1,SOT-23-3,1,VREG,RT9161A-33GV,
+26,U2,SOIC-14_3.9x8.7mm_Pitch1.27mm,1,LM324,LM324DT,
+27,"U3,U4",SOT-363,2,DMN63D8LDW,DMN63D8LDW,
