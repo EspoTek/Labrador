@@ -4,6 +4,9 @@
 #include <QDialog>
 #include <QDebug>
 
+//ScopeRangeEnterDialog is the class for the "Enter Scope Range" dialog (Oscilloscope->Range->Enter Manually; shortcut is "M").
+//This code in particular controls the voltageSpinBoxes in the dialog, to ensure they don't go out of range.
+
 namespace Ui {
 class scopeRangeEnterDialog;
 }

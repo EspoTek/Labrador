@@ -10,6 +10,8 @@
 
 #include "genericusbdriver.h"
 
+//winUsbDriver handles the Windows-specific parts of USB communication, through libusbK.
+//See genericUsbDriver for the non-platform-specific parts.
 class winUsbDriver : public genericUsbDriver
 {
     Q_OBJECT

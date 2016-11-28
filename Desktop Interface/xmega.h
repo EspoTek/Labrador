@@ -1,6 +1,7 @@
 #ifndef XMEGA_H
 #define XMEGA_H
 
+//Just a whole lot of variables related to the hardware itself.
 
 #define FGEN_OFFSET 5
 #define FGEN_LIMIT (double) 3.2

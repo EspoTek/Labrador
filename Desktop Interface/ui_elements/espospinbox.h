@@ -8,6 +8,8 @@
 #include <QDebug>
 #include <math.h>
 
+//espoSpinBox is a subclass of QSpinbox.  It can talk to other espoSpinBoxes and change their min/max values.
+
 class espoSpinBox : public QDoubleSpinBox
 {
     Q_OBJECT

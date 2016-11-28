@@ -8,6 +8,8 @@
 #include <QLayout>
 #include <QString>
 
+//espoSlider is a slider but with the ticks placed at the same position as the numbers.  Nothing more, nothing less.
+
 class espoSlider : public QSlider
 {
     Q_OBJECT

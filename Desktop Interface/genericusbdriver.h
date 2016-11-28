@@ -21,6 +21,9 @@
 #define ISO_TIMER_PERIOD 16
 #define MAX_VALID_INDEX 374
 
+//genericUsbDriver handles the parts of the USB stack that are not platform-dependent.
+//It exists as a superclass for winUsbDriver (on Windows) or unixUsbDriver (on Linux)
+
 class genericUsbDriver : public QLabel
 {
     Q_OBJECT

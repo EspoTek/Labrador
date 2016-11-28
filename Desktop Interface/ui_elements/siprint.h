@@ -4,6 +4,8 @@
 #include <string.h>
 #include <QDebug>
 
+//siprint just prints values with their SI prefix.
+//For example, it would print the number 1000 and unit V as "1kV".
 class siprint
 {
 public:

@@ -25,7 +25,7 @@
 #include "isobuffer.h"
 
 
-
+//The Main Window object.  This has a lot of control information too (keyboard shortcuts etc.)!
 
 
 
@@ -41,8 +41,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void resizeEvent(QResizeEvent *event);
-
 private slots:
+    //Oscilloscope
     void on_actionGain0_5_triggered();
     void on_actionGain1_triggered();
     void on_actionGain2_triggered();
@@ -53,7 +53,19 @@ private slots:
     void on_actionGain64_triggered();
     void on_actionGainAuto_triggered();
     void on_actionCursor_Stats_triggered(bool checked);
+    void on_actionAutomatically_Enable_Cursors_toggled(bool arg1);
+    void on_action60FPS_toggled(bool enabled);
+    void on_action30FPS_toggled(bool enabled);
+    void on_action20FPS_toggled(bool enabled);
+    void on_action15FPS_toggled(bool enabled);
+    void on_action10FPS_toggled(bool enabled);
+    void on_action5FPS_toggled(bool enabled);
+    void on_actionSnap_to_Cursors_triggered();
+    void on_actionEnter_Manually_triggered();
+
     void connectDisplaySignals();
+
+    //Logic Analyzer
     void on_action300_toggled(bool arg1);
     void on_action600_toggled(bool arg1);
     void on_action1200_toggled(bool arg1);
@@ -84,49 +96,43 @@ private slots:
     void cycleBaudRate_CH2();
     void cycleBaudRateBackwards_CH2();
 
+    //Deprecated/Unsupported
     void timeBaseNeedsChanging(bool positive);
     void on_actionForce_Square_triggered(bool checked);
+    void helloWorld();
 
+    //Keyboard Shortcuts
     void arrowUpTriggered();
     void arrowDownTriggered();
     void ctrlArrowUpTriggered();
     void ctrlArrowDownTriggered();
-
     void cycleDelayLeft();
     void cycleDelayRight();
 
-
-    void on_actionAutomatically_Enable_Cursors_toggled(bool arg1);
-
-    void on_action60FPS_toggled(bool enabled);
-    void on_action30FPS_toggled(bool enabled);
-    void on_action20FPS_toggled(bool enabled);
-    void on_action15FPS_toggled(bool enabled);
-    void on_action10FPS_toggled(bool enabled);
-    void on_action5FPS_toggled(bool enabled);
-
-
+    //Power Supply
     void on_actionAuto_Lock_toggled(bool arg1);
 
-    void on_actionSnap_to_Cursors_triggered();
-
-    void on_actionEnter_Manually_triggered();
-
-    void helloWorld();
-
+    //File/other
     void on_actionRecord_triggered(bool checked);
-
     void on_actionTake_Snapshot_triggered();
     void reinitUsb(void);
-
 private:
+    //Generic Vars
     Ui::MainWindow *ui;
+    QWheelEvent *wheelEmu;
+    bool forceSquare = false;
+    QCPItemText *textLabel;
+    QDir *outputDir;
+    QFile *output375_CH1, *output375_CH2, *output750;
+
+    //Generic Functions
     void initialisePlot();
     void labelPsu();
     void menuSetup();
     void initShortcuts();
     void readSettingsFile();
 
+    //Shortcut pointers
     QActionGroup *gainGroup;
     QActionGroup *rangeGroupV;
     QActionGroup *rangeGroupI;
@@ -152,15 +158,6 @@ private:
     QShortcut *shortcut_snapScopeToCursors;\
     QShortcut *shortcut_manualRange;
     QShortcut *shortcut_snapshot;
-
-    QWheelEvent *wheelEmu;
-
-    bool forceSquare = false;
-
-    QCPItemText *textLabel;
-
-    QDir *outputDir;
-    QFile *output375_CH1, *output375_CH2, *output750;
 };
 
 #endif // MAINWINDOW_H

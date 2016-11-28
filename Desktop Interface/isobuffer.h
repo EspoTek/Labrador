@@ -14,10 +14,14 @@
 
 class isoDriver;
 
+//isoBuffer is a generic class that enables O(1) read times (!!!) on all read/write operations, while maintaining a huge buffer size.
+//Imagine it as a circular buffer, but with access functions specifically designed for isochronous data from an Xmega.
+
 class isoBuffer
 {
 public:
     isoBuffer(int bufferLen, isoDriver *caller, unsigned char channel_value);
+    //Generic Functions
     void openFile(QString newFile);
     void writeBuffer_char(char *data, int len);
     void writeBuffer_short(short *data, int len);
@@ -28,27 +32,32 @@ public:
     void serialDecode(double baudRate);
     int serialDistance();
     void serialBegin();
+    //Generic Vars
     QPlainTextEdit *console, *console1, *console2;
     bool serialAutoScroll = true;
     unsigned char channel = 255;
 private:
+    //Generic Vars
     short *buffer, *readData = NULL;
-    FILE* fptr = NULL;
     int bufferEnd, back = 0, serialPtr = 0;
     int samplesPerSecond;
     bool firstTime = true;
+    //File I/O
+    bool fileIOEnabled = false;
+    FILE* fptr = NULL;
+    QFile *currentFile;
+    isoDriver *parent;
+    unsigned int currentColumn = 0;
+    //Serial Decode
     bool serialDecodingSymbol = false;
     unsigned char symbolMax = 7;
     unsigned char symbolCurrent = 0;
     unsigned short symbol = 0;
+    char serialPhase = 0;
+    //Generic Functions
     void decodeSymbol(unsigned char newBit);
     void marchSerialPtr(int bitPeriod_samples);
-    char serialPhase = 0;
     unsigned char numOnes(unsigned short var);
-    QFile *currentFile;
-    bool fileIOEnabled = false;
-    unsigned int currentColumn = 0;
-    isoDriver *parent;
     double sampleConvert(short sample, int TOP, bool AC);
 public slots:
     void enableFileIO(QFile *file);

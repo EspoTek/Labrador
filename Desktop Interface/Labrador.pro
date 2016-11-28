@@ -11,45 +11,24 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 TARGET = Labrador
 TEMPLATE = app
 
+include(ui_elements.pri)
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    qcustomplot.cpp \
-    buffercontrol.cpp \
-    esposlider.cpp \
-    espospinbox.cpp \
-    espocombobox.cpp \
     functiongencontrol.cpp \
     isodriver.cpp \
     isobuffer.cpp \
-    siprint.cpp \
-    noclosemenu.cpp \
-    cursorenabler.cpp \
     desktop_settings.cpp \
-    deviceconnecteddisplay.cpp \
-    timedtickbox.cpp \
     scoperangeenterdialog.cpp \
-    voltagespinbox.cpp \
     genericusbdriver.cpp
 
 HEADERS  += mainwindow.h \
-    qcustomplot.h \
-    buffercontrol.h \
-    esposlider.h \
-    espospinbox.h \
-    espocombobox.h \
     functiongencontrol.h \
     xmega.h \
     isodriver.h \
     isobuffer.h \
     desktop_settings.h \
-    siprint.h \
-    noclosemenu.h \
-    cursorenabler.h \
-    deviceconnecteddisplay.h \
-    timedtickbox.h \
     scoperangeenterdialog.h \
-    voltagespinbox.h \
     genericusbdriver.h
 
 FORMS    += mainwindow.ui \
@@ -57,10 +36,6 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     resources.qrc
-
-
-
-
 
 DESTDIR = bin
 
@@ -108,3 +83,6 @@ macx:DEPENDPATH += $$PWD/build_mac/libusb/include/libusb-1.0
 
 unix:SOURCES += unixusbdriver.cpp
 unix:HEADERS += unixusbdriver.h
+
+INCLUDEPATH += $$PWD/ui_elements
+DEPENDPATH += $$PWD/ui_elements

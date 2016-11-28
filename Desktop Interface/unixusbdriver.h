@@ -11,6 +11,7 @@
 
 #define RECOVERY_PERIOD 250
 
+//tcBlock is fed to the callback in the libusb user data section.
 typedef struct tcBlock{
     int number;
     bool completed;
@@ -19,6 +20,8 @@ typedef struct tcBlock{
 
 extern QMutex tcBlockMutex;
 
+//Oddly, libusb requires you to make a blocking libusb_handle_events() call in order to execute the callbacks for an asynchronous transfer.
+//Since the call is blocking, this worker must exist in a separate, low priority thread!
 class worker : public QObject
 {
     Q_OBJECT
@@ -39,6 +42,9 @@ public slots:
     }
 };
 
+//This is the actual unixUsbDriver
+//It handles the Mac/Linux specific parts of USB communication, through libusb.
+//See genericUsbDriver for the non-platform-specific parts.
 class unixUsbDriver : public genericUsbDriver
 {
     Q_OBJECT
@@ -67,6 +73,7 @@ public slots:
     void recoveryTick(void);
 };
 
+//Callback on iso transfer complete.
 static void LIBUSB_CALL isoCallback(struct libusb_transfer *transfer);
 
 #endif // unixUsbDriver_H

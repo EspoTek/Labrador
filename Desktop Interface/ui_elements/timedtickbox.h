@@ -5,6 +5,9 @@
 #include <QTimer>
 #include <QDebug>
 
+//timedTickBox is used to re-lock the power supply after a few seconds.
+//It's just a tickbox with a timer on it.
+
 class timedTickBox : public QCheckBox
 {
     Q_OBJECT

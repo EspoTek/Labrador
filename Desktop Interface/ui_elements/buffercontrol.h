@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QDebug>
 
+//bufferControl is a controller object that allocates and deallocates bandwidth depending on what devices are active.
+
 class bufferControl : public QLabel
 {
     Q_OBJECT

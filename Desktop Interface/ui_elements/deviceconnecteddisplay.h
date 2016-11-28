@@ -5,14 +5,14 @@
 #include <QLabel>
 #include <QDebug>
 
+//deviceConnectedDisplay simply displays the "device connected" message.
+
 class deviceConnectedDisplay : public QLabel
 {
     Q_OBJECT
 public:
     explicit deviceConnectedDisplay(QWidget *parent = 0);
-
 signals:
-
 public slots:
     void connectedStatusChanged(bool status);
 };

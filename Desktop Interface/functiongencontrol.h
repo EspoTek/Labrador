@@ -8,6 +8,8 @@
 #include <QFile>
 #include "xmega.h"
 
+//functionGenControl is a centralised object to control all of the high-level function gen commands for both channels.
+
 class functionGenControl : public QLabel
 {
     Q_OBJECT

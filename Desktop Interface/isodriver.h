@@ -12,60 +12,38 @@
 
 class isoBuffer;
 
+//isoDriver is a huge class.  It handles everything related to the isochronous IN stream - and perhaps that constraint was applied a bit too loosely (spot the C programmer...).
+//Too much stuff is handled in this class, and it's too heavily entangled with the (generic/win/unix)UsbDriver classes.
+//That is one of the things I plan on fixing, and in fact the reason why I began the commenting!
+
 class isoDriver : public QLabel
 {
     Q_OBJECT
 public:
     explicit isoDriver(QWidget *parent = 0);
-    void setDriver(genericUsbDriver *newDriver);
-    void setAxes(QCustomPlot *newAxes);
-    bool cursorStatsEnabled = true;
+    //Generic Vars
     isoBuffer *internalBuffer375_CH1, *internalBuffer375_CH2, *internalBuffer750;
-    int baudRate_CH1 = 9600, baudRate_CH2 = 9600;
-    double delay = 0, window = 0.01;
     QCPItemText *cursorTextPtr;
+    genericUsbDriver *driver;
+    //State Vars
+    bool AC_CH1 = false, AC_CH2 = false;
+    bool cursorStatsEnabled = true;
+    int baudRate_CH1 = 9600, baudRate_CH2 = 9600;
+    double currentVmean;
+    //Display Control Vars     (Variables that control how the buffers are displayed)
+    double delay = 0, window = 0.01;
     double y0=0, y1=0, x0=0, x1=0;
     double topRange=2.5, botRange=-0.5;
-    bool AC_CH1 = false, AC_CH2 = false;
-    genericUsbDriver *driver;
-    double currentVmean;
+    //Generic Functions
+    void setDriver(genericUsbDriver *newDriver);
+    void setAxes(QCustomPlot *newAxes);
 private:
-    QCustomPlot *axes;
-    double windowAtPause = 0.01;
-    QTimer* isoTimer = NULL, *slowTimer = NULL;
-    short *readData375_CH1, *readData375_CH2, *readData750;
-    long total_read = 0;
-    void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC);
-    void digitalConvert(short *shortPtr, QVector<double> *doublePtr);
+    //Those bloody bools that just Enable/Disable a single property
     bool paused_CH1 = false, paused_CH2 = false, paused_multimeter = false;
-    void frameActionGeneric(char CH1_mode, char CH2_mode);
-    char *isoTemp = NULL;
-    short *isoTemp_short = NULL;
-    bool properlyPaused();
-    void autoGain(void);
-    double multi = 0;
     bool autoGainEnabled = true;
     bool placingHoriAxes = false, placingVertAxes = false, horiCursorEnabled = false, vertCursorEnabled = false;
-    void udateCursors(void);
-    short reverseFrontEnd(double voltage);
-    int trigger(void);
     bool triggerSeeking = true;
     bool triggerEnabled = false;
-    double triggerLevel = 0;
-    enum triggerType_enum {rising_ch1 = 0, falling_ch1 = 1, rising_ch2 = 2, falling_ch2 = 3};
-    triggerType_enum triggerType = rising_ch1;
-    unsigned int length;
-    siprint *v0, *v1, *dv, *t0, *t1, *dt, *f;
-    bool singleShotEnabled = false;
-    double triggerDelay;
-    int triggerCountSeeking = 0, triggerCountNotSeeking = 0;
-    unsigned char triggerWaiting = 0;
-    bool firstFrame = true;
-    void multimeterAction();
-    double currentVmax, currentVmin;
-    enum multimeterType_enum {V = 0, I = 1, R = 2, C = 3};
-    multimeterType_enum multimeterType = V;
-    double seriesResistance = 0;
     bool multimeterShow = false;
     bool autoMultimeterV = true;
     bool autoMultimeterI = true;
@@ -75,10 +53,46 @@ private:
     bool forceAmps = false;
     bool serialDecodeEnabled_CH1 = false, serialDecodeEnabled_CH2 = false;
     bool XYmode = false;
-    double xmin = 20, xmax = -20, ymin = 20, ymax = -20;
     bool update_CH1 = true, update_CH2 = true;
-    void broadcastStats(bool CH2);
     bool snapshotEnabled = false;
+    bool firstFrame = true;
+    double triggerDelay;
+    bool singleShotEnabled = false;
+    //Generic Functions
+    void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC);
+    void digitalConvert(short *shortPtr, QVector<double> *doublePtr);
+    bool properlyPaused();
+    void autoGain(void);
+    void udateCursors(void);
+    short reverseFrontEnd(double voltage);
+    int trigger(void);
+    void multimeterAction();
+    void broadcastStats(bool CH2);
+    void frameActionGeneric(char CH1_mode, char CH2_mode);
+    //Variables that are just pointers to other classes/vars
+    QCustomPlot *axes;
+    short *readData375_CH1, *readData375_CH2, *readData750;
+    char *isoTemp = NULL;
+    short *isoTemp_short = NULL;
+    siprint *v0, *v1, *dv, *t0, *t1, *dt, *f;
+    //Scope/MM++ related variables
+    double currentVmax, currentVmin;
+    double triggerLevel = 0;
+    enum triggerType_enum {rising_ch1 = 0, falling_ch1 = 1, rising_ch2 = 2, falling_ch2 = 3};
+    triggerType_enum triggerType = rising_ch1;
+    double multi = 0;
+    int triggerCountSeeking = 0, triggerCountNotSeeking = 0;
+    unsigned char triggerWaiting = 0;
+    double xmin = 20, xmax = -20, ymin = 20, ymax = -20;
+    //Pure MM++ related variables
+    enum multimeterType_enum {V = 0, I = 1, R = 2, C = 3};
+    multimeterType_enum multimeterType = V;
+    double seriesResistance = 0;
+    //Generic Vars
+    double windowAtPause = 0.01;
+    QTimer* isoTimer = NULL, *slowTimer = NULL;
+    long total_read = 0;
+    unsigned int length;
     QFile *snapshotFile_CH1;
     QFile *snapshotFile_CH2;
 
@@ -102,7 +116,6 @@ signals:
     void sendVmax_CH2(double);
     void sendVmin_CH2(double);
     void sendVmean_CH2(double);
-
 public slots:
     void setWindow(int newWindow);
     void setVoltageRange(QWheelEvent *event);

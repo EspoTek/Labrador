@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QSpinBox>
 
+//Wrapper for the spinboxes on the "Enter Scope Range" dialog (Oscilloscope->Range->Enter Manually; shortcut is "M").
+//It needs to exist in order to map the setMaximum() and setMinimum() functions for QDOubleSpinbox to slots.
+
 class voltageSpinBox : public QDoubleSpinBox
 {
     Q_OBJECT
