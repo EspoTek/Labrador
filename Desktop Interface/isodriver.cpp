@@ -47,7 +47,7 @@ void isoDriver::setWindow(int newWindow){
 }
 
 void isoDriver::timerTick(void){
-    qDebug() << "isoDriver SEZ Tick!";
+    //qDebug() << "isoDriver SEZ Tick!";
     if(firstFrame){
         autoGain();
         firstFrame = false;

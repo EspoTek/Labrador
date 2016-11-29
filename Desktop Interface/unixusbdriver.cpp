@@ -68,11 +68,11 @@ unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
 }
 
 void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA){
-    qDebug("Sending Control packet! 0x%x,\t0x%x,\t%u,\t%u,\t%d,\t%u", RequestType, Request, Value, Index, LDATA, Length);
+    //qDebug("Sending Control packet! 0x%x,\t0x%x,\t%u,\t%u,\t%d,\t%u", RequestType, Request, Value, Index, LDATA, Length);
     int error = libusb_control_transfer(handle, RequestType, Request, Value, Index, LDATA, Length, 4000);
     if(error){
         qDebug("unixUsbDriver::usbSendControl FAILED with error %s", libusb_error_name(error));
-    } else qDebug() << "unixUsbDriver::usbSendControl SUCCESS";
+    } //else qDebug() << "unixUsbDriver::usbSendControl SUCCESS";
     if(error == LIBUSB_ERROR_NO_DEVICE){
         qDebug() << "Device not found.  Becoming an hero.";
         killMe();
@@ -176,7 +176,7 @@ void unixUsbDriver::isoTimerTick(void){
 char *unixUsbDriver::isoRead(unsigned int *newLength){
     //*(newLength) = 0;
     //return (char*) NULL;
-    qDebug() << "unixUsbDriver::isoRead";
+    //qDebug() << "unixUsbDriver::isoRead";
     *(newLength) = bufferLengths[!currentWriteBuffer];
     return (char*) outBuffers[(unsigned char) !currentWriteBuffer];
 }

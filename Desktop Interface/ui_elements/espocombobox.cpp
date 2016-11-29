@@ -10,9 +10,9 @@ void espoComboBox::readWaveformList(void)
 {
     //This code gets the name of the current directory, regardless of platform.
     //This is so the interface knows where to find the waveform data
-    QDir *dir = new QDir();
-    qDebug() << dir->currentPath();
-    QString dirString = dir->currentPath();
+    //QDir *dir = new QDir();
+    //qDebug() << dir->currentPath();
+    QString dirString = QCoreApplication::applicationDirPath();
     dirString.append("/waveforms/_list.wfl");
     QByteArray array = dirString.toLocal8Bit();
     char* buffer = array.data();
