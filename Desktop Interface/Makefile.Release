@@ -732,6 +732,9 @@ release\moc_espocombobox.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qthread.h \
 		functiongencontrol.h \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		ui_elements\espocombobox.h \
@@ -2252,6 +2255,7 @@ release\moc_mainwindow.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QMainWindow 
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QTimer \
 		functiongencontrol.h \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		ui_mainwindow.h \
@@ -2371,6 +2375,9 @@ release\moc_functiongencontrol.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWid
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qfileinfo.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		functiongencontrol.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
 	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include functiongencontrol.h -o release\moc_functiongencontrol.cpp
@@ -2858,6 +2865,7 @@ release\moc_isodriver.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDir \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		ui_elements\siprint.h \
@@ -3209,6 +3217,9 @@ release\moc_genericusbdriver.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidge
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qfileinfo.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		genericusbdriver.h \
@@ -3330,6 +3341,9 @@ release\moc_winusbdriver.cpp: build_win\libusbk\includes\libusbk.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qfileinfo.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		winusbdriver.h \
@@ -4274,6 +4288,9 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qthread.h \
 		functiongencontrol.h \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -4382,6 +4399,9 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qfileinfo.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
 		C:\Qt\5.7\msvc2013_64\include\QtGui\qwindowdefs.h \
@@ -4865,6 +4885,7 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDir \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		ui_elements\siprint.h \
@@ -5839,6 +5860,9 @@ release\espocombobox.obj: ui_elements\espocombobox.cpp ui_elements/espocombobox.
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qthread.h \
 		functiongencontrol.h \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
 		ui_elements/buffercontrol.h
 
@@ -7409,6 +7433,7 @@ release\main.obj: main.cpp mainwindow.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QTimer \
 		functiongencontrol.h \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
 		ui_elements/buffercontrol.h \
 		ui_mainwindow.h \
@@ -7916,6 +7941,7 @@ release\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QTimer \
 		functiongencontrol.h \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
 		ui_elements/buffercontrol.h \
 		ui_mainwindow.h \
@@ -8032,7 +8058,10 @@ release\functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qdir.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qfileinfo.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
-		xmega.h
+		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h
 
 release\isodriver.obj: isodriver.cpp isodriver.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -8518,6 +8547,7 @@ release\isodriver.obj: isodriver.cpp isodriver.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDir \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
 		ui_elements/buffercontrol.h \
 		ui_elements/siprint.h \
@@ -9015,6 +9045,7 @@ release\isobuffer.obj: isobuffer.cpp isobuffer.h \
 		genericusbdriver.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QThread \
 		functiongencontrol.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		ui_elements/buffercontrol.h \
 		ui_elements/siprint.h
 
@@ -9235,10 +9266,75 @@ release\genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qfileinfo.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
 		ui_elements/buffercontrol.h
 
-release\isobufferbuffer.obj: isobufferbuffer.cpp isobufferbuffer.h
+release\isobufferbuffer.obj: isobufferbuffer.cpp isobufferbuffer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qdebug.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qalgorithms.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qglobal.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qconfig.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qfeatures.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtypetraits.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qisenum.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsysinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qlogging.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qflags.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmutex.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qnumeric.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qversiontagging.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qhash.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qchar.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qiterator.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qlist.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qrefcount.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qarraydata.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qpair.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbytearray.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qnamespace.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstring.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstringlist.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qregexp.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmap.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtextstream.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qiodevice.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobject.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreevent.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmetatype.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobject_impl.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qlocale.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qvariant.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qshareddata.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qvector.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qpoint.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qset.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsharedpointer_impl.h
 
 release\winusbdriver.obj: winusbdriver.cpp winusbdriver.h \
 		build_win\libusbk\includes\libusbk.h \
@@ -9356,6 +9452,9 @@ release\winusbdriver.obj: winusbdriver.cpp winusbdriver.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qfileinfo.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
 		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
 		ui_elements/buffercontrol.h
 

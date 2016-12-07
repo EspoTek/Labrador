@@ -25,7 +25,7 @@ extern double SERIAL_DELAY;
 
 #define USB_RECONNECT_PERIOD 250
 
-#define VALID_DATA_PER_375 374
+#define VALID_DATA_PER_375 375
 
 #define VALID_DATA_PER_750 750
 
