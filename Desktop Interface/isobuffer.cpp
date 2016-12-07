@@ -2,7 +2,7 @@
 #include "isodriver.h"
 
 
-isoBuffer::isoBuffer(int bufferLen, isoDriver *caller, unsigned char channel_value)
+isoBuffer::isoBuffer(QWidget *parent, int bufferLen, isoDriver *caller, unsigned char channel_value) : QWidget(parent)
 {
     buffer = (short *) calloc(bufferLen*2, sizeof(short));
     bufferEnd = bufferLen-1;
@@ -10,6 +10,14 @@ isoBuffer::isoBuffer(int bufferLen, isoDriver *caller, unsigned char channel_val
     samplesPerSecond = samplesPerSecond/375*VALID_DATA_PER_375;
     parent = caller;
     channel = channel_value;
+
+    updateTimer = new QTimer();
+    updateTimer->setTimerType(Qt::PreciseTimer);
+    updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
+    connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateConsole()));
+
+    serialBuffer = new isoBufferBuffer(SERIAL_BUFFER_LENGTH*2);
+
 }
 void isoBuffer::openFile(QString newFile)
 {
@@ -179,7 +187,7 @@ void isoBuffer::serialDecode(double baudRate)
         tempChar = tempShort & (1 << serialPhase) ? 0 : 1;
         if(serialDecodingSymbol){
             //if((tempShort != 0) && (tempShort!= 255)) qDebug() << "tempShort = " << tempShort;
-            qDebug() << numOnes(tempShort);
+            //qDebug() << numOnes(tempShort);
             decodeSymbol(numOnes(tempShort) > 4);
         }
         else serialDecodingSymbol = (numOnes(tempShort) < 8);
@@ -204,15 +212,11 @@ void isoBuffer::serialBegin()
 void isoBuffer::decodeSymbol(unsigned char newBit) //Slow but works.
 {
     if(symbolCurrent == symbolMax){  //Last bit in symbol
-        console -> insertPlainText(QString(QChar((char)symbol)));
-        if(serialAutoScroll){
-            //http://stackoverflow.com/questions/21059678/how-can-i-set-auto-scroll-for-a-qtgui-qtextedit-in-pyqt4   DANKON
-            QTextCursor c =  console->textCursor();
-            c.movePosition(QTextCursor::End);
-            console->setTextCursor(c);
-            // txtedit.ensureCursorVisible(); // you might need this also
-        }
+        //charBuffer[charPos] = symbol;
+        if(charPos<SERIAL_BUFFER_LENGTH) charPos++;
+        serialBuffer->add(symbol);
         symbolCurrent++;
+        symbolUpdated = true;
         return;
     }
     if(symbolCurrent > symbolMax){  //Wait for stop bit.  Stops over the top calculation when you get a string of zeroes...
@@ -300,5 +304,21 @@ double isoBuffer::sampleConvert(short sample, int TOP, bool AC){
         voltageLevel -= parent->currentVmean; //This is old (1 frame in past) value and might not be good for signals with large variations in DC level (although the cap should filter that anyway)??
     }
     return voltageLevel;
+}
+
+void isoBuffer::updateConsole(){
+    if(!symbolUpdated) return;
+    qDebug() << charPos;
+
+    console -> setPlainText(QString::fromLocal8Bit(serialBuffer->get(charPos), charPos));
+    if(serialAutoScroll){
+        //http://stackoverflow.com/questions/21059678/how-can-i-set-auto-scroll-for-a-qtgui-qtextedit-in-pyqt4   DANKON
+        QTextCursor c =  console->textCursor();
+        c.movePosition(QTextCursor::End);
+        console->setTextCursor(c);
+        // txtedit.ensureCursorVisible(); // you might need this also
+    }
+    symbolUpdated = false;
+    //charPos = 0;
 }
 

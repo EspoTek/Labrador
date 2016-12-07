@@ -1,6 +1,7 @@
 #ifndef ISOBUFFER_H
 #define ISOBUFFER_H
 
+#include <QWidget>
 #include <QString>
 #include <QByteArray>
 #include <QDebug>
@@ -11,16 +12,20 @@
 
 #include "xmega.h"
 #include "desktop_settings.h"
+#include "isobufferbuffer.h"
 
 class isoDriver;
 
 //isoBuffer is a generic class that enables O(1) read times (!!!) on all read/write operations, while maintaining a huge buffer size.
 //Imagine it as a circular buffer, but with access functions specifically designed for isochronous data from an Xmega.
 
-class isoBuffer
+#define CONSOLE_UPDATE_TIMER_PERIOD 60
+
+class isoBuffer : public QWidget
 {
+    Q_OBJECT
 public:
-    isoBuffer(int bufferLen, isoDriver *caller, unsigned char channel_value);
+    isoBuffer(QWidget *parent = 0, int bufferLen = 0, isoDriver *caller = 0, unsigned char channel_value = 0);
     //Generic Functions
     void openFile(QString newFile);
     void writeBuffer_char(char *data, int len);
@@ -36,6 +41,7 @@ public:
     QPlainTextEdit *console, *console1, *console2;
     bool serialAutoScroll = true;
     unsigned char channel = 255;
+    QTimer *updateTimer;
 private:
     //Generic Vars
     short *buffer, *readData = NULL;
@@ -50,10 +56,14 @@ private:
     unsigned int currentColumn = 0;
     //Serial Decode
     bool serialDecodingSymbol = false;
+    char charBuffer[4096];
+    unsigned int charPos = 0;
     unsigned char symbolMax = 7;
     unsigned char symbolCurrent = 0;
     unsigned short symbol = 0;
     char serialPhase = 0;
+    isoBufferBuffer *serialBuffer;
+    bool symbolUpdated = false;
     //Generic Functions
     void decodeSymbol(unsigned char newBit);
     void marchSerialPtr(int bitPeriod_samples);
@@ -62,7 +72,7 @@ private:
 public slots:
     void enableFileIO(QFile *file);
     void disableFileIO();
-
+    void updateConsole();
 };
 
 #endif // ISOBUFFER_H

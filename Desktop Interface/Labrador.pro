@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     isobuffer.cpp \
     desktop_settings.cpp \
     scoperangeenterdialog.cpp \
-    genericusbdriver.cpp
+    genericusbdriver.cpp \
+    isobufferbuffer.cpp
 
 HEADERS  += mainwindow.h \
     functiongencontrol.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     isobuffer.h \
     desktop_settings.h \
     scoperangeenterdialog.h \
-    genericusbdriver.h
+    genericusbdriver.h \
+    isobufferbuffer.h
 
 FORMS    += mainwindow.ui \
     scoperangeenterdialog.ui

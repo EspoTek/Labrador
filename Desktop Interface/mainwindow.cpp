@@ -77,6 +77,8 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
     #endif
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
+    //ui->console1->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
+    //ui->console2->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
 }
 
 MainWindow::~MainWindow()
