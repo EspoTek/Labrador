@@ -13,8 +13,10 @@ void functionGenControl::waveformName_CH1(QString newName)
     qDebug() << "newName = " << newName;
     newName.append(".tlw");
 
-    QDir *dir = new QDir();
-    QString directory = dir->currentPath();
+    //QDir *dir = new QDir();
+    //QString directory = dir->currentPath();
+
+    QString directory = QCoreApplication::applicationDirPath();
 
     directory.append("/waveforms/");
     directory.append(newName);
