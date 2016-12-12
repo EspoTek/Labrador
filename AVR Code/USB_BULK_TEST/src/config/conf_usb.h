@@ -125,11 +125,11 @@
 //! endpoints size for full speed
 //! Note: Disable the endpoints of a type, if size equal 0
 #define UDI_VENDOR_EPS_SIZE_INT_FS    0
-#define UDI_VENDOR_EPS_SIZE_BULK_FS   64
+#define UDI_VENDOR_EPS_SIZE_BULK_FS   0
 #if SAMG55
 #define UDI_VENDOR_EPS_SIZE_ISO_FS   0
 #else
-#define UDI_VENDOR_EPS_SIZE_ISO_FS   1023
+#define UDI_VENDOR_EPS_SIZE_ISO_FS   256
 #endif
 
 //! endpoints size for high speed

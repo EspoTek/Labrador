@@ -14,12 +14,11 @@
 #include "desktop_settings.h"
 #include "buffercontrol.h"
 
-#define ISO_PACKET_SIZE 1023
+#define ISO_PACKET_SIZE 250
 #define ISO_PACKETS_PER_CTX 17
 #define NUM_FUTURE_CTX 56
 #define MAX_OVERLAP NUM_FUTURE_CTX+1
 #define ISO_TIMER_PERIOD 16
-#define MAX_VALID_INDEX 374
 
 //genericUsbDriver handles the parts of the USB stack that are not platform-dependent.
 //It exists as a superclass for winUsbDriver (on Windows) or unixUsbDriver (on Linux)
@@ -52,7 +51,7 @@ protected:
     //Generic Vars
     bufferControl *bufferPtr = NULL;
     QTimer *psuTimer;
-    unsigned char pipeID = 0x83;
+    unsigned char pipeID = 0x82;
     QTimer *isoTimer;
     unsigned char currentWriteBuffer = 0;
     unsigned long timerCount = 0;

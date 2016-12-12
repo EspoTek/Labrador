@@ -33,6 +33,8 @@ volatile unsigned char test_byte = 123;
 
 uint32_t debug_counter;
 
+unsigned char tripleUsbSuccess = 0;
+
 int main(void){
 	irq_initialize_vectors();
 	cpu_irq_enable();
@@ -112,6 +114,8 @@ bool main_vendor_enable(void)
 {
 	main_b_vendor_enable = true;
 	udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
+	udi_vendor_iso_in_run2((uint8_t *)&isoBuf[250], PACKET_SIZE, iso_callback2);
+	udi_vendor_iso_in_run3((uint8_t *)&isoBuf[500], PACKET_SIZE, iso_callback3);
 	return true;
 }
 
@@ -135,4 +139,17 @@ void iso_callback(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t
 	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
 	return;
 }
+
+void iso_callback2(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
+	udi_vendor_iso_in_run2((uint8_t *)&isoBuf[!b1_state * PACKET_SIZE + 250], PACKET_SIZE, iso_callback2);
+	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
+	return;
+}
+
+void iso_callback3(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
+	udi_vendor_iso_in_run3((uint8_t *)&isoBuf[!b1_state * PACKET_SIZE + 500], PACKET_SIZE, iso_callback3);
+	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
+	return;
+}
+
 

@@ -163,7 +163,18 @@ extern UDC_DESC_STORAGE udi_api_t udi_api_vendor;
 	.ep_iso_in.bDescriptorType         = USB_DT_ENDPOINT,\
 	.ep_iso_in.bEndpointAddress        = UDI_VENDOR_EP_ISO_IN,\
 	.ep_iso_in.bmAttributes            = USB_EP_TYPE_ISOCHRONOUS,\
-	.ep_iso_in.bInterval               = 1,
+	.ep_iso_in.bInterval               = 1,\
+	.ep_iso_in2.bLength                 = sizeof(usb_ep_desc_t),\
+	.ep_iso_in2.bDescriptorType         = USB_DT_ENDPOINT,\
+	.ep_iso_in2.bEndpointAddress        = UDI_VENDOR_EP_ISO_IN + 1,\
+	.ep_iso_in2.bmAttributes            = USB_EP_TYPE_ISOCHRONOUS,\
+	.ep_iso_in2.bInterval               = 1,\
+	.ep_iso_in3.bLength                 = sizeof(usb_ep_desc_t),\
+	.ep_iso_in3.bDescriptorType         = USB_DT_ENDPOINT,\
+	.ep_iso_in3.bEndpointAddress        = UDI_VENDOR_EP_ISO_IN + 2,\
+	.ep_iso_in3.bmAttributes            = USB_EP_TYPE_ISOCHRONOUS,\
+	.ep_iso_in3.bInterval               = 1,
+
 	//.ep_iso_out.bLength                = sizeof(usb_ep_desc_t),\
 	//.ep_iso_out.bDescriptorType        = USB_DT_ENDPOINT,\
 	//.ep_iso_out.bEndpointAddress       = UDI_VENDOR_EP_ISO_OUT,\
@@ -171,11 +182,15 @@ extern UDC_DESC_STORAGE udi_api_t udi_api_vendor;
 	//.ep_iso_out.bInterval              = 1,
 
 # define UDI_VENDOR_EPS_ISO_DESC_FS \
-	.ep_iso_in.wMaxPacketSize          = LE16(UDI_VENDOR_EPS_SIZE_ISO_FS),
+	.ep_iso_in.wMaxPacketSize          = LE16(UDI_VENDOR_EPS_SIZE_ISO_FS),\
+	.ep_iso_in2.wMaxPacketSize          = LE16(UDI_VENDOR_EPS_SIZE_ISO_FS),\
+	.ep_iso_in3.wMaxPacketSize          = LE16(UDI_VENDOR_EPS_SIZE_ISO_FS),
 	//.ep_iso_out.wMaxPacketSize         = LE16(UDI_VENDOR_EPS_SIZE_ISO_FS),
 
 # define UDI_VENDOR_EPS_ISO_DESC_HS \
-	.ep_iso_in.wMaxPacketSize          = LE16(UDI_VENDOR_EPS_SIZE_ISO_HS),
+	.ep_iso_in.wMaxPacketSize          = LE16(UDI_VENDOR_EPS_SIZE_ISO_HS),\
+	.ep_iso_in2.wMaxPacketSize          = LE16(UDI_VENDOR_EPS_SIZE_ISO_HS),\
+	.ep_iso_in3.wMaxPacketSize          = LE16(UDI_VENDOR_EPS_SIZE_ISO_HS),
 	//.ep_iso_out.wMaxPacketSize         = LE16(UDI_VENDOR_EPS_SIZE_ISO_HS),
 
 #else
@@ -200,6 +215,8 @@ typedef struct {
 #endif
 #if UDI_VENDOR_EPS_SIZE_ISO_FS
 	usb_ep_desc_t ep_iso_in;
+	usb_ep_desc_t ep_iso_in2;
+	usb_ep_desc_t ep_iso_in3;
 	//usb_ep_desc_t ep_iso_out;
 #endif
 } udi_vendor_desc_t;
@@ -212,7 +229,7 @@ typedef struct {
 //! Maximum 6 endpoints used by vendor interface
 #define UDI_VENDOR_EP_NB_INT  ((UDI_VENDOR_EPS_SIZE_INT_FS)?2:0)
 #define UDI_VENDOR_EP_NB_BULK ((UDI_VENDOR_EPS_SIZE_BULK_FS)?2:0)
-#define UDI_VENDOR_EP_NB_ISO  ((UDI_VENDOR_EPS_SIZE_ISO_FS)?1:0)  //Used to be 2:0!!
+#define UDI_VENDOR_EP_NB_ISO  ((UDI_VENDOR_EPS_SIZE_ISO_FS)?3:0)  //Used to be 2:0!!
 #define UDI_VENDOR_EP_NB      (UDI_VENDOR_EP_NB_INT+UDI_VENDOR_EP_NB_BULK+UDI_VENDOR_EP_NB_ISO)
 
 
@@ -353,8 +370,10 @@ bool udi_vendor_bulk_out_run(uint8_t * buf, iram_size_t buf_size,
  *
  * \return \c 1 if function was successfully done, otherwise \c 0.
  */
-bool udi_vendor_iso_in_run(uint8_t * buf, iram_size_t buf_size,
-		udd_callback_trans_t callback);
+bool udi_vendor_iso_in_run(uint8_t * buf, iram_size_t buf_size, udd_callback_trans_t callback);
+bool udi_vendor_iso_in_run2(uint8_t * buf, iram_size_t buf_size, udd_callback_trans_t callback);
+bool udi_vendor_iso_in_run3(uint8_t * buf, iram_size_t buf_size, udd_callback_trans_t callback);
+
 
 /**
  * \brief Start a transfer on isochronous OUT
