@@ -28,14 +28,16 @@ winUsbDriver::~winUsbDriver(void){
     //Like any decent destructor, this just frees resources
 
     qDebug() << "\n\nwinUsbDriver destructor ran!";
-    for(int n=0;n<NUM_FUTURE_CTX;n++){
-        IsoK_Free(isoCtx[n]);
+    for (unsigned char k=0; k<NUM_ISO_ENDPOINTS; k++){
+        for(int n=0;n<NUM_FUTURE_CTX;n++){
+            IsoK_Free(isoCtx[k][n]);
+        }
+        for(int i=0;i<MAX_OVERLAP;i++){
+            OvlK_Release(ovlkHandle[k][i]);
+        }
+        UsbK_FlushPipe(handle, pipeID[k]);
+        UsbK_AbortPipe(handle, pipeID[k]);
     }
-    for(int i=0;i<MAX_OVERLAP;i++){
-        OvlK_Release(ovlkHandle[i]);
-    }
-    UsbK_FlushPipe(handle, pipeID);
-    UsbK_AbortPipe(handle, pipeID);
     OvlK_Free(ovlPool);
     free(outBuffers[0]);
     free(outBuffers[1]);
@@ -152,41 +154,46 @@ unsigned char winUsbDriver::usbIsoInit(void){
         qDebug() << "OvlK_Init failed with error code" << errorCode;
         return 0;
     }
-    success = UsbK_ResetPipe(handle, pipeID);
-    if(!success){
-        errorCode = GetLastError();
-        qDebug() << "UsbK_ResetPipe failed with error code" << errorCode;
-        return 0;
+    for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
+        success = UsbK_ResetPipe(handle, pipeID[k]);
+        if(!success){
+            errorCode = GetLastError();
+            qDebug() << "UsbK_ResetPipe failed with error code" << errorCode;
+            return 0;
+        }
     }
 
     //Filling the transfer contexts
     for(n=0;n<NUM_FUTURE_CTX;n++){
-        success = IsoK_Init(&isoCtx[n], ISO_PACKETS_PER_CTX, n*ISO_PACKETS_PER_CTX);
-        if(!success){
-            errorCode = GetLastError();
-            qDebug() << "IsoK_Init failed with error code" << errorCode;
-            qDebug() << "n =" << n;
-            return 0;
-        }
+        for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
+            success = IsoK_Init(&isoCtx[k][n], ISO_PACKETS_PER_CTX, n*ISO_PACKETS_PER_CTX);
+            if(!success){
+                errorCode = GetLastError();
+                qDebug() << "IsoK_Init failed with error code" << errorCode;
+                qDebug() << "n =" << n;
+                return 0;
+            }
 
-        success = IsoK_SetPackets(isoCtx[n], ISO_PACKET_SIZE);
-        if(!success){
-            errorCode = GetLastError();
-            qDebug() << "IsoK_SetPackets failed with error code" << errorCode;
-            qDebug() << "n =" << n;
-            return 0;
-        }
+            success = IsoK_SetPackets(isoCtx[k][n], ISO_PACKET_SIZE);
+            if(!success){
+                errorCode = GetLastError();
+                qDebug() << "IsoK_SetPackets failed with error code" << errorCode;
+                qDebug() << "n =" << n;
+                return 0;
+            }
 
-        success = OvlK_Acquire(&ovlkHandle[n], ovlPool);
-        if(!success){
-            errorCode = GetLastError();
-            qDebug() << "OvlK_Acquire failed with error code" << errorCode;
-            qDebug() << "n =" << n;
-            return 0;
-        }
+            success = OvlK_Acquire(&ovlkHandle[k][n], ovlPool);
+            if(!success){
+                errorCode = GetLastError();
+                qDebug() << "OvlK_Acquire failed with error code" << errorCode;
+                qDebug() << "n =" << n;
+                return 0;
+            }
 
-        //Sending the transfer requests
-        success = UsbK_IsoReadPipe(handle, pipeID, dataBuffer[n], sizeof(dataBuffer[n]), (LPOVERLAPPED) ovlkHandle[n], isoCtx[n]);
+            //Sending the transfer requests
+            success = UsbK_IsoReadPipe(handle, pipeID[k], dataBuffer[k][n], sizeof(dataBuffer[k][n]), (LPOVERLAPPED) ovlkHandle[k][n], isoCtx[k][n]);
+            qDebug() << "sizeof(dataBuffer[k][n]) = " << sizeof(dataBuffer[k][n]);
+        }
     }
 
     //Setting up isoTimer.  This will call isoTimerTick every ISO_TIMER_PERIOD milliseconds.
@@ -223,23 +230,27 @@ void winUsbDriver::isoTimerTick(void){
 
     //Getting earliest transfer number.
     for (n=0; n<NUM_FUTURE_CTX; n++){
-        if(OvlK_IsComplete(ovlkHandle[n])){
-            if(isoCtx[n]->StartFrame < minFrame){
-                minFrame = isoCtx[n]->StartFrame;
+        if(OvlK_IsComplete(ovlkHandle[0][n]) && OvlK_IsComplete(ovlkHandle[1][n]) && OvlK_IsComplete(ovlkHandle[2][n])){
+            if(isoCtx[0][n]->StartFrame < minFrame){
+                minFrame = isoCtx[0][n]->StartFrame;
                 earliest = n;
             }
         }
     }
+
+    //qDebug() << n << "is the earliest!";
 
     if (earliest == MAX_OVERLAP){
         return;
     }
 
     //Copy the tranfer data into buffer
-    for(int i=0;i<isoCtx[earliest]->NumberOfPackets;i++){
-        dataBufferOffset = isoCtx[earliest]->IsoPackets[i].Offset;
-        memcpy(&(outBuffers[currentWriteBuffer][packetLength]), &dataBuffer[earliest][dataBufferOffset], isoCtx[earliest]->IsoPackets[i].Length);
-        packetLength += isoCtx[earliest]->IsoPackets[i].Length;
+    for(int i=0;i<isoCtx[0][earliest]->NumberOfPackets;i++){
+        for(unsigned char k=0; k<NUM_ISO_ENDPOINTS;k++){
+            dataBufferOffset = isoCtx[k][earliest]->IsoPackets[i].Offset;
+            memcpy(&(outBuffers[currentWriteBuffer][packetLength]), &dataBuffer[k][earliest][dataBufferOffset], isoCtx[k][earliest]->IsoPackets[i].Length);
+            packetLength += isoCtx[k][earliest]->IsoPackets[i].Length;
+        }
     }
 
     //Get the data for isoRead() ready and swap buffers
@@ -254,26 +265,29 @@ void winUsbDriver::isoTimerTick(void){
         killMe();
     }
 
+    UINT oldStart;
     //Setup transfer for resubmission
-    UINT oldStart = isoCtx[earliest]->StartFrame;
-    success = IsoK_ReUse(isoCtx[earliest]);
-    if(!success){
-        errorCode = GetLastError();
-        qDebug() << "IsoK_Init failed with error code" << errorCode;
-        qDebug() << "n =" << n;
-        return;
-    }
-    isoCtx[earliest]->StartFrame = oldStart + ISO_PACKETS_PER_CTX*NUM_FUTURE_CTX;
+    for(unsigned char k=0; k<NUM_ISO_ENDPOINTS; k++){
+        oldStart = isoCtx[k][earliest]->StartFrame;
+        success = IsoK_ReUse(isoCtx[k][earliest]);
+        if(!success){
+            errorCode = GetLastError();
+            qDebug() << "IsoK_Init failed with error code" << errorCode;
+            qDebug() << "n =" << n;
+            return;
+        }
+        isoCtx[k][earliest]->StartFrame = oldStart + ISO_PACKETS_PER_CTX*NUM_FUTURE_CTX;
 
-    success = OvlK_ReUse(ovlkHandle[earliest]);
-    if(!success){
-        errorCode = GetLastError();
-        qDebug() << "OvlK_ReUse failed with error code" << errorCode;
-        qDebug() << "n =" << n;
-        return;
+        success = OvlK_ReUse(ovlkHandle[k][earliest]);
+        if(!success){
+            errorCode = GetLastError();
+            qDebug() << "OvlK_ReUse failed with error code" << errorCode;
+            qDebug() << "n =" << n;
+            return;
+        }
+        //Resubmit the transfer
+        success = UsbK_IsoReadPipe(handle, pipeID[k], dataBuffer[k][earliest], sizeof(dataBuffer[k][earliest]), (LPOVERLAPPED) ovlkHandle[k][earliest], isoCtx[k][earliest]);
     }
-    //Resubmit the transfer
-    success = UsbK_IsoReadPipe(handle, pipeID, dataBuffer[earliest], sizeof(dataBuffer[earliest]), (LPOVERLAPPED) ovlkHandle[earliest], isoCtx[earliest]);
 
     //Signal to isoDriver that it can draw a new frame.
     upTick();

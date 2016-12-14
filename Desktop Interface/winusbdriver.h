@@ -25,10 +25,10 @@ private:
     //USB Vars
     KUSB_HANDLE handle = NULL;
     //USBIso Vars
-    PKISO_CONTEXT isoCtx[NUM_FUTURE_CTX];
-    KOVL_HANDLE ovlkHandle[NUM_FUTURE_CTX];
+    PKISO_CONTEXT isoCtx[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
+    KOVL_HANDLE ovlkHandle[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
     KOVL_POOL_HANDLE ovlPool;
-    unsigned char dataBuffer[NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
+    unsigned char dataBuffer[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
     //Generic Functions
     unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
     unsigned char usbIsoInit(void);

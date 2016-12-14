@@ -17,8 +17,9 @@
 #define ISO_PACKET_SIZE 250
 #define ISO_PACKETS_PER_CTX 17
 #define NUM_FUTURE_CTX 56
-#define MAX_OVERLAP NUM_FUTURE_CTX+1
 #define ISO_TIMER_PERIOD 16
+#define NUM_ISO_ENDPOINTS 3
+#define MAX_OVERLAP (NUM_FUTURE_CTX*NUM_ISO_ENDPOINTS + 1)
 
 //genericUsbDriver handles the parts of the USB stack that are not platform-dependent.
 //It exists as a superclass for winUsbDriver (on Windows) or unixUsbDriver (on Linux)
@@ -51,7 +52,7 @@ protected:
     //Generic Vars
     bufferControl *bufferPtr = NULL;
     QTimer *psuTimer;
-    unsigned char pipeID = 0x82;
+    unsigned char pipeID[3];
     QTimer *isoTimer;
     unsigned char currentWriteBuffer = 0;
     unsigned long timerCount = 0;

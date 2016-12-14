@@ -2625,24 +2625,24 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0xa437
+.debug_info     0x00000000     0xa434
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x290 src/tiny_dig.o
  .debug_info    0x00000290       0xff src/ASF/common/boards/user_board/init.o
- .debug_info    0x0000038f      0x986 src/main.o
- .debug_info    0x00000d15      0x9b6 src/tiny_adc.o
- .debug_info    0x000016cb      0x5f0 src/tiny_dac.o
- .debug_info    0x00001cbb     0x10d5 src/tiny_dma.o
- .debug_info    0x00002d90     0x17b4 src/tiny_timer.o
- .debug_info    0x00004544      0x4b2 src/tiny_uart.o
- .debug_info    0x000049f6      0xc3d src/ASF/common/services/clock/xmega/sysclk.o
- .debug_info    0x00005633      0x121 src/ASF/common/services/sleepmgr/xmega/sleepmgr.o
- .debug_info    0x00005754      0x638 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
- .debug_info    0x00005d8c      0x5fc src/ASF/common/services/usb/class/vendor/device/udi_vendor_desc.o
- .debug_info    0x00006388     0x214e src/ASF/common/services/usb/udc/udc.o
- .debug_info    0x000084d6       0x91 src/ASF/xmega/drivers/cpu/ccp.o
- .debug_info    0x00008567       0x91 src/ASF/xmega/drivers/nvm/nvm_asm.o
- .debug_info    0x000085f8     0x1e3f src/ASF/xmega/drivers/usb/usb_device.o
+ .debug_info    0x0000038f      0x983 src/main.o
+ .debug_info    0x00000d12      0x9b6 src/tiny_adc.o
+ .debug_info    0x000016c8      0x5f0 src/tiny_dac.o
+ .debug_info    0x00001cb8     0x10d5 src/tiny_dma.o
+ .debug_info    0x00002d8d     0x17b4 src/tiny_timer.o
+ .debug_info    0x00004541      0x4b2 src/tiny_uart.o
+ .debug_info    0x000049f3      0xc3d src/ASF/common/services/clock/xmega/sysclk.o
+ .debug_info    0x00005630      0x121 src/ASF/common/services/sleepmgr/xmega/sleepmgr.o
+ .debug_info    0x00005751      0x638 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
+ .debug_info    0x00005d89      0x5fc src/ASF/common/services/usb/class/vendor/device/udi_vendor_desc.o
+ .debug_info    0x00006385     0x214e src/ASF/common/services/usb/udc/udc.o
+ .debug_info    0x000084d3       0x91 src/ASF/xmega/drivers/cpu/ccp.o
+ .debug_info    0x00008564       0x91 src/ASF/xmega/drivers/nvm/nvm_asm.o
+ .debug_info    0x000085f5     0x1e3f src/ASF/xmega/drivers/usb/usb_device.o
 
 .debug_abbrev   0x00000000     0x1b68
  *(.debug_abbrev)
