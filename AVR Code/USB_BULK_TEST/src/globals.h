@@ -31,7 +31,7 @@ extern volatile unsigned char dacBuf_CH1[DACBUF_SIZE];
 extern volatile unsigned char dacBuf_CH2[DACBUF_SIZE];
 
 extern volatile unsigned char b1_state;
-extern volatile unsigned char b2_state;
+extern volatile unsigned char usb_state;
 
 extern volatile bool main_b_vendor_enable;
 

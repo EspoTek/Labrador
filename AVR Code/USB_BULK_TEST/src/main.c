@@ -20,7 +20,7 @@ volatile unsigned char dacBuf_CH1[DACBUF_SIZE];// = {128,  134,  140,  146,  153
 volatile unsigned char dacBuf_CH2[DACBUF_SIZE];
 
 volatile unsigned char b1_state = 0;
-volatile unsigned char b2_state = 0;
+volatile unsigned char usb_state = 0;
 
 volatile uint16_t dacBuf_len = 128;
 volatile uint16_t auxDacBufLen = 128;
@@ -106,7 +106,7 @@ void main_sof_action(void)
 		default:
 			break;
 	}
-		b1_state = !b1_state;
+		usb_state = !b1_state;
 	return;
 }
 
@@ -135,19 +135,19 @@ bool main_setup_in_received(void)
 }
 
 void iso_callback(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
-	udi_vendor_iso_in_run((uint8_t *)&isoBuf[!b1_state * PACKET_SIZE], 250, iso_callback);
+	udi_vendor_iso_in_run((uint8_t *)&isoBuf[usb_state * PACKET_SIZE], 250, iso_callback);
 	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
 	return;
 }
 
 void iso_callback2(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
-	udi_vendor_iso_in_run2((uint8_t *)&isoBuf[!b1_state * PACKET_SIZE + 250], 250, iso_callback2);
+	udi_vendor_iso_in_run2((uint8_t *)&isoBuf[usb_state * PACKET_SIZE + 250], 250, iso_callback2);
 	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
 	return;
 }
 
 void iso_callback3(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
-	udi_vendor_iso_in_run3((uint8_t *)&isoBuf[!b1_state * PACKET_SIZE + 500], 250, iso_callback3);
+	udi_vendor_iso_in_run3((uint8_t *)&isoBuf[usb_state * PACKET_SIZE + 500], 250, iso_callback3);
 	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
 	return;
 }
