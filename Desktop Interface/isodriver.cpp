@@ -169,6 +169,8 @@ void isoDriver::setVisible_CH2(bool visible){
 }
 
 void isoDriver::setVoltageRange(QWheelEvent *event){
+    if(doNotTouchGraph == true) return;
+
     if (!(event->modifiers() == Qt::ControlModifier)){
         double c = (topRange - botRange) / (double)400;
 

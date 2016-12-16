@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_bufferControl_t {
-    QByteArrayData data[26];
-    char stringdata0[315];
+    QByteArrayData data[27];
+    char stringdata0[320];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -54,7 +54,8 @@ QT_MOC_LITERAL(21, 262, 12), // "multimeterIn"
 QT_MOC_LITERAL(22, 275, 9), // "digIn_CH1"
 QT_MOC_LITERAL(23, 285, 9), // "digIn_CH2"
 QT_MOC_LITERAL(24, 295, 9), // "digIn_CH3"
-QT_MOC_LITERAL(25, 305, 9) // "digIn_CH4"
+QT_MOC_LITERAL(25, 305, 9), // "digIn_CH4"
+QT_MOC_LITERAL(26, 315, 4) // "poke"
 
     },
     "bufferControl\0scopeOut_CH1\0\0state\0"
@@ -65,7 +66,7 @@ QT_MOC_LITERAL(25, 305, 9) // "digIn_CH4"
     "modeChange\0newMode\0scopeIn_CH1\0"
     "scopeIn_CH2\0scopeDsrIn\0busSnifferIn_CH1\0"
     "busSnifferIn_CH2\0multimeterIn\0digIn_CH1\0"
-    "digIn_CH2\0digIn_CH3\0digIn_CH4"
+    "digIn_CH2\0digIn_CH3\0digIn_CH4\0poke"
 };
 #undef QT_MOC_LITERAL
 
@@ -75,7 +76,7 @@ static const uint qt_meta_data_bufferControl[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -83,29 +84,30 @@ static const uint qt_meta_data_bufferControl[] = {
       11,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  119,    2, 0x06 /* Public */,
-       4,    1,  122,    2, 0x06 /* Public */,
-       5,    1,  125,    2, 0x06 /* Public */,
-       6,    1,  128,    2, 0x06 /* Public */,
-       7,    1,  131,    2, 0x06 /* Public */,
-       8,    1,  134,    2, 0x06 /* Public */,
-       9,    1,  137,    2, 0x06 /* Public */,
-      10,    1,  140,    2, 0x06 /* Public */,
-      11,    1,  143,    2, 0x06 /* Public */,
-      12,    1,  146,    2, 0x06 /* Public */,
-      14,    1,  149,    2, 0x06 /* Public */,
+       1,    1,  124,    2, 0x06 /* Public */,
+       4,    1,  127,    2, 0x06 /* Public */,
+       5,    1,  130,    2, 0x06 /* Public */,
+       6,    1,  133,    2, 0x06 /* Public */,
+       7,    1,  136,    2, 0x06 /* Public */,
+       8,    1,  139,    2, 0x06 /* Public */,
+       9,    1,  142,    2, 0x06 /* Public */,
+      10,    1,  145,    2, 0x06 /* Public */,
+      11,    1,  148,    2, 0x06 /* Public */,
+      12,    1,  151,    2, 0x06 /* Public */,
+      14,    1,  154,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      16,    1,  152,    2, 0x0a /* Public */,
-      17,    1,  155,    2, 0x0a /* Public */,
-      18,    1,  158,    2, 0x0a /* Public */,
-      19,    1,  161,    2, 0x0a /* Public */,
-      20,    1,  164,    2, 0x0a /* Public */,
-      21,    1,  167,    2, 0x0a /* Public */,
-      22,    1,  170,    2, 0x0a /* Public */,
-      23,    1,  173,    2, 0x0a /* Public */,
-      24,    1,  176,    2, 0x0a /* Public */,
-      25,    1,  179,    2, 0x0a /* Public */,
+      16,    1,  157,    2, 0x0a /* Public */,
+      17,    1,  160,    2, 0x0a /* Public */,
+      18,    1,  163,    2, 0x0a /* Public */,
+      19,    1,  166,    2, 0x0a /* Public */,
+      20,    1,  169,    2, 0x0a /* Public */,
+      21,    1,  172,    2, 0x0a /* Public */,
+      22,    1,  175,    2, 0x0a /* Public */,
+      23,    1,  178,    2, 0x0a /* Public */,
+      24,    1,  181,    2, 0x0a /* Public */,
+      25,    1,  184,    2, 0x0a /* Public */,
+      26,    0,  187,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool,    3,
@@ -131,6 +133,7 @@ static const uint qt_meta_data_bufferControl[] = {
     QMetaType::Void, QMetaType::Bool,    3,
     QMetaType::Void, QMetaType::Bool,    3,
     QMetaType::Void, QMetaType::Bool,    3,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -162,6 +165,7 @@ void bufferControl::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 18: _t->digIn_CH2((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 19: _t->digIn_CH3((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 20: _t->digIn_CH4((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 21: _t->poke(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -272,13 +276,13 @@ int bufferControl::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 22)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 21;
+        _id -= 22;
     }
     return _id;
 }

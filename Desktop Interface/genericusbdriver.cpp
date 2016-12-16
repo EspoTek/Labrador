@@ -249,7 +249,7 @@ void genericUsbDriver::psuTick(){
     }
 
     if ((dutyTemp>106) || (dutyTemp<21)){
-        qDebug("PSU DUTY CYCLE TOO LARGE (could underflow on SOF)!!!  ABORTING!!!");
+        qDebug("PSU DUTY CYCLE of dutyTemp = %d OUT OF RANGE (could underflow on SOF)!!!  ABORTING!!!", dutyTemp);
     }
     usbSendControl(0x40, 0xa3, dutyTemp, 0, 0, NULL);
 }

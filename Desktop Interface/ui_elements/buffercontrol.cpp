@@ -238,3 +238,8 @@ void bufferControl::updateMode(void){
 
 }
 
+void bufferControl::poke(void){
+    updateDig(digState);
+    updateMode();
+}
+

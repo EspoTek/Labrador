@@ -25,6 +25,7 @@ public:
     isoBuffer *internalBuffer375_CH1, *internalBuffer375_CH2, *internalBuffer750;
     QCPItemText *cursorTextPtr;
     genericUsbDriver *driver;
+    bool doNotTouchGraph = true;
     //State Vars
     bool AC_CH1 = false, AC_CH2 = false;
     bool cursorStatsEnabled = true;

@@ -3,7 +3,7 @@
 
 #include <QSlider>
 #include <QString>
-//#include <QDebug>
+#include <QDebug>
 #include <QLabel>
 #include <QLayout>
 #include <QString>
@@ -32,6 +32,7 @@ signals:
     void voltageChanged(double newVoltage);
 public slots:
     void selfMoved(int newval);
+    void poke(void);
 };
 
 #endif // ESPOSLIDER_H

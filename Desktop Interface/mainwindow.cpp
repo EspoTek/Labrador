@@ -81,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->console2->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
     ui->frequencyValue_CH2->setValue(912);
     ui->amplitudeValue_CH2->setValue(2);
+    ui->controller_iso->doNotTouchGraph = false;
 }
 
 MainWindow::~MainWindow()
@@ -1008,6 +1009,7 @@ void MainWindow::reinitUsb(void){
     double currentPsuVoltage;
     int digitalPinState;
 
+    ui->controller_iso->doNotTouchGraph = true;
     ui->controller_iso->driver->saveState(&deviceMode, &scopeGain, &currentPsuVoltage, &digitalPinState);
 
     delete(ui->controller_iso->driver);
@@ -1035,13 +1037,16 @@ void MainWindow::reinitUsb(void){
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
 
     //Setup all necessary state data;
-    ui->controller_iso->driver->setDeviceMode(deviceMode);
+    //ui->controller_iso->driver->setDeviceMode(deviceMode);
     ui->controller_iso->driver->setGain(scopeGain);
-    ui->controller_iso->driver->setPsu(currentPsuVoltage);
-    ui->controller_iso->driver->newDig(digitalPinState);
+    //ui->controller_iso->driver->setPsu(currentPsuVoltage);
+    ui->psuSlider->poke();
+    //ui->controller_iso->driver->newDig(digitalPinState);
+    ui->bufferDisplay->poke();
     ui->controller_iso->driver->setFunctionGen(0,ui->controller_fg);
     ui->controller_iso->driver->setFunctionGen(1,ui->controller_fg);
 
     ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->doNotTouchGraph = false;
 }
 

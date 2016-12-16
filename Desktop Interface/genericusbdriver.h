@@ -31,7 +31,7 @@ public:
     //State Vars
     int deviceMode = INIT_DEVICE_MODE;
     double scopeGain = 0.5;
-    int dutyTemp = 0;
+    int dutyTemp = 21;
     //Generic Vars
     unsigned char *outBuffers[2];
     unsigned int bufferLengths[2];

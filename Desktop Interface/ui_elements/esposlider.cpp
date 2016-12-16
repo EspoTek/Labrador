@@ -98,3 +98,9 @@ void espoSlider::selfMoved(int newval)
     lcdOut(newstring);
     return;
 }
+
+void espoSlider::poke(void){
+    //qDebug() << "Refreshing to voltage" <<  ((double) (this->value())) / 20;
+    voltageChanged(((double) (this->value())) / 20);
+}
+

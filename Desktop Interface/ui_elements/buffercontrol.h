@@ -53,7 +53,7 @@ public slots:
     void digIn_CH2(bool state);
     void digIn_CH3(bool state);
     void digIn_CH4(bool state);
-
+    void poke(void);
 };
 
 #endif // BUFFERCONTROL_H
