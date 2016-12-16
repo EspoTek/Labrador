@@ -20,6 +20,7 @@ volatile unsigned char dacBuf_CH1[DACBUF_SIZE];// = {128,  134,  140,  146,  153
 volatile unsigned char dacBuf_CH2[DACBUF_SIZE];
 
 volatile unsigned char b1_state = 0;
+volatile unsigned char b2_state = 0;
 volatile unsigned char usb_state = 0;
 
 volatile uint16_t dacBuf_len = 128;
