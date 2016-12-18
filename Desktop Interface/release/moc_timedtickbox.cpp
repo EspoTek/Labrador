@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../ui_elements/timedtickbox.h"
+#include "../../../../../Desktop/Labrador-8d0f6dbeeb4008f41048524c5f556b91f3638c61/Desktop Interface/timedtickbox.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)

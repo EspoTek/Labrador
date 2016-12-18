@@ -9,7 +9,7 @@
 #ifndef GLOBALS_H_
 #define GLOBALS_H_
 
-//#define VERO
+#define VERO
 
 #define TC_SPISLAVE TCD0
 #define TC_PSU TCD1

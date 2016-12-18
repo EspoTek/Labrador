@@ -350,8 +350,8 @@ void tiny_dma_set_mode_3(void){
 	DMA.CH0.SRCADDR1 = (( (uint16_t) &USARTC0.DATA) >> 8) & 0xFF;
 	DMA.CH0.SRCADDR2 = 0x00;
 		
-	DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[b1_state*PACKET_SIZE]) >> 0) & 0xFF;  //Dest address is isoBuf
-	DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[b1_state*PACKET_SIZE]) >> 8) & 0xFF;
+	DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[0]) >> 0) & 0xFF;  //Dest address is isoBuf
+	DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[0]) >> 8) & 0xFF;
 	DMA.CH0.DESTADDR2 = 0x00;
 		
 	//Must enable last for REPCNT won't work!
@@ -409,50 +409,52 @@ void tiny_dma_set_mode_4(void){
 	
 	//Must enable last for REPCNT won't work!
 	DMA.CH2.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-}
-
-void tiny_dma_loop_mode_4(void){
+	
 	//Actual data being transferred
 	DMA.CH0.CTRLA = 0x00;
 	DMA.CH0.CTRLA = DMA_CH_RESET_bm;
-	
+		
 	DMA.CH0.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm; //Do not repeat!
-	DMA.CH0.CTRLB = 0x00; //No interrupt
+	DMA.CH0.CTRLB = 0x03; //No interrupt
 	DMA.CH0.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH0.TRIGSRC = DMA_CH_TRIGSRC_USARTC0_RXC_gc;
 	DMA.CH0.TRFCNT = HALFPACKET_SIZE;
-	
+		
 	DMA.CH0.SRCADDR0 = (( (uint16_t) &USARTC0.DATA) >> 0) & 0xFF; //Source address is ADC
 	DMA.CH0.SRCADDR1 = (( (uint16_t) &USARTC0.DATA) >> 8) & 0xFF;
 	DMA.CH0.SRCADDR2 = 0x00;
-	
-	DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[b1_state*PACKET_SIZE]) >> 0) & 0xFF;  //Dest address is isoBuf
-	DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[b1_state*PACKET_SIZE]) >> 8) & 0xFF;
+		
+	DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[0]) >> 0) & 0xFF;  //Dest address is isoBuf
+	DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[0]) >> 8) & 0xFF;
 	DMA.CH0.DESTADDR2 = 0x00;
-	
+		
 	//Must enable last for REPCNT won't work!
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	
+		
 	//Actual data being transferred
 	DMA.CH3.CTRLA = 0x00;
 	DMA.CH3.CTRLA = DMA_CH_RESET_bm;
-	
+		
 	DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm; //Do not repeat!
-	DMA.CH3.CTRLB = 0x00; //No interrupt
+	DMA.CH3.CTRLB = 0x03; //No interrupt
 	DMA.CH3.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH3.TRIGSRC = DMA_CH_TRIGSRC_SPIC_gc;
 	DMA.CH3.TRFCNT = HALFPACKET_SIZE;
-	
+		
 	DMA.CH3.SRCADDR0 = (( (uint16_t) &SPIC.DATA) >> 0) & 0xFF; //Source address is ADC
 	DMA.CH3.SRCADDR1 = (( (uint16_t) &SPIC.DATA) >> 8) & 0xFF;
 	DMA.CH3.SRCADDR2 = 0x00;
-	
-	DMA.CH3.DESTADDR0 = (( (uint16_t) &isoBuf[b1_state*PACKET_SIZE+HALFPACKET_SIZE]) >> 0) & 0xFF;  //Dest address is isoBuf
-	DMA.CH3.DESTADDR1 = (( (uint16_t) &isoBuf[b1_state*PACKET_SIZE+HALFPACKET_SIZE]) >> 8) & 0xFF;
+		
+	DMA.CH3.DESTADDR0 = (( (uint16_t) &isoBuf[HALFPACKET_SIZE]) >> 0) & 0xFF;  //Dest address is isoBuf
+	DMA.CH3.DESTADDR1 = (( (uint16_t) &isoBuf[HALFPACKET_SIZE]) >> 8) & 0xFF;
 	DMA.CH3.DESTADDR2 = 0x00;
-	
+		
 	//Must enable last for REPCNT won't work!
 	DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
+}
+
+void tiny_dma_loop_mode_4(void){
+	return;
 }	
 	
 void tiny_dma_set_mode_5(void){
@@ -666,7 +668,12 @@ ISR(DMA_CH0_vect){
 				b1_state = !b1_state;
 			break;
 			case 4:
-			////////////////////////////////////////
+				DMA.CH0.TRFCNT = HALFPACKET_SIZE;
+				DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[b1_state * PACKET_SIZE]) >> 0) & 0xFF;  //Dest address is isoBuf
+				DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[b1_state * PACKET_SIZE]) >> 8) & 0xFF;
+				//Must enable last for REPCNT won't work!
+				DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
+				b1_state = !b1_state;
 			break;
 			case 6:
 			////////////////////////////////////////
@@ -718,4 +725,14 @@ ISR(DMA_CH1_vect){
 			////////////////////////////////////////
 			break;
 		}
+}
+
+ISR(DMA_CH3_vect){
+	DMA.INTFLAGS = 0x08;
+	DMA.CH3.TRFCNT = HALFPACKET_SIZE;
+	DMA.CH3.DESTADDR0 = (( (uint16_t) &isoBuf[b1_state*PACKET_SIZE+HALFPACKET_SIZE]) >> 0) & 0xFF;  //Dest address is isoBuf
+	DMA.CH3.DESTADDR1 = (( (uint16_t) &isoBuf[b1_state*PACKET_SIZE+HALFPACKET_SIZE]) >> 8) & 0xFF;
+	//Must enable last for REPCNT won't work!
+	DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
+//	b2_state = !b2_state;
 }
