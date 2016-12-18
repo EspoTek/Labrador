@@ -4,7 +4,7 @@
 #  include <windows.h>
 # endif
 
-IDI_ICON1	ICON	DISCARDABLE	"C:\\Users\\Esposch\\Desktop\\Labrador-8d0f6dbeeb4008f41048524c5f556b91f3638c61\\Desktop Interface\\appicon.ico"
+IDI_ICON1	ICON	DISCARDABLE	"C:\\Users\\Esposch\\Documents\\GitHub\\Labrador\\Desktop Interface\\appicon.ico"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION 0,0,0,0
