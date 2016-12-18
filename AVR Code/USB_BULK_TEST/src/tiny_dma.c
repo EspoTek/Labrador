@@ -608,30 +608,29 @@ void tiny_dma_set_mode_7(void){
 		
 		//Must enable last for REPCNT won't work!
 		DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!	
-}
-
-void tiny_dma_loop_mode_7(void){
-	
+		
 		DMA.CH0.CTRLA = 0x00;
 		DMA.CH0.CTRLA = DMA_CH_RESET_bm;
-		
+				
 		DMA.CH0.CTRLA = DMA_CH_BURSTLEN_2BYTE_gc | DMA_CH_SINGLE_bm; //Do not repeat!
-		DMA.CH0.CTRLB = 0x00; //No interrupt!
+		DMA.CH0.CTRLB = 0x03; //No interrupt!
 		DMA.CH0.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 		DMA.CH0.TRIGSRC = DMA_CH_TRIGSRC_ADCA_CH0_gc;	//Triggered from ADCA channel 0
 		DMA.CH0.TRFCNT = PACKET_SIZE;
-		
+				
 		DMA.CH0.SRCADDR0 = (( (uint16_t) &ADCA.CH0.RESL) >> 0) & 0xFF; //Source address is ADC
 		DMA.CH0.SRCADDR1 = (( (uint16_t) &ADCA.CH0.RESL) >> 8) & 0xFF;
 		DMA.CH0.SRCADDR2 = 0x00;
-		
-		DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[b1_state * PACKET_SIZE]) >> 0) & 0xFF;  //Dest address is isoBuf
-		DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[b1_state * PACKET_SIZE]) >> 8) & 0xFF;
+				
+		DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[0]) >> 0) & 0xFF;  //Dest address is isoBuf
+		DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[0]) >> 8) & 0xFF;
 		DMA.CH0.DESTADDR2 = 0x00;
-		
+				
 		//Must enable last for REPCNT won't work!
-		DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	
+		DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!	
+}
+
+void tiny_dma_loop_mode_7(void){
 }
 
 ISR(DMA_CH0_vect){
@@ -686,7 +685,12 @@ ISR(DMA_CH0_vect){
 				b1_state = !b1_state;
 			break;
 			case 7:
-			////////////////////////////////////////
+				DMA.CH0.TRFCNT = PACKET_SIZE;
+				DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[b1_state * PACKET_SIZE]) >> 0) & 0xFF;  //Dest address is isoBuf
+				DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[b1_state * PACKET_SIZE]) >> 8) & 0xFF;
+				//Must enable last for REPCNT won't work!
+				DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
+				b1_state = !b1_state;
 			break;
 			default:
 			////////////////////////////////////////
