@@ -60,7 +60,20 @@ int main(void){
 		if(debug_counter > 100000000){
 			debug_counter = 0;
 		}
-
+			asm("nop");
+			asm("nop");
+			asm("nop");
+			asm("nop");
+			asm("nop");
+			asm("nop");
+			asm("nop");
+			asm("nop");
+			asm("nop");
+			asm("nop");
+			asm("nop");
+			asm("nop");
+			asm("nop");
+			asm("nop");
 	//test_byte = ADCA.CH1.RESH;
 	//DO NOTHING!
 	}

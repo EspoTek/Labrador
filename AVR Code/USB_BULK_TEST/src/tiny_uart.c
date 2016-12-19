@@ -13,13 +13,13 @@ void tiny_uart_setup(void){
 	PR.PRPC &= 0b11101111;
 	//PR.PRPE &= 0b11111110;  ???
 	
-	PORTC.DIR |= 0b01001010;
+	PORTC.DIR |= 0b10101010;
 	PORTC.OUT = 0xff;
 	PORTC.PIN2CTRL = PORT_INVEN_bm | PORT_OPC_PULLUP_gc;
 	//PORTC.REMAP = 0x10; //Remap USART to [7:4]
-	#ifndef VERO
-		PORTC.REMAP = 0x20; //Swap MOSI and SCK - for small boards only!!!
-	#endif
+	//#ifndef VERO
+//		PORTC.REMAP = 0x20; //Swap MOSI and SCK - for small boards only!!!
+	//#endif
 	
 	USARTC0.CTRLC = USART_CMODE_MSPI_gc | 0b00000100; //LSB received first, UPCHA disabled
 	USARTC0.BAUDCTRLA = 3;  	//BSEL = fper/(2fbaud) -1;  24/(2*3) - 1 = 3
@@ -34,12 +34,12 @@ void tiny_spi_setup(void){
 	
 	//SPI enable
 	SPIC.CTRL = SPI_ENABLE_bm;  //Slave mode
-	SPIC.INTCTRL = SPI_INTLVL_HI_gc;
-	#ifdef VERO
+	SPIC.INTCTRL = SPI_INTLVL_OFF_gc;
+	//#ifdef VERO
 		PORTC.PIN5CTRL = PORT_INVEN_bm | PORT_OPC_PULLUP_gc;
-	#else
-		PORTC.PIN7CTRL = PORT_INVEN_bm | PORT_OPC_PULLUP_gc;  //Pin5 if not swapped		
-	#endif
+	//#else
+	//	PORTC.PIN7CTRL = PORT_INVEN_bm | PORT_OPC_PULLUP_gc;  //Pin5 if not swapped		
+	//#endif
 		
 	return;
 }

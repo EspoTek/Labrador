@@ -8,7 +8,7 @@
 #include "tiny_timer.h"
 #include "globals.h"
 
-#define PSU_PER 3000
+#define PSU_PER 2048	
 #define jump 6
 
 void tiny_timer_setup(void){
@@ -41,7 +41,7 @@ void tiny_timer_setup(void){
 		PORTD.DIR |= 0b00010000;
 		TC_PSU.CTRLB = 0x10 | TC_WGMODE_SINGLESLOPE_gc;  //CCAEN is set
 		TC_PSU.CTRLE = TC_BYTEM_NORMAL_gc;
-		TC_PSU.INTCTRLA = TC_OVFINTLVL_LO_gc;
+		TC_PSU.INTCTRLA = TC_OVFINTLVL_MED_gc;
 		TC_PSU.PER = PSU_PER;  // Max value of CNT
 		TC_PSU.CCA = 0; //Initial Duty cycle of 0%
 		TC_PSU.CTRLA = TC_CLKSEL_DIV1_gc;
@@ -59,6 +59,7 @@ ISR(TC_PSU_OVF){
 	char tempvar;
 	char err;
 	volatile char nothing;
+	TC_PSU.INTFLAGS = 0xff;
 	if (global_mode == 7){
 		nothing = ADCA.CH1.RESL;
 		tempvar = ADCA.CH1.RESH;

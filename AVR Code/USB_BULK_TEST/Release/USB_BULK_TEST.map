@@ -399,7 +399,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x2620
+.text           0x00000000     0x26b4
  *(.vectors)
  .vectors       0x00000000      0x1fc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/XMEGAA_DFP/1.0.39/gcc/dev/atxmega32a4u/avrxmega2/crtatxmega32a4u.o
                 0x00000000                __vector_default
@@ -408,46 +408,48 @@ END GROUP
  *(.progmem.gcc*)
  .progmem.gcc_sw_table.main_sof_action
                 0x000001fc       0x10 src/main.o
+ .progmem.gcc_sw_table.__vector_6
+                0x0000020c       0x10 src/tiny_dma.o
  .progmem.gcc_sw_table.udc_process_setup
-                0x0000020c       0x30 src/ASF/common/services/usb/udc/udc.o
-                0x0000023c                . = ALIGN (0x2)
-                0x0000023c                __trampolines_start = .
+                0x0000021c       0x30 src/ASF/common/services/usb/udc/udc.o
+                0x0000024c                . = ALIGN (0x2)
+                0x0000024c                __trampolines_start = .
  *(.trampolines)
- .trampolines   0x0000023c        0x0 linker stubs
+ .trampolines   0x0000024c        0x0 linker stubs
  *(.trampolines*)
-                0x0000023c                __trampolines_end = .
+                0x0000024c                __trampolines_end = .
  *libprintf_flt.a:*(.progmem.data)
  *libc.a:*(.progmem.data)
  *(.progmem*)
-                0x0000023c                . = ALIGN (0x2)
+                0x0000024c                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
  *(.lowtext*)
-                0x0000023c                __ctors_start = .
+                0x0000024c                __ctors_start = .
  *(.ctors)
-                0x0000023c                __ctors_end = .
-                0x0000023c                __dtors_start = .
+                0x0000024c                __ctors_end = .
+                0x0000024c                __dtors_start = .
  *(.dtors)
-                0x0000023c                __dtors_end = .
+                0x0000024c                __dtors_end = .
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x0000023c        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/XMEGAA_DFP/1.0.39/gcc/dev/atxmega32a4u/avrxmega2/crtatxmega32a4u.o
-                0x0000023c                __init
+ .init0         0x0000024c        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/XMEGAA_DFP/1.0.39/gcc/dev/atxmega32a4u/avrxmega2/crtatxmega32a4u.o
+                0x0000024c                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x0000023c        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/XMEGAA_DFP/1.0.39/gcc/dev/atxmega32a4u/avrxmega2/crtatxmega32a4u.o
+ .init2         0x0000024c        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/XMEGAA_DFP/1.0.39/gcc/dev/atxmega32a4u/avrxmega2/crtatxmega32a4u.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x00000248       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_copy_data.o)
-                0x00000248                __do_copy_data
- .init4         0x0000025e       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_clear_bss.o)
-                0x0000025e                __do_clear_bss
+ .init4         0x00000258       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_copy_data.o)
+                0x00000258                __do_copy_data
+ .init4         0x0000026e       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_clear_bss.o)
+                0x0000026e                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -458,406 +460,408 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x0000026e        0x6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/XMEGAA_DFP/1.0.39/gcc/dev/atxmega32a4u/avrxmega2/crtatxmega32a4u.o
+ .init9         0x0000027e        0x6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/XMEGAA_DFP/1.0.39/gcc/dev/atxmega32a4u/avrxmega2/crtatxmega32a4u.o
  *(.init9)
  *(.text)
- .text          0x00000274        0x2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/XMEGAA_DFP/1.0.39/gcc/dev/atxmega32a4u/avrxmega2/crtatxmega32a4u.o
-                0x00000274                __vector_38
-                0x00000274                __vector_104
-                0x00000274                __vector_22
-                0x00000274                __vector_63
-                0x00000274                __vector_28
-                0x00000274                __vector_67
-                0x00000274                __vector_1
-                0x00000274                __vector_119
-                0x00000274                __vector_32
-                0x00000274                __vector_75
-                0x00000274                __vector_71
-                0x00000274                __vector_91
-                0x00000274                __vector_34
-                0x00000274                __vector_62
-                0x00000274                __vector_77
-                0x00000274                __vector_102
-                0x00000274                __vector_12
-                0x00000274                __vector_55
-                0x00000274                __vector_69
-                0x00000274                __vector_81
-                0x00000274                __vector_90
-                0x00000274                __vector_46
-                0x00000274                __bad_interrupt
-                0x00000274                __vector_122
-                0x00000274                __vector_72
-                0x00000274                __vector_114
-                0x00000274                __vector_110
-                0x00000274                __vector_31
-                0x00000274                __vector_92
-                0x00000274                __vector_35
-                0x00000274                __vector_78
-                0x00000274                __vector_74
-                0x00000274                __vector_117
-                0x00000274                __vector_39
-                0x00000274                __vector_107
-                0x00000274                __vector_3
-                0x00000274                __vector_105
-                0x00000274                __vector_98
-                0x00000274                __vector_23
-                0x00000274                __vector_68
-                0x00000274                __vector_30
-                0x00000274                __vector_73
-                0x00000274                __vector_45
-                0x00000274                __vector_25
-                0x00000274                __vector_93
-                0x00000274                __vector_61
-                0x00000274                __vector_11
-                0x00000274                __vector_54
-                0x00000274                __vector_99
-                0x00000274                __vector_13
-                0x00000274                __vector_17
-                0x00000274                __vector_19
-                0x00000274                __vector_56
-                0x00000274                __vector_49
-                0x00000274                __vector_123
-                0x00000274                __vector_41
-                0x00000274                __vector_86
-                0x00000274                __vector_100
-                0x00000274                __vector_101
-                0x00000274                __vector_64
-                0x00000274                __vector_88
-                0x00000274                __vector_109
-                0x00000274                __vector_43
-                0x00000274                __vector_27
-                0x00000274                __vector_5
-                0x00000274                __vector_113
-                0x00000274                __vector_33
-                0x00000274                __vector_76
-                0x00000274                __vector_115
-                0x00000274                __vector_47
-                0x00000274                __vector_52
-                0x00000274                __vector_37
-                0x00000274                __vector_95
-                0x00000274                __vector_103
-                0x00000274                __vector_96
-                0x00000274                __vector_89
-                0x00000274                __vector_108
-                0x00000274                __vector_4
-                0x00000274                __vector_44
-                0x00000274                __vector_82
-                0x00000274                __vector_106
-                0x00000274                __vector_118
-                0x00000274                __vector_51
-                0x00000274                __vector_2
-                0x00000274                __vector_21
-                0x00000274                __vector_15
-                0x00000274                __vector_66
-                0x00000274                __vector_36
-                0x00000274                __vector_79
-                0x00000274                __vector_58
-                0x00000274                __vector_70
-                0x00000274                __vector_29
-                0x00000274                __vector_60
-                0x00000274                __vector_121
-                0x00000274                __vector_40
-                0x00000274                __vector_85
-                0x00000274                __vector_94
-                0x00000274                __vector_8
-                0x00000274                __vector_26
-                0x00000274                __vector_48
-                0x00000274                __vector_124
-                0x00000274                __vector_116
-                0x00000274                __vector_112
-                0x00000274                __vector_111
-                0x00000274                __vector_80
-                0x00000274                __vector_14
-                0x00000274                __vector_84
-                0x00000274                __vector_57
-                0x00000274                __vector_53
-                0x00000274                __vector_10
-                0x00000274                __vector_50
-                0x00000274                __vector_16
-                0x00000274                __vector_59
-                0x00000274                __vector_18
-                0x00000274                __vector_97
-                0x00000274                __vector_20
-                0x00000274                __vector_42
-                0x00000274                __vector_87
-                0x00000274                __vector_65
-                0x00000274                __vector_120
-                0x00000276                . = ALIGN (0x2)
+ .text          0x00000284        0x2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/XMEGAA_DFP/1.0.39/gcc/dev/atxmega32a4u/avrxmega2/crtatxmega32a4u.o
+                0x00000284                __vector_38
+                0x00000284                __vector_104
+                0x00000284                __vector_22
+                0x00000284                __vector_63
+                0x00000284                __vector_28
+                0x00000284                __vector_67
+                0x00000284                __vector_1
+                0x00000284                __vector_119
+                0x00000284                __vector_32
+                0x00000284                __vector_75
+                0x00000284                __vector_71
+                0x00000284                __vector_91
+                0x00000284                __vector_34
+                0x00000284                __vector_62
+                0x00000284                __vector_77
+                0x00000284                __vector_102
+                0x00000284                __vector_12
+                0x00000284                __vector_55
+                0x00000284                __vector_69
+                0x00000284                __vector_81
+                0x00000284                __vector_90
+                0x00000284                __vector_46
+                0x00000284                __bad_interrupt
+                0x00000284                __vector_122
+                0x00000284                __vector_72
+                0x00000284                __vector_114
+                0x00000284                __vector_110
+                0x00000284                __vector_31
+                0x00000284                __vector_92
+                0x00000284                __vector_35
+                0x00000284                __vector_78
+                0x00000284                __vector_74
+                0x00000284                __vector_117
+                0x00000284                __vector_39
+                0x00000284                __vector_107
+                0x00000284                __vector_3
+                0x00000284                __vector_105
+                0x00000284                __vector_98
+                0x00000284                __vector_23
+                0x00000284                __vector_68
+                0x00000284                __vector_30
+                0x00000284                __vector_73
+                0x00000284                __vector_45
+                0x00000284                __vector_25
+                0x00000284                __vector_93
+                0x00000284                __vector_61
+                0x00000284                __vector_11
+                0x00000284                __vector_54
+                0x00000284                __vector_99
+                0x00000284                __vector_13
+                0x00000284                __vector_17
+                0x00000284                __vector_19
+                0x00000284                __vector_56
+                0x00000284                __vector_49
+                0x00000284                __vector_123
+                0x00000284                __vector_41
+                0x00000284                __vector_86
+                0x00000284                __vector_100
+                0x00000284                __vector_101
+                0x00000284                __vector_64
+                0x00000284                __vector_88
+                0x00000284                __vector_109
+                0x00000284                __vector_43
+                0x00000284                __vector_27
+                0x00000284                __vector_5
+                0x00000284                __vector_113
+                0x00000284                __vector_33
+                0x00000284                __vector_76
+                0x00000284                __vector_115
+                0x00000284                __vector_47
+                0x00000284                __vector_52
+                0x00000284                __vector_37
+                0x00000284                __vector_95
+                0x00000284                __vector_103
+                0x00000284                __vector_96
+                0x00000284                __vector_89
+                0x00000284                __vector_108
+                0x00000284                __vector_4
+                0x00000284                __vector_44
+                0x00000284                __vector_82
+                0x00000284                __vector_106
+                0x00000284                __vector_118
+                0x00000284                __vector_51
+                0x00000284                __vector_2
+                0x00000284                __vector_21
+                0x00000284                __vector_15
+                0x00000284                __vector_66
+                0x00000284                __vector_36
+                0x00000284                __vector_79
+                0x00000284                __vector_58
+                0x00000284                __vector_70
+                0x00000284                __vector_29
+                0x00000284                __vector_60
+                0x00000284                __vector_121
+                0x00000284                __vector_40
+                0x00000284                __vector_85
+                0x00000284                __vector_94
+                0x00000284                __vector_26
+                0x00000284                __vector_48
+                0x00000284                __vector_124
+                0x00000284                __vector_116
+                0x00000284                __vector_112
+                0x00000284                __vector_111
+                0x00000284                __vector_80
+                0x00000284                __vector_14
+                0x00000284                __vector_84
+                0x00000284                __vector_57
+                0x00000284                __vector_53
+                0x00000284                __vector_10
+                0x00000284                __vector_50
+                0x00000284                __vector_16
+                0x00000284                __vector_59
+                0x00000284                __vector_18
+                0x00000284                __vector_97
+                0x00000284                __vector_20
+                0x00000284                __vector_42
+                0x00000284                __vector_87
+                0x00000284                __vector_65
+                0x00000284                __vector_120
+                0x00000286                . = ALIGN (0x2)
  *(.text.*)
  .text.tiny_dig_setup
-                0x00000276        0xe src/tiny_dig.o
-                0x00000276                tiny_dig_setup
+                0x00000286        0xe src/tiny_dig.o
+                0x00000286                tiny_dig_setup
  .text.board_init
-                0x00000284        0x2 src/ASF/common/boards/user_board/init.o
-                0x00000284                board_init
+                0x00000294        0x2 src/ASF/common/boards/user_board/init.o
+                0x00000294                board_init
  .text.iso_callback
-                0x00000286       0x20 src/main.o
-                0x00000286                iso_callback
+                0x00000296       0x20 src/main.o
+                0x00000296                iso_callback
  .text.iso_callback2
-                0x000002a6       0x20 src/main.o
-                0x000002a6                iso_callback2
+                0x000002b6       0x20 src/main.o
+                0x000002b6                iso_callback2
  .text.iso_callback3
-                0x000002c6       0x20 src/main.o
-                0x000002c6                iso_callback3
+                0x000002d6       0x20 src/main.o
+                0x000002d6                iso_callback3
  .text.startup.main
-                0x000002e6       0x28 src/main.o
-                0x000002e6                main
+                0x000002f6       0x46 src/main.o
+                0x000002f6                main
  .text.main_suspend_action
-                0x0000030e        0x2 src/main.o
-                0x0000030e                main_suspend_action
+                0x0000033c        0x2 src/main.o
+                0x0000033c                main_suspend_action
  .text.main_resume_action
-                0x00000310        0x2 src/main.o
-                0x00000310                main_resume_action
+                0x0000033e        0x2 src/main.o
+                0x0000033e                main_resume_action
  .text.main_sof_action
-                0x00000312       0x42 src/main.o
-                0x00000312                main_sof_action
+                0x00000340       0x42 src/main.o
+                0x00000340                main_sof_action
  .text.main_vendor_enable
-                0x00000354       0x34 src/main.o
-                0x00000354                main_vendor_enable
+                0x00000382       0x34 src/main.o
+                0x00000382                main_vendor_enable
  .text.main_vendor_disable
-                0x00000388        0x6 src/main.o
-                0x00000388                main_vendor_disable
+                0x000003b6        0x6 src/main.o
+                0x000003b6                main_vendor_disable
  .text.main_setup_out_received
-                0x0000038e        0x4 src/main.o
-                0x0000038e                main_setup_out_received
+                0x000003bc        0x4 src/main.o
+                0x000003bc                main_setup_out_received
  .text.main_setup_in_received
-                0x00000392        0x4 src/main.o
-                0x00000392                main_setup_in_received
+                0x000003c0        0x4 src/main.o
+                0x000003c0                main_setup_in_received
  .text.tiny_adc_ch0setup
-                0x00000396       0x2c src/tiny_adc.o
-                0x00000396                tiny_adc_ch0setup
+                0x000003c4       0x2c src/tiny_adc.o
+                0x000003c4                tiny_adc_ch0setup
  .text.tiny_adc_ch1setup
-                0x000003c2       0x14 src/tiny_adc.o
-                0x000003c2                tiny_adc_ch1setup
+                0x000003f0       0x14 src/tiny_adc.o
+                0x000003f0                tiny_adc_ch1setup
  .text.tiny_adc_pid_setup
-                0x000003d6       0x14 src/tiny_adc.o
-                0x000003d6                tiny_adc_pid_setup
+                0x00000404       0x14 src/tiny_adc.o
+                0x00000404                tiny_adc_pid_setup
  .text.ReadCalibrationByte
-                0x000003ea       0x12 src/tiny_adc.o
-                0x000003ea                ReadCalibrationByte
+                0x00000418       0x12 src/tiny_adc.o
+                0x00000418                ReadCalibrationByte
  .text.tiny_adc_setup
-                0x000003fc       0x5e src/tiny_adc.o
-                0x000003fc                tiny_adc_setup
+                0x0000042a       0x5e src/tiny_adc.o
+                0x0000042a                tiny_adc_setup
  .text.tiny_dac_setup
-                0x0000045a       0x48 src/tiny_dac.o
-                0x0000045a                tiny_dac_setup
+                0x00000488       0x48 src/tiny_dac.o
+                0x00000488                tiny_dac_setup
  .text.tiny_dma_setup
-                0x000004a2       0x12 src/tiny_dma.o
-                0x000004a2                tiny_dma_setup
+                0x000004d0       0x12 src/tiny_dma.o
+                0x000004d0                tiny_dma_setup
  .text.tiny_dma_flush
-                0x000004b4       0x20 src/tiny_dma.o
-                0x000004b4                tiny_dma_flush
+                0x000004e2       0x20 src/tiny_dma.o
+                0x000004e2                tiny_dma_flush
  .text.tiny_dma_set_mode_0
-                0x000004d4       0xe6 src/tiny_dma.o
-                0x000004d4                tiny_dma_set_mode_0
+                0x00000502       0xe6 src/tiny_dma.o
+                0x00000502                tiny_dma_set_mode_0
  .text.tiny_dma_loop_mode_0
-                0x000005ba        0x2 src/tiny_dma.o
-                0x000005ba                tiny_dma_loop_mode_0
+                0x000005e8        0x2 src/tiny_dma.o
+                0x000005e8                tiny_dma_loop_mode_0
  .text.tiny_dma_set_mode_1
-                0x000005bc       0xf0 src/tiny_dma.o
-                0x000005bc                tiny_dma_set_mode_1
+                0x000005ea       0xf0 src/tiny_dma.o
+                0x000005ea                tiny_dma_set_mode_1
  .text.tiny_dma_loop_mode_1
-                0x000006ac        0x2 src/tiny_dma.o
-                0x000006ac                tiny_dma_loop_mode_1
+                0x000006da        0x2 src/tiny_dma.o
+                0x000006da                tiny_dma_loop_mode_1
  .text.tiny_dma_set_mode_2
-                0x000006ae       0xe6 src/tiny_dma.o
-                0x000006ae                tiny_dma_set_mode_2
+                0x000006dc       0xe6 src/tiny_dma.o
+                0x000006dc                tiny_dma_set_mode_2
  .text.tiny_dma_loop_mode_2
-                0x00000794        0x2 src/tiny_dma.o
-                0x00000794                tiny_dma_loop_mode_2
+                0x000007c2        0x2 src/tiny_dma.o
+                0x000007c2                tiny_dma_loop_mode_2
  .text.tiny_dma_set_mode_3
-                0x00000796       0xf8 src/tiny_dma.o
-                0x00000796                tiny_dma_set_mode_3
+                0x000007c4       0xf8 src/tiny_dma.o
+                0x000007c4                tiny_dma_set_mode_3
  .text.tiny_dma_loop_mode_3
-                0x0000088e        0x2 src/tiny_dma.o
-                0x0000088e                tiny_dma_loop_mode_3
+                0x000008bc        0x2 src/tiny_dma.o
+                0x000008bc                tiny_dma_loop_mode_3
  .text.tiny_dma_set_mode_4
-                0x00000890       0xec src/tiny_dma.o
-                0x00000890                tiny_dma_set_mode_4
+                0x000008be       0xec src/tiny_dma.o
+                0x000008be                tiny_dma_set_mode_4
  .text.tiny_dma_loop_mode_4
-                0x0000097c        0x2 src/tiny_dma.o
-                0x0000097c                tiny_dma_loop_mode_4
+                0x000009aa        0x2 src/tiny_dma.o
+                0x000009aa                tiny_dma_loop_mode_4
  .text.tiny_dma_set_mode_5
-                0x0000097e       0x90 src/tiny_dma.o
-                0x0000097e                tiny_dma_set_mode_5
+                0x000009ac       0x90 src/tiny_dma.o
+                0x000009ac                tiny_dma_set_mode_5
  .text.tiny_dma_set_mode_6
-                0x00000a0e       0x92 src/tiny_dma.o
-                0x00000a0e                tiny_dma_set_mode_6
+                0x00000a3c       0xc4 src/tiny_dma.o
+                0x00000a3c                tiny_dma_set_mode_6
  .text.tiny_dma_loop_mode_6
-                0x00000aa0       0x5c src/tiny_dma.o
-                0x00000aa0                tiny_dma_loop_mode_6
+                0x00000b00        0x2 src/tiny_dma.o
+                0x00000b00                tiny_dma_loop_mode_6
  .text.tiny_dma_set_mode_7
-                0x00000afc       0x92 src/tiny_dma.o
-                0x00000afc                tiny_dma_set_mode_7
+                0x00000b02       0xc4 src/tiny_dma.o
+                0x00000b02                tiny_dma_set_mode_7
  .text.tiny_dma_loop_mode_7
-                0x00000b8e       0x5c src/tiny_dma.o
-                0x00000b8e                tiny_dma_loop_mode_7
+                0x00000bc6        0x2 src/tiny_dma.o
+                0x00000bc6                tiny_dma_loop_mode_7
  .text.__vector_6
-                0x00000bea       0x9e src/tiny_dma.o
-                0x00000bea                __vector_6
+                0x00000bc8       0xbc src/tiny_dma.o
+                0x00000bc8                __vector_6
  .text.__vector_7
-                0x00000c88       0x8e src/tiny_dma.o
-                0x00000c88                __vector_7
+                0x00000c84       0x8e src/tiny_dma.o
+                0x00000c84                __vector_7
+ .text.__vector_8
+                0x00000d12       0x82 src/tiny_dma.o
+                0x00000d12                __vector_8
  .text.__vector_9
-                0x00000d16       0x7c src/tiny_dma.o
-                0x00000d16                __vector_9
+                0x00000d94       0x82 src/tiny_dma.o
+                0x00000d94                __vector_9
  .text.tiny_timer_setup
-                0x00000d92       0x76 src/tiny_timer.o
-                0x00000d92                tiny_timer_setup
+                0x00000e16       0x84 src/tiny_timer.o
+                0x00000e16                tiny_timer_setup
  .text.__vector_83
-                0x00000e08       0xc0 src/tiny_timer.o
-                0x00000e08                __vector_83
+                0x00000e9a       0xc6 src/tiny_timer.o
+                0x00000e9a                __vector_83
  .text.tiny_uart_setup
-                0x00000ec8       0x34 src/tiny_uart.o
-                0x00000ec8                tiny_uart_setup
+                0x00000f60       0x30 src/tiny_uart.o
+                0x00000f60                tiny_uart_setup
  .text.tiny_spi_setup
-                0x00000efc       0x1e src/tiny_uart.o
-                0x00000efc                tiny_spi_setup
+                0x00000f90       0x1c src/tiny_uart.o
+                0x00000f90                tiny_spi_setup
  .text.__vector_24
-                0x00000f1a       0x16 src/tiny_uart.o
-                0x00000f1a                __vector_24
+                0x00000fac       0x16 src/tiny_uart.o
+                0x00000fac                __vector_24
  .text.osc_enable_autocalibration.constprop.4
-                0x00000f30       0x38 src/ASF/common/services/clock/xmega/sysclk.o
+                0x00000fc2       0x38 src/ASF/common/services/clock/xmega/sysclk.o
  .text.sysclk_init
-                0x00000f68       0xa6 src/ASF/common/services/clock/xmega/sysclk.o
-                0x00000f68                sysclk_init
+                0x00000ffa       0xa6 src/ASF/common/services/clock/xmega/sysclk.o
+                0x00000ffa                sysclk_init
  .text.sysclk_enable_module
-                0x0000100e       0x18 src/ASF/common/services/clock/xmega/sysclk.o
-                0x0000100e                sysclk_enable_module
+                0x000010a0       0x18 src/ASF/common/services/clock/xmega/sysclk.o
+                0x000010a0                sysclk_enable_module
  .text.sysclk_enable_usb
-                0x00001026       0x40 src/ASF/common/services/clock/xmega/sysclk.o
-                0x00001026                sysclk_enable_usb
+                0x000010b8       0x40 src/ASF/common/services/clock/xmega/sysclk.o
+                0x000010b8                sysclk_enable_usb
  .text.udi_vendor_getsetting
-                0x00001066        0x6 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
-                0x00001066                udi_vendor_getsetting
+                0x000010f8        0x6 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
+                0x000010f8                udi_vendor_getsetting
  .text.udi_vendor_disable
-                0x0000106c        0xc src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
-                0x0000106c                udi_vendor_disable
+                0x000010fe        0xc src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
+                0x000010fe                udi_vendor_disable
  .text.udi_vendor_enable
-                0x00001078       0x14 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
-                0x00001078                udi_vendor_enable
+                0x0000110a       0x14 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
+                0x0000110a                udi_vendor_enable
  .text.udi_vendor_setup
-                0x0000108c       0x38 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
-                0x0000108c                udi_vendor_setup
+                0x0000111e       0x38 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
+                0x0000111e                udi_vendor_setup
  .text.udi_vendor_iso_in_run
-                0x000010c4       0x18 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
-                0x000010c4                udi_vendor_iso_in_run
+                0x00001156       0x18 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
+                0x00001156                udi_vendor_iso_in_run
  .text.udi_vendor_iso_in_run2
-                0x000010dc       0x18 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
-                0x000010dc                udi_vendor_iso_in_run2
+                0x0000116e       0x18 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
+                0x0000116e                udi_vendor_iso_in_run2
  .text.udi_vendor_iso_in_run3
-                0x000010f4       0x18 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
-                0x000010f4                udi_vendor_iso_in_run3
+                0x00001186       0x18 src/ASF/common/services/usb/class/vendor/device/udi_vendor.o
+                0x00001186                udi_vendor_iso_in_run3
  .text.udc_valid_address
-                0x0000110c        0x8 src/ASF/common/services/usb/udc/udc.o
+                0x0000119e        0x8 src/ASF/common/services/usb/udc/udc.o
  .text.udc_update_iface_desc
-                0x00001114       0x66 src/ASF/common/services/usb/udc/udc.o
+                0x000011a6       0x66 src/ASF/common/services/usb/udc/udc.o
  .text.udc_next_desc_in_iface.constprop.3
-                0x0000117a       0x40 src/ASF/common/services/usb/udc/udc.o
+                0x0000120c       0x40 src/ASF/common/services/usb/udc/udc.o
  .text.udc_iface_enable
-                0x000011ba       0x66 src/ASF/common/services/usb/udc/udc.o
+                0x0000124c       0x66 src/ASF/common/services/usb/udc/udc.o
  .text.udc_iface_disable
-                0x00001220       0x80 src/ASF/common/services/usb/udc/udc.o
+                0x000012b2       0x80 src/ASF/common/services/usb/udc/udc.o
  .text.udc_get_interface_desc
-                0x000012a0        0xa src/ASF/common/services/usb/udc/udc.o
-                0x000012a0                udc_get_interface_desc
+                0x00001332        0xa src/ASF/common/services/usb/udc/udc.o
+                0x00001332                udc_get_interface_desc
  .text.udc_start
-                0x000012aa        0x2 src/ASF/common/services/usb/udc/udc.o
-                0x000012aa                udc_start
+                0x0000133c        0x2 src/ASF/common/services/usb/udc/udc.o
+                0x0000133c                udc_start
  .text.udc_reset
-                0x000012ac       0x38 src/ASF/common/services/usb/udc/udc.o
-                0x000012ac                udc_reset
+                0x0000133e       0x38 src/ASF/common/services/usb/udc/udc.o
+                0x0000133e                udc_reset
  .text.udc_sof_notify
-                0x000012e4       0x4a src/ASF/common/services/usb/udc/udc.o
-                0x000012e4                udc_sof_notify
+                0x00001376       0x4a src/ASF/common/services/usb/udc/udc.o
+                0x00001376                udc_sof_notify
  .text.udc_process_setup
-                0x0000132e      0x686 src/ASF/common/services/usb/udc/udc.o
-                0x0000132e                udc_process_setup
+                0x000013c0      0x688 src/ASF/common/services/usb/udc/udc.o
+                0x000013c0                udc_process_setup
  .text.ccp_write_io
-                0x000019b4        0xc src/ASF/xmega/drivers/cpu/ccp.o
-                0x000019b4                ccp_write_io
+                0x00001a48        0xc src/ASF/xmega/drivers/cpu/ccp.o
+                0x00001a48                ccp_write_io
  .text.nvm_read_byte
-                0x000019c0       0x14 src/ASF/xmega/drivers/nvm/nvm_asm.o
-                0x000019c0                nvm_read_byte
+                0x00001a54       0x14 src/ASF/xmega/drivers/nvm/nvm_asm.o
+                0x00001a54                nvm_read_byte
  .text.sleepmgr_lock_mode
-                0x000019d4       0x1e src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001a68       0x1e src/ASF/xmega/drivers/usb/usb_device.o
  .text.sleepmgr_unlock_mode
-                0x000019f2       0x1e src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001a86       0x1e src/ASF/xmega/drivers/usb/usb_device.o
  .text.udd_sleep_mode
-                0x00001a10       0x26 src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001aa4       0x26 src/ASF/xmega/drivers/usb/usb_device.o
  .text.udd_ep_get_ctrl
-                0x00001a36       0x2e src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001aca       0x2e src/ASF/xmega/drivers/usb/usb_device.o
  .text.udd_ctrl_init
-                0x00001a64       0x4e src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001af8       0x4e src/ASF/xmega/drivers/usb/usb_device.o
  .text.udd_ctrl_stall_data
-                0x00001ab2       0x1c src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001b46       0x1c src/ASF/xmega/drivers/usb/usb_device.o
  .text.udd_ctrl_send_zlp_in
-                0x00001ace       0x1c src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001b62       0x1c src/ASF/xmega/drivers/usb/usb_device.o
  .text.udd_ctrl_endofrequest
-                0x00001aea       0x10 src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001b7e       0x10 src/ASF/xmega/drivers/usb/usb_device.o
  .text.udd_ep_get_job
-                0x00001afa       0x34 src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001b8e       0x34 src/ASF/xmega/drivers/usb/usb_device.o
  .text.udd_ep_trans_complet
-                0x00001b2e      0x1f2 src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001bc2      0x1f2 src/ASF/xmega/drivers/usb/usb_device.o
  .text.udd_ctrl_in_sent
-                0x00001d20       0xdc src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001db4       0xdc src/ASF/xmega/drivers/usb/usb_device.o
  .text.udd_ctrl_interrupt_tc_setup
-                0x00001dfc       0xee src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001e90       0xee src/ASF/xmega/drivers/usb/usb_device.o
  .text.udd_attach
-                0x00001eea       0x46 src/ASF/xmega/drivers/usb/usb_device.o
-                0x00001eea                udd_attach
+                0x00001f7e       0x46 src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001f7e                udd_attach
  .text.udd_enable
-                0x00001f30       0xf0 src/ASF/xmega/drivers/usb/usb_device.o
-                0x00001f30                udd_enable
+                0x00001fc4       0xf0 src/ASF/xmega/drivers/usb/usb_device.o
+                0x00001fc4                udd_enable
  .text.udd_set_address
-                0x00002020        0x6 src/ASF/xmega/drivers/usb/usb_device.o
-                0x00002020                udd_set_address
+                0x000020b4        0x6 src/ASF/xmega/drivers/usb/usb_device.o
+                0x000020b4                udd_set_address
  .text.udd_getaddress
-                0x00002026        0x6 src/ASF/xmega/drivers/usb/usb_device.o
-                0x00002026                udd_getaddress
+                0x000020ba        0x6 src/ASF/xmega/drivers/usb/usb_device.o
+                0x000020ba                udd_getaddress
  .text.udd_set_setup_payload
-                0x0000202c        0xe src/ASF/xmega/drivers/usb/usb_device.o
-                0x0000202c                udd_set_setup_payload
+                0x000020c0        0xe src/ASF/xmega/drivers/usb/usb_device.o
+                0x000020c0                udd_set_setup_payload
  .text.udd_ep_alloc
-                0x0000203a       0xa2 src/ASF/xmega/drivers/usb/usb_device.o
-                0x0000203a                udd_ep_alloc
+                0x000020ce       0xa2 src/ASF/xmega/drivers/usb/usb_device.o
+                0x000020ce                udd_ep_alloc
  .text.udd_ep_is_halted
-                0x000020dc        0xe src/ASF/xmega/drivers/usb/usb_device.o
-                0x000020dc                udd_ep_is_halted
+                0x00002170        0xe src/ASF/xmega/drivers/usb/usb_device.o
+                0x00002170                udd_ep_is_halted
  .text.udd_ep_clear_halt
-                0x000020ea       0x32 src/ASF/xmega/drivers/usb/usb_device.o
-                0x000020ea                udd_ep_clear_halt
+                0x0000217e       0x32 src/ASF/xmega/drivers/usb/usb_device.o
+                0x0000217e                udd_ep_clear_halt
  .text.udd_ep_run
-                0x0000211c      0x118 src/ASF/xmega/drivers/usb/usb_device.o
-                0x0000211c                udd_ep_run
+                0x000021b0      0x118 src/ASF/xmega/drivers/usb/usb_device.o
+                0x000021b0                udd_ep_run
  .text.udd_ep_abort
-                0x00002234       0x60 src/ASF/xmega/drivers/usb/usb_device.o
-                0x00002234                udd_ep_abort
+                0x000022c8       0x60 src/ASF/xmega/drivers/usb/usb_device.o
+                0x000022c8                udd_ep_abort
  .text.udd_ep_free
-                0x00002294       0x12 src/ASF/xmega/drivers/usb/usb_device.o
-                0x00002294                udd_ep_free
+                0x00002328       0x12 src/ASF/xmega/drivers/usb/usb_device.o
+                0x00002328                udd_ep_free
  .text.udd_ep_set_halt
-                0x000022a6       0x20 src/ASF/xmega/drivers/usb/usb_device.o
-                0x000022a6                udd_ep_set_halt
+                0x0000233a       0x20 src/ASF/xmega/drivers/usb/usb_device.o
+                0x0000233a                udd_ep_set_halt
  .text.__vector_125
-                0x000022c6      0x16c src/ASF/xmega/drivers/usb/usb_device.o
-                0x000022c6                __vector_125
+                0x0000235a      0x16c src/ASF/xmega/drivers/usb/usb_device.o
+                0x0000235a                __vector_125
  .text.__vector_126
-                0x00002432      0x1a4 src/ASF/xmega/drivers/usb/usb_device.o
-                0x00002432                __vector_126
+                0x000024c6      0x1a4 src/ASF/xmega/drivers/usb/usb_device.o
+                0x000024c6                __vector_126
  .text.libgcc.div
-                0x000025d6       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_udivmodhi4.o)
-                0x000025d6                __udivmodhi4
- .text.libgcc   0x000025fe        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_tablejump2.o)
-                0x000025fe                __tablejump2__
+                0x0000266a       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_udivmodhi4.o)
+                0x0000266a                __udivmodhi4
+ .text.libgcc   0x00002692        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_tablejump2.o)
+                0x00002692                __tablejump2__
  .text.avr-libc
-                0x0000260a       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avrxmega2\libc.a(memcpy.o)
-                0x0000260a                memcpy
-                0x0000261c                . = ALIGN (0x2)
+                0x0000269e       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avrxmega2\libc.a(memcpy.o)
+                0x0000269e                memcpy
+                0x000026b0                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000261c        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_exit.o)
-                0x0000261c                _exit
-                0x0000261c                exit
+ .fini9         0x000026b0        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_exit.o)
+                0x000026b0                _exit
+                0x000026b0                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -876,11 +880,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000261c        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_exit.o)
+ .fini0         0x000026b0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avrxmega2\libgcc.a(_exit.o)
  *(.fini0)
-                0x00002620                _etext = .
+                0x000026b4                _etext = .
 
-.data           0x00802000       0xc0 load address 0x00002620
+.data           0x00802000       0xc0 load address 0x000026b4
                 0x00802000                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -991,8 +995,8 @@ END GROUP
  COMMON         0x00802c56        0x6 src/ASF/common/services/sleepmgr/xmega/sleepmgr.o
                 0x00802c56                sleepmgr_locks
                 0x00802c5c                PROVIDE (__bss_end, .)
-                0x00002620                __data_load_start = LOADADDR (.data)
-                0x000026e0                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000026b4                __data_load_start = LOADADDR (.data)
+                0x00002774                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00802c5c        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
