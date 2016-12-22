@@ -14,7 +14,7 @@
 void tiny_dma_setup(void){
 	//Turn on DMA
 	PR.PRGEN &=0b111111110; //Turn on DMA clk
-	DMA.CTRL = DMA_ENABLE_bm | DMA_PRIMODE_RR0123_gc;
+	DMA.CTRL = DMA_ENABLE_bm | DMA_PRIMODE_CH0123_gc;
 }
 void tiny_dma_flush(void){
 	DMA.CH0.CTRLA = 0x00;
@@ -30,6 +30,7 @@ void tiny_dma_flush(void){
 	DMA.CH3.CTRLA = DMA_CH_RESET_bm;
 	
 	b1_state = 0;
+	b2_state = 0;
 }
 void tiny_dma_set_mode_0(void){
 	
@@ -165,7 +166,7 @@ void tiny_dma_set_mode_1(void){
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 		
 	DMA.CH1.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm; //Do not repeat!
-	DMA.CH1.CTRLB = 0x02; //Hi interrupt
+	DMA.CH1.CTRLB = 0x03; //Hi interrupt
 	DMA.CH1.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH1.TRIGSRC = DMA_CH_TRIGSRC_USARTC0_RXC_gc;
 	DMA.CH1.TRFCNT = HALFPACKET_SIZE;
@@ -187,7 +188,7 @@ void tiny_dma_loop_mode_1(void){
 }
 
 void tiny_dma_set_mode_2(void){
-	
+	cli();
 	global_mode = 2;
 	
 	tiny_dma_flush();
@@ -247,7 +248,7 @@ void tiny_dma_set_mode_2(void){
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 			
 	DMA.CH1.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm; //Do not repeat!
-	DMA.CH1.CTRLB = 0x02; //No interrupt!
+	DMA.CH1.CTRLB = 0x03; //No interrupt!
 	DMA.CH1.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH1.TRIGSRC = DMA_CH_TRIGSRC_ADCA_CH2_gc;	//Triggered from ADCA channel 0
 	DMA.CH1.TRFCNT = HALFPACKET_SIZE;
@@ -262,6 +263,7 @@ void tiny_dma_set_mode_2(void){
 		
 	//Must enable last for REPCNT won't work!
 	DMA.CH1.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!	
+	sei();
 }
 
 void tiny_dma_loop_mode_2(void){
