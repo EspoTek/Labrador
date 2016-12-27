@@ -36,6 +36,18 @@ uint32_t debug_counter;
 
 unsigned char tripleUsbSuccess = 0;
 
+volatile unsigned char precalc_DMA_CH0_DESTADDR0_b1_state_equals_0;
+volatile unsigned char precalc_DMA_CH0_DESTADDR0_b1_state_equals_1;
+volatile unsigned char precalc_DMA_CH0_DESTADDR1_b1_state_equals_0;
+volatile unsigned char precalc_DMA_CH0_DESTADDR1_b1_state_equals_1;
+
+volatile unsigned char precalc_DMA_CH1_DESTADDR0_b2_state_equals_0;
+volatile unsigned char precalc_DMA_CH1_DESTADDR0_b2_state_equals_1;
+volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_0;
+volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_1;
+
+
+
 int main(void){
 	irq_initialize_vectors();
 	cpu_irq_enable();
@@ -55,6 +67,18 @@ int main(void){
 	//USARTC0.DATA = 0x55;
 	//asm("nop");
 	
+	
+	precalc_DMA_CH0_DESTADDR0_b1_state_equals_0 = (( (uint16_t) &isoBuf[0 * PACKET_SIZE]) >> 0) & 0xFF;
+	precalc_DMA_CH0_DESTADDR0_b1_state_equals_1 = (( (uint16_t) &isoBuf[1 * PACKET_SIZE]) >> 0) & 0xFF;
+	precalc_DMA_CH0_DESTADDR1_b1_state_equals_0 = (( (uint16_t) &isoBuf[0 * PACKET_SIZE]) >> 8) & 0xFF;
+	precalc_DMA_CH0_DESTADDR1_b1_state_equals_1 = (( (uint16_t) &isoBuf[1 * PACKET_SIZE]) >> 8) & 0xFF;
+	
+	precalc_DMA_CH1_DESTADDR0_b2_state_equals_0 = (( (uint16_t) &isoBuf[0 * PACKET_SIZE + HALFPACKET_SIZE]) >> 0) & 0xFF;
+	precalc_DMA_CH1_DESTADDR0_b2_state_equals_1 = (( (uint16_t) &isoBuf[1 * PACKET_SIZE + HALFPACKET_SIZE]) >> 0) & 0xFF;
+	precalc_DMA_CH1_DESTADDR1_b2_state_equals_0 = (( (uint16_t) &isoBuf[0 * PACKET_SIZE + HALFPACKET_SIZE]) >> 8) & 0xFF;
+	precalc_DMA_CH1_DESTADDR1_b2_state_equals_1 = (( (uint16_t) &isoBuf[1 * PACKET_SIZE + HALFPACKET_SIZE]) >> 8) & 0xFF;
+
+
 	while (true) {
 		debug_counter++;
 		if(debug_counter > 100000000){
@@ -120,7 +144,9 @@ void main_sof_action(void)
 		default:
 			break;
 	}
-		usb_state = !b1_state;
+	cli();
+		usb_state = !usb_state;
+		sei();
 	return;
 }
 
@@ -150,19 +176,19 @@ bool main_setup_in_received(void)
 
 void iso_callback(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
 	udi_vendor_iso_in_run((uint8_t *)&isoBuf[usb_state * PACKET_SIZE], 250, iso_callback);
-	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
+	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[!usb_state * PACKET_SIZE], PACKET_SIZE, iso_callback);
 	return;
 }
 
 void iso_callback2(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
 	udi_vendor_iso_in_run2((uint8_t *)&isoBuf[usb_state * PACKET_SIZE + 250], 250, iso_callback2);
-	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
+	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[!usb_state * PACKET_SIZE + 250], PACKET_SIZE, iso_callback);
 	return;
 }
 
 void iso_callback3(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
 	udi_vendor_iso_in_run3((uint8_t *)&isoBuf[usb_state * PACKET_SIZE + 500], 250, iso_callback3);
-	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
+	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[!usb_state * PACKET_SIZE + 500], PACKET_SIZE, iso_callback);
 	return;
 }
 

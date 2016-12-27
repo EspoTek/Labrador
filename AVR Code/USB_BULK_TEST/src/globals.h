@@ -47,4 +47,16 @@ extern volatile char PSU_target;
 
 extern volatile unsigned char test_byte;
 
+extern volatile unsigned char precalc_DMA_CH0_DESTADDR0_b1_state_equals_0;
+extern volatile unsigned char precalc_DMA_CH0_DESTADDR0_b1_state_equals_1;
+extern volatile unsigned char precalc_DMA_CH0_DESTADDR1_b1_state_equals_0;
+extern volatile unsigned char precalc_DMA_CH0_DESTADDR1_b1_state_equals_1;
+
+extern volatile unsigned char precalc_DMA_CH1_DESTADDR0_b2_state_equals_0;
+extern volatile unsigned char precalc_DMA_CH1_DESTADDR0_b2_state_equals_1;
+extern volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_0;
+extern volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_1;
+
+
+
 #endif /* GLOBALS_H_ */
