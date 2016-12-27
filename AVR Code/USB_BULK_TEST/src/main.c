@@ -46,6 +46,8 @@ volatile unsigned char precalc_DMA_CH1_DESTADDR0_b2_state_equals_1;
 volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_0;
 volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_1;
 
+volatile unsigned char usb_state_prev;
+volatile unsigned char readyToInit = 0;
 
 
 int main(void){
@@ -119,35 +121,6 @@ void main_resume_action(void)
 
 void main_sof_action(void)
 {
-	switch(global_mode){
-		case 0:
-			tiny_dma_loop_mode_0();
-			break;
-		case 1:
-			tiny_dma_loop_mode_1();
-			break;
-		case 2:
-			tiny_dma_loop_mode_2();
-			break;
-		case 3:
-			tiny_dma_loop_mode_3();
-			break;
-		case 4:
-			tiny_dma_loop_mode_4();
-			break;
-		case 6:
-			tiny_dma_loop_mode_6();
-			break;
-		case 7:
-			tiny_dma_loop_mode_7();
-		break;
-		default:
-			break;
-	}
-	cli();
-		usb_state = !usb_state;
-		sei();
-	return;
 }
 
 bool main_vendor_enable(void)
@@ -189,6 +162,7 @@ void iso_callback2(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_
 void iso_callback3(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
 	udi_vendor_iso_in_run3((uint8_t *)&isoBuf[usb_state * PACKET_SIZE + 500], 250, iso_callback3);
 	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[!usb_state * PACKET_SIZE + 500], PACKET_SIZE, iso_callback);
+	usb_state = !usb_state;
 	return;
 }
 

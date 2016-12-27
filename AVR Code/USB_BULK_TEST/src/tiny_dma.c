@@ -29,10 +29,6 @@ void tiny_dma_flush(void){
 	
 	DMA.CH3.CTRLA = 0x00;
 	DMA.CH3.CTRLA = DMA_CH_RESET_bm;
-	
-	b1_state = 0;
-	b2_state = 0;
-	usb_state = 0;
 }
 void tiny_dma_set_mode_0(void){
 	
@@ -94,7 +90,11 @@ void tiny_dma_set_mode_0(void){
 	DMA.CH0.DESTADDR2 = 0x00;
 		
 	//Must enable last for REPCNT won't work!
+	b1_state = 0;
+	b2_state = 0;
+	usb_state = 0;
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
+	readyToInit = 1;
 }
 
 void tiny_dma_loop_mode_0(void){
@@ -642,16 +642,26 @@ ISR(DMA_CH0_vect){
 			DMA.CH0.DESTADDR0 = precalc_DMA_CH0_DESTADDR0_b1_state_equals_0;
 			DMA.CH0.DESTADDR1 = precalc_DMA_CH0_DESTADDR1_b1_state_equals_0;
 		}
-		//Must enable last for REPCNT won't work!
-		asm("nop");
-		asm("nop");
-
+				asm("nop");
+				asm("nop");
+				asm("nop");
+				asm("nop");
+				asm("nop");
+				asm("nop");
+				asm("nop");
+				asm("nop");
+				asm("nop");
+				asm("nop");
+				asm("nop");
+				asm("nop");
+				asm("nop");
+				asm("nop");
 
 		DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-		EVSYS.STROBE = 0x02;
+		EVSYS.STROBE=0x02;
+
 		b1_state = !b1_state;
 		DMA.INTFLAGS = 0x01;
-
 		/*
 		switch(global_mode){
 			case 0:
