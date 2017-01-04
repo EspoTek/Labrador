@@ -147,7 +147,6 @@ unsigned char winUsbDriver::usbIsoInit(void){
 
     //Do note that current implementations don't support changing FPS at runtime.  Some changes will need to be made to enable this (perhaps taking NUM_FUTURE_CTX and ISO_PACKETS_PER_CTX as inputs that the user can change??)
 
-
     int n;
     bool success;
     DWORD errorCode = ERROR_SUCCESS;

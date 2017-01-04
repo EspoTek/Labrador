@@ -49,11 +49,21 @@ volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_1;
 volatile unsigned char usb_state_prev;
 volatile unsigned char readyToInit = 0;
 
+volatile unsigned char delayed_debug = 0;
+
+volatile int trfcnt_last;
+volatile int trfcnt_current;
+
+#define TIMER_VAL_MAX 256
+volatile unsigned short timerVals[TIMER_VAL_MAX];
+volatile unsigned short timerValCtr = 0;
+
 
 int main(void){
 	irq_initialize_vectors();
 	cpu_irq_enable();
 	sysclk_init();
+	//OSC.DFLLCTRL = 
 	board_init();
 	udc_start();
 	tiny_dac_setup();
@@ -79,6 +89,14 @@ int main(void){
 	precalc_DMA_CH1_DESTADDR0_b2_state_equals_1 = (( (uint16_t) &isoBuf[1 * PACKET_SIZE + HALFPACKET_SIZE]) >> 0) & 0xFF;
 	precalc_DMA_CH1_DESTADDR1_b2_state_equals_0 = (( (uint16_t) &isoBuf[0 * PACKET_SIZE + HALFPACKET_SIZE]) >> 8) & 0xFF;
 	precalc_DMA_CH1_DESTADDR1_b2_state_equals_1 = (( (uint16_t) &isoBuf[1 * PACKET_SIZE + HALFPACKET_SIZE]) >> 8) & 0xFF;
+
+
+	PR.PRPE &=0b11111110;
+	TCE0.CTRLB = 0x00;
+	TCE0.CTRLE = TC_BYTEM_NORMAL_gc;
+	TCE0.INTCTRLA = TC_OVFINTLVL_OFF_gc;
+	TCE0.PER = 24000;  // Max value of CNT
+	TCE0.CTRLA = TC_CLKSEL_DIV1_gc;
 
 
 	while (true) {
@@ -121,6 +139,9 @@ void main_resume_action(void)
 
 void main_sof_action(void)
 {
+	timerVals[timerValCtr] = TCE0.CNT;
+	if(timerValCtr<TIMER_VAL_MAX) timerValCtr++;
+	else timerValCtr = 0;
 }
 
 bool main_vendor_enable(void)
@@ -162,7 +183,7 @@ void iso_callback2(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_
 void iso_callback3(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
 	udi_vendor_iso_in_run3((uint8_t *)&isoBuf[usb_state * PACKET_SIZE + 500], 250, iso_callback3);
 	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[!usb_state * PACKET_SIZE + 500], PACKET_SIZE, iso_callback);
-	usb_state = !usb_state;
+	usb_state = !b1_state;
 	return;
 }
 

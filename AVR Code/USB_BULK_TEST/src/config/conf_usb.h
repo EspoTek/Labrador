@@ -148,7 +148,7 @@
  */
 //! Limit the isochronous endpoint in singe bank mode for USBB driver
 //! to avoid exceeding USB DPRAM.
-#define UDD_ISOCHRONOUS_NB_BANK(ep) 1
+#define UDD_ISOCHRONOUS_NB_BANK(ep) 3
 //@}
 
 //! The includes of classes and other headers must be done

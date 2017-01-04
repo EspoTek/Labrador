@@ -59,8 +59,8 @@ void isoDriver::timerTick(void){
 
     if (length==0){
         //Zero length packet means something's gone wrong.  Probably a disconnect.
-        qDebug() << "Zero length iso packet.  An hero!";
-        //driver->killMe();
+        qDebug() << "isoDriver: Zero length iso packet!  Returning...";
+        driver->killMe();
         return;
     }
 

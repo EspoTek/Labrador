@@ -58,7 +58,7 @@ extern volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_0;
 extern volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_1;
 
 extern volatile unsigned char readyToInit;
-
+ extern volatile unsigned char delayed_debug;
 
 
 

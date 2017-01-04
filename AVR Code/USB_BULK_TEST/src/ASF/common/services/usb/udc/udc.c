@@ -1092,7 +1092,7 @@ static bool udc_req_ep(void)
 static bool udc_reqvend(void){
 	switch (udd_g_ctrlreq.req.bRequest){
 		case 0xa0: //Break!  (Debug command)
-			asm("nop");
+			delayed_debug = 1;
 			return 1;
 		case 0xa1: //Receive waveform for signal gen
 			TC_DAC.CTRLA = 0x00;
