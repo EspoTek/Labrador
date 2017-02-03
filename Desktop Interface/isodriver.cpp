@@ -59,8 +59,8 @@ void isoDriver::timerTick(void){
 
     if (length==0){
         //Zero length packet means something's gone wrong.  Probably a disconnect.
-        qDebug() << "isoDriver: Zero length iso packet!  Returning...";
-        driver->killMe();
+        qDebug() << "Zero length iso packet.  An hero!";
+        //driver->killMe();
         return;
     }
 
@@ -741,7 +741,7 @@ void isoDriver::multimeterAction(){
             return;
         }
 
-        qDebug() << "offset =" << offset;
+        //qDebug() << "offset =" << offset;
 
         int backLength = length/750;
         backLength *= VALID_DATA_PER_375;
@@ -753,7 +753,7 @@ void isoDriver::multimeterAction(){
             offset += temp_offset;
         }
 
-        qDebug() << "Now offset = " << offset;
+        //qDebug() << "Now offset = " << offset;
 
         if((!paused_CH1) && triggerEnabled && (triggerWaiting == 0)){
             triggerDelay = backLength - offset;
@@ -762,13 +762,13 @@ void isoDriver::multimeterAction(){
             triggerWaiting = (triggerDelay<(window/2)) * 2;
         }
 
-        qDebug() << "triggerDelay = " << triggerDelay;
+        //qDebug() << "triggerDelay = " << triggerDelay;
 
-        qDebug() << "triggerWaiting =" << triggerWaiting;
+        //qDebug() << "triggerWaiting =" << triggerWaiting;
 
         if(triggerWaiting == 1) triggerWaiting = 0;
 
-        qDebug() << "triggerWaiting =" << triggerWaiting;
+        //qDebug() << "triggerWaiting =" << triggerWaiting;
 
         if(triggerEnabled && triggerWaiting){
             triggerDelay += (double)TIMER_PERIOD/(double)1000;
@@ -777,11 +777,11 @@ void isoDriver::multimeterAction(){
         }
     }
 
-    qDebug() << triggerEnabled;
-    qDebug() << !paused_multimeter;
-    qDebug() << (triggerEnabled&&!paused_multimeter);
+    //qDebug() << triggerEnabled;
+    //qDebug() << !paused_multimeter;
+    //qDebug() << (triggerEnabled&&!paused_multimeter);
 
-    qDebug() << ((triggerEnabled&&!paused_multimeter) ? triggerDelay + window/2 : 0);
+    //qDebug() << ((triggerEnabled&&!paused_multimeter) ? triggerDelay + window/2 : 0);
 
     readData375_CH1 = internalBuffer375_CH1->readBuffer(window,GRAPH_SAMPLES, false, delay + ((triggerEnabled&&!paused_multimeter) ? triggerDelay + window/2 : 0));
 

@@ -87,7 +87,5 @@ bool main_setup_out_received(void);
 bool main_setup_in_received(void);
 
 void iso_callback(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep);
-void iso_callback2(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep);
-void iso_callback3(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep);
 
 #endif // _MAIN_H_

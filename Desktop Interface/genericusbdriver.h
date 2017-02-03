@@ -13,12 +13,13 @@
 #include "xmega.h"
 #include "desktop_settings.h"
 #include "buffercontrol.h"
+#include "unified_debug_structure.h"
 
-#define ISO_PACKET_SIZE 250
+#define ISO_PACKET_SIZE 125
 #define ISO_PACKETS_PER_CTX 17
-#define NUM_FUTURE_CTX 56
+#define NUM_FUTURE_CTX 36
 #define ISO_TIMER_PERIOD 16
-#define NUM_ISO_ENDPOINTS 3
+#define NUM_ISO_ENDPOINTS 6
 #define MAX_OVERLAP (NUM_FUTURE_CTX*NUM_ISO_ENDPOINTS + 1)
 
 //genericUsbDriver handles the parts of the USB stack that are not platform-dependent.
@@ -56,6 +57,7 @@ protected:
     QTimer *isoTimer;
     unsigned char currentWriteBuffer = 0;
     unsigned long timerCount = 0;
+    unsigned char inBuffer[256];
     //Generic Functions
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin) = 0;
     virtual unsigned char usbIsoInit(void) = 0;

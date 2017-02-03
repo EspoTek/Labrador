@@ -30,6 +30,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include <buffercontrol.h>
@@ -119,6 +120,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
     QCustomPlot *scopeAxes;
+    QTextEdit *debugConsole;
     QSlider *timeBaseSlider;
     QPlainTextEdit *console1;
     QPlainTextEdit *console2;
@@ -235,8 +237,8 @@ public:
     QCheckBox *digitalOutCheckbox_CH2;
     QCheckBox *digitalOutCheckbox_CH1;
     QCheckBox *digitalOutCheckbox_CH4;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
+    QPushButton *debugButton1;
+    QPushButton *debugButton2;
     bufferControl *bufferDisplay;
     QMenuBar *menuBar;
     QMenu *menuFile;
@@ -493,6 +495,11 @@ public:
         scopeAxes->setLayoutDirection(Qt::LeftToRight);
 
         verticalLayout->addWidget(scopeAxes);
+
+        debugConsole = new QTextEdit(centralWidget);
+        debugConsole->setObjectName(QStringLiteral("debugConsole"));
+
+        verticalLayout->addWidget(debugConsole);
 
         timeBaseSlider = new QSlider(centralWidget);
         timeBaseSlider->setObjectName(QStringLiteral("timeBaseSlider"));
@@ -1205,15 +1212,15 @@ public:
 
         verticalLayout_3->addWidget(digitalOutputGroup);
 
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        debugButton1 = new QPushButton(centralWidget);
+        debugButton1->setObjectName(QStringLiteral("debugButton1"));
 
-        verticalLayout_3->addWidget(pushButton);
+        verticalLayout_3->addWidget(debugButton1);
 
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        debugButton2 = new QPushButton(centralWidget);
+        debugButton2->setObjectName(QStringLiteral("debugButton2"));
 
-        verticalLayout_3->addWidget(pushButton_2);
+        verticalLayout_3->addWidget(debugButton2);
 
         bufferDisplay = new bufferControl(centralWidget);
         bufferDisplay->setObjectName(QStringLiteral("bufferDisplay"));
@@ -1467,7 +1474,7 @@ public:
         QObject::connect(controller_fg, SIGNAL(setMinFreq_CH1(double)), frequencyValue_CH1, SLOT(setMin(double)));
         QObject::connect(frequencyValue_CH1, SIGNAL(valueChanged(double)), frequencyValue_CH1, SLOT(changeStepping(double)));
         QObject::connect(frequencyValue_CH2, SIGNAL(valueChanged(double)), frequencyValue_CH2, SLOT(changeStepping(double)));
-        QObject::connect(pushButton_2, SIGNAL(clicked()), MainWindow, SLOT(reinitUsb()));
+        QObject::connect(debugButton2, SIGNAL(clicked()), MainWindow, SLOT(reinitUsb()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -1630,8 +1637,8 @@ public:
         digitalOutCheckbox_CH2->setText(QApplication::translate("MainWindow", "Pin 2", 0));
         digitalOutCheckbox_CH1->setText(QApplication::translate("MainWindow", "Pin 1", 0));
         digitalOutCheckbox_CH4->setText(QApplication::translate("MainWindow", "Pin 4", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "Debug!", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "ReinitUsb()", 0));
+        debugButton1->setText(QApplication::translate("MainWindow", "Debug!", 0));
+        debugButton2->setText(QApplication::translate("MainWindow", "ReinitUsb()", 0));
         bufferDisplay->setText(QApplication::translate("MainWindow", "BUFFER IMAGE HERE", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuOscilloscope_2->setTitle(QApplication::translate("MainWindow", "Oscilloscope", 0));

@@ -23,6 +23,7 @@
 #include "ui_mainwindow.h"
 #include "scoperangeenterdialog.h"
 #include "isobuffer.h"
+#include "q_debugstream.h"
 
 
 //The Main Window object.  This has a lot of control information too (keyboard shortcuts etc.)!
@@ -108,6 +109,7 @@ private slots:
     void ctrlArrowDownTriggered();
     void cycleDelayLeft();
     void cycleDelayRight();
+    void enableLabradorDebugging();
 
     //Power Supply
     void on_actionAuto_Lock_toggled(bool arg1);
@@ -158,6 +160,7 @@ private:
     QShortcut *shortcut_snapScopeToCursors;\
     QShortcut *shortcut_manualRange;
     QShortcut *shortcut_snapshot;
+    QShortcut *shortcut_Debug;
 };
 
 #endif // MAINWINDOW_H

@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 #include <asf.h>
+#include <string.h>
+
 #include "ui.h"
 #include "globals.h"
 #include "tiny_adc.h"
@@ -10,6 +12,7 @@
 #include "tiny_dac.h"
 #include "tiny_uart.h"
 #include "tiny_dig.h"
+#include "tiny_calibration.h"
 
 volatile bool main_b_vendor_enable = false;
 
@@ -36,34 +39,33 @@ uint32_t debug_counter;
 
 unsigned char tripleUsbSuccess = 0;
 
-volatile unsigned char precalc_DMA_CH0_DESTADDR0_b1_state_equals_0;
-volatile unsigned char precalc_DMA_CH0_DESTADDR0_b1_state_equals_1;
-volatile unsigned char precalc_DMA_CH0_DESTADDR1_b1_state_equals_0;
-volatile unsigned char precalc_DMA_CH0_DESTADDR1_b1_state_equals_1;
+volatile unsigned char firstFrame = 0;
+volatile unsigned char tcinit = 0;
 
-volatile unsigned char precalc_DMA_CH1_DESTADDR0_b2_state_equals_0;
-volatile unsigned char precalc_DMA_CH1_DESTADDR0_b2_state_equals_1;
-volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_0;
-volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_1;
+volatile unsigned int currentTrfcnt;
+volatile unsigned char debugOnNextEnd = 0;
 
-volatile unsigned char usb_state_prev;
-volatile unsigned char readyToInit = 0;
+#define CNT_CNT_MAX 256
+volatile unsigned short cntCnt[CNT_CNT_MAX];
+volatile unsigned short cntCntCnt = 0;
+#define DEBUG_DIVISION 0
+volatile unsigned char debug_divider = 0;
 
-volatile unsigned char delayed_debug = 0;
+volatile unsigned int median_TRFCNT = 65535;
 
-volatile int trfcnt_last;
-volatile int trfcnt_current;
+volatile char debug_data[8] = "DEBUG123";
 
-#define TIMER_VAL_MAX 256
-volatile unsigned short timerVals[TIMER_VAL_MAX];
-volatile unsigned short timerValCtr = 0;
+volatile unsigned short dma_ch0_ran;
+volatile unsigned short dma_ch1_ran;
 
+unified_debug uds;
 
 int main(void){
 	irq_initialize_vectors();
 	cpu_irq_enable();
-	sysclk_init();
-	//OSC.DFLLCTRL = 
+//	sysclk_init();	
+	tiny_calibration_init();
+		
 	board_init();
 	udc_start();
 	tiny_dac_setup();
@@ -78,26 +80,8 @@ int main(void){
 			
 	//USARTC0.DATA = 0x55;
 	//asm("nop");
-	
-	
-	precalc_DMA_CH0_DESTADDR0_b1_state_equals_0 = (( (uint16_t) &isoBuf[0 * PACKET_SIZE]) >> 0) & 0xFF;
-	precalc_DMA_CH0_DESTADDR0_b1_state_equals_1 = (( (uint16_t) &isoBuf[1 * PACKET_SIZE]) >> 0) & 0xFF;
-	precalc_DMA_CH0_DESTADDR1_b1_state_equals_0 = (( (uint16_t) &isoBuf[0 * PACKET_SIZE]) >> 8) & 0xFF;
-	precalc_DMA_CH0_DESTADDR1_b1_state_equals_1 = (( (uint16_t) &isoBuf[1 * PACKET_SIZE]) >> 8) & 0xFF;
-	
-	precalc_DMA_CH1_DESTADDR0_b2_state_equals_0 = (( (uint16_t) &isoBuf[0 * PACKET_SIZE + HALFPACKET_SIZE]) >> 0) & 0xFF;
-	precalc_DMA_CH1_DESTADDR0_b2_state_equals_1 = (( (uint16_t) &isoBuf[1 * PACKET_SIZE + HALFPACKET_SIZE]) >> 0) & 0xFF;
-	precalc_DMA_CH1_DESTADDR1_b2_state_equals_0 = (( (uint16_t) &isoBuf[0 * PACKET_SIZE + HALFPACKET_SIZE]) >> 8) & 0xFF;
-	precalc_DMA_CH1_DESTADDR1_b2_state_equals_1 = (( (uint16_t) &isoBuf[1 * PACKET_SIZE + HALFPACKET_SIZE]) >> 8) & 0xFF;
 
-
-	PR.PRPE &=0b11111110;
-	TCE0.CTRLB = 0x00;
-	TCE0.CTRLE = TC_BYTEM_NORMAL_gc;
-	TCE0.INTCTRLA = TC_OVFINTLVL_OFF_gc;
-	TCE0.PER = 24000;  // Max value of CNT
-	TCE0.CTRLA = TC_CLKSEL_DIV1_gc;
-
+	strcpy(uds.header, "debug123");
 
 	while (true) {
 		debug_counter++;
@@ -139,17 +123,66 @@ void main_resume_action(void)
 
 void main_sof_action(void)
 {
-	timerVals[timerValCtr] = TCE0.CNT;
-	if(timerValCtr<TIMER_VAL_MAX) timerValCtr++;
-	else timerValCtr = 0;
+	cli();
+	uds.trfcntL0 = DMA.CH0.TRFCNTL;
+	uds.trfcntH0 = DMA.CH0.TRFCNTH;	
+	uds.trfcntL1 = DMA.CH1.TRFCNTL;
+	uds.trfcntH1 = DMA.CH1.TRFCNTH;
+	uds.counterL = TC_CALI.CNTL;
+	uds.counterH = TC_CALI.CNTH;
+	if((DMA.CH0.TRFCNT > 325) && (DMA.CH0.TRFCNT < 425)){
+		currentTrfcnt = DMA.CH0.TRFCNT;
+		asm("nop");
+	}
+	if(firstFrame){
+		tiny_calibration_first_sof();
+		firstFrame = 0;
+		tcinit = 1;
+		sei();
+		return;
+	}
+	else{
+		if(tcinit){
+			if(calibration_values_found == 0x03){
+				tiny_calibration_maintain();
+				tiny_calibration_layer2();
+			} else tiny_calibration_find_values();
+			if(debug_divider == DEBUG_DIVISION){
+				debug_divider = 0;
+				cntCnt[cntCntCnt] = DMA.CH0.TRFCNT;
+				if(cntCntCnt == (CNT_CNT_MAX - 1)){
+					cntCntCnt = 0;
+				}
+				else cntCntCnt++;
+			}
+			else debug_divider++;
+		}
+	}
+	
+	if(debugOnNextEnd){
+		currentTrfcnt = DMA.CH0.TRFCNT;
+		debugOnNextEnd = 0;
+	}
+	if(global_mode < 5){
+		usb_state = (DMA.CH0.TRFCNT < 375) ? 1 : 0;
+	}
+	else{
+		usb_state = (DMA.CH0.TRFCNT < 750) ? 1 : 0;
+	}
+	sei();
+	return;
 }
 
 bool main_vendor_enable(void)
 {
 	main_b_vendor_enable = true;
-	udi_vendor_iso_in_run((uint8_t *)&isoBuf[0], PACKET_SIZE, iso_callback);
-	udi_vendor_iso_in_run2((uint8_t *)&isoBuf[250], PACKET_SIZE, iso_callback2);
-	udi_vendor_iso_in_run3((uint8_t *)&isoBuf[500], PACKET_SIZE, iso_callback3);
+	firstFrame = 1;
+	udd_ep_run(0x81, false, (uint8_t *)&isoBuf[0], 125, iso_callback);
+	udd_ep_run(0x82, false, (uint8_t *)&isoBuf[125], 125, iso_callback);
+	udd_ep_run(0x83, false, (uint8_t *)&isoBuf[250], 125, iso_callback);
+	udd_ep_run(0x84, false, (uint8_t *)&isoBuf[375], 125, iso_callback);
+	udd_ep_run(0x85, false, (uint8_t *)&isoBuf[500], 125, iso_callback);
+	udd_ep_run(0x86, false, (uint8_t *)&isoBuf[625], 125, iso_callback);
 	return true;
 }
 
@@ -169,22 +202,13 @@ bool main_setup_in_received(void)
 }
 
 void iso_callback(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
-	udi_vendor_iso_in_run((uint8_t *)&isoBuf[usb_state * PACKET_SIZE], 250, iso_callback);
-	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[!usb_state * PACKET_SIZE], PACKET_SIZE, iso_callback);
+	unsigned short offset = (ep - 0x81) * 125;
+	if (global_mode < 5){
+		if(ep > 0x83) offset += 375; //Shift from range [375, 750]  to [750, 1125]  Don't do this in modes 6 and 7 because they use 750 byte long sub-buffers.
+		udd_ep_run(ep, false, (uint8_t *)&isoBuf[usb_state * HALFPACKET_SIZE + offset], 125, iso_callback);
+	}
+	else{
+		udd_ep_run(ep, false, (uint8_t *)&isoBuf[usb_state * PACKET_SIZE + offset], 125, iso_callback);
+	}
 	return;
 }
-
-void iso_callback2(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
-	udi_vendor_iso_in_run2((uint8_t *)&isoBuf[usb_state * PACKET_SIZE + 250], 250, iso_callback2);
-	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[!usb_state * PACKET_SIZE + 250], PACKET_SIZE, iso_callback);
-	return;
-}
-
-void iso_callback3(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
-	udi_vendor_iso_in_run3((uint8_t *)&isoBuf[usb_state * PACKET_SIZE + 500], 250, iso_callback3);
-	//if((int8_t) USB.FIFORP > -16) udi_vendor_iso_in_run((uint8_t *)&isoBuf[!usb_state * PACKET_SIZE + 500], PACKET_SIZE, iso_callback);
-	usb_state = !b1_state;
-	return;
-}
-
-

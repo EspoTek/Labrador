@@ -39,6 +39,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->controller_iso->internalBuffer375_CH2->console2 = ui->console2;
     initShortcuts();
 
+    ui->debugButton1->setVisible(0);
+    ui->debugButton2->setVisible(0);
+    ui->debugConsole->setVisible(0);
     ui->console1->setVisible(0);
     ui->console2->setVisible(0);
     ui->timeBaseSlider->setVisible(0);
@@ -50,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Reset the device to ensure Labrador_libusbk gets handle!!
     #ifdef PLATFORM_WINDOWS
         ui->controller_iso->driver->usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
-    #endif  //damn son that's some beautiful code
+    #endif
     #ifdef PLATFORM_LINUX
         reinitUsb();
     #endif
@@ -760,6 +763,8 @@ void MainWindow::initShortcuts(){
     shortcut_ArrowRight = new QShortcut(QKeySequence("Right"), this);
 
 
+    shortcut_Debug = new QShortcut(QKeySequence("Home"), this);
+
 
     connect(shortcut_cycleBaudRate_CH1, SIGNAL(activated()), this, SLOT(cycleBaudRate_CH1()));
     connect(shortcut_cycleBaudRateBackwards_CH1, SIGNAL(activated()), this, SLOT(cycleBaudRateBackwards_CH1()));
@@ -784,6 +789,9 @@ void MainWindow::initShortcuts(){
 
     connect(shortcut_snapScopeToCursors, SIGNAL(activated()), this, SLOT(on_actionSnap_to_Cursors_triggered()));
     connect(shortcut_manualRange, SIGNAL(activated()), this, SLOT(on_actionEnter_Manually_triggered()));
+
+    connect(shortcut_Debug, SIGNAL(activated()), this, SLOT(enableLabradorDebugging()));
+
 
 }
 
@@ -849,6 +857,18 @@ void MainWindow::cycleDelayLeft(){
     qDebug() << "LEFT";
     ui->controller_iso->delay += ui->controller_iso->window/10;
     if(ui->controller_iso->delay > (MAX_WINDOW_SIZE - ui->controller_iso->window)) ui->controller_iso->delay = (MAX_WINDOW_SIZE - ui->controller_iso->window);
+}
+
+void MainWindow::enableLabradorDebugging(){
+    qDebug() << "DEBUG MODE ACTIVE";
+
+    ui->debugButton1->setVisible(1);
+    ui->debugButton2->setVisible(1);
+    ui->debugConsole->setVisible(1);
+
+    new Q_DebugStream(std::cout, ui->debugConsole); //Redirect Console output to QTextEdit
+    Q_DebugStream::registerQDebugMessageHandler(); //Redirect qDebug() output to QTextEdit
+    qDebug() << "DEBUG MODE ACTIVE";
 }
 
 void MainWindow::on_actionAutomatically_Enable_Cursors_toggled(bool enabled)
@@ -1017,7 +1037,7 @@ void MainWindow::reinitUsb(void){
 
     //Reconnect the other objects.
     ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
-    connect(ui->pushButton, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
+    connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
     connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
     connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
     connect(ui->controller_fg, SIGNAL(functionGenToUpdate(int,functionGenControl*)), ui->controller_iso->driver, SLOT(setFunctionGen(int,functionGenControl*)));

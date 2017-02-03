@@ -54,6 +54,7 @@
 #include "globals.h"
 #include "tiny_dma.h"
 #include "tiny_adc.h"
+#include "tiny_calibration.h"
 /**
  * \ingroup udc_group
  * \defgroup udc_group_interne Implementation of UDC
@@ -1092,7 +1093,15 @@ static bool udc_req_ep(void)
 static bool udc_reqvend(void){
 	switch (udd_g_ctrlreq.req.bRequest){
 		case 0xa0: //Break!  (Debug command)
-			delayed_debug = 1;
+			debugOnNextEnd = 1;
+			uds.medianTrfcntL = median_TRFCNT & 0xff;
+			uds.medianTrfcntH = (median_TRFCNT >> 8) & 0xff;
+			uds.calValNeg = cali_value_negative_gradient;
+			uds.calValPos = cali_value_positive_gradient;
+			uds.CALA = DFLLRC2M.CALA;
+			uds.CALB = DFLLRC2M.CALB;
+			udd_set_setup_payload(&uds, udd_g_ctrlreq.req.wLength);
+			//asm("nop");
 			return 1;
 		case 0xa1: //Receive waveform for signal gen
 			TC_DAC.CTRLA = 0x00;
@@ -1266,7 +1275,7 @@ bool udc_process_setup(void)
 			return true;
 		}
 	}
-
+	
 	// If standard request then try to decode it in UDC
 	if (Udd_setup_type() == USB_REQ_TYPE_STANDARD) {
 		if (udc_reqstd()) {

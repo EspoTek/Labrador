@@ -64,7 +64,7 @@ src/tiny_uart.d src/tiny_uart.o: ../src/tiny_uart.c ../src/tiny_uart.h \
  ../src/ASF/xmega/utils/status_codes.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stdarg.h \
- ../src/globals.h
+ ../src/globals.h ../src/unified_debug_structure.h
 
 ../src/tiny_uart.h:
 
@@ -211,3 +211,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stdarg.h:
 
 ../src/globals.h:
+
+../src/unified_debug_structure.h:

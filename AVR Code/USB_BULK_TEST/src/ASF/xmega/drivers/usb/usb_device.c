@@ -690,13 +690,13 @@ bool udd_ep_run(udd_ep_id_t ep, bool b_shortpacket, uint8_t * buf,
 		&& udd_endpoint_is_stall(ep_ctrl)) {
 		return false; // Endpoint is halted
 	}
-	//flags = cpu_irq_save();
+	flags = cpu_irq_save();
 	if (ptr_job->busy == true) {
-		//cpu_irq_restore(flags);
+		cpu_irq_restore(flags);
 		return false; // Job already on going
 	}
 	ptr_job->busy = true;
-	//cpu_irq_restore(flags);
+	cpu_irq_restore(flags);
 
 
 	// Update Job information

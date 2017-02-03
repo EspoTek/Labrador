@@ -268,7 +268,31 @@ void genericUsbDriver::setGain(double newGain){
 }
 
 void genericUsbDriver::avrDebug(void){
-    usbSendControl(0x40, 0xa0, 0, 0, 0, NULL);
+    usbSendControl(0xc0, 0xa0, 0, 0, sizeof(unified_debug), NULL);
+    unified_debug *udsPtr = (unified_debug *) inBuffer;
+    uint16_t trfcnt0 = (udsPtr->trfcntH0 << 8) + udsPtr->trfcntL0;
+    uint16_t trfcnt1 = (udsPtr->trfcntH1 << 8) + udsPtr->trfcntL1;
+    uint16_t medianTrfcnt = (udsPtr->medianTrfcntH << 8) + udsPtr->medianTrfcntL;
+    uint16_t outOfRange = (udsPtr->outOfRangeH << 8) + udsPtr->outOfRangeL;
+    uint16_t counter = (udsPtr->counterH << 8) + udsPtr->counterL;
+    uint16_t dma_ch0_cnt = (udsPtr->dma_ch0_cntH << 8) + udsPtr->dma_ch0_cntL;
+    uint16_t dma_ch1_cnt = (udsPtr->dma_ch1_cntH << 8) + udsPtr->dma_ch1_cntL;
+
+
+    qDebug("%s", udsPtr->header);
+    qDebug() << "trfcnt0 =" << trfcnt0;
+    qDebug() << "trfcnt1 =" << trfcnt1;
+    qDebug() << "medianTrfcnt =" << medianTrfcnt;
+    qDebug() << "outOfRange = " << outOfRange;
+    qDebug() << "counter = " << counter;
+    qDebug() << "calValNeg = " << udsPtr->calValNeg;
+    qDebug() << "calValPos = " << udsPtr->calValPos;
+    qDebug() << "CALA = " << udsPtr->CALA;
+    qDebug() << "CALB = " << udsPtr->CALB;
+    qDebug() << "dma_ch0_cnt = " << dma_ch0_cnt;
+    qDebug() << "dma_ch1_cnt = " << dma_ch1_cnt;
+
+
 }
 
 void genericUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState){

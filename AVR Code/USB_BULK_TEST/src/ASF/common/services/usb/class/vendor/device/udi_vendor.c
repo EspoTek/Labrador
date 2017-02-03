@@ -268,28 +268,6 @@ bool udi_vendor_iso_in_run(uint8_t * buf, iram_size_t buf_size,
 			callback);
 }
 
-bool udi_vendor_iso_in_run2(uint8_t * buf, iram_size_t buf_size,
-udd_callback_trans_t callback)
-{
-	return udd_ep_run(UDI_VENDOR_EP_ISO_IN + 1,
-	false,
-	buf,
-	buf_size,
-	callback);
-}
-
-bool udi_vendor_iso_in_run3(uint8_t * buf, iram_size_t buf_size,
-udd_callback_trans_t callback)
-{
-	return udd_ep_run(UDI_VENDOR_EP_ISO_IN + 2,
-	false,
-	buf,
-	buf_size,
-	callback);
-}
-
-
-
 /**
  * \brief Start a transfer on interrupt OUT
  *

@@ -49,6 +49,9 @@
        </widget>
       </item>
       <item>
+       <widget class="QTextEdit" name="debugConsole"/>
+      </item>
+      <item>
        <widget class="QSlider" name="timeBaseSlider">
         <property name="minimum">
          <number>-60</number>
@@ -1254,14 +1257,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="debugButton1">
           <property name="text">
            <string>Debug!</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="debugButton2">
           <property name="text">
            <string>ReinitUsb()</string>
           </property>
@@ -3768,7 +3771,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>debugButton2</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>reinitUsb()</slot>

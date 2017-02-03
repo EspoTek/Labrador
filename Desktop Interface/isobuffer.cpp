@@ -8,7 +8,7 @@ isoBuffer::isoBuffer(QWidget *parent, int bufferLen, isoDriver *caller, unsigned
     bufferEnd = bufferLen-1;
     samplesPerSecond = (double) bufferLen/(double)21;
     samplesPerSecond = samplesPerSecond/375*VALID_DATA_PER_375;
-    parent = caller;
+    virtualParent = caller;
     channel = channel_value;
 
     updateTimer = new QTimer();
@@ -51,7 +51,7 @@ void isoBuffer::writeBuffer_char(char* data, int len)
 
         //Output to CSV
         if(fileIOEnabled){
-            convertedSample = sampleConvert(data[i], 128, channel==1 ? parent->AC_CH1 : parent->AC_CH2);
+            convertedSample = sampleConvert(data[i], 128, channel==1 ? virtualParent->AC_CH1 : virtualParent->AC_CH2);
             char numStr[32];
             sprintf(numStr,"%f, ", convertedSample);
             currentFile->write(numStr);
@@ -291,17 +291,17 @@ void isoBuffer::disableFileIO(){
 
 double isoBuffer::sampleConvert(short sample, int TOP, bool AC){
 
-    double scope_gain = (double)(parent->driver->scopeGain);
+    double scope_gain = (double)(virtualParent->driver->scopeGain);
     double voltageLevel;
 
     voltageLevel = (sample * (vcc/2)) / (R4/(R3+R4)*scope_gain*TOP);
-    if (parent->driver->deviceMode != 7) voltageLevel += vcc*(R2/(R1+R2));
+    if (virtualParent->driver->deviceMode != 7) voltageLevel += vcc*(R2/(R1+R2));
     #ifdef INVERT_MM
-        if(parent->driver->deviceMode == 7) voltageLevel *= -1;
+        if(virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
     #endif
 
     if(AC){
-        voltageLevel -= parent->currentVmean; //This is old (1 frame in past) value and might not be good for signals with large variations in DC level (although the cap should filter that anyway)??
+        voltageLevel -= virtualParent->currentVmean; //This is old (1 frame in past) value and might not be good for signals with large variations in DC level (although the cap should filter that anyway)??
     }
     return voltageLevel;
 }

@@ -64,6 +64,7 @@ src/tiny_adc.d src/tiny_adc.o: ../src/tiny_adc.c ../src/tiny_adc.h \
  ../src/ASF/common/services/usb/udc/udd.h \
  ../src/ASF/common/services/usb/class/vendor/device/udi_vendor.h \
  ../src/ASF/xmega/utils/status_codes.h ../src/globals.h \
+ ../src/unified_debug_structure.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h
 
 ../src/tiny_adc.h:
@@ -211,5 +212,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../src/ASF/xmega/utils/status_codes.h:
 
 ../src/globals.h:
+
+../src/unified_debug_structure.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:

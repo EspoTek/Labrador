@@ -123,7 +123,7 @@ void winUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t
 
     //Check for case of null LDATA
     if (LDATA==NULL){
-        controlBuffer = (unsigned char *) malloc(256);
+        controlBuffer = inBuffer;
     }
     else controlBuffer = LDATA;
 
@@ -133,11 +133,6 @@ void winUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t
         qDebug("%d BYTES TRANSFERRED", bytesTransferred);
     }
     else qDebug("usbSendControl failed");
-
-    //Cleanup to stop leak
-    if(LDATA == NULL){
-        free(controlBuffer);
-    }
 }
 
 unsigned char winUsbDriver::usbIsoInit(void){
@@ -146,6 +141,7 @@ unsigned char winUsbDriver::usbIsoInit(void){
     //These transactions are numbered by n = 0,1,2,3...NUM_FUTURE_CTX-1.  Transfer n should read data into dataBuffer[n].
 
     //Do note that current implementations don't support changing FPS at runtime.  Some changes will need to be made to enable this (perhaps taking NUM_FUTURE_CTX and ISO_PACKETS_PER_CTX as inputs that the user can change??)
+
 
     int n;
     bool success;
@@ -196,7 +192,7 @@ unsigned char winUsbDriver::usbIsoInit(void){
 
             //Sending the transfer requests
             success = UsbK_IsoReadPipe(handle, pipeID[k], dataBuffer[k][n], sizeof(dataBuffer[k][n]), (LPOVERLAPPED) ovlkHandle[k][n], isoCtx[k][n]);
-            qDebug() << "sizeof(dataBuffer[k][n]) = " << sizeof(dataBuffer[k][n]);
+            //qDebug() << "sizeof(dataBuffer[k][n]) = " << sizeof(dataBuffer[k][n]);
         }
     }
 

@@ -32,7 +32,4 @@ void tiny_dac_setup(void){
 	//Set up for triple mode!
 	PORTB.DIR |= 0x03;
 	PORTB.OUT = 0x00;
-	
-	
-
 }

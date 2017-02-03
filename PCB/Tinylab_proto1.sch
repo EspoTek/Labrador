@@ -494,7 +494,7 @@ U 1 1 5606EE9E
 P 10150 5050
 F 0 "L1" V 10100 5050 50  0000 C CNN
 F 1 "INDUCTOR" V 10250 5050 50  0000 C CNN
-F 2 "Inductors:SELF-WE-PD-XXL" H 10150 5050 60  0001 C CNN
+F 2 "Special_inductor:SELF-WE-PD-XXL" H 10150 5050 60  0001 C CNN
 F 3 "" H 10150 5050 60  0000 C CNN
 	1    10150 5050
 	0    1    1    0   
@@ -1042,6 +1042,95 @@ F 3 "" H 1050 9900 50  0000 C CNN
 	1    1050 9900
 	-1   0    0    1   
 $EndComp
+Text Label 10650 5050 0    60   ~ 0
+QTop
+Text Label 1300 9100 0    60   ~ 0
+Scope_CH1_DC
+Text Label 1300 9300 0    60   ~ 0
+Scoe_CH1_AC
+Text Label 1300 9750 0    60   ~ 0
+Scope_CH2_DC
+Text Label 1300 9950 0    60   ~ 0
+Scope_CH2_AC
+Text Label 12250 10400 0    60   ~ 0
+S-Gen_CH1_DC
+Text Label 12150 10050 0    60   ~ 0
+S-Gen_CH1_AC
+Text Label 11950 11100 0    60   ~ 0
+S-Gen_CH2_DC
+Text Label 12100 11350 0    60   ~ 0
+S-Gen_CH2_AC
+Text Label 7950 9650 0    60   ~ 0
+V_minus_dac_out
+Text Label 7900 11900 0    60   ~ 0
+V_minus_dac_out2
+Text Label 9300 9250 0    60   ~ 0
+Buffered_DAC_CH1
+Text Label 9050 11550 0    60   ~ 0
+Buffered_DAC_CH2
+Text Label 8150 10350 0    60   ~ 0
+S-Gen_Drain_Top_CH1
+Text Label 7150 12350 0    60   ~ 0
+S-Gen_Drain_Top_CH2
+Text Label 2650 8650 0    60   ~ 0
+Scope_Buffer_Input_CH1
+Text Label 2500 10450 0    60   ~ 0
+Scope_Buffer_Input_CH2
+Text Label 3800 5150 0    60   ~ 0
+D0_OUT
+Text Label 3800 5250 0    60   ~ 0
+D1_OUT
+Text Label 3800 5350 0    60   ~ 0
+D2-OUT
+Text Label 3800 5450 0    60   ~ 0
+D3-OUT
+Text Label 4950 5000 0    60   ~ 0
+D0-prefuse
+Text Label 4900 5200 0    60   ~ 0
+D1-prefuse
+Text Label 4900 5400 0    60   ~ 0
+D2-prefuse
+Text Label 4900 5600 0    60   ~ 0
+D3-prefuse
+Text Label 4300 4000 0    60   ~ 0
+PDI_CLK
+Text Label 4950 4400 0    60   ~ 0
+PDI_DATA
+Text Label 3750 4300 0    60   ~ 0
+3V3_OUT
+Text Label 13200 4850 0    60   ~ 0
+Switch_OC
+Text Label 1950 6950 0    60   ~ 0
+Disconnected_USB
+Text Label 4500 5000 0    60   ~ 0
+D0_MID
+Text Label 4550 5200 0    60   ~ 0
+D1_MID
+Text Label 4500 5400 0    60   ~ 0
+D2_MID
+Text Label 4550 5600 0    60   ~ 0
+D3_MID
+Text Label 12250 4600 0    60   ~ 0
+PSU_Unfiltered_Raw
+Text Label 13650 2950 0    60   ~ 0
+L-Ana_IN_CH1
+Text Label 14950 2950 0    60   ~ 0
+L-Ana_IN_CH2
+Text Label 10800 9250 0    60   ~ 0
+R22-R24
+Text Label 11000 11550 0    60   ~ 0
+R23-R25
+$Comp
+L C C12
+U 1 1 588029E7
+P 10100 5500
+F 0 "C12" H 10125 5600 50  0000 L CNN
+F 1 "C" H 10125 5400 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 10138 5350 50  0001 C CNN
+F 3 "" H 10100 5500 50  0000 C CNN
+	1    10100 5500
+	1    0    0    -1  
+$EndComp
 Connection ~ 13950 5050
 Connection ~ 14450 5650
 Wire Wire Line
@@ -1063,7 +1152,7 @@ Wire Wire Line
 Connection ~ 10300 5350
 Connection ~ 10300 5650
 Wire Wire Line
-	10150 5350 10450 5350
+	10100 5350 10450 5350
 Wire Wire Line
 	10750 5650 10750 5550
 Wire Wire Line
@@ -1466,84 +1555,6 @@ Connection ~ 1850 9950
 Wire Wire Line
 	1250 9750 1850 9750
 Connection ~ 1850 9850
-Text Label 10650 5050 0    60   ~ 0
-QTop
-Text Label 1300 9100 0    60   ~ 0
-Scope_CH1_DC
-Text Label 1300 9300 0    60   ~ 0
-Scoe_CH1_AC
-Text Label 1300 9750 0    60   ~ 0
-Scope_CH2_DC
-Text Label 1300 9950 0    60   ~ 0
-Scope_CH2_AC
-Text Label 12250 10400 0    60   ~ 0
-S-Gen_CH1_DC
-Text Label 12150 10050 0    60   ~ 0
-S-Gen_CH1_AC
-Text Label 11950 11100 0    60   ~ 0
-S-Gen_CH2_DC
-Text Label 12100 11350 0    60   ~ 0
-S-Gen_CH2_AC
-Text Label 7950 9650 0    60   ~ 0
-V_minus_dac_out
-Text Label 7900 11900 0    60   ~ 0
-V_minus_dac_out2
-Text Label 9300 9250 0    60   ~ 0
-Buffered_DAC_CH1
-Text Label 9050 11550 0    60   ~ 0
-Buffered_DAC_CH2
-Text Label 8150 10350 0    60   ~ 0
-S-Gen_Drain_Top_CH1
-Text Label 7150 12350 0    60   ~ 0
-S-Gen_Drain_Top_CH2
-Text Label 2650 8650 0    60   ~ 0
-Scope_Buffer_Input_CH1
-Text Label 2500 10450 0    60   ~ 0
-Scope_Buffer_Input_CH2
-Text Label 3800 5150 0    60   ~ 0
-D0_OUT
-Text Label 3800 5250 0    60   ~ 0
-D1_OUT
-Text Label 3800 5350 0    60   ~ 0
-D2-OUT
-Text Label 3800 5450 0    60   ~ 0
-D3-OUT
-Text Label 4950 5000 0    60   ~ 0
-D0-prefuse
-Text Label 4900 5200 0    60   ~ 0
-D1-prefuse
-Text Label 4900 5400 0    60   ~ 0
-D2-prefuse
-Text Label 4900 5600 0    60   ~ 0
-D3-prefuse
-Text Label 4300 4000 0    60   ~ 0
-PDI_CLK
-Text Label 4950 4400 0    60   ~ 0
-PDI_DATA
-Text Label 3750 4300 0    60   ~ 0
-3V3_OUT
-Text Label 13200 4850 0    60   ~ 0
-Switch_OC
-Text Label 1950 6950 0    60   ~ 0
-Disconnected_USB
-Text Label 4500 5000 0    60   ~ 0
-D0_MID
-Text Label 4550 5200 0    60   ~ 0
-D1_MID
-Text Label 4500 5400 0    60   ~ 0
-D2_MID
-Text Label 4550 5600 0    60   ~ 0
-D3_MID
-Text Label 12250 4600 0    60   ~ 0
-PSU_Unfiltered_Raw
-Text Label 13650 2950 0    60   ~ 0
-L-Ana_IN_CH1
-Text Label 14950 2950 0    60   ~ 0
-L-Ana_IN_CH2
-Text Label 10800 9250 0    60   ~ 0
-R22-R24
-Text Label 11000 11550 0    60   ~ 0
-R23-R25
 Connection ~ 15000 5050
 Wire Wire Line
 	15000 5500 15000 5650
@@ -1554,4 +1565,5 @@ Wire Wire Line
 	16350 5500 16350 5650
 Wire Wire Line
 	8200 3600 9200 3600
+Connection ~ 10100 5650
 $EndSCHEMATC

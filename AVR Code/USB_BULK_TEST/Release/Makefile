@@ -70,6 +70,7 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../src/tiny_calibration.c \
 ../src/tiny_dig.c \
 ../src/ASF/common/boards/user_board/init.c \
 ../src/ASF/common/services/ioport/xmega/ioport_compat.c \
@@ -98,6 +99,7 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+src/tiny_calibration.o \
 src/tiny_dig.o \
 src/ASF/common/boards/user_board/init.o \
 src/ASF/common/services/ioport/xmega/ioport_compat.o \
@@ -119,6 +121,7 @@ src/ASF/xmega/drivers/nvm/nvm_asm.o \
 src/ASF/xmega/drivers/usb/usb_device.o
 
 OBJS_AS_ARGS +=  \
+src/tiny_calibration.o \
 src/tiny_dig.o \
 src/ASF/common/boards/user_board/init.o \
 src/ASF/common/services/ioport/xmega/ioport_compat.o \
@@ -140,6 +143,7 @@ src/ASF/xmega/drivers/nvm/nvm_asm.o \
 src/ASF/xmega/drivers/usb/usb_device.o
 
 C_DEPS +=  \
+src/tiny_calibration.d \
 src/tiny_dig.d \
 src/ASF/common/boards/user_board/init.d \
 src/ASF/common/services/ioport/xmega/ioport_compat.d \
@@ -161,6 +165,7 @@ src/ASF/xmega/drivers/nvm/nvm_asm.d \
 src/ASF/xmega/drivers/usb/usb_device.d
 
 C_DEPS_AS_ARGS +=  \
+src/tiny_calibration.d \
 src/tiny_dig.d \
 src/ASF/common/boards/user_board/init.d \
 src/ASF/common/services/ioport/xmega/ioport_compat.d \
@@ -195,6 +200,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

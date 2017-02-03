@@ -31,7 +31,9 @@ HEADERS  += mainwindow.h \
     desktop_settings.h \
     scoperangeenterdialog.h \
     genericusbdriver.h \
-    isobufferbuffer.h
+    isobufferbuffer.h \
+    q_debugstream.h \
+    unified_debug_structure.h
 
 FORMS    += mainwindow.ui \
     scoperangeenterdialog.ui

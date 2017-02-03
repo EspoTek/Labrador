@@ -54,6 +54,7 @@ private:
     QFile *currentFile;
     isoDriver *parent;
     unsigned int currentColumn = 0;
+    isoDriver *virtualParent;
     //Serial Decode
     bool serialDecodingSymbol = false;
     char charBuffer[4096];

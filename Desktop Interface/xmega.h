@@ -5,7 +5,7 @@
 
 #define FGEN_OFFSET 5
 #define FGEN_LIMIT (double) 3.2
-#define CLOCK_FREQ 24000000
+#define CLOCK_FREQ 48000000
 #define DAC_SPS 1000000
 #define ADC_SPS 750000
 #define ADC_SPF (ADC_SPS/1000)

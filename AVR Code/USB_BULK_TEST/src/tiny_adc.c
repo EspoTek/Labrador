@@ -25,7 +25,11 @@ void tiny_adc_setup(unsigned char ch2_enable, unsigned char seven_fiddy_ksps){
 	ADCA.REFCTRL = ADC_REFSEL_INTVCC2_gc;
 	ADCA.EVCTRL = ch2_enable ? ADC_SWEEP_0123_gc : ADC_SWEEP_01_gc;  //Non-zero causes issues with interrupts!  ;.;		
 	
-	ADCA.PRESCALER = seven_fiddy_ksps == 1 ? ADC_PRESCALER_DIV16_gc : ADC_PRESCALER_DIV32_gc;  //ADC Clock = Sysclock/128
+	#if OVERCLOCK == 48
+		ADCA.PRESCALER = seven_fiddy_ksps == 1 ? ADC_PRESCALER_DIV32_gc : ADC_PRESCALER_DIV64_gc;  //ADC Clock = Sysclock/128
+	#else
+		ADCA.PRESCALER = seven_fiddy_ksps == 1 ? ADC_PRESCALER_DIV16_gc : ADC_PRESCALER_DIV32_gc;  //ADC Clock = Sysclock/128
+	#endif
 	ADCA.CALL = ReadCalibrationByte(offsetof(NVM_PROD_SIGNATURES_t, ADCACAL0));	//Load calibration bytes from production row.
 	ADCA.CALH = ReadCalibrationByte(offsetof(NVM_PROD_SIGNATURES_t, ADCACAL1));	//Load calibration bytes from production row.
 	ADCA.CMP = 0x0000;		//No compare used
@@ -78,4 +82,12 @@ uint8_t ReadCalibrationByte(uint8_t index){
 	NVM_CMD = NVM_CMD_NO_OPERATION_gc;
 
 	return( result );
+}
+
+ISR(ADCA_CH0_vect){
+	asm("nop");
+	asm("nop");
+	asm("nop");
+	asm("nop");
+	ADCA.CH0.INTFLAGS = 0x01;
 }

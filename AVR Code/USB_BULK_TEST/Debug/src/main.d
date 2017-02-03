@@ -63,9 +63,12 @@ src/main.d src/main.o: ../src/main.c \
  ../src/ASF/common/services/usb/udc/udi.h ../src/ui.h ../src/main.h \
  ../src/ASF/common/services/usb/udc/udd.h \
  ../src/ASF/common/services/usb/class/vendor/device/udi_vendor.h \
- ../src/ASF/xmega/utils/status_codes.h ../src/ui.h ../src/globals.h \
+ ../src/ASF/xmega/utils/status_codes.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h \
+ ../src/ui.h ../src/globals.h ../src/unified_debug_structure.h \
  ../src/tiny_adc.h ../src/tiny_dma.h ../src/tiny_timer.h \
- ../src/tiny_dac.h ../src/tiny_uart.h ../src/tiny_dig.h
+ ../src/tiny_dac.h ../src/tiny_uart.h ../src/tiny_dig.h \
+ ../src/tiny_calibration.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h:
 
@@ -209,9 +212,13 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 ../src/ASF/xmega/utils/status_codes.h:
 
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\string.h:
+
 ../src/ui.h:
 
 ../src/globals.h:
+
+../src/unified_debug_structure.h:
 
 ../src/tiny_adc.h:
 
@@ -224,3 +231,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../src/tiny_uart.h:
 
 ../src/tiny_dig.h:
+
+../src/tiny_calibration.h:

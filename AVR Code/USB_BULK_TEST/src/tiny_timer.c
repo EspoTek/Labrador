@@ -21,12 +21,8 @@ void tiny_timer_setup(void){
 		EVSYS.CH2MUX = TCDAC_OVF;
 		EVSYS.CH2CTRL = 0x00; //No filtering or Quadrature stuff
 		
-		EVSYS.CH1MUX = EVSYS_CHMUX_ADCA_CH0_gc;
+		EVSYS.CH1MUX = TCDAC_AUX_OVF;
 		EVSYS.CH1CTRL = 0x00; //No filtering or Quadrature stuff
-		
-		EVSYS.CH0MUX = EVSYS_CHMUX_ADCA_CH2_gc;
-		EVSYS.CH0CTRL = 0x00; //No filtering or Quadrature stuff
-
 			
 	//Waveform (50Hz sin wave)
 		TC_DAC.CTRLA = 0x04; //Some clk setting - not 100% sure since it was SW generated

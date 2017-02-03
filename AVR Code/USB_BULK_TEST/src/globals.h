@@ -9,7 +9,8 @@
 #ifndef GLOBALS_H_
 #define GLOBALS_H_
 
-//#define VERO
+#define VERO
+#define OVERCLOCK 48
 
 #define TC_SPISLAVE TCD0
 #define TC_PSU TCD1
@@ -17,11 +18,12 @@
 #define TC_DAC TCC0
 #define TCDAC_OVF EVSYS_CHMUX_TCC0_OVF_gc
 #define TC_AUXDAC TCC1
+#define TC_CALI TCE0
 #define TCDAC_AUX_OVF EVSYS_CHMUX_TCC1_OVF_gc
 #define HALFPACKET_SIZE 375
 #define PACKET_SIZE 750
 #define B2_START 1125
-#define BUFFER_SIZE PACKET_SIZE*2
+#define BUFFER_SIZE (PACKET_SIZE*2)
 #define DACBUF_SIZE 512
 
 COMPILER_WORD_ALIGNED
@@ -47,19 +49,14 @@ extern volatile char PSU_target;
 
 extern volatile unsigned char test_byte;
 
-extern volatile unsigned char precalc_DMA_CH0_DESTADDR0_b1_state_equals_0;
-extern volatile unsigned char precalc_DMA_CH0_DESTADDR0_b1_state_equals_1;
-extern volatile unsigned char precalc_DMA_CH0_DESTADDR1_b1_state_equals_0;
-extern volatile unsigned char precalc_DMA_CH0_DESTADDR1_b1_state_equals_1;
+extern volatile unsigned char debugOnNextEnd;
 
-extern volatile unsigned char precalc_DMA_CH1_DESTADDR0_b2_state_equals_0;
-extern volatile unsigned char precalc_DMA_CH1_DESTADDR0_b2_state_equals_1;
-extern volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_0;
-extern volatile unsigned char precalc_DMA_CH1_DESTADDR1_b2_state_equals_1;
+extern volatile unsigned int median_TRFCNT;
 
-extern volatile unsigned char readyToInit;
- extern volatile unsigned char delayed_debug;
+extern volatile unsigned short dma_ch0_ran;
+extern volatile unsigned short dma_ch1_ran;
 
-
+#include "unified_debug_structure.h"
+extern unified_debug uds;
 
 #endif /* GLOBALS_H_ */

@@ -348,6 +348,12 @@
     <Folder Include="src\config\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\tiny_calibration.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\tiny_calibration.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\tiny_dig.c">
       <SubType>compile</SubType>
     </Compile>
@@ -355,6 +361,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\tiny_uart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\unified_debug_structure.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\common\boards\board.h">

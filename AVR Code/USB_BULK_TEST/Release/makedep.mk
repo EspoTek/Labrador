@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\tiny_calibration.c
+
 src\tiny_dig.c
 
 src\ASF\common\boards\user_board\init.c
