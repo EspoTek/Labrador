@@ -166,7 +166,7 @@ unsigned char winUsbDriver::usbIsoInit(void){
     //Filling the transfer contexts
     for(n=0;n<NUM_FUTURE_CTX;n++){
         for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
-            success = IsoK_Init(&isoCtx[k][n], ISO_PACKETS_PER_CTX, n*ISO_PACKETS_PER_CTX);
+            success = IsoK_Init(&isoCtx[k][n], ISO_PACKETS_PER_CTX, 0);
             if(!success){
                 errorCode = GetLastError();
                 qDebug() << "IsoK_Init failed with error code" << errorCode;
@@ -276,7 +276,7 @@ void winUsbDriver::isoTimerTick(void){
             qDebug() << "n =" << n;
             return;
         }
-        isoCtx[k][earliest]->StartFrame = oldStart + ISO_PACKETS_PER_CTX*NUM_FUTURE_CTX;
+        isoCtx[k][earliest]->StartFrame = 0;
 
         success = OvlK_ReUse(ovlkHandle[k][earliest]);
         if(!success){
