@@ -1110,32 +1110,7 @@ static bool udc_reqvend(void){
 			udd_set_setup_payload(dacBuf_CH1, udd_g_ctrlreq.req.wLength);
 			if(dacBuf_len != udd_g_ctrlreq.req.wLength){
 				dacBuf_len = udd_g_ctrlreq.req.wLength;
-				switch(global_mode){
-					case 0:
-					tiny_dma_set_mode_0();
-					break;
-					case 1:
-					tiny_dma_set_mode_1();
-					break;
-					case 2:
-					tiny_dma_set_mode_2();
-					break;
-					case 3:
-					tiny_dma_set_mode_3();
-					break;
-					case 4:
-					tiny_dma_set_mode_4();
-					break;
-					case 5:
-					tiny_dma_set_mode_5();
-					break;
-					case 6:
-					tiny_dma_set_mode_6();
-					break;
-					case 7:
-					tiny_dma_set_mode_7();
-					break;
-				}
+				tiny_dma_delayed_set(global_mode);
 			}
 			return 1;
 		case 0xa2: //CH2 waveform
@@ -1145,32 +1120,7 @@ static bool udc_reqvend(void){
 			udd_set_setup_payload(dacBuf_CH2, udd_g_ctrlreq.req.wLength);
 			if(auxDacBufLen != udd_g_ctrlreq.req.wLength){
 				auxDacBufLen = udd_g_ctrlreq.req.wLength;
-				switch(global_mode){
-					case 0:
-					tiny_dma_set_mode_0();
-					break;
-					case 1:
-					tiny_dma_set_mode_1();
-					break;
-					case 2:
-					tiny_dma_set_mode_2();
-					break;
-					case 3:
-					tiny_dma_set_mode_3();
-					break;
-					case 4:
-					tiny_dma_set_mode_4();
-					break;
-					case 5:
-					tiny_dma_set_mode_5();
-					break;
-					case 6:
-					tiny_dma_set_mode_6();
-					break;
-					case 7:
-					tiny_dma_set_mode_7();
-					break;
-				}
+				tiny_dma_delayed_set(global_mode);
 			}
 			return 1;
 		case 0xa3: //PSU voltage control
@@ -1185,39 +1135,39 @@ static bool udc_reqvend(void){
 				case 0:  //Mode 0
 					tiny_adc_setup(0, 0);
 					tiny_adc_ch0setup(udd_g_ctrlreq.req.wIndex);
-					tiny_dma_set_mode_0();
+					tiny_dma_delayed_set(0);
 					break;
 				case 1:  //Mode 1
 					tiny_adc_setup(0, 0);
 					tiny_adc_ch0setup(udd_g_ctrlreq.req.wIndex);
-					tiny_dma_set_mode_1();
+					tiny_dma_delayed_set(1);
 					break;
 				case 2:  //Mode 2
 					tiny_adc_setup(1, 1);
 					tiny_adc_ch0setup(udd_g_ctrlreq.req.wIndex);
 					tiny_adc_ch1setup(udd_g_ctrlreq.req.wIndex>>8);
-					tiny_dma_set_mode_2();
+					tiny_dma_delayed_set(2);
 					break;
 				case 3:  //Mode 3
-					tiny_dma_set_mode_3();
+					tiny_dma_delayed_set(3);
 					break;
 				case 4:  //Mode 4
-					tiny_dma_set_mode_4();
+					tiny_dma_delayed_set(4);
 					break;
 				case 5:  //Mode 5
 					tiny_adc_setup(0, 0);
 					tiny_adc_ch0setup(udd_g_ctrlreq.req.wIndex);
-					tiny_dma_set_mode_5();
+					tiny_dma_delayed_set(5);
 					break;
 				case 6:  //Mode 6
 					tiny_adc_setup(0, 1);
 					tiny_adc_ch0setup(udd_g_ctrlreq.req.wIndex);
-					tiny_dma_set_mode_6();
+					tiny_dma_delayed_set(6);
 					break;		
 				case 7:  //Mode 7
 					tiny_adc_setup(0, 2);
 					tiny_adc_ch0setup(udd_g_ctrlreq.req.wIndex | 0x80);
-					tiny_dma_set_mode_7();
+					tiny_dma_delayed_set(7);
 					break;
 				default:
 					return 0;

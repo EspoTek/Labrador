@@ -58,6 +58,9 @@ volatile char debug_data[8] = "DEBUG123";
 volatile unsigned short dma_ch0_ran;
 volatile unsigned short dma_ch1_ran;
 
+volatile unsigned char futureMode;
+volatile unsigned char modeChanged = 0;
+
 unified_debug uds;
 
 int main(void){
@@ -84,10 +87,6 @@ int main(void){
 	strcpy(uds.header, "debug123");
 
 	while (true) {
-		debug_counter++;
-		if(debug_counter > 100000000){
-			debug_counter = 0;
-		}
 			asm("nop");
 			asm("nop");
 			asm("nop");
@@ -102,8 +101,35 @@ int main(void){
 			asm("nop");
 			asm("nop");
 			asm("nop");
-	//test_byte = ADCA.CH1.RESH;
-	//DO NOTHING!
+			if(modeChanged){
+				switch(futureMode){
+					case 0:
+					tiny_dma_set_mode_0();
+					break;
+					case 1:
+					tiny_dma_set_mode_1();
+					break;
+					case 2:
+					tiny_dma_set_mode_2();
+					break;
+					case 3:
+					tiny_dma_set_mode_3();
+					break;
+					case 4:
+					tiny_dma_set_mode_4();
+					break;
+					case 5:
+					tiny_dma_set_mode_5();
+					break;
+					case 6:
+					tiny_dma_set_mode_6();
+					break;
+					case 7:
+					tiny_dma_set_mode_7();
+					break;
+				}
+				modeChanged = 0;
+			}
 	}
 }
 
@@ -123,7 +149,6 @@ void main_resume_action(void)
 
 void main_sof_action(void)
 {
-	cli();
 	uds.trfcntL0 = DMA.CH0.TRFCNTL;
 	uds.trfcntH0 = DMA.CH0.TRFCNTH;	
 	uds.trfcntL1 = DMA.CH1.TRFCNTL;
@@ -138,7 +163,6 @@ void main_sof_action(void)
 		tiny_calibration_first_sof();
 		firstFrame = 0;
 		tcinit = 1;
-		sei();
 		return;
 	}
 	else{
@@ -169,7 +193,6 @@ void main_sof_action(void)
 	else{
 		usb_state = (DMA.CH0.TRFCNT < 750) ? 1 : 0;
 	}
-	sei();
 	return;
 }
 

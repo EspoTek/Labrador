@@ -38,8 +38,12 @@ void tiny_dma_flush(void){
 	dma_ch0_ran = 0;
 	dma_ch1_ran = 0;
 }
+void tiny_dma_delayed_set(unsigned char mode){
+	futureMode = mode;
+	modeChanged = 1;	
+}
 void tiny_dma_set_mode_0(void){
-	cli();
+	
 	global_mode = 0;
 	
 	tiny_dma_flush();
@@ -101,7 +105,7 @@ void tiny_dma_set_mode_0(void){
 	median_TRFCNT = 200;
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	sei();
+	
 }
 
 void tiny_dma_loop_mode_0(void){
@@ -109,7 +113,7 @@ void tiny_dma_loop_mode_0(void){
 }
 
 void tiny_dma_set_mode_1(void){
-	cli();
+	
 	
 	global_mode = 1;
 	
@@ -191,7 +195,7 @@ void tiny_dma_set_mode_1(void){
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
 	DMA.CH1.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	sei();
+	
 		
 		
 }
@@ -201,7 +205,7 @@ void tiny_dma_loop_mode_1(void){
 }
 
 void tiny_dma_set_mode_2(void){
-	cli();
+	
 	global_mode = 2;
 	
 	tiny_dma_flush();
@@ -281,7 +285,7 @@ void tiny_dma_set_mode_2(void){
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 	DMA.CH1.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	sei();
+	
 }
 
 void tiny_dma_loop_mode_2(void){
@@ -291,7 +295,7 @@ void tiny_dma_loop_mode_2(void){
 
 
 void tiny_dma_set_mode_3(void){
-	cli();
+	
 	global_mode = 3;
 		
 	tiny_dma_flush();	
@@ -381,7 +385,7 @@ void tiny_dma_set_mode_3(void){
 	//Must enable last for REPCNT won't work!
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 
-	sei();
+	
 }
 
 void tiny_dma_loop_mode_3(void){
@@ -389,7 +393,7 @@ void tiny_dma_loop_mode_3(void){
 }
 
 void tiny_dma_set_mode_4(void){
-	cli();
+	
 	global_mode = 4;
 	
 	tiny_dma_flush();
@@ -471,7 +475,7 @@ void tiny_dma_set_mode_4(void){
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 	DMA.CH1.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	sei();
+	
 }
 
 void tiny_dma_loop_mode_4(void){
@@ -484,7 +488,7 @@ void tiny_dma_set_mode_5(void){
 }
 
 void tiny_dma_set_mode_6(void){
-	cli();	
+		
 	global_mode = 6;
 	
 	tiny_dma_flush();
@@ -547,7 +551,7 @@ void tiny_dma_set_mode_6(void){
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!	
 	
-	sei();
+	
 }
 
 void tiny_dma_loop_mode_6(void){
@@ -555,7 +559,7 @@ void tiny_dma_loop_mode_6(void){
 }
 
 void tiny_dma_set_mode_7(void){
-		cli();		
+				
 		global_mode = 7;
 		
 		tiny_dma_flush();
@@ -617,7 +621,7 @@ void tiny_dma_set_mode_7(void){
 		median_TRFCNT = 400;
 		median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
 		DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!	
-		sei();
+		
 }
 
 void tiny_dma_loop_mode_7(void){

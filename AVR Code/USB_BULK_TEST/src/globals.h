@@ -56,6 +56,10 @@ extern volatile unsigned int median_TRFCNT;
 extern volatile unsigned short dma_ch0_ran;
 extern volatile unsigned short dma_ch1_ran;
 
+extern volatile unsigned char futureMode;
+extern volatile unsigned char modeChanged;
+
+
 #include "unified_debug_structure.h"
 extern unified_debug uds;
 

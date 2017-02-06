@@ -39,8 +39,7 @@ void tiny_dma_loop_mode_6(void);
 void tiny_dma_set_mode_7(void);
 void tiny_dma_loop_mode_7(void);
 
-ISR(DMA_CH3_vect);
-
+void tiny_dma_delayed_set(unsigned char mode);
 
 
 #endif /* TINY_DMA_H_ */
