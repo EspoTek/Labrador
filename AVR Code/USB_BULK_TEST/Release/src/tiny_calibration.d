@@ -64,7 +64,7 @@ src/tiny_calibration.d src/tiny_calibration.o: ../src/tiny_calibration.c \
  ../src/ASF/xmega/utils/status_codes.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stdarg.h \
- ../src/globals.h ../src/tiny_adc.h
+ ../src/globals.h ../src/unified_debug_structure.h ../src/tiny_adc.h
 
 ../src/tiny_calibration.h:
 
@@ -211,5 +211,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stdarg.h:
 
 ../src/globals.h:
+
+../src/unified_debug_structure.h:
 
 ../src/tiny_adc.h:

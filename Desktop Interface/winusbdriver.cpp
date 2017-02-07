@@ -95,7 +95,7 @@ unsigned char winUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
 
 void winUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA){
 
-    //This function sends a control transfer over USB.  It only needs to send data; not receive.
+    //This function sends a control transfer over USB.
     //LDATA is a pointer to the buffer that is going to be sent to the device.  If no buffer is to be sent, LDATA should be NULL (and any implementation should be able to handle this case!!).
     //The Linux implementation of this is trivially simple.  Have a look!
 
