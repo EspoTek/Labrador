@@ -230,7 +230,7 @@ void winUsbDriver::isoTimerTick(void){
 
     //Getting earliest transfer number.
     for (n=0; n<NUM_FUTURE_CTX; n++){
-        if(OvlK_IsComplete(ovlkHandle[0][n]) && OvlK_IsComplete(ovlkHandle[1][n]) && OvlK_IsComplete(ovlkHandle[2][n])){
+        if(allEndpointsComplete(n)){
             if(isoCtx[0][n]->StartFrame < minFrame){
                 minFrame = isoCtx[0][n]->StartFrame;
                 earliest = n;
@@ -298,4 +298,14 @@ char *winUsbDriver::isoRead(unsigned int *newLength){
     //This will be called almost immediately after the upTick() signal is sent.  Make sure bufferLengths[] abd outBuffers[] are ready!
     *(newLength) = bufferLengths[!currentWriteBuffer];
     return (char*) outBuffers[(unsigned char) !currentWriteBuffer];
+}
+
+bool winUsbDriver::allEndpointsComplete(int n){
+    //Just tells you if transfers have completed on _all_ iso endpoints for a given value of n.
+    for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
+        if(!OvlK_IsComplete(ovlkHandle[k][n])){
+            return false;
+        }
+    }
+    return true;
 }

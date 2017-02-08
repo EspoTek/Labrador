@@ -69,7 +69,14 @@ unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
 
 void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA){
     //qDebug("Sending Control packet! 0x%x,\t0x%x,\t%u,\t%u,\t%d,\t%u", RequestType, Request, Value, Index, LDATA, Length);
-    int error = libusb_control_transfer(handle, RequestType, Request, Value, Index, LDATA, Length, 4000);
+    unsigned char *controlBuffer;
+
+    if (LDATA==NULL){
+        controlBuffer = inBuffer;
+    }
+    else controlBuffer = LDATA;
+
+    int error = libusb_control_transfer(handle, RequestType, Request, Value, Index, controlBuffer, Length, 4000);
     if(error){
         qDebug("unixUsbDriver::usbSendControl FAILED with error %s", libusb_error_name(error));
     } //else qDebug() << "unixUsbDriver::usbSendControl SUCCESS";
@@ -84,16 +91,18 @@ unsigned char unixUsbDriver::usbIsoInit(void){
     int error;
 
     for(int n=0;n<NUM_FUTURE_CTX;n++){
-        isoCtx[n] = libusb_alloc_transfer(ISO_PACKETS_PER_CTX);
-        transferCompleted[n].number = n;
-        transferCompleted[n].completed = false;
-        libusb_fill_iso_transfer(isoCtx[n], handle, pipeID, dataBuffer[n], ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX, ISO_PACKETS_PER_CTX, isoCallback, (void*)&transferCompleted[n], 4000);
-        libusb_set_iso_packet_lengths(isoCtx[n], ISO_PACKET_SIZE);
-        error = libusb_submit_transfer(isoCtx[n]);
-        if(error){
-            qDebug() << "libusb_submit_transfer FAILED";
-            qDebug() << "ERROR" << libusb_error_name(error);
-        } else qDebug() << "isoCtx submitted successfully!";
+        for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
+            isoCtx[k][n] = libusb_alloc_transfer(ISO_PACKETS_PER_CTX);
+            transferCompleted[k][n].number = (k * ISO_PACKETS_PER_CTX) + n;
+            transferCompleted[k][n].completed = false;
+            libusb_fill_iso_transfer(isoCtx[k][n], handle, pipeID[k], dataBuffer[k][n], ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX, ISO_PACKETS_PER_CTX, isoCallback, (void*)&transferCompleted[k][n], 4000);
+            libusb_set_iso_packet_lengths(isoCtx[k][n], ISO_PACKET_SIZE);
+            error = libusb_submit_transfer(isoCtx[k][n]);
+            if(error){
+                qDebug() << "libusb_submit_transfer FAILED";
+                qDebug() << "ERROR" << libusb_error_name(error);
+            } else qDebug() << "isoCtx submitted successfully!";
+        }
     }
     isoTimer = new QTimer();
     isoTimer->setTimerType(Qt::PreciseTimer);
@@ -136,10 +145,10 @@ void unixUsbDriver::isoTimerTick(void){
 
     tcBlockMutex.lock();
     for (n=0; n<NUM_FUTURE_CTX; n++){
-        if(transferCompleted[n].completed){
+        if(allEndpointsComplete(n)){
             //qDebug("Transfer %d is complete!!", n);
-            if(transferCompleted[n].timeReceived < minFrame){
-                minFrame = transferCompleted[n].timeReceived;
+            if(transferCompleted[0][n].timeReceived < minFrame){
+                minFrame = transferCompleted[0][n].timeReceived;
                 earliest = n;
             }
         }
@@ -150,11 +159,13 @@ void unixUsbDriver::isoTimerTick(void){
     }
 
     //Copy iso data into buffer
-    for(i=0;i<isoCtx[earliest]->num_iso_packets;i++){
-        packetPointer = libusb_get_iso_packet_buffer_simple(isoCtx[earliest], i);
-        //qDebug() << packetLength;
-        memcpy(&(outBuffers[currentWriteBuffer][packetLength]), packetPointer, isoCtx[earliest]->iso_packet_desc[i].actual_length);
-        packetLength += isoCtx[earliest]->iso_packet_desc[i].actual_length;
+    for(i=0;i<isoCtx[0][earliest]->num_iso_packets;i++){
+        for(unsigned char k=0; k<NUM_ISO_ENDPOINTS;k++){
+            packetPointer = libusb_get_iso_packet_buffer_simple(isoCtx[k][earliest], i);
+            //qDebug() << packetLength;
+            memcpy(&(outBuffers[currentWriteBuffer][packetLength]), packetPointer, isoCtx[k][earliest]->iso_packet_desc[i].actual_length);
+            packetLength += isoCtx[k][earliest]->iso_packet_desc[i].actual_length;
+        }
     }
 
     //Control data for isoDriver
@@ -162,12 +173,14 @@ void unixUsbDriver::isoTimerTick(void){
     currentWriteBuffer = !currentWriteBuffer;
 
     //Setup next transfer
-    transferCompleted[earliest].completed = false;
-    error = libusb_submit_transfer(isoCtx[earliest]);
-    if(error){
-        qDebug() << "libusb_submit_transfer FAILED";
-        qDebug() << "ERROR" << libusb_error_name(error);
-    } //else qDebug() << "isoCtx submitted successfully!";
+    for(unsigned char k=0; k<NUM_ISO_ENDPOINTS;k++){
+        transferCompleted[k][earliest].completed = false;
+        error = libusb_submit_transfer(isoCtx[k][earliest]);
+        if(error){
+            qDebug() << "libusb_submit_transfer FAILED";
+            qDebug() << "ERROR" << libusb_error_name(error);
+        } //else qDebug() << "isoCtx submitted successfully!";
+    }
     tcBlockMutex.unlock();
     upTick();
    return;
@@ -198,4 +211,14 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
     //qDebug() << ((tcBlock *)transfer->user_data)->timeReceived;
     tcBlockMutex.unlock();
     return;
+}
+
+bool unixUsbDriver::allEndpointsComplete(int n){
+    //Just tells you if transfers have completed on _all_ iso endpoints for a given value of n.
+    for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
+        if(!transferCompleted[k][n].completed){
+            return false;
+        }
+    }
+    return true;
 }

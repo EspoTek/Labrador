@@ -59,14 +59,15 @@ private:
     libusb_device_handle *handle = NULL;
     QTimer *recoveryTimer;
     //USBIso Vars
-    libusb_transfer *isoCtx[NUM_FUTURE_CTX];
-    tcBlock transferCompleted[NUM_FUTURE_CTX];
-    unsigned char dataBuffer[NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
+    libusb_transfer *isoCtx[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
+    tcBlock transferCompleted[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
+    unsigned char dataBuffer[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
     worker *isoHandler;
     QThread *workerThread;
     //Generic Functions
     unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
     unsigned char usbIsoInit(void);
+    bool allEndpointsComplete(int n);
 signals:
 public slots:
     void isoTimerTick(void);

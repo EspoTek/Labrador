@@ -32,6 +32,7 @@ private:
     //Generic Functions
     unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
     unsigned char usbIsoInit(void);
+    bool allEndpointsComplete(int n);
 signals:
 public slots:
     void isoTimerTick(void);

@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
     #ifdef PLATFORM_MAC
         //Reconnect the other objects.
         ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
-        connect(ui->pushButton, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
+        connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
         connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
         connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
         connect(ui->controller_fg, SIGNAL(functionGenToUpdate(int,functionGenControl*)), ui->controller_iso->driver, SLOT(setFunctionGen(int,functionGenControl*)));

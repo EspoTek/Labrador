@@ -29,12 +29,15 @@ void functionGenControl::waveformName_CH1(QString newName)
             qFatal("%s could not be opened!", fileName);
         }
 
-    char lengthString[5];
+    char lengthString[6];
     fgets(lengthString, 5, fptr);
+    qDebug() << lengthString;
     sscanf(lengthString, "%d", &length_CH1);
 
-    char divisibilityString[5];
-    fgets(divisibilityString, 5, fptr);
+    char divisibilityString[6];
+    //Bit of bullshit to deal with CRLF line endings on Mac.
+    do fgets(divisibilityString, 5, fptr);
+    while ((divisibilityString[0] == '\r') || (divisibilityString[0] == '\n'));
     sscanf(divisibilityString, "%d", &divisibility_CH1);
 
     qDebug() << "Length = " << length_CH1;
@@ -103,7 +106,9 @@ void functionGenControl::waveformName_CH2(QString newName)
     sscanf(lengthString, "%d", &length_CH2);
 
     char divisibilityString[5];
-    fgets(divisibilityString, 5, fptr);
+    //Bit of bullshit to deal with CRLF line endings on Mac.
+    do fgets(divisibilityString, 5, fptr);
+    while ((divisibilityString[0] == '\r') || (divisibilityString[0] == '\n'));
     sscanf(divisibilityString, "%d", &divisibility_CH2);
 
     qDebug() << "Length = " << length_CH2;

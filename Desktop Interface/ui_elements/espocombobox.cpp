@@ -28,7 +28,7 @@ void espoComboBox::readWaveformList(void)
 
     while (fgets(nameBuffer,256,listPtr) !=NULL){
         qDebug() << "nameBuffer = " << nameBuffer;
-        strtok(nameBuffer, "\n");
+        strtok(nameBuffer, "\n\r");
         newNames->append(nameBuffer);
     }
     this->addItems(*(newNames));
