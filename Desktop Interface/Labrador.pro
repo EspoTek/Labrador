@@ -4,6 +4,11 @@
 #
 #-------------------------------------------------
 
+
+############################################################################
+######CLEAN->RUN QMAKE->BUILD after changing anything on this page!!!######
+##########################################################################
+
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
@@ -11,7 +16,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 TARGET = Labrador
 TEMPLATE = app
 
+QCP_VER = 1
+DEFINES += "QCP_VER=$${QCP_VER}"
+
 include(ui_elements.pri)
+
+MOC_DIR = $$PWD/moc
 
 SOURCES += main.cpp\
         mainwindow.cpp \

@@ -101,6 +101,7 @@ void MainWindow::initialisePlot()
     ui->scopeAxes->addGraph();
     ui->scopeAxes->addGraph();
 
+#if QCP_VER == 1
     textLabel = new QCPItemText(ui->scopeAxes);
     ui->scopeAxes->addItem(textLabel);
     textLabel->setPositionAlignment(Qt::AlignTop|Qt::AlignRight);
@@ -115,6 +116,9 @@ void MainWindow::initialisePlot()
     textLabel->setVisible(0);
     ui->controller_iso->cursorTextPtr = textLabel;
 
+    ui->scopeAxes->yAxis->setAutoTickCount(9);
+    ui->scopeAxes->xAxis->setAutoTickCount(9);
+#endif
 
     QPen *dashPen = new QPen(Qt::white, 2);
     dashPen->setStyle(Qt::DashLine);
@@ -125,9 +129,6 @@ void MainWindow::initialisePlot()
     ui->scopeAxes->graph(3)->setPen(*(dashPen));
     ui->scopeAxes->graph(4)->setPen(QPen(Qt::white, 2));
     ui->scopeAxes->graph(5)->setPen(*(dashPen));
-
-    ui->scopeAxes->yAxis->setAutoTickCount(9);
-    ui->scopeAxes->xAxis->setAutoTickCount(9);
 
 
     ui->scopeAxes->xAxis->setBasePen(QPen(Qt::white, 1));
