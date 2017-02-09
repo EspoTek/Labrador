@@ -23,7 +23,9 @@ public:
     explicit isoDriver(QWidget *parent = 0);
     //Generic Vars
     isoBuffer *internalBuffer375_CH1, *internalBuffer375_CH2, *internalBuffer750;
+#if QCP_VER == 1
     QCPItemText *cursorTextPtr;
+#endif
     genericUsbDriver *driver;
     bool doNotTouchGraph = true;
     //State Vars

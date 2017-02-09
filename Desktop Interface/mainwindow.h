@@ -161,6 +161,7 @@ private:
     QShortcut *shortcut_manualRange;
     QShortcut *shortcut_snapshot;
     QShortcut *shortcut_Debug;
+    QShortcut *shortcut_Esc;
 };
 
 #endif // MAINWINDOW_H

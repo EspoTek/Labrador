@@ -122,6 +122,17 @@ void MainWindow::initialisePlot()
     ui->scopeAxes->xAxis->setAutoTickCount(9);
 #endif
 
+#if QCP_VER == 2
+    ui->scopeAxes->setOpenGl(true);
+    QSharedPointer<QCPAxisTicker> xTicker(new QCPAxisTicker);
+    xTicker->setTickCount(9);
+    ui->scopeAxes->xAxis->setTicker(xTicker);
+
+    QSharedPointer<QCPAxisTicker> yTicker(new QCPAxisTicker);
+    yTicker->setTickCount(9);
+    ui->scopeAxes->yAxis->setTicker(yTicker);
+#endif
+
     QPen *dashPen = new QPen(Qt::white, 2);
     dashPen->setStyle(Qt::DashLine);
 
@@ -767,6 +778,7 @@ void MainWindow::initShortcuts(){
 
 
     shortcut_Debug = new QShortcut(QKeySequence("Home"), this);
+    shortcut_Esc = new QShortcut(QKeySequence("Esc"), this);
 
 
     connect(shortcut_cycleBaudRate_CH1, SIGNAL(activated()), this, SLOT(cycleBaudRate_CH1()));
@@ -794,7 +806,7 @@ void MainWindow::initShortcuts(){
     connect(shortcut_manualRange, SIGNAL(activated()), this, SLOT(on_actionEnter_Manually_triggered()));
 
     connect(shortcut_Debug, SIGNAL(activated()), this, SLOT(enableLabradorDebugging()));
-
+    connect(shortcut_Esc, SIGNAL(activated()), this, SLOT(reinitUsb()));
 
 }
 
@@ -1059,7 +1071,6 @@ void MainWindow::reinitUsb(void){
     connect(ui->controller_iso->driver, SIGNAL(upTick()), ui->controller_iso, SLOT(timerTick()));
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
     connect(ui->controller_iso->driver, SIGNAL(connectedStatus(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
-
 
     //Setup all necessary state data;
     //ui->controller_iso->driver->setDeviceMode(deviceMode);

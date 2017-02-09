@@ -280,6 +280,7 @@ void isoDriver::pauseEnable_CH1(bool enabled){
 
     if(!properlyPaused()) {
         delay = 0;
+        if (autoGainEnabled) autoGain();
         //window = windowAtPause;
     }
 
@@ -293,6 +294,7 @@ void isoDriver::pauseEnable_CH2(bool enabled){
 
     if(!properlyPaused()){
         delay = 0;
+        if (autoGainEnabled) autoGain();
         //window = windowAtPause;
     }
 
@@ -389,7 +391,9 @@ void isoDriver::cursorEnableVert(bool enabled){
 
 void isoDriver::udateCursors(void){
     if(!(vertCursorEnabled || horiCursorEnabled)){
+#if QCP_VER == 1
         cursorTextPtr->setVisible(0);
+#endif
         return;
     }
 
@@ -423,8 +427,9 @@ void isoDriver::udateCursors(void){
         axes->graph(4)->setData(hori0x, hori0y);
         axes->graph(5)->setData(hori1x, hori1y);
     }
-
+#if QCP_VER == 1
     cursorTextPtr->setVisible(cursorStatsEnabled);
+#endif
     if (!cursorStatsEnabled) return;
 
     QString *cursorStatsString = new QString();
@@ -449,7 +454,9 @@ void isoDriver::udateCursors(void){
     if(horiCursorEnabled && vertCursorEnabled) cursorStatsString->append(temp_separator);
     if(vertCursorEnabled) cursorStatsString->append(temp_vert);
     //qDebug() << temp;
+#if QCP_VER == 1
     cursorTextPtr->setText(*(cursorStatsString));
+#endif
     delete cursorStatsString;
 }
 

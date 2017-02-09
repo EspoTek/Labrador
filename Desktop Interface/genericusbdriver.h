@@ -16,8 +16,8 @@
 #include "unified_debug_structure.h"
 
 #define ISO_PACKET_SIZE 125
-#define ISO_PACKETS_PER_CTX 17
-#define NUM_FUTURE_CTX 36
+#define ISO_PACKETS_PER_CTX 33
+#define NUM_FUTURE_CTX 32
 #define ISO_TIMER_PERIOD 1
 #define NUM_ISO_ENDPOINTS 6
 #define MAX_OVERLAP (NUM_FUTURE_CTX*NUM_ISO_ENDPOINTS + 1)
@@ -37,6 +37,7 @@ public:
     //Generic Vars
     unsigned char *outBuffers[2];
     unsigned int bufferLengths[2];
+    bool connected = false;
     //Generic Functions
     explicit genericUsbDriver(QWidget *parent = 0);
     virtual char *isoRead(unsigned int *newLength) = 0;
@@ -57,7 +58,6 @@ protected:
     unsigned char pipeID[3];
     QTimer *isoTimer;
     QTimer *connectTimer;
-    bool connected = false;
     unsigned char currentWriteBuffer = 0;
     unsigned long timerCount = 0;
     unsigned char inBuffer[256];
