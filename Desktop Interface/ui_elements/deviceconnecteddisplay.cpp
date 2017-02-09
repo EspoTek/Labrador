@@ -2,7 +2,8 @@
 
 deviceConnectedDisplay::deviceConnectedDisplay(QWidget *parent) : QLabel(parent)
 {
-
+    this->setText("Device Not Connected!");
+    this->setStyleSheet("QLabel { color:red; }");
 }
 
 void deviceConnectedDisplay::connectedStatusChanged(bool status){
@@ -12,7 +13,7 @@ void deviceConnectedDisplay::connectedStatusChanged(bool status){
         this->setStyleSheet("QLabel { color:black; }");
     }
     else{
-        this->setText("Device Not Detected!");
+        this->setText("Device Not Connected!");
         this->setStyleSheet("QLabel { color:red; }");
     }
 }

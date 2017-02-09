@@ -1548,7 +1548,7 @@ public:
         actionSnap_to_Cursors->setText(QApplication::translate("MainWindow", "Snap to Cursors", 0));
         actionEnter_Manually->setText(QApplication::translate("MainWindow", "Enter Manually", 0));
         actionTake_Snapshot->setText(QApplication::translate("MainWindow", "Take Snapshot", 0));
-        deviceConnected->setText(QApplication::translate("MainWindow", "Device disconnected!", 0));
+        deviceConnected->setText(QApplication::translate("MainWindow", "Device Not Connected!", 0));
         scopeGroup_CH1->setTitle(QApplication::translate("MainWindow", "Oscilloscope CH1", 0));
         pausedLabeL_CH1->setText(QApplication::translate("MainWindow", "Paused", 0));
         acCoupledLabel_CH1->setText(QApplication::translate("MainWindow", "AC Coupled", 0));

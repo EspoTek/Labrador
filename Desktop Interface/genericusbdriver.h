@@ -33,6 +33,7 @@ public:
     int deviceMode = INIT_DEVICE_MODE;
     double scopeGain = 0.5;
     int dutyTemp = 21;
+    bool killOnConnect = false;
     //Generic Vars
     unsigned char *outBuffers[2];
     unsigned int bufferLengths[2];
@@ -55,6 +56,8 @@ protected:
     QTimer *psuTimer;
     unsigned char pipeID[3];
     QTimer *isoTimer;
+    QTimer *connectTimer;
+    bool connected = false;
     unsigned char currentWriteBuffer = 0;
     unsigned long timerCount = 0;
     unsigned char inBuffer[256];
@@ -70,6 +73,7 @@ signals:
     void checkXY(bool);
     void upTick(void);
     void killMe(void);
+    void connectedStatus(bool status);
 public slots:
     void setPsu(double voltage);
     void setFunctionGen(int channel, functionGenControl *fGenControl);
@@ -79,6 +83,7 @@ public slots:
     void setGain(double newGain);
     void avrDebug(void);
     virtual void isoTimerTick(void) = 0;
+    virtual void checkConnection() = 0;
 };
 
 

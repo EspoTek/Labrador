@@ -4,28 +4,6 @@
 
 winUsbDriver::winUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
-    //This opens the USB connection.  Nothing can continue until the board is up and running.
-    bool connected = false;
-    while(!connected){
-        for (int n=0;n<SLEEP_DIVIDER;n++){
-            QThread::msleep(USB_RECONNECT_PERIOD/SLEEP_DIVIDER);
-            QCoreApplication::processEvents();
-        }
-        connected = usbInit(0x03eb, 0xa000);
-    }
-
-    //Below is platform-independent constructor code.
-    //I can't stick it in usbDriverGeneric since this needs to be run _after_ USB has initialised and calling virtuals from the superclass constructor is a bad idea!
-    //You don't need to understand it, but it needs to go in the constructor of all platform-specific drivers!
-    //(Actually, I think you could get away with omitting the first two lines but they don't hurt!)
-    setDeviceMode(deviceMode);
-    newDig(digitalPinState);
-    usbIsoInit();
-
-    psuTimer = new QTimer();
-    psuTimer->setTimerType(Qt::PreciseTimer);
-    psuTimer->start(PSU_PERIOD);
-    connect(psuTimer, SIGNAL(timeout()), this, SLOT(psuTick()));
 }
 
 winUsbDriver::~winUsbDriver(void){    
@@ -263,6 +241,7 @@ void winUsbDriver::isoTimerTick(void){
     if(packetLength == 0){
         qDebug() << "Zero length iso packet.  An hero!";
         killMe();
+        connectedStatus(false);
     }
 
     UINT oldStart;
@@ -308,4 +287,33 @@ bool winUsbDriver::allEndpointsComplete(int n){
         }
     }
     return true;
+}
+
+void winUsbDriver::checkConnection(){
+    //This will connect to the board, then wait one more period before actually starting the stack.
+    if(!connected){
+        qDebug() << "CHECKING CONNECTION!";
+        connected = usbInit(0x03eb, 0xa000);
+        return;
+    }
+
+    qDebug() << "Connecting now!";
+
+    //This is the actual setup code.
+    connectTimer->stop();
+    delete(connectTimer);
+
+    connectedStatus(true);
+
+    QThread::msleep(USB_RECONNECT_PERIOD); //Black magic.  I don't fully understand it myself.
+    setDeviceMode(deviceMode);
+    newDig(digitalPinState);
+    usbIsoInit();
+
+    psuTimer = new QTimer();
+    psuTimer->setTimerType(Qt::PreciseTimer);
+    psuTimer->start(PSU_PERIOD);
+    connect(psuTimer, SIGNAL(timeout()), this, SLOT(psuTick()));
+
+    if(killOnConnect) usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
 }

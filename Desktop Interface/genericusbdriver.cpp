@@ -2,6 +2,7 @@
 
 genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
 {
+    connectedStatus(false);
     qDebug() << "Making USB Driver invisible!!";
     this->hide();
 
@@ -15,6 +16,11 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
         pipeID[k] = 0x81+k;
         qDebug() << "pipeID" << k << "=" << pipeID[k];
     }
+
+    connectTimer = new QTimer();
+    connectTimer->setTimerType(Qt::PreciseTimer);
+    connectTimer->start(USB_RECONNECT_PERIOD);
+    connect(connectTimer, SIGNAL(timeout()), this, SLOT(checkConnection()));
 }
 
 

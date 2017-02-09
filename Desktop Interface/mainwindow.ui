@@ -124,7 +124,7 @@
       <item>
        <widget class="deviceConnectedDisplay" name="deviceConnected">
         <property name="text">
-         <string>Device disconnected!</string>
+         <string>Device Not Connected!</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>

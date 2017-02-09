@@ -52,7 +52,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Reset the device to ensure Labrador_libusbk gets handle!!
     #ifdef PLATFORM_WINDOWS
-        ui->controller_iso->driver->usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
+        //ui->controller_iso->driver->usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
+        //reinitUsb();
+        ui->controller_iso->driver->killOnConnect = true;
     #endif
     #ifdef PLATFORM_LINUX
         reinitUsb();
@@ -1056,6 +1058,8 @@ void MainWindow::reinitUsb(void){
     connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
     connect(ui->controller_iso->driver, SIGNAL(upTick()), ui->controller_iso, SLOT(timerTick()));
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
+    connect(ui->controller_iso->driver, SIGNAL(connectedStatus(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
+
 
     //Setup all necessary state data;
     //ui->controller_iso->driver->setDeviceMode(deviceMode);
