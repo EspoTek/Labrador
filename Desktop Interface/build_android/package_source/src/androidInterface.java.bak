@@ -1,0 +1,72 @@
+package com.EspoTek.Labrador.Java;
+
+import org.qtproject.qt5.android.bindings.QtApplication;
+import org.qtproject.qt5.android.bindings.QtActivity;
+
+import android.util.Log;
+import java.io.IOException;
+
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
+import android.content.Context;
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.Intent;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.lang.String;
+import android.os.Bundle;
+
+public class androidInterface extends QtActivity
+{
+    private static final String ACTION_USB_PERMISSION = "org.qtproject.example.androidLibusb.USB_PERMISSION";
+
+    //This function doesn't work.  I'm not sure there is a way to get it to work...
+    public static void requestRoot()
+    {
+        Log.d("androidInterface::requestRoot", "Entering");
+        Log.d("androidInterface", "Attempting to gain root access");
+        try {
+           Runtime.getRuntime().exec("su");
+           Log.d("androidInterface", "Gained root successfully!");
+
+        } catch (IOException e) {
+           Log.d("androidInterface", "Root unsuccessful!");
+        }
+    }
+
+    public static void bababooey()
+    {
+        Log.d("androidInterface::bababooey", "Entering");
+        Log.d("Howard Stern's Penis", "Bababooey");
+    }
+
+    public void nonStaticTest()
+    {
+        Log.d("androidInterface::nonStaticTest", "Entering");
+        Log.d("Howard Stern's Penis", "Bababooey (Non Static)");
+    }
+
+
+    public void findDevice()
+    {
+        Log.d("androidInterface::findDevice", "Entering");
+        PendingIntent mPermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);  //???
+        UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);  //Handle to system USB service?
+        Log.d("usbActivity", String.format("manager=%d", manager));
+
+        HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
+        Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
+        while(deviceIterator.hasNext()){
+            UsbDevice device = deviceIterator.next();
+
+            manager.requestPermission(device, mPermissionIntent);
+            String Model = device.getDeviceName();
+
+            int DeviceID = device.getDeviceId();
+            int Vendor = device.getVendorId();
+            int Product= device.getProductId();
+            Log.d("usbActivity", String.format("Device ID = %d\nVID=%d\nPID=%d\n", DeviceID, Vendor, Product));
+        }
+    }
+}

@@ -65,7 +65,7 @@ private:
     worker *isoHandler;
     QThread *workerThread;
     //Generic Functions
-    unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
+    virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
     unsigned char usbIsoInit(void);
     bool allEndpointsComplete(int n);
 signals:
