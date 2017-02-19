@@ -36,6 +36,7 @@ private:
 signals:
 public slots:
     void isoTimerTick(void);
+    void recoveryTick();
 };
 
 #endif // WINUSBDRIVER_H

@@ -9,7 +9,6 @@
 #include "genericusbdriver.h"
 #include "libusb.h"
 
-#define RECOVERY_PERIOD 250
 
 //tcBlock is fed to the callback in the libusb user data section.
 typedef struct tcBlock{
@@ -55,7 +54,6 @@ protected:
     //USB Vars
     libusb_context *ctx;
     libusb_device_handle *handle = NULL;
-    QTimer *recoveryTimer;
     //USBIso Vars
     libusb_transfer *isoCtx[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
     tcBlock transferCompleted[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
@@ -63,7 +61,6 @@ protected:
     worker *isoHandler;
     QThread *workerThread;
     //Generic Functions
-    void defaultSetup();
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
     unsigned char usbIsoInit(void);
     bool allEndpointsComplete(int n);

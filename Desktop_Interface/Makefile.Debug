@@ -17,7 +17,7 @@ CXXFLAGS      = -nologo -Zc:wchar_t -FS -Zi -MDd -GR -W3 -w34100 -w34189 -w44996
 INCPATH       = -I. -Iui_elements\qcp1 -Iui_elements -Ibuild_win -Ibuild_win\libusbk\includes -IC:\Qt\5.7\msvc2013_64\include -IC:\Qt\5.7\msvc2013_64\include\QtPrintSupport -IC:\Qt\5.7\msvc2013_64\include\QtWidgets -IC:\Qt\5.7\msvc2013_64\include\QtGui -IC:\Qt\5.7\msvc2013_64\include\QtANGLE -IC:\Qt\5.7\msvc2013_64\include\QtCore -Imoc -I. -IC:\Qt\5.7\msvc2013_64\mkspecs\win32-msvc2013 
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = /LIBPATH:C:\Qt\5.7\msvc2013_64\lib C:\Qt\5.7\msvc2013_64\lib\qtmaind.lib shell32.lib /LIBPATH:C:\utils\my_sql\my_sql\lib /LIBPATH:C:\utils\postgresql\pgsql\lib /LIBPATH:"C:\Users\Esposch\Documents\GitHub\Labrador\Desktop Interface\build_win\libusbk\bin\lib\amd64" "C:\Users\Esposch\Documents\GitHub\Labrador\Desktop Interface\build_win\libusbk\bin\lib\amd64\libusbK.lib" C:\Qt\5.7\msvc2013_64\lib\Qt5PrintSupportd.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Widgetsd.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Guid.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Cored.lib debug\Labrador_resource.res 
+LIBS          = /LIBPATH:C:\Qt\5.7\msvc2013_64\lib C:\Qt\5.7\msvc2013_64\lib\qtmaind.lib shell32.lib /LIBPATH:C:\utils\my_sql\my_sql\lib /LIBPATH:C:\utils\postgresql\pgsql\lib /LIBPATH:C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\build_win\libusbk\bin\lib\amd64 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\build_win\libusbk\bin\lib\amd64\libusbK.lib C:\Qt\5.7\msvc2013_64\lib\Qt5PrintSupportd.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Widgetsd.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Guid.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Cored.lib debug\Labrador_resource.res 
 QMAKE         = C:\Qt\5.7\msvc2013_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -121,7 +121,20 @@ OBJECTS       = debug\buffercontrol.obj \
 		debug\moc_genericusbdriver.obj \
 		debug\moc_winusbdriver.obj
 
-DIST          =  ui_elements\buffercontrol.h \
+DIST          = build_android/package_source/AndroidManifest.xml \
+		build_android/package_source/gradle/wrapper/gradle-wrapper.jar \
+		build_android/package_source/gradlew \
+		build_android/package_source/res/values/libs.xml \
+		build_android/package_source/build.gradle \
+		build_android/package_source/gradle/wrapper/gradle-wrapper.properties \
+		build_android/package_source/gradlew.bat \
+		build_android/package_source/AndroidManifest.xml \
+		build_android/package_source/gradle/wrapper/gradle-wrapper.jar \
+		build_android/package_source/gradlew \
+		build_android/package_source/res/values/libs.xml \
+		build_android/package_source/build.gradle \
+		build_android/package_source/gradle/wrapper/gradle-wrapper.properties \
+		build_android/package_source/gradlew.bat ui_elements\buffercontrol.h \
 		ui_elements\cursorenabler.h \
 		ui_elements\deviceconnecteddisplay.h \
 		ui_elements\espocombobox.h \
@@ -173,105 +186,17 @@ DESTDIR_TARGET = bin\Labrador.exe
 
 .SUFFIXES: .c .cpp .cc .cxx
 
-{debug}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
+.cpp.obj:
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo$@ $<
 
-{debug}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
+.cc.obj:
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo$@ $<
 
-{debug}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
+.cxx.obj:
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo$@ $<
 
-{debug}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{ui_elements\qcp1}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{ui_elements\qcp1}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{ui_elements\qcp1}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{ui_elements\qcp1}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{ui_elements}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{ui_elements}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{ui_elements}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{ui_elements}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{moc}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{moc}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{moc}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{moc}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
+.c.obj:
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fo$@ $<
 
 ####### Build rules
 
@@ -430,7 +355,7 @@ moc\moc_buffercontrol.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
 		ui_elements\buffercontrol.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\buffercontrol.h -o moc\moc_buffercontrol.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\buffercontrol.h -o moc\moc_buffercontrol.cpp
 
 moc\moc_cursorenabler.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
@@ -535,7 +460,7 @@ moc\moc_cursorenabler.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtGui\QMouseEvent \
 		ui_elements\cursorenabler.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\cursorenabler.h -o moc\moc_cursorenabler.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\cursorenabler.h -o moc\moc_cursorenabler.cpp
 
 moc\moc_deviceconnecteddisplay.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
@@ -640,7 +565,7 @@ moc\moc_deviceconnecteddisplay.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWid
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
 		ui_elements\deviceconnecteddisplay.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\deviceconnecteddisplay.h -o moc\moc_deviceconnecteddisplay.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\deviceconnecteddisplay.h -o moc\moc_deviceconnecteddisplay.cpp
 
 moc\moc_espocombobox.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
@@ -778,11 +703,12 @@ moc\moc_espocombobox.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements\espocombobox.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\espocombobox.h -o moc\moc_espocombobox.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\espocombobox.h -o moc\moc_espocombobox.cpp
 
 moc\moc_esposlider.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qslider.h \
@@ -895,7 +821,7 @@ moc\moc_esposlider.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QSlider \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qgridlayout.h \
 		ui_elements\esposlider.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\esposlider.h -o moc\moc_esposlider.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\esposlider.h -o moc\moc_esposlider.cpp
 
 moc\moc_espospinbox.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
@@ -1004,7 +930,7 @@ moc\moc_espospinbox.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
 		ui_elements\espospinbox.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\espospinbox.h -o moc\moc_espospinbox.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\espospinbox.h -o moc\moc_espospinbox.cpp
 
 moc\moc_noclosemenu.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
@@ -1110,7 +1036,7 @@ moc\moc_noclosemenu.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qactiongroup.h \
 		ui_elements\noclosemenu.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\noclosemenu.h -o moc\moc_noclosemenu.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\noclosemenu.h -o moc\moc_noclosemenu.cpp
 
 moc\moc_qcustomplot.cpp: C:\Qt\5.7\msvc2013_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qobject.h \
@@ -1588,7 +1514,7 @@ moc\moc_qcustomplot.cpp: C:\Qt\5.7\msvc2013_64\include\QtCore\QObject \
 		C:\Qt\5.7\msvc2013_64\include\QtPrintSupport\qtprintsupportversion.h \
 		ui_elements\qcp1\qcustomplot.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\qcp1\qcustomplot.h -o moc\moc_qcustomplot.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\qcp1\qcustomplot.h -o moc\moc_qcustomplot.cpp
 
 moc\moc_timedtickbox.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QCheckBox \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qcheckbox.h \
@@ -1696,7 +1622,7 @@ moc\moc_timedtickbox.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QCheckBox \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
 		ui_elements\timedtickbox.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\timedtickbox.h -o moc\moc_timedtickbox.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\timedtickbox.h -o moc\moc_timedtickbox.cpp
 
 moc\moc_voltagespinbox.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
@@ -1802,7 +1728,7 @@ moc\moc_voltagespinbox.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qregularexpression.h \
 		ui_elements\voltagespinbox.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\voltagespinbox.h -o moc\moc_voltagespinbox.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\voltagespinbox.h -o moc\moc_voltagespinbox.cpp
 
 moc\moc_mainwindow.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QMainWindow \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qmainwindow.h \
@@ -2301,6 +2227,7 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QMainWindow \
 		xmega.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
 		ui_mainwindow.h \
@@ -2341,7 +2268,7 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QMainWindow \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QTextEdit.h \
 		mainwindow.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc\moc_mainwindow.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc\moc_mainwindow.cpp
 
 moc\moc_functiongencontrol.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
@@ -2454,7 +2381,7 @@ moc\moc_functiongencontrol.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget 
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		functiongencontrol.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include functiongencontrol.h -o moc\moc_functiongencontrol.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include functiongencontrol.h -o moc\moc_functiongencontrol.cpp
 
 moc\moc_isodriver.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
@@ -2941,12 +2868,13 @@ moc\moc_isodriver.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		xmega.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements\siprint.h \
 		isodriver.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include isodriver.h -o moc\moc_isodriver.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include isodriver.h -o moc\moc_isodriver.cpp
 
 moc\moc_isobuffer.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
@@ -3072,10 +3000,11 @@ moc\moc_isobuffer.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
 		xmega.h \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		isobufferbuffer.h \
 		isobuffer.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include isobuffer.h -o moc\moc_isobuffer.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include isobuffer.h -o moc\moc_isobuffer.cpp
 
 moc\moc_scoperangeenterdialog.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QDialog \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qdialog.h \
@@ -3178,7 +3107,7 @@ moc\moc_scoperangeenterdialog.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QDial
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
 		scoperangeenterdialog.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include scoperangeenterdialog.h -o moc\moc_scoperangeenterdialog.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include scoperangeenterdialog.h -o moc\moc_scoperangeenterdialog.cpp
 
 moc\moc_genericusbdriver.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
@@ -3296,11 +3225,12 @@ moc\moc_genericusbdriver.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
 		genericusbdriver.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include genericusbdriver.h -o moc\moc_genericusbdriver.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include genericusbdriver.h -o moc\moc_genericusbdriver.cpp
 
 moc\moc_winusbdriver.cpp: build_win\libusbk\includes\libusbk.h \
 		build_win\libusbk\includes\lusbk_shared.h \
@@ -3421,11 +3351,12 @@ moc\moc_winusbdriver.cpp: build_win\libusbk\includes\libusbk.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
 		winusbdriver.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements/qcp1" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/ui_elements" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win" -I"C:/Users/Esposch/Documents/GitHub/Labrador/Desktop Interface/build_win/libusbk/includes" -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include winusbdriver.h -o moc\moc_winusbdriver.cpp
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include winusbdriver.h -o moc\moc_winusbdriver.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -4370,6 +4301,7 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -4966,6 +4898,7 @@ ui_mainwindow.h: mainwindow.ui \
 		xmega.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements\siprint.h \
@@ -5600,6 +5533,7 @@ debug\buffercontrol.obj: ui_elements\buffercontrol.cpp ui_elements/buffercontrol
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qframe.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\buffercontrol.obj ui_elements\buffercontrol.cpp
 
 debug\cursorenabler.obj: ui_elements\cursorenabler.cpp ui_elements/cursorenabler.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -5703,6 +5637,7 @@ debug\cursorenabler.obj: ui_elements\cursorenabler.cpp ui_elements/cursorenabler
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qframe.h \
 		C:\Qt\5.7\msvc2013_64\include\QtGui\QMouseEvent
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\cursorenabler.obj ui_elements\cursorenabler.cpp
 
 debug\deviceconnecteddisplay.obj: ui_elements\deviceconnecteddisplay.cpp ui_elements/deviceconnecteddisplay.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -5806,6 +5741,7 @@ debug\deviceconnecteddisplay.obj: ui_elements\deviceconnecteddisplay.cpp ui_elem
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qframe.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\deviceconnecteddisplay.obj ui_elements\deviceconnecteddisplay.cpp
 
 debug\espocombobox.obj: ui_elements\espocombobox.cpp ui_elements/espocombobox.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -5944,8 +5880,10 @@ debug\espocombobox.obj: ui_elements\espocombobox.cpp ui_elements/espocombobox.h 
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\espocombobox.obj ui_elements\espocombobox.cpp
 
 debug\esposlider.obj: ui_elements\esposlider.cpp ui_elements/esposlider.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QSlider \
@@ -6057,6 +5995,7 @@ debug\esposlider.obj: ui_elements\esposlider.cpp ui_elements/esposlider.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qlayoutitem.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qboxlayout.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qgridlayout.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\esposlider.obj ui_elements\esposlider.cpp
 
 debug\espospinbox.obj: ui_elements\espospinbox.cpp ui_elements/espospinbox.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -6164,6 +6103,7 @@ debug\espospinbox.obj: ui_elements\espospinbox.cpp ui_elements/espospinbox.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QString \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QTextStream \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\espospinbox.obj ui_elements\espospinbox.cpp
 
 debug\noclosemenu.obj: ui_elements\noclosemenu.cpp ui_elements/noclosemenu.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -6268,6 +6208,7 @@ debug\noclosemenu.obj: ui_elements\noclosemenu.cpp ui_elements/noclosemenu.h \
 		C:\Qt\5.7\msvc2013_64\include\QtGui\qicon.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qaction.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qactiongroup.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\noclosemenu.obj ui_elements\noclosemenu.cpp
 
 debug\qcustomplot.obj: ui_elements\qcp1\qcustomplot.cpp ui_elements/qcp1/qcustomplot.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QObject \
@@ -6744,6 +6685,7 @@ debug\qcustomplot.obj: ui_elements\qcp1\qcustomplot.cpp ui_elements/qcp1/qcustom
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QPair \
 		C:\Qt\5.7\msvc2013_64\include\QtPrintSupport\qprintpreviewwidget.h \
 		C:\Qt\5.7\msvc2013_64\include\QtPrintSupport\qtprintsupportversion.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\qcustomplot.obj ui_elements\qcp1\qcustomplot.cpp
 
 debug\siprint.obj: ui_elements\siprint.cpp ui_elements/siprint.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
@@ -6808,6 +6750,7 @@ debug\siprint.obj: ui_elements\siprint.cpp ui_elements/siprint.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qcontiguouscache.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qsharedpointer.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qsharedpointer_impl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\siprint.obj ui_elements\siprint.cpp
 
 debug\timedtickbox.obj: ui_elements\timedtickbox.cpp ui_elements/timedtickbox.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QCheckBox \
@@ -6914,6 +6857,7 @@ debug\timedtickbox.obj: ui_elements\timedtickbox.cpp ui_elements/timedtickbox.h 
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qtimer.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qbasictimer.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\timedtickbox.obj ui_elements\timedtickbox.cpp
 
 debug\voltagespinbox.obj: ui_elements\voltagespinbox.cpp ui_elements/voltagespinbox.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -7018,6 +6962,7 @@ debug\voltagespinbox.obj: ui_elements\voltagespinbox.cpp ui_elements/voltagespin
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qabstractspinbox.h \
 		C:\Qt\5.7\msvc2013_64\include\QtGui\qvalidator.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qregularexpression.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\voltagespinbox.obj ui_elements\voltagespinbox.cpp
 
 debug\main.obj: main.cpp mainwindow.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QMainWindow \
@@ -7517,6 +7462,7 @@ debug\main.obj: main.cpp mainwindow.h \
 		xmega.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h \
 		ui_mainwindow.h \
@@ -7555,6 +7501,7 @@ debug\main.obj: main.cpp mainwindow.h \
 		isobufferbuffer.h \
 		q_debugstream.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QTextEdit.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\main.obj main.cpp
 
 debug\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QMainWindow \
@@ -8054,6 +8001,7 @@ debug\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		xmega.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h \
 		ui_mainwindow.h \
@@ -8092,6 +8040,7 @@ debug\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		isobufferbuffer.h \
 		q_debugstream.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QTextEdit.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\mainwindow.obj mainwindow.cpp
 
 debug\functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -8202,7 +8151,22 @@ debug\functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		xmega.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
-		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
+		build_win\platformspecific.h \
+		winusbdriver.h \
+		build_win\libusbk\includes\libusbk.h \
+		build_win\libusbk\includes\lusbk_shared.h \
+		genericusbdriver.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QTimer \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtimer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbasictimer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QThread \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qthread.h \
+		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
+		ui_elements/buffercontrol.h \
+		unified_debug_structure.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\functiongencontrol.obj functiongencontrol.cpp
 
 debug\isodriver.obj: isodriver.cpp isodriver.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -8690,6 +8654,7 @@ debug\isodriver.obj: isodriver.cpp isodriver.h \
 		xmega.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements/siprint.h \
@@ -8697,6 +8662,7 @@ debug\isodriver.obj: isodriver.cpp isodriver.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QByteArray \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QPlainTextEdit \
 		isobufferbuffer.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\isodriver.obj isodriver.cpp
 
 debug\isobuffer.obj: isobuffer.cpp isobuffer.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -8823,6 +8789,7 @@ debug\isobuffer.obj: isobuffer.cpp isobuffer.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
 		xmega.h \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		isobufferbuffer.h \
 		isodriver.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QLabel \
@@ -9191,8 +9158,33 @@ debug\isobuffer.obj: isobuffer.cpp isobuffer.h \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements/siprint.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\isobuffer.obj isobuffer.cpp
 
-debug\desktop_settings.obj: desktop_settings.cpp desktop_settings.h
+debug\desktop_settings.obj: desktop_settings.cpp desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmutex.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qglobal.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qconfig.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qfeatures.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtypetraits.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qisenum.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsysinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qlogging.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qflags.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qnumeric.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qversiontagging.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\desktop_settings.obj desktop_settings.cpp
 
 debug\scoperangeenterdialog.obj: scoperangeenterdialog.cpp scoperangeenterdialog.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QDialog \
@@ -9343,6 +9335,7 @@ debug\scoperangeenterdialog.obj: scoperangeenterdialog.cpp scoperangeenterdialog
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QSpinBox \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qspinbox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\scoperangeenterdialog.obj scoperangeenterdialog.cpp
 
 debug\genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -9461,8 +9454,10 @@ debug\genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\genericusbdriver.obj genericusbdriver.cpp
 
 debug\isobufferbuffer.obj: isobufferbuffer.cpp isobufferbuffer.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
@@ -9527,6 +9522,7 @@ debug\isobufferbuffer.obj: isobufferbuffer.cpp isobufferbuffer.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qcontiguouscache.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qsharedpointer.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qsharedpointer_impl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\isobufferbuffer.obj isobufferbuffer.cpp
 
 debug\winusbdriver.obj: winusbdriver.cpp winusbdriver.h \
 		build_win\libusbk\includes\libusbk.h \
@@ -9648,44 +9644,64 @@ debug\winusbdriver.obj: winusbdriver.cpp winusbdriver.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
 		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\winusbdriver.obj winusbdriver.cpp
 
 debug\qrc_resources.obj: debug\qrc_resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\qrc_resources.obj debug\qrc_resources.cpp
 
 debug\moc_buffercontrol.obj: moc\moc_buffercontrol.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_buffercontrol.obj moc\moc_buffercontrol.cpp
 
 debug\moc_cursorenabler.obj: moc\moc_cursorenabler.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_cursorenabler.obj moc\moc_cursorenabler.cpp
 
 debug\moc_deviceconnecteddisplay.obj: moc\moc_deviceconnecteddisplay.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_deviceconnecteddisplay.obj moc\moc_deviceconnecteddisplay.cpp
 
 debug\moc_espocombobox.obj: moc\moc_espocombobox.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_espocombobox.obj moc\moc_espocombobox.cpp
 
 debug\moc_esposlider.obj: moc\moc_esposlider.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_esposlider.obj moc\moc_esposlider.cpp
 
 debug\moc_espospinbox.obj: moc\moc_espospinbox.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_espospinbox.obj moc\moc_espospinbox.cpp
 
 debug\moc_noclosemenu.obj: moc\moc_noclosemenu.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_noclosemenu.obj moc\moc_noclosemenu.cpp
 
 debug\moc_qcustomplot.obj: moc\moc_qcustomplot.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_qcustomplot.obj moc\moc_qcustomplot.cpp
 
 debug\moc_timedtickbox.obj: moc\moc_timedtickbox.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_timedtickbox.obj moc\moc_timedtickbox.cpp
 
 debug\moc_voltagespinbox.obj: moc\moc_voltagespinbox.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_voltagespinbox.obj moc\moc_voltagespinbox.cpp
 
 debug\moc_mainwindow.obj: moc\moc_mainwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_mainwindow.obj moc\moc_mainwindow.cpp
 
 debug\moc_functiongencontrol.obj: moc\moc_functiongencontrol.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_functiongencontrol.obj moc\moc_functiongencontrol.cpp
 
 debug\moc_isodriver.obj: moc\moc_isodriver.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_isodriver.obj moc\moc_isodriver.cpp
 
 debug\moc_isobuffer.obj: moc\moc_isobuffer.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_isobuffer.obj moc\moc_isobuffer.cpp
 
 debug\moc_scoperangeenterdialog.obj: moc\moc_scoperangeenterdialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_scoperangeenterdialog.obj moc\moc_scoperangeenterdialog.cpp
 
 debug\moc_genericusbdriver.obj: moc\moc_genericusbdriver.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_genericusbdriver.obj moc\moc_genericusbdriver.cpp
 
 debug\moc_winusbdriver.obj: moc\moc_winusbdriver.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\moc_winusbdriver.obj moc\moc_winusbdriver.cpp
 
 ####### Install
 

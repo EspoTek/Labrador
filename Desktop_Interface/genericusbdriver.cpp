@@ -336,5 +336,10 @@ void genericUsbDriver::checkConnection(){
     connect(psuTimer, SIGNAL(timeout()), this, SLOT(psuTick()));
 
     if(killOnConnect) usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
+
+    recoveryTimer = new QTimer();
+    recoveryTimer->setTimerType(Qt::PreciseTimer);
+    recoveryTimer->start(RECOVERY_PERIOD);
+    connect(recoveryTimer, SIGNAL(timeout()), this, SLOT(recoveryTick()));
 }
 

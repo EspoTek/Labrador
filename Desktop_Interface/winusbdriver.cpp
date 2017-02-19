@@ -288,3 +288,7 @@ bool winUsbDriver::allEndpointsComplete(int n){
     }
     return true;
 }
+
+void winUsbDriver::recoveryTick(){
+    return;
+}

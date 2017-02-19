@@ -22,6 +22,9 @@
 #define NUM_ISO_ENDPOINTS 6
 #define MAX_OVERLAP (NUM_FUTURE_CTX*NUM_ISO_ENDPOINTS + 1)
 
+#define RECOVERY_PERIOD 1000
+
+
 //genericUsbDriver handles the parts of the USB stack that are not platform-dependent.
 //It exists as a superclass for winUsbDriver (on Windows) or unixUsbDriver (on Linux)
 
@@ -58,6 +61,7 @@ protected:
     unsigned char pipeID[3];
     QTimer *isoTimer;
     QTimer *connectTimer;
+    QTimer *recoveryTimer;
     unsigned char currentWriteBuffer = 0;
     unsigned long timerCount = 0;
     unsigned char inBuffer[256];
@@ -83,6 +87,7 @@ public slots:
     void setGain(double newGain);
     void avrDebug(void);
     virtual void isoTimerTick(void) = 0;
+    virtual void recoveryTick() = 0;
     void checkConnection();
 };
 

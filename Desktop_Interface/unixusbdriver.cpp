@@ -2,9 +2,6 @@
 #include "platformspecific.h"
 unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
-#ifndef PLATFORM_ANDROID //androidUsbDriver can handle this!  Need to setup mainActivity first!
-    defaultSetup();
-#endif
 }
 
 unixUsbDriver::~unixUsbDriver(void){
@@ -17,26 +14,6 @@ unixUsbDriver::~unixUsbDriver(void){
     delete(isoTimer);
     libusb_release_interface(handle, 0);
     libusb_exit(ctx);
-}
-
-void unixUsbDriver::defaultSetup(){
-    unsigned char error = 1;
-    while(error){
-        QThread::msleep(USB_RECONNECT_PERIOD);
-        error = usbInit(0x03eb, 0xa000);
-    }
-    setDeviceMode(deviceMode);
-    newDig(digitalPinState);
-    usbIsoInit();
-
-    psuTimer = new QTimer();
-    psuTimer->setTimerType(Qt::PreciseTimer);
-    psuTimer->start(PSU_PERIOD);
-
-    recoveryTimer = new QTimer();
-    recoveryTimer->setTimerType(Qt::PreciseTimer);
-    recoveryTimer->start(RECOVERY_PERIOD);
-    connect(recoveryTimer, SIGNAL(timeout()), this, SLOT(recoveryTick()));
 }
 
 unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
@@ -86,6 +63,7 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
     } //else qDebug() << "unixUsbDriver::usbSendControl SUCCESS";
     if(error == LIBUSB_ERROR_NO_DEVICE){
         qDebug() << "Device not found.  Becoming an hero.";
+        connectedStatus(false);
         killMe();
     }
     return;

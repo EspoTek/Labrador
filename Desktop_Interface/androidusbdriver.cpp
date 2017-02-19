@@ -4,8 +4,6 @@ androidUsbDriver::androidUsbDriver(QWidget *parent) : unixUsbDriver(parent)
 {
     qDebug() << "androidUsbDriver object created!";
     mainActivity = QtAndroid::androidActivity();
-
-    defaultSetup();
 }
 
 androidUsbDriver::~androidUsbDriver(void){
