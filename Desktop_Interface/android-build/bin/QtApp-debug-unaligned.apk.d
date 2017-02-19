@@ -1,6 +1,7 @@
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\bin\QtApp-debug-unaligned.apk : \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\bin\QtApp.ap_ \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\bin\classes.dex \
+C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\src\androidInterface.java.bak \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\libs\QtAndroid-bundled.jar \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\libs\armeabi-v7a\gdbserver \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\libs\armeabi-v7a\libgdbserver.so \

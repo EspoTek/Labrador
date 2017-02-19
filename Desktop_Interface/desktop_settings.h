@@ -1,6 +1,8 @@
 #ifndef DESKTOP_SETTINGS_H
 #define DESKTOP_SETTINGS_H
 
+#include <QMutex>
+
 //Just a whole lot of variables not directly related to xmega.
 
 //USB iso stuff
@@ -20,6 +22,8 @@ extern int TICK_SEPARATION;
 extern int MULTIMETER_PERIOD;
 
 extern double SERIAL_DELAY;
+
+extern QMutex tcBlockMutex;
 
 #define DEBUG_SETTINGSDOTSET
 

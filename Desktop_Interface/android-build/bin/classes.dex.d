@@ -1,4 +1,5 @@
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\bin\classes.dex : \
+C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\bin\classes\com\EspoTek\Labrador\Java\androidInterface.class \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\bin\classes\org\kde\necessitas\ministro\IMinistro$Stub$Proxy.class \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\bin\classes\org\kde\necessitas\ministro\IMinistro$Stub.class \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\bin\classes\org\kde\necessitas\ministro\IMinistro.class \

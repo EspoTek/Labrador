@@ -16,3 +16,5 @@ int TICK_SEPARATION = 96;
 int MULTIMETER_PERIOD = 500;
 
 double SERIAL_DELAY = 0.01;  //100 baud?
+
+QMutex tcBlockMutex;

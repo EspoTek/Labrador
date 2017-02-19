@@ -22,5 +22,11 @@ C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\res\v
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\res\values-zh-rCN\strings.xml \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\res\values-zh-rTW\strings.xml \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\assets\--Added-by-androiddeployqt-- \
+C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\assets\waveforms \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\assets\--Added-by-androiddeployqt--\qt_cache_pregenerated_file_list \
+C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\assets\waveforms\Sawtooth.tlw \
+C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\assets\waveforms\Sin.tlw \
+C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\assets\waveforms\Square.tlw \
+C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\assets\waveforms\Triangle.tlw \
+C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\assets\waveforms\_list.wfl \
 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\bin\AndroidManifest.xml \

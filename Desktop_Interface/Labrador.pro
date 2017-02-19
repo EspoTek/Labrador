@@ -127,7 +127,11 @@ android:{
     INCLUDEPATH += $$PWD/build_android/libusb-martin-kuldeep
     DEPENDPATH += $$PWD/build_android/libusb-martin-kuldeep
 
-    #ANDROID_PACKAGE_SOURCE_DIR  = $$PWD/build_android/package_source
+    ANDROID_PACKAGE_SOURCE_DIR  = $$PWD/build_android/package_source
+    assets_deploy.files=$$files($$PWD/build_android/package_source/assets/*)
+    assets_deploy.path=/assets
+    INSTALLS += asssets_deploy
+
 
     DISTFILES += \
         build_android/package_source/AndroidManifest.xml \

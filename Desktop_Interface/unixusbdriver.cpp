@@ -1,7 +1,5 @@
 #include "unixusbdriver.h"
 
-QMutex tcBlockMutex;
-
 unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
     unsigned char error = 1;

@@ -18,8 +18,6 @@ typedef struct tcBlock{
     qint64 timeReceived;
 } tcBlock;
 
-extern QMutex tcBlockMutex;
-
 //Oddly, libusb requires you to make a blocking libusb_handle_events() call in order to execute the callbacks for an asynchronous transfer.
 //Since the call is blocking, this worker must exist in a separate, low priority thread!
 class worker : public QObject

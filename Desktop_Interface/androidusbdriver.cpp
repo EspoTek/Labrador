@@ -1,7 +1,5 @@
 #include "androidusbdriver.h"
 
-//QMutex tcBlockMutex;  //Creates second mutex because it inherits the one from unixUsbDriver??
-
 androidUsbDriver::androidUsbDriver(QWidget *parent) : unixUsbDriver(parent)
 {
     mainActivity = QtAndroid::androidActivity();
