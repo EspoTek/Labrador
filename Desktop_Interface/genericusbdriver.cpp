@@ -326,7 +326,6 @@ void genericUsbDriver::checkConnection(){
 
     connectedStatus(true);
 
-    //QThread::msleep(USB_RECONNECT_PERIOD); //Black magic.  I don't fully understand it myself.
     setDeviceMode(deviceMode);
     newDig(digitalPinState);
     usbIsoInit();

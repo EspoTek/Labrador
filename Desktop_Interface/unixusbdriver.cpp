@@ -122,7 +122,7 @@ void unixUsbDriver::isoTimerTick(void){
     if(timerCount%10 == 3) strcpy(subString, "rd");
     if((timerCount<20) && (timerCount > 10)) strcpy(subString, "th");
 
-    //qDebug("\n\nThis is the %d%s Tick!", timerCount, subString);
+    qDebug("\n\nThis is the %d%s Tick!", timerCount, subString);
 
     int n, error, earliest = MAX_OVERLAP;
     qint64 minFrame = 9223372036854775807; //max value for 64 bit signed
@@ -133,7 +133,7 @@ void unixUsbDriver::isoTimerTick(void){
     tcBlockMutex.lock();
     for (n=0; n<NUM_FUTURE_CTX; n++){
         if(allEndpointsComplete(n)){
-            //qDebug("Transfer %d is complete!!", n);
+            qDebug("Transfer %d is complete!!", n);
             if(transferCompleted[0][n].timeReceived < minFrame){
                 minFrame = transferCompleted[0][n].timeReceived;
                 earliest = n;
@@ -142,6 +142,7 @@ void unixUsbDriver::isoTimerTick(void){
     }
     if (earliest == MAX_OVERLAP){
         tcBlockMutex.unlock();
+        qDebug() << "Returning early...";
         return;
     }
 
@@ -166,9 +167,10 @@ void unixUsbDriver::isoTimerTick(void){
         if(error){
             qDebug() << "libusb_submit_transfer FAILED";
             qDebug() << "ERROR" << libusb_error_name(error);
-        } //else qDebug() << "isoCtx submitted successfully!";
+        } else qDebug() << "isoCtx submitted successfully!";
     }
     tcBlockMutex.unlock();
+    qDebug() << "Calling upTick()";
     upTick();
    return;
 }

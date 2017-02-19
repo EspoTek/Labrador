@@ -81,7 +81,7 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
 
     ((tcBlock *)transfer->user_data)->completed = true;
     ((tcBlock *)transfer->user_data)->timeReceived = QDateTime::currentMSecsSinceEpoch();
-    //qDebug() << ((tcBlock *)transfer->user_data)->timeReceived;
+    qDebug() << ((tcBlock *)transfer->user_data)->timeReceived;
     tcBlockMutex.unlock();
     return;
 }

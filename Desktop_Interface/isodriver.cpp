@@ -47,19 +47,19 @@ void isoDriver::setWindow(int newWindow){
 }
 
 void isoDriver::timerTick(void){
-    //qDebug() << "isoDriver SEZ Tick!";
+    qDebug() << "isoDriver SEZ Tick!";
     if(firstFrame){
         autoGain();
         firstFrame = false;
     }
 
     isoTemp = driver->isoRead(&length);
-    //qDebug() << length << "read in!!";
+    qDebug() << length << "read in!!";
     total_read += length;
 
     if (length==0){
         //Zero length packet means something's gone wrong.  Probably a disconnect.
-        qDebug() << "Zero length iso packet.  An hero!";
+        qDebug() << "Zero length iso packet!";
         //driver->killMe();
         return;
     }
@@ -592,6 +592,7 @@ void isoDriver::setTriggerMode(int newMode){
 
 void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1 for ana, 2 for dig, -1 for ana750
 {
+    qDebug() << "made it to frameActionGeneric";
     if(!paused_CH1 && CH1_mode == - 1){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer750->writeBuffer_char(&isoTemp[ADC_SPF*i], VALID_DATA_PER_750);
