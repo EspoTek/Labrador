@@ -13,7 +13,7 @@ void espoComboBox::readWaveformList(void)
     //QDir *dir = new QDir();
     //qDebug() << dir->currentPath();
 #ifdef PLATFORM_ANDROID
-    QFile qt_list( "assets:/waveforms/_list.wfl");
+    QFile qt_list("assets:/waveforms/_list.wfl");
     bool success = qt_list.open(QIODevice::ReadOnly | QIODevice::Text);
     if(!success){
         qFatal("Could not load _list.wfl");

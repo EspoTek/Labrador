@@ -1,4 +1,6 @@
 #include "functiongencontrol.h"
+#include "platformspecific.h"
+
 
 functionGenControl::functionGenControl(QWidget *parent) : QLabel(parent)
 {
@@ -16,6 +18,45 @@ void functionGenControl::waveformName_CH1(QString newName)
     //QDir *dir = new QDir();
     //QString directory = dir->currentPath();
 
+#ifdef PLATFORM_ANDROID
+    QString waveformFilePath("assets:/waveforms/");
+    waveformFilePath.append(newName);
+
+    QFile fptr(waveformFilePath);
+    bool success = fptr.open(QIODevice::ReadOnly);
+
+    QByteArray line;
+    char lengthString[16];
+    char divisibilityString[16];
+
+    line = fptr.readLine();
+    strcpy(lengthString, line.data());
+    sscanf(lengthString, "%d", &length_CH1);
+    qDebug() << "lengthString" << lengthString;
+
+    line = fptr.readLine();
+    strcpy(divisibilityString, line.data());
+    sscanf(divisibilityString, "%d", &divisibility_CH1);
+    qDebug() << "divisibilityString" << divisibilityString;
+
+    qDebug() << "Length = " << length_CH1;
+    qDebug() << "Divisibility = " << divisibility_CH1;
+
+    QByteArray remainingData = fptr.readAll();
+    char *dataString = remainingData.data();
+
+    free(samples_CH1);
+    samples_CH1 = (unsigned char *) malloc(length_CH1);
+
+    int dummy;
+    char *dataStringCurrent = dataString;
+    for (int i=0;i<length_CH1;i++){
+        sscanf(dataStringCurrent, "%d", &dummy);
+        dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
+        samples_CH1[i] = (unsigned char) dummy;
+    }
+
+#else
     QString directory = QCoreApplication::applicationDirPath();
 
     directory.append("/waveforms/");
@@ -59,6 +100,7 @@ void functionGenControl::waveformName_CH1(QString newName)
 
     free(dataString);
     fclose(fptr);
+#endif
     setMaxFreq_CH1(DAC_SPS/(length_CH1>>(divisibility_CH1-1)));
     setMinFreq_CH1((double) CLOCK_FREQ/1024/65535/length_CH1);
     functionGenToUpdate(0, this);
@@ -87,6 +129,44 @@ void functionGenControl::waveformName_CH2(QString newName)
     qDebug() << "newName = " << newName;
     newName.append(".tlw");
 
+#ifdef PLATFORM_ANDROID
+    QString waveformFilePath("assets:/waveforms/");
+    waveformFilePath.append(newName);
+
+    QFile fptr(waveformFilePath);
+    bool success = fptr.open(QIODevice::ReadOnly);
+
+    QByteArray line;
+    char lengthString[16];
+    char divisibilityString[16];
+
+    line = fptr.readLine();
+    strcpy(lengthString, line.data());
+    sscanf(lengthString, "%d", &length_CH2);
+    qDebug() << "lengthString" << lengthString;
+
+    line = fptr.readLine();
+    strcpy(divisibilityString, line.data());
+    sscanf(divisibilityString, "%d", &divisibility_CH2);
+    qDebug() << "divisibilityString" << divisibilityString;
+
+    qDebug() << "Length = " << length_CH2;
+    qDebug() << "Divisibility = " << divisibility_CH2;
+
+    QByteArray remainingData = fptr.readAll();
+    char *dataString = remainingData.data();
+
+    free(samples_CH2);
+    samples_CH2 = (unsigned char *) malloc(length_CH2);
+
+    int dummy;
+    char *dataStringCurrent = dataString;
+    for (int i=0;i<length_CH2;i++){
+        sscanf(dataStringCurrent, "%d", &dummy);
+        dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
+        samples_CH2[i] = (unsigned char) dummy;
+    }
+#else
     QDir *dir = new QDir();
     QString directory = dir->currentPath();
 
@@ -130,6 +210,7 @@ void functionGenControl::waveformName_CH2(QString newName)
 
     free(dataString);
     fclose(fptr);
+#endif
     setMaxFreq_CH2(DAC_SPS/(length_CH2>>(divisibility_CH2-1)));
     setMinFreq_CH2((double) CLOCK_FREQ/1024/65535/length_CH2);
     functionGenToUpdate(1, this);

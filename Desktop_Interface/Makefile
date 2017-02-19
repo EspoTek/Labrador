@@ -5868,38 +5868,11 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QMainWindow \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		ui_mainwindow.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QApplication \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QButtonGroup \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QCheckBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QComboBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QDoubleSpinBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QFormLayout \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QGroupBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QHBoxLayout \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QHeaderView \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QLCDNumber \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QMenu \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QMenuBar \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QPlainTextEdit \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QPushButton \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QSlider \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QSpacerItem \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QTextEdit \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QVBoxLayout \
-		ui_elements\cursorenabler.h \
-		ui_elements\deviceconnecteddisplay.h \
-		ui_elements\espocombobox.h \
-		ui_elements\esposlider.h \
-		ui_elements\espospinbox.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QTextStream \
-		isodriver.h \
-		ui_elements\siprint.h \
-		ui_elements\noclosemenu.h \
-		ui_elements\timedtickbox.h \
 		scoperangeenterdialog.h \
 		C:\Qt\5.7\android_armv7\include\QtWidgets\QDialog \
 		isobuffer.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QByteArray \
+		C:\Qt\5.7\android_armv7\include\QtWidgets\QPlainTextEdit \
 		isobufferbuffer.h \
 		q_debugstream.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iostream \
@@ -6321,6 +6294,30 @@ moc\moc_functiongencontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidge
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QThread \
+		C:\Qt\5.7\android_armv7\include\QtCore\qthread.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
+		C:\Qt\5.7\android_armv7\include\QtCore\QDateTime \
+		C:\Qt\5.7\android_armv7\include\QtCore\qdatetime.h \
+		unixusbdriver.h \
+		genericusbdriver.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QTimer \
+		C:\Qt\5.7\android_armv7\include\QtCore\qtimer.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\qbasictimer.h \
+		functiongencontrol.h \
+		desktop_settings.h \
+		ui_elements\buffercontrol.h \
+		unified_debug_structure.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		functiongencontrol.h \
 		C:\Qt\5.7\android_armv7\bin\moc.exe
 	C:\Qt\5.7\android_armv7\bin\moc.exe $(DEFINES) -IC:/Qt/5.7/android_armv7/mkspecs/android-g++ -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android/libusb-martin-kuldeep -IC:/Qt/5.7/android_armv7/include -IC:/Qt/5.7/android_armv7/include/QtPrintSupport -IC:/Qt/5.7/android_armv7/include/QtWidgets -IC:/Qt/5.7/android_armv7/include/QtGui -IC:/Qt/5.7/android_armv7/include/QtAndroidExtras -IC:/Qt/5.7/android_armv7/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include functiongencontrol.h -o moc\moc_functiongencontrol.cpp
@@ -7112,8 +7109,18 @@ moc\moc_isodriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		C:\Qt\5.7\android_armv7\include\QtCore\QFile \
 		xmega.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
-		desktop_settings.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
+		unixusbdriver.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
+		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements\siprint.h \
@@ -8381,10 +8388,24 @@ moc\moc_genericusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		desktop_settings.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
+		C:\Qt\5.7\android_armv7\include\QtCore\QDateTime \
+		C:\Qt\5.7\android_armv7\include\QtCore\qdatetime.h \
+		unixusbdriver.h \
+		genericusbdriver.h \
+		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		genericusbdriver.h \
 		C:\Qt\5.7\android_armv7\bin\moc.exe
 	C:\Qt\5.7\android_armv7\bin\moc.exe $(DEFINES) -IC:/Qt/5.7/android_armv7/mkspecs/android-g++ -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android/libusb-martin-kuldeep -IC:/Qt/5.7/android_armv7/include -IC:/Qt/5.7/android_armv7/include/QtPrintSupport -IC:/Qt/5.7/android_armv7/include/QtWidgets -IC:/Qt/5.7/android_armv7/include/QtGui -IC:/Qt/5.7/android_armv7/include/QtAndroidExtras -IC:/Qt/5.7/android_armv7/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include genericusbdriver.h -o moc\moc_genericusbdriver.cpp
@@ -8812,10 +8833,20 @@ moc\moc_unixusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
+		unixusbdriver.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
 		unixusbdriver.h \
 		C:\Qt\5.7\android_armv7\bin\moc.exe
 	C:\Qt\5.7\android_armv7\bin\moc.exe $(DEFINES) -IC:/Qt/5.7/android_armv7/mkspecs/android-g++ -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android/libusb-martin-kuldeep -IC:/Qt/5.7/android_armv7/include -IC:/Qt/5.7/android_armv7/include/QtPrintSupport -IC:/Qt/5.7/android_armv7/include/QtWidgets -IC:/Qt/5.7/android_armv7/include/QtGui -IC:/Qt/5.7/android_armv7/include/QtAndroidExtras -IC:/Qt/5.7/android_armv7/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include unixusbdriver.h -o moc\moc_unixusbdriver.cpp
@@ -9244,9 +9275,8 @@ moc\moc_androidusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		desktop_settings.h \
-		ui_elements\buffercontrol.h \
-		unified_debug_structure.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
 		build_android\libusb-martin-kuldeep\libusb.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
@@ -9255,6 +9285,9 @@ moc\moc_androidusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
+		desktop_settings.h \
+		ui_elements\buffercontrol.h \
+		unified_debug_structure.h \
 		androidusbdriver.h \
 		C:\Qt\5.7\android_armv7\bin\moc.exe
 	C:\Qt\5.7\android_armv7\bin\moc.exe $(DEFINES) -IC:/Qt/5.7/android_armv7/mkspecs/android-g++ -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android/libusb-martin-kuldeep -IC:/Qt/5.7/android_armv7/include -IC:/Qt/5.7/android_armv7/include/QtPrintSupport -IC:/Qt/5.7/android_armv7/include/QtWidgets -IC:/Qt/5.7/android_armv7/include/QtGui -IC:/Qt/5.7/android_armv7/include/QtAndroidExtras -IC:/Qt/5.7/android_armv7/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include androidusbdriver.h -o moc\moc_androidusbdriver.cpp
@@ -12146,6 +12179,30 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QThread \
+		C:\Qt\5.7\android_armv7\include\QtCore\qthread.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
+		C:\Qt\5.7\android_armv7\include\QtCore\QDateTime \
+		C:\Qt\5.7\android_armv7\include\QtCore\qdatetime.h \
+		unixusbdriver.h \
+		genericusbdriver.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QTimer \
+		C:\Qt\5.7\android_armv7\include\QtCore\qtimer.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\qbasictimer.h \
+		functiongencontrol.h \
+		desktop_settings.h \
+		ui_elements\buffercontrol.h \
+		unified_debug_structure.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		C:\Qt\5.7\android_armv7\include\QtWidgets\qwidget.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qwindowdefs.h \
@@ -12933,8 +12990,18 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\Qt\5.7\android_armv7\include\QtCore\QFile \
 		xmega.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
-		desktop_settings.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
+		unixusbdriver.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
+		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements\siprint.h \
@@ -20681,42 +20748,16 @@ main.obj: main.cpp mainwindow.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		ui_mainwindow.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QApplication \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QButtonGroup \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QCheckBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QComboBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QDoubleSpinBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QFormLayout \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QGroupBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QHBoxLayout \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QHeaderView \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QLCDNumber \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QMenu \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QMenuBar \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QPlainTextEdit \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QPushButton \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QSlider \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QSpacerItem \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QTextEdit \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QVBoxLayout \
-		ui_elements/cursorenabler.h \
-		ui_elements/deviceconnecteddisplay.h \
-		ui_elements/espocombobox.h \
-		ui_elements/esposlider.h \
-		ui_elements/espospinbox.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QTextStream \
-		isodriver.h \
-		ui_elements/siprint.h \
-		ui_elements/noclosemenu.h \
-		ui_elements/timedtickbox.h \
 		scoperangeenterdialog.h \
 		C:\Qt\5.7\android_armv7\include\QtWidgets\QDialog \
 		isobuffer.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QByteArray \
+		C:\Qt\5.7\android_armv7\include\QtWidgets\QPlainTextEdit \
 		isobufferbuffer.h \
 		q_debugstream.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iostream \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QTextEdit.h
+		C:\Qt\5.7\android_armv7\include\QtWidgets\QTextEdit.h \
+		C:\Qt\5.7\android_armv7\include\QtWidgets\QApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.obj main.cpp
 
 mainwindow.obj: mainwindow.cpp mainwindow.h \
@@ -21530,38 +21571,11 @@ mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		ui_mainwindow.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QApplication \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QButtonGroup \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QCheckBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QComboBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QDoubleSpinBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QFormLayout \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QGroupBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QHBoxLayout \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QHeaderView \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QLCDNumber \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QMenu \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QMenuBar \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QPlainTextEdit \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QPushButton \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QSlider \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QSpacerItem \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QTextEdit \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QVBoxLayout \
-		ui_elements/cursorenabler.h \
-		ui_elements/deviceconnecteddisplay.h \
-		ui_elements/espocombobox.h \
-		ui_elements/esposlider.h \
-		ui_elements/espospinbox.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QTextStream \
-		isodriver.h \
-		ui_elements/siprint.h \
-		ui_elements/noclosemenu.h \
-		ui_elements/timedtickbox.h \
 		scoperangeenterdialog.h \
 		C:\Qt\5.7\android_armv7\include\QtWidgets\QDialog \
 		isobuffer.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QByteArray \
+		C:\Qt\5.7\android_armv7\include\QtWidgets\QPlainTextEdit \
 		isobufferbuffer.h \
 		q_debugstream.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iostream \
@@ -21981,7 +21995,30 @@ functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		xmega.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h
+		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QThread \
+		C:\Qt\5.7\android_armv7\include\QtCore\qthread.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
+		C:\Qt\5.7\android_armv7\include\QtCore\QDateTime \
+		C:\Qt\5.7\android_armv7\include\QtCore\qdatetime.h \
+		unixusbdriver.h \
+		genericusbdriver.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QTimer \
+		C:\Qt\5.7\android_armv7\include\QtCore\qtimer.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\qbasictimer.h \
+		desktop_settings.h \
+		ui_elements/buffercontrol.h \
+		unified_debug_structure.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o functiongencontrol.obj functiongencontrol.cpp
 
 isodriver.obj: isodriver.cpp isodriver.h \
@@ -22772,8 +22809,18 @@ isodriver.obj: isodriver.cpp isodriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QFile \
 		xmega.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
-		desktop_settings.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
+		unixusbdriver.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
+		desktop_settings.h \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements/siprint.h \
@@ -23577,6 +23624,16 @@ isobuffer.obj: isobuffer.cpp isobuffer.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QThread \
 		functiongencontrol.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
+		unixusbdriver.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements/siprint.h
@@ -24299,55 +24356,7 @@ scoperangeenterdialog.obj: scoperangeenterdialog.cpp scoperangeenterdialog.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qvector2d.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qtouchdevice.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QDebug \
-		ui_scoperangeenterdialog.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QVariant \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QAction \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qaction.h \
-		C:\Qt\5.7\android_armv7\include\QtGui\qicon.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qactiongroup.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QApplication \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qapplication.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qdesktopwidget.h \
-		C:\Qt\5.7\android_armv7\include\QtGui\qguiapplication.h \
-		C:\Qt\5.7\android_armv7\include\QtGui\qinputmethod.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QButtonGroup \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qbuttongroup.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QDialogButtonBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qdialogbuttonbox.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QFormLayout \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qformlayout.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QLayout \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qlayout.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qlayoutitem.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qboxlayout.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qgridlayout.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QHeaderView \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qheaderview.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qabstractitemview.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qabstractscrollarea.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qframe.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\qabstractitemmodel.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\qitemselectionmodel.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qabstractitemdelegate.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qstyleoption.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qabstractspinbox.h \
-		C:\Qt\5.7\android_armv7\include\QtGui\qvalidator.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\qregularexpression.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qslider.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qabstractslider.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qstyle.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qtabbar.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qtabwidget.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qrubberband.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QLabel \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qlabel.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QVBoxLayout \
-		ui_elements/voltagespinbox.h \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\QSpinBox \
-		C:\Qt\5.7\android_armv7\include\QtWidgets\qspinbox.h
+		ui_scoperangeenterdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scoperangeenterdialog.obj scoperangeenterdialog.cpp
 
 genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
@@ -24770,8 +24779,21 @@ genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		desktop_settings.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
+		C:\Qt\5.7\android_armv7\include\QtCore\QDateTime \
+		C:\Qt\5.7\android_armv7\include\QtCore\qdatetime.h \
+		unixusbdriver.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
+		desktop_settings.h \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o genericusbdriver.obj genericusbdriver.cpp
@@ -25569,10 +25591,19 @@ unixusbdriver.obj: unixusbdriver.cpp unixusbdriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		desktop_settings.h \
 		ui_elements/buffercontrol.h \
-		unified_debug_structure.h \
-		build_android\libusb-martin-kuldeep\libusb.h
+		unified_debug_structure.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o unixusbdriver.obj unixusbdriver.cpp
 
 androidusbdriver.obj: androidusbdriver.cpp androidusbdriver.h \
@@ -26000,6 +26031,7 @@ androidusbdriver.obj: androidusbdriver.cpp androidusbdriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
+		build_android\platformspecific.h \
 		desktop_settings.h \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h \
