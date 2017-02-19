@@ -1,7 +1,25 @@
 #include "unixusbdriver.h"
-
+#include "platformspecific.h"
 unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
+#ifndef PLATFORM_ANDROID //androidUsbDriver can handle this!  Need to setup mainActivity first!
+    defaultSetup();
+#endif
+}
+
+unixUsbDriver::~unixUsbDriver(void){
+    qDebug() << "\n\nunixUsbDriver destructor ran!";
+    workerThread->quit();
+    workerThread->deleteLater();
+    delete(isoHandler);
+    delete(psuTimer);
+    delete(recoveryTimer);
+    delete(isoTimer);
+    libusb_release_interface(handle, 0);
+    libusb_exit(ctx);
+}
+
+void unixUsbDriver::defaultSetup(){
     unsigned char error = 1;
     while(error){
         QThread::msleep(USB_RECONNECT_PERIOD);
@@ -19,18 +37,6 @@ unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
     recoveryTimer->setTimerType(Qt::PreciseTimer);
     recoveryTimer->start(RECOVERY_PERIOD);
     connect(recoveryTimer, SIGNAL(timeout()), this, SLOT(recoveryTick()));
-}
-
-unixUsbDriver::~unixUsbDriver(void){
-    qDebug() << "\n\nunixUsbDriver destructor ran!";
-    workerThread->quit();
-    workerThread->deleteLater();
-    delete(isoHandler);
-    delete(psuTimer);
-    delete(recoveryTimer);
-    delete(isoTimer);
-    libusb_release_interface(handle, 0);
-    libusb_exit(ctx);
 }
 
 unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){

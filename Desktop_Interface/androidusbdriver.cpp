@@ -2,14 +2,22 @@
 
 androidUsbDriver::androidUsbDriver(QWidget *parent) : unixUsbDriver(parent)
 {
+    qDebug() << "androidUsbDriver object created!";
     mainActivity = QtAndroid::androidActivity();
+
+    defaultSetup();
 }
 
 androidUsbDriver::~androidUsbDriver(void){
 }
 
 unsigned char androidUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
-    qDebug() << "Entering unixUsbDriver::usbInit";
+    qDebug() << "Entering androidUsbDriver::usbInit";
+
+    mainActivity.callMethod<void>("nonStaticTest");
+
+    qDebug() << "If you cannot see 'nonStaticTest' above, then the _______JAVA CLASS DOES NOT EXIST____";
+
 
     mainActivity.callMethod<void>("findDevice");
 

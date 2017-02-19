@@ -165,4 +165,11 @@ DISTFILES += \
     build_android/package_source/res/values/libs.xml \
     build_android/package_source/build.gradle \
     build_android/package_source/gradle/wrapper/gradle-wrapper.properties \
+    build_android/package_source/gradlew.bat \
+    build_android/package_source/AndroidManifest.xml \
+    build_android/package_source/gradle/wrapper/gradle-wrapper.jar \
+    build_android/package_source/gradlew \
+    build_android/package_source/res/values/libs.xml \
+    build_android/package_source/build.gradle \
+    build_android/package_source/gradle/wrapper/gradle-wrapper.properties \
     build_android/package_source/gradlew.bat

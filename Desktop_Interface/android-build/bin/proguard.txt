@@ -1,5 +1,5 @@
 # view AndroidManifest.xml #generated:4
--keep class org.qtproject.qt5.android.bindings.QtActivity { <init>(...); }
+-keep class com.EspoTek.Labrador.Java.androidInterface { <init>(...); }
 
 # view AndroidManifest.xml #generated:3
 -keep class org.qtproject.qt5.android.bindings.QtApplication { <init>(...); }

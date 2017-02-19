@@ -13,9 +13,9 @@ MAKEFILE      = Makefile
 CC            = F:\AndroidSDK\qtdroid\android-ndk-r13b/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/arm-linux-androideabi-gcc
 CXX           = F:\AndroidSDK\qtdroid\android-ndk-r13b/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/arm-linux-androideabi-g++
 DEFINES       = -DQCP_VER=1 -DQT_QML_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_ANDROIDEXTRAS_LIB -DQT_CORE_LIB
-CFLAGS        = -fstack-protector-strong -DANDROID -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -fno-builtin-memmove --sysroot=F:\AndroidSDK\qtdroid\android-ndk-r13b/platforms/android-9/arch-arm/ fsigned-char -g -marm -O0 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -fstack-protector-strong -DANDROID -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -fno-builtin-memmove --sysroot=F:\AndroidSDK\qtdroid\android-ndk-r13b/platforms/android-9/arch-arm/ -Dlog2(x)=(log(x)/1.4426950408889634) -g -g -marm -O0 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -Iui_elements\qcp1 -Iui_elements -Ibuild_android -Ibuild_android\libusb-martin-kuldeep -IC:\Qt\5.7\android_armv7\include -IC:\Qt\5.7\android_armv7\include\QtPrintSupport -IC:\Qt\5.7\android_armv7\include\QtWidgets -IC:\Qt\5.7\android_armv7\include\QtGui -IC:\Qt\5.7\android_armv7\include\QtAndroidExtras -IC:\Qt\5.7\android_armv7\include\QtCore -Imoc -I. -IF:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include -IF:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include -IF:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include -IC:\Qt\5.7\android_armv7\mkspecs\android-g++
+CFLAGS        = -fstack-protector-strong -DANDROID -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -fno-builtin-memmove --sysroot=F:\AndroidSDK\qtdroid\android-ndk-r13b/platforms/android-16/arch-arm/ fsigned-char -g -marm -O0 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+CXXFLAGS      = -fstack-protector-strong -DANDROID -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -fno-builtin-memmove --sysroot=F:\AndroidSDK\qtdroid\android-ndk-r13b/platforms/android-16/arch-arm/ -Dlog2(x)=(log(x)/1.4426950408889634) -g -g -marm -O0 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+INCPATH       = -I. -Iui_elements\qcp1 -Iui_elements -Ibuild_android -Ibuild_android\libusb-martin-kuldeep -IC:\Qt\5.7\android_armv7\include -IC:\Qt\5.7\android_armv7\include\QtPrintSupport -IC:\Qt\5.7\android_armv7\include\QtWidgets -IC:\Qt\5.7\android_armv7\include\QtGui -IC:\Qt\5.7\android_armv7\include\QtAndroidExtras -IC:\Qt\5.7\android_armv7\include\QtCore -Imoc -I. -IF:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include -IF:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include -IF:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include -IC:\Qt\5.7\android_armv7\mkspecs\android-g++
 QMAKE         = C:\Qt\5.7\android_armv7\bin\qmake.exe
 DEL_FILE      = del
 CHK_DIR_EXISTS= if not exist
@@ -35,8 +35,8 @@ COMPRESS      =
 DISTNAME      = libLabrador.so1.0.0
 DISTDIR = C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\.tmp\libLabrador.so1.0.0
 LINK          = F:\AndroidSDK\qtdroid\android-ndk-r13b/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/arm-linux-androideabi-g++
-LFLAGS        = --sysroot=F:\AndroidSDK\qtdroid\android-ndk-r13b/platforms/android-9/arch-arm/ -Wl,-soname,libLabrador.so -Wl,--no-undefined -Wl,-z,noexecstack -shared
-LIBS          = $(SUBLIBS) -LF:\AndroidSDK\qtdroid\android-ndk-r13b/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a -LF:\AndroidSDK\qtdroid\android-ndk-r13b/platforms/android-9/arch-arm//usr/lib -Lf:/androidsdk/qtdroid/android-ndk-r13b/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x -LC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface\build_android\libusb-martin-kuldeep\android\armeabi-v7a -lusb1.0 -LC:/Qt/5.7/android_armv7/lib -lQt5PrintSupport -Lc:/utils/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a -Lc:/utils/android-ndk-r10e/platforms/android-9/arch-arm//usr/lib -Lc:/utils/android-ndk-r10e/toolchains/arm-linux-androideabi-4.9/prebuilt/windows/bin/../lib/gcc/arm-linux-androideabi/4.9 -lQt5Widgets -lQt5Gui -lQt5AndroidExtras -LC:\Qt\5.7\android_armv7/lib -lQt5Core -lGLESv2 -lgnustl_shared -llog -lz -lm -ldl -lc -lgcc
+LFLAGS        = --sysroot=F:\AndroidSDK\qtdroid\android-ndk-r13b/platforms/android-16/arch-arm/ -Wl,-soname,libLabrador.so -Wl,--no-undefined -Wl,-z,noexecstack -shared
+LIBS          = $(SUBLIBS) -LF:\AndroidSDK\qtdroid\android-ndk-r13b/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a -LF:\AndroidSDK\qtdroid\android-ndk-r13b/platforms/android-16/arch-arm//usr/lib -Lf:/androidsdk/qtdroid/android-ndk-r13b/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/../lib/gcc/arm-linux-androideabi/4.9.x -LC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface\build_android\libusb-martin-kuldeep\android\armeabi-v7a -lusb1.0 -LC:/Qt/5.7/android_armv7/lib -lQt5PrintSupport -Lc:/utils/android-ndk-r10e/sources/cxx-stl/gnu-libstdc++/4.9/libs/armeabi-v7a -Lc:/utils/android-ndk-r10e/platforms/android-9/arch-arm//usr/lib -Lc:/utils/android-ndk-r10e/toolchains/arm-linux-androideabi-4.9/prebuilt/windows/bin/../lib/gcc/arm-linux-androideabi/4.9 -lQt5Widgets -lQt5Gui -lQt5AndroidExtras -LC:\Qt\5.7\android_armv7/lib -lQt5Core -lGLESv2 -lgnustl_shared -llog -lz -lm -ldl -lc -lgcc
 AR            = F:\AndroidSDK\qtdroid\android-ndk-r13b/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/arm-linux-androideabi-ar cqs
 RANLIB        = F:\AndroidSDK\qtdroid\android-ndk-r13b/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64/bin/arm-linux-androideabi-ranlib
 SED           = $(QMAKE) -install sed
@@ -140,6 +140,13 @@ DIST          = build_android\package_source\AndroidManifest.xml \
 		build_android\package_source\res\values\libs.xml \
 		build_android\package_source\build.gradle \
 		build_android\package_source\src\androidInterface.java \
+		build_android\package_source\AndroidManifest.xml \
+		build_android\package_source\gradle\wrapper\gradle-wrapper.jar \
+		build_android\package_source\gradlew \
+		build_android\package_source\res\values\libs.xml \
+		build_android\package_source\build.gradle \
+		build_android\package_source\gradle\wrapper\gradle-wrapper.properties \
+		build_android\package_source\gradlew.bat \
 		build_android\package_source\AndroidManifest.xml \
 		build_android\package_source\gradle\wrapper\gradle-wrapper.jar \
 		build_android\package_source\gradlew \
@@ -555,11 +562,11 @@ moc\moc_buffercontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -591,26 +598,26 @@ moc\moc_buffercontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -618,9 +625,9 @@ moc\moc_buffercontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -637,30 +644,30 @@ moc\moc_buffercontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -668,26 +675,26 @@ moc\moc_buffercontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -746,7 +753,7 @@ moc\moc_buffercontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -964,11 +971,11 @@ moc\moc_cursorenabler.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -1000,26 +1007,26 @@ moc\moc_cursorenabler.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -1027,9 +1034,9 @@ moc\moc_cursorenabler.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -1046,30 +1053,30 @@ moc\moc_cursorenabler.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -1077,26 +1084,26 @@ moc\moc_cursorenabler.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -1155,7 +1162,7 @@ moc\moc_cursorenabler.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -1373,11 +1380,11 @@ moc\moc_deviceconnecteddisplay.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QW
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -1409,26 +1416,26 @@ moc\moc_deviceconnecteddisplay.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QW
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -1436,9 +1443,9 @@ moc\moc_deviceconnecteddisplay.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QW
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -1455,30 +1462,30 @@ moc\moc_deviceconnecteddisplay.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QW
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -1486,26 +1493,26 @@ moc\moc_deviceconnecteddisplay.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QW
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -1564,7 +1571,7 @@ moc\moc_deviceconnecteddisplay.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QW
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -1782,11 +1789,11 @@ moc\moc_espocombobox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -1818,26 +1825,26 @@ moc\moc_espocombobox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -1845,9 +1852,9 @@ moc\moc_espocombobox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -1864,30 +1871,30 @@ moc\moc_espocombobox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -1895,26 +1902,26 @@ moc\moc_espocombobox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -1973,7 +1980,7 @@ moc\moc_espocombobox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -2206,8 +2213,8 @@ moc\moc_espocombobox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		build_android\libusb-martin-kuldeep\libusb.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
@@ -2240,11 +2247,11 @@ moc\moc_esposlider.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QSlider \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -2276,26 +2283,26 @@ moc\moc_esposlider.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QSlider \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -2303,9 +2310,9 @@ moc\moc_esposlider.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QSlider \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -2322,30 +2329,30 @@ moc\moc_esposlider.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QSlider \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -2353,26 +2360,26 @@ moc\moc_esposlider.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QSlider \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -2431,7 +2438,7 @@ moc\moc_esposlider.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QSlider \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -2655,11 +2662,11 @@ moc\moc_espospinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -2691,26 +2698,26 @@ moc\moc_espospinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -2718,9 +2725,9 @@ moc\moc_espospinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -2737,30 +2744,30 @@ moc\moc_espospinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -2768,26 +2775,26 @@ moc\moc_espospinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -2846,7 +2853,7 @@ moc\moc_espospinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -3068,11 +3075,11 @@ moc\moc_noclosemenu.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -3104,26 +3111,26 @@ moc\moc_noclosemenu.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -3131,9 +3138,9 @@ moc\moc_noclosemenu.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -3150,30 +3157,30 @@ moc\moc_noclosemenu.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -3181,26 +3188,26 @@ moc\moc_noclosemenu.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -3259,7 +3266,7 @@ moc\moc_noclosemenu.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -3479,11 +3486,11 @@ moc\moc_qcustomplot.cpp: C:\Qt\5.7\android_armv7\include\QtCore\QObject \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -3515,26 +3522,26 @@ moc\moc_qcustomplot.cpp: C:\Qt\5.7\android_armv7\include\QtCore\QObject \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -3542,9 +3549,9 @@ moc\moc_qcustomplot.cpp: C:\Qt\5.7\android_armv7\include\QtCore\QObject \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -3561,30 +3568,30 @@ moc\moc_qcustomplot.cpp: C:\Qt\5.7\android_armv7\include\QtCore\QObject \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -3592,26 +3599,26 @@ moc\moc_qcustomplot.cpp: C:\Qt\5.7\android_armv7\include\QtCore\QObject \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -3670,7 +3677,7 @@ moc\moc_qcustomplot.cpp: C:\Qt\5.7\android_armv7\include\QtCore\QObject \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -4026,10 +4033,10 @@ moc\moc_qcustomplot.cpp: C:\Qt\5.7\android_armv7\include\QtCore\QObject \
 		C:\Qt\5.7\android_armv7\include\QtGui\QSurfaceFormat \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengl.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qt_windows.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2platform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\KHR\khrplatform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2platform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\KHR\khrplatform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengles2ext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglversionfunctions.h \
@@ -4260,11 +4267,11 @@ moc\moc_timedtickbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QCheckBox \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -4296,26 +4303,26 @@ moc\moc_timedtickbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QCheckBox \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -4323,9 +4330,9 @@ moc\moc_timedtickbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QCheckBox \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -4342,30 +4349,30 @@ moc\moc_timedtickbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QCheckBox \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -4373,26 +4380,26 @@ moc\moc_timedtickbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QCheckBox \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -4451,7 +4458,7 @@ moc\moc_timedtickbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QCheckBox \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -4671,11 +4678,11 @@ moc\moc_voltagespinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -4707,26 +4714,26 @@ moc\moc_voltagespinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -4734,9 +4741,9 @@ moc\moc_voltagespinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -4753,30 +4760,30 @@ moc\moc_voltagespinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -4784,26 +4791,26 @@ moc\moc_voltagespinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -4862,7 +4869,7 @@ moc\moc_voltagespinbox.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -5082,11 +5089,11 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QMainWindow \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -5118,26 +5125,26 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QMainWindow \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -5145,9 +5152,9 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QMainWindow \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -5164,30 +5171,30 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QMainWindow \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -5195,26 +5202,26 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QMainWindow \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -5273,7 +5280,7 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QMainWindow \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -5650,10 +5657,10 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QMainWindow \
 		C:\Qt\5.7\android_armv7\include\QtGui\QSurfaceFormat \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengl.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qt_windows.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2platform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\KHR\khrplatform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2platform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\KHR\khrplatform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengles2ext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglversionfunctions.h \
@@ -5863,7 +5870,7 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QMainWindow \
 		build_android\libusb-martin-kuldeep\libusb.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\jni.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
@@ -5904,11 +5911,11 @@ moc\moc_functiongencontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidge
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -5940,26 +5947,26 @@ moc\moc_functiongencontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidge
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -5967,9 +5974,9 @@ moc\moc_functiongencontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidge
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -5986,30 +5993,30 @@ moc\moc_functiongencontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidge
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -6017,26 +6024,26 @@ moc\moc_functiongencontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidge
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -6095,7 +6102,7 @@ moc\moc_functiongencontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidge
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -6294,30 +6301,6 @@ moc\moc_functiongencontrol.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidge
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		build_android\platformspecific.h \
-		androidusbdriver.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QThread \
-		C:\Qt\5.7\android_armv7\include\QtCore\qthread.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
-		C:\Qt\5.7\android_armv7\include\QtCore\QDateTime \
-		C:\Qt\5.7\android_armv7\include\QtCore\qdatetime.h \
-		unixusbdriver.h \
-		genericusbdriver.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QTimer \
-		C:\Qt\5.7\android_armv7\include\QtCore\qtimer.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\qbasictimer.h \
-		functiongencontrol.h \
-		desktop_settings.h \
-		ui_elements\buffercontrol.h \
-		unified_debug_structure.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		functiongencontrol.h \
 		C:\Qt\5.7\android_armv7\bin\moc.exe
 	C:\Qt\5.7\android_armv7\bin\moc.exe $(DEFINES) -IC:/Qt/5.7/android_armv7/mkspecs/android-g++ -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android/libusb-martin-kuldeep -IC:/Qt/5.7/android_armv7/include -IC:/Qt/5.7/android_armv7/include/QtPrintSupport -IC:/Qt/5.7/android_armv7/include/QtWidgets -IC:/Qt/5.7/android_armv7/include/QtGui -IC:/Qt/5.7/android_armv7/include/QtAndroidExtras -IC:/Qt/5.7/android_armv7/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include functiongencontrol.h -o moc\moc_functiongencontrol.cpp
@@ -6345,11 +6328,11 @@ moc\moc_isodriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -6381,26 +6364,26 @@ moc\moc_isodriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -6408,9 +6391,9 @@ moc\moc_isodriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -6427,30 +6410,30 @@ moc\moc_isodriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -6458,26 +6441,26 @@ moc\moc_isodriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -6536,7 +6519,7 @@ moc\moc_isodriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -6897,10 +6880,10 @@ moc\moc_isodriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		C:\Qt\5.7\android_armv7\include\QtGui\QSurfaceFormat \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengl.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qt_windows.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2platform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\KHR\khrplatform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2platform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\KHR\khrplatform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengles2ext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglversionfunctions.h \
@@ -7109,18 +7092,8 @@ moc\moc_isodriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		C:\Qt\5.7\android_armv7\include\QtCore\QFile \
 		xmega.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
-		build_android\platformspecific.h \
-		androidusbdriver.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
-		unixusbdriver.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		desktop_settings.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements\siprint.h \
@@ -7151,11 +7124,11 @@ moc\moc_isobuffer.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -7187,26 +7160,26 @@ moc\moc_isobuffer.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -7214,9 +7187,9 @@ moc\moc_isobuffer.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -7233,30 +7206,30 @@ moc\moc_isobuffer.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -7264,26 +7237,26 @@ moc\moc_isobuffer.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -7342,7 +7315,7 @@ moc\moc_isobuffer.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -7586,11 +7559,11 @@ moc\moc_scoperangeenterdialog.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QDi
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -7622,26 +7595,26 @@ moc\moc_scoperangeenterdialog.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QDi
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -7649,9 +7622,9 @@ moc\moc_scoperangeenterdialog.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QDi
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -7668,30 +7641,30 @@ moc\moc_scoperangeenterdialog.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QDi
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -7699,26 +7672,26 @@ moc\moc_scoperangeenterdialog.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QDi
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -7777,7 +7750,7 @@ moc\moc_scoperangeenterdialog.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QDi
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -7992,11 +7965,11 @@ moc\moc_genericusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -8028,26 +8001,26 @@ moc\moc_genericusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -8055,9 +8028,9 @@ moc\moc_genericusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -8074,30 +8047,30 @@ moc\moc_genericusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -8105,26 +8078,26 @@ moc\moc_genericusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -8183,7 +8156,7 @@ moc\moc_genericusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -8388,24 +8361,10 @@ moc\moc_genericusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		build_android\platformspecific.h \
-		androidusbdriver.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
-		C:\Qt\5.7\android_armv7\include\QtCore\QDateTime \
-		C:\Qt\5.7\android_armv7\include\QtCore\qdatetime.h \
-		unixusbdriver.h \
-		genericusbdriver.h \
 		desktop_settings.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		genericusbdriver.h \
 		C:\Qt\5.7\android_armv7\bin\moc.exe
 	C:\Qt\5.7\android_armv7\bin\moc.exe $(DEFINES) -IC:/Qt/5.7/android_armv7/mkspecs/android-g++ -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android/libusb-martin-kuldeep -IC:/Qt/5.7/android_armv7/include -IC:/Qt/5.7/android_armv7/include/QtPrintSupport -IC:/Qt/5.7/android_armv7/include/QtWidgets -IC:/Qt/5.7/android_armv7/include/QtGui -IC:/Qt/5.7/android_armv7/include/QtAndroidExtras -IC:/Qt/5.7/android_armv7/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include genericusbdriver.h -o moc\moc_genericusbdriver.cpp
@@ -8433,11 +8392,11 @@ moc\moc_unixusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -8469,26 +8428,26 @@ moc\moc_unixusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -8496,9 +8455,9 @@ moc\moc_unixusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -8515,30 +8474,30 @@ moc\moc_unixusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -8546,26 +8505,26 @@ moc\moc_unixusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -8624,7 +8583,7 @@ moc\moc_unixusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -8833,20 +8792,10 @@ moc\moc_unixusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		build_android\platformspecific.h \
-		androidusbdriver.h \
-		unixusbdriver.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
 		unixusbdriver.h \
 		C:\Qt\5.7\android_armv7\bin\moc.exe
 	C:\Qt\5.7\android_armv7\bin\moc.exe $(DEFINES) -IC:/Qt/5.7/android_armv7/mkspecs/android-g++ -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android/libusb-martin-kuldeep -IC:/Qt/5.7/android_armv7/include -IC:/Qt/5.7/android_armv7/include/QtPrintSupport -IC:/Qt/5.7/android_armv7/include/QtWidgets -IC:/Qt/5.7/android_armv7/include/QtGui -IC:/Qt/5.7/android_armv7/include/QtAndroidExtras -IC:/Qt/5.7/android_armv7/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include unixusbdriver.h -o moc\moc_unixusbdriver.cpp
@@ -8874,11 +8823,11 @@ moc\moc_androidusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -8910,26 +8859,26 @@ moc\moc_androidusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -8937,9 +8886,9 @@ moc\moc_androidusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -8956,30 +8905,30 @@ moc\moc_androidusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -8987,26 +8936,26 @@ moc\moc_androidusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -9065,7 +9014,7 @@ moc\moc_androidusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -9275,19 +9224,17 @@ moc\moc_androidusbdriver.cpp: C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget 
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		build_android\platformspecific.h \
-		androidusbdriver.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		desktop_settings.h \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		androidusbdriver.h \
 		C:\Qt\5.7\android_armv7\bin\moc.exe
 	C:\Qt\5.7\android_armv7\bin\moc.exe $(DEFINES) -IC:/Qt/5.7/android_armv7/mkspecs/android-g++ -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android/libusb-martin-kuldeep -IC:/Qt/5.7/android_armv7/include -IC:/Qt/5.7/android_armv7/include/QtPrintSupport -IC:/Qt/5.7/android_armv7/include/QtWidgets -IC:/Qt/5.7/android_armv7/include/QtGui -IC:/Qt/5.7/android_armv7/include/QtAndroidExtras -IC:/Qt/5.7/android_armv7/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include androidusbdriver.h -o moc\moc_androidusbdriver.cpp
@@ -9334,11 +9281,11 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -9370,26 +9317,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -9397,9 +9344,9 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -9416,30 +9363,30 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -9447,26 +9394,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -9525,7 +9472,7 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -9881,10 +9828,10 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\Qt\5.7\android_armv7\include\QtGui\QSurfaceFormat \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengl.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qt_windows.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2platform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\KHR\khrplatform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2platform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\KHR\khrplatform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengles2ext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglversionfunctions.h \
@@ -10110,11 +10057,11 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -10146,26 +10093,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -10173,9 +10120,9 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -10192,30 +10139,30 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -10223,26 +10170,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -10301,7 +10248,7 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -10517,11 +10464,11 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -10553,26 +10500,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -10580,9 +10527,9 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -10599,30 +10546,30 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -10630,26 +10577,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -10708,7 +10655,7 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -10928,11 +10875,11 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -10964,26 +10911,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -10991,9 +10938,9 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -11010,30 +10957,30 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -11041,26 +10988,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -11119,7 +11066,7 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -11337,11 +11284,11 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -11373,26 +11320,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -11400,9 +11347,9 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -11419,30 +11366,30 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -11450,26 +11397,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -11528,7 +11475,7 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -11761,8 +11708,8 @@ ui_mainwindow.h: mainwindow.ui \
 		build_android\libusb-martin-kuldeep\libusb.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
@@ -11789,11 +11736,11 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -11825,26 +11772,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -11852,9 +11799,9 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -11871,30 +11818,30 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -11902,26 +11849,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -11980,7 +11927,7 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -12179,30 +12126,6 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		build_android\platformspecific.h \
-		androidusbdriver.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QThread \
-		C:\Qt\5.7\android_armv7\include\QtCore\qthread.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
-		C:\Qt\5.7\android_armv7\include\QtCore\QDateTime \
-		C:\Qt\5.7\android_armv7\include\QtCore\qdatetime.h \
-		unixusbdriver.h \
-		genericusbdriver.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QTimer \
-		C:\Qt\5.7\android_armv7\include\QtCore\qtimer.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\qbasictimer.h \
-		functiongencontrol.h \
-		desktop_settings.h \
-		ui_elements\buffercontrol.h \
-		unified_debug_structure.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		C:\Qt\5.7\android_armv7\include\QtWidgets\QWidget \
 		C:\Qt\5.7\android_armv7\include\QtWidgets\qwidget.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qwindowdefs.h \
@@ -12226,11 +12149,11 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -12262,26 +12185,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -12289,9 +12212,9 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -12308,30 +12231,30 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -12339,26 +12262,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -12417,7 +12340,7 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -12778,10 +12701,10 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\Qt\5.7\android_armv7\include\QtGui\QSurfaceFormat \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengl.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qt_windows.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2platform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\KHR\khrplatform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2platform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\KHR\khrplatform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengles2ext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglversionfunctions.h \
@@ -12990,18 +12913,8 @@ ui_mainwindow.h: mainwindow.ui \
 		C:\Qt\5.7\android_armv7\include\QtCore\QFile \
 		xmega.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
-		build_android\platformspecific.h \
-		androidusbdriver.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
-		unixusbdriver.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		desktop_settings.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
 		ui_elements\buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements\siprint.h \
@@ -13028,11 +12941,11 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -13064,26 +12977,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -13091,9 +13004,9 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -13110,30 +13023,30 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -13141,26 +13054,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -13219,7 +13132,7 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -13434,11 +13347,11 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -13470,26 +13383,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -13497,9 +13410,9 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -13516,30 +13429,30 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -13547,26 +13460,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -13625,7 +13538,7 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -13839,11 +13752,11 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -13875,26 +13788,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -13902,9 +13815,9 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -13921,30 +13834,30 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -13952,26 +13865,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -14030,7 +13943,7 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -14245,11 +14158,11 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -14281,26 +14194,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -14308,9 +14221,9 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -14327,30 +14240,30 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -14358,26 +14271,26 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -14436,7 +14349,7 @@ ui_mainwindow.h: mainwindow.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -14657,11 +14570,11 @@ ui_scoperangeenterdialog.h: scoperangeenterdialog.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -14693,26 +14606,26 @@ ui_scoperangeenterdialog.h: scoperangeenterdialog.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -14720,9 +14633,9 @@ ui_scoperangeenterdialog.h: scoperangeenterdialog.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -14739,30 +14652,30 @@ ui_scoperangeenterdialog.h: scoperangeenterdialog.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -14770,26 +14683,26 @@ ui_scoperangeenterdialog.h: scoperangeenterdialog.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -14848,7 +14761,7 @@ ui_scoperangeenterdialog.h: scoperangeenterdialog.ui \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -15076,11 +14989,11 @@ buffercontrol.obj: ui_elements\buffercontrol.cpp ui_elements/buffercontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -15112,26 +15025,26 @@ buffercontrol.obj: ui_elements\buffercontrol.cpp ui_elements/buffercontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -15139,9 +15052,9 @@ buffercontrol.obj: ui_elements\buffercontrol.cpp ui_elements/buffercontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -15158,30 +15071,30 @@ buffercontrol.obj: ui_elements\buffercontrol.cpp ui_elements/buffercontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -15189,26 +15102,26 @@ buffercontrol.obj: ui_elements\buffercontrol.cpp ui_elements/buffercontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -15267,7 +15180,7 @@ buffercontrol.obj: ui_elements\buffercontrol.cpp ui_elements/buffercontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -15484,11 +15397,11 @@ cursorenabler.obj: ui_elements\cursorenabler.cpp ui_elements/cursorenabler.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -15520,26 +15433,26 @@ cursorenabler.obj: ui_elements\cursorenabler.cpp ui_elements/cursorenabler.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -15547,9 +15460,9 @@ cursorenabler.obj: ui_elements\cursorenabler.cpp ui_elements/cursorenabler.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -15566,30 +15479,30 @@ cursorenabler.obj: ui_elements\cursorenabler.cpp ui_elements/cursorenabler.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -15597,26 +15510,26 @@ cursorenabler.obj: ui_elements\cursorenabler.cpp ui_elements/cursorenabler.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -15675,7 +15588,7 @@ cursorenabler.obj: ui_elements\cursorenabler.cpp ui_elements/cursorenabler.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -15892,11 +15805,11 @@ deviceconnecteddisplay.obj: ui_elements\deviceconnecteddisplay.cpp ui_elements/d
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -15928,26 +15841,26 @@ deviceconnecteddisplay.obj: ui_elements\deviceconnecteddisplay.cpp ui_elements/d
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -15955,9 +15868,9 @@ deviceconnecteddisplay.obj: ui_elements\deviceconnecteddisplay.cpp ui_elements/d
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -15974,30 +15887,30 @@ deviceconnecteddisplay.obj: ui_elements\deviceconnecteddisplay.cpp ui_elements/d
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -16005,26 +15918,26 @@ deviceconnecteddisplay.obj: ui_elements\deviceconnecteddisplay.cpp ui_elements/d
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -16083,7 +15996,7 @@ deviceconnecteddisplay.obj: ui_elements\deviceconnecteddisplay.cpp ui_elements/d
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -16300,11 +16213,11 @@ espocombobox.obj: ui_elements\espocombobox.cpp ui_elements/espocombobox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -16336,26 +16249,26 @@ espocombobox.obj: ui_elements\espocombobox.cpp ui_elements/espocombobox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -16363,9 +16276,9 @@ espocombobox.obj: ui_elements\espocombobox.cpp ui_elements/espocombobox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -16382,30 +16295,30 @@ espocombobox.obj: ui_elements\espocombobox.cpp ui_elements/espocombobox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -16413,26 +16326,26 @@ espocombobox.obj: ui_elements\espocombobox.cpp ui_elements/espocombobox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -16491,7 +16404,7 @@ espocombobox.obj: ui_elements\espocombobox.cpp ui_elements/espocombobox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -16724,8 +16637,8 @@ espocombobox.obj: ui_elements\espocombobox.cpp ui_elements/espocombobox.h \
 		build_android\libusb-martin-kuldeep\libusb.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h
@@ -16757,11 +16670,11 @@ esposlider.obj: ui_elements\esposlider.cpp ui_elements/esposlider.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -16793,26 +16706,26 @@ esposlider.obj: ui_elements\esposlider.cpp ui_elements/esposlider.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -16820,9 +16733,9 @@ esposlider.obj: ui_elements\esposlider.cpp ui_elements/esposlider.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -16839,30 +16752,30 @@ esposlider.obj: ui_elements\esposlider.cpp ui_elements/esposlider.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -16870,26 +16783,26 @@ esposlider.obj: ui_elements\esposlider.cpp ui_elements/esposlider.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -16948,7 +16861,7 @@ esposlider.obj: ui_elements\esposlider.cpp ui_elements/esposlider.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -17171,11 +17084,11 @@ espospinbox.obj: ui_elements\espospinbox.cpp ui_elements/espospinbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -17207,26 +17120,26 @@ espospinbox.obj: ui_elements\espospinbox.cpp ui_elements/espospinbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -17234,9 +17147,9 @@ espospinbox.obj: ui_elements\espospinbox.cpp ui_elements/espospinbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -17253,30 +17166,30 @@ espospinbox.obj: ui_elements\espospinbox.cpp ui_elements/espospinbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -17284,26 +17197,26 @@ espospinbox.obj: ui_elements\espospinbox.cpp ui_elements/espospinbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -17362,7 +17275,7 @@ espospinbox.obj: ui_elements\espospinbox.cpp ui_elements/espospinbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -17583,11 +17496,11 @@ noclosemenu.obj: ui_elements\noclosemenu.cpp ui_elements/noclosemenu.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -17619,26 +17532,26 @@ noclosemenu.obj: ui_elements\noclosemenu.cpp ui_elements/noclosemenu.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -17646,9 +17559,9 @@ noclosemenu.obj: ui_elements\noclosemenu.cpp ui_elements/noclosemenu.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -17665,30 +17578,30 @@ noclosemenu.obj: ui_elements\noclosemenu.cpp ui_elements/noclosemenu.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -17696,26 +17609,26 @@ noclosemenu.obj: ui_elements\noclosemenu.cpp ui_elements/noclosemenu.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -17774,7 +17687,7 @@ noclosemenu.obj: ui_elements\noclosemenu.cpp ui_elements/noclosemenu.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -17993,11 +17906,11 @@ qcustomplot.obj: ui_elements\qcp1\qcustomplot.cpp ui_elements/qcp1/qcustomplot.h
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -18029,26 +17942,26 @@ qcustomplot.obj: ui_elements\qcp1\qcustomplot.cpp ui_elements/qcp1/qcustomplot.h
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -18056,9 +17969,9 @@ qcustomplot.obj: ui_elements\qcp1\qcustomplot.cpp ui_elements/qcp1/qcustomplot.h
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -18075,30 +17988,30 @@ qcustomplot.obj: ui_elements\qcp1\qcustomplot.cpp ui_elements/qcp1/qcustomplot.h
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -18106,26 +18019,26 @@ qcustomplot.obj: ui_elements\qcp1\qcustomplot.cpp ui_elements/qcp1/qcustomplot.h
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -18184,7 +18097,7 @@ qcustomplot.obj: ui_elements\qcp1\qcustomplot.cpp ui_elements/qcp1/qcustomplot.h
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -18540,10 +18453,10 @@ qcustomplot.obj: ui_elements\qcp1\qcustomplot.cpp ui_elements/qcp1/qcustomplot.h
 		C:\Qt\5.7\android_armv7\include\QtGui\QSurfaceFormat \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengl.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qt_windows.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2platform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\KHR\khrplatform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2platform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\KHR\khrplatform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengles2ext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglversionfunctions.h \
@@ -18749,11 +18662,11 @@ qcustomplot.obj: ui_elements\qcp1\qcustomplot.cpp ui_elements/qcp1/qcustomplot.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qcustomplot.obj ui_elements\qcp1\qcustomplot.cpp
 
 siprint.obj: ui_elements\siprint.cpp ui_elements/siprint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QDebug \
 		C:\Qt\5.7\android_armv7\include\QtCore\qdebug.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qalgorithms.h \
@@ -18777,10 +18690,10 @@ siprint.obj: ui_elements\siprint.cpp ui_elements/siprint.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -18812,22 +18725,22 @@ siprint.obj: ui_elements\siprint.cpp ui_elements/siprint.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -18835,9 +18748,9 @@ siprint.obj: ui_elements\siprint.cpp ui_elements/siprint.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -18854,30 +18767,30 @@ siprint.obj: ui_elements\siprint.cpp ui_elements/siprint.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -18885,26 +18798,26 @@ siprint.obj: ui_elements\siprint.cpp ui_elements/siprint.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -18963,7 +18876,7 @@ siprint.obj: ui_elements\siprint.cpp ui_elements/siprint.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -19142,11 +19055,11 @@ timedtickbox.obj: ui_elements\timedtickbox.cpp ui_elements/timedtickbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -19178,26 +19091,26 @@ timedtickbox.obj: ui_elements\timedtickbox.cpp ui_elements/timedtickbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -19205,9 +19118,9 @@ timedtickbox.obj: ui_elements\timedtickbox.cpp ui_elements/timedtickbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -19224,30 +19137,30 @@ timedtickbox.obj: ui_elements\timedtickbox.cpp ui_elements/timedtickbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -19255,26 +19168,26 @@ timedtickbox.obj: ui_elements\timedtickbox.cpp ui_elements/timedtickbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -19333,7 +19246,7 @@ timedtickbox.obj: ui_elements\timedtickbox.cpp ui_elements/timedtickbox.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -19552,11 +19465,11 @@ voltagespinbox.obj: ui_elements\voltagespinbox.cpp ui_elements/voltagespinbox.h 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -19588,26 +19501,26 @@ voltagespinbox.obj: ui_elements\voltagespinbox.cpp ui_elements/voltagespinbox.h 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -19615,9 +19528,9 @@ voltagespinbox.obj: ui_elements\voltagespinbox.cpp ui_elements/voltagespinbox.h 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -19634,30 +19547,30 @@ voltagespinbox.obj: ui_elements\voltagespinbox.cpp ui_elements/voltagespinbox.h 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -19665,26 +19578,26 @@ voltagespinbox.obj: ui_elements\voltagespinbox.cpp ui_elements/voltagespinbox.h 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -19743,7 +19656,7 @@ voltagespinbox.obj: ui_elements\voltagespinbox.cpp ui_elements/voltagespinbox.h 
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -19962,11 +19875,11 @@ main.obj: main.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -19998,26 +19911,26 @@ main.obj: main.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -20025,9 +19938,9 @@ main.obj: main.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -20044,30 +19957,30 @@ main.obj: main.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -20075,26 +19988,26 @@ main.obj: main.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -20153,7 +20066,7 @@ main.obj: main.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -20530,10 +20443,10 @@ main.obj: main.cpp mainwindow.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\QSurfaceFormat \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengl.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qt_windows.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2platform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\KHR\khrplatform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2platform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\KHR\khrplatform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengles2ext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglversionfunctions.h \
@@ -20743,7 +20656,7 @@ main.obj: main.cpp mainwindow.h \
 		build_android\libusb-martin-kuldeep\libusb.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\jni.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
@@ -20785,11 +20698,11 @@ mainwindow.obj: mainwindow.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -20821,26 +20734,26 @@ mainwindow.obj: mainwindow.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -20848,9 +20761,9 @@ mainwindow.obj: mainwindow.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -20867,30 +20780,30 @@ mainwindow.obj: mainwindow.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -20898,26 +20811,26 @@ mainwindow.obj: mainwindow.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -20976,7 +20889,7 @@ mainwindow.obj: mainwindow.cpp mainwindow.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -21353,10 +21266,10 @@ mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\QSurfaceFormat \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengl.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qt_windows.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2platform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\KHR\khrplatform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2platform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\KHR\khrplatform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengles2ext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglversionfunctions.h \
@@ -21566,7 +21479,7 @@ mainwindow.obj: mainwindow.cpp mainwindow.h \
 		build_android\libusb-martin-kuldeep\libusb.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\jni.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
@@ -21606,11 +21519,11 @@ functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -21642,26 +21555,26 @@ functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -21669,9 +21582,9 @@ functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -21688,30 +21601,30 @@ functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -21719,26 +21632,26 @@ functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -21797,7 +21710,7 @@ functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -22014,8 +21927,8 @@ functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		build_android\libusb-martin-kuldeep\libusb.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h
@@ -22045,11 +21958,11 @@ isodriver.obj: isodriver.cpp isodriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -22081,26 +21994,26 @@ isodriver.obj: isodriver.cpp isodriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -22108,9 +22021,9 @@ isodriver.obj: isodriver.cpp isodriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -22127,30 +22040,30 @@ isodriver.obj: isodriver.cpp isodriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -22158,26 +22071,26 @@ isodriver.obj: isodriver.cpp isodriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -22236,7 +22149,7 @@ isodriver.obj: isodriver.cpp isodriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -22597,10 +22510,10 @@ isodriver.obj: isodriver.cpp isodriver.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\QSurfaceFormat \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengl.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qt_windows.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2platform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\KHR\khrplatform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2platform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\KHR\khrplatform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengles2ext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglversionfunctions.h \
@@ -22809,18 +22722,8 @@ isodriver.obj: isodriver.cpp isodriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QFile \
 		xmega.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
-		build_android\platformspecific.h \
-		androidusbdriver.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
-		unixusbdriver.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		desktop_settings.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements/siprint.h \
@@ -22854,11 +22757,11 @@ isobuffer.obj: isobuffer.cpp isobuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -22890,26 +22793,26 @@ isobuffer.obj: isobuffer.cpp isobuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -22917,9 +22820,9 @@ isobuffer.obj: isobuffer.cpp isobuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -22936,30 +22839,30 @@ isobuffer.obj: isobuffer.cpp isobuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -22967,26 +22870,26 @@ isobuffer.obj: isobuffer.cpp isobuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -23045,7 +22948,7 @@ isobuffer.obj: isobuffer.cpp isobuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -23427,10 +23330,10 @@ isobuffer.obj: isobuffer.cpp isobuffer.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\QSurfaceFormat \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengl.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qt_windows.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\GLES2\gl2platform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\KHR\khrplatform.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\GLES2\gl2platform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\KHR\khrplatform.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopengles2ext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglext.h \
 		C:\Qt\5.7\android_armv7\include\QtGui\qopenglversionfunctions.h \
@@ -23624,16 +23527,6 @@ isobuffer.obj: isobuffer.cpp isobuffer.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QThread \
 		functiongencontrol.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
-		build_android\platformspecific.h \
-		androidusbdriver.h \
-		unixusbdriver.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h \
 		ui_elements/siprint.h
@@ -23662,11 +23555,11 @@ desktop_settings.obj: desktop_settings.cpp desktop_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -23698,26 +23591,26 @@ desktop_settings.obj: desktop_settings.cpp desktop_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -23725,9 +23618,9 @@ desktop_settings.obj: desktop_settings.cpp desktop_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -23744,30 +23637,30 @@ desktop_settings.obj: desktop_settings.cpp desktop_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -23775,26 +23668,26 @@ desktop_settings.obj: desktop_settings.cpp desktop_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -23853,7 +23746,7 @@ desktop_settings.obj: desktop_settings.cpp desktop_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -23977,11 +23870,11 @@ scoperangeenterdialog.obj: scoperangeenterdialog.cpp scoperangeenterdialog.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -24013,26 +23906,26 @@ scoperangeenterdialog.obj: scoperangeenterdialog.cpp scoperangeenterdialog.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -24040,9 +23933,9 @@ scoperangeenterdialog.obj: scoperangeenterdialog.cpp scoperangeenterdialog.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -24059,30 +23952,30 @@ scoperangeenterdialog.obj: scoperangeenterdialog.cpp scoperangeenterdialog.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -24090,26 +23983,26 @@ scoperangeenterdialog.obj: scoperangeenterdialog.cpp scoperangeenterdialog.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -24168,7 +24061,7 @@ scoperangeenterdialog.obj: scoperangeenterdialog.cpp scoperangeenterdialog.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -24383,11 +24276,11 @@ genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -24419,26 +24312,26 @@ genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -24446,9 +24339,9 @@ genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -24465,30 +24358,30 @@ genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -24496,26 +24389,26 @@ genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -24574,7 +24467,7 @@ genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -24779,21 +24672,8 @@ genericusbdriver.obj: genericusbdriver.cpp genericusbdriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		build_android\platformspecific.h \
-		androidusbdriver.h \
-		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
-		C:\Qt\5.7\android_armv7\include\QtCore\QDateTime \
-		C:\Qt\5.7\android_armv7\include\QtCore\qdatetime.h \
-		unixusbdriver.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		desktop_settings.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o genericusbdriver.obj genericusbdriver.cpp
@@ -24822,11 +24702,11 @@ isobufferbuffer.obj: isobufferbuffer.cpp isobufferbuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -24858,26 +24738,26 @@ isobufferbuffer.obj: isobufferbuffer.cpp isobufferbuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -24885,9 +24765,9 @@ isobufferbuffer.obj: isobufferbuffer.cpp isobufferbuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -24904,30 +24784,30 @@ isobufferbuffer.obj: isobufferbuffer.cpp isobufferbuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -24935,26 +24815,26 @@ isobufferbuffer.obj: isobufferbuffer.cpp isobufferbuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -25013,7 +24893,7 @@ isobufferbuffer.obj: isobufferbuffer.cpp isobufferbuffer.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -25191,11 +25071,11 @@ unixusbdriver.obj: unixusbdriver.cpp unixusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -25227,26 +25107,26 @@ unixusbdriver.obj: unixusbdriver.cpp unixusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -25254,9 +25134,9 @@ unixusbdriver.obj: unixusbdriver.cpp unixusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -25273,30 +25153,30 @@ unixusbdriver.obj: unixusbdriver.cpp unixusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -25304,26 +25184,26 @@ unixusbdriver.obj: unixusbdriver.cpp unixusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -25382,7 +25262,7 @@ unixusbdriver.obj: unixusbdriver.cpp unixusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -25591,19 +25471,19 @@ unixusbdriver.obj: unixusbdriver.cpp unixusbdriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		build_android\platformspecific.h \
-		androidusbdriver.h \
-		build_android\libusb-martin-kuldeep\libusb.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
 		desktop_settings.h \
 		ui_elements/buffercontrol.h \
-		unified_debug_structure.h
+		unified_debug_structure.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o unixusbdriver.obj unixusbdriver.cpp
 
 androidusbdriver.obj: androidusbdriver.cpp androidusbdriver.h \
@@ -25630,11 +25510,11 @@ androidusbdriver.obj: androidusbdriver.cpp androidusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\type_traits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\c++0x_warning.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdint \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdint.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\_wchar_limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\android\api-level.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdint.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\_wchar_limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\android\api-level.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\initializer_list \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\algorithm \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algobase.h \
@@ -25666,26 +25546,26 @@ androidusbdriver.obj: androidusbdriver.cpp androidusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\parallel.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compiletime_settings.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdio \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdio.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\cdefs_elf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\stddef.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\compiler.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\posix_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\kernel.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysmacros.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdio.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\cdefs_elf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\stddef.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\compiler.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\posix_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\kernel.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysmacros.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\types.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cstdlib \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\stdlib.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\string.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\malloc.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\alloca.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\strings.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\memory.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\stdlib.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\string.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\malloc.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\alloca.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\strings.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\memory.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\limits \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\tr1\cstdint \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\tags.h \
@@ -25693,9 +25573,9 @@ androidusbdriver.obj: androidusbdriver.cpp androidusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\algorithmfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\compatibility.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sched.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sched.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\time.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\equally_split.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\parallel\find_selectors.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stl_algo.h \
@@ -25712,30 +25592,30 @@ androidusbdriver.obj: androidusbdriver.cpp androidusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\new_allocator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\random \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cmath \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\math.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\internal_types.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\machine\limits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\syslimits.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\page.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\math.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\internal_types.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\machine\limits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\syslimits.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\page.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\string \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\stringfwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\char_traits.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\postypes.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwchar \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wchar.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\time.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\siginfo.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wchar.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\time.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\siginfo.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\siginfo.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\localefwd.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\c++locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\clocale \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\locale.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\locale.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\iosfwd \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\ctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\ctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\ostream_insert.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\cxxabi_forced.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\range_access.h \
@@ -25743,26 +25623,26 @@ androidusbdriver.obj: androidusbdriver.cpp androidusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\atomicity.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\gthr-default.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pthread.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\signal.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\sigcontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\ucontext.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\user.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\unistd.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\select.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\sys\sysconf.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\capability.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\pathconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pthread.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\signal.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\sigcontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\ucontext.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\user.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\unistd.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\select.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\sys\sysconf.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\capability.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\pathconf.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\atomic_word.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\ext\string_conversions.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cerrno \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\linux\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\asm-generic\errno-base.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\linux\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\asm-generic\errno-base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\functional_hash.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_string.tcc \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\random.h \
@@ -25821,7 +25701,7 @@ androidusbdriver.obj: androidusbdriver.cpp androidusbdriver.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\basic_ios.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\locale_facets.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\cwctype \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\wctype.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\wctype.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_base.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\include\bits\streambuf_iterator.h \
 		F:\AndroidSDK\qtdroid\android-ndk-r13b\sources\cxx-stl\gnu-libstdc++\4.9\libs\armeabi-v7a\include\bits\ctype_inline.h \
@@ -26031,15 +25911,14 @@ androidusbdriver.obj: androidusbdriver.cpp androidusbdriver.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
 		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
 		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
-		build_android\platformspecific.h \
 		desktop_settings.h \
 		ui_elements/buffercontrol.h \
 		unified_debug_structure.h \
 		build_android\libusb-martin-kuldeep\libusb.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\jni.h \
-		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-9\arch-arm\usr\include\inttypes.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\jni.h \
+		F:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h
