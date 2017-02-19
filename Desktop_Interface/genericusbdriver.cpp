@@ -1,4 +1,5 @@
 #include "genericusbdriver.h"
+#include "platformspecific.h"
 
 genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
 {
@@ -275,6 +276,7 @@ void genericUsbDriver::setGain(double newGain){
 
 void genericUsbDriver::avrDebug(void){
     usbSendControl(0xc0, 0xa0, 0, 0, sizeof(unified_debug), NULL);
+#ifndef PLATFORM_ANDROID
     unified_debug *udsPtr = (unified_debug *) inBuffer;
     uint16_t trfcnt0 = (udsPtr->trfcntH0 << 8) + udsPtr->trfcntL0;
     uint16_t trfcnt1 = (udsPtr->trfcntH1 << 8) + udsPtr->trfcntL1;
@@ -297,8 +299,7 @@ void genericUsbDriver::avrDebug(void){
     qDebug() << "CALB = " << udsPtr->CALB;
     qDebug() << "dma_ch0_cnt = " << dma_ch0_cnt;
     qDebug() << "dma_ch1_cnt = " << dma_ch1_cnt;
-
-
+#endif
 }
 
 void genericUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState){
@@ -313,7 +314,7 @@ void genericUsbDriver::checkConnection(){
     //This will connect to the board, then wait one more period before actually starting the stack.
     if(!connected){
         qDebug() << "CHECKING CONNECTION!";
-        connected = usbInit(0x03eb, 0xa000);
+        connected = !(usbInit(0x03eb, 0xa000));
         return;
     }
 

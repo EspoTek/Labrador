@@ -41,7 +41,7 @@ unsigned char winUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     //List libusbk devices connected
     if (!LstK_Init(&deviceList, (KLST_FLAG) 0))	{
         qDebug("Error initializing device list");
-        return 0;
+        return 1;
     } //else qDebug() << "Device List initialised!";
 
     /*
@@ -58,7 +58,7 @@ unsigned char winUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     LstK_Free(deviceList);
     if (deviceInfo == NULL){
         qDebug("Could not find device VID = %04X, PID = %04X", VIDin, PIDin);
-        return 0;
+        return 2;
     }
 
     //Open Labrador!!
@@ -66,9 +66,10 @@ unsigned char winUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     if (!success){
         ec = GetLastError();
         qDebug("UsbK_Init failed. ErrorCode: %08Xh", ec);
+        return 3;
     } else qDebug("Device opened successfully!");
 
-    return success;
+    return 0;
 }
 
 void winUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA){
