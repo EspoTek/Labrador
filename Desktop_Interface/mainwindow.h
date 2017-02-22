@@ -118,6 +118,7 @@ private slots:
     void on_actionRecord_triggered(bool checked);
     void on_actionTake_Snapshot_triggered();
     void reinitUsb(void);
+    void resetUsbState(void);
 private:
     //Generic Vars
     Ui::MainWindow *ui;

@@ -265,12 +265,27 @@ void genericUsbDriver::setGain(double newGain){
     if (newGain == scopeGain) return; //No update!
     gainBuffers(scopeGain/newGain);
     scopeGain = newGain;
-    if (newGain == 0.5){
+    //See XMEGA_AU Manual, page 359.  ADC.CTRL.GAIN.
+        if(newGain==0.5) gainMask = 0x07;
+        else if (newGain == 1) gainMask = 0x00;
+        else if (newGain == 2) gainMask = 0x01;
+        else if (newGain == 4) gainMask = 0x02;
+        else if (newGain == 8) gainMask = 0x03;
+        else if (newGain == 16) gainMask = 0x04;
+        else if (newGain == 32) gainMask = 0x05;
+        else if (newGain == 64) gainMask = 0x06;
+        else qFatal("genericUsbDriver::setGain attempted to set invalid gain value");
+    gainMask = gainMask << 2;
+    gainMask |= (gainMask << 8);
+    /*
+     * This bit had to be removed because Android doesn't like log2()
+     * if (newGain == 0.5){
         gainMask = 7<<2 | 7<<10;
     }
     else gainMask = (unsigned short)(log2(newGain))<<2 | (unsigned short)(log2(newGain))<<10;
+    */
     qDebug("newGain = %f", newGain);
-    qDebug("gainMask = %d", gainMask);
+    qDebug("gainMask = %x", gainMask);
     usbSendControl(0x40, 0xa5, deviceMode, gainMask, 0, NULL);
 }
 
@@ -341,5 +356,6 @@ void genericUsbDriver::checkConnection(){
     recoveryTimer->setTimerType(Qt::PreciseTimer);
     recoveryTimer->start(RECOVERY_PERIOD);
     connect(recoveryTimer, SIGNAL(timeout()), this, SLOT(recoveryTick()));
+    initialConnectComplete();
 }
 

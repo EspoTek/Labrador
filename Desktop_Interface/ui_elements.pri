@@ -15,7 +15,9 @@ SOURCES +=  ui_elements/buffercontrol.cpp \
     ui_elements/qcp$${QCP_VER}/qcustomplot.cpp \
     ui_elements/siprint.cpp \
     ui_elements/timedtickbox.cpp \
-    ui_elements/voltagespinbox.cpp
+    ui_elements/voltagespinbox.cpp \
+    ui_elements/swipeystack.cpp
+
 
 HEADERS +=     ui_elements/buffercontrol.h \
     ui_elements/cursorenabler.h \
@@ -27,4 +29,5 @@ HEADERS +=     ui_elements/buffercontrol.h \
     ui_elements/qcp$${QCP_VER}/qcustomplot.h \
     ui_elements/siprint.h \
     ui_elements/timedtickbox.h \
-    ui_elements/voltagespinbox.h
+    ui_elements/voltagespinbox.h \
+    ui_elements/swipeystack.h

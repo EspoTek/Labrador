@@ -81,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso->driver, SIGNAL(upTick()), ui->controller_iso, SLOT(timerTick()));
         connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
         connect(ui->controller_iso->driver, SIGNAL(connectedStatus(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
+        connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete(void)), ui->deviceConnected, SLOT(resetUsbState(bool)));
     #endif
     #ifdef PLATFORM_ANDROID
         //Reconnect the other objects.
@@ -1096,10 +1097,12 @@ void MainWindow::reinitUsb(void){
     connect(ui->controller_iso->driver, SIGNAL(upTick()), ui->controller_iso, SLOT(timerTick()));
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
     connect(ui->controller_iso->driver, SIGNAL(connectedStatus(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
-
-    //Setup all necessary state data;
-    //ui->controller_iso->driver->setDeviceMode(deviceMode);
     ui->controller_iso->driver->setGain(scopeGain);
+
+}
+
+void MainWindow::resetUsbState(void){
+    //ui->controller_iso->driver->setDeviceMode(deviceMode);
     //ui->controller_iso->driver->setPsu(currentPsuVoltage);
     ui->psuSlider->poke();
     //ui->controller_iso->driver->newDig(digitalPinState);
@@ -1110,4 +1113,3 @@ void MainWindow::reinitUsb(void){
     ui->controller_iso->clearBuffers(1,1,1);
     ui->controller_iso->doNotTouchGraph = false;
 }
-

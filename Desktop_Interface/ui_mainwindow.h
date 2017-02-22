@@ -29,7 +29,6 @@
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -42,6 +41,7 @@
 #include <functiongencontrol.h>
 #include <isodriver.h>
 #include <noclosemenu.h>
+#include <swipeystack.h>
 #include <timedtickbox.h>
 #include "qcustomplot.h"
 
@@ -117,15 +117,12 @@ public:
     QAction *actionEnter_Manually;
     QAction *actionTake_Snapshot;
     QWidget *centralWidget;
-    QHBoxLayout *horizontalLayout;
-    QVBoxLayout *verticalLayout;
-    QCustomPlot *scopeAxes;
-    QTextEdit *debugConsole;
-    QSlider *timeBaseSlider;
-    QPlainTextEdit *console1;
-    QPlainTextEdit *console2;
     QVBoxLayout *verticalLayout_5;
     deviceConnectedDisplay *deviceConnected;
+    QCustomPlot *scopeAxes;
+    swipeyStack *stackedWidget;
+    QWidget *page;
+    QHBoxLayout *horizontalLayout;
     QHBoxLayout *horizontalLayout_13;
     QVBoxLayout *verticalLayout_9;
     QGroupBox *scopeGroup_CH1;
@@ -169,27 +166,8 @@ public:
     QComboBox *triggerChannelSelect;
     QDoubleSpinBox *triggerLevelValue;
     QCheckBox *singleShotCheckBox;
-    QSpacerItem *verticalSpacer_3;
-    QLabel *cursorStatsLabel;
-    QGroupBox *multimeterGroup;
-    QGridLayout *gridLayout;
-    QComboBox *multimeterModeSelect;
-    QFormLayout *formLayout;
-    QLabel *multimeterMaxLabel;
-    QLabel *multimeterMinLabel;
-    QLCDNumber *multimeterMinDisplay;
-    QLabel *multimeterMeanLabel;
-    QLCDNumber *multimeterMeanDisplay;
-    QLabel *multimeterRmsLabel;
-    QLCDNumber *multimeterRmsDisplay;
-    QLCDNumber *multimeterMaxDisplay;
-    QCheckBox *multimeterPauseCheckBox;
-    QLabel *multimeterResistanceLabel;
-    QLabel *multimeterModeLabel;
-    espoSpinBox *multimeterResistanceSelect;
-    QSpacerItem *verticalSpacer_2;
-    functionGenControl *controller_fg;
-    QHBoxLayout *horizontalLayout_5;
+    QWidget *page_2;
+    QHBoxLayout *horizontalLayout_2;
     QGroupBox *signalGenGroup_CH1;
     QVBoxLayout *verticalLayout_19;
     QLabel *waveformLabel_CH1;
@@ -210,16 +188,51 @@ public:
     espoSpinBox *amplitudeValue_CH2;
     QLabel *dcOffsetLabel_CH2;
     espoSpinBox *dcOffsetValue_CH2;
-    QHBoxLayout *horizontalLayout_7;
-    QSpacerItem *verticalSpacer_4;
-    isoDriver *controller_iso;
-    QVBoxLayout *verticalLayout_18;
+    QWidget *page_3;
+    QHBoxLayout *horizontalLayout_3;
+    QGroupBox *multimeterGroup;
+    QGridLayout *gridLayout;
+    QComboBox *multimeterModeSelect;
+    QFormLayout *formLayout;
+    QLabel *multimeterMaxLabel;
+    QLabel *multimeterMinLabel;
+    QLCDNumber *multimeterMinDisplay;
+    QLabel *multimeterMeanLabel;
+    QLCDNumber *multimeterMeanDisplay;
+    QLabel *multimeterRmsLabel;
+    QLCDNumber *multimeterRmsDisplay;
+    QLCDNumber *multimeterMaxDisplay;
+    QCheckBox *multimeterPauseCheckBox;
+    QLabel *multimeterResistanceLabel;
+    QLabel *multimeterModeLabel;
+    espoSpinBox *multimeterResistanceSelect;
+    QWidget *page_5;
+    QHBoxLayout *horizontalLayout_8;
     QGroupBox *psuGroup;
     QVBoxLayout *verticalLayout_15;
     espoSlider *psuSlider;
     timedTickBox *lockPsuCheckBox;
     QLCDNumber *psuDisplay;
+    QVBoxLayout *verticalLayout_4;
+    functionGenControl *controller_fg;
+    bufferControl *bufferDisplay;
+    QLabel *cursorStatsLabel;
+    QPushButton *debugButton1;
+    QSlider *timeBaseSlider;
+    QPushButton *debugButton2;
+    QTextEdit *debugConsole;
+    isoDriver *controller_iso;
+    QWidget *page_4;
     QVBoxLayout *verticalLayout_3;
+    QPlainTextEdit *console1;
+    QPlainTextEdit *console2;
+    QHBoxLayout *horizontalLayout_6;
+    QGroupBox *digitalOutputGroup;
+    QGridLayout *gridLayout_4;
+    QCheckBox *digitalOutCheckbox_CH3;
+    QCheckBox *digitalOutCheckbox_CH2;
+    QCheckBox *digitalOutCheckbox_CH1;
+    QCheckBox *digitalOutCheckbox_CH4;
     QGroupBox *busSifferGroup_CH1;
     QVBoxLayout *verticalLayout_7;
     QCheckBox *pause_LA;
@@ -231,15 +244,6 @@ public:
     QGroupBox *serialDecodingCheck_CH2;
     QVBoxLayout *verticalLayout_17;
     QComboBox *serialDecodingModeSelect_CH2;
-    QGroupBox *digitalOutputGroup;
-    QGridLayout *gridLayout_4;
-    QCheckBox *digitalOutCheckbox_CH3;
-    QCheckBox *digitalOutCheckbox_CH2;
-    QCheckBox *digitalOutCheckbox_CH1;
-    QCheckBox *digitalOutCheckbox_CH4;
-    QPushButton *debugButton1;
-    QPushButton *debugButton2;
-    bufferControl *bufferDisplay;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuOscilloscope_2;
@@ -268,8 +272,8 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setEnabled(true);
-        MainWindow->resize(1136, 768);
-        MainWindow->setMinimumSize(QSize(1024, 768));
+        MainWindow->resize(720, 1280);
+        MainWindow->setMinimumSize(QSize(480, 720));
         actionGainAuto = new QAction(MainWindow);
         actionGainAuto->setObjectName(QStringLiteral("actionGainAuto"));
         actionGainAuto->setCheckable(true);
@@ -476,14 +480,16 @@ public:
         actionTake_Snapshot->setObjectName(QStringLiteral("actionTake_Snapshot"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        horizontalLayout = new QHBoxLayout(centralWidget);
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(6);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setSizeConstraint(QLayout::SetMinAndMaxSize);
+        verticalLayout_5 = new QVBoxLayout(centralWidget);
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
+        deviceConnected = new deviceConnectedDisplay(centralWidget);
+        deviceConnected->setObjectName(QStringLiteral("deviceConnected"));
+        deviceConnected->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_5->addWidget(deviceConnected);
+
         scopeAxes = new QCustomPlot(centralWidget);
         scopeAxes->setObjectName(QStringLiteral("scopeAxes"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -494,62 +500,23 @@ public:
         scopeAxes->setMinimumSize(QSize(500, 400));
         scopeAxes->setLayoutDirection(Qt::LeftToRight);
 
-        verticalLayout->addWidget(scopeAxes);
+        verticalLayout_5->addWidget(scopeAxes);
 
-        debugConsole = new QTextEdit(centralWidget);
-        debugConsole->setObjectName(QStringLiteral("debugConsole"));
-
-        verticalLayout->addWidget(debugConsole);
-
-        timeBaseSlider = new QSlider(centralWidget);
-        timeBaseSlider->setObjectName(QStringLiteral("timeBaseSlider"));
-        timeBaseSlider->setMinimum(-60);
-        timeBaseSlider->setMaximum(10);
-        timeBaseSlider->setPageStep(10);
-        timeBaseSlider->setValue(-20);
-        timeBaseSlider->setSliderPosition(-20);
-        timeBaseSlider->setTracking(true);
-        timeBaseSlider->setOrientation(Qt::Horizontal);
-        timeBaseSlider->setTickPosition(QSlider::TicksBelow);
-        timeBaseSlider->setTickInterval(10);
-
-        verticalLayout->addWidget(timeBaseSlider);
-
-        console1 = new QPlainTextEdit(centralWidget);
-        console1->setObjectName(QStringLiteral("console1"));
-        console1->setEnabled(true);
-        console1->setMinimumSize(QSize(0, 0));
-        console1->setMaximumSize(QSize(16777215, 48));
-        console1->setReadOnly(true);
-
-        verticalLayout->addWidget(console1);
-
-        console2 = new QPlainTextEdit(centralWidget);
-        console2->setObjectName(QStringLiteral("console2"));
-        console2->setMaximumSize(QSize(16777215, 48));
-        console2->setReadOnly(true);
-
-        verticalLayout->addWidget(console2);
-
-
-        horizontalLayout->addLayout(verticalLayout);
-
-        verticalLayout_5 = new QVBoxLayout();
-        verticalLayout_5->setSpacing(6);
-        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        deviceConnected = new deviceConnectedDisplay(centralWidget);
-        deviceConnected->setObjectName(QStringLiteral("deviceConnected"));
-        deviceConnected->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_5->addWidget(deviceConnected);
-
+        stackedWidget = new swipeyStack(centralWidget);
+        stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
+        page = new QWidget();
+        page->setObjectName(QStringLiteral("page"));
+        horizontalLayout = new QHBoxLayout(page);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout_13 = new QHBoxLayout();
         horizontalLayout_13->setSpacing(6);
         horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
         verticalLayout_9 = new QVBoxLayout();
         verticalLayout_9->setSpacing(6);
         verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
-        scopeGroup_CH1 = new QGroupBox(centralWidget);
+        scopeGroup_CH1 = new QGroupBox(page);
         scopeGroup_CH1->setObjectName(QStringLiteral("scopeGroup_CH1"));
         scopeGroup_CH1->setFlat(false);
         scopeGroup_CH1->setCheckable(true);
@@ -639,7 +606,7 @@ public:
 
         verticalLayout_9->addWidget(scopeGroup_CH1);
 
-        cursorGroup = new QGroupBox(centralWidget);
+        cursorGroup = new QGroupBox(page);
         cursorGroup->setObjectName(QStringLiteral("cursorGroup"));
         cursorGroup->setEnabled(true);
         cursorGroup->setCheckable(false);
@@ -672,7 +639,7 @@ public:
         verticalLayout_10 = new QVBoxLayout();
         verticalLayout_10->setSpacing(6);
         verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
-        scopeGroup_CH2 = new QGroupBox(centralWidget);
+        scopeGroup_CH2 = new QGroupBox(page);
         scopeGroup_CH2->setObjectName(QStringLiteral("scopeGroup_CH2"));
         scopeGroup_CH2->setEnabled(true);
         scopeGroup_CH2->setFlat(false);
@@ -759,7 +726,7 @@ public:
 
         verticalLayout_10->addWidget(scopeGroup_CH2);
 
-        triggerGroup = new QGroupBox(centralWidget);
+        triggerGroup = new QGroupBox(page);
         triggerGroup->setObjectName(QStringLiteral("triggerGroup"));
         triggerGroup->setEnabled(true);
         triggerGroup->setCheckable(true);
@@ -793,20 +760,154 @@ public:
         horizontalLayout_13->addLayout(verticalLayout_10);
 
 
-        verticalLayout_5->addLayout(horizontalLayout_13);
+        horizontalLayout->addLayout(horizontalLayout_13);
 
-        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        stackedWidget->addWidget(page);
+        page_2 = new QWidget();
+        page_2->setObjectName(QStringLiteral("page_2"));
+        horizontalLayout_2 = new QHBoxLayout(page_2);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        signalGenGroup_CH1 = new QGroupBox(page_2);
+        signalGenGroup_CH1->setObjectName(QStringLiteral("signalGenGroup_CH1"));
+        signalGenGroup_CH1->setEnabled(true);
+        signalGenGroup_CH1->setCheckable(false);
+        signalGenGroup_CH1->setChecked(false);
+        verticalLayout_19 = new QVBoxLayout(signalGenGroup_CH1);
+        verticalLayout_19->setSpacing(6);
+        verticalLayout_19->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_19->setObjectName(QStringLiteral("verticalLayout_19"));
+        waveformLabel_CH1 = new QLabel(signalGenGroup_CH1);
+        waveformLabel_CH1->setObjectName(QStringLiteral("waveformLabel_CH1"));
 
-        verticalLayout_5->addItem(verticalSpacer_3);
+        verticalLayout_19->addWidget(waveformLabel_CH1);
 
-        cursorStatsLabel = new QLabel(centralWidget);
-        cursorStatsLabel->setObjectName(QStringLiteral("cursorStatsLabel"));
-        cursorStatsLabel->setMaximumSize(QSize(16777215, 48));
-        cursorStatsLabel->setAlignment(Qt::AlignCenter);
+        waveformSelect_CH1 = new espoComboBox(signalGenGroup_CH1);
+        waveformSelect_CH1->setObjectName(QStringLiteral("waveformSelect_CH1"));
 
-        verticalLayout_5->addWidget(cursorStatsLabel);
+        verticalLayout_19->addWidget(waveformSelect_CH1);
 
-        multimeterGroup = new QGroupBox(centralWidget);
+        frequencyLabel_CH1 = new QLabel(signalGenGroup_CH1);
+        frequencyLabel_CH1->setObjectName(QStringLiteral("frequencyLabel_CH1"));
+
+        verticalLayout_19->addWidget(frequencyLabel_CH1);
+
+        frequencyValue_CH1 = new espoSpinBox(signalGenGroup_CH1);
+        frequencyValue_CH1->setObjectName(QStringLiteral("frequencyValue_CH1"));
+        frequencyValue_CH1->setSuffix(QStringLiteral("Hz"));
+        frequencyValue_CH1->setDecimals(2);
+        frequencyValue_CH1->setMinimum(0);
+        frequencyValue_CH1->setMaximum(1e+6);
+        frequencyValue_CH1->setSingleStep(100);
+        frequencyValue_CH1->setValue(1000);
+
+        verticalLayout_19->addWidget(frequencyValue_CH1);
+
+        amplitudeLabel_CH1 = new QLabel(signalGenGroup_CH1);
+        amplitudeLabel_CH1->setObjectName(QStringLiteral("amplitudeLabel_CH1"));
+
+        verticalLayout_19->addWidget(amplitudeLabel_CH1);
+
+        amplitudeValue_CH1 = new espoSpinBox(signalGenGroup_CH1);
+        amplitudeValue_CH1->setObjectName(QStringLiteral("amplitudeValue_CH1"));
+        amplitudeValue_CH1->setMaximum(9.6);
+        amplitudeValue_CH1->setSingleStep(0.1);
+
+        verticalLayout_19->addWidget(amplitudeValue_CH1);
+
+        dcOffsetLabel_CH1 = new QLabel(signalGenGroup_CH1);
+        dcOffsetLabel_CH1->setObjectName(QStringLiteral("dcOffsetLabel_CH1"));
+
+        verticalLayout_19->addWidget(dcOffsetLabel_CH1);
+
+        dcOffsetValue_CH1 = new espoSpinBox(signalGenGroup_CH1);
+        dcOffsetValue_CH1->setObjectName(QStringLiteral("dcOffsetValue_CH1"));
+        dcOffsetValue_CH1->setMaximum(9.6);
+        dcOffsetValue_CH1->setSingleStep(0.1);
+
+        verticalLayout_19->addWidget(dcOffsetValue_CH1);
+
+
+        horizontalLayout_2->addWidget(signalGenGroup_CH1);
+
+        signalGenGroup_CH2 = new QGroupBox(page_2);
+        signalGenGroup_CH2->setObjectName(QStringLiteral("signalGenGroup_CH2"));
+        signalGenGroup_CH2->setEnabled(true);
+        signalGenGroup_CH2->setCheckable(false);
+        signalGenGroup_CH2->setChecked(false);
+        verticalLayout_21 = new QVBoxLayout(signalGenGroup_CH2);
+        verticalLayout_21->setSpacing(6);
+        verticalLayout_21->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_21->setObjectName(QStringLiteral("verticalLayout_21"));
+        waveformLabel_CH2 = new QLabel(signalGenGroup_CH2);
+        waveformLabel_CH2->setObjectName(QStringLiteral("waveformLabel_CH2"));
+        waveformLabel_CH2->setEnabled(true);
+
+        verticalLayout_21->addWidget(waveformLabel_CH2);
+
+        waveformSelect_CH2 = new espoComboBox(signalGenGroup_CH2);
+        waveformSelect_CH2->setObjectName(QStringLiteral("waveformSelect_CH2"));
+        waveformSelect_CH2->setEnabled(true);
+
+        verticalLayout_21->addWidget(waveformSelect_CH2);
+
+        frequencyLabel_CH2 = new QLabel(signalGenGroup_CH2);
+        frequencyLabel_CH2->setObjectName(QStringLiteral("frequencyLabel_CH2"));
+        frequencyLabel_CH2->setEnabled(true);
+
+        verticalLayout_21->addWidget(frequencyLabel_CH2);
+
+        frequencyValue_CH2 = new espoSpinBox(signalGenGroup_CH2);
+        frequencyValue_CH2->setObjectName(QStringLiteral("frequencyValue_CH2"));
+        frequencyValue_CH2->setEnabled(true);
+        frequencyValue_CH2->setSuffix(QStringLiteral("Hz"));
+        frequencyValue_CH2->setDecimals(2);
+        frequencyValue_CH2->setMaximum(1e+6);
+        frequencyValue_CH2->setSingleStep(100);
+        frequencyValue_CH2->setValue(1000);
+
+        verticalLayout_21->addWidget(frequencyValue_CH2);
+
+        amplitudeLabel_CH2 = new QLabel(signalGenGroup_CH2);
+        amplitudeLabel_CH2->setObjectName(QStringLiteral("amplitudeLabel_CH2"));
+        amplitudeLabel_CH2->setEnabled(true);
+
+        verticalLayout_21->addWidget(amplitudeLabel_CH2);
+
+        amplitudeValue_CH2 = new espoSpinBox(signalGenGroup_CH2);
+        amplitudeValue_CH2->setObjectName(QStringLiteral("amplitudeValue_CH2"));
+        amplitudeValue_CH2->setEnabled(true);
+        amplitudeValue_CH2->setMaximum(10);
+        amplitudeValue_CH2->setSingleStep(0.1);
+
+        verticalLayout_21->addWidget(amplitudeValue_CH2);
+
+        dcOffsetLabel_CH2 = new QLabel(signalGenGroup_CH2);
+        dcOffsetLabel_CH2->setObjectName(QStringLiteral("dcOffsetLabel_CH2"));
+        dcOffsetLabel_CH2->setEnabled(true);
+
+        verticalLayout_21->addWidget(dcOffsetLabel_CH2);
+
+        dcOffsetValue_CH2 = new espoSpinBox(signalGenGroup_CH2);
+        dcOffsetValue_CH2->setObjectName(QStringLiteral("dcOffsetValue_CH2"));
+        dcOffsetValue_CH2->setEnabled(true);
+        dcOffsetValue_CH2->setMaximum(10);
+        dcOffsetValue_CH2->setSingleStep(0.1);
+
+        verticalLayout_21->addWidget(dcOffsetValue_CH2);
+
+
+        horizontalLayout_2->addWidget(signalGenGroup_CH2);
+
+        stackedWidget->addWidget(page_2);
+        page_3 = new QWidget();
+        page_3->setObjectName(QStringLiteral("page_3"));
+        horizontalLayout_3 = new QHBoxLayout(page_3);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        multimeterGroup = new QGroupBox(page_3);
         multimeterGroup->setObjectName(QStringLiteral("multimeterGroup"));
         multimeterGroup->setEnabled(false);
         multimeterGroup->setCheckable(true);
@@ -903,176 +1004,16 @@ public:
         gridLayout->addWidget(multimeterResistanceSelect, 3, 0, 1, 1);
 
 
-        verticalLayout_5->addWidget(multimeterGroup);
+        horizontalLayout_3->addWidget(multimeterGroup);
 
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_5->addItem(verticalSpacer_2);
-
-        controller_fg = new functionGenControl(centralWidget);
-        controller_fg->setObjectName(QStringLiteral("controller_fg"));
-
-        verticalLayout_5->addWidget(controller_fg);
-
-        horizontalLayout_5 = new QHBoxLayout();
-        horizontalLayout_5->setSpacing(6);
-        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        signalGenGroup_CH1 = new QGroupBox(centralWidget);
-        signalGenGroup_CH1->setObjectName(QStringLiteral("signalGenGroup_CH1"));
-        signalGenGroup_CH1->setEnabled(true);
-        signalGenGroup_CH1->setCheckable(false);
-        signalGenGroup_CH1->setChecked(false);
-        verticalLayout_19 = new QVBoxLayout(signalGenGroup_CH1);
-        verticalLayout_19->setSpacing(6);
-        verticalLayout_19->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_19->setObjectName(QStringLiteral("verticalLayout_19"));
-        waveformLabel_CH1 = new QLabel(signalGenGroup_CH1);
-        waveformLabel_CH1->setObjectName(QStringLiteral("waveformLabel_CH1"));
-
-        verticalLayout_19->addWidget(waveformLabel_CH1);
-
-        waveformSelect_CH1 = new espoComboBox(signalGenGroup_CH1);
-        waveformSelect_CH1->setObjectName(QStringLiteral("waveformSelect_CH1"));
-
-        verticalLayout_19->addWidget(waveformSelect_CH1);
-
-        frequencyLabel_CH1 = new QLabel(signalGenGroup_CH1);
-        frequencyLabel_CH1->setObjectName(QStringLiteral("frequencyLabel_CH1"));
-
-        verticalLayout_19->addWidget(frequencyLabel_CH1);
-
-        frequencyValue_CH1 = new espoSpinBox(signalGenGroup_CH1);
-        frequencyValue_CH1->setObjectName(QStringLiteral("frequencyValue_CH1"));
-        frequencyValue_CH1->setSuffix(QStringLiteral("Hz"));
-        frequencyValue_CH1->setDecimals(2);
-        frequencyValue_CH1->setMinimum(0);
-        frequencyValue_CH1->setMaximum(1e+6);
-        frequencyValue_CH1->setSingleStep(100);
-        frequencyValue_CH1->setValue(1000);
-
-        verticalLayout_19->addWidget(frequencyValue_CH1);
-
-        amplitudeLabel_CH1 = new QLabel(signalGenGroup_CH1);
-        amplitudeLabel_CH1->setObjectName(QStringLiteral("amplitudeLabel_CH1"));
-
-        verticalLayout_19->addWidget(amplitudeLabel_CH1);
-
-        amplitudeValue_CH1 = new espoSpinBox(signalGenGroup_CH1);
-        amplitudeValue_CH1->setObjectName(QStringLiteral("amplitudeValue_CH1"));
-        amplitudeValue_CH1->setMaximum(9.6);
-        amplitudeValue_CH1->setSingleStep(0.1);
-
-        verticalLayout_19->addWidget(amplitudeValue_CH1);
-
-        dcOffsetLabel_CH1 = new QLabel(signalGenGroup_CH1);
-        dcOffsetLabel_CH1->setObjectName(QStringLiteral("dcOffsetLabel_CH1"));
-
-        verticalLayout_19->addWidget(dcOffsetLabel_CH1);
-
-        dcOffsetValue_CH1 = new espoSpinBox(signalGenGroup_CH1);
-        dcOffsetValue_CH1->setObjectName(QStringLiteral("dcOffsetValue_CH1"));
-        dcOffsetValue_CH1->setMaximum(9.6);
-        dcOffsetValue_CH1->setSingleStep(0.1);
-
-        verticalLayout_19->addWidget(dcOffsetValue_CH1);
-
-
-        horizontalLayout_5->addWidget(signalGenGroup_CH1);
-
-        signalGenGroup_CH2 = new QGroupBox(centralWidget);
-        signalGenGroup_CH2->setObjectName(QStringLiteral("signalGenGroup_CH2"));
-        signalGenGroup_CH2->setEnabled(true);
-        signalGenGroup_CH2->setCheckable(false);
-        signalGenGroup_CH2->setChecked(false);
-        verticalLayout_21 = new QVBoxLayout(signalGenGroup_CH2);
-        verticalLayout_21->setSpacing(6);
-        verticalLayout_21->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_21->setObjectName(QStringLiteral("verticalLayout_21"));
-        waveformLabel_CH2 = new QLabel(signalGenGroup_CH2);
-        waveformLabel_CH2->setObjectName(QStringLiteral("waveformLabel_CH2"));
-        waveformLabel_CH2->setEnabled(true);
-
-        verticalLayout_21->addWidget(waveformLabel_CH2);
-
-        waveformSelect_CH2 = new espoComboBox(signalGenGroup_CH2);
-        waveformSelect_CH2->setObjectName(QStringLiteral("waveformSelect_CH2"));
-        waveformSelect_CH2->setEnabled(true);
-
-        verticalLayout_21->addWidget(waveformSelect_CH2);
-
-        frequencyLabel_CH2 = new QLabel(signalGenGroup_CH2);
-        frequencyLabel_CH2->setObjectName(QStringLiteral("frequencyLabel_CH2"));
-        frequencyLabel_CH2->setEnabled(true);
-
-        verticalLayout_21->addWidget(frequencyLabel_CH2);
-
-        frequencyValue_CH2 = new espoSpinBox(signalGenGroup_CH2);
-        frequencyValue_CH2->setObjectName(QStringLiteral("frequencyValue_CH2"));
-        frequencyValue_CH2->setEnabled(true);
-        frequencyValue_CH2->setSuffix(QStringLiteral("Hz"));
-        frequencyValue_CH2->setDecimals(2);
-        frequencyValue_CH2->setMaximum(1e+6);
-        frequencyValue_CH2->setSingleStep(100);
-        frequencyValue_CH2->setValue(1000);
-
-        verticalLayout_21->addWidget(frequencyValue_CH2);
-
-        amplitudeLabel_CH2 = new QLabel(signalGenGroup_CH2);
-        amplitudeLabel_CH2->setObjectName(QStringLiteral("amplitudeLabel_CH2"));
-        amplitudeLabel_CH2->setEnabled(true);
-
-        verticalLayout_21->addWidget(amplitudeLabel_CH2);
-
-        amplitudeValue_CH2 = new espoSpinBox(signalGenGroup_CH2);
-        amplitudeValue_CH2->setObjectName(QStringLiteral("amplitudeValue_CH2"));
-        amplitudeValue_CH2->setEnabled(true);
-        amplitudeValue_CH2->setMaximum(10);
-        amplitudeValue_CH2->setSingleStep(0.1);
-
-        verticalLayout_21->addWidget(amplitudeValue_CH2);
-
-        dcOffsetLabel_CH2 = new QLabel(signalGenGroup_CH2);
-        dcOffsetLabel_CH2->setObjectName(QStringLiteral("dcOffsetLabel_CH2"));
-        dcOffsetLabel_CH2->setEnabled(true);
-
-        verticalLayout_21->addWidget(dcOffsetLabel_CH2);
-
-        dcOffsetValue_CH2 = new espoSpinBox(signalGenGroup_CH2);
-        dcOffsetValue_CH2->setObjectName(QStringLiteral("dcOffsetValue_CH2"));
-        dcOffsetValue_CH2->setEnabled(true);
-        dcOffsetValue_CH2->setMaximum(10);
-        dcOffsetValue_CH2->setSingleStep(0.1);
-
-        verticalLayout_21->addWidget(dcOffsetValue_CH2);
-
-
-        horizontalLayout_5->addWidget(signalGenGroup_CH2);
-
-
-        verticalLayout_5->addLayout(horizontalLayout_5);
-
-        horizontalLayout_7 = new QHBoxLayout();
-        horizontalLayout_7->setSpacing(6);
-        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-
-        verticalLayout_5->addLayout(horizontalLayout_7);
-
-        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_5->addItem(verticalSpacer_4);
-
-        controller_iso = new isoDriver(centralWidget);
-        controller_iso->setObjectName(QStringLiteral("controller_iso"));
-
-        verticalLayout_5->addWidget(controller_iso);
-
-
-        horizontalLayout->addLayout(verticalLayout_5);
-
-        verticalLayout_18 = new QVBoxLayout();
-        verticalLayout_18->setSpacing(6);
-        verticalLayout_18->setObjectName(QStringLiteral("verticalLayout_18"));
-        psuGroup = new QGroupBox(centralWidget);
+        stackedWidget->addWidget(page_3);
+        page_5 = new QWidget();
+        page_5->setObjectName(QStringLiteral("page_5"));
+        horizontalLayout_8 = new QHBoxLayout(page_5);
+        horizontalLayout_8->setSpacing(6);
+        horizontalLayout_8->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        psuGroup = new QGroupBox(page_5);
         psuGroup->setObjectName(QStringLiteral("psuGroup"));
         psuGroup->setAutoFillBackground(false);
         verticalLayout_15 = new QVBoxLayout(psuGroup);
@@ -1109,12 +1050,128 @@ public:
         verticalLayout_15->addWidget(psuDisplay);
 
 
-        verticalLayout_18->addWidget(psuGroup);
+        horizontalLayout_8->addWidget(psuGroup);
 
-        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
+        controller_fg = new functionGenControl(page_5);
+        controller_fg->setObjectName(QStringLiteral("controller_fg"));
+
+        verticalLayout_4->addWidget(controller_fg);
+
+        bufferDisplay = new bufferControl(page_5);
+        bufferDisplay->setObjectName(QStringLiteral("bufferDisplay"));
+        bufferDisplay->setMinimumSize(QSize(96, 36));
+        bufferDisplay->setMaximumSize(QSize(96, 36));
+        bufferDisplay->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_4->addWidget(bufferDisplay);
+
+        cursorStatsLabel = new QLabel(page_5);
+        cursorStatsLabel->setObjectName(QStringLiteral("cursorStatsLabel"));
+        cursorStatsLabel->setMaximumSize(QSize(16777215, 48));
+        cursorStatsLabel->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_4->addWidget(cursorStatsLabel);
+
+        debugButton1 = new QPushButton(page_5);
+        debugButton1->setObjectName(QStringLiteral("debugButton1"));
+
+        verticalLayout_4->addWidget(debugButton1);
+
+        timeBaseSlider = new QSlider(page_5);
+        timeBaseSlider->setObjectName(QStringLiteral("timeBaseSlider"));
+        timeBaseSlider->setMinimum(-60);
+        timeBaseSlider->setMaximum(10);
+        timeBaseSlider->setPageStep(10);
+        timeBaseSlider->setValue(-20);
+        timeBaseSlider->setSliderPosition(-20);
+        timeBaseSlider->setTracking(true);
+        timeBaseSlider->setOrientation(Qt::Horizontal);
+        timeBaseSlider->setTickPosition(QSlider::TicksBelow);
+        timeBaseSlider->setTickInterval(10);
+
+        verticalLayout_4->addWidget(timeBaseSlider);
+
+        debugButton2 = new QPushButton(page_5);
+        debugButton2->setObjectName(QStringLiteral("debugButton2"));
+
+        verticalLayout_4->addWidget(debugButton2);
+
+        debugConsole = new QTextEdit(page_5);
+        debugConsole->setObjectName(QStringLiteral("debugConsole"));
+
+        verticalLayout_4->addWidget(debugConsole);
+
+        controller_iso = new isoDriver(page_5);
+        controller_iso->setObjectName(QStringLiteral("controller_iso"));
+
+        verticalLayout_4->addWidget(controller_iso);
+
+
+        horizontalLayout_8->addLayout(verticalLayout_4);
+
+        stackedWidget->addWidget(page_5);
+        page_4 = new QWidget();
+        page_4->setObjectName(QStringLiteral("page_4"));
+        verticalLayout_3 = new QVBoxLayout(page_4);
         verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        busSifferGroup_CH1 = new QGroupBox(centralWidget);
+        console1 = new QPlainTextEdit(page_4);
+        console1->setObjectName(QStringLiteral("console1"));
+        console1->setEnabled(true);
+        console1->setMinimumSize(QSize(0, 0));
+        console1->setMaximumSize(QSize(16777215, 48));
+        console1->setReadOnly(true);
+
+        verticalLayout_3->addWidget(console1);
+
+        console2 = new QPlainTextEdit(page_4);
+        console2->setObjectName(QStringLiteral("console2"));
+        console2->setMaximumSize(QSize(16777215, 48));
+        console2->setReadOnly(true);
+
+        verticalLayout_3->addWidget(console2);
+
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        digitalOutputGroup = new QGroupBox(page_4);
+        digitalOutputGroup->setObjectName(QStringLiteral("digitalOutputGroup"));
+        gridLayout_4 = new QGridLayout(digitalOutputGroup);
+        gridLayout_4->setSpacing(6);
+        gridLayout_4->setContentsMargins(11, 11, 11, 11);
+        gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
+        digitalOutCheckbox_CH3 = new QCheckBox(digitalOutputGroup);
+        digitalOutCheckbox_CH3->setObjectName(QStringLiteral("digitalOutCheckbox_CH3"));
+
+        gridLayout_4->addWidget(digitalOutCheckbox_CH3, 1, 0, 1, 1);
+
+        digitalOutCheckbox_CH2 = new QCheckBox(digitalOutputGroup);
+        digitalOutCheckbox_CH2->setObjectName(QStringLiteral("digitalOutCheckbox_CH2"));
+
+        gridLayout_4->addWidget(digitalOutCheckbox_CH2, 0, 1, 1, 1);
+
+        digitalOutCheckbox_CH1 = new QCheckBox(digitalOutputGroup);
+        digitalOutCheckbox_CH1->setObjectName(QStringLiteral("digitalOutCheckbox_CH1"));
+
+        gridLayout_4->addWidget(digitalOutCheckbox_CH1, 0, 0, 1, 1);
+
+        digitalOutCheckbox_CH4 = new QCheckBox(digitalOutputGroup);
+        digitalOutCheckbox_CH4->setObjectName(QStringLiteral("digitalOutCheckbox_CH4"));
+
+        gridLayout_4->addWidget(digitalOutCheckbox_CH4, 1, 1, 1, 1);
+
+        digitalOutCheckbox_CH2->raise();
+        digitalOutCheckbox_CH1->raise();
+        digitalOutCheckbox_CH3->raise();
+        digitalOutCheckbox_CH4->raise();
+
+        horizontalLayout_6->addWidget(digitalOutputGroup);
+
+        busSifferGroup_CH1 = new QGroupBox(page_4);
         busSifferGroup_CH1->setObjectName(QStringLiteral("busSifferGroup_CH1"));
         busSifferGroup_CH1->setCheckable(true);
         busSifferGroup_CH1->setChecked(false);
@@ -1147,9 +1204,9 @@ public:
         verticalLayout_7->addWidget(serialDecodingCheck_CH1);
 
 
-        verticalLayout_3->addWidget(busSifferGroup_CH1);
+        horizontalLayout_6->addWidget(busSifferGroup_CH1);
 
-        busSnifferGroup_CH2 = new QGroupBox(centralWidget);
+        busSnifferGroup_CH2 = new QGroupBox(page_4);
         busSnifferGroup_CH2->setObjectName(QStringLiteral("busSnifferGroup_CH2"));
         busSnifferGroup_CH2->setEnabled(false);
         busSnifferGroup_CH2->setCheckable(true);
@@ -1177,69 +1234,22 @@ public:
         verticalLayout_16->addWidget(serialDecodingCheck_CH2);
 
 
-        verticalLayout_3->addWidget(busSnifferGroup_CH2);
-
-        digitalOutputGroup = new QGroupBox(centralWidget);
-        digitalOutputGroup->setObjectName(QStringLiteral("digitalOutputGroup"));
-        gridLayout_4 = new QGridLayout(digitalOutputGroup);
-        gridLayout_4->setSpacing(6);
-        gridLayout_4->setContentsMargins(11, 11, 11, 11);
-        gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
-        digitalOutCheckbox_CH3 = new QCheckBox(digitalOutputGroup);
-        digitalOutCheckbox_CH3->setObjectName(QStringLiteral("digitalOutCheckbox_CH3"));
-
-        gridLayout_4->addWidget(digitalOutCheckbox_CH3, 1, 0, 1, 1);
-
-        digitalOutCheckbox_CH2 = new QCheckBox(digitalOutputGroup);
-        digitalOutCheckbox_CH2->setObjectName(QStringLiteral("digitalOutCheckbox_CH2"));
-
-        gridLayout_4->addWidget(digitalOutCheckbox_CH2, 0, 1, 1, 1);
-
-        digitalOutCheckbox_CH1 = new QCheckBox(digitalOutputGroup);
-        digitalOutCheckbox_CH1->setObjectName(QStringLiteral("digitalOutCheckbox_CH1"));
-
-        gridLayout_4->addWidget(digitalOutCheckbox_CH1, 0, 0, 1, 1);
-
-        digitalOutCheckbox_CH4 = new QCheckBox(digitalOutputGroup);
-        digitalOutCheckbox_CH4->setObjectName(QStringLiteral("digitalOutCheckbox_CH4"));
-
-        gridLayout_4->addWidget(digitalOutCheckbox_CH4, 1, 1, 1, 1);
-
-        digitalOutCheckbox_CH2->raise();
-        digitalOutCheckbox_CH1->raise();
-        digitalOutCheckbox_CH3->raise();
-        digitalOutCheckbox_CH4->raise();
-
-        verticalLayout_3->addWidget(digitalOutputGroup);
-
-        debugButton1 = new QPushButton(centralWidget);
-        debugButton1->setObjectName(QStringLiteral("debugButton1"));
-
-        verticalLayout_3->addWidget(debugButton1);
-
-        debugButton2 = new QPushButton(centralWidget);
-        debugButton2->setObjectName(QStringLiteral("debugButton2"));
-
-        verticalLayout_3->addWidget(debugButton2);
-
-        bufferDisplay = new bufferControl(centralWidget);
-        bufferDisplay->setObjectName(QStringLiteral("bufferDisplay"));
-        bufferDisplay->setMinimumSize(QSize(96, 36));
-        bufferDisplay->setMaximumSize(QSize(96, 36));
-        bufferDisplay->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_3->addWidget(bufferDisplay);
+        horizontalLayout_6->addWidget(busSnifferGroup_CH2);
 
 
-        verticalLayout_18->addLayout(verticalLayout_3);
+        verticalLayout_3->addLayout(horizontalLayout_6);
 
+        stackedWidget->addWidget(page_4);
 
-        horizontalLayout->addLayout(verticalLayout_18);
+        verticalLayout_5->addWidget(stackedWidget);
 
         MainWindow->setCentralWidget(centralWidget);
+        scopeAxes->raise();
+        deviceConnected->raise();
+        stackedWidget->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1136, 21));
+        menuBar->setGeometry(QRect(0, 0, 720, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuOscilloscope_2 = new QMenu(menuBar);
@@ -1476,6 +1486,9 @@ public:
         QObject::connect(frequencyValue_CH2, SIGNAL(valueChanged(double)), frequencyValue_CH2, SLOT(changeStepping(double)));
         QObject::connect(debugButton2, SIGNAL(clicked()), MainWindow, SLOT(reinitUsb()));
 
+        stackedWidget->setCurrentIndex(4);
+
+
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
@@ -1580,7 +1593,20 @@ public:
          << QApplication::translate("MainWindow", "CH2 (Falling)", Q_NULLPTR)
         );
         singleShotCheckBox->setText(QApplication::translate("MainWindow", "Single Shot", Q_NULLPTR));
-        cursorStatsLabel->setText(QApplication::translate("MainWindow", "cursorStatsLabel", Q_NULLPTR));
+        signalGenGroup_CH1->setTitle(QApplication::translate("MainWindow", "Signal Gen CH1", Q_NULLPTR));
+        waveformLabel_CH1->setText(QApplication::translate("MainWindow", "Waveform", Q_NULLPTR));
+        frequencyLabel_CH1->setText(QApplication::translate("MainWindow", "Frequency", Q_NULLPTR));
+        amplitudeLabel_CH1->setText(QApplication::translate("MainWindow", "Amplitude (Peak-Peak)", Q_NULLPTR));
+        amplitudeValue_CH1->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
+        dcOffsetLabel_CH1->setText(QApplication::translate("MainWindow", "Offset", Q_NULLPTR));
+        dcOffsetValue_CH1->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
+        signalGenGroup_CH2->setTitle(QApplication::translate("MainWindow", "Signal Gen CH2", Q_NULLPTR));
+        waveformLabel_CH2->setText(QApplication::translate("MainWindow", "Waveform", Q_NULLPTR));
+        frequencyLabel_CH2->setText(QApplication::translate("MainWindow", "Frequency", Q_NULLPTR));
+        amplitudeLabel_CH2->setText(QApplication::translate("MainWindow", "Amplitude (Peak-Peak)", Q_NULLPTR));
+        amplitudeValue_CH2->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
+        dcOffsetLabel_CH2->setText(QApplication::translate("MainWindow", "Offset", Q_NULLPTR));
+        dcOffsetValue_CH2->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
         multimeterGroup->setTitle(QApplication::translate("MainWindow", "Multimeter++", Q_NULLPTR));
         multimeterModeSelect->clear();
         multimeterModeSelect->insertItems(0, QStringList()
@@ -1597,24 +1623,19 @@ public:
         multimeterResistanceLabel->setText(QApplication::translate("MainWindow", "Series Resistance", Q_NULLPTR));
         multimeterModeLabel->setText(QApplication::translate("MainWindow", "Mode", Q_NULLPTR));
         multimeterResistanceSelect->setSuffix(QApplication::translate("MainWindow", "\316\251", Q_NULLPTR));
-        controller_fg->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER", Q_NULLPTR));
-        signalGenGroup_CH1->setTitle(QApplication::translate("MainWindow", "Signal Gen CH1", Q_NULLPTR));
-        waveformLabel_CH1->setText(QApplication::translate("MainWindow", "Waveform", Q_NULLPTR));
-        frequencyLabel_CH1->setText(QApplication::translate("MainWindow", "Frequency", Q_NULLPTR));
-        amplitudeLabel_CH1->setText(QApplication::translate("MainWindow", "Amplitude (Peak-Peak)", Q_NULLPTR));
-        amplitudeValue_CH1->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
-        dcOffsetLabel_CH1->setText(QApplication::translate("MainWindow", "Offset", Q_NULLPTR));
-        dcOffsetValue_CH1->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
-        signalGenGroup_CH2->setTitle(QApplication::translate("MainWindow", "Signal Gen CH2", Q_NULLPTR));
-        waveformLabel_CH2->setText(QApplication::translate("MainWindow", "Waveform", Q_NULLPTR));
-        frequencyLabel_CH2->setText(QApplication::translate("MainWindow", "Frequency", Q_NULLPTR));
-        amplitudeLabel_CH2->setText(QApplication::translate("MainWindow", "Amplitude (Peak-Peak)", Q_NULLPTR));
-        amplitudeValue_CH2->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
-        dcOffsetLabel_CH2->setText(QApplication::translate("MainWindow", "Offset", Q_NULLPTR));
-        dcOffsetValue_CH2->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
-        controller_iso->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS ISO DRIVER", Q_NULLPTR));
         psuGroup->setTitle(QApplication::translate("MainWindow", "PSU", Q_NULLPTR));
         lockPsuCheckBox->setText(QApplication::translate("MainWindow", "Lock PSU", Q_NULLPTR));
+        controller_fg->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER", Q_NULLPTR));
+        bufferDisplay->setText(QApplication::translate("MainWindow", "BUFFER IMAGE HERE", Q_NULLPTR));
+        cursorStatsLabel->setText(QApplication::translate("MainWindow", "cursorStatsLabel", Q_NULLPTR));
+        debugButton1->setText(QApplication::translate("MainWindow", "Debug!", Q_NULLPTR));
+        debugButton2->setText(QApplication::translate("MainWindow", "ReinitUsb()", Q_NULLPTR));
+        controller_iso->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS ISO DRIVER", Q_NULLPTR));
+        digitalOutputGroup->setTitle(QApplication::translate("MainWindow", "Digital Output", Q_NULLPTR));
+        digitalOutCheckbox_CH3->setText(QApplication::translate("MainWindow", "Pin 3", Q_NULLPTR));
+        digitalOutCheckbox_CH2->setText(QApplication::translate("MainWindow", "Pin 2", Q_NULLPTR));
+        digitalOutCheckbox_CH1->setText(QApplication::translate("MainWindow", "Pin 1", Q_NULLPTR));
+        digitalOutCheckbox_CH4->setText(QApplication::translate("MainWindow", "Pin 4", Q_NULLPTR));
         busSifferGroup_CH1->setTitle(QApplication::translate("MainWindow", "Logic Analyzer CH1", Q_NULLPTR));
         pause_LA->setText(QApplication::translate("MainWindow", "Pause", Q_NULLPTR));
         serialDecodingCheck_CH1->setTitle(QApplication::translate("MainWindow", "Serial Decoding", Q_NULLPTR));
@@ -1632,14 +1653,6 @@ public:
          << QApplication::translate("MainWindow", "SPI", Q_NULLPTR)
          << QApplication::translate("MainWindow", "I2C", Q_NULLPTR)
         );
-        digitalOutputGroup->setTitle(QApplication::translate("MainWindow", "Digital Output", Q_NULLPTR));
-        digitalOutCheckbox_CH3->setText(QApplication::translate("MainWindow", "Pin 3", Q_NULLPTR));
-        digitalOutCheckbox_CH2->setText(QApplication::translate("MainWindow", "Pin 2", Q_NULLPTR));
-        digitalOutCheckbox_CH1->setText(QApplication::translate("MainWindow", "Pin 1", Q_NULLPTR));
-        digitalOutCheckbox_CH4->setText(QApplication::translate("MainWindow", "Pin 4", Q_NULLPTR));
-        debugButton1->setText(QApplication::translate("MainWindow", "Debug!", Q_NULLPTR));
-        debugButton2->setText(QApplication::translate("MainWindow", "ReinitUsb()", Q_NULLPTR));
-        bufferDisplay->setText(QApplication::translate("MainWindow", "BUFFER IMAGE HERE", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuOscilloscope_2->setTitle(QApplication::translate("MainWindow", "Oscilloscope", Q_NULLPTR));
         menuGain_2->setTitle(QApplication::translate("MainWindow", "Gain", Q_NULLPTR));

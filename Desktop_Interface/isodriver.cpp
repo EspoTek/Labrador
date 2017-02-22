@@ -1,5 +1,6 @@
 #include "isodriver.h"
 #include "isobuffer.h"
+#include "platformspecific.h"
 
 isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 {
@@ -47,14 +48,14 @@ void isoDriver::setWindow(int newWindow){
 }
 
 void isoDriver::timerTick(void){
-    qDebug() << "isoDriver SEZ Tick!";
+    //qDebug() << "isoDriver SEZ Tick!";
     if(firstFrame){
         autoGain();
         firstFrame = false;
     }
 
     isoTemp = driver->isoRead(&length);
-    qDebug() << length << "read in!!";
+    //qDebug() << length << "read in!!";
     total_read += length;
 
     if (length==0){
@@ -335,10 +336,14 @@ void isoDriver::gainBuffers(double multiplier){
 }
 
 void isoDriver::gainTick(void){
+#ifdef PLATFORM_ANDROID
+#warning: "gainTick does nothing on Android!!"
+#else
     qDebug() << "Multiplying by " << multi;
     if (driver->deviceMode <5) internalBuffer375_CH1->gainBuffer(log2(multi));
     if ((driver->deviceMode == 1) | (driver->deviceMode == 2) | (driver->deviceMode == 4)) internalBuffer375_CH2->gainBuffer(log2(multi));
     if ((driver->deviceMode == 6) | (driver->deviceMode == 7)) internalBuffer750->gainBuffer(log2(multi));
+#endif
 }
 
 void isoDriver::setAutoGain(bool enabled){
@@ -592,7 +597,7 @@ void isoDriver::setTriggerMode(int newMode){
 
 void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1 for ana, 2 for dig, -1 for ana750
 {
-    qDebug() << "made it to frameActionGeneric";
+    //qDebug() << "made it to frameActionGeneric";
     if(!paused_CH1 && CH1_mode == - 1){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer750->writeBuffer_char(&isoTemp[ADC_SPF*i], VALID_DATA_PER_750);

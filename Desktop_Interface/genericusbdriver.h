@@ -78,6 +78,7 @@ signals:
     void upTick(void);
     void killMe(void);
     void connectedStatus(bool status);
+    void initialConnectComplete(void);
 public slots:
     void setPsu(double voltage);
     void setFunctionGen(int channel, functionGenControl *fGenControl);

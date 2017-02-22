@@ -49,8 +49,16 @@ HEADERS  += mainwindow.h \
     q_debugstream.h \
     unified_debug_structure.h
 
-FORMS    += mainwindow.ui \
-    scoperangeenterdialog.ui
+android:{
+FORMS    += ui_files_mobile/mainwindow.ui \
+    ui_files_mobile/scoperangeenterdialog.ui
+}
+
+!android:{
+FORMS    += ui_files_desktop/mainwindow.ui \
+    ui_files_desktop/scoperangeenterdialog.ui
+}
+
 
 RESOURCES += \
     resources.qrc
@@ -111,9 +119,6 @@ unix:HEADERS += unixusbdriver.h
 ###########################################################
 
 android:{
-    QMAKE_CXXFLAGS += -Dlog2\(x\)=\(log\(x\)/1.4426950408889634\)
-    #Android doesn't support log2() by default...
-    #http://stackoverflow.com/questions/11080118/does-android-support-log2.  Good idea, Ray!
     QMAKE_CFLAGS += -fsigned-char
     QMAKE_CXXFLAGS += -fsigned-char
     #Android treats char as unsigned by default (why???)
