@@ -17,7 +17,7 @@ CXXFLAGS      = -nologo -Zc:wchar_t -FS -O2 -MD -Zc:strictStrings -GR -W3 -w3410
 INCPATH       = -I. -Iui_elements\qcp1 -Iui_elements -Ibuild_win -Ibuild_win\libusbk\includes -IC:\Qt\5.7\msvc2013_64\include -IC:\Qt\5.7\msvc2013_64\include\QtPrintSupport -IC:\Qt\5.7\msvc2013_64\include\QtWidgets -IC:\Qt\5.7\msvc2013_64\include\QtGui -IC:\Qt\5.7\msvc2013_64\include\QtANGLE -IC:\Qt\5.7\msvc2013_64\include\QtCore -Imoc -I. -IC:\Qt\5.7\msvc2013_64\mkspecs\win32-msvc2013 
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
-LIBS          = /LIBPATH:C:\Qt\5.7\msvc2013_64\lib C:\Qt\5.7\msvc2013_64\lib\qtmain.lib shell32.lib /LIBPATH:C:\utils\my_sql\my_sql\lib /LIBPATH:C:\utils\postgresql\pgsql\lib /LIBPATH:C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\build_win\libusbk\bin\lib\amd64 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\build_win\libusbk\bin\lib\amd64\libusbK.lib C:\Qt\5.7\msvc2013_64\lib\Qt5PrintSupport.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Widgets.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Gui.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Core.lib release\Labrador_resource.res 
+LIBS          = /LIBPATH:C:\Qt\5.7\msvc2013_64\lib C:\Qt\5.7\msvc2013_64\lib\qtmain.lib shell32.lib /LIBPATH:C:\utils\my_sql\my_sql\lib /LIBPATH:C:\utils\postgresql\pgsql\lib /LIBPATH:C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\build_win\libusbk\bin\dll\amd64 C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\build_win\libusbk\bin\dll\amd64\libusbK.lib C:\Qt\5.7\msvc2013_64\lib\Qt5PrintSupport.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Widgets.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Gui.lib C:\Qt\5.7\msvc2013_64\lib\Qt5Core.lib release\Labrador_resource.res 
 QMAKE         = C:\Qt\5.7\msvc2013_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -54,6 +54,7 @@ SOURCES       = ui_elements\buffercontrol.cpp \
 		ui_elements\siprint.cpp \
 		ui_elements\timedtickbox.cpp \
 		ui_elements\voltagespinbox.cpp \
+		ui_elements\swipeystack.cpp \
 		main.cpp \
 		mainwindow.cpp \
 		functiongencontrol.cpp \
@@ -74,6 +75,7 @@ SOURCES       = ui_elements\buffercontrol.cpp \
 		moc\moc_qcustomplot.cpp \
 		moc\moc_timedtickbox.cpp \
 		moc\moc_voltagespinbox.cpp \
+		moc\moc_swipeystack.cpp \
 		moc\moc_mainwindow.cpp \
 		moc\moc_functiongencontrol.cpp \
 		moc\moc_isodriver.cpp \
@@ -92,6 +94,7 @@ OBJECTS       = release\buffercontrol.obj \
 		release\siprint.obj \
 		release\timedtickbox.obj \
 		release\voltagespinbox.obj \
+		release\swipeystack.obj \
 		release\main.obj \
 		release\mainwindow.obj \
 		release\functiongencontrol.obj \
@@ -113,6 +116,7 @@ OBJECTS       = release\buffercontrol.obj \
 		release\moc_qcustomplot.obj \
 		release\moc_timedtickbox.obj \
 		release\moc_voltagespinbox.obj \
+		release\moc_swipeystack.obj \
 		release\moc_mainwindow.obj \
 		release\moc_functiongencontrol.obj \
 		release\moc_isodriver.obj \
@@ -145,6 +149,7 @@ DIST          = build_android/package_source/AndroidManifest.xml \
 		ui_elements\siprint.h \
 		ui_elements\timedtickbox.h \
 		ui_elements\voltagespinbox.h \
+		ui_elements\swipeystack.h \
 		mainwindow.h \
 		functiongencontrol.h \
 		xmega.h \
@@ -167,6 +172,7 @@ DIST          = build_android/package_source/AndroidManifest.xml \
 		ui_elements\siprint.cpp \
 		ui_elements\timedtickbox.cpp \
 		ui_elements\voltagespinbox.cpp \
+		ui_elements\swipeystack.cpp \
 		main.cpp \
 		mainwindow.cpp \
 		functiongencontrol.cpp \
@@ -308,7 +314,7 @@ dist:
 	$(ZIP) Labrador.zip $(SOURCES) $(DIST) Labrador.pro C:\Qt\5.7\msvc2013_64\mkspecs\features\spec_pre.prf C:\Qt\5.7\msvc2013_64\mkspecs\common\angle.conf C:\Qt\5.7\msvc2013_64\mkspecs\common\msvc-base.conf C:\Qt\5.7\msvc2013_64\mkspecs\common\msvc-desktop.conf C:\Qt\5.7\msvc2013_64\mkspecs\qconfig.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dextras.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dextras_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dquickextras.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dquickextras_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_clucene_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_core.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_help.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_location.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_network.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_platformsupport_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_webview.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_webview_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\5.7\msvc2013_64\mkspecs\features\qt_functions.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\qt_config.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\win32\qt_config.prf C:\Qt\5.7\msvc2013_64\mkspecs\win32-msvc2013\qmake.conf C:\Qt\5.7\msvc2013_64\mkspecs\features\spec_post.prf .qmake.stash C:\Qt\5.7\msvc2013_64\mkspecs\features\exclusive_builds.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\toolchain.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\default_pre.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\win32\default_pre.prf ui_elements.pri C:\Qt\5.7\msvc2013_64\mkspecs\features\resolve_config.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\default_post.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\build_pass.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\win32\rtti.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\precompile_header.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\warn_on.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\qt.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\resources.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\moc.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\win32\opengl.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\uic.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\file_copies.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\win32\windows.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\testcase_targets.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\exceptions.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\yacc.prf C:\Qt\5.7\msvc2013_64\mkspecs\features\lex.prf Labrador.pro resources.qrc C:\Qt\5.7\msvc2013_64\lib\qtmain.prl C:\Qt\5.7\msvc2013_64\lib\Qt5PrintSupport.prl C:\Qt\5.7\msvc2013_64\lib\Qt5Widgets.prl C:\Qt\5.7\msvc2013_64\lib\Qt5Gui.prl C:\Qt\5.7\msvc2013_64\lib\Qt5Core.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\buffercontrol.obj release\cursorenabler.obj release\deviceconnecteddisplay.obj release\espocombobox.obj release\esposlider.obj release\espospinbox.obj release\noclosemenu.obj release\qcustomplot.obj release\siprint.obj release\timedtickbox.obj release\voltagespinbox.obj release\main.obj release\mainwindow.obj release\functiongencontrol.obj release\isodriver.obj release\isobuffer.obj release\desktop_settings.obj release\scoperangeenterdialog.obj release\genericusbdriver.obj release\isobufferbuffer.obj release\winusbdriver.obj release\qrc_resources.obj release\moc_buffercontrol.obj release\moc_cursorenabler.obj release\moc_deviceconnecteddisplay.obj release\moc_espocombobox.obj release\moc_esposlider.obj release\moc_espospinbox.obj release\moc_noclosemenu.obj release\moc_qcustomplot.obj release\moc_timedtickbox.obj release\moc_voltagespinbox.obj release\moc_mainwindow.obj release\moc_functiongencontrol.obj release\moc_isodriver.obj release\moc_isobuffer.obj release\moc_scoperangeenterdialog.obj release\moc_genericusbdriver.obj release\moc_winusbdriver.obj
+	-$(DEL_FILE) release\buffercontrol.obj release\cursorenabler.obj release\deviceconnecteddisplay.obj release\espocombobox.obj release\esposlider.obj release\espospinbox.obj release\noclosemenu.obj release\qcustomplot.obj release\siprint.obj release\timedtickbox.obj release\voltagespinbox.obj release\swipeystack.obj release\main.obj release\mainwindow.obj release\functiongencontrol.obj release\isodriver.obj release\isobuffer.obj release\desktop_settings.obj release\scoperangeenterdialog.obj release\genericusbdriver.obj release\isobufferbuffer.obj release\winusbdriver.obj release\qrc_resources.obj release\moc_buffercontrol.obj release\moc_cursorenabler.obj release\moc_deviceconnecteddisplay.obj release\moc_espocombobox.obj release\moc_esposlider.obj release\moc_espospinbox.obj release\moc_noclosemenu.obj release\moc_qcustomplot.obj release\moc_timedtickbox.obj release\moc_voltagespinbox.obj release\moc_swipeystack.obj release\moc_mainwindow.obj release\moc_functiongencontrol.obj release\moc_isodriver.obj release\moc_isobuffer.obj release\moc_scoperangeenterdialog.obj release\moc_genericusbdriver.obj release\moc_winusbdriver.obj
 	-$(DEL_FILE) bin\Labrador.exp
 	-$(DEL_FILE) release\Labrador_resource.res
 
@@ -337,9 +343,9 @@ release\qrc_resources.cpp: resources.qrc \
 		buffer_1.bmp
 	C:\Qt\5.7\msvc2013_64\bin\rcc.exe -name resources resources.qrc -o release\qrc_resources.cpp
 
-compiler_moc_header_make_all: moc\moc_buffercontrol.cpp moc\moc_cursorenabler.cpp moc\moc_deviceconnecteddisplay.cpp moc\moc_espocombobox.cpp moc\moc_esposlider.cpp moc\moc_espospinbox.cpp moc\moc_noclosemenu.cpp moc\moc_qcustomplot.cpp moc\moc_timedtickbox.cpp moc\moc_voltagespinbox.cpp moc\moc_mainwindow.cpp moc\moc_functiongencontrol.cpp moc\moc_isodriver.cpp moc\moc_isobuffer.cpp moc\moc_scoperangeenterdialog.cpp moc\moc_genericusbdriver.cpp moc\moc_winusbdriver.cpp
+compiler_moc_header_make_all: moc\moc_buffercontrol.cpp moc\moc_cursorenabler.cpp moc\moc_deviceconnecteddisplay.cpp moc\moc_espocombobox.cpp moc\moc_esposlider.cpp moc\moc_espospinbox.cpp moc\moc_noclosemenu.cpp moc\moc_qcustomplot.cpp moc\moc_timedtickbox.cpp moc\moc_voltagespinbox.cpp moc\moc_swipeystack.cpp moc\moc_mainwindow.cpp moc\moc_functiongencontrol.cpp moc\moc_isodriver.cpp moc\moc_isobuffer.cpp moc\moc_scoperangeenterdialog.cpp moc\moc_genericusbdriver.cpp moc\moc_winusbdriver.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc\moc_buffercontrol.cpp moc\moc_cursorenabler.cpp moc\moc_deviceconnecteddisplay.cpp moc\moc_espocombobox.cpp moc\moc_esposlider.cpp moc\moc_espospinbox.cpp moc\moc_noclosemenu.cpp moc\moc_qcustomplot.cpp moc\moc_timedtickbox.cpp moc\moc_voltagespinbox.cpp moc\moc_mainwindow.cpp moc\moc_functiongencontrol.cpp moc\moc_isodriver.cpp moc\moc_isobuffer.cpp moc\moc_scoperangeenterdialog.cpp moc\moc_genericusbdriver.cpp moc\moc_winusbdriver.cpp
+	-$(DEL_FILE) moc\moc_buffercontrol.cpp moc\moc_cursorenabler.cpp moc\moc_deviceconnecteddisplay.cpp moc\moc_espocombobox.cpp moc\moc_esposlider.cpp moc\moc_espospinbox.cpp moc\moc_noclosemenu.cpp moc\moc_qcustomplot.cpp moc\moc_timedtickbox.cpp moc\moc_voltagespinbox.cpp moc\moc_swipeystack.cpp moc\moc_mainwindow.cpp moc\moc_functiongencontrol.cpp moc\moc_isodriver.cpp moc\moc_isobuffer.cpp moc\moc_scoperangeenterdialog.cpp moc\moc_genericusbdriver.cpp moc\moc_winusbdriver.cpp
 moc\moc_buffercontrol.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
 		C:\Qt\5.7\msvc2013_64\include\QtGui\qwindowdefs.h \
@@ -1817,6 +1823,113 @@ moc\moc_voltagespinbox.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
 		ui_elements\voltagespinbox.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
 	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\voltagespinbox.h -o moc\moc_voltagespinbox.cpp
+
+moc\moc_swipeystack.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QStackedWidget \
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qstackedwidget.h \
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qframe.h \
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qglobal.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qconfig.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qfeatures.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtypetraits.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qisenum.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsysinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qlogging.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qflags.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmutex.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qnumeric.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qversiontagging.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qnamespace.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qwindowdefs_win.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobject.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstring.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qchar.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbytearray.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qrefcount.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qarraydata.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qlist.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qalgorithms.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qiterator.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qpair.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstringlist.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qregexp.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreevent.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmetatype.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobject_impl.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmargins.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpaintdevice.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qrect.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsize.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qpoint.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpalette.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qcolor.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qrgb.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qrgba64.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qbrush.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qvector.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qmatrix.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpolygon.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qregion.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qdatastream.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qiodevice.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qline.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qtransform.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpainterpath.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qimage.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpixelformat.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpixmap.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qshareddata.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qhash.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qfont.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qfontmetrics.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qfontinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qsizepolicy.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qcursor.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qkeysequence.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qevent.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qvariant.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmap.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qdebug.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtextstream.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qlocale.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qset.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qurl.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qurlquery.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qfile.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qfiledevice.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qvector2d.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qtouchdevice.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\QMouseEvent \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QDateTime \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qdatetime.h \
+		ui_elements\swipeystack.h \
+		C:\Qt\5.7\msvc2013_64\bin\moc.exe
+	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ui_elements\swipeystack.h -o moc\moc_swipeystack.cpp
 
 moc\moc_mainwindow.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QMainWindow \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qmainwindow.h \
@@ -7014,6 +7127,111 @@ release\voltagespinbox.obj: ui_elements\voltagespinbox.cpp ui_elements/voltagesp
 		C:\Qt\5.7\msvc2013_64\include\QtGui\qvalidator.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\qregularexpression.h
 
+release\swipeystack.obj: ui_elements\swipeystack.cpp ui_elements/swipeystack.h \
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QStackedWidget \
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qstackedwidget.h \
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qframe.h \
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qwidget.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qglobal.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qconfig.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qfeatures.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtypetraits.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qisenum.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsysinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qlogging.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qflags.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_bootstrap.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qatomic_msvc.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmutex.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qnumeric.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qversiontagging.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qnamespace.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qwindowdefs_win.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobject.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstring.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qchar.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbytearray.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qrefcount.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qarraydata.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qlist.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qalgorithms.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qiterator.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qpair.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstringlist.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qregexp.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreevent.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmetatype.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qobject_impl.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmargins.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpaintdevice.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qrect.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsize.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qpoint.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpalette.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qcolor.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qrgb.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qrgba64.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qbrush.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qvector.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qmatrix.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpolygon.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qregion.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qdatastream.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qiodevice.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qline.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qtransform.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpainterpath.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qimage.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpixelformat.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qpixmap.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qshareddata.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qhash.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qfont.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qfontmetrics.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qfontinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qsizepolicy.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qcursor.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qkeysequence.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qevent.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qvariant.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qmap.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qdebug.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtextstream.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qlocale.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qset.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qurl.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qurlquery.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qfile.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qfiledevice.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qvector2d.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\qtouchdevice.h \
+		C:\Qt\5.7\msvc2013_64\include\QtGui\QMouseEvent \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QDateTime \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qdatetime.h
+
 release\main.obj: main.cpp mainwindow.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QMainWindow \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qmainwindow.h \
@@ -8655,7 +8873,11 @@ release\isodriver.obj: isodriver.cpp isodriver.h \
 		isobuffer.h \
 		C:\Qt\5.7\msvc2013_64\include\QtCore\QByteArray \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QPlainTextEdit \
-		isobufferbuffer.h
+		isobufferbuffer.h \
+		build_win\platformspecific.h \
+		winusbdriver.h \
+		build_win\libusbk\includes\libusbk.h \
+		build_win\libusbk\includes\lusbk_shared.h
 
 release\isobuffer.obj: isobuffer.cpp isobuffer.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -9613,6 +9835,8 @@ release\moc_qcustomplot.obj: moc\moc_qcustomplot.cpp
 release\moc_timedtickbox.obj: moc\moc_timedtickbox.cpp 
 
 release\moc_voltagespinbox.obj: moc\moc_voltagespinbox.cpp 
+
+release\moc_swipeystack.obj: moc\moc_swipeystack.cpp 
 
 release\moc_mainwindow.obj: moc\moc_mainwindow.cpp 
 

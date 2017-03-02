@@ -75,15 +75,24 @@ DEPENDPATH += $$PWD/ui_elements
 ################    WINDOWS BUILD ONLY    ################
 #########################################################
 
-win32:INCLUDEPATH += $$PWD/build_win
-win32:SOURCES += winusbdriver.cpp
-win32:HEADERS += winusbdriver.h
+win32{
+    INCLUDEPATH += $$PWD/build_win
+    SOURCES += winusbdriver.cpp
+    HEADERS += winusbdriver.h
 
-#libusbk include
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
-win32:INCLUDEPATH += $$PWD/build_win/libusbk/includes
-win32:DEPENDPATH += $$PWD/build/win/libusbk/includes
+    #libusbk include
+    contains(QT_ARCH, i386) {
+        message("Building for Windows (x86)")
+        CONFIG(release, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/dll/i386/ -llibusbK
+        else:CONFIG(debug, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/dll/i386/ -llibusbK
+    } else {
+        message("Building for Windows (x64)")
+        CONFIG(release, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/dll/amd64/ -llibusbK
+        else:CONFIG(debug, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/dll/amd64/ -llibusbK
+    }
+    INCLUDEPATH += $$PWD/build_win/libusbk/includes
+    DEPENDPATH += $$PWD/build/win/libusbk/includes
+}
 
 #############################################################
 ################    GNU/LINUX BUILD ONLY    ################

@@ -68,8 +68,8 @@
 // (USB_CONFIG_ATTR_REMOTE_WAKEUP|USB_CONFIG_ATTR_BUS_POWERED)
 
 //! USB Device string definitions (Optional)
-#define  USB_DEVICE_MANUFACTURE_NAME      "TapirTech"
-#define  USB_DEVICE_PRODUCT_NAME          "USBGobindar Dummy Device"
+#define  USB_DEVICE_MANUFACTURE_NAME      "EspoTek"
+#define  USB_DEVICE_PRODUCT_NAME          "Labrador"
 // #define  USB_DEVICE_SERIAL_NAME           "123123123123"
 
 /**
