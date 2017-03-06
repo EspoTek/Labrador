@@ -43,6 +43,7 @@ public:
     bool connected = false;
     //Generic Functions
     explicit genericUsbDriver(QWidget *parent = 0);
+    ~genericUsbDriver();
     virtual char *isoRead(unsigned int *newLength) = 0;
     void setBufferPtr(bufferControl *newPtr);
     void saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState);

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- From: file:/C:/Qt/5.7/android_armv7/src/android/java/res/values-fr/strings.xml -->
-    <eat-comment/>
-    <string name="fatal_error_msg">Votre application a rencontré une erreur fatale et ne peut pas continuer.</string>
-    <string name="ministro_needed_msg">Cette application requiert le service Ministro. Voulez-vous l\'installer?</string>
-    <string name="ministro_not_found_msg">Le service Ministro est introuvable.\nL\'application ne peut pas démarrer.</string>
-</resources>

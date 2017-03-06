@@ -69,6 +69,10 @@ unsigned char winUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
         return 3;
     } else qDebug("Device opened successfully!");
 
+    if (handle == NULL){
+        return 4; //Unkown error, only exists on 32 bit???
+    }
+
     return 0;
 }
 
@@ -86,7 +90,11 @@ void winUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t
     unsigned char controlSuccess;
     UINT bytesTransferred = 0;
     unsigned char *controlBuffer;
+    DWORD errorCode = ERROR_SUCCESS;
 
+    if(!connected){
+        qDebug() << "Not connected.  Ignoring Control Request!!!";
+    }
     //Error checking
     if (handle==NULL){
         qDebug("Null handle error in usbSendControl");
@@ -111,7 +119,13 @@ void winUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t
     if (controlSuccess) {
         qDebug("%d BYTES TRANSFERRED", bytesTransferred);
     }
-    else qDebug("usbSendControl failed");
+    else{
+        errorCode = GetLastError();
+        qDebug() << "UsbK_ControlTransfer failed with error code" << errorCode;
+        if(errorCode == 170){ //Device not connected?? (According to test)
+            killMe();
+        }
+    }
 }
 
 unsigned char winUsbDriver::usbIsoInit(void){
@@ -145,6 +159,9 @@ unsigned char winUsbDriver::usbIsoInit(void){
     //Filling the transfer contexts
     for(n=0;n<NUM_FUTURE_CTX;n++){
         for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
+            //if(n%2){
+            //    QThread::msleep(1); //Wait for next tick after sending two frames.  Still possibility of failure during 100% CPU condition, but risk greatly mitigated.
+            //}
             success = IsoK_Init(&isoCtx[k][n], ISO_PACKETS_PER_CTX, 0);
             if(!success){
                 errorCode = GetLastError();
@@ -236,19 +253,12 @@ void winUsbDriver::isoTimerTick(void){
     bufferLengths[currentWriteBuffer] = packetLength;
     currentWriteBuffer = !currentWriteBuffer;
 
-    //Zero length packet means something's gone wrong.  Probably a disconnect.
-    //In the Linux version, this check is implemented as a timer that attempts a control packet every 250ms.
-    //It doesn't matter how you do it, but it's important that there's some code that checks for device disconnects periodically and, if detected, emits the killMe() signal.
-    if(packetLength == 0){
-        qDebug() << "Zero length iso packet.  An hero!";
-        killMe();
-        connectedStatus(false);
-    }
-
     UINT oldStart;
     //Setup transfer for resubmission
     for(unsigned char k=0; k<NUM_ISO_ENDPOINTS; k++){
-        oldStart = isoCtx[k][earliest]->StartFrame;
+        //Apparently reusing before resubmitting is a bad idea???
+
+        /*oldStart = isoCtx[k][earliest]->StartFrame;
         success = IsoK_ReUse(isoCtx[k][earliest]);
         if(!success){
             errorCode = GetLastError();
@@ -264,11 +274,11 @@ void winUsbDriver::isoTimerTick(void){
             qDebug() << "OvlK_ReUse failed with error code" << errorCode;
             qDebug() << "n =" << n;
             return;
-        }
+        }*/
         //Resubmit the transfer
         success = UsbK_IsoReadPipe(handle, pipeID[k], dataBuffer[k][earliest], sizeof(dataBuffer[k][earliest]), (LPOVERLAPPED) ovlkHandle[k][earliest], isoCtx[k][earliest]);
     }
-
+    //qDebug() << "Resubmitted Ctx #"<< earliest;
     //Signal to isoDriver that it can draw a new frame.
     upTick();
     return;
@@ -291,5 +301,7 @@ bool winUsbDriver::allEndpointsComplete(int n){
 }
 
 void winUsbDriver::recoveryTick(){
+    //Blind AVR Debug (Doesn't Print)
+    usbSendControl(0xc0, 0xa0, 0, 0, sizeof(unified_debug), NULL);
     return;
 }

@@ -9,9 +9,6 @@ unixUsbDriver::~unixUsbDriver(void){
     workerThread->quit();
     workerThread->deleteLater();
     delete(isoHandler);
-    delete(psuTimer);
-    delete(recoveryTimer);
-    delete(isoTimer);
     libusb_release_interface(handle, 0);
     libusb_exit(ctx);
 }

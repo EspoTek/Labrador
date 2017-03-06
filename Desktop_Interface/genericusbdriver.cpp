@@ -22,6 +22,16 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
     connectTimer->setTimerType(Qt::PreciseTimer);
     connectTimer->start(USB_RECONNECT_PERIOD);
     connect(connectTimer, SIGNAL(timeout()), this, SLOT(checkConnection()));
+    qDebug()<< "Generic Usb Driver setup complete";
+}
+
+genericUsbDriver::~genericUsbDriver(void){
+    psuTimer->stop();
+    recoveryTimer->stop();
+    isoTimer->stop();
+    delete(psuTimer);
+    delete(recoveryTimer);
+    delete(isoTimer);
 }
 
 

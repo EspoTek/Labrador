@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- From: file:/C:/Qt/5.7/android_armv7/src/android/java/res/values-nl/strings.xml -->
-    <eat-comment/>
-    <string name="fatal_error_msg">Er is een fatale fout in de applicatie opgetreden. De applicatie kan niet verder gaan.</string>
-    <string name="ministro_needed_msg">Deze applicatie maakt gebruik van de Ministro service. Wilt u deze installeren?</string>
-    <string name="ministro_not_found_msg">De Ministro service is niet gevonden.\nDe applicatie kan niet starten.</string>
-</resources>

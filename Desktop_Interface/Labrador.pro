@@ -83,12 +83,12 @@ win32{
     #libusbk include
     contains(QT_ARCH, i386) {
         message("Building for Windows (x86)")
-        CONFIG(release, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/dll/i386/ -llibusbK
-        else:CONFIG(debug, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/dll/i386/ -llibusbK
+        CONFIG(release, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/x86/ -llibusbK
+        else:CONFIG(debug, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/x86/ -llibusbK
     } else {
         message("Building for Windows (x64)")
-        CONFIG(release, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/dll/amd64/ -llibusbK
-        else:CONFIG(debug, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/dll/amd64/ -llibusbK
+        CONFIG(release, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
+        else:CONFIG(debug, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
     }
     INCLUDEPATH += $$PWD/build_win/libusbk/includes
     DEPENDPATH += $$PWD/build/win/libusbk/includes

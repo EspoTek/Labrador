@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- From: file:/C:/Qt/5.7/android_armv7/src/android/java/res/values-it/strings.xml -->
-    <eat-comment/>
-    <string name="fatal_error_msg">L\'applicazione ha provocato un errore grave e non puo\' continuare.</string>
-    <string name="ministro_needed_msg">Questa applicazione richiede il servizio Ministro.Installarlo?</string>
-    <string name="ministro_not_found_msg">Servizio Ministro inesistente. Impossibile eseguire \nl\'applicazione.</string>
-</resources>
