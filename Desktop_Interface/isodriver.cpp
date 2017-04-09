@@ -845,6 +845,7 @@ void isoDriver::setSeriesResistance(double resistance){
 }
 
 void isoDriver::multimeterStats(){
+    //qDebug() << "Entering isoDriver::multimeterStats()";
     if (!multimeterShow) return;
 
     QTimer::singleShot(MULTIMETER_PERIOD, this, SLOT(enableMM()));

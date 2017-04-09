@@ -37,6 +37,7 @@ void bufferControl::scopeIn_CH1(bool state){  //What about DSR!?
         scopeUncheck(0);
     }
 
+    //Turn off the DSR when CH1 is disabled.
     if(!state){
         scopeDsrUncheck(0);
     }

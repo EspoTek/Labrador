@@ -47,7 +47,7 @@ private:
     bool placingHoriAxes = false, placingVertAxes = false, horiCursorEnabled = false, vertCursorEnabled = false;
     bool triggerSeeking = true;
     bool triggerEnabled = false;
-    bool multimeterShow = false;
+    bool multimeterShow = true;
     bool autoMultimeterV = true;
     bool autoMultimeterI = true;
     bool forceMillivolts = false;
