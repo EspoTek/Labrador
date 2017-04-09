@@ -833,6 +833,7 @@ QCPPaintBufferGlFbo::QCPPaintBufferGlFbo(const QSize &size, double devicePixelRa
   mGlPaintDevice(glPaintDevice),
   mGlFrameBuffer(0)
 {
+  initializeOpenGLFunctions();
   QCPPaintBufferGlFbo::reallocateBuffer();
 }
 

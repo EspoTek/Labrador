@@ -10,7 +10,7 @@
 #define GLOBALS_H_
 
 //#define VERO
-#define OVERCLOCK 48
+//#define OVERCLOCK 48
 
 #define TC_SPISLAVE TCD0
 #define TC_PSU TCD1

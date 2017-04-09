@@ -13,13 +13,15 @@
 #include "xmega.h"
 #include "desktop_settings.h"
 #include "isobufferbuffer.h"
+#include "genericusbdriver.h"
+
 
 class isoDriver;
 
 //isoBuffer is a generic class that enables O(1) read times (!!!) on all read/write operations, while maintaining a huge buffer size.
 //Imagine it as a circular buffer, but with access functions specifically designed for isochronous data from an Xmega.
 
-#define CONSOLE_UPDATE_TIMER_PERIOD 60
+#define CONSOLE_UPDATE_TIMER_PERIOD (ISO_PACKETS_PER_CTX * 2)
 
 class isoBuffer : public QWidget
 {
