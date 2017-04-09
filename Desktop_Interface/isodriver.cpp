@@ -669,7 +669,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
     if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(window,GRAPH_SAMPLES,CH1_mode==2, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
     if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(window,GRAPH_SAMPLES,false, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
 
-    qDebug() << "Trigger Delay =" << triggerDelay;
+    //qDebug() << "Trigger Delay =" << triggerDelay;
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES);
 

@@ -37,6 +37,10 @@ void bufferControl::scopeIn_CH1(bool state){  //What about DSR!?
         scopeUncheck(0);
     }
 
+    if(!state){
+        scopeDsrUncheck(0);
+    }
+
     scopeDsrOut(state);
     scopeOut_CH2(state);
 

@@ -253,6 +253,17 @@ void winUsbDriver::isoTimerTick(void){
     bufferLengths[currentWriteBuffer] = packetLength;
     currentWriteBuffer = !currentWriteBuffer;
 
+
+    //Check for incorrect setup and kill if that were the case.
+    UINT ep0frame = isoCtx[0][earliest]->StartFrame;
+    UINT epkframe = isoCtx[NUM_ISO_ENDPOINTS-1][earliest]->StartFrame;
+    UINT framePhaseError = epkframe - ep0frame;
+    if(framePhaseError){
+        qDebug("Frame phase error of %d", framePhaseError);
+        killMe();
+    }
+
+
     UINT oldStart;
     //Setup transfer for resubmission
     for(unsigned char k=0; k<NUM_ISO_ENDPOINTS; k++){
