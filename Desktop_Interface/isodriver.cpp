@@ -468,7 +468,7 @@ void isoDriver::udateCursors(void){
 }
 
 int isoDriver::trigger(void){
-    if(driver->deviceMode>2 && driver->deviceMode != 7){  //No scope
+    if(driver->deviceMode>2 && driver->deviceMode < 6){  //No scope
         return -2;
     }
     if(triggerType>1 && driver->deviceMode!=2){  //No CH2!
@@ -485,7 +485,7 @@ int isoDriver::trigger(void){
 
     if(driver->deviceMode == 7){
         for (unsigned int i=0;i<length/2;i++){
-            if(i%750 == VALID_DATA_PER_750) continue; //Not a valid sample
+            if(i%750 >= VALID_DATA_PER_750) continue; //Not a valid sample
 
             //A bit of thresholding...
             //Gives DAT STABILITY
@@ -519,7 +519,9 @@ int isoDriver::trigger(void){
     }
     else{
         for (unsigned int i=0;i<length;i++){
-            if(((i%750 > VALID_DATA_PER_375) && (triggerType<2)) || (((i%750 < 375) || (i%750 == VALID_DATA_PER_750)) && (triggerType>1))) continue; //Not a valid sample
+            if(driver->deviceMode != 6){
+                if(((i%750 > VALID_DATA_PER_375) && (triggerType<2)) || (((i%750 < 375) || (i%750 == VALID_DATA_PER_750)) && (triggerType>1))) continue; //Not a valid sample
+            }
 
             //A bit of thresholding...
             //Gives DAT STABILITY
@@ -665,7 +667,9 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 
     readData375_CH1 = internalBuffer375_CH1->readBuffer(window,GRAPH_SAMPLES,CH1_mode==2, delay + ((triggerEnabled&&!paused_CH1) ? triggerDelay + window/2 : 0));
     if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(window,GRAPH_SAMPLES,CH1_mode==2, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
-    if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(window,GRAPH_SAMPLES,false, delay);
+    if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(window,GRAPH_SAMPLES,false, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
+
+    qDebug() << "Trigger Delay =" << triggerDelay;
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES);
 
@@ -688,6 +692,8 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 
     if(CH1_mode == -1) {
         analogConvert(readData750, &CH1, 128, AC_CH1);
+        xmin = (currentVmin < xmin) ? currentVmin : xmin;
+        xmax = (currentVmax > xmax) ? currentVmax : xmax;
         broadcastStats(0);
     }
 
