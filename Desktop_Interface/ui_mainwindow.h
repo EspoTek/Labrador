@@ -254,7 +254,6 @@ public:
     QMenu *menuBus_Sniffer;
     QMenu *menuUART_1;
     QMenu *menuBaud_Rate;
-    QMenu *menuType_Here_2;
     QMenu *menuParity_Bit;
     QMenu *menuData_Bits;
     QMenu *menuUART_2;
@@ -1266,8 +1265,6 @@ public:
         menuUART_1->setObjectName(QStringLiteral("menuUART_1"));
         menuBaud_Rate = new QMenu(menuUART_1);
         menuBaud_Rate->setObjectName(QStringLiteral("menuBaud_Rate"));
-        menuType_Here_2 = new QMenu(menuUART_1);
-        menuType_Here_2->setObjectName(QStringLiteral("menuType_Here_2"));
         menuParity_Bit = new QMenu(menuUART_1);
         menuParity_Bit->setObjectName(QStringLiteral("menuParity_Bit"));
         menuData_Bits = new QMenu(menuUART_1);
@@ -1343,7 +1340,6 @@ public:
         menuUART_1->addAction(menuBaud_Rate->menuAction());
         menuUART_1->addAction(menuParity_Bit->menuAction());
         menuUART_1->addAction(menuData_Bits->menuAction());
-        menuUART_1->addAction(menuType_Here_2->menuAction());
         menuBaud_Rate->addAction(action300);
         menuBaud_Rate->addAction(action600);
         menuBaud_Rate->addAction(action1200);
@@ -1653,7 +1649,6 @@ public:
         menuBus_Sniffer->setTitle(QApplication::translate("MainWindow", "Logic Analyzer", Q_NULLPTR));
         menuUART_1->setTitle(QApplication::translate("MainWindow", "UART 1", Q_NULLPTR));
         menuBaud_Rate->setTitle(QApplication::translate("MainWindow", "Baud Rate", Q_NULLPTR));
-        menuType_Here_2->setTitle(QApplication::translate("MainWindow", "Type Here", Q_NULLPTR));
         menuParity_Bit->setTitle(QApplication::translate("MainWindow", "Parity Bit", Q_NULLPTR));
         menuData_Bits->setTitle(QApplication::translate("MainWindow", "Data Bits", Q_NULLPTR));
         menuUART_2->setTitle(QApplication::translate("MainWindow", "UART 2", Q_NULLPTR));

@@ -34,7 +34,7 @@ signals:
     void scopeUncheck(bool state);
     void scopeDsrOut(bool state);
     void scopeDsrUncheck(bool state);
-    //void signalGenOut(bool state);
+    void signalGenOut(bool state);
     void busSnifferOut_CH1(bool state);
     void busSnifferOut_CH2(bool state);
     void busSnifferUncheck(bool state);

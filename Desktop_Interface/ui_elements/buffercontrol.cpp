@@ -83,6 +83,9 @@ void bufferControl::busSnifferIn_CH1(bool state){
         busSnifferUncheck(0);
     }
 
+    //Signal Gen CH2 doesn't work with bus sniffer.
+    signalGenOut(!state);
+
     busSnifferOut_CH2(state);
 
     updateBuffer(state,1);
