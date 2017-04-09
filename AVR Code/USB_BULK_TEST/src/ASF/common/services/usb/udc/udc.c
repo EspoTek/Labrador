@@ -1190,6 +1190,9 @@ static bool udc_reqvend(void){
 			    [rst]   "e" (&RST.CTRL)
 			    : "memory");
 			    __builtin_unreachable();
+		case 0xa8:  //Firmware Version Request
+			udd_set_setup_payload(&firmver, udd_g_ctrlreq.req.wLength);
+			return 1;
 		default:
 			return 0;
 	}

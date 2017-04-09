@@ -63,6 +63,9 @@ volatile unsigned char modeChanged = 0;
 
 unified_debug uds;
 
+const unsigned short firmver = FIRMWARE_VERSION_ID;
+
+
 int main(void){
 	irq_initialize_vectors();
 	cpu_irq_enable();

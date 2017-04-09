@@ -23,6 +23,8 @@
 #define MAX_OVERLAP (NUM_FUTURE_CTX*NUM_ISO_ENDPOINTS + 1)
 
 #define RECOVERY_PERIOD 1000
+#define BOARD_VID 0x03eb
+#define BOARD_PID 0xba94
 
 
 //genericUsbDriver handles the parts of the USB stack that are not platform-dependent.
@@ -56,6 +58,7 @@ protected:
     int dutyPsu = 0;
     double currentPsuVoltage;
     int digitalPinState = 0;
+    unsigned char firmver = 0;
     //Generic Vars
     bufferControl *bufferPtr = NULL;
     QTimer *psuTimer;
@@ -67,6 +70,7 @@ protected:
     unsigned long timerCount = 0;
     unsigned char inBuffer[256];
     //Generic Functions
+    void requestFirmwareVersion(void);
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin) = 0;
     virtual unsigned char usbIsoInit(void) = 0;
 signals:

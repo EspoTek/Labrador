@@ -327,6 +327,12 @@ void genericUsbDriver::avrDebug(void){
 #endif
 }
 
+void genericUsbDriver::requestFirmwareVersion(void){
+    usbSendControl(0xc0, 0xa8, 0, 0, 64, NULL);
+    firmver = *((unsigned short *) inBuffer);
+}
+
+
 void genericUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState){
     *(_out_deviceMode) = deviceMode;
     *(_out_scopeGain) = scopeGain;
@@ -339,7 +345,7 @@ void genericUsbDriver::checkConnection(){
     //This will connect to the board, then wait one more period before actually starting the stack.
     if(!connected){
         qDebug() << "CHECKING CONNECTION!";
-        connected = !(usbInit(0x03eb, 0xa000));
+        connected = !(usbInit(BOARD_VID, BOARD_PID));
         return;
     }
 
@@ -366,6 +372,8 @@ void genericUsbDriver::checkConnection(){
     recoveryTimer->setTimerType(Qt::PreciseTimer);
     recoveryTimer->start(RECOVERY_PERIOD);
     connect(recoveryTimer, SIGNAL(timeout()), this, SLOT(recoveryTick()));
+    requestFirmwareVersion();
+    qDebug("BOARD IS RUNNING FIRMWARE VERSION 0x%04hx", firmver);
     initialConnectComplete();
 }
 

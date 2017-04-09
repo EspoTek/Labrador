@@ -57,7 +57,7 @@
 
 //! Device definition (mandatory)
 #define  USB_DEVICE_VENDOR_ID             0x03eb
-#define  USB_DEVICE_PRODUCT_ID            0xa000
+#define  USB_DEVICE_PRODUCT_ID            0xba94
 #define  USB_DEVICE_MAJOR_VERSION         2
 #define  USB_DEVICE_MINOR_VERSION         0
 #define  USB_DEVICE_POWER                 500 // Consumption on Vbus line (mA)
