@@ -1431,11 +1431,6 @@
       <addaction name="action57600"/>
       <addaction name="action115200"/>
      </widget>
-     <widget class="QMenu" name="menuType_Here_2">
-      <property name="title">
-       <string>Type Here</string>
-      </property>
-     </widget>
      <widget class="QMenu" name="menuParity_Bit">
       <property name="title">
        <string>Parity Bit</string>
@@ -1451,7 +1446,6 @@
      <addaction name="menuBaud_Rate"/>
      <addaction name="menuParity_Bit"/>
      <addaction name="menuData_Bits"/>
-     <addaction name="menuType_Here_2"/>
     </widget>
     <widget class="QMenu" name="menuUART_2">
      <property name="title">
