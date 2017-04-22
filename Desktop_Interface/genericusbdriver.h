@@ -73,6 +73,7 @@ protected:
     void requestFirmwareVersion(void);
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin) = 0;
     virtual unsigned char usbIsoInit(void) = 0;
+    uint8_t numero_uno = 1;
 signals:
     void sendClearBuffer(bool ch3751, bool ch3752, bool ch750);
     void setVisible_CH2(bool visible);
@@ -95,6 +96,7 @@ public slots:
     virtual void isoTimerTick(void) = 0;
     virtual void recoveryTick() = 0;
     void checkConnection();
+    void bootloaderJump();
 };
 
 

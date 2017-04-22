@@ -13,13 +13,14 @@
 #include "tiny_uart.h"
 #include "tiny_dig.h"
 #include "tiny_calibration.h"
+#include "tiny_eeprom.h"
 
 volatile bool main_b_vendor_enable = false;
 
 COMPILER_WORD_ALIGNED
 volatile unsigned char isoBuf[BUFFER_SIZE];
 COMPILER_WORD_ALIGNED
-volatile unsigned char dacBuf_CH1[DACBUF_SIZE];// = {128,  134,  140,  146,  153,  159,  165,  171,  177,  182,  188,  194,  199,  204,  209,  214,  218,  223,  227,  230,  234,  237,  240,  243,  246,  248,  250,  252,  253,  254,  255,  255,  255,  255,  254,  253,  252,  251,  249,  247,  245,  242,  239,  236,  232,  229,  225,  220,  216,  211,  206,  201,  196,  191,  185,  180,  174,  168,  162,  156,  149,  143,  137,  131,  124,  118,  112,  106,   99,   93,   87,   81,   75,   70,   64,   59,   54,   49,   44,   39,   35,   30,   26,   23,   19,   16,   13,   10,    8,    6,    4,    3,    2,    1,    0,    0,    0,    0,    1,    2,    3,    5,    7,    9,   12,   15,   18,   21,   25,   28,   32,   37,   41,   46,   51,   56,   61,   67,   73,   78,   84,   90,   96,  102,  109,  115,  121,  127};
+volatile unsigned char dacBuf_CH1[DACBUF_SIZE];
 volatile unsigned char dacBuf_CH2[DACBUF_SIZE];
 
 volatile unsigned char b1_state = 0;
@@ -45,12 +46,13 @@ volatile unsigned char tcinit = 0;
 volatile unsigned int currentTrfcnt;
 volatile unsigned char debugOnNextEnd = 0;
 
+/*
 #define CNT_CNT_MAX 256
 volatile unsigned short cntCnt[CNT_CNT_MAX];
 volatile unsigned short cntCntCnt = 0;
 #define DEBUG_DIVISION 0
 volatile unsigned char debug_divider = 0;
-
+*/
 volatile unsigned int median_TRFCNT = 65535;
 
 volatile char debug_data[8] = "DEBUG123";
@@ -65,8 +67,25 @@ unified_debug uds;
 
 const unsigned short firmver = FIRMWARE_VERSION_ID;
 
+volatile unsigned char eeprom_buffer_write[EEPROM_PAGE_SIZE];
+volatile unsigned char eeprom_buffer_read[EEPROM_PAGE_SIZE];
 
-int main(void){
+void jump_to_bootloader(){
+	void(* start_bootloader)(void) = (void (*)(void))((BOOT_SECTION_START + ATMEL_DFU_OFFSET)>>1);
+	EIND = BOOT_SECTION_START>>17;
+	start_bootloader();
+}
+
+int main(void){	
+	eeprom_safe_read();
+	if(eeprom_buffer_read[0]){
+			memcpy(eeprom_buffer_write, eeprom_buffer_read, EEPROM_PAGE_SIZE);
+			eeprom_buffer_write[0] = 0;
+			eeprom_safe_write();
+			//eeprom_safe_read();
+			jump_to_bootloader();
+	}
+	
 	irq_initialize_vectors();
 	cpu_irq_enable();
 //	sysclk_init();	
@@ -86,9 +105,11 @@ int main(void){
 			
 	//USARTC0.DATA = 0x55;
 	//asm("nop");
+	
+
 
 	strcpy(uds.header, "debug123");
-
+	
 	while (true) {
 			asm("nop");
 			asm("nop");
@@ -174,7 +195,7 @@ void main_sof_action(void)
 				tiny_calibration_maintain();
 				tiny_calibration_layer2();
 			} else tiny_calibration_find_values();
-			if(debug_divider == DEBUG_DIVISION){
+			/*if(debug_divider == DEBUG_DIVISION){
 				debug_divider = 0;
 				cntCnt[cntCntCnt] = DMA.CH0.TRFCNT;
 				if(cntCntCnt == (CNT_CNT_MAX - 1)){
@@ -182,7 +203,7 @@ void main_sof_action(void)
 				}
 				else cntCntCnt++;
 			}
-			else debug_divider++;
+			else debug_divider++;*/
 		}
 	}
 	

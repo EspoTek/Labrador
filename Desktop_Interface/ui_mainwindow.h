@@ -239,6 +239,7 @@ public:
     QCheckBox *digitalOutCheckbox_CH4;
     QPushButton *debugButton1;
     QPushButton *debugButton2;
+    QPushButton *debugButton3;
     bufferControl *bufferDisplay;
     QMenuBar *menuBar;
     QMenu *menuFile;
@@ -1221,6 +1222,11 @@ public:
 
         verticalLayout_3->addWidget(debugButton2);
 
+        debugButton3 = new QPushButton(centralWidget);
+        debugButton3->setObjectName(QStringLiteral("debugButton3"));
+
+        verticalLayout_3->addWidget(debugButton3);
+
         bufferDisplay = new bufferControl(centralWidget);
         bufferDisplay->setObjectName(QStringLiteral("bufferDisplay"));
         bufferDisplay->setMinimumSize(QSize(96, 36));
@@ -1635,6 +1641,7 @@ public:
         digitalOutCheckbox_CH4->setText(QApplication::translate("MainWindow", "Pin 4", Q_NULLPTR));
         debugButton1->setText(QApplication::translate("MainWindow", "Debug!", Q_NULLPTR));
         debugButton2->setText(QApplication::translate("MainWindow", "ReinitUsb()", Q_NULLPTR));
+        debugButton3->setText(QApplication::translate("MainWindow", "Jump to Bootloader", Q_NULLPTR));
         bufferDisplay->setText(QApplication::translate("MainWindow", "BUFFER IMAGE HERE", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuOscilloscope_2->setTitle(QApplication::translate("MainWindow", "Oscilloscope", Q_NULLPTR));

@@ -377,3 +377,7 @@ void genericUsbDriver::checkConnection(){
     initialConnectComplete();
 }
 
+void genericUsbDriver::bootloaderJump(){
+    usbSendControl(0x40, 0xa7, 1, 0, 0, NULL);
+}
+

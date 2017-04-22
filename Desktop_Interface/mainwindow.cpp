@@ -41,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->debugButton1->setVisible(0);
     ui->debugButton2->setVisible(0);
+    ui->debugButton3->setVisible(0);
     ui->debugConsole->setVisible(0);
     ui->console1->setVisible(0);
     ui->console2->setVisible(0);
@@ -63,6 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
         //Reconnect the other objects.
         ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
         connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
+        connect(ui->debugButton3, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
         connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
         connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
         connect(ui->controller_fg, SIGNAL(functionGenToUpdate(int,functionGenControl*)), ui->controller_iso->driver, SLOT(setFunctionGen(int,functionGenControl*)));
@@ -905,6 +907,7 @@ void MainWindow::enableLabradorDebugging(){
 
     ui->debugButton1->setVisible(1);
     ui->debugButton2->setVisible(1);
+    ui->debugButton3->setVisible(1);
     ui->debugConsole->setVisible(1);
 
     new Q_DebugStream(std::cout, ui->debugConsole); //Redirect Console output to QTextEdit
@@ -1079,6 +1082,7 @@ void MainWindow::reinitUsb(void){
     //Reconnect the other objects.
     ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
     connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
+    connect(ui->debugButton3, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(bootloaderJump()));
     connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
     connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
     connect(ui->controller_fg, SIGNAL(functionGenToUpdate(int,functionGenControl*)), ui->controller_iso->driver, SLOT(setFunctionGen(int,functionGenControl*)));

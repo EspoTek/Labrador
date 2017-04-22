@@ -9,9 +9,10 @@
 #ifndef GLOBALS_H_
 #define GLOBALS_H_
 
-#define VERO
+//#define VERO
 #define OVERCLOCK 48
 #define FIRMWARE_VERSION_ID 0x0001
+#define ATMEL_DFU_OFFSET 0x01fc
 
 #define TC_SPISLAVE TCD0
 #define TC_PSU TCD1
@@ -62,7 +63,6 @@ extern volatile unsigned char modeChanged;
 
 COMPILER_WORD_ALIGNED
 extern const unsigned short firmver;
-
 
 #include "unified_debug_structure.h"
 extern unified_debug uds;

@@ -6,6 +6,8 @@ src\tiny_calibration.c
 
 src\tiny_dig.c
 
+src\tiny_eeprom.c
+
 src\ASF\common\boards\user_board\init.c
 
 src\ASF\common\services\ioport\xmega\ioport_compat.c

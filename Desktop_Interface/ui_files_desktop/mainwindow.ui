@@ -1271,6 +1271,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="debugButton3">
+          <property name="text">
+           <string>Jump to Bootloader</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="bufferControl" name="bufferDisplay">
           <property name="minimumSize">
            <size>

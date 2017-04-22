@@ -43,6 +43,7 @@
 /*
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
+#include <string.h>
 
 #include "conf_usb.h"
 #include "usb_protocol.h"
@@ -55,6 +56,7 @@
 #include "tiny_dma.h"
 #include "tiny_adc.h"
 #include "tiny_calibration.h"
+#include "tiny_eeprom.h"
 /**
  * \ingroup udc_group
  * \defgroup udc_group_interne Implementation of UDC
@@ -1177,6 +1179,15 @@ static bool udc_reqvend(void){
 			PORTE.OUT = udd_g_ctrlreq.req.wValue;
 			return 1;
 		case 0xa7:  //Soft Reset
+		//Fill EEPROM buffer with value
+		
+		if(udd_g_ctrlreq.req.wValue){
+			eeprom_safe_read();
+			memcpy(eeprom_buffer_write, eeprom_buffer_read, EEPROM_PAGE_SIZE);
+			eeprom_buffer_write[0] = 1;
+			eeprom_safe_write();
+			eeprom_safe_read();
+		}
 		
 		//Code here from SprinterSB
 		//http://www.avrfreaks.net/comment/872674
@@ -1192,7 +1203,7 @@ static bool udc_reqvend(void){
 			    __builtin_unreachable();
 		case 0xa8:  //Firmware Version Request
 			udd_set_setup_payload(&firmver, udd_g_ctrlreq.req.wLength);
-			return 1;
+			return 1;		
 		default:
 			return 0;
 	}
