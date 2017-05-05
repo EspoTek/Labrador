@@ -3,29 +3,18 @@ This is the project page for the EspoTek Labrador.
 http://espotek.com/labrador
 https://www.crowdsupply.com/espotek/labrador
 
-#Licence
+# Licence
 All software files are licenced under GNU GPL v3.  https://www.gnu.org/licenses/gpl.html
 
 All hardware files (schematics, PCB) are licenced under Creative Commons 4.0 (CC BY-NC-SA).  https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 The intention is to move to a less restrictive licence in future, where commercial hardware derivatives are allowed but the use of the Labrador name or any branding is not.  If anyone knows how to implement such a licence, I'm all ears.
 
-#Known bugs.
-This software is very much pre-beta.
-Those of you with sharp eyes will notice that there are some bugs.
-A few biggies include:
-~~ - The software is compatible with Windows (x64) only.~~
- - A sample is discarded every frame while the DMA resynchronises.
- - The serial decoder doesn't actually look at every sample individually.
+# Known bugs.
+Most of the main bugs have now been fixed, including all synchronisation issues.
+There are still a few small bugs, most notably a crash when you disconnect and reconnect the board on a non-Windows platform, and the issue with the logic analyzer still persists.  Both will hopefully be cleaned up before launch.
 
-There are planned fixes for these:
-~~ - Port libusbK calls to libusb1.~~
- - Time everything from the ADC's input clock.  Send an extra "status" byte in isoBuffer[] and time this to a high-priority DMA interrupt to prevent the desktop interface and MCU code falling out of sync.  (The "drop 1 sample per frame" was a hacky solution to a synchronisation problem caused by a double buffer's state variable being stored separately, on both PC and MCU.  This should have been stomped out 6 months ago).
- - Change all calculations to be bit-based (not byte) and use a mix of divide and modulo to get exact position.
-
-This is in addition to the dozens of small bugs that will have to be slowly squashed before launch.
-
-#Collaboration
+# Collaboration
 Mailing list is here and open to all who wish to collaborate on the project:
 https://groups.google.com/forum/#!forum/labrador-devel
 
