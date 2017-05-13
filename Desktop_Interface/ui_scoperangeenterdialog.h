@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'scoperangeenterdialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.1
+** Created by: Qt User Interface Compiler version 5.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -113,10 +113,10 @@ public:
 
     void retranslateUi(QDialog *scopeRangeEnterDialog)
     {
-        scopeRangeEnterDialog->setWindowTitle(QApplication::translate("scopeRangeEnterDialog", "Enter Scope Range", Q_NULLPTR));
-        label->setText(QApplication::translate("scopeRangeEnterDialog", "Vmax", Q_NULLPTR));
-        label_2->setText(QApplication::translate("scopeRangeEnterDialog", "Vmin", Q_NULLPTR));
-        label_3->setText(QApplication::translate("scopeRangeEnterDialog", "Time Window", Q_NULLPTR));
+        scopeRangeEnterDialog->setWindowTitle(QApplication::translate("scopeRangeEnterDialog", "Enter Scope Range", 0));
+        label->setText(QApplication::translate("scopeRangeEnterDialog", "Vmax", 0));
+        label_2->setText(QApplication::translate("scopeRangeEnterDialog", "Vmin", 0));
+        label_3->setText(QApplication::translate("scopeRangeEnterDialog", "Time Window", 0));
     } // retranslateUi
 
 };

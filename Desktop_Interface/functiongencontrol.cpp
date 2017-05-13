@@ -61,7 +61,7 @@ void functionGenControl::waveformName_CH1(QString newName)
 
     directory.append("/waveforms/");
     directory.append(newName);
-    QByteArray temp = directory.toLatin1();
+    QByteArray temp = directory.toLocal8Bit();
     char *fileName = temp.data();
 
     qDebug() << "opening" << fileName;
@@ -167,8 +167,7 @@ void functionGenControl::waveformName_CH2(QString newName)
         samples_CH2[i] = (unsigned char) dummy;
     }
 #else
-    QDir *dir = new QDir();
-    QString directory = dir->currentPath();
+    QString directory = QCoreApplication::applicationDirPath();
 
     directory.append("/waveforms/");
     directory.append(newName);
