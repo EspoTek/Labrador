@@ -81,7 +81,6 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso->driver, SIGNAL(checkXY(bool)), ui->xyDisplayLabel, SLOT(setChecked(bool)));
         connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
         connect(ui->controller_iso->driver, SIGNAL(upTick()), ui->controller_iso, SLOT(timerTick()));
-        connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
         connect(ui->controller_iso->driver, SIGNAL(connectedStatus(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
         connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete(void)), ui->deviceConnected, SLOT(resetUsbState(bool)));
     #endif
@@ -105,7 +104,6 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso->driver, SIGNAL(checkXY(bool)), ui->xyDisplayLabel, SLOT(setChecked(bool)));
         connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
         connect(ui->controller_iso->driver, SIGNAL(upTick()), ui->controller_iso, SLOT(timerTick()));
-        connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
         connect(ui->controller_iso->driver, SIGNAL(connectedStatus(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
     #endif
 
@@ -1077,10 +1075,11 @@ void MainWindow::reinitUsb(void){
     ui->controller_iso->driver->shutdownProcedure();
     QTimer::singleShot(2000, this, SLOT(reinitUsbStage2()));
 #endif
+    qDebug() << "ReinitUsb Stage 1 complete";
 }
 
 void MainWindow::reinitUsbStage2(void){
-
+    qDebug() << "ReinitUsb entering stage 2";
     delete(ui->controller_iso->driver);
     ui->controller_iso->driver = new _PLATFORM_DEPENDENT_USB_OBJECT();
 
@@ -1109,7 +1108,7 @@ void MainWindow::reinitUsbStage2(void){
     connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete()), this, SLOT(resetUsbState()));
     ui->controller_iso->driver->setGain(reinitScopeGain);
 
-    qDebug() << "ReinitUsb is returning";
+    qDebug() << "ReinitUsbStage2 is returning";
 }
 
 void MainWindow::resetUsbState(void){

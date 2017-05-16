@@ -1,35 +1,62 @@
 #include "unixusbdriver.h"
 #include "platformspecific.h"
+
 unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
+    qDebug() << "unixUsbDriver created!";
+    tv.tv_sec = 0;
+    tv.tv_usec = 100000;
 }
 
 unixUsbDriver::~unixUsbDriver(void){
     qDebug() << "\n\nunixUsbDriver destructor ran!";
-    workerThread->quit();
-    workerThread->deleteLater();
+    //unixDriverDeleteMutex.lock();
+    workerThread->terminate();
+    //workerThread->deleteLater();
     delete(isoHandler);
+    delete(workerThread);
+    qDebug() << "THREAD Gone!";
+
+    for (int i=0; i<NUM_FUTURE_CTX; i++){
+        for (int k=0; k<NUM_ISO_ENDPOINTS; k++){
+            libusb_free_transfer(isoCtx[k][i]);
+        }
+    }
+    qDebug() << "Transfers freed.";
+
     libusb_release_interface(handle, 0);
+    qDebug() << "Interface released";
+    libusb_close(handle);
+    qDebug() << "Device Closed";
     libusb_exit(ctx);
+    qDebug() << "Libusb exited";
+    //unixDriverDeleteMutex.unlock();
+    qDebug() << "unixUsbDriver destructor completed!\n\n";
 }
 
 unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     qDebug() << "Entering unixUsbDriver::usbInit";
 
-    int error = libusb_init(&ctx);
-    if(error){
-        qDebug() << "libusb_init FAILED";
-        return error;
-    } else qDebug() << "Libusb context initialised";
+    int error;
+    //Should only run once.
+    if(ctx == NULL){
+        error = libusb_init(&ctx);
+        if(error){
+            qDebug() << "libusb_init FAILED";
+            return 1;
+        } else qDebug() << "Libusb context initialised";
 
-    libusb_set_debug(ctx, 3);
-
-    handle = libusb_open_device_with_vid_pid(ctx, VIDin, PIDin);
-    if(handle==NULL){
-        qDebug() << "DEVICE NOT FOUND";
-        return -1;
+        libusb_set_debug(ctx, 3);
     }
-    qDebug() << "Device found!!";
+
+    if(handle == NULL){
+        handle = libusb_open_device_with_vid_pid(ctx, VIDin, PIDin);
+        if(handle==NULL){
+            qDebug() << "DEVICE NOT FOUND";
+            return 1;
+        }
+        qDebug() << "Device found!!";
+    }
 
     qDebug() << (libusb_kernel_driver_active(handle, 0) ? "KERNEL DRIVER ACTIVE" : "KERNEL DRIVER INACTIVE");
     if(libusb_kernel_driver_active(handle, 0)){
@@ -39,7 +66,7 @@ unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     if(error){
         qDebug() << "libusb_claim_interface FAILED";
         qDebug() << "ERROR" << error << libusb_error_name(error);
-        return error;
+        return 1;
     } else qDebug() << "Interface claimed!";
 
     return 0;
@@ -130,7 +157,7 @@ void unixUsbDriver::isoTimerTick(void){
     tcBlockMutex.lock();
     for (n=0; n<NUM_FUTURE_CTX; n++){
         if(allEndpointsComplete(n)){
-            //qDebug("Transfer %d is complete!!", n);
+            qDebug("Transfer %d is complete!!", n);
             if(transferCompleted[0][n].timeReceived < minFrame){
                 minFrame = transferCompleted[0][n].timeReceived;
                 earliest = n;
@@ -143,6 +170,8 @@ void unixUsbDriver::isoTimerTick(void){
         return;
     }
 
+    qDebug() << "Processing Ctx" << earliest;
+
     //Copy iso data into buffer
     for(i=0;i<isoCtx[0][earliest]->num_iso_packets;i++){
         for(unsigned char k=0; k<NUM_ISO_ENDPOINTS;k++){
@@ -153,6 +182,8 @@ void unixUsbDriver::isoTimerTick(void){
         }
     }
 
+    qDebug() << "Data copy complete!";
+
     //Control data for isoDriver
     bufferLengths[currentWriteBuffer] = packetLength;
     currentWriteBuffer = !currentWriteBuffer;
@@ -160,9 +191,18 @@ void unixUsbDriver::isoTimerTick(void){
     //Setup next transfer
     for(unsigned char k=0; k<NUM_ISO_ENDPOINTS;k++){
         transferCompleted[k][earliest].completed = false;
-        error = libusb_submit_transfer(isoCtx[k][earliest]);
+        if(shutdownMode){
+            error = libusb_cancel_transfer(isoCtx[k][earliest]);
+            numCancelled++;
+            qDebug() << "Cancelled" << earliest << k;
+            if(numCancelled == (NUM_FUTURE_CTX * NUM_ISO_ENDPOINTS)){
+                isoHandler->stopTime = true;
+            }
+        }else{
+            error = libusb_submit_transfer(isoCtx[k][earliest]);
+        }
         if(error){
-            qDebug() << "libusb_submit_transfer FAILED";
+            qDebug() << (shutdownMode ? "libusb_cancel_transfer FAILED" : "libusb_submit_transfer FAILED");
             qDebug() << "ERROR" << libusb_error_name(error);
         } //else qDebug() << "isoCtx submitted successfully!";
     }
@@ -181,7 +221,10 @@ char *unixUsbDriver::isoRead(unsigned int *newLength){
 }
 
 void unixUsbDriver::recoveryTick(void){
-    avrDebug();
+    //This should not be called in shutdown mode since it cause double deletion!
+    if(!shutdownMode){
+        avrDebug();
+    }
 }
 
 bool unixUsbDriver::allEndpointsComplete(int n){

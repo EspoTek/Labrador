@@ -9,7 +9,6 @@
 #include "genericusbdriver.h"
 #include "libusb.h"
 
-
 //tcBlock is fed to the callback in the libusb user data section.
 typedef struct tcBlock{
     int number;
@@ -27,13 +26,16 @@ public:
     worker(){};
     ~worker(){};
     libusb_context *ctx;
+    bool stopTime = false;
 public slots:
     void handle(){
         qDebug() << "SUB THREAD ID" << QThread::currentThreadId();
         while(1){
-            if(libusb_event_handling_ok(ctx)){
-                libusb_handle_events(ctx);
-                //qDebug() << "HANDLED";
+            if(!stopTime){
+                if(libusb_event_handling_ok(ctx)){
+                    libusb_handle_events_timeout(ctx, &tv);
+                    //qDebug() << "HANDLED";
+                }
             }
         }
     }
@@ -52,7 +54,7 @@ public:
     char *isoRead(unsigned int *newLength);
 protected:
     //USB Vars
-    libusb_context *ctx;
+    libusb_context *ctx = NULL;
     libusb_device_handle *handle = NULL;
     //USBIso Vars
     libusb_transfer *isoCtx[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
@@ -65,6 +67,7 @@ protected:
     unsigned char usbIsoInit(void);
     bool allEndpointsComplete(int n);
     bool shutdownMode = false;
+    int numCancelled = 0;
 signals:
 public slots:
     void isoTimerTick(void);
@@ -81,8 +84,10 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
     //qDebug() << "CALLBACK" << number;
     //qDebug() << completed;
 
-    ((tcBlock *)transfer->user_data)->completed = true;
-    ((tcBlock *)transfer->user_data)->timeReceived = QDateTime::currentMSecsSinceEpoch();
+    if(transfer->status!=LIBUSB_TRANSFER_CANCELLED){
+        ((tcBlock *)transfer->user_data)->completed = true;
+        ((tcBlock *)transfer->user_data)->timeReceived = QDateTime::currentMSecsSinceEpoch();
+    }
     //qDebug() << ((tcBlock *)transfer->user_data)->timeReceived;
     tcBlockMutex.unlock();
     return;

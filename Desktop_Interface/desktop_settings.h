@@ -24,6 +24,8 @@ extern int MULTIMETER_PERIOD;
 extern double SERIAL_DELAY;
 
 extern QMutex tcBlockMutex;
+extern QMutex unixDriverDeleteMutex;
+extern struct timeval tv;
 
 #define DEBUG_SETTINGSDOTSET
 
