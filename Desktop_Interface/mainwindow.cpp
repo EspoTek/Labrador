@@ -1073,7 +1073,7 @@ void MainWindow::reinitUsb(void){
     reinitUsbStage2();
 #else
     ui->controller_iso->driver->shutdownProcedure();
-    QTimer::singleShot(2000, this, SLOT(reinitUsbStage2()));
+    QTimer::singleShot(3000, this, SLOT(reinitUsbStage2()));
 #endif
     qDebug() << "ReinitUsb Stage 1 complete";
 }

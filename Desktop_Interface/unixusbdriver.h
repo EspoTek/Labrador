@@ -27,14 +27,22 @@ public:
     ~worker(){};
     libusb_context *ctx;
     bool stopTime = false;
+    unsigned char cleanupRemaining = 2;
 public slots:
     void handle(){
         qDebug() << "SUB THREAD ID" << QThread::currentThreadId();
         while(1){
-            if(!stopTime){
-                if(libusb_event_handling_ok(ctx)){
-                    libusb_handle_events_timeout(ctx, &tv);
-                    //qDebug() << "HANDLED";
+            //qDebug() << cleanupRemaining;
+            if(libusb_event_handling_ok(ctx)){
+                libusb_handle_events_timeout(ctx, &tv);
+                //qDebug() << "HANDLED";
+            }
+            if(stopTime){
+                if(cleanupRemaining){
+                    cleanupRemaining--;
+                }else while(1){
+                    QThread::msleep(100);
+                    qDebug() << "Cleanup complete";
                 }
             }
         }
@@ -73,6 +81,7 @@ public slots:
     void isoTimerTick(void);
     void recoveryTick(void);
     void shutdownProcedure(void);
+    void backupCleanup(void);
 };
 
 //Callback on iso transfer complete.
