@@ -95,6 +95,7 @@ public slots:
     void avrDebug(void);
     virtual void isoTimerTick(void) = 0;
     virtual void recoveryTick() = 0;
+    virtual void shutdownProcedure() = 0;
     void checkConnection();
     void bootloaderJump();
 };

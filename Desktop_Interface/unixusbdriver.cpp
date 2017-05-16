@@ -193,3 +193,7 @@ bool unixUsbDriver::allEndpointsComplete(int n){
     }
     return true;
 }
+
+void unixUsbDriver::shutdownProcedure(){
+    shutdownMode = true;
+}

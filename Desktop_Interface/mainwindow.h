@@ -118,6 +118,7 @@ private slots:
     void on_actionRecord_triggered(bool checked);
     void on_actionTake_Snapshot_triggered();
     void reinitUsb(void);
+    void reinitUsbStage2(void);
     void resetUsbState(void);
 private:
     //Generic Vars
@@ -127,6 +128,12 @@ private:
     QCPItemText *textLabel;
     QDir *outputDir;
     QFile *output375_CH1, *output375_CH2, *output750;
+
+    int reinitdeviceMode;
+    double reinitScopeGain;
+    double reinitCurrentPsuVoltage;
+    int reinitDigitalPinState;
+
 
     //Generic Functions
     void initialisePlot();

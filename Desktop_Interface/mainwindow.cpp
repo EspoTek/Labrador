@@ -1068,13 +1068,18 @@ void MainWindow::on_actionTake_Snapshot_triggered()
 }
 
 void MainWindow::reinitUsb(void){
-    int deviceMode;
-    double scopeGain;
-    double currentPsuVoltage;
-    int digitalPinState;
-
     ui->controller_iso->doNotTouchGraph = true;
-    ui->controller_iso->driver->saveState(&deviceMode, &scopeGain, &currentPsuVoltage, &digitalPinState);
+    ui->controller_iso->driver->saveState(&reinitdeviceMode, &reinitScopeGain, &reinitCurrentPsuVoltage, &reinitDigitalPinState);
+
+#ifdef PLATFORM_WINDOWS
+    reinitUsbStage2();
+#else
+    ui->controller_iso->driver->shutdownProcedure();
+    QTimer::singleShot(2000, this, SLOT(reinitUsbStage2()));
+#endif
+}
+
+void MainWindow::reinitUsbStage2(void){
 
     delete(ui->controller_iso->driver);
     ui->controller_iso->driver = new _PLATFORM_DEPENDENT_USB_OBJECT();
@@ -1102,10 +1107,9 @@ void MainWindow::reinitUsb(void){
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
     connect(ui->controller_iso->driver, SIGNAL(connectedStatus(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
     connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete()), this, SLOT(resetUsbState()));
-    ui->controller_iso->driver->setGain(scopeGain);
+    ui->controller_iso->driver->setGain(reinitScopeGain);
 
     qDebug() << "ReinitUsb is returning";
-
 }
 
 void MainWindow::resetUsbState(void){

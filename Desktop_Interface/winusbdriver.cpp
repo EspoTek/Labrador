@@ -316,3 +316,7 @@ void winUsbDriver::recoveryTick(){
     usbSendControl(0xc0, 0xa0, 0, 0, sizeof(unified_debug), NULL);
     return;
 }
+
+void winUsbDriver::shutdownProcedure(){
+    return;
+}

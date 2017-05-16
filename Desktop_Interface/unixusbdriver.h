@@ -64,10 +64,12 @@ protected:
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
     unsigned char usbIsoInit(void);
     bool allEndpointsComplete(int n);
+    bool shutdownMode = false;
 signals:
 public slots:
     void isoTimerTick(void);
     void recoveryTick(void);
+    void shutdownProcedure(void);
 };
 
 //Callback on iso transfer complete.

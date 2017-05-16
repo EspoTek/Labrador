@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_genericUsbDriver_t {
-    QByteArrayData data[37];
-    char stringdata0[399];
+    QByteArrayData data[38];
+    char stringdata0[417];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -64,8 +64,9 @@ QT_MOC_LITERAL(31, 325, 7), // "newGain"
 QT_MOC_LITERAL(32, 333, 8), // "avrDebug"
 QT_MOC_LITERAL(33, 342, 12), // "isoTimerTick"
 QT_MOC_LITERAL(34, 355, 12), // "recoveryTick"
-QT_MOC_LITERAL(35, 368, 15), // "checkConnection"
-QT_MOC_LITERAL(36, 384, 14) // "bootloaderJump"
+QT_MOC_LITERAL(35, 368, 17), // "shutdownProcedure"
+QT_MOC_LITERAL(36, 386, 15), // "checkConnection"
+QT_MOC_LITERAL(37, 402, 14) // "bootloaderJump"
 
     },
     "genericUsbDriver\0sendClearBuffer\0\0"
@@ -78,8 +79,8 @@ QT_MOC_LITERAL(36, 384, 14) // "bootloaderJump"
     "functionGenControl*\0fGenControl\0"
     "setDeviceMode\0mode\0newDig\0digState\0"
     "psuTick\0setGain\0newGain\0avrDebug\0"
-    "isoTimerTick\0recoveryTick\0checkConnection\0"
-    "bootloaderJump"
+    "isoTimerTick\0recoveryTick\0shutdownProcedure\0"
+    "checkConnection\0bootloaderJump"
 };
 #undef QT_MOC_LITERAL
 
@@ -89,7 +90,7 @@ static const uint qt_meta_data_genericUsbDriver[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -97,29 +98,30 @@ static const uint qt_meta_data_genericUsbDriver[] = {
       10,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    3,  119,    2, 0x06 /* Public */,
-       6,    1,  126,    2, 0x06 /* Public */,
-       8,    1,  129,    2, 0x06 /* Public */,
-      10,    1,  132,    2, 0x06 /* Public */,
-      12,    0,  135,    2, 0x06 /* Public */,
-      13,    1,  136,    2, 0x06 /* Public */,
-      14,    0,  139,    2, 0x06 /* Public */,
-      15,    0,  140,    2, 0x06 /* Public */,
-      16,    1,  141,    2, 0x06 /* Public */,
-      18,    0,  144,    2, 0x06 /* Public */,
+       1,    3,  124,    2, 0x06 /* Public */,
+       6,    1,  131,    2, 0x06 /* Public */,
+       8,    1,  134,    2, 0x06 /* Public */,
+      10,    1,  137,    2, 0x06 /* Public */,
+      12,    0,  140,    2, 0x06 /* Public */,
+      13,    1,  141,    2, 0x06 /* Public */,
+      14,    0,  144,    2, 0x06 /* Public */,
+      15,    0,  145,    2, 0x06 /* Public */,
+      16,    1,  146,    2, 0x06 /* Public */,
+      18,    0,  149,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      19,    1,  145,    2, 0x0a /* Public */,
-      21,    2,  148,    2, 0x0a /* Public */,
-      25,    1,  153,    2, 0x0a /* Public */,
-      27,    1,  156,    2, 0x0a /* Public */,
-      29,    0,  159,    2, 0x0a /* Public */,
-      30,    1,  160,    2, 0x0a /* Public */,
-      32,    0,  163,    2, 0x0a /* Public */,
-      33,    0,  164,    2, 0x0a /* Public */,
-      34,    0,  165,    2, 0x0a /* Public */,
-      35,    0,  166,    2, 0x0a /* Public */,
-      36,    0,  167,    2, 0x0a /* Public */,
+      19,    1,  150,    2, 0x0a /* Public */,
+      21,    2,  153,    2, 0x0a /* Public */,
+      25,    1,  158,    2, 0x0a /* Public */,
+      27,    1,  161,    2, 0x0a /* Public */,
+      29,    0,  164,    2, 0x0a /* Public */,
+      30,    1,  165,    2, 0x0a /* Public */,
+      32,    0,  168,    2, 0x0a /* Public */,
+      33,    0,  169,    2, 0x0a /* Public */,
+      34,    0,  170,    2, 0x0a /* Public */,
+      35,    0,  171,    2, 0x0a /* Public */,
+      36,    0,  172,    2, 0x0a /* Public */,
+      37,    0,  173,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool, QMetaType::Bool, QMetaType::Bool,    3,    4,    5,
@@ -140,6 +142,7 @@ static const uint qt_meta_data_genericUsbDriver[] = {
     QMetaType::Void, QMetaType::Int,   28,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Double,   31,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -174,8 +177,9 @@ void genericUsbDriver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 16: _t->avrDebug(); break;
         case 17: _t->isoTimerTick(); break;
         case 18: _t->recoveryTick(); break;
-        case 19: _t->checkConnection(); break;
-        case 20: _t->bootloaderJump(); break;
+        case 19: _t->shutdownProcedure(); break;
+        case 20: _t->checkConnection(); break;
+        case 21: _t->bootloaderJump(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -290,13 +294,13 @@ int genericUsbDriver::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     }
     return _id;
 }
