@@ -11,7 +11,7 @@ MAKEFILE      = Makefile.Release
 
 CC            = cl
 CXX           = cl
-DEFINES       = -DUNICODE -DWIN32 -DWIN64 -DQCP_VER=1 -DQT_NO_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG
+DEFINES       = -DUNICODE -DWIN32 -DWIN64 -DQCP_VER=1 -DPLATFORM_WINDOWS -DQT_NO_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG
 CFLAGS        = -nologo -Zc:wchar_t -FS -O2 -MD -Zc:strictStrings -W3 $(DEFINES)
 CXXFLAGS      = -nologo -Zc:wchar_t -FS -O2 -MD -Zc:strictStrings -GR -W3 -w34100 -w34189 -w44996 -EHsc $(DEFINES)
 INCPATH       = -I. -Iui_elements\qcp1 -Iui_elements -Ibuild_win -Ibuild_win\libusbk\includes -IC:\Qt\5.7\msvc2013_64\include -IC:\Qt\5.7\msvc2013_64\include\QtPrintSupport -IC:\Qt\5.7\msvc2013_64\include\QtWidgets -IC:\Qt\5.7\msvc2013_64\include\QtGui -IC:\Qt\5.7\msvc2013_64\include\QtANGLE -IC:\Qt\5.7\msvc2013_64\include\QtCore -Imoc -I. -IC:\Qt\5.7\msvc2013_64\mkspecs\win32-msvc2013 

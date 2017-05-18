@@ -92,6 +92,7 @@ win32{
     }
     INCLUDEPATH += $$PWD/build_win/libusbk/includes
     DEPENDPATH += $$PWD/build/win/libusbk/includes
+    DEFINES += PLATFORM_WINDOWS
 }
 
 #############################################################
