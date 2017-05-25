@@ -105,6 +105,8 @@ short *isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
             idx = (int) floor(((double) front - accumulatedDelay));
             subIdx = (int) floor(8*(((double) front - accumulatedDelay) - floor(((double) front - accumulatedDelay))));
 
+            //qDebug() << "subIdx = " << subIdx;
+
             if (idx < 0){
                 accumulatedDelay--;
                 accumulatedDelay -= (double) front;
