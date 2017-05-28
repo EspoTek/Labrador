@@ -237,6 +237,7 @@ void isoBuffer::serialDecode(double baudRate)
             //qDebug() << "uart_bit = " << uart_bit;
         } else{
             uartTransmitting = (uart_bit==1) ? false : true;
+            jitterCompensationNeeded = true;
             //if(uartTransmitting)  qDebug() << "Decoding symbol!";
         }
         //Update the pointer, accounting for jitter
@@ -244,7 +245,6 @@ void isoBuffer::serialDecode(double baudRate)
         //Calculate stopping condition
         dist_seconds = (double)serialDistance()/sampleRate_bit;
     }
-    jitterCompensationNeeded = true;
     //qDebug() << "\n\n\n\n\n";
 }
 
@@ -261,13 +261,13 @@ void isoBuffer::updateSerialPtr(double baudRate, unsigned char current_bit)
 {
     if(jitterCompensationNeeded && uartTransmitting){
         jitterCompensationNeeded = jitterCompensationProcedure(baudRate, current_bit);
-        qDebug() << "JitterCompensation Needed?" << jitterCompensationNeeded;
+        //qDebug() << "JitterCompensation Needed?" << jitterCompensationNeeded;
     }
 
     int distance_between_bits = sampleRate_bit/baudRate;
     if(uartTransmitting){
         serialPtr_bit += distance_between_bits;
-    } else serialPtr_bit += distance_between_bits - 1;  //Less than one baud period so that it will always see that start bit.
+    } else serialPtr_bit += distance_between_bits;  //Less than one baud period so that it will always see that start bit.
 
     if (serialPtr_bit > (bufferEnd * 8)){
         serialPtr_bit -= (bufferEnd * 8);
@@ -301,7 +301,7 @@ void isoBuffer::decodeNextUartBit(unsigned char bitValue)
 bool isoBuffer::jitterCompensationProcedure(double baudRate, unsigned char current_bit){
 
     if(current_bit !=0){
-        qDebug() << "Current bit not zero!!";
+        //qDebug() << "Current bit not zero!!";
         return true;
     }
 
@@ -311,13 +311,13 @@ bool isoBuffer::jitterCompensationProcedure(double baudRate, unsigned char curre
     }
 
     unsigned char left_byte = (buffer[left_coord/8] & 0xff);
-    qDebug() << "current_bit" << current_bit;
-    qDebug() << "left_byte" << left_byte;
+    //qDebug() << "current_bit" << current_bit;
+    //qDebug() << "left_byte" << left_byte;
 
     if(left_byte > 0){
-        qDebug() << "Recalibration Opportunity";
+        //qDebug() << "Recalibration Opportunity";
         unsigned char temp_bit = 0;
-        //Go back to transition point
+        //Go back to 1-0 transition point
         while(!temp_bit){
             temp_bit = getNextUartBit();
             serialPtr_bit--;
