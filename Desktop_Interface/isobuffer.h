@@ -38,7 +38,6 @@ public:
     void glitchInsert(short type);
     void serialDecode(double baudRate);
     int serialDistance();
-    void serialBegin();
     //Generic Vars
     QPlainTextEdit *console, *console1, *console2;
     bool serialAutoScroll = true;
@@ -47,8 +46,8 @@ public:
 private:
     //Generic Vars
     short *buffer, *readData = NULL;
-    int bufferEnd, back = 0, serialPtr = 0;
-    int samplesPerSecond;
+    int bufferEnd, back = 0;
+    int samplesPerSecond, sampleRate_bit;
     bool firstTime = true;
     //File I/O
     bool fileIOEnabled = false;
@@ -58,19 +57,11 @@ private:
     unsigned int currentColumn = 0;
     isoDriver *virtualParent;
     //Serial Decode
-    bool serialDecodingSymbol = false;
-    char charBuffer[4096];
-    unsigned int charPos = 0;
-    unsigned char symbolMax = 7;
-    unsigned char symbolCurrent = 0;
-    unsigned short symbol = 0;
-    char serialPhase = 0;
+    int serialPtr_bit = 0;
+    bool uartTransmitting = false;
     isoBufferBuffer *serialBuffer;
     bool symbolUpdated = false;
     //Generic Functions
-    void decodeSymbol(unsigned char newBit);
-    void marchSerialPtr(int bitPeriod_samples);
-    unsigned char numOnes(unsigned short var);
     double sampleConvert(short sample, int TOP, bool AC);
 public slots:
     void enableFileIO(QFile *file);

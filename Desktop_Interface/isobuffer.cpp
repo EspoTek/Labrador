@@ -8,6 +8,7 @@ isoBuffer::isoBuffer(QWidget *parent, int bufferLen, isoDriver *caller, unsigned
     bufferEnd = bufferLen-1;
     samplesPerSecond = (double) bufferLen/(double)21;
     samplesPerSecond = samplesPerSecond/375*VALID_DATA_PER_375;
+    sampleRate_bit = samplesPerSecond * 8;
     virtualParent = caller;
     channel = channel_value;
 
@@ -147,10 +148,10 @@ void isoBuffer::clearBuffer()
     }
 
     back = 0;
-    serialPtr = 0;
-    serialDecodingSymbol = false;
-    symbolCurrent = 0;
-    symbol = 0;
+    //serialPtr = 0;
+    //serialDecodingSymbol = false;
+    //symbolCurrent = 0;
+    //symbol = 0;
 
     firstTime = true;
 }
@@ -168,113 +169,6 @@ void isoBuffer::gainBuffer(int gain_log)
 void isoBuffer::glitchInsert(short type)
 {
 
-}
-
-void isoBuffer::serialDecode(double baudRate)
-{
-    double dist_seconds = (double)serialDistance()/samplesPerSecond;
-    double bitPeriod_seconds = 1/baudRate;
-    unsigned short* tempPtr;
-    unsigned short tempShort;
-    unsigned char tempChar;
-
-    if(channel == 1) console = console1;
-    else if(channel == 2) console = console2;
-    else qFatal("Nonexistant console requested in isoBuffer::serialDecode");
-
-    while(dist_seconds > (bitPeriod_seconds + SERIAL_DELAY)){
-        tempPtr = (unsigned short *) readBuffer(0, 1, false, dist_seconds - bitPeriod_seconds);
-        tempShort = *(tempPtr);
-        tempShort = tempShort & 0xff;
-        tempChar = tempShort & (1 << serialPhase) ? 0 : 1;
-        if(serialDecodingSymbol){
-            //if((tempShort != 0) && (tempShort!= 255)) qDebug() << "tempShort = " << tempShort;
-            //qDebug() << numOnes(tempShort);
-            decodeSymbol(numOnes(tempShort) > 4);
-        }
-        else serialDecodingSymbol = (numOnes(tempShort) < 8);
-        marchSerialPtr(bitPeriod_seconds * samplesPerSecond);
-        dist_seconds = (double)serialDistance()/samplesPerSecond;
-    }
-}
-
-int isoBuffer::serialDistance()
-{
-    if(back >= serialPtr){
-        return back - serialPtr;
-    }else return bufferEnd - serialPtr + back;
-}
-
-void isoBuffer::serialBegin()
-{
-    serialPtr = back;
-}
-
-
-void isoBuffer::decodeSymbol(unsigned char newBit) //Slow but works.
-{
-    if(symbolCurrent == symbolMax){  //Last bit in symbol
-        //charBuffer[charPos] = symbol;
-        if(charPos<SERIAL_BUFFER_LENGTH) charPos++;
-        serialBuffer->add(symbol);
-        symbolCurrent++;
-        symbolUpdated = true;
-        return;
-    }
-    if(symbolCurrent > symbolMax){  //Wait for stop bit.  Stops over the top calculation when you get a string of zeroes...
-        if(newBit == 1){
-            serialDecodingSymbol = false;
-            symbolCurrent = 0;
-            symbol = 0;
-        }
-        return;
-    }
-    //otherwise
-        symbol |= newBit << symbolCurrent;
-        symbolCurrent++;
-}
-
-void isoBuffer::marchSerialPtr(int bitPeriod_samples)
-{
-    int halfPeriod = bitPeriod_samples * 0.6;
-    int sampleDistance = -1;
-
-    serialPtr += bitPeriod_samples;
-    if(serialPtr >= bufferEnd){
-        serialPtr -= bufferEnd;
-    }
-    if(!serialDecodingSymbol){
-        return;
-    }
-
-    if((serialPtr <= halfPeriod) || (serialPtr > (bufferEnd - halfPeriod))) return;  //Don't bother readjusting.  Too hard.
-
-    //otherwise...
-    if(buffer[serialPtr] != buffer[serialPtr - halfPeriod]){ //use LHS to calibrate
-        for (int i=halfPeriod;i>=0;i--){
-            if(buffer[serialPtr] == buffer[serialPtr-i]){
-                sampleDistance = i;
-                break;
-            }
-        }
-        if(sampleDistance != -1) serialPtr += (bitPeriod_samples/2) - sampleDistance;
-    }
-
-    if(sampleDistance == -1){
-        if(buffer[serialPtr] != buffer[serialPtr + halfPeriod]){ //same as above but with RHS
-            for (int i=halfPeriod;i>=0;i--){
-                if(buffer[serialPtr] == buffer[serialPtr+i]){
-                    sampleDistance = i;
-                    break;
-                }
-            }
-            if(sampleDistance != -1) serialPtr -= (bitPeriod_samples/2) - sampleDistance;
-        }
-    }
-}
-
-unsigned char isoBuffer::numOnes(unsigned short var){
-    return ((var&0x01) ? 1 : 0) + ((var&0x02) ? 1 : 0) + ((var&0x04) ? 1 : 0) + ((var&0x08) ? 1 : 0) + ((var&0x10) ? 1 : 0) + ((var&0x20) ? 1 : 0) + ((var&0x40) ? 1 : 0) + ((var&0x80) ? 1 : 0);
 }
 
 void isoBuffer::enableFileIO(QFile *file){
@@ -309,6 +203,7 @@ double isoBuffer::sampleConvert(short sample, int TOP, bool AC){
 }
 
 void isoBuffer::updateConsole(){
+    /*
     if(!symbolUpdated) return;
     qDebug() << charPos;
 
@@ -322,5 +217,28 @@ void isoBuffer::updateConsole(){
     }
     symbolUpdated = false;
     //charPos = 0;
+    */
 }
 
+void isoBuffer::serialDecode(double baudRate)
+{
+    double dist_seconds = (double)serialDistance()/sampleRate_bit;
+    double bitPeriod_seconds = 1/baudRate;
+
+    qDebug() << bitPeriod_seconds;
+    qDebug() << dist_seconds;
+
+    return;
+
+    while(dist_seconds > (bitPeriod_seconds + SERIAL_DELAY)){
+    }
+}
+
+int isoBuffer::serialDistance()
+{
+    int back_bit = back * 8;
+    int bufferEnd_bit = bufferEnd * 8;
+    if(back_bit >= serialPtr_bit){
+        return back_bit - serialPtr_bit;
+    }else return bufferEnd_bit - serialPtr_bit + back_bit;
+}
