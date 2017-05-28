@@ -203,11 +203,13 @@ double isoBuffer::sampleConvert(short sample, int TOP, bool AC){
 }
 
 void isoBuffer::updateConsole(){
-    /*
-    if(!symbolUpdated) return;
-    qDebug() << charPos;
+    if(!newUartSymbol) return;
+    qDebug() << numCharsInBuffer;
 
-    console -> setPlainText(QString::fromLocal8Bit(serialBuffer->get(charPos), charPos));
+    qDebug() << "Warning.  isoBuffer::updateConsole() always sending to console1!!";
+    console = console1;
+
+    console -> setPlainText(QString::fromLocal8Bit(serialBuffer->get(numCharsInBuffer), numCharsInBuffer));
     if(serialAutoScroll){
         //http://stackoverflow.com/questions/21059678/how-can-i-set-auto-scroll-for-a-qtgui-qtextedit-in-pyqt4   DANKON
         QTextCursor c =  console->textCursor();
@@ -215,9 +217,8 @@ void isoBuffer::updateConsole(){
         console->setTextCursor(c);
         // txtedit.ensureCursorVisible(); // you might need this also
     }
-    symbolUpdated = false;
+    newUartSymbol = false;
     //charPos = 0;
-    */
 }
 
 void isoBuffer::serialDecode(double baudRate)
@@ -225,18 +226,23 @@ void isoBuffer::serialDecode(double baudRate)
     double dist_seconds = (double)serialDistance()/sampleRate_bit;
     double bitPeriod_seconds = 1/baudRate;
 
-    qDebug() << bitPeriod_seconds;
-    qDebug() << dist_seconds;
-
     while(dist_seconds > (bitPeriod_seconds + SERIAL_DELAY)){
         //Read next uart bit
-
+        unsigned char uart_bit = getNextUartBit();
         //Process it
+        if(uartTransmitting){
+            decodeNextUartBit(uart_bit);
+            qDebug() << "uart_bit = " << uart_bit;
+        } else{
+            uartTransmitting = (uart_bit==1) ? false : true;
+            if(uartTransmitting)  qDebug() << "Decoding symbol!";
+        }
         //Update the pointer, accounting for jitter
         updateSerialPtr(baudRate);
         //Calculate stopping condition
         dist_seconds = (double)serialDistance()/sampleRate_bit;
     }
+    qDebug() << "\n\n\n\n\n";
 }
 
 int isoBuffer::serialDistance()
@@ -252,4 +258,38 @@ void isoBuffer::updateSerialPtr(double baudRate)
 {
     int distance_between_bits = sampleRate_bit/baudRate;
     serialPtr_bit += distance_between_bits;
+    if (serialPtr_bit > (bufferEnd * 8)){
+        serialPtr_bit -= (bufferEnd * 8);
+    }
 }
+
+unsigned char numOnes(unsigned short var){
+    return ((var&0x01) ? 1 : 0) + ((var&0x02) ? 1 : 0) + ((var&0x04) ? 1 : 0) + ((var&0x08) ? 1 : 0) + ((var&0x10) ? 1 : 0) + ((var&0x20) ? 1 : 0) + ((var&0x40) ? 1 : 0) + ((var&0x80) ? 1 : 0);
+}
+
+unsigned char isoBuffer::getNextUartBit(){
+    int coord_byte = serialPtr_bit/8;
+    int coord_bit = serialPtr_bit - (8*coord_byte);
+    unsigned char dataByte = buffer[coord_byte];
+    unsigned char mask = (1 << coord_bit);
+    return ((dataByte & mask) ? 1 : 0);
+}
+
+void isoBuffer::decodeNextUartBit(unsigned char bitValue)
+{
+    if(dataBit_current == dataBit_max){
+        if(numCharsInBuffer<SERIAL_BUFFER_LENGTH) numCharsInBuffer++;
+        serialBuffer->add(currentUartSymbol);
+        currentUartSymbol = 0;
+        dataBit_current = 0;
+        uartTransmitting = false;
+        newUartSymbol = true;
+        return;
+    }
+    //else
+    currentUartSymbol |= (bitValue << dataBit_current);
+    dataBit_current++;
+}
+
+
+

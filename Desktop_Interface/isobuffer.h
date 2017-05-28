@@ -60,8 +60,13 @@ private:
     int serialPtr_bit = 0;
     bool uartTransmitting = false;
     isoBufferBuffer *serialBuffer;
-    bool symbolUpdated = false;
+    bool newUartSymbol = false;
+    int dataBit_current = 0, dataBit_max = 7;
+    int numCharsInBuffer = 0;
+    unsigned short currentUartSymbol = 0;
     void updateSerialPtr(double baudRate);
+    unsigned char getNextUartBit();
+    void decodeNextUartBit(unsigned char bitValue);
     //Generic Functions
     double sampleConvert(short sample, int TOP, bool AC);
 public slots:
