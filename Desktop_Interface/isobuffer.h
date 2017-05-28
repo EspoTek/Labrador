@@ -64,9 +64,11 @@ private:
     int dataBit_current = 0, dataBit_max = 7;
     int numCharsInBuffer = 0;
     unsigned short currentUartSymbol = 0;
-    void updateSerialPtr(double baudRate);
+    bool jitterCompensationNeeded = true;
+    void updateSerialPtr(double baudRate, unsigned char current_bit);
     unsigned char getNextUartBit();
     void decodeNextUartBit(unsigned char bitValue);
+    bool jitterCompensationProcedure(double baudRate, unsigned char current_bit);
     //Generic Functions
     double sampleConvert(short sample, int TOP, bool AC);
 public slots:

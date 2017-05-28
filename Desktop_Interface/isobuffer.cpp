@@ -206,9 +206,6 @@ void isoBuffer::updateConsole(){
     if(!newUartSymbol) return;
     qDebug() << numCharsInBuffer;
 
-    qDebug() << "Warning.  isoBuffer::updateConsole() always sending to console1!!";
-    console = console1;
-
     console -> setPlainText(QString::fromLocal8Bit(serialBuffer->get(numCharsInBuffer), numCharsInBuffer));
     if(serialAutoScroll){
         //http://stackoverflow.com/questions/21059678/how-can-i-set-auto-scroll-for-a-qtgui-qtextedit-in-pyqt4   DANKON
@@ -226,23 +223,29 @@ void isoBuffer::serialDecode(double baudRate)
     double dist_seconds = (double)serialDistance()/sampleRate_bit;
     double bitPeriod_seconds = 1/baudRate;
 
+    if(channel == 1) console = console1;
+    else if(channel == 2) console = console2;
+    else qFatal("Nonexistant console requested in isoBuffer::serialDecode");
+
+
     while(dist_seconds > (bitPeriod_seconds + SERIAL_DELAY)){
         //Read next uart bit
         unsigned char uart_bit = getNextUartBit();
         //Process it
         if(uartTransmitting){
             decodeNextUartBit(uart_bit);
-            qDebug() << "uart_bit = " << uart_bit;
+            //qDebug() << "uart_bit = " << uart_bit;
         } else{
             uartTransmitting = (uart_bit==1) ? false : true;
-            if(uartTransmitting)  qDebug() << "Decoding symbol!";
+            //if(uartTransmitting)  qDebug() << "Decoding symbol!";
         }
         //Update the pointer, accounting for jitter
-        updateSerialPtr(baudRate);
+        updateSerialPtr(baudRate, uart_bit);
         //Calculate stopping condition
         dist_seconds = (double)serialDistance()/sampleRate_bit;
     }
-    qDebug() << "\n\n\n\n\n";
+    jitterCompensationNeeded = true;
+    //qDebug() << "\n\n\n\n\n";
 }
 
 int isoBuffer::serialDistance()
@@ -254,17 +257,21 @@ int isoBuffer::serialDistance()
     }else return bufferEnd_bit - serialPtr_bit + back_bit;
 }
 
-void isoBuffer::updateSerialPtr(double baudRate)
+void isoBuffer::updateSerialPtr(double baudRate, unsigned char current_bit)
 {
+    if(jitterCompensationNeeded && uartTransmitting){
+        jitterCompensationNeeded = jitterCompensationProcedure(baudRate, current_bit);
+        qDebug() << "JitterCompensation Needed?" << jitterCompensationNeeded;
+    }
+
     int distance_between_bits = sampleRate_bit/baudRate;
-    serialPtr_bit += distance_between_bits;
+    if(uartTransmitting){
+        serialPtr_bit += distance_between_bits;
+    } else serialPtr_bit += distance_between_bits - 1;  //Less than one baud period so that it will always see that start bit.
+
     if (serialPtr_bit > (bufferEnd * 8)){
         serialPtr_bit -= (bufferEnd * 8);
     }
-}
-
-unsigned char numOnes(unsigned short var){
-    return ((var&0x01) ? 1 : 0) + ((var&0x02) ? 1 : 0) + ((var&0x04) ? 1 : 0) + ((var&0x08) ? 1 : 0) + ((var&0x10) ? 1 : 0) + ((var&0x20) ? 1 : 0) + ((var&0x40) ? 1 : 0) + ((var&0x80) ? 1 : 0);
 }
 
 unsigned char isoBuffer::getNextUartBit(){
@@ -289,6 +296,38 @@ void isoBuffer::decodeNextUartBit(unsigned char bitValue)
     //else
     currentUartSymbol |= (bitValue << dataBit_current);
     dataBit_current++;
+}
+
+bool isoBuffer::jitterCompensationProcedure(double baudRate, unsigned char current_bit){
+
+    if(current_bit !=0){
+        qDebug() << "Current bit not zero!!";
+        return true;
+    }
+
+    int left_coord = serialPtr_bit - sampleRate_bit/baudRate;
+    if (left_coord < 0){
+        return true; //Don't want to read out of bounds!!
+    }
+
+    unsigned char left_byte = (buffer[left_coord/8] & 0xff);
+    qDebug() << "current_bit" << current_bit;
+    qDebug() << "left_byte" << left_byte;
+
+    if(left_byte > 0){
+        qDebug() << "Recalibration Opportunity";
+        unsigned char temp_bit = 0;
+        //Go back to transition point
+        while(!temp_bit){
+            temp_bit = getNextUartBit();
+            serialPtr_bit--;
+        }
+        //Jump by half a uart bit period.
+        serialPtr_bit += (sampleRate_bit/baudRate)/2;
+        return false;
+    }
+
+    return true;
 }
 
 
