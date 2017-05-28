@@ -267,7 +267,7 @@ void isoBuffer::updateSerialPtr(double baudRate, unsigned char current_bit)
     int distance_between_bits = sampleRate_bit/baudRate;
     if(uartTransmitting){
         serialPtr_bit += distance_between_bits;
-    } else serialPtr_bit += distance_between_bits;  //Less than one baud period so that it will always see that start bit.
+    } else serialPtr_bit += (distance_between_bits - 1);  //Less than one baud period so that it will always see that start bit.
 
     if (serialPtr_bit > (bufferEnd * 8)){
         serialPtr_bit -= (bufferEnd * 8);

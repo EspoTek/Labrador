@@ -38,7 +38,7 @@ extern struct timeval tv;
 #define COLUMN_BREAK VALID_DATA_PER_750
 
 //#define MAX_CONSOLE_BLOCK_COUNT 512
-#define SERIAL_BUFFER_LENGTH 2048
+#define SERIAL_BUFFER_LENGTH 8192
 
 #endif // DESKTOP_SETTINGS_H
 
