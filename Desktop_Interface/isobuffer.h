@@ -61,6 +61,7 @@ private:
     bool uartTransmitting = false;
     isoBufferBuffer *serialBuffer;
     bool symbolUpdated = false;
+    void updateSerialPtr(double baudRate);
     //Generic Functions
     double sampleConvert(short sample, int TOP, bool AC);
 public slots:

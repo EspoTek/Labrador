@@ -228,9 +228,14 @@ void isoBuffer::serialDecode(double baudRate)
     qDebug() << bitPeriod_seconds;
     qDebug() << dist_seconds;
 
-    return;
-
     while(dist_seconds > (bitPeriod_seconds + SERIAL_DELAY)){
+        //Read next uart bit
+
+        //Process it
+        //Update the pointer, accounting for jitter
+        updateSerialPtr(baudRate);
+        //Calculate stopping condition
+        dist_seconds = (double)serialDistance()/sampleRate_bit;
     }
 }
 
@@ -241,4 +246,10 @@ int isoBuffer::serialDistance()
     if(back_bit >= serialPtr_bit){
         return back_bit - serialPtr_bit;
     }else return bufferEnd_bit - serialPtr_bit + back_bit;
+}
+
+void isoBuffer::updateSerialPtr(double baudRate)
+{
+    int distance_between_bits = sampleRate_bit/baudRate;
+    serialPtr_bit += distance_between_bits;
 }
