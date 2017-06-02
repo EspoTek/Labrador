@@ -9,6 +9,8 @@
 #include "genericusbdriver.h"
 #include "libusb.h"
 
+#define MAX_ALLOWABLE_CUMULATIVE_FRAME_ERROR 50
+
 //tcBlock is fed to the callback in the libusb user data section.
 typedef struct tcBlock{
     int number;
@@ -42,7 +44,7 @@ public slots:
                     cleanupRemaining--;
                 }else while(1){
                     QThread::msleep(100);
-                    qDebug() << "Cleanup complete";
+                    //qDebug() << "Cleanup complete";  //THIS THREAD STILL EXISTS
                 }
             }
         }
@@ -70,6 +72,7 @@ protected:
     unsigned char dataBuffer[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
     worker *isoHandler;
     QThread *workerThread;
+    int cumulativeFramePhaseErrors = 0;
     //Generic Functions
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
     unsigned char usbIsoInit(void);

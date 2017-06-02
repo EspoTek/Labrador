@@ -156,7 +156,7 @@ void unixUsbDriver::isoTimerTick(void){
     tcBlockMutex.lock();
     for (n=0; n<NUM_FUTURE_CTX; n++){
         if(allEndpointsComplete(n)){
-            qDebug("Transfer %d is complete!!", n);
+            //qDebug("Transfer %d is complete!!", n);
             if(transferCompleted[0][n].timeReceived < minFrame){
                 minFrame = transferCompleted[0][n].timeReceived;
                 earliest = n;
@@ -169,7 +169,7 @@ void unixUsbDriver::isoTimerTick(void){
         return;
     }
 
-    qDebug() << "Processing Ctx" << earliest;
+    //qDebug() << "Processing Ctx" << earliest;
 
     //Copy iso data into buffer
     for(i=0;i<isoCtx[0][earliest]->num_iso_packets;i++){
@@ -181,11 +181,16 @@ void unixUsbDriver::isoTimerTick(void){
         }
     }
 
-    qDebug() << "Data copy complete!";
+    //qDebug() << "Data copy complete!";
 
     //Control data for isoDriver
     bufferLengths[currentWriteBuffer] = packetLength;
     currentWriteBuffer = !currentWriteBuffer;
+
+    //Check for incorrect setup and kill if that were the case.
+    qint64 ep0frame = transferCompleted[0][earliest].timeReceived;
+    qint64 epkframe = transferCompleted[NUM_ISO_ENDPOINTS-1][earliest].timeReceived;
+    qint64 framePhaseError = epkframe - ep0frame;
 
     //Setup next transfer
     for(unsigned char k=0; k<NUM_ISO_ENDPOINTS;k++){
@@ -206,6 +211,23 @@ void unixUsbDriver::isoTimerTick(void){
             qDebug() << "ERROR" << libusb_error_name(error);
         } //else qDebug() << "isoCtx submitted successfully!";
     }
+
+    //Looking at end frame, not start frame.  Hence need some leeway.
+    if(framePhaseError){
+        qDebug("FRAME PHASE ERROR!!\n");
+        cumulativeFramePhaseErrors += NUM_ISO_ENDPOINTS;
+        qDebug("Cumulative frame phase error of %d.\n", cumulativeFramePhaseErrors);
+    } else cumulativeFramePhaseErrors --;
+
+    if(cumulativeFramePhaseErrors < 0){
+        cumulativeFramePhaseErrors = 0;
+    }
+
+    if(cumulativeFramePhaseErrors > MAX_ALLOWABLE_CUMULATIVE_FRAME_ERROR){
+        qDebug("Too much cumulative frame phase errors indicative of bad connection.  Killing USB Driver.\n");
+        killMe();
+    }
+
     tcBlockMutex.unlock();
     //qDebug() << "Calling upTick()";
     upTick();

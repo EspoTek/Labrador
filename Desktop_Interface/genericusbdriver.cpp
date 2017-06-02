@@ -13,7 +13,9 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
     bufferLengths[0] = 0;
     bufferLengths[1] = 0;
 
-    for(unsigned char k=0; k<NUM_ISO_ENDPOINTS; k++){
+    for(int k=0; k<NUM_ISO_ENDPOINTS; k++){
+        //qDebug() << k;
+        //qDebug() << NUM_ISO_ENDPOINTS;
         pipeID[k] = 0x81+k;
         qDebug() << "pipeID" << k << "=" << pipeID[k];
     }
