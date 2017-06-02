@@ -225,7 +225,8 @@ void unixUsbDriver::isoTimerTick(void){
 
     if(cumulativeFramePhaseErrors > MAX_ALLOWABLE_CUMULATIVE_FRAME_ERROR){
         qDebug("Too much cumulative frame phase errors indicative of bad connection.  Killing USB Driver.\n");
-        killMe();
+        //killMe();
+        qDebug() << "Only kidding!  No death here folks!";
     }
 
     tcBlockMutex.unlock();
