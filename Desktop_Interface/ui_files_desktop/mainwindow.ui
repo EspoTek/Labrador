@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1152</width>
-    <height>1032</height>
+    <width>1440</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -45,6 +45,29 @@
         </property>
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="cursorStatsLabel">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>48</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>cursorStatsLabel</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="functionGenControl" name="controller_fg">
+        <property name="text">
+         <string>SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER</string>
         </property>
        </widget>
       </item>
@@ -531,22 +554,6 @@
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="cursorStatsLabel">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>48</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>cursorStatsLabel</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QGroupBox" name="multimeterGroup">
         <property name="enabled">
          <bool>false</bool>
@@ -736,13 +743,6 @@
          </size>
         </property>
        </spacer>
-      </item>
-      <item>
-       <widget class="functionGenControl" name="controller_fg">
-        <property name="text">
-         <string>SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER</string>
-        </property>
-       </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -1310,8 +1310,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1152</width>
-     <height>22</height>
+     <width>1440</width>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

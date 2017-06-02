@@ -120,6 +120,8 @@ public:
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
     QCustomPlot *scopeAxes;
+    QLabel *cursorStatsLabel;
+    functionGenControl *controller_fg;
     QTextEdit *debugConsole;
     QSlider *timeBaseSlider;
     QPlainTextEdit *console1;
@@ -170,7 +172,6 @@ public:
     QDoubleSpinBox *triggerLevelValue;
     QCheckBox *singleShotCheckBox;
     QSpacerItem *verticalSpacer_3;
-    QLabel *cursorStatsLabel;
     QGroupBox *multimeterGroup;
     QGridLayout *gridLayout;
     QComboBox *multimeterModeSelect;
@@ -188,7 +189,6 @@ public:
     QLabel *multimeterModeLabel;
     espoSpinBox *multimeterResistanceSelect;
     QSpacerItem *verticalSpacer_2;
-    functionGenControl *controller_fg;
     QHBoxLayout *horizontalLayout_5;
     QGroupBox *signalGenGroup_CH1;
     QVBoxLayout *verticalLayout_19;
@@ -268,7 +268,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setEnabled(true);
-        MainWindow->resize(1152, 1032);
+        MainWindow->resize(1440, 900);
         MainWindow->setMinimumSize(QSize(1024, 768));
         actionGainAuto = new QAction(MainWindow);
         actionGainAuto->setObjectName(QStringLiteral("actionGainAuto"));
@@ -495,6 +495,18 @@ public:
         scopeAxes->setLayoutDirection(Qt::LeftToRight);
 
         verticalLayout->addWidget(scopeAxes);
+
+        cursorStatsLabel = new QLabel(centralWidget);
+        cursorStatsLabel->setObjectName(QStringLiteral("cursorStatsLabel"));
+        cursorStatsLabel->setMaximumSize(QSize(16777215, 48));
+        cursorStatsLabel->setAlignment(Qt::AlignCenter);
+
+        verticalLayout->addWidget(cursorStatsLabel);
+
+        controller_fg = new functionGenControl(centralWidget);
+        controller_fg->setObjectName(QStringLiteral("controller_fg"));
+
+        verticalLayout->addWidget(controller_fg);
 
         debugConsole = new QTextEdit(centralWidget);
         debugConsole->setObjectName(QStringLiteral("debugConsole"));
@@ -799,13 +811,6 @@ public:
 
         verticalLayout_5->addItem(verticalSpacer_3);
 
-        cursorStatsLabel = new QLabel(centralWidget);
-        cursorStatsLabel->setObjectName(QStringLiteral("cursorStatsLabel"));
-        cursorStatsLabel->setMaximumSize(QSize(16777215, 48));
-        cursorStatsLabel->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_5->addWidget(cursorStatsLabel);
-
         multimeterGroup = new QGroupBox(centralWidget);
         multimeterGroup->setObjectName(QStringLiteral("multimeterGroup"));
         multimeterGroup->setEnabled(false);
@@ -908,11 +913,6 @@ public:
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout_5->addItem(verticalSpacer_2);
-
-        controller_fg = new functionGenControl(centralWidget);
-        controller_fg->setObjectName(QStringLiteral("controller_fg"));
-
-        verticalLayout_5->addWidget(controller_fg);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
@@ -1244,7 +1244,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1152, 22));
+        menuBar->setGeometry(QRect(0, 0, 1440, 19));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuOscilloscope_2 = new QMenu(menuBar);
@@ -1550,6 +1550,8 @@ public:
         actionSnap_to_Cursors->setText(QApplication::translate("MainWindow", "Snap to Cursors", 0));
         actionEnter_Manually->setText(QApplication::translate("MainWindow", "Enter Manually", 0));
         actionTake_Snapshot->setText(QApplication::translate("MainWindow", "Take Snapshot", 0));
+        cursorStatsLabel->setText(QApplication::translate("MainWindow", "cursorStatsLabel", 0));
+        controller_fg->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER", 0));
         deviceConnected->setText(QApplication::translate("MainWindow", "Device Not Connected!", 0));
         scopeGroup_CH1->setTitle(QApplication::translate("MainWindow", "Oscilloscope CH1", 0));
         pausedLabeL_CH1->setText(QApplication::translate("MainWindow", "Paused", 0));
@@ -1582,7 +1584,6 @@ public:
          << QApplication::translate("MainWindow", "CH2 (Falling)", 0)
         );
         singleShotCheckBox->setText(QApplication::translate("MainWindow", "Single Shot", 0));
-        cursorStatsLabel->setText(QApplication::translate("MainWindow", "cursorStatsLabel", 0));
         multimeterGroup->setTitle(QApplication::translate("MainWindow", "Multimeter++", 0));
         multimeterModeSelect->clear();
         multimeterModeSelect->insertItems(0, QStringList()
@@ -1599,7 +1600,6 @@ public:
         multimeterResistanceLabel->setText(QApplication::translate("MainWindow", "Series Resistance", 0));
         multimeterModeLabel->setText(QApplication::translate("MainWindow", "Mode", 0));
         multimeterResistanceSelect->setSuffix(QApplication::translate("MainWindow", "\316\251", 0));
-        controller_fg->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER", 0));
         signalGenGroup_CH1->setTitle(QApplication::translate("MainWindow", "Signal Gen CH1", 0));
         waveformLabel_CH1->setText(QApplication::translate("MainWindow", "Waveform", 0));
         frequencyLabel_CH1->setText(QApplication::translate("MainWindow", "Frequency", 0));
