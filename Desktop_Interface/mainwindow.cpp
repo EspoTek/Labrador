@@ -85,6 +85,9 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete(void)), ui->deviceConnected, SLOT(resetUsbState(bool)));
     #endif
     #ifdef PLATFORM_ANDROID
+        //Capture pinches
+        ui->scopeAxes->grabGesture(Qt::PinchGesture);
+        ui->scopeAxes->installEventFilter(this);
         //Screen Rotation.  Thanks, Hamlet.  https://forum.qt.io/topic/66240/how-to-detect-rotate-on-android
         screenPtr = QGuiApplication::primaryScreen();
             connect(screenPtr, SIGNAL(orientationChanged(Qt::ScreenOrientation)),
@@ -1167,11 +1170,9 @@ void MainWindow::screenRotateEvent(Qt::ScreenOrientation orientation)
     if(orientation == Qt::LandscapeOrientation){
       newLayout = new QHBoxLayout(this);
       ui->stackedWidget->setVisible(0);
-      ui->deviceConnected->setVisible(0);
     } else {
       newLayout = new QVBoxLayout(this);
       ui->stackedWidget->setVisible(1);
-      ui->deviceConnected->setVisible(1);
     }
     newLayout->addWidget(ui->scopeAxes);
     newLayout->addWidget(ui->stackedWidget);
@@ -1184,3 +1185,33 @@ void MainWindow::screenRotateEvent(Qt::ScreenOrientation orientation)
     setCentralWidget(newCentralWidget);
     delete(oldCentralWidget);
 }
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *event){
+    //qDebug() << event;
+    if(event->type() == QEvent::Gesture){
+        qDebug() << "gesture!!";
+        return gestureFilter(static_cast<QGestureEvent*>(event));
+    } else {
+        return false;
+    }
+
+
+    //return QMainWindow::eventFilter(obj, event);
+}
+
+bool MainWindow::gestureFilter(QGestureEvent *event){
+    QGesture *capturedGesture = event->gesture(Qt::PinchGesture);
+    if(capturedGesture->gestureType() == Qt::PinchGesture){
+        qDebug() << "pinch!";
+        QPinchGesture *pinchGesture = static_cast<QPinchGesture *>(capturedGesture);
+        qDebug() << "Last Centre Point" << pinchGesture->lastCenterPoint();
+        qDebug() << "Last Scale Factor" << pinchGesture->lastScaleFactor();
+        qDebug() << "Start Centre Point" << pinchGesture->startCenterPoint();
+        qDebug() << "Total Scale Factor" << pinchGesture->totalScaleFactor();
+        qDebug() << "Angle" << pinchGesture->rotationAngle();
+        return true;
+    } else {
+        return false;
+    }
+}
+
