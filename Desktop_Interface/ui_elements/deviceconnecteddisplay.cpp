@@ -1,4 +1,5 @@
 #include "deviceconnecteddisplay.h"
+#include "platformspecific.h"
 
 deviceConnectedDisplay::deviceConnectedDisplay(QWidget *parent) : QLabel(parent)
 {
@@ -16,4 +17,7 @@ void deviceConnectedDisplay::connectedStatusChanged(bool status){
         this->setText("Device Not Connected!");
         this->setStyleSheet("QLabel { color:red; }");
     }
+    #ifdef PLATFORM_ANDROID
+        this->setVisible(!status);
+    #endif
 }

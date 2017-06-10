@@ -63,7 +63,7 @@ public class androidInterface extends QtActivity
             int VID = device.getVendorId();
             int PID = device.getProductId();
             Log.d(QtApplication.QtTAG, String.format("Device ID = %d\nVID=0x%04x\nPID=0x%04x\n", DeviceID, VID, PID));
-            if((VID==0x03eb) && (PID==0xa000)){
+            if((VID==0x03eb) && (PID==0xba94)){
                 Log.d(QtApplication.QtTAG, "MATCH FOUND!");
                 usbfs_path = device.getDeviceName();
                 Log.d(QtApplication.QtTAG, "usbfs_path = " + usbfs_path);

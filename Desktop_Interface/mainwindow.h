@@ -120,6 +120,11 @@ private slots:
     void reinitUsb(void);
     void reinitUsbStage2(void);
     void resetUsbState(void);
+
+    //Android Special
+    void on_actionOld_Person_Mode_triggered(bool checked);
+    void screenRotateEvent(Qt::ScreenOrientation orientation);
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
@@ -170,6 +175,10 @@ private:
     QShortcut *shortcut_snapshot;
     QShortcut *shortcut_Debug;
     QShortcut *shortcut_Esc;
+
+    //Android Special
+    QScreen *screenPtr;
+
 };
 
 #endif // MAINWINDOW_H

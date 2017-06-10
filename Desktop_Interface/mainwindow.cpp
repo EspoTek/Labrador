@@ -85,6 +85,20 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete(void)), ui->deviceConnected, SLOT(resetUsbState(bool)));
     #endif
     #ifdef PLATFORM_ANDROID
+        //Screen Rotation.  Thanks, Hamlet.  https://forum.qt.io/topic/66240/how-to-detect-rotate-on-android
+        screenPtr = QGuiApplication::primaryScreen();
+            connect(screenPtr, SIGNAL(orientationChanged(Qt::ScreenOrientation)),
+                       this, SLOT(screenRotateEvent(Qt::ScreenOrientation)));
+
+             screenPtr->setOrientationUpdateMask(
+                        Qt::PortraitOrientation
+                        | Qt::LandscapeOrientation
+                        | Qt::InvertedPortraitOrientation
+                        | Qt::InvertedLandscapeOrientation);
+
+        //Hide the PSU page
+        ui->stackedWidget->removeWidget(ui->page_5);
+
         //Reconnect the other objects.
         ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
         connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
@@ -1122,4 +1136,24 @@ void MainWindow::resetUsbState(void){
 
     ui->controller_iso->clearBuffers(1,1,1);
     ui->controller_iso->doNotTouchGraph = false;
+}
+
+void MainWindow::on_actionOld_Person_Mode_triggered(bool checked)
+{
+    qDebug() << "Old Person Mode" << checked;
+    if(checked){
+        QFont font = qApp->font();
+        font.setPointSize(8);
+        qApp->setFont(font);
+        return;
+    }else{
+        QFont font = qApp->font();
+        font.setPointSize(6);
+        qApp->setFont(font);
+    }
+}
+
+void MainWindow::screenRotateEvent(Qt::ScreenOrientation orientation)
+{
+    qDebug() << "Orientation:" << orientation;
 }

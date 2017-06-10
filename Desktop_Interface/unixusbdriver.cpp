@@ -187,11 +187,12 @@ void unixUsbDriver::isoTimerTick(void){
     bufferLengths[currentWriteBuffer] = packetLength;
     currentWriteBuffer = !currentWriteBuffer;
 
+#ifndef PLATFORM_ANDROID
     //Check for incorrect setup and kill if that were the case.
     qint64 ep0frame = transferCompleted[0][earliest].timeReceived;
     qint64 epkframe = transferCompleted[NUM_ISO_ENDPOINTS-1][earliest].timeReceived;
     qint64 framePhaseError = epkframe - ep0frame;
-
+#endif
     //Setup next transfer
     for(unsigned char k=0; k<NUM_ISO_ENDPOINTS;k++){
         transferCompleted[k][earliest].completed = false;
@@ -212,6 +213,7 @@ void unixUsbDriver::isoTimerTick(void){
         } //else qDebug() << "isoCtx submitted successfully!";
     }
 
+#ifndef PLATFORM_ANDROID
     //Looking at end frame, not start frame.  Hence need some leeway.
     if(framePhaseError){
         qDebug("FRAME PHASE ERROR!!\n");
@@ -228,6 +230,7 @@ void unixUsbDriver::isoTimerTick(void){
         //killMe();
         qDebug() << "Only kidding!  No death here folks!";
     }
+#endif
 
     tcBlockMutex.unlock();
     //qDebug() << "Calling upTick()";

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\libs\QtAndroid-bundled.jar"
+        jumboMode="false"
+        revision="25.0.2"
+        sha1="55e4070a54b3216fd45724174e911949995df983">
+        <dex dex="C:\Users\Esposch\Documents\GitHub\Labrador\Desktop_Interface\android-build\build\intermediates\pre-dexed\debug\QtAndroid-bundled-b9c529ec9bda4b335b762db89d9dac573a70dd33.jar" />
+    </item>
+
+</items>
