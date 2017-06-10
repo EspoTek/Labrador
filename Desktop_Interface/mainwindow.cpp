@@ -1156,4 +1156,31 @@ void MainWindow::on_actionOld_Person_Mode_triggered(bool checked)
 void MainWindow::screenRotateEvent(Qt::ScreenOrientation orientation)
 {
     qDebug() << "Orientation:" << orientation;
+
+    QWidget *oldCentralWidget = centralWidget();
+    QLayout *oldLayout = oldCentralWidget->layout();
+    oldLayout->removeWidget(ui->scopeAxes);
+    oldLayout->removeWidget(ui->stackedWidget);
+    oldLayout->removeWidget(ui->deviceConnected);
+
+    QLayout *newLayout;
+    if(orientation == Qt::LandscapeOrientation){
+      newLayout = new QHBoxLayout(this);
+      ui->stackedWidget->setVisible(0);
+      ui->deviceConnected->setVisible(0);
+    } else {
+      newLayout = new QVBoxLayout(this);
+      ui->stackedWidget->setVisible(1);
+      ui->deviceConnected->setVisible(1);
+    }
+    newLayout->addWidget(ui->scopeAxes);
+    newLayout->addWidget(ui->stackedWidget);
+    newLayout->addWidget(ui->deviceConnected);
+    newLayout->setContentsMargins(0,0,0,0);
+    newLayout->setSpacing(0);
+
+    QWidget* newCentralWidget = new QWidget();
+    newCentralWidget->setLayout(newLayout);
+    setCentralWidget(newCentralWidget);
+    delete(oldCentralWidget);
 }

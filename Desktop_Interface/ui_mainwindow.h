@@ -509,7 +509,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(scopeAxes->sizePolicy().hasHeightForWidth());
         scopeAxes->setSizePolicy(sizePolicy);
-        scopeAxes->setMinimumSize(QSize(500, 400));
+        scopeAxes->setMinimumSize(QSize(720, 400));
         scopeAxes->setLayoutDirection(Qt::LeftToRight);
         deviceConnected->raise();
 
