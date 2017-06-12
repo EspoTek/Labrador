@@ -127,7 +127,8 @@ private slots:
     void screenRotateEvent(Qt::ScreenOrientation orientation);
     bool eventFilter(QObject *obj, QEvent *event);
     bool gestureFilter(QGestureEvent *event);
-
+    void horiScaleEvent(bool enabled);
+    void vertScaleEvent(bool enabled);
 
 private:
     //Generic Vars
@@ -182,7 +183,7 @@ private:
 
     //Android Special
     QScreen *screenPtr;
-
+    bool scalingInTimeAxis = false;
 };
 
 #endif // MAINWINDOW_H

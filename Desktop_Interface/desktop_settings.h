@@ -40,5 +40,7 @@ extern struct timeval tv;
 //#define MAX_CONSOLE_BLOCK_COUNT 512
 #define SERIAL_BUFFER_LENGTH 8192
 
+#define ANDROID_SCALE_INSENSITIVITY 1.2
+
 #endif // DESKTOP_SETTINGS_H
 

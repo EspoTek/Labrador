@@ -143,10 +143,12 @@ public:
     QLCDNumber *voltageInfoRmsDisplay_CH1;
     QLCDNumber *voltageInfoMeanDisplay_CH1;
     QGroupBox *cursorGroup;
-    QVBoxLayout *verticalLayout_8;
+    QGridLayout *gridLayout_5;
     QCheckBox *cursorHoriCheck;
-    QCheckBox *cursorVertCheck;
     cursorEnabler *makeCursorsNicer;
+    QCheckBox *cursorVertCheck;
+    QCheckBox *scaleHoriCheck;
+    QCheckBox *scaleVertCheck;
     QVBoxLayout *verticalLayout_10;
     QGroupBox *scopeGroup_CH2;
     QVBoxLayout *verticalLayout_11;
@@ -511,7 +513,6 @@ public:
         scopeAxes->setSizePolicy(sizePolicy);
         scopeAxes->setMinimumSize(QSize(720, 400));
         scopeAxes->setLayoutDirection(Qt::LeftToRight);
-        deviceConnected->raise();
 
         verticalLayout_5->addWidget(scopeAxes);
 
@@ -636,25 +637,35 @@ public:
         cursorGroup->setEnabled(true);
         cursorGroup->setCheckable(false);
         cursorGroup->setChecked(false);
-        verticalLayout_8 = new QVBoxLayout(cursorGroup);
-        verticalLayout_8->setSpacing(2);
-        verticalLayout_8->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
-        verticalLayout_8->setContentsMargins(0, 0, 0, 0);
+        gridLayout_5 = new QGridLayout(cursorGroup);
+        gridLayout_5->setSpacing(6);
+        gridLayout_5->setContentsMargins(11, 11, 11, 11);
+        gridLayout_5->setObjectName(QStringLiteral("gridLayout_5"));
         cursorHoriCheck = new QCheckBox(cursorGroup);
         cursorHoriCheck->setObjectName(QStringLiteral("cursorHoriCheck"));
 
-        verticalLayout_8->addWidget(cursorHoriCheck);
-
-        cursorVertCheck = new QCheckBox(cursorGroup);
-        cursorVertCheck->setObjectName(QStringLiteral("cursorVertCheck"));
-
-        verticalLayout_8->addWidget(cursorVertCheck);
+        gridLayout_5->addWidget(cursorHoriCheck, 0, 0, 1, 1);
 
         makeCursorsNicer = new cursorEnabler(cursorGroup);
         makeCursorsNicer->setObjectName(QStringLiteral("makeCursorsNicer"));
 
-        verticalLayout_8->addWidget(makeCursorsNicer);
+        gridLayout_5->addWidget(makeCursorsNicer, 2, 0, 1, 1);
+
+        cursorVertCheck = new QCheckBox(cursorGroup);
+        cursorVertCheck->setObjectName(QStringLiteral("cursorVertCheck"));
+
+        gridLayout_5->addWidget(cursorVertCheck, 1, 0, 1, 1);
+
+        scaleHoriCheck = new QCheckBox(cursorGroup);
+        scaleHoriCheck->setObjectName(QStringLiteral("scaleHoriCheck"));
+
+        gridLayout_5->addWidget(scaleHoriCheck, 0, 1, 1, 1);
+
+        scaleVertCheck = new QCheckBox(cursorGroup);
+        scaleVertCheck->setObjectName(QStringLiteral("scaleVertCheck"));
+        scaleVertCheck->setChecked(true);
+
+        gridLayout_5->addWidget(scaleVertCheck, 1, 1, 1, 1);
 
 
         verticalLayout_9->addWidget(cursorGroup);
@@ -1678,10 +1689,12 @@ public:
         voltageInfoMinLabel_CH1->setText(QApplication::translate("MainWindow", " Min", Q_NULLPTR));
         VoltageInfoMeanLabel_CH1->setText(QApplication::translate("MainWindow", " Mean", Q_NULLPTR));
         voltageInfoRmsLabel_CH1->setText(QApplication::translate("MainWindow", " RMS", Q_NULLPTR));
-        cursorGroup->setTitle(QApplication::translate("MainWindow", "Cursor", Q_NULLPTR));
+        cursorGroup->setTitle(QApplication::translate("MainWindow", "Cursor/Scaling", Q_NULLPTR));
         cursorHoriCheck->setText(QApplication::translate("MainWindow", "Horizontal", Q_NULLPTR));
-        cursorVertCheck->setText(QApplication::translate("MainWindow", "Vertical", Q_NULLPTR));
         makeCursorsNicer->setText(QApplication::translate("MainWindow", "CURSOR ENABLER", Q_NULLPTR));
+        cursorVertCheck->setText(QApplication::translate("MainWindow", "Vertical", Q_NULLPTR));
+        scaleHoriCheck->setText(QApplication::translate("MainWindow", "H-Scale", Q_NULLPTR));
+        scaleVertCheck->setText(QApplication::translate("MainWindow", "V-Scale", Q_NULLPTR));
         scopeGroup_CH2->setTitle(QApplication::translate("MainWindow", "Oscilloscope CH2", Q_NULLPTR));
         pausedLabel_CH2->setText(QApplication::translate("MainWindow", "Paused", Q_NULLPTR));
         acCoupledLabel_CH2->setText(QApplication::translate("MainWindow", "AC Coupled", Q_NULLPTR));

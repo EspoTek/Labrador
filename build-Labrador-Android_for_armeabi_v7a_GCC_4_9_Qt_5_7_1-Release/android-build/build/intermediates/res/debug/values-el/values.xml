@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Qt/5.7/android_armv7/src/android/java/res/values-el/strings.xml -->
+    <eat-comment/>
+    <string name="fatal_error_msg">Παρουσιάστηκε ένα κρίσιμο σφάλμα και η εφαρμογή δεν μπορεί να συνεχίσει.</string>
+    <string name="ministro_needed_msg">Η εφαρμογή απαιτεί την υπηρεσία Ministro. Να εγκατασταθεί η υπηρεσία?</string>
+    <string name="ministro_not_found_msg">Δεν ήταν δυνατή η εύρεση της υπηρεσίας Ministro. Δεν είναι δυνατή η εκκίνηση της εφαρμογής.</string>
+</resources>

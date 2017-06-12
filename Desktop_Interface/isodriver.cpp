@@ -360,7 +360,11 @@ void isoDriver::graphMousePress(QMouseEvent *event){
     if (horiCursorEnabled && (event->button() == Qt::LeftButton)){
         placingHoriAxes = true;
         y0 = axes->yAxis->pixelToCoord(event->y());
+#ifndef PLATFORM_ANDROID
     }else if(vertCursorEnabled && (event->button() == Qt::RightButton)){
+#else
+    }if(vertCursorEnabled){
+#endif
         placingVertAxes = true;
         x0 = axes->xAxis->pixelToCoord(event->x());
     }
@@ -370,7 +374,11 @@ void isoDriver::graphMousePress(QMouseEvent *event){
 void isoDriver::graphMouseRelease(QMouseEvent *event){
     if(horiCursorEnabled && placingHoriAxes && (event->button() == Qt::LeftButton)){
         placingHoriAxes = false;
+#ifndef PLATFORM_ANDROID
     } else if (vertCursorEnabled && placingVertAxes && (event->button() == Qt::RightButton)){
+#else
+    } if (vertCursorEnabled && placingVertAxes){
+#endif
         placingVertAxes = false;
     }
     qDebug() << "x0 =" << x0 << "x1 =" << x1 << "y0 =" << y0 << "y1 =" << y1;
@@ -379,7 +387,11 @@ void isoDriver::graphMouseRelease(QMouseEvent *event){
 void isoDriver::graphMouseMove(QMouseEvent *event){
     if(horiCursorEnabled && placingHoriAxes){
         y1 = axes->yAxis->pixelToCoord(event->y());
+#ifndef PLATFORM_ANDROID
     } else if(vertCursorEnabled && placingVertAxes){
+#else
+    } if(vertCursorEnabled && placingVertAxes){
+#endif
         x1 = axes->xAxis->pixelToCoord(event->x());
     }
 }

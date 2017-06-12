@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Qt/5.7/android_armv7/src/android/java/res/values-ms/strings.xml -->
+    <eat-comment/>
+    <string name="fatal_error_msg">Aplikasi anda menemui ralat muat dan tidak boleh diteruskan.</string>
+    <string name="ministro_needed_msg">Aplikasi ini memerlukan servis Ministro. Adakah anda ingin pasang servis itu?</string>
+    <string name="ministro_not_found_msg">Tidak jumpa servis Ministro.\nAplikasi tidak boleh dimulakan.</string>
+</resources>

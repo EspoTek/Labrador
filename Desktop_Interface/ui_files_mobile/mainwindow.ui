@@ -66,8 +66,6 @@
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
-      <zorder>deviceConnected</zorder>
-      <zorder>stackedWidget</zorder>
      </widget>
     </item>
     <item>
@@ -279,7 +277,7 @@
                <bool>true</bool>
               </property>
               <property name="title">
-               <string>Cursor</string>
+               <string>Cursor/Scaling</string>
               </property>
               <property name="checkable">
                <bool>false</bool>
@@ -287,40 +285,42 @@
               <property name="checked">
                <bool>false</bool>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_8">
-               <property name="spacing">
-                <number>2</number>
-               </property>
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
+              <layout class="QGridLayout" name="gridLayout_5">
+               <item row="0" column="0">
                 <widget class="QCheckBox" name="cursorHoriCheck">
                  <property name="text">
                   <string>Horizontal</string>
                  </property>
                 </widget>
                </item>
-               <item>
+               <item row="2" column="0">
+                <widget class="cursorEnabler" name="makeCursorsNicer">
+                 <property name="text">
+                  <string>CURSOR ENABLER</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
                 <widget class="QCheckBox" name="cursorVertCheck">
                  <property name="text">
                   <string>Vertical</string>
                  </property>
                 </widget>
                </item>
-               <item>
-                <widget class="cursorEnabler" name="makeCursorsNicer">
+               <item row="0" column="1">
+                <widget class="QCheckBox" name="scaleHoriCheck">
                  <property name="text">
-                  <string>CURSOR ENABLER</string>
+                  <string>H-Scale</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QCheckBox" name="scaleVertCheck">
+                 <property name="text">
+                  <string>V-Scale</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Esposch\Documents\GitHub\Labrador\build-Labrador-Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_1-Release\android-build\libs\QtAndroid-bundled.jar"
+        jumboMode="false"
+        revision="25.0.2"
+        sha1="55e4070a54b3216fd45724174e911949995df983">
+        <dex dex="C:\Users\Esposch\Documents\GitHub\Labrador\build-Labrador-Android_for_armeabi_v7a_GCC_4_9_Qt_5_7_1-Release\android-build\build\intermediates\pre-dexed\debug\QtAndroid-bundled-2471e6c80e16d138303274954537650b624da0ea.jar" />
+    </item>
+
+</items>

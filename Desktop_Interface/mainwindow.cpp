@@ -88,6 +88,11 @@ MainWindow::MainWindow(QWidget *parent) :
         //Capture pinches
         ui->scopeAxes->grabGesture(Qt::PinchGesture);
         ui->scopeAxes->installEventFilter(this);
+        //Mutually exclude pinches/cursors
+        connect(ui->scaleHoriCheck, SIGNAL(clicked(bool)),
+                   this, SLOT(horiScaleEvent(bool)));
+        connect(ui->scaleVertCheck, SIGNAL(clicked(bool)),
+                   this, SLOT(vertScaleEvent(bool)));
         //Screen Rotation.  Thanks, Hamlet.  https://forum.qt.io/topic/66240/how-to-detect-rotate-on-android
         screenPtr = QGuiApplication::primaryScreen();
             connect(screenPtr, SIGNAL(orientationChanged(Qt::ScreenOrientation)),
@@ -1209,9 +1214,43 @@ bool MainWindow::gestureFilter(QGestureEvent *event){
         qDebug() << "Start Centre Point" << pinchGesture->startCenterPoint();
         qDebug() << "Total Scale Factor" << pinchGesture->totalScaleFactor();
         qDebug() << "Angle" << pinchGesture->rotationAngle();
+
+        qreal totalScaleFactor = pinchGesture->totalScaleFactor();
+
+        bool embiggen;
+        if(totalScaleFactor >= ANDROID_SCALE_INSENSITIVITY){
+            embiggen = true;
+            pinchGesture->setTotalScaleFactor(totalScaleFactor/ANDROID_SCALE_INSENSITIVITY);
+        } else if(totalScaleFactor < (1/ANDROID_SCALE_INSENSITIVITY)){
+            embiggen = false;
+            pinchGesture->setTotalScaleFactor(totalScaleFactor*ANDROID_SCALE_INSENSITIVITY);
+        } else {
+            return true;
+        }
+
+        QPoint point = pinchGesture->centerPoint().toPoint();
+        qDebug() << point;
+        if(scalingInTimeAxis){
+            wheelEmu = new QWheelEvent(point, (embiggen ? 120 : -120), 0, Qt::ControlModifier, Qt::Vertical);
+        } else{
+            wheelEmu = new QWheelEvent(point, (embiggen ? 120 : -120), 0, 0, Qt::Vertical);
+        }
+        ui->controller_iso->setVoltageRange(wheelEmu);
+
         return true;
     } else {
         return false;
     }
 }
 
+void MainWindow::horiScaleEvent(bool enabled){
+    qDebug() << "Hori Scale";
+    scalingInTimeAxis = enabled;
+    ui->scaleVertCheck->setChecked(false);
+}
+
+void MainWindow::vertScaleEvent(bool enabled){
+    qDebug() << "Vert Scale";
+    scalingInTimeAxis = !enabled;
+    ui->scaleHoriCheck->setChecked(false);
+}

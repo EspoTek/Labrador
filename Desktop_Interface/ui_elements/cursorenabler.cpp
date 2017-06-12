@@ -1,12 +1,19 @@
 #include "cursorenabler.h"
+#include "platformspecific.h"
 
 cursorEnabler::cursorEnabler(QWidget *parent) : QLabel(parent)
 {
     this->setVisible(0);
+#ifdef PLATFORM_ANDROID
+    this->turnedOn = false;
+#endif
 }
 
 void cursorEnabler::setTurnedOn(bool enabled){
     turnedOn = enabled;
+    #ifdef PLATFORM_ANDROID
+        this->turnedOn = false;
+    #endif
 }
 
 void cursorEnabler::clickDetected(QMouseEvent* event){

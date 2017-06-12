@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Qt/5.7/android_armv7/src/android/java/res/values-pl/strings.xml -->
+    <eat-comment/>
+    <string name="fatal_error_msg">Wystąpił błąd krytyczny. Aplikacja zostanie zamknięta.</string>
+    <string name="ministro_needed_msg">Aplikacja wymaga usługi Ministro. Czy chcesz ją zainstalować?</string>
+    <string name="ministro_not_found_msg">Usługa Ministro nie została znaleziona.\nAplikacja nie może zostać uruchomiona.</string>
+</resources>

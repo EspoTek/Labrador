@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Qt/5.7/android_armv7/src/android/java/res/values-rs/strings.xml -->
+    <eat-comment/>
+    <string name="fatal_error_msg">Vaša aplikacija je naišla na fatalnu grešku i ne može nastaviti sa radom.</string>
+    <string name="ministro_needed_msg">Ova aplikacija zahteva Ministro servis. Želite li da ga instalirate?</string>
+    <string name="ministro_not_found_msg">Ministro servise nije pronađen. Aplikacija ne može biti pokrenuta.</string>
+</resources>

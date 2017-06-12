@@ -133,6 +133,20 @@ unix:!macx: QMAKE_CXXFLAGS_RELEASE -= -O1
 unix:!macx: QMAKE_CXXFLAGS_RELEASE -= -O2
 unix:!macx: QMAKE_CXXFLAGS_RELEASE -= -O3
 
+android: QMAKE_CXXFLAGS_RELEASE -= -O0
+android: QMAKE_CXXFLAGS_RELEASE -= -O1
+android: QMAKE_CXXFLAGS_RELEASE -= -O2
+android: QMAKE_CXXFLAGS_RELEASE -= -O3
+android: QMAKE_CXXFLAGS_RELEASE -= -Os
+
+
+android: QMAKE_CFLAGS_RELEASE -= -O0
+android: QMAKE_CFLAGS_RELEASE -= -O1
+android: QMAKE_CFLAGS_RELEASE -= -O2
+android: QMAKE_CFLAGS_RELEASE -= -O3
+android: QMAKE_CFLAGS_RELEASE -= -Os
+
+
 #############################################################
 #################    ANDROID BUILD ONLY    #################
 ###########################################################
