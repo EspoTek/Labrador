@@ -1244,13 +1244,19 @@ bool MainWindow::gestureFilter(QGestureEvent *event){
 }
 
 void MainWindow::horiScaleEvent(bool enabled){
+    if(enabled){
+        ui->scaleHoriCheck->setChecked(true);
+    }
     qDebug() << "Hori Scale";
-    scalingInTimeAxis = enabled;
+    scalingInTimeAxis = true;
     ui->scaleVertCheck->setChecked(false);
 }
 
 void MainWindow::vertScaleEvent(bool enabled){
+    if(enabled){
+        ui->scaleVertCheck->setChecked(true);
+    }
     qDebug() << "Vert Scale";
-    scalingInTimeAxis = !enabled;
+    scalingInTimeAxis = false;
     ui->scaleHoriCheck->setChecked(false);
 }
