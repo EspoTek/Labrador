@@ -16,10 +16,11 @@
 #include "unified_debug_structure.h"
 
 #define ISO_PACKET_SIZE 125
-#define ISO_PACKETS_PER_CTX 33
 #ifdef PLATFORM_WINDOWS
+#define ISO_PACKETS_PER_CTX 17
 #define NUM_FUTURE_CTX 40
 #else
+#define ISO_PACKETS_PER_CTX 33
 #define NUM_FUTURE_CTX 34
 #endif
 #define ISO_TIMER_PERIOD 1

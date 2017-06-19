@@ -24,6 +24,7 @@ public class androidInterface extends QtActivity
 
     public String usbfs_path;
     public int file_descriptor;
+    private UsbDeviceConnection connection;
 
     public androidInterface()
     {
@@ -57,6 +58,11 @@ public class androidInterface extends QtActivity
             UsbDevice device = deviceIterator.next();
 
             manager.requestPermission(device, mPermissionIntent);
+            //Wait until it gets the permission
+            while(!manager.hasPermission(device)){
+                ;
+                }
+
             String Model = device.getDeviceName();
 
             int DeviceID = device.getDeviceId();
@@ -64,15 +70,24 @@ public class androidInterface extends QtActivity
             int PID = device.getProductId();
             Log.d(QtApplication.QtTAG, String.format("Device ID = %d\nVID=0x%04x\nPID=0x%04x\n", DeviceID, VID, PID));
             if((VID==0x03eb) && (PID==0xba94)){
+                if(!manager.hasPermission(device)){
+                    Log.d(QtApplication.QtTAG, "permission was not granted to the USB device!!!");
+                    return;
+                    }
                 Log.d(QtApplication.QtTAG, "MATCH FOUND!");
                 usbfs_path = device.getDeviceName();
                 Log.d(QtApplication.QtTAG, "usbfs_path = " + usbfs_path);
-                UsbDeviceConnection connection = manager.openDevice(device);
+                connection = manager.openDevice(device);
                 file_descriptor = connection.getFileDescriptor();
                 Log.d(QtApplication.QtTAG, "fd = " + file_descriptor);
                 Log.d(QtApplication.QtTAG, "Returning...");
                 return;
                 }
         }
+    }
+    public void closeDevice()
+    {
+        file_descriptor = -69;
+        Log.d(QtApplication.QtTAG, "androidInterface has been closed!");
     }
 }

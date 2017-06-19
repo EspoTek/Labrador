@@ -122,6 +122,7 @@ private slots:
     void reinitUsbStage2(void);
     void resetUsbState(void);
 
+#ifdef PLATFORM_ANDROID
     //Android Special
     void on_actionOld_Person_Mode_triggered(bool checked);
     void screenRotateEvent(Qt::ScreenOrientation orientation);
@@ -129,6 +130,7 @@ private slots:
     bool gestureFilter(QGestureEvent *event);
     void horiScaleEvent(bool enabled);
     void vertScaleEvent(bool enabled);
+#endif
 
 private:
     //Generic Vars
@@ -181,9 +183,11 @@ private:
     QShortcut *shortcut_Debug;
     QShortcut *shortcut_Esc;
 
+#ifdef PLATFORM_ANDROID
     //Android Special
     QScreen *screenPtr;
     bool scalingInTimeAxis = false;
+#endif
 };
 
 #endif // MAINWINDOW_H

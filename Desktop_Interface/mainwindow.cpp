@@ -1146,6 +1146,9 @@ void MainWindow::resetUsbState(void){
     ui->controller_iso->doNotTouchGraph = false;
 }
 
+
+#ifdef PLATFORM_ANDROID
+
 void MainWindow::on_actionOld_Person_Mode_triggered(bool checked)
 {
     qDebug() << "Old Person Mode" << checked;
@@ -1260,3 +1263,5 @@ void MainWindow::vertScaleEvent(bool enabled){
     scalingInTimeAxis = false;
     ui->scaleHoriCheck->setChecked(false);
 }
+
+#endif

@@ -7,6 +7,8 @@ androidUsbDriver::androidUsbDriver(QWidget *parent) : unixUsbDriver(parent)
 }
 
 androidUsbDriver::~androidUsbDriver(void){
+    qDebug() << "\n\nandroidUsbDriver destructor ran!";
+    mainActivity.callMethod<void>("closeDevice");
 }
 
 unsigned char androidUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){

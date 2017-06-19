@@ -16613,7 +16613,40 @@ cursorenabler.obj: ui_elements\cursorenabler.cpp ui_elements/cursorenabler.h \
 		C:\Qt\5.7\android_armv7\include\QtWidgets\QLabel \
 		C:\Qt\5.7\android_armv7\include\QtWidgets\qlabel.h \
 		C:\Qt\5.7\android_armv7\include\QtWidgets\qframe.h \
-		C:\Qt\5.7\android_armv7\include\QtGui\QMouseEvent
+		C:\Qt\5.7\android_armv7\include\QtGui\QMouseEvent \
+		build_android\platformspecific.h \
+		androidusbdriver.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QThread \
+		C:\Qt\5.7\android_armv7\include\QtCore\qthread.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QMutex \
+		C:\Qt\5.7\android_armv7\include\QtCore\QDateTime \
+		C:\Qt\5.7\android_armv7\include\QtCore\qdatetime.h \
+		unixusbdriver.h \
+		genericusbdriver.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QDebug \
+		C:\Qt\5.7\android_armv7\include\QtCore\QTimer \
+		C:\Qt\5.7\android_armv7\include\QtCore\qtimer.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\qbasictimer.h \
+		functiongencontrol.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QDir \
+		C:\Qt\5.7\android_armv7\include\QtCore\qdir.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\qfileinfo.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QFile \
+		xmega.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\android_armv7\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\qeventloop.h \
+		desktop_settings.h \
+		ui_elements/buffercontrol.h \
+		unified_debug_structure.h \
+		build_android\libusb-martin-kuldeep\libusb.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QAndroidJniObject \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidjniobject.h \
+		I:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\jni.h \
+		I:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cursorenabler.obj ui_elements\cursorenabler.cpp
 
 deviceconnecteddisplay.obj: ui_elements\deviceconnecteddisplay.cpp ui_elements/deviceconnecteddisplay.h \

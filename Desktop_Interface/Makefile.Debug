@@ -2439,7 +2439,8 @@ moc\moc_mainwindow.cpp: C:\Qt\5.7\msvc2013_64\include\QtWidgets\QMainWindow \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QPlainTextEdit \
 		isobufferbuffer.h \
 		q_debugstream.h \
-		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QTextEdit.h \
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QTextEdit \
+		pinchcatcher.h \
 		mainwindow.h \
 		C:\Qt\5.7\msvc2013_64\bin\moc.exe
 	C:\Qt\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements/qcp1 -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/ui_elements -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win -IC:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_win/libusbk/includes -IC:/Qt/5.7/msvc2013_64/include -IC:/Qt/5.7/msvc2013_64/include/QtPrintSupport -IC:/Qt/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/5.7/msvc2013_64/include/QtGui -IC:/Qt/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/5.7/msvc2013_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc\moc_mainwindow.cpp
@@ -5820,7 +5821,31 @@ debug\cursorenabler.obj: ui_elements\cursorenabler.cpp ui_elements/cursorenabler
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qframe.h \
-		C:\Qt\5.7\msvc2013_64\include\QtGui\QMouseEvent
+		C:\Qt\5.7\msvc2013_64\include\QtGui\QMouseEvent \
+		build_win\platformspecific.h \
+		winusbdriver.h \
+		build_win\libusbk\includes\libusbk.h \
+		build_win\libusbk\includes\lusbk_shared.h \
+		genericusbdriver.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QTimer \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtimer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbasictimer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QThread \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qthread.h \
+		functiongencontrol.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QDir \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qdir.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qfileinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
+		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
+		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
+		ui_elements/buffercontrol.h \
+		unified_debug_structure.h
 
 debug\deviceconnecteddisplay.obj: ui_elements\deviceconnecteddisplay.cpp ui_elements/deviceconnecteddisplay.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -5923,7 +5948,30 @@ debug\deviceconnecteddisplay.obj: ui_elements\deviceconnecteddisplay.cpp ui_elem
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\qframe.h \
-		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QDebug \
+		build_win\platformspecific.h \
+		winusbdriver.h \
+		build_win\libusbk\includes\libusbk.h \
+		build_win\libusbk\includes\lusbk_shared.h \
+		genericusbdriver.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QTimer \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qtimer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qbasictimer.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QThread \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qthread.h \
+		functiongencontrol.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QDir \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qdir.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qfileinfo.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QFile \
+		xmega.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QCoreApplication \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\qeventloop.h \
+		desktop_settings.h \
+		C:\Qt\5.7\msvc2013_64\include\QtCore\QMutex \
+		ui_elements/buffercontrol.h \
+		unified_debug_structure.h
 
 debug\espocombobox.obj: ui_elements\espocombobox.cpp ui_elements/espocombobox.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
@@ -7752,7 +7800,8 @@ debug\main.obj: main.cpp mainwindow.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QPlainTextEdit \
 		isobufferbuffer.h \
 		q_debugstream.h \
-		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QTextEdit.h \
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QTextEdit \
+		pinchcatcher.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QApplication
 
 debug\mainwindow.obj: mainwindow.cpp mainwindow.h \
@@ -8264,7 +8313,8 @@ debug\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QPlainTextEdit \
 		isobufferbuffer.h \
 		q_debugstream.h \
-		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QTextEdit.h
+		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QTextEdit \
+		pinchcatcher.h
 
 debug\functiongencontrol.obj: functiongencontrol.cpp functiongencontrol.h \
 		C:\Qt\5.7\msvc2013_64\include\QtWidgets\QWidget \
