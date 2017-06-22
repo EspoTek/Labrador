@@ -1052,3 +1052,15 @@ void isoDriver::takeSnapshot(){
 
     free(dir);
 }
+
+double isoDriver::meanVoltageLast(double seconds, unsigned char channel){
+    isoBuffer *currentBuffer = (channel == 1 ? internalBuffer375_CH1 : internalBuffer375_CH2);
+    short * tempBuffer = currentBuffer->readBuffer(seconds,1024, 0, 0);
+    double sum = 0;
+    double temp;
+    for(int i = 0; i<1024; i++){
+        temp = currentBuffer->sampleConvert(tempBuffer[i], 128, 0);
+        sum += temp;
+    }
+    return sum / 1024;
+}

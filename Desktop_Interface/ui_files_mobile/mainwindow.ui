@@ -1669,13 +1669,6 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionRecord"/>
-    <addaction name="actionTake_Snapshot"/>
-   </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
     <property name="title">
      <string>Oscilloscope</string>
@@ -1861,7 +1854,6 @@
     </property>
     <addaction name="actionOld_Person_Mode"/>
    </widget>
-   <addaction name="menuFile"/>
    <addaction name="menuOscilloscope_2"/>
    <addaction name="menuMultimeter_2"/>
    <addaction name="menuBus_Sniffer"/>

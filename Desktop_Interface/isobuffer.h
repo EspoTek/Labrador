@@ -38,6 +38,7 @@ public:
     void glitchInsert(short type);
     void serialDecode(double baudRate);
     int serialDistance();
+    double sampleConvert(short sample, int TOP, bool AC);
     //Generic Vars
     QPlainTextEdit *console, *console1, *console2;
     bool serialAutoScroll = true;
@@ -69,8 +70,6 @@ private:
     unsigned char getNextUartBit();
     void decodeNextUartBit(unsigned char bitValue);
     bool jitterCompensationProcedure(double baudRate, unsigned char current_bit);
-    //Generic Functions
-    double sampleConvert(short sample, int TOP, bool AC);
 public slots:
     void enableFileIO(QFile *file);
     void disableFileIO();

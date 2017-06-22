@@ -1265,3 +1265,22 @@ void MainWindow::vertScaleEvent(bool enabled){
 }
 
 #endif
+
+void MainWindow::on_actionCalibrate_triggered()
+{
+    //Must be mode 4
+    //Must be AC
+
+    qDebug() << "Calibration routine beginning!";
+    unsigned char oldMode = ui->controller_iso->driver->deviceMode;
+    ui->controller_iso->clearBuffers(1,0,0);
+    QTimer::singleShot(1200, this, SLOT(calibrateStage2()));
+}
+
+void MainWindow::calibrateStage2(){
+    double vref_CH1 = ui->controller_iso->meanVoltageLast(1, 1);
+    double vref_CH2 = ui->controller_iso->meanVoltageLast(1, 2);
+    qDebug() << "VRef (CH1) = " << centre_voltage_CH1;
+    qDebug() << "VRef (CH2) = " << centre_voltage_CH2;
+
+}

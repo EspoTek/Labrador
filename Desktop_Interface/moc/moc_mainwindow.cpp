@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[82];
-    char stringdata0[1735];
+    QByteArrayData data[72];
+    char stringdata0[1604];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -54,63 +54,53 @@ QT_MOC_LITERAL(21, 459, 21), // "on_action5FPS_toggled"
 QT_MOC_LITERAL(22, 481, 34), // "on_actionSnap_to_Cursors_trig..."
 QT_MOC_LITERAL(23, 516, 33), // "on_actionEnter_Manually_trigg..."
 QT_MOC_LITERAL(24, 550, 21), // "connectDisplaySignals"
-QT_MOC_LITERAL(25, 572, 20), // "on_action300_toggled"
-QT_MOC_LITERAL(26, 593, 20), // "on_action600_toggled"
-QT_MOC_LITERAL(27, 614, 21), // "on_action1200_toggled"
-QT_MOC_LITERAL(28, 636, 21), // "on_action2400_toggled"
-QT_MOC_LITERAL(29, 658, 21), // "on_action4800_toggled"
-QT_MOC_LITERAL(30, 680, 21), // "on_action9600_toggled"
-QT_MOC_LITERAL(31, 702, 22), // "on_action14400_toggled"
-QT_MOC_LITERAL(32, 725, 22), // "on_action19200_toggled"
-QT_MOC_LITERAL(33, 748, 22), // "on_action28800_toggled"
-QT_MOC_LITERAL(34, 771, 22), // "on_action38400_toggled"
-QT_MOC_LITERAL(35, 794, 22), // "on_action57600_toggled"
-QT_MOC_LITERAL(36, 817, 23), // "on_action115200_toggled"
-QT_MOC_LITERAL(37, 841, 22), // "on_action300_2_toggled"
-QT_MOC_LITERAL(38, 864, 22), // "on_action600_2_toggled"
-QT_MOC_LITERAL(39, 887, 23), // "on_action1200_2_toggled"
-QT_MOC_LITERAL(40, 911, 23), // "on_action2400_2_toggled"
-QT_MOC_LITERAL(41, 935, 23), // "on_action4800_2_toggled"
-QT_MOC_LITERAL(42, 959, 23), // "on_action9600_2_toggled"
-QT_MOC_LITERAL(43, 983, 24), // "on_action14400_2_toggled"
-QT_MOC_LITERAL(44, 1008, 24), // "on_action19200_2_toggled"
-QT_MOC_LITERAL(45, 1033, 24), // "on_action28800_2_toggled"
-QT_MOC_LITERAL(46, 1058, 24), // "on_action38400_2_toggled"
-QT_MOC_LITERAL(47, 1083, 24), // "on_action57600_2_toggled"
-QT_MOC_LITERAL(48, 1108, 25), // "on_action115200_2_toggled"
-QT_MOC_LITERAL(49, 1134, 17), // "cycleBaudRate_CH1"
-QT_MOC_LITERAL(50, 1152, 26), // "cycleBaudRateBackwards_CH1"
-QT_MOC_LITERAL(51, 1179, 17), // "cycleBaudRate_CH2"
-QT_MOC_LITERAL(52, 1197, 26), // "cycleBaudRateBackwards_CH2"
-QT_MOC_LITERAL(53, 1224, 21), // "timeBaseNeedsChanging"
-QT_MOC_LITERAL(54, 1246, 8), // "positive"
-QT_MOC_LITERAL(55, 1255, 31), // "on_actionForce_Square_triggered"
-QT_MOC_LITERAL(56, 1287, 10), // "helloWorld"
-QT_MOC_LITERAL(57, 1298, 16), // "arrowUpTriggered"
-QT_MOC_LITERAL(58, 1315, 18), // "arrowDownTriggered"
-QT_MOC_LITERAL(59, 1334, 20), // "ctrlArrowUpTriggered"
-QT_MOC_LITERAL(60, 1355, 22), // "ctrlArrowDownTriggered"
-QT_MOC_LITERAL(61, 1378, 14), // "cycleDelayLeft"
-QT_MOC_LITERAL(62, 1393, 15), // "cycleDelayRight"
-QT_MOC_LITERAL(63, 1409, 23), // "enableLabradorDebugging"
-QT_MOC_LITERAL(64, 1433, 26), // "on_actionAuto_Lock_toggled"
-QT_MOC_LITERAL(65, 1460, 25), // "on_actionRecord_triggered"
-QT_MOC_LITERAL(66, 1486, 32), // "on_actionTake_Snapshot_triggered"
-QT_MOC_LITERAL(67, 1519, 9), // "reinitUsb"
-QT_MOC_LITERAL(68, 1529, 15), // "reinitUsbStage2"
-QT_MOC_LITERAL(69, 1545, 13), // "resetUsbState"
-QT_MOC_LITERAL(70, 1559, 34), // "on_actionOld_Person_Mode_trig..."
-QT_MOC_LITERAL(71, 1594, 17), // "screenRotateEvent"
-QT_MOC_LITERAL(72, 1612, 21), // "Qt::ScreenOrientation"
-QT_MOC_LITERAL(73, 1634, 11), // "orientation"
-QT_MOC_LITERAL(74, 1646, 11), // "eventFilter"
-QT_MOC_LITERAL(75, 1658, 3), // "obj"
-QT_MOC_LITERAL(76, 1662, 7), // "QEvent*"
-QT_MOC_LITERAL(77, 1670, 5), // "event"
-QT_MOC_LITERAL(78, 1676, 13), // "gestureFilter"
-QT_MOC_LITERAL(79, 1690, 14), // "QGestureEvent*"
-QT_MOC_LITERAL(80, 1705, 14), // "horiScaleEvent"
-QT_MOC_LITERAL(81, 1720, 14) // "vertScaleEvent"
+QT_MOC_LITERAL(25, 572, 15), // "calibrateStage2"
+QT_MOC_LITERAL(26, 588, 20), // "on_action300_toggled"
+QT_MOC_LITERAL(27, 609, 20), // "on_action600_toggled"
+QT_MOC_LITERAL(28, 630, 21), // "on_action1200_toggled"
+QT_MOC_LITERAL(29, 652, 21), // "on_action2400_toggled"
+QT_MOC_LITERAL(30, 674, 21), // "on_action4800_toggled"
+QT_MOC_LITERAL(31, 696, 21), // "on_action9600_toggled"
+QT_MOC_LITERAL(32, 718, 22), // "on_action14400_toggled"
+QT_MOC_LITERAL(33, 741, 22), // "on_action19200_toggled"
+QT_MOC_LITERAL(34, 764, 22), // "on_action28800_toggled"
+QT_MOC_LITERAL(35, 787, 22), // "on_action38400_toggled"
+QT_MOC_LITERAL(36, 810, 22), // "on_action57600_toggled"
+QT_MOC_LITERAL(37, 833, 23), // "on_action115200_toggled"
+QT_MOC_LITERAL(38, 857, 22), // "on_action300_2_toggled"
+QT_MOC_LITERAL(39, 880, 22), // "on_action600_2_toggled"
+QT_MOC_LITERAL(40, 903, 23), // "on_action1200_2_toggled"
+QT_MOC_LITERAL(41, 927, 23), // "on_action2400_2_toggled"
+QT_MOC_LITERAL(42, 951, 23), // "on_action4800_2_toggled"
+QT_MOC_LITERAL(43, 975, 23), // "on_action9600_2_toggled"
+QT_MOC_LITERAL(44, 999, 24), // "on_action14400_2_toggled"
+QT_MOC_LITERAL(45, 1024, 24), // "on_action19200_2_toggled"
+QT_MOC_LITERAL(46, 1049, 24), // "on_action28800_2_toggled"
+QT_MOC_LITERAL(47, 1074, 24), // "on_action38400_2_toggled"
+QT_MOC_LITERAL(48, 1099, 24), // "on_action57600_2_toggled"
+QT_MOC_LITERAL(49, 1124, 25), // "on_action115200_2_toggled"
+QT_MOC_LITERAL(50, 1150, 17), // "cycleBaudRate_CH1"
+QT_MOC_LITERAL(51, 1168, 26), // "cycleBaudRateBackwards_CH1"
+QT_MOC_LITERAL(52, 1195, 17), // "cycleBaudRate_CH2"
+QT_MOC_LITERAL(53, 1213, 26), // "cycleBaudRateBackwards_CH2"
+QT_MOC_LITERAL(54, 1240, 21), // "timeBaseNeedsChanging"
+QT_MOC_LITERAL(55, 1262, 8), // "positive"
+QT_MOC_LITERAL(56, 1271, 31), // "on_actionForce_Square_triggered"
+QT_MOC_LITERAL(57, 1303, 10), // "helloWorld"
+QT_MOC_LITERAL(58, 1314, 16), // "arrowUpTriggered"
+QT_MOC_LITERAL(59, 1331, 18), // "arrowDownTriggered"
+QT_MOC_LITERAL(60, 1350, 20), // "ctrlArrowUpTriggered"
+QT_MOC_LITERAL(61, 1371, 22), // "ctrlArrowDownTriggered"
+QT_MOC_LITERAL(62, 1394, 14), // "cycleDelayLeft"
+QT_MOC_LITERAL(63, 1409, 15), // "cycleDelayRight"
+QT_MOC_LITERAL(64, 1425, 23), // "enableLabradorDebugging"
+QT_MOC_LITERAL(65, 1449, 26), // "on_actionAuto_Lock_toggled"
+QT_MOC_LITERAL(66, 1476, 25), // "on_actionRecord_triggered"
+QT_MOC_LITERAL(67, 1502, 32), // "on_actionTake_Snapshot_triggered"
+QT_MOC_LITERAL(68, 1535, 9), // "reinitUsb"
+QT_MOC_LITERAL(69, 1545, 15), // "reinitUsbStage2"
+QT_MOC_LITERAL(70, 1561, 13), // "resetUsbState"
+QT_MOC_LITERAL(71, 1575, 28) // "on_actionCalibrate_triggered"
 
     },
     "MainWindow\0on_actionGain0_5_triggered\0"
@@ -130,16 +120,16 @@ QT_MOC_LITERAL(81, 1720, 14) // "vertScaleEvent"
     "on_action5FPS_toggled\0"
     "on_actionSnap_to_Cursors_triggered\0"
     "on_actionEnter_Manually_triggered\0"
-    "connectDisplaySignals\0on_action300_toggled\0"
-    "on_action600_toggled\0on_action1200_toggled\0"
-    "on_action2400_toggled\0on_action4800_toggled\0"
-    "on_action9600_toggled\0on_action14400_toggled\0"
-    "on_action19200_toggled\0on_action28800_toggled\0"
-    "on_action38400_toggled\0on_action57600_toggled\0"
-    "on_action115200_toggled\0on_action300_2_toggled\0"
-    "on_action600_2_toggled\0on_action1200_2_toggled\0"
-    "on_action2400_2_toggled\0on_action4800_2_toggled\0"
-    "on_action9600_2_toggled\0"
+    "connectDisplaySignals\0calibrateStage2\0"
+    "on_action300_toggled\0on_action600_toggled\0"
+    "on_action1200_toggled\0on_action2400_toggled\0"
+    "on_action4800_toggled\0on_action9600_toggled\0"
+    "on_action14400_toggled\0on_action19200_toggled\0"
+    "on_action28800_toggled\0on_action38400_toggled\0"
+    "on_action57600_toggled\0on_action115200_toggled\0"
+    "on_action300_2_toggled\0on_action600_2_toggled\0"
+    "on_action1200_2_toggled\0on_action2400_2_toggled\0"
+    "on_action4800_2_toggled\0on_action9600_2_toggled\0"
     "on_action14400_2_toggled\0"
     "on_action19200_2_toggled\0"
     "on_action28800_2_toggled\0"
@@ -158,11 +148,7 @@ QT_MOC_LITERAL(81, 1720, 14) // "vertScaleEvent"
     "on_actionRecord_triggered\0"
     "on_actionTake_Snapshot_triggered\0"
     "reinitUsb\0reinitUsbStage2\0resetUsbState\0"
-    "on_actionOld_Person_Mode_triggered\0"
-    "screenRotateEvent\0Qt::ScreenOrientation\0"
-    "orientation\0eventFilter\0obj\0QEvent*\0"
-    "event\0gestureFilter\0QGestureEvent*\0"
-    "horiScaleEvent\0vertScaleEvent"
+    "on_actionCalibrate_triggered"
 };
 #undef QT_MOC_LITERAL
 
@@ -172,7 +158,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      70,   14, // methods
+      66,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -180,76 +166,72 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  364,    2, 0x08 /* Private */,
-       3,    0,  365,    2, 0x08 /* Private */,
-       4,    0,  366,    2, 0x08 /* Private */,
-       5,    0,  367,    2, 0x08 /* Private */,
-       6,    0,  368,    2, 0x08 /* Private */,
-       7,    0,  369,    2, 0x08 /* Private */,
-       8,    0,  370,    2, 0x08 /* Private */,
-       9,    0,  371,    2, 0x08 /* Private */,
-      10,    0,  372,    2, 0x08 /* Private */,
-      11,    1,  373,    2, 0x08 /* Private */,
-      13,    1,  376,    2, 0x08 /* Private */,
-      15,    1,  379,    2, 0x08 /* Private */,
-      17,    1,  382,    2, 0x08 /* Private */,
-      18,    1,  385,    2, 0x08 /* Private */,
-      19,    1,  388,    2, 0x08 /* Private */,
-      20,    1,  391,    2, 0x08 /* Private */,
-      21,    1,  394,    2, 0x08 /* Private */,
-      22,    0,  397,    2, 0x08 /* Private */,
-      23,    0,  398,    2, 0x08 /* Private */,
-      24,    0,  399,    2, 0x08 /* Private */,
-      25,    1,  400,    2, 0x08 /* Private */,
-      26,    1,  403,    2, 0x08 /* Private */,
-      27,    1,  406,    2, 0x08 /* Private */,
-      28,    1,  409,    2, 0x08 /* Private */,
-      29,    1,  412,    2, 0x08 /* Private */,
-      30,    1,  415,    2, 0x08 /* Private */,
-      31,    1,  418,    2, 0x08 /* Private */,
-      32,    1,  421,    2, 0x08 /* Private */,
-      33,    1,  424,    2, 0x08 /* Private */,
-      34,    1,  427,    2, 0x08 /* Private */,
-      35,    1,  430,    2, 0x08 /* Private */,
-      36,    1,  433,    2, 0x08 /* Private */,
-      37,    1,  436,    2, 0x08 /* Private */,
-      38,    1,  439,    2, 0x08 /* Private */,
-      39,    1,  442,    2, 0x08 /* Private */,
-      40,    1,  445,    2, 0x08 /* Private */,
-      41,    1,  448,    2, 0x08 /* Private */,
-      42,    1,  451,    2, 0x08 /* Private */,
-      43,    1,  454,    2, 0x08 /* Private */,
-      44,    1,  457,    2, 0x08 /* Private */,
-      45,    1,  460,    2, 0x08 /* Private */,
-      46,    1,  463,    2, 0x08 /* Private */,
-      47,    1,  466,    2, 0x08 /* Private */,
-      48,    1,  469,    2, 0x08 /* Private */,
-      49,    0,  472,    2, 0x08 /* Private */,
-      50,    0,  473,    2, 0x08 /* Private */,
-      51,    0,  474,    2, 0x08 /* Private */,
-      52,    0,  475,    2, 0x08 /* Private */,
-      53,    1,  476,    2, 0x08 /* Private */,
-      55,    1,  479,    2, 0x08 /* Private */,
-      56,    0,  482,    2, 0x08 /* Private */,
-      57,    0,  483,    2, 0x08 /* Private */,
-      58,    0,  484,    2, 0x08 /* Private */,
-      59,    0,  485,    2, 0x08 /* Private */,
-      60,    0,  486,    2, 0x08 /* Private */,
-      61,    0,  487,    2, 0x08 /* Private */,
-      62,    0,  488,    2, 0x08 /* Private */,
-      63,    0,  489,    2, 0x08 /* Private */,
-      64,    1,  490,    2, 0x08 /* Private */,
-      65,    1,  493,    2, 0x08 /* Private */,
-      66,    0,  496,    2, 0x08 /* Private */,
-      67,    0,  497,    2, 0x08 /* Private */,
-      68,    0,  498,    2, 0x08 /* Private */,
-      69,    0,  499,    2, 0x08 /* Private */,
-      70,    1,  500,    2, 0x08 /* Private */,
-      71,    1,  503,    2, 0x08 /* Private */,
-      74,    2,  506,    2, 0x08 /* Private */,
-      78,    1,  511,    2, 0x08 /* Private */,
-      80,    1,  514,    2, 0x08 /* Private */,
-      81,    1,  517,    2, 0x08 /* Private */,
+       1,    0,  344,    2, 0x08 /* Private */,
+       3,    0,  345,    2, 0x08 /* Private */,
+       4,    0,  346,    2, 0x08 /* Private */,
+       5,    0,  347,    2, 0x08 /* Private */,
+       6,    0,  348,    2, 0x08 /* Private */,
+       7,    0,  349,    2, 0x08 /* Private */,
+       8,    0,  350,    2, 0x08 /* Private */,
+       9,    0,  351,    2, 0x08 /* Private */,
+      10,    0,  352,    2, 0x08 /* Private */,
+      11,    1,  353,    2, 0x08 /* Private */,
+      13,    1,  356,    2, 0x08 /* Private */,
+      15,    1,  359,    2, 0x08 /* Private */,
+      17,    1,  362,    2, 0x08 /* Private */,
+      18,    1,  365,    2, 0x08 /* Private */,
+      19,    1,  368,    2, 0x08 /* Private */,
+      20,    1,  371,    2, 0x08 /* Private */,
+      21,    1,  374,    2, 0x08 /* Private */,
+      22,    0,  377,    2, 0x08 /* Private */,
+      23,    0,  378,    2, 0x08 /* Private */,
+      24,    0,  379,    2, 0x08 /* Private */,
+      25,    0,  380,    2, 0x08 /* Private */,
+      26,    1,  381,    2, 0x08 /* Private */,
+      27,    1,  384,    2, 0x08 /* Private */,
+      28,    1,  387,    2, 0x08 /* Private */,
+      29,    1,  390,    2, 0x08 /* Private */,
+      30,    1,  393,    2, 0x08 /* Private */,
+      31,    1,  396,    2, 0x08 /* Private */,
+      32,    1,  399,    2, 0x08 /* Private */,
+      33,    1,  402,    2, 0x08 /* Private */,
+      34,    1,  405,    2, 0x08 /* Private */,
+      35,    1,  408,    2, 0x08 /* Private */,
+      36,    1,  411,    2, 0x08 /* Private */,
+      37,    1,  414,    2, 0x08 /* Private */,
+      38,    1,  417,    2, 0x08 /* Private */,
+      39,    1,  420,    2, 0x08 /* Private */,
+      40,    1,  423,    2, 0x08 /* Private */,
+      41,    1,  426,    2, 0x08 /* Private */,
+      42,    1,  429,    2, 0x08 /* Private */,
+      43,    1,  432,    2, 0x08 /* Private */,
+      44,    1,  435,    2, 0x08 /* Private */,
+      45,    1,  438,    2, 0x08 /* Private */,
+      46,    1,  441,    2, 0x08 /* Private */,
+      47,    1,  444,    2, 0x08 /* Private */,
+      48,    1,  447,    2, 0x08 /* Private */,
+      49,    1,  450,    2, 0x08 /* Private */,
+      50,    0,  453,    2, 0x08 /* Private */,
+      51,    0,  454,    2, 0x08 /* Private */,
+      52,    0,  455,    2, 0x08 /* Private */,
+      53,    0,  456,    2, 0x08 /* Private */,
+      54,    1,  457,    2, 0x08 /* Private */,
+      56,    1,  460,    2, 0x08 /* Private */,
+      57,    0,  463,    2, 0x08 /* Private */,
+      58,    0,  464,    2, 0x08 /* Private */,
+      59,    0,  465,    2, 0x08 /* Private */,
+      60,    0,  466,    2, 0x08 /* Private */,
+      61,    0,  467,    2, 0x08 /* Private */,
+      62,    0,  468,    2, 0x08 /* Private */,
+      63,    0,  469,    2, 0x08 /* Private */,
+      64,    0,  470,    2, 0x08 /* Private */,
+      65,    1,  471,    2, 0x08 /* Private */,
+      66,    1,  474,    2, 0x08 /* Private */,
+      67,    0,  477,    2, 0x08 /* Private */,
+      68,    0,  478,    2, 0x08 /* Private */,
+      69,    0,  479,    2, 0x08 /* Private */,
+      70,    0,  480,    2, 0x08 /* Private */,
+      71,    0,  481,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -272,6 +254,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   14,
     QMetaType::Void, QMetaType::Bool,   14,
     QMetaType::Void, QMetaType::Bool,   14,
@@ -300,7 +283,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   54,
+    QMetaType::Void, QMetaType::Bool,   55,
     QMetaType::Void, QMetaType::Bool,   12,
     QMetaType::Void,
     QMetaType::Void,
@@ -316,12 +299,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,   12,
-    QMetaType::Void, 0x80000000 | 72,   73,
-    QMetaType::Bool, QMetaType::QObjectStar, 0x80000000 | 76,   75,   77,
-    QMetaType::Bool, 0x80000000 | 79,   77,
-    QMetaType::Void, QMetaType::Bool,   16,
-    QMetaType::Void, QMetaType::Bool,   16,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -352,58 +330,52 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 17: _t->on_actionSnap_to_Cursors_triggered(); break;
         case 18: _t->on_actionEnter_Manually_triggered(); break;
         case 19: _t->connectDisplaySignals(); break;
-        case 20: _t->on_action300_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 21: _t->on_action600_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 22: _t->on_action1200_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 23: _t->on_action2400_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 24: _t->on_action4800_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 25: _t->on_action9600_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 26: _t->on_action14400_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 27: _t->on_action19200_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 28: _t->on_action28800_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 29: _t->on_action38400_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 30: _t->on_action57600_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 31: _t->on_action115200_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 32: _t->on_action300_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 33: _t->on_action600_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 34: _t->on_action1200_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 35: _t->on_action2400_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 36: _t->on_action4800_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 37: _t->on_action9600_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 38: _t->on_action14400_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 39: _t->on_action19200_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 40: _t->on_action28800_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 41: _t->on_action38400_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 42: _t->on_action57600_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 43: _t->on_action115200_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 44: _t->cycleBaudRate_CH1(); break;
-        case 45: _t->cycleBaudRateBackwards_CH1(); break;
-        case 46: _t->cycleBaudRate_CH2(); break;
-        case 47: _t->cycleBaudRateBackwards_CH2(); break;
-        case 48: _t->timeBaseNeedsChanging((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 49: _t->on_actionForce_Square_triggered((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 50: _t->helloWorld(); break;
-        case 51: _t->arrowUpTriggered(); break;
-        case 52: _t->arrowDownTriggered(); break;
-        case 53: _t->ctrlArrowUpTriggered(); break;
-        case 54: _t->ctrlArrowDownTriggered(); break;
-        case 55: _t->cycleDelayLeft(); break;
-        case 56: _t->cycleDelayRight(); break;
-        case 57: _t->enableLabradorDebugging(); break;
-        case 58: _t->on_actionAuto_Lock_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 59: _t->on_actionRecord_triggered((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 60: _t->on_actionTake_Snapshot_triggered(); break;
-        case 61: _t->reinitUsb(); break;
-        case 62: _t->reinitUsbStage2(); break;
-        case 63: _t->resetUsbState(); break;
-        case 64: _t->on_actionOld_Person_Mode_triggered((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 65: _t->screenRotateEvent((*reinterpret_cast< Qt::ScreenOrientation(*)>(_a[1]))); break;
-        case 66: { bool _r = _t->eventFilter((*reinterpret_cast< QObject*(*)>(_a[1])),(*reinterpret_cast< QEvent*(*)>(_a[2])));
-            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 67: { bool _r = _t->gestureFilter((*reinterpret_cast< QGestureEvent*(*)>(_a[1])));
-            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 68: _t->horiScaleEvent((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 69: _t->vertScaleEvent((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 20: _t->calibrateStage2(); break;
+        case 21: _t->on_action300_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 22: _t->on_action600_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 23: _t->on_action1200_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 24: _t->on_action2400_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 25: _t->on_action4800_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 26: _t->on_action9600_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 27: _t->on_action14400_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 28: _t->on_action19200_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 29: _t->on_action28800_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 30: _t->on_action38400_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 31: _t->on_action57600_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 32: _t->on_action115200_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 33: _t->on_action300_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 34: _t->on_action600_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 35: _t->on_action1200_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 36: _t->on_action2400_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 37: _t->on_action4800_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 38: _t->on_action9600_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 39: _t->on_action14400_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 40: _t->on_action19200_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 41: _t->on_action28800_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 42: _t->on_action38400_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 43: _t->on_action57600_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 44: _t->on_action115200_2_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 45: _t->cycleBaudRate_CH1(); break;
+        case 46: _t->cycleBaudRateBackwards_CH1(); break;
+        case 47: _t->cycleBaudRate_CH2(); break;
+        case 48: _t->cycleBaudRateBackwards_CH2(); break;
+        case 49: _t->timeBaseNeedsChanging((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 50: _t->on_actionForce_Square_triggered((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 51: _t->helloWorld(); break;
+        case 52: _t->arrowUpTriggered(); break;
+        case 53: _t->arrowDownTriggered(); break;
+        case 54: _t->ctrlArrowUpTriggered(); break;
+        case 55: _t->ctrlArrowDownTriggered(); break;
+        case 56: _t->cycleDelayLeft(); break;
+        case 57: _t->cycleDelayRight(); break;
+        case 58: _t->enableLabradorDebugging(); break;
+        case 59: _t->on_actionAuto_Lock_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 60: _t->on_actionRecord_triggered((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 61: _t->on_actionTake_Snapshot_triggered(); break;
+        case 62: _t->reinitUsb(); break;
+        case 63: _t->reinitUsbStage2(); break;
+        case 64: _t->resetUsbState(); break;
+        case 65: _t->on_actionCalibrate_triggered(); break;
         default: ;
         }
     }
@@ -434,13 +406,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 70)
+        if (_id < 66)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 70;
+        _id -= 66;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 70)
+        if (_id < 66)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 70;
+        _id -= 66;
     }
     return _id;
 }

@@ -66,6 +66,7 @@ private slots:
     void on_actionEnter_Manually_triggered();
 
     void connectDisplaySignals();
+    void calibrateStage2();
 
     //Logic Analyzer
     void on_action300_toggled(bool arg1);
@@ -131,6 +132,8 @@ private slots:
     void horiScaleEvent(bool enabled);
     void vertScaleEvent(bool enabled);
 #endif
+
+    void on_actionCalibrate_triggered();
 
 private:
     //Generic Vars
