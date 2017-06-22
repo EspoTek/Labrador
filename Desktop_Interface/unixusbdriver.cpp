@@ -107,13 +107,32 @@ unsigned char unixUsbDriver::usbIsoInit(void){
             transferCompleted[k][n].completed = false;
             libusb_fill_iso_transfer(isoCtx[k][n], handle, pipeID[k], dataBuffer[k][n], ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX, ISO_PACKETS_PER_CTX, isoCallback, (void*)&transferCompleted[k][n], 4000);
             libusb_set_iso_packet_lengths(isoCtx[k][n], ISO_PACKET_SIZE);
+        }
+    }
+
+    for(int n=0;n<NUM_FUTURE_CTX;n++){
+        qint64 t0 = QDateTime::currentMSecsSinceEpoch();
+        qint64 t1 = t0;
+
+        //Wait for next tick
+        while(t1 == t0){
+            t1 = QDateTime::currentMSecsSinceEpoch();
+        }
+        for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
             error = libusb_submit_transfer(isoCtx[k][n]);
             if(error){
                 qDebug() << "libusb_submit_transfer FAILED";
                 qDebug() << "ERROR" << libusb_error_name(error);
-            } else qDebug() << "isoCtx submitted successfully!";
+            } else {
+                if(n == 0){
+                    qDebug() << "isoCtx submitted successfully!";
+                    qDebug() << "[n, k] = " << n << k;
+                    qDebug() << "t = " << QDateTime::currentMSecsSinceEpoch();
+                }
+            }
         }
     }
+
     isoTimer = new QTimer();
     isoTimer->setTimerType(Qt::PreciseTimer);
     isoTimer->start(ISO_TIMER_PERIOD);

@@ -157,7 +157,8 @@ DIST          = build_android\package_source\AndroidManifest.xml \
 		build_android\package_source\res\values\libs.xml \
 		build_android\package_source\build.gradle \
 		build_android\package_source\gradle\wrapper\gradle-wrapper.properties \
-		build_android\package_source\gradlew.bat ui_elements\buffercontrol.h \
+		build_android\package_source\gradlew.bat \
+		build_android\package_source\res\xml\device_filter.xml ui_elements\buffercontrol.h \
 		ui_elements\cursorenabler.h \
 		ui_elements\deviceconnecteddisplay.h \
 		ui_elements\espocombobox.h \
