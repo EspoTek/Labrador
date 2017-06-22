@@ -6,6 +6,10 @@ unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
     qDebug() << "unixUsbDriver created!";
     tv.tv_sec = 0;
     tv.tv_usec = 100000;
+    for (unsigned char k=0; k<NUM_ISO_ENDPOINTS; k++){
+        midBuffer_current[k] = (unsigned char*)calloc(ISO_PACKETS_PER_CTX * ISO_PACKET_SIZE, 1);
+        midBuffer_prev[k] = (unsigned char*)calloc(ISO_PACKETS_PER_CTX * ISO_PACKET_SIZE, 1);
+    }
 }
 
 unixUsbDriver::~unixUsbDriver(void){
@@ -111,13 +115,6 @@ unsigned char unixUsbDriver::usbIsoInit(void){
     }
 
     for(int n=0;n<NUM_FUTURE_CTX;n++){
-        qint64 t0 = QDateTime::currentMSecsSinceEpoch();
-        qint64 t1 = t0;
-
-        //Wait for next tick
-        while(t1 == t0){
-            t1 = QDateTime::currentMSecsSinceEpoch();
-        }
         for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
             error = libusb_submit_transfer(isoCtx[k][n]);
             if(error){
@@ -125,9 +122,16 @@ unsigned char unixUsbDriver::usbIsoInit(void){
                 qDebug() << "ERROR" << libusb_error_name(error);
             } else {
                 if(n == 0){
+                    qint64 t0;
+                    qint64 t = QDateTime::currentMSecsSinceEpoch();
+                    if(k==0){
+                        t0 = t;
+                    }
+                    midBufferOffsets[k] = t0 - t;
                     qDebug() << "isoCtx submitted successfully!";
                     qDebug() << "[n, k] = " << n << k;
-                    qDebug() << "t = " << QDateTime::currentMSecsSinceEpoch();
+                    qDebug() << "t = " << t;
+                    qDebug() << "Delay = " << midBufferOffsets[k];
                 }
             }
         }
@@ -190,13 +194,38 @@ void unixUsbDriver::isoTimerTick(void){
 
     //qDebug() << "Processing Ctx" << earliest;
 
-    //Copy iso data into buffer
+
+    //Swap the buffers so that we override the oldest one.
+    for (unsigned char k = 0; k< NUM_ISO_ENDPOINTS; k++){
+        unsigned char* temp = midBuffer_prev[k];
+        midBuffer_prev[k] = midBuffer_current[k];
+        midBuffer_current[k] = temp;
+    }
+
+    //Copy iso data into mid-buffer
     for(i=0;i<isoCtx[0][earliest]->num_iso_packets;i++){
         for(unsigned char k=0; k<NUM_ISO_ENDPOINTS;k++){
             packetPointer = libusb_get_iso_packet_buffer_simple(isoCtx[k][earliest], i);
             //qDebug() << packetLength;
-            memcpy(&(outBuffers[currentWriteBuffer][packetLength]), packetPointer, isoCtx[k][earliest]->iso_packet_desc[i].actual_length);
-            packetLength += isoCtx[k][earliest]->iso_packet_desc[i].actual_length;
+            memcpy(&(midBuffer_current[k][packetLength]), packetPointer, isoCtx[k][earliest]->iso_packet_desc[i].actual_length);
+        }
+        packetLength += ISO_PACKET_SIZE;
+    }
+
+    packetLength = 0; //I don't really know why I use the same variable twice but hey
+    //Read out from mid-buffer to out-buffer
+    unsigned char *srcPtr;
+    qint64 current_offset;
+    for(i=0;i<isoCtx[0][earliest]->num_iso_packets;i++){
+        for(unsigned char k=0; k<NUM_ISO_ENDPOINTS;k++){
+            current_offset = midBufferOffsets[k] + i;
+            if(current_offset >= 0){
+                srcPtr = &midBuffer_current[k][ISO_PACKET_SIZE * current_offset];
+            }else{
+                srcPtr = &midBuffer_prev[k][ISO_PACKET_SIZE * (ISO_PACKETS_PER_CTX + current_offset)];
+            }
+            memcpy(&(outBuffers[currentWriteBuffer][packetLength]), srcPtr, ISO_PACKET_SIZE);
+            packetLength += ISO_PACKET_SIZE;
         }
     }
 
@@ -206,12 +235,6 @@ void unixUsbDriver::isoTimerTick(void){
     bufferLengths[currentWriteBuffer] = packetLength;
     currentWriteBuffer = !currentWriteBuffer;
 
-#ifndef PLATFORM_ANDROID
-    //Check for incorrect setup and kill if that were the case.
-    qint64 ep0frame = transferCompleted[0][earliest].timeReceived;
-    qint64 epkframe = transferCompleted[NUM_ISO_ENDPOINTS-1][earliest].timeReceived;
-    qint64 framePhaseError = epkframe - ep0frame;
-#endif
     //Setup next transfer
     for(unsigned char k=0; k<NUM_ISO_ENDPOINTS;k++){
         transferCompleted[k][earliest].completed = false;
@@ -231,25 +254,6 @@ void unixUsbDriver::isoTimerTick(void){
             qDebug() << "ERROR" << libusb_error_name(error);
         } //else qDebug() << "isoCtx submitted successfully!";
     }
-
-#ifndef PLATFORM_ANDROID
-    //Looking at end frame, not start frame.  Hence need some leeway.
-    if(framePhaseError){
-        qDebug("FRAME PHASE ERROR!!\n");
-        cumulativeFramePhaseErrors += NUM_ISO_ENDPOINTS;
-        qDebug("Cumulative frame phase error of %d.\n", cumulativeFramePhaseErrors);
-    } else cumulativeFramePhaseErrors --;
-
-    if(cumulativeFramePhaseErrors < 0){
-        cumulativeFramePhaseErrors = 0;
-    }
-
-    if(cumulativeFramePhaseErrors > MAX_ALLOWABLE_CUMULATIVE_FRAME_ERROR){
-        qDebug("Too much cumulative frame phase errors indicative of bad connection.  Killing USB Driver.\n");
-        //killMe();
-        qDebug() << "Only kidding!  No death here folks!";
-    }
-#endif
 
     tcBlockMutex.unlock();
     //qDebug() << "Calling upTick()";

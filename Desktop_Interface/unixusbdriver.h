@@ -67,6 +67,9 @@ protected:
     libusb_context *ctx = NULL;
     libusb_device_handle *handle = NULL;
     //USBIso Vars
+    unsigned char *midBuffer_current[NUM_ISO_ENDPOINTS];
+    unsigned char *midBuffer_prev[NUM_ISO_ENDPOINTS];
+    qint64 midBufferOffsets[NUM_ISO_ENDPOINTS];
     libusb_transfer *isoCtx[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
     tcBlock transferCompleted[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
     unsigned char dataBuffer[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
