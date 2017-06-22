@@ -28,6 +28,7 @@ public:
 #endif
     genericUsbDriver *driver;
     bool doNotTouchGraph = true;
+    double ch1_ref = 1.65, ch2_ref = 1.65;
     //State Vars
     bool AC_CH1 = false, AC_CH2 = false;
     bool cursorStatsEnabled = true;
@@ -63,7 +64,7 @@ private:
     double triggerDelay;
     bool singleShotEnabled = false;
     //Generic Functions
-    void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC);
+    void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC, int channel);
     void digitalConvert(short *shortPtr, QVector<double> *doublePtr);
     bool properlyPaused();
     void autoGain(void);

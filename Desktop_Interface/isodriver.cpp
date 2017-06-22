@@ -109,17 +109,19 @@ void isoDriver::timerTick(void){
     //free(isoTemp);
 }
 
-void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC){
+void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC, int channel){
 
     double scope_gain = (double)(driver->scopeGain);
     double accumulated = 0;
     currentVmax = -20;
     currentVmin = 20;
 
+    double ref = (channel == 1 ? ch1_ref : ch2_ref);
+
     double *data = doublePtr->data();
     for (int i=0;i<GRAPH_SAMPLES;i++){
         data[i] = (shortPtr[i] * (vcc/2)) / (R4/(R3+R4)*scope_gain*TOP);
-        if (driver->deviceMode != 7) data[i] += vcc*(R2/(R1+R2));
+        if (driver->deviceMode != 7) data[i] += ref;
         #ifdef INVERT_MM
             if(driver->deviceMode == 7) data[i] *= -1;
         #endif
@@ -688,7 +690,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 
 
     if (CH1_mode == 1){
-        analogConvert(readData375_CH1, &CH1, 128, AC_CH1);
+        analogConvert(readData375_CH1, &CH1, 128, AC_CH1, 1);
         xmin = (currentVmin < xmin) ? currentVmin : xmin;
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
         broadcastStats(0);
@@ -696,7 +698,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
     if (CH1_mode == 2) digitalConvert(readData375_CH1, &CH1);
 
     if (CH2_mode == 1){
-        analogConvert(readData375_CH2, &CH2, 128, AC_CH2);
+        analogConvert(readData375_CH2, &CH2, 128, AC_CH2, 2);
         ymin = (currentVmin < ymin) ? currentVmin : ymin;
         ymax = (currentVmax > ymax) ? currentVmax : ymax;
         broadcastStats(1);
@@ -704,7 +706,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
     if (CH2_mode == 2) digitalConvert(readData375_CH2, &CH2);
 
     if(CH1_mode == -1) {
-        analogConvert(readData750, &CH1, 128, AC_CH1);
+        analogConvert(readData750, &CH1, 128, AC_CH1, 1);
         xmin = (currentVmin < xmin) ? currentVmin : xmin;
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
         broadcastStats(0);
@@ -820,7 +822,7 @@ void isoDriver::multimeterAction(){
     readData375_CH1 = internalBuffer375_CH1->readBuffer(window,GRAPH_SAMPLES, false, delay + ((triggerEnabled&&!paused_multimeter) ? triggerDelay + window/2 : 0));
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES);
-    analogConvert(readData375_CH1, &CH1, 2048, 0);  //No AC coupling!
+    analogConvert(readData375_CH1, &CH1, 2048, 0, 1);  //No AC coupling!
 
     for (double i=0; i<GRAPH_SAMPLES; i++){
         x[i] = -(window*i)/((double)(GRAPH_SAMPLES-1)) - delay;

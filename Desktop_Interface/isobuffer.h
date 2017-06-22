@@ -44,6 +44,7 @@ public:
     bool serialAutoScroll = true;
     unsigned char channel = 255;
     QTimer *updateTimer;
+    double voltage_ref = 1.65;
 private:
     //Generic Vars
     short *buffer, *readData = NULL;

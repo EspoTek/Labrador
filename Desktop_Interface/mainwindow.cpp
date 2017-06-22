@@ -1269,10 +1269,19 @@ void MainWindow::vertScaleEvent(bool enabled){
 void MainWindow::on_actionCalibrate_triggered()
 {
     //Must be mode 4
-    //Must be AC
+    //Must be DC coupled
+    //Voltage must be disconnected
 
     qDebug() << "Calibration routine beginning!";
     unsigned char oldMode = ui->controller_iso->driver->deviceMode;
+
+    ui->controller_iso->ch1_ref = 1.65;
+    ui->controller_iso->ch2_ref = 1.65;
+
+    ui->controller_iso->internalBuffer375_CH1->voltage_ref = 1.65;
+    ui->controller_iso->internalBuffer750->voltage_ref = 1.65;
+    ui->controller_iso->internalBuffer375_CH2->voltage_ref = 1.65;
+
     ui->controller_iso->clearBuffers(1,0,0);
     QTimer::singleShot(1200, this, SLOT(calibrateStage2()));
 }
@@ -1280,7 +1289,15 @@ void MainWindow::on_actionCalibrate_triggered()
 void MainWindow::calibrateStage2(){
     double vref_CH1 = ui->controller_iso->meanVoltageLast(1, 1);
     double vref_CH2 = ui->controller_iso->meanVoltageLast(1, 2);
-    qDebug() << "VRef (CH1) = " << centre_voltage_CH1;
-    qDebug() << "VRef (CH2) = " << centre_voltage_CH2;
+    qDebug() << "VRef (CH1) = " << vref_CH1;
+    qDebug() << "VRef (CH2) = " << vref_CH2;
+
+    ui->controller_iso->ch1_ref = 3.3 - vref_CH1;
+    ui->controller_iso->ch2_ref = 3.3 - vref_CH2;
+
+    ui->controller_iso->internalBuffer375_CH1->voltage_ref = 3.3 - vref_CH1;
+    ui->controller_iso->internalBuffer750->voltage_ref = 3.3 - vref_CH1;
+    ui->controller_iso->internalBuffer375_CH2->voltage_ref = 3.3 - vref_CH2;
+
 
 }
