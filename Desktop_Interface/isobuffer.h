@@ -45,6 +45,7 @@ public:
     unsigned char channel = 255;
     QTimer *updateTimer;
     double voltage_ref = 1.65;
+    double frontendGain = (R4 / (R3 + R4));
 private:
     //Generic Vars
     short *buffer, *readData = NULL;

@@ -135,6 +135,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->frequencyValue_CH2->setValue(912);
     ui->amplitudeValue_CH2->setValue(2);
     ui->controller_iso->doNotTouchGraph = false;
+
+    calibrationMessages = new QMessageBox();
 }
 
 MainWindow::~MainWindow()
@@ -1271,18 +1273,57 @@ void MainWindow::on_actionCalibrate_triggered()
     //Must be mode 4
     //Must be DC coupled
     //Voltage must be disconnected
+    caibrateStage = 0;
 
-    qDebug() << "Calibration routine beginning!";
-    unsigned char oldMode = ui->controller_iso->driver->deviceMode;
+    if(!ui->controller_iso->driver->connected){
+        calibrationMessages->setText("You need to connect the board before calibrating it!");
+        calibrationMessages->exec();
+        return;
+    }
+    if(ui->controller_iso->driver->deviceMode!=4){
+        calibrationMessages->setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
+        calibrationMessages->setText("The calibration sequence requires all devices to be turned off, except for the oscilloscope CH1 and CH2.  Is it OK for me to change your workspace?");
+        int choice = calibrationMessages->exec();
+        calibrationMessages->setStandardButtons(QMessageBox::Ok);
+        if(choice == QMessageBox::Ok){
+            qDebug() << "Changing workspace...";
+            ui->psuSlider->setValue(0);
+            ui->busSifferGroup_CH1->setChecked(false);
+            ui->busSnifferGroup_CH2->setChecked(false);
+            ui->multimeterGroup->setChecked(false);
+            ui->triggerGroup->setChecked(false);
+            ui->scopeGroup_CH1->setChecked(true);
+            ui->scopeGroup_CH2->setChecked(true);
+            ui->pausedLabeL_CH1->setChecked(false);
+            ui->pausedLabel_CH2->setChecked(false);
+            ui->doubleSampleLabel->setChecked(false);
+            ui->acCoupledLabel_CH1->setChecked(false);
+            ui->acCoupledLabel_CH2->setChecked(false);
+            ui->pause_LA->setChecked(false);
+            ui->multimeterPauseCheckBox->setChecked(false);
+        }
+        else{
+            return;
+        }
+    }
 
+    //Throw out old calibration data in case of bad cali
     ui->controller_iso->ch1_ref = 1.65;
     ui->controller_iso->ch2_ref = 1.65;
-
+    ui->controller_iso->frontendGain_CH1 = (R4/(R3+R4));
+    ui->controller_iso->frontendGain_CH2 = (R4/(R3+R4));
     ui->controller_iso->internalBuffer375_CH1->voltage_ref = 1.65;
     ui->controller_iso->internalBuffer750->voltage_ref = 1.65;
     ui->controller_iso->internalBuffer375_CH2->voltage_ref = 1.65;
+    ui->controller_iso->internalBuffer375_CH1->frontendGain = R4/(R3+R4);
+    ui->controller_iso->internalBuffer750->frontendGain = R4/(R3+R4);
+    ui->controller_iso->internalBuffer375_CH2->frontendGain = R4/(R3+R4);
 
-    ui->controller_iso->clearBuffers(1,0,0);
+    qDebug() << "Calibration routine beginning!";
+    calibrationMessages->setText("Please disconnect all wires from your Labrador board then press OK to continue.");
+    calibrationMessages->exec();
+
+    ui->controller_iso->clearBuffers(1,1,1);
     QTimer::singleShot(1200, this, SLOT(calibrateStage2()));
 }
 
@@ -1292,14 +1333,24 @@ void MainWindow::calibrateStage2(){
     qDebug() << "VRef (CH1) = " << vref_CH1;
     qDebug() << "VRef (CH2) = " << vref_CH2;
 
+    if((vref_CH1 > 1.8) | (vref_CH1 < 1.5) | (vref_CH2 > 1.8) | (vref_CH2 < 1.5)){
+        calibrationMessages->setText("Calibration has been abandoned due to out-of-range values.  Both channels should show approximately 1.6V.  Please disconnect all wires from your Labrador board and try again.");
+        calibrationMessages->exec();
+        return;
+    }
+
     ui->controller_iso->ch1_ref = 3.3 - vref_CH1;
     ui->controller_iso->ch2_ref = 3.3 - vref_CH2;
 
     ui->controller_iso->internalBuffer375_CH1->voltage_ref = 3.3 - vref_CH1;
     ui->controller_iso->internalBuffer750->voltage_ref = 3.3 - vref_CH1;
     ui->controller_iso->internalBuffer375_CH2->voltage_ref = 3.3 - vref_CH2;
-    QTimer::singleShot(5000, this, SLOT(calibrateStage3()));
-    qDebug() << "5 seconds to gain calibration!";
+
+    calibrationMessages->setText("Please connect both oscilloscope channels to the outer shield of the USB connector then press OK to continue.");
+    calibrationMessages->exec();
+
+    ui->controller_iso->clearBuffers(1,1,1);
+    QTimer::singleShot(1200, this, SLOT(calibrateStage3()));
 }
 
 void MainWindow::calibrateStage3(){
@@ -1309,19 +1360,25 @@ void MainWindow::calibrateStage3(){
     qDebug() << "VMeasured (CH1) = " << vMeasured_CH1;
     qDebug() << "VMeasured (CH2) = " << vMeasured_CH2;
 
+    if((vMeasured_CH1 > 0.3) | (vMeasured_CH1 < -0.3) | (vMeasured_CH2 > 0.3) | (vMeasured_CH2 < -0.3)){
+        calibrationMessages->setText("Calibration has been abandoned due to out-of-range values.  Both channels should show approximately 0V.  Please try again.");
+        calibrationMessages->exec();
+        return;
+    }
+
     double vref_CH1 = ui->controller_iso->ch1_ref;
     double vref_CH2 = ui->controller_iso->ch2_ref;
 
     //G^ <= G
     qDebug() << "Old gain (CH1) = " << ui->controller_iso->frontendGain_CH1;
     ui->controller_iso->frontendGain_CH1 = (vref_CH1 - vMeasured_CH1)*(ui->controller_iso->frontendGain_CH1)/vref_CH1;
-    ui->controller_iso->frontendGain_CH2 = (vref_CH2 - vMeasured_CH2)*(ui->controller_iso->frontendGain_CH2)/vref_CH1;
+    ui->controller_iso->frontendGain_CH2 = (vref_CH2 - vMeasured_CH2)*(ui->controller_iso->frontendGain_CH2)/vref_CH2;
     qDebug() << "New gain (CH1) = " << ui->controller_iso->frontendGain_CH1;
 
-    qDebug() << "isoBuffer not yet updated";
-    ui->controller_iso->internalBuffer375_CH1->voltage_ref = 3.3 - vref_CH1;
-    ui->controller_iso->internalBuffer750->voltage_ref = 3.3 - vref_CH1;
-    ui->controller_iso->internalBuffer375_CH2->voltage_ref = 3.3 - vref_CH2;
-
+    ui->controller_iso->internalBuffer375_CH1->frontendGain = (vref_CH1 - vMeasured_CH1)*(ui->controller_iso->frontendGain_CH1)/vref_CH1;
+    ui->controller_iso->internalBuffer750->frontendGain = (vref_CH1 - vMeasured_CH1)*(ui->controller_iso->frontendGain_CH1)/vref_CH1;
+    ui->controller_iso->internalBuffer375_CH2->frontendGain = (vref_CH2 - vMeasured_CH2)*(ui->controller_iso->frontendGain_CH2)/vref_CH2;
+    calibrationMessages->setText("Calibration complete.");
+    calibrationMessages->exec();
 }
 

@@ -190,7 +190,7 @@ double isoBuffer::sampleConvert(short sample, int TOP, bool AC){
     double scope_gain = (double)(virtualParent->driver->scopeGain);
     double voltageLevel;
 
-    voltageLevel = (sample * (vcc/2)) / (R4/(R3+R4)*scope_gain*TOP);
+    voltageLevel = (sample * (vcc/2)) / (frontendGain*scope_gain*TOP);
     if (virtualParent->driver->deviceMode != 7) voltageLevel += voltage_ref;
     #ifdef INVERT_MM
         if(virtualParent->driver->deviceMode == 7) voltageLevel *= -1;

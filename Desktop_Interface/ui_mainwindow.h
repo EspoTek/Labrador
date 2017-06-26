@@ -1083,7 +1083,7 @@ public:
         psuSlider->setObjectName(QStringLiteral("psuSlider"));
         psuSlider->setEnabled(false);
         psuSlider->setMinimum(90);
-        psuSlider->setMaximum(300);
+        psuSlider->setMaximum(240);
         psuSlider->setSingleStep(1);
         psuSlider->setOrientation(Qt::Vertical);
         psuSlider->setTickPosition(QSlider::TicksBelow);
@@ -1244,7 +1244,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1440, 19));
+        menuBar->setGeometry(QRect(0, 0, 1440, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuOscilloscope_2 = new QMenu(menuBar);
