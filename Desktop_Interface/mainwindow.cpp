@@ -1298,6 +1298,30 @@ void MainWindow::calibrateStage2(){
     ui->controller_iso->internalBuffer375_CH1->voltage_ref = 3.3 - vref_CH1;
     ui->controller_iso->internalBuffer750->voltage_ref = 3.3 - vref_CH1;
     ui->controller_iso->internalBuffer375_CH2->voltage_ref = 3.3 - vref_CH2;
+    QTimer::singleShot(5000, this, SLOT(calibrateStage3()));
+    qDebug() << "5 seconds to gain calibration!";
+}
 
+void MainWindow::calibrateStage3(){
+    double vMeasured_CH1 = ui->controller_iso->meanVoltageLast(1, 1);
+    double vMeasured_CH2 = ui->controller_iso->meanVoltageLast(1, 2);
+
+    qDebug() << "VMeasured (CH1) = " << vMeasured_CH1;
+    qDebug() << "VMeasured (CH2) = " << vMeasured_CH2;
+
+    double vref_CH1 = ui->controller_iso->ch1_ref;
+    double vref_CH2 = ui->controller_iso->ch2_ref;
+
+    //G^ <= G
+    qDebug() << "Old gain (CH1) = " << ui->controller_iso->frontendGain_CH1;
+    ui->controller_iso->frontendGain_CH1 = (vref_CH1 - vMeasured_CH1)*(ui->controller_iso->frontendGain_CH1)/vref_CH1;
+    ui->controller_iso->frontendGain_CH2 = (vref_CH2 - vMeasured_CH2)*(ui->controller_iso->frontendGain_CH2)/vref_CH1;
+    qDebug() << "New gain (CH1) = " << ui->controller_iso->frontendGain_CH1;
+
+    qDebug() << "isoBuffer not yet updated";
+    ui->controller_iso->internalBuffer375_CH1->voltage_ref = 3.3 - vref_CH1;
+    ui->controller_iso->internalBuffer750->voltage_ref = 3.3 - vref_CH1;
+    ui->controller_iso->internalBuffer375_CH2->voltage_ref = 3.3 - vref_CH2;
 
 }
+

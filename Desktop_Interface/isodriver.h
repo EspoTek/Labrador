@@ -29,6 +29,7 @@ public:
     genericUsbDriver *driver;
     bool doNotTouchGraph = true;
     double ch1_ref = 1.65, ch2_ref = 1.65;
+    double frontendGain_CH1 = (R4/(R3+R4)), frontendGain_CH2 = (R4/(R3+R4));
     //State Vars
     bool AC_CH1 = false, AC_CH2 = false;
     bool cursorStatsEnabled = true;

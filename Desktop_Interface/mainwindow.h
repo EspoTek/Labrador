@@ -67,6 +67,8 @@ private slots:
 
     void connectDisplaySignals();
     void calibrateStage2();
+    void calibrateStage3();
+
 
     //Logic Analyzer
     void on_action300_toggled(bool arg1);

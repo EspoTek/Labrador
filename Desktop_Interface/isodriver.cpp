@@ -117,10 +117,11 @@ void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int T
     currentVmin = 20;
 
     double ref = (channel == 1 ? ch1_ref : ch2_ref);
+    double frontendGain = (channel == 1 ? frontendGain_CH1 : frontendGain_CH2);
 
     double *data = doublePtr->data();
     for (int i=0;i<GRAPH_SAMPLES;i++){
-        data[i] = (shortPtr[i] * (vcc/2)) / (R4/(R3+R4)*scope_gain*TOP);
+        data[i] = (shortPtr[i] * (vcc/2)) / (frontendGain*scope_gain*TOP);
         if (driver->deviceMode != 7) data[i] += ref;
         #ifdef INVERT_MM
             if(driver->deviceMode == 7) data[i] *= -1;
