@@ -330,5 +330,21 @@ bool isoBuffer::jitterCompensationProcedure(double baudRate, unsigned char curre
     return true;
 }
 
+int isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC){
 
+    double scope_gain = (double)(virtualParent->driver->scopeGain);
+    int sample;
+
+    if(AC){
+        voltageLevel += virtualParent->currentVmean; //This is old (1 frame in past) value and might not be good for signals with large variations in DC level (although the cap should filter that anyway)??
+    }
+#ifdef INVERT_MM
+    if(virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
+#endif
+    if (virtualParent->driver->deviceMode != 7) voltageLevel -= voltage_ref;
+
+    //voltageLevel = (sample * (vcc/2)) / (frontendGain*scope_gain*TOP);
+    sample = (voltageLevel * (frontendGain*scope_gain*TOP))/(vcc/2);
+    return sample;
+}
 
