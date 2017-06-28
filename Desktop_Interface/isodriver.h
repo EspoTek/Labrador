@@ -42,7 +42,7 @@ public:
     //Generic Functions
     void setDriver(genericUsbDriver *newDriver);
     void setAxes(QCustomPlot *newAxes);
-    double meanVoltageLast(double seconds, unsigned char channel);
+    double meanVoltageLast(double seconds, unsigned char channel, int TOP);
 private:
     //Those bloody bools that just Enable/Disable a single property
     bool paused_CH1 = false, paused_CH2 = false, paused_multimeter = false;
@@ -90,6 +90,7 @@ private:
     int triggerCountSeeking = 0, triggerCountNotSeeking = 0;
     unsigned char triggerWaiting = 0;
     double xmin = 20, xmax = -20, ymin = 20, ymax = -20;
+    double estimated_resistance = 0;
     //Pure MM++ related variables
     enum multimeterType_enum {V = 0, I = 1, R = 2, C = 3};
     multimeterType_enum multimeterType = V;

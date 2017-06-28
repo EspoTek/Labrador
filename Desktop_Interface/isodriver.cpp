@@ -945,6 +945,20 @@ void isoDriver::multimeterStats(){
         return;
     }
 
+    if(multimeterType == R){
+        double Vm = meanVoltageLast(MULTIMETER_PERIOD/1000, 1, 2048);
+        double rtest_para_r = 1/(1/seriesResistance + 1/estimated_resistance);
+        double perturbation = ch2_ref * (rtest_para_r / (R3 + R4 + rtest_para_r));
+        Vm = Vm + perturbation;
+        double Vin = 3;
+        double Vrat = (Vin-Vm)/Vin;
+        double Rp = 1/(1/seriesResistance + 1/(R3+R4));
+        estimated_resistance = ((1-Vrat)/Vrat) * Rp; //Perturbation term on V2 ignored.  V1 = Vin.  V2 = Vin(Rp/(R+Rp)) + Vn(Rtest||R / (R34 + (Rtest||R34));
+        qDebug() << "perturbation = " << perturbation;
+        qDebug() << "Vrat = " << Vrat;
+        qDebug() << "Rp = " << Rp;
+        qDebug() << "estimated_resistance = " << estimated_resistance;
+    }
 }
 
 void isoDriver::enableMM(){
@@ -1056,13 +1070,25 @@ void isoDriver::takeSnapshot(){
     free(dir);
 }
 
-double isoDriver::meanVoltageLast(double seconds, unsigned char channel){
-    isoBuffer *currentBuffer = (channel == 1 ? internalBuffer375_CH1 : internalBuffer375_CH2);
+double isoDriver::meanVoltageLast(double seconds, unsigned char channel, int TOP){
+    isoBuffer *currentBuffer;
+    switch (channel){
+    case 1:
+        currentBuffer = internalBuffer375_CH1;
+        break;
+    case 2:
+        currentBuffer = internalBuffer375_CH2;
+        break;
+    case 3:
+        currentBuffer = internalBuffer750;
+        break;
+    }
+
     short * tempBuffer = currentBuffer->readBuffer(seconds,1024, 0, 0);
     double sum = 0;
     double temp;
     for(int i = 0; i<1024; i++){
-        temp = currentBuffer->sampleConvert(tempBuffer[i], 128, 0);
+        temp = currentBuffer->sampleConvert(tempBuffer[i], TOP, 0);
         sum += temp;
     }
     return sum / 1024;

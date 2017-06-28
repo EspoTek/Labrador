@@ -1328,8 +1328,8 @@ void MainWindow::on_actionCalibrate_triggered()
 }
 
 void MainWindow::calibrateStage2(){
-    double vref_CH1 = ui->controller_iso->meanVoltageLast(1, 1);
-    double vref_CH2 = ui->controller_iso->meanVoltageLast(1, 2);
+    double vref_CH1 = ui->controller_iso->meanVoltageLast(1, 1, 128);
+    double vref_CH2 = ui->controller_iso->meanVoltageLast(1, 2, 128);
     qDebug() << "VRef (CH1) = " << vref_CH1;
     qDebug() << "VRef (CH2) = " << vref_CH2;
 
@@ -1354,8 +1354,8 @@ void MainWindow::calibrateStage2(){
 }
 
 void MainWindow::calibrateStage3(){
-    double vMeasured_CH1 = ui->controller_iso->meanVoltageLast(1, 1);
-    double vMeasured_CH2 = ui->controller_iso->meanVoltageLast(1, 2);
+    double vMeasured_CH1 = ui->controller_iso->meanVoltageLast(1, 1, 128);
+    double vMeasured_CH2 = ui->controller_iso->meanVoltageLast(1, 2, 128);
 
     qDebug() << "VMeasured (CH1) = " << vMeasured_CH1;
     qDebug() << "VMeasured (CH2) = " << vMeasured_CH2;
