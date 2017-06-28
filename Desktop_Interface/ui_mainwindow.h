@@ -191,8 +191,8 @@ public:
     QLabel *multimeterResistanceLabel;
     QLabel *multimeterModeLabel;
     espoSpinBox *multimeterResistanceSelect;
-    QComboBox *comboBox;
-    QLabel *label;
+    QComboBox *multimeterRComboBox;
+    QLabel *multimeterRLabel;
     QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_5;
     QGroupBox *signalGenGroup_CH1;
@@ -923,15 +923,15 @@ public:
 
         gridLayout->addWidget(multimeterResistanceSelect, 5, 0, 1, 1);
 
-        comboBox = new QComboBox(multimeterGroup);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
+        multimeterRComboBox = new QComboBox(multimeterGroup);
+        multimeterRComboBox->setObjectName(QStringLiteral("multimeterRComboBox"));
 
-        gridLayout->addWidget(comboBox, 3, 0, 1, 1);
+        gridLayout->addWidget(multimeterRComboBox, 3, 0, 1, 1);
 
-        label = new QLabel(multimeterGroup);
-        label->setObjectName(QStringLiteral("label"));
+        multimeterRLabel = new QLabel(multimeterGroup);
+        multimeterRLabel->setObjectName(QStringLiteral("multimeterRLabel"));
 
-        gridLayout->addWidget(label, 2, 0, 1, 1);
+        gridLayout->addWidget(multimeterRLabel, 2, 0, 1, 1);
 
 
         verticalLayout_5->addWidget(multimeterGroup);
@@ -1510,11 +1510,12 @@ public:
         QObject::connect(frequencyValue_CH1, SIGNAL(valueChanged(double)), frequencyValue_CH1, SLOT(changeStepping(double)));
         QObject::connect(frequencyValue_CH2, SIGNAL(valueChanged(double)), frequencyValue_CH2, SLOT(changeStepping(double)));
         QObject::connect(debugButton2, SIGNAL(clicked()), MainWindow, SLOT(reinitUsb()));
-        QObject::connect(comboBox, SIGNAL(currentIndexChanged(int)), MainWindow, SLOT(rSourceIndexChanged(int)));
+        QObject::connect(multimeterRComboBox, SIGNAL(currentIndexChanged(int)), MainWindow, SLOT(rSourceIndexChanged(int)));
         QObject::connect(controller_iso, SIGNAL(multimeterREnabled(int)), MainWindow, SLOT(rSourceIndexChanged(int)));
         QObject::connect(controller_iso, SIGNAL(multimeterRMS(double)), multimeterRmsDisplay, SLOT(display(double)));
         QObject::connect(controller_iso, SIGNAL(sendMultimeterLabel4(QString)), multimeterRmsLabel, SLOT(setText(QString)));
-        QObject::connect(comboBox, SIGNAL(currentIndexChanged(int)), controller_iso, SLOT(rSourceChanged(int)));
+        QObject::connect(multimeterRComboBox, SIGNAL(currentIndexChanged(int)), controller_iso, SLOT(rSourceChanged(int)));
+        QObject::connect(multimeterGroup, SIGNAL(toggled(bool)), MainWindow, SLOT(multimeterStateChange(bool)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -1641,12 +1642,12 @@ public:
         multimeterResistanceLabel->setText(QApplication::translate("MainWindow", "Series Resistance", Q_NULLPTR));
         multimeterModeLabel->setText(QApplication::translate("MainWindow", "Mode", Q_NULLPTR));
         multimeterResistanceSelect->setSuffix(QApplication::translate("MainWindow", "\316\251", Q_NULLPTR));
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
+        multimeterRComboBox->clear();
+        multimeterRComboBox->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "Signal Gen CH2", Q_NULLPTR)
          << QApplication::translate("MainWindow", "Power Supply", Q_NULLPTR)
         );
-        label->setText(QApplication::translate("MainWindow", "Source", Q_NULLPTR));
+        multimeterRLabel->setText(QApplication::translate("MainWindow", "Source", Q_NULLPTR));
         signalGenGroup_CH1->setTitle(QApplication::translate("MainWindow", "Signal Gen CH1", Q_NULLPTR));
         waveformLabel_CH1->setText(QApplication::translate("MainWindow", "Waveform", Q_NULLPTR));
         frequencyLabel_CH1->setText(QApplication::translate("MainWindow", "Frequency", Q_NULLPTR));

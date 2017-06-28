@@ -137,6 +137,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->controller_iso->doNotTouchGraph = false;
 
     calibrationMessages = new QMessageBox();
+    ui->multimeterRLabel->setVisible(false);
+    ui->multimeterRComboBox->setVisible(false);
+
 }
 
 MainWindow::~MainWindow()
@@ -1394,6 +1397,8 @@ void MainWindow::calibrateStage3(){
 
 void MainWindow::rSourceIndexChanged(int newSource){
     if(newSource == 0){
+        ui->multimeterRLabel->setVisible(true);
+        ui->multimeterRComboBox->setVisible(true);
         ui->signalGenGroup_CH2->setEnabled(false);
         ui->psuGroup->setEnabled(true);
         ui->waveformSelect_CH2->setCurrentText("DC");
@@ -1401,8 +1406,24 @@ void MainWindow::rSourceIndexChanged(int newSource){
         ui->amplitudeValue_CH2->setValue(3);
     }
     if(newSource == 1){
+        ui->multimeterRLabel->setVisible(true);
+        ui->multimeterRComboBox->setVisible(true);
         ui->psuGroup->setEnabled(false);
         ui->signalGenGroup_CH2->setEnabled(true);
         ui->psuSlider->setValue(100);
     }
+
+    if(newSource == 255){
+        ui->signalGenGroup_CH2->setEnabled(true);
+        ui->psuGroup->setEnabled(true);
+        ui->multimeterRLabel->setVisible(false);
+        ui->multimeterRComboBox->setVisible(false);
+    }
+}
+
+void MainWindow::multimeterStateChange(bool enabled){
+    if(enabled){
+        int cIdx = ui->multimeterModeSelect->currentIndex();
+        ui->controller_iso->setMultimeterType(cIdx);
+    } else rSourceIndexChanged(255);
 }

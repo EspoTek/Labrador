@@ -125,6 +125,7 @@ private slots:
     void reinitUsbStage2(void);
     void resetUsbState(void);
     void rSourceIndexChanged(int newSource);
+    void multimeterStateChange(bool state);
 
 #ifdef PLATFORM_ANDROID
     //Android Special

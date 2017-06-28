@@ -855,7 +855,7 @@ void isoDriver::setMultimeterType(int type){
     multimeterType = (multimeterType_enum) type;
     if(type==R){
         multimeterREnabled(multimeterRsource);
-    }
+    }else multimeterREnabled(255);
     qDebug() << "multimeterType = " << multimeterType;
 }
 
@@ -987,12 +987,12 @@ void isoDriver::multimeterStats(){
         double Vrat = (Vin-Vm)/Vin;
         double Rp = 1/(1/seriesResistance + 1/(R3+R4));
         estimated_resistance = ((1-Vrat)/Vrat) * Rp; //Perturbation term on V2 ignored.  V1 = Vin.  V2 = Vin(Rp/(R+Rp)) + Vn(Rtest||R / (R34 + (Rtest||R34));
-        qDebug() << "Vm = " << Vm;
-        qDebug() << "Vin = " << Vin;
-        qDebug() << "perturbation = " << perturbation;
-        qDebug() << "Vrat = " << Vrat;
-        qDebug() << "Rp = " << Rp;
-        qDebug() << "estimated_resistance = " << estimated_resistance;
+        //qDebug() << "Vm = " << Vm;
+        //qDebug() << "Vin = " << Vin;
+        //qDebug() << "perturbation = " << perturbation;
+        //qDebug() << "Vrat = " << Vrat;
+        //qDebug() << "Rp = " << Rp;
+        //qDebug() << "estimated_resistance = " << estimated_resistance;
         multimeterMax(0);
         multimeterMin(0);
         multimeterMean(0);

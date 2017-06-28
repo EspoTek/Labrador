@@ -729,7 +729,7 @@
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QComboBox" name="comboBox">
+          <widget class="QComboBox" name="multimeterRComboBox">
            <item>
             <property name="text">
              <string>Signal Gen CH2</string>
@@ -743,7 +743,7 @@
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="multimeterRLabel">
            <property name="text">
             <string>Source</string>
            </property>
@@ -3857,7 +3857,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>comboBox</sender>
+   <sender>multimeterRComboBox</sender>
    <signal>currentIndexChanged(int)</signal>
    <receiver>MainWindow</receiver>
    <slot>rSourceIndexChanged(int)</slot>
@@ -3921,7 +3921,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>comboBox</sender>
+   <sender>multimeterRComboBox</sender>
    <signal>currentIndexChanged(int)</signal>
    <receiver>controller_iso</receiver>
    <slot>rSourceChanged(int)</slot>
@@ -3936,10 +3936,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>multimeterGroup</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>multimeterStateChange(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1032</x>
+     <y>418</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1034</x>
+     <y>388</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>timeBaseNeedsChanging(bool)</slot>
   <slot>reinitUsb()</slot>
   <slot>rSourceIndexChanged(int)</slot>
+  <slot>multimeterStateChange(bool)</slot>
  </slots>
 </ui>
