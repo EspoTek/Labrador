@@ -53,10 +53,13 @@ private:
     bool multimeterShow = true;
     bool autoMultimeterV = true;
     bool autoMultimeterI = true;
+    bool autoMultimeterR = true;
     bool forceMillivolts = false;
     bool forceMilliamps = false;
+    bool forceKiloOhms = false;
     bool forceVolts = false;
     bool forceAmps = false;
+    bool forceOhms = false;
     bool serialDecodeEnabled_CH1 = false, serialDecodeEnabled_CH2 = false;
     bool XYmode = false;
     bool update_CH1 = true, update_CH2 = true;
@@ -82,7 +85,7 @@ private:
     short *isoTemp_short = NULL;
     siprint *v0, *v1, *dv, *t0, *t1, *dt, *f;
     //Scope/MM++ related variables
-    double currentVmax, currentVmin;
+    double currentVmax, currentVmin, currentVRMS;
     double triggerLevel = 0;
     enum triggerType_enum {rising_ch1 = 0, falling_ch1 = 1, rising_ch2 = 2, falling_ch2 = 3};
     triggerType_enum triggerType = rising_ch1;
@@ -91,6 +94,7 @@ private:
     unsigned char triggerWaiting = 0;
     double xmin = 20, xmax = -20, ymin = 20, ymax = -20;
     double estimated_resistance = 0;
+    int multimeterRsource = 0;
     //Pure MM++ related variables
     enum multimeterType_enum {V = 0, I = 1, R = 2, C = 3};
     multimeterType_enum multimeterType = V;
@@ -112,9 +116,11 @@ signals:
     void multimeterMax(double);
     void multimeterMin(double);
     void multimeterMean(double);
+    void multimeterRMS(double);
     void sendMultimeterLabel1(QString);
     void sendMultimeterLabel2(QString);
     void sendMultimeterLabel3(QString);
+    void sendMultimeterLabel4(QString);
     void changeTimeAxis(bool positive);
     void sendTriggerValue(double);
     void sendVmax_CH1(double);
@@ -123,6 +129,7 @@ signals:
     void sendVmax_CH2(double);
     void sendVmin_CH2(double);
     void sendVmean_CH2(double);
+    void multimeterREnabled(int source);
 public slots:
     void setWindow(int newWindow);
     void setVoltageRange(QWheelEvent *event);
@@ -153,10 +160,13 @@ public slots:
     void enableMM();
     void setAutoMultimeterV(bool enabled);
     void setAutoMultimeterI(bool enabled);
+    void setAutoMultimeterR(bool enabled);
     void setForceMillivolts(bool enabled);
     void setForceMilliamps(bool enabled);
+    void setForceKiloOhms(bool enabled);
     void setForceVolts(bool enabled);
     void setForceAmps(bool enabled);
+    void setForceOhms(bool enabled);
     void setSerialDecodeEnabled_CH1(bool enabled);
     void setSerialDecodeEnabled_CH2(bool enabled);
     void setXYmode(bool enabled);
@@ -166,6 +176,7 @@ public slots:
     void setBotRange(double newBot);
     void setTimeWindow(double newWindow);
     void takeSnapshot();
+    void rSourceChanged(int newSource);
 };
 
 #endif // ISODRIVER_H

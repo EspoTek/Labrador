@@ -592,7 +592,7 @@
            </item>
           </widget>
          </item>
-         <item row="0" column="1" rowspan="6">
+         <item row="0" column="1" rowspan="8">
           <layout class="QFormLayout" name="formLayout">
            <property name="horizontalSpacing">
             <number>0</number>
@@ -604,6 +604,22 @@
             <widget class="QLabel" name="multimeterMaxLabel">
              <property name="text">
               <string> Max</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLCDNumber" name="multimeterMaxDisplay">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="digitCount">
+              <number>4</number>
              </property>
             </widget>
            </item>
@@ -676,32 +692,16 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLCDNumber" name="multimeterMaxDisplay">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
-             </property>
-             <property name="digitCount">
-              <number>4</number>
-             </property>
-            </widget>
-           </item>
           </layout>
          </item>
-         <item row="5" column="0">
+         <item row="7" column="0">
           <widget class="QCheckBox" name="multimeterPauseCheckBox">
            <property name="text">
             <string>Paused</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="4" column="0">
           <widget class="QLabel" name="multimeterResistanceLabel">
            <property name="text">
             <string>Series Resistance</string>
@@ -715,7 +715,7 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="5" column="0">
           <widget class="espoSpinBox" name="multimeterResistanceSelect">
            <property name="suffix">
             <string>Ω</string>
@@ -725,6 +725,27 @@
            </property>
            <property name="maximum">
             <double>1000000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QComboBox" name="comboBox">
+           <item>
+            <property name="text">
+             <string>Signal Gen CH2</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Power Supply</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Source</string>
            </property>
           </widget>
          </item>
@@ -1394,6 +1415,14 @@
      <string>Multimeter</string>
     </property>
     <widget class="QMenu" name="menuV_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>135</width>
+       <height>116</height>
+      </rect>
+     </property>
      <property name="title">
       <string>Range (V)</string>
      </property>
@@ -1409,9 +1438,18 @@
      <addaction name="actionMA"/>
      <addaction name="actionA"/>
     </widget>
+    <widget class="QMenu" name="menuRange_R">
+     <property name="title">
+      <string>Range(R)</string>
+     </property>
+     <addaction name="actionAutoR"/>
+     <addaction name="actionOhm"/>
+     <addaction name="actionKOhm"/>
+    </widget>
     <addaction name="separator"/>
     <addaction name="menuV_2"/>
     <addaction name="menuI_2"/>
+    <addaction name="menuRange_R"/>
    </widget>
    <widget class="QMenu" name="menuBus_Sniffer">
     <property name="title">
@@ -2052,6 +2090,33 @@
     <string>Take Snapshot</string>
    </property>
   </action>
+  <action name="actionAutoR">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto</string>
+   </property>
+  </action>
+  <action name="actionOhm">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Ω</string>
+   </property>
+  </action>
+  <action name="actionKOhm">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>kΩ</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -2168,6 +2233,9 @@
     <signal>sendVmax_CH2(double)</signal>
     <signal>sendVmin_CH2(double)</signal>
     <signal>sendVmean_CH2(double)</signal>
+    <signal>multimeterREnabled(int)</signal>
+    <signal>multimeterRMS(double)</signal>
+    <signal>sendMultimeterLabel4(QString)</signal>
     <slot>setWindow(int)</slot>
     <slot>setVoltageRange(QWheelEvent*)</slot>
     <slot>pauseEnable_CH1(bool)</slot>
@@ -2197,6 +2265,7 @@
     <slot>triggerGroupStateChange(bool)</slot>
     <slot>pauseEnable_multimeter(bool)</slot>
     <slot>timerTick()</slot>
+    <slot>rSourceChanged(int)</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -2242,12 +2311,12 @@
    <slot>scopeIn_CH1(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>843</x>
-     <y>116</y>
+     <x>1160</x>
+     <y>168</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -2258,12 +2327,12 @@
    <slot>scopeIn_CH2(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>983</x>
-     <y>106</y>
+     <x>1287</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -2274,12 +2343,12 @@
    <slot>signalGenIn(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>984</x>
-     <y>723</y>
+     <x>1288</x>
+     <y>839</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -2290,12 +2359,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1124</x>
-     <y>577</y>
+     <x>1428</x>
+     <y>680</y>
     </hint>
    </hints>
   </connection>
@@ -2306,12 +2375,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>984</x>
-     <y>723</y>
+     <x>1288</x>
+     <y>839</y>
     </hint>
    </hints>
   </connection>
@@ -2322,12 +2391,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>818</x>
-     <y>207</y>
+     <x>1160</x>
+     <y>259</y>
     </hint>
    </hints>
   </connection>
@@ -2338,12 +2407,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>958</x>
-     <y>197</y>
+     <x>1287</x>
+     <y>249</y>
     </hint>
    </hints>
   </connection>
@@ -2354,12 +2423,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1124</x>
-     <y>577</y>
+     <x>1428</x>
+     <y>680</y>
     </hint>
    </hints>
   </connection>
@@ -2370,12 +2439,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>958</x>
-     <y>197</y>
+     <x>1287</x>
+     <y>249</y>
     </hint>
    </hints>
   </connection>
@@ -2386,12 +2455,12 @@
    <slot>scopeDsrIn(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>808</x>
+     <x>1150</x>
      <y>160</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -2402,11 +2471,11 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>808</x>
+     <x>1150</x>
      <y>160</y>
     </hint>
    </hints>
@@ -2418,11 +2487,11 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>808</x>
+     <x>1150</x>
      <y>160</y>
     </hint>
    </hints>
@@ -2434,12 +2503,12 @@
    <slot>selfMoved(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1027</x>
-     <y>322</y>
+     <x>1331</x>
+     <y>376</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1027</x>
-     <y>322</y>
+     <x>1331</x>
+     <y>376</y>
     </hint>
    </hints>
   </connection>
@@ -2450,12 +2519,12 @@
    <slot>display(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1027</x>
-     <y>322</y>
+     <x>1331</x>
+     <y>376</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1086</x>
-     <y>368</y>
+     <x>1415</x>
+     <y>490</y>
     </hint>
    </hints>
   </connection>
@@ -2466,12 +2535,12 @@
    <slot>maximumChanged(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>806</x>
-     <y>668</y>
+     <x>1141</x>
+     <y>784</y>
     </hint>
     <hint type="destinationlabel">
-     <x>806</x>
-     <y>713</y>
+     <x>1141</x>
+     <y>829</y>
     </hint>
    </hints>
   </connection>
@@ -2482,12 +2551,12 @@
    <slot>maximumChanged(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>949</x>
-     <y>668</y>
+     <x>1278</x>
+     <y>784</y>
     </hint>
     <hint type="destinationlabel">
-     <x>949</x>
-     <y>713</y>
+     <x>1278</x>
+     <y>829</y>
     </hint>
    </hints>
   </connection>
@@ -2498,12 +2567,12 @@
    <slot>maximumChanged(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>806</x>
-     <y>713</y>
+     <x>1141</x>
+     <y>829</y>
     </hint>
     <hint type="destinationlabel">
-     <x>806</x>
-     <y>668</y>
+     <x>1141</x>
+     <y>784</y>
     </hint>
    </hints>
   </connection>
@@ -2514,12 +2583,12 @@
    <slot>maximumChanged(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>949</x>
-     <y>713</y>
+     <x>1278</x>
+     <y>829</y>
     </hint>
     <hint type="destinationlabel">
-     <x>949</x>
-     <y>668</y>
+     <x>1278</x>
+     <y>784</y>
     </hint>
    </hints>
   </connection>
@@ -2530,12 +2599,12 @@
    <slot>waveformName_CH1(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>806</x>
-     <y>578</y>
+     <x>1141</x>
+     <y>694</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
    </hints>
   </connection>
@@ -2546,12 +2615,12 @@
    <slot>waveformName_CH2(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>949</x>
-     <y>578</y>
+     <x>1278</x>
+     <y>694</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
    </hints>
   </connection>
@@ -2562,12 +2631,12 @@
    <slot>amplitudeUpdate_CH1(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>806</x>
-     <y>668</y>
+     <x>1141</x>
+     <y>784</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
    </hints>
   </connection>
@@ -2578,12 +2647,12 @@
    <slot>offsetUpdate_CH1(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>806</x>
-     <y>713</y>
+     <x>1141</x>
+     <y>829</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
    </hints>
   </connection>
@@ -2594,12 +2663,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1124</x>
-     <y>499</y>
+     <x>1428</x>
+     <y>602</y>
     </hint>
    </hints>
   </connection>
@@ -2610,12 +2679,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1124</x>
-     <y>577</y>
+     <x>1428</x>
+     <y>680</y>
     </hint>
    </hints>
   </connection>
@@ -2626,12 +2695,12 @@
    <slot>busSnifferIn_CH1(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1124</x>
-     <y>499</y>
+     <x>1428</x>
+     <y>602</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -2642,12 +2711,12 @@
    <slot>busSnifferIn_CH2(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1124</x>
-     <y>577</y>
+     <x>1428</x>
+     <y>680</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -2658,12 +2727,12 @@
    <slot>digIn_CH1(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1044</x>
-     <y>623</y>
+     <x>1360</x>
+     <y>726</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -2674,12 +2743,12 @@
    <slot>digIn_CH2(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1114</x>
-     <y>623</y>
+     <x>1418</x>
+     <y>726</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -2690,12 +2759,12 @@
    <slot>digIn_CH3(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1044</x>
-     <y>646</y>
+     <x>1360</x>
+     <y>749</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -2706,12 +2775,12 @@
    <slot>digIn_CH4(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1114</x>
-     <y>646</y>
+     <x>1418</x>
+     <y>749</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -2722,12 +2791,12 @@
    <slot>amplitudeUpdate_CH2(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>949</x>
-     <y>668</y>
+     <x>1278</x>
+     <y>784</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
    </hints>
   </connection>
@@ -2738,12 +2807,12 @@
    <slot>offsetUpdate_CH2(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>949</x>
-     <y>713</y>
+     <x>1278</x>
+     <y>829</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
    </hints>
   </connection>
@@ -2754,12 +2823,12 @@
    <slot>setWindow(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>424</x>
-     <y>647</y>
+     <x>434</x>
+     <y>781</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -2770,12 +2839,12 @@
    <slot>setVoltageRange(QWheelEvent*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>482</x>
-     <y>567</y>
+     <x>492</x>
+     <y>430</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -2786,12 +2855,12 @@
    <slot>pauseEnable_CH1(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>833</x>
+     <x>1150</x>
      <y>91</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -2802,12 +2871,12 @@
    <slot>pauseEnable_CH2(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>973</x>
+     <x>1277</x>
      <y>91</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -2818,11 +2887,11 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>833</x>
+     <x>1150</x>
      <y>91</y>
     </hint>
     <hint type="destinationlabel">
-     <x>973</x>
+     <x>1277</x>
      <y>91</y>
     </hint>
    </hints>
@@ -2834,11 +2903,11 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>973</x>
+     <x>1277</x>
      <y>91</y>
     </hint>
     <hint type="destinationlabel">
-     <x>833</x>
+     <x>1150</x>
      <y>91</y>
     </hint>
    </hints>
@@ -2850,8 +2919,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
      <x>1023</x>
@@ -2866,12 +2935,12 @@
    <slot>graphMouseRelease(QMouseEvent*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>354</x>
-     <y>510</y>
+     <x>364</x>
+     <y>430</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -2882,12 +2951,12 @@
    <slot>cursorEnableHori(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>808</x>
-     <y>253</y>
+     <x>1150</x>
+     <y>320</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -2898,12 +2967,12 @@
    <slot>cursorEnableVert(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>808</x>
-     <y>276</y>
+     <x>1150</x>
+     <y>343</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -2914,12 +2983,12 @@
    <slot>graphMouseMove(QMouseEvent*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>441</x>
-     <y>474</y>
+     <x>451</x>
+     <y>430</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -2930,12 +2999,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>332</y>
+     <x>970</x>
+     <y>449</y>
     </hint>
    </hints>
   </connection>
@@ -2946,12 +3015,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1115</x>
-     <y>345</y>
+     <x>1419</x>
+     <y>448</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1027</x>
-     <y>322</y>
+     <x>1331</x>
+     <y>376</y>
     </hint>
    </hints>
   </connection>
@@ -2962,12 +3031,12 @@
    <slot>setTriggerEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>983</x>
-     <y>305</y>
+     <x>1287</x>
+     <y>382</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -2978,12 +3047,12 @@
    <slot>setTriggerLevel(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>948</x>
-     <y>272</y>
+     <x>1277</x>
+     <y>349</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -2994,11 +3063,11 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>833</x>
+     <x>1150</x>
      <y>91</y>
     </hint>
    </hints>
@@ -3010,12 +3079,12 @@
    <slot>setSingleShotEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>948</x>
-     <y>295</y>
+     <x>1277</x>
+     <y>372</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3026,12 +3095,12 @@
    <slot>setTriggerMode(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>948</x>
-     <y>246</y>
+     <x>1277</x>
+     <y>323</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3042,12 +3111,12 @@
    <slot>setAC_CH1(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>808</x>
+     <x>1150</x>
      <y>114</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3058,12 +3127,12 @@
    <slot>setAC_CH2(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>948</x>
+     <x>1277</x>
      <y>114</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3074,12 +3143,12 @@
    <slot>multimeterIn(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>484</y>
+     <x>1289</x>
+     <y>603</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -3090,12 +3159,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1065</x>
-     <y>756</y>
+     <x>1394</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>484</y>
+     <x>1289</x>
+     <y>603</y>
     </hint>
    </hints>
   </connection>
@@ -3106,12 +3175,12 @@
    <slot>setMultimeterType(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>816</x>
-     <y>400</y>
+     <x>1151</x>
+     <y>474</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3122,12 +3191,12 @@
    <slot>display(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>949</x>
-     <y>386</y>
+     <x>1278</x>
+     <y>460</y>
     </hint>
    </hints>
   </connection>
@@ -3138,12 +3207,12 @@
    <slot>display(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>949</x>
-     <y>410</y>
+     <x>1278</x>
+     <y>484</y>
     </hint>
    </hints>
   </connection>
@@ -3154,12 +3223,12 @@
    <slot>display(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>949</x>
-     <y>434</y>
+     <x>1278</x>
+     <y>508</y>
     </hint>
    </hints>
   </connection>
@@ -3170,12 +3239,12 @@
    <slot>setSeriesResistance(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>816</x>
-     <y>445</y>
+     <x>1151</x>
+     <y>564</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3186,12 +3255,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>871</x>
-     <y>384</y>
+     <x>1181</x>
+     <y>458</y>
     </hint>
    </hints>
   </connection>
@@ -3202,12 +3271,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>867</x>
-     <y>408</y>
+     <x>1177</x>
+     <y>482</y>
     </hint>
    </hints>
   </connection>
@@ -3218,12 +3287,12 @@
    <slot>setText(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>852</x>
-     <y>432</y>
+     <x>1187</x>
+     <y>506</y>
     </hint>
    </hints>
   </connection>
@@ -3234,12 +3303,12 @@
    <slot>setSerialDecodeEnabled_CH1(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1114</x>
-     <y>489</y>
+     <x>1418</x>
+     <y>592</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3250,12 +3319,12 @@
    <slot>setSerialDecodeEnabled_CH2(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1114</x>
-     <y>567</y>
+     <x>1418</x>
+     <y>670</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3266,12 +3335,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1114</x>
-     <y>489</y>
+     <x>1418</x>
+     <y>592</y>
     </hint>
     <hint type="destinationlabel">
-     <x>384</x>
-     <y>677</y>
+     <x>394</x>
+     <y>835</y>
     </hint>
    </hints>
   </connection>
@@ -3282,12 +3351,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1114</x>
-     <y>567</y>
+     <x>1418</x>
+     <y>670</y>
     </hint>
     <hint type="destinationlabel">
-     <x>488</x>
-     <y>731</y>
+     <x>498</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3298,8 +3367,8 @@
    <slot>timeBaseNeedsChanging(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
      <x>800</x>
@@ -3314,12 +3383,12 @@
    <slot>setXYmode(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>863</x>
-     <y>149</y>
+     <x>1277</x>
+     <y>160</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3330,12 +3399,12 @@
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1124</x>
-     <y>577</y>
+     <x>1428</x>
+     <y>680</y>
     </hint>
     <hint type="destinationlabel">
-     <x>959</x>
-     <y>723</y>
+     <x>1288</x>
+     <y>839</y>
     </hint>
    </hints>
   </connection>
@@ -3350,8 +3419,8 @@
      <y>401</y>
     </hint>
     <hint type="destinationlabel">
-     <x>808</x>
-     <y>295</y>
+     <x>1150</x>
+     <y>372</y>
     </hint>
    </hints>
   </connection>
@@ -3362,12 +3431,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>808</x>
-     <y>295</y>
+     <x>1150</x>
+     <y>372</y>
     </hint>
     <hint type="destinationlabel">
-     <x>808</x>
-     <y>253</y>
+     <x>1150</x>
+     <y>320</y>
     </hint>
    </hints>
   </connection>
@@ -3378,12 +3447,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>808</x>
-     <y>295</y>
+     <x>1150</x>
+     <y>372</y>
     </hint>
     <hint type="destinationlabel">
-     <x>808</x>
-     <y>276</y>
+     <x>1150</x>
+     <y>343</y>
     </hint>
    </hints>
   </connection>
@@ -3394,12 +3463,12 @@
    <slot>graphMousePress(QMouseEvent*)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>808</x>
-     <y>295</y>
+     <x>1150</x>
+     <y>372</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3410,12 +3479,12 @@
    <slot>setValue(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>948</x>
-     <y>272</y>
+     <x>1277</x>
+     <y>349</y>
     </hint>
    </hints>
   </connection>
@@ -3426,12 +3495,12 @@
    <slot>triggerGroupStateChange(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>905</x>
-     <y>230</y>
+     <x>1287</x>
+     <y>382</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3442,12 +3511,12 @@
    <slot>connectedStatusChanged(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>828</x>
-     <y>35</y>
+     <x>1289</x>
+     <y>43</y>
     </hint>
    </hints>
   </connection>
@@ -3458,12 +3527,12 @@
    <slot>pauseEnable_multimeter(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>816</x>
-     <y>474</y>
+     <x>1151</x>
+     <y>593</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
    </hints>
   </connection>
@@ -3474,12 +3543,12 @@
    <slot>display(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>790</x>
-     <y>175</y>
+     <x>1149</x>
+     <y>191</y>
     </hint>
    </hints>
   </connection>
@@ -3490,12 +3559,12 @@
    <slot>display(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>800</x>
-     <y>193</y>
+     <x>1149</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -3506,12 +3575,12 @@
    <slot>display(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>807</x>
-     <y>206</y>
+     <x>1149</x>
+     <y>239</y>
     </hint>
    </hints>
   </connection>
@@ -3522,12 +3591,12 @@
    <slot>display(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>929</x>
-     <y>172</y>
+     <x>1276</x>
+     <y>191</y>
     </hint>
    </hints>
   </connection>
@@ -3538,12 +3607,12 @@
    <slot>display(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>943</x>
-     <y>184</y>
+     <x>1276</x>
+     <y>215</y>
     </hint>
    </hints>
   </connection>
@@ -3554,12 +3623,12 @@
    <slot>display(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
+     <x>1289</x>
+     <y>889</y>
     </hint>
     <hint type="destinationlabel">
-     <x>940</x>
-     <y>196</y>
+     <x>1276</x>
+     <y>239</y>
     </hint>
    </hints>
   </connection>
@@ -3570,12 +3639,12 @@
    <slot>resetTimer(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1115</x>
-     <y>345</y>
+     <x>1419</x>
+     <y>448</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1115</x>
-     <y>345</y>
+     <x>1419</x>
+     <y>448</y>
     </hint>
    </hints>
   </connection>
@@ -3586,12 +3655,12 @@
    <slot>resetTimer()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1115</x>
-     <y>345</y>
+     <x>1419</x>
+     <y>448</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1115</x>
-     <y>345</y>
+     <x>1419</x>
+     <y>448</y>
     </hint>
    </hints>
   </connection>
@@ -3602,12 +3671,12 @@
    <slot>resetTimer()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1027</x>
-     <y>167</y>
+     <x>1331</x>
+     <y>221</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1115</x>
-     <y>345</y>
+     <x>1419</x>
+     <y>448</y>
     </hint>
    </hints>
   </connection>
@@ -3618,12 +3687,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1114</x>
-     <y>444</y>
+     <x>1418</x>
+     <y>547</y>
     </hint>
     <hint type="destinationlabel">
-     <x>722</x>
-     <y>87</y>
+     <x>1150</x>
+     <y>91</y>
     </hint>
    </hints>
   </connection>
@@ -3634,12 +3703,12 @@
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>762</x>
-     <y>80</y>
+     <x>1150</x>
+     <y>91</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1114</x>
-     <y>444</y>
+     <x>1418</x>
+     <y>547</y>
     </hint>
    </hints>
   </connection>
@@ -3650,12 +3719,12 @@
    <slot>setMax(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
     <hint type="destinationlabel">
-     <x>949</x>
-     <y>623</y>
+     <x>1278</x>
+     <y>739</y>
     </hint>
    </hints>
   </connection>
@@ -3666,12 +3735,12 @@
    <slot>setMin(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
     <hint type="destinationlabel">
-     <x>949</x>
-     <y>623</y>
+     <x>1278</x>
+     <y>739</y>
     </hint>
    </hints>
   </connection>
@@ -3682,12 +3751,12 @@
    <slot>freqUpdate_CH2(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>949</x>
-     <y>623</y>
+     <x>1278</x>
+     <y>739</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
    </hints>
   </connection>
@@ -3698,12 +3767,12 @@
    <slot>freqUpdate_CH1(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>806</x>
-     <y>623</y>
+     <x>1141</x>
+     <y>739</y>
     </hint>
     <hint type="destinationlabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
    </hints>
   </connection>
@@ -3714,12 +3783,12 @@
    <slot>setMax(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
     <hint type="destinationlabel">
-     <x>806</x>
-     <y>623</y>
+     <x>1141</x>
+     <y>739</y>
     </hint>
    </hints>
   </connection>
@@ -3730,12 +3799,12 @@
    <slot>setMin(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>960</x>
-     <y>509</y>
+     <x>970</x>
+     <y>468</y>
     </hint>
     <hint type="destinationlabel">
-     <x>806</x>
-     <y>623</y>
+     <x>1141</x>
+     <y>739</y>
     </hint>
    </hints>
   </connection>
@@ -3746,12 +3815,12 @@
    <slot>changeStepping(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>740</x>
-     <y>611</y>
+     <x>1141</x>
+     <y>739</y>
     </hint>
     <hint type="destinationlabel">
-     <x>831</x>
-     <y>623</y>
+     <x>1141</x>
+     <y>739</y>
     </hint>
    </hints>
   </connection>
@@ -3762,12 +3831,12 @@
    <slot>changeStepping(double)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>881</x>
-     <y>608</y>
+     <x>1278</x>
+     <y>739</y>
     </hint>
     <hint type="destinationlabel">
-     <x>904</x>
-     <y>613</y>
+     <x>1278</x>
+     <y>739</y>
     </hint>
    </hints>
   </connection>
@@ -3778,8 +3847,8 @@
    <slot>reinitUsb()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1038</x>
-     <y>700</y>
+     <x>1428</x>
+     <y>817</y>
     </hint>
     <hint type="destinationlabel">
      <x>682</x>
@@ -3787,9 +3856,90 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>rSourceIndexChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1073</x>
+     <y>514</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1025</x>
+     <y>616</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterREnabled(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>rSourceIndexChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1040</x>
+     <y>881</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1095</x>
+     <y>621</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterRMS(double)</signal>
+   <receiver>multimeterRmsDisplay</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1189</x>
+     <y>877</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1225</x>
+     <y>523</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendMultimeterLabel4(QString)</signal>
+   <receiver>multimeterRmsLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1117</x>
+     <y>882</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1167</x>
+     <y>523</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>rSourceChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1085</x>
+     <y>510</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1095</x>
+     <y>879</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>timeBaseNeedsChanging(bool)</slot>
   <slot>reinitUsb()</slot>
+  <slot>rSourceIndexChanged(int)</slot>
  </slots>
 </ui>

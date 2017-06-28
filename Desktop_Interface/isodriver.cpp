@@ -2,6 +2,7 @@
 #include "isobuffer.h"
 #include "platformspecific.h"
 
+
 isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 {
     this->hide();
@@ -852,6 +853,9 @@ void isoDriver::setAC_CH2(bool enabled){
 
 void isoDriver::setMultimeterType(int type){
     multimeterType = (multimeterType_enum) type;
+    if(type==R){
+        multimeterREnabled(multimeterRsource);
+    }
     qDebug() << "multimeterType = " << multimeterType;
 }
 
@@ -867,38 +871,51 @@ void isoDriver::multimeterStats(){
     QTimer::singleShot(MULTIMETER_PERIOD, this, SLOT(enableMM()));
 
     multimeterShow = false;
-    bool mvMax, mvMin, mvMean, maMax, maMin, maMean;  //We'll let the compiler work out this one.
+    bool mvMax, mvMin, mvMean, mvRMS, maMax, maMin, maMean, maRMS, kOhms;  //We'll let the compiler work out this one.
 
     if(autoMultimeterV){
         mvMax = currentVmax < 1;
         mvMin = currentVmin < 1;
         mvMean = currentVmean < 1;
+        mvRMS = currentVRMS < 1;
     }
     if(autoMultimeterI){
         maMax = (currentVmax / seriesResistance) < 1;
         maMin = (currentVmin / seriesResistance) < 1;
         maMean = (currentVmean / seriesResistance) < 1;
+        maRMS = (currentVRMS / seriesResistance) < 1;
     }
 
     if(forceMillivolts){
         mvMax = true;
         mvMin = true;
         mvMean = true;
+        mvRMS = true;
     }
     if(forceMilliamps){
         maMax = true;
         maMin = true;
         maMean = true;
+        maRMS = true;
     }
+    if(forceKiloOhms){
+        kOhms = true;
+    }
+
     if(forceVolts){
         mvMax = false;
         mvMin = false;
         mvMean = false;
+        mvRMS = false;
     }
     if(forceAmps){
         maMax = false;
         maMin = false;
         maMean = false;
+        maRMS = false;
+    }
+    if(forceOhms){
+        kOhms = false;
     }
 
     if(multimeterType == V){
@@ -917,9 +934,15 @@ void isoDriver::multimeterStats(){
             sendMultimeterLabel3("Mean (mV)");
         }else sendMultimeterLabel3("Mean (V)");
 
+        if(mvRMS){
+            currentVRMS *= 1000;
+            sendMultimeterLabel4("RMS (mV)");
+        }else sendMultimeterLabel4("RMS (V)");
+
         multimeterMax(currentVmax);
         multimeterMin(currentVmin);
         multimeterMean(currentVmean);
+        multimeterRMS(currentVRMS);
         return;
     }
 
@@ -939,25 +962,50 @@ void isoDriver::multimeterStats(){
             sendMultimeterLabel3("Mean (mA)");
         }else sendMultimeterLabel3("Mean (A)");
 
+        if(maRMS){
+            currentVRMS *= 1000;
+            sendMultimeterLabel4("RMS (mA)");
+        }else sendMultimeterLabel4("RMS (A)");
+
+
         multimeterMax(currentVmax / seriesResistance);
         multimeterMin(currentVmin / seriesResistance);
         multimeterMean(currentVmean / seriesResistance);
+        multimeterRMS(currentVRMS / seriesResistance);
         return;
     }
 
     if(multimeterType == R){
-        double Vm = meanVoltageLast(MULTIMETER_PERIOD/1000, 1, 2048);
+        if(estimated_resistance!=estimated_resistance){
+            estimated_resistance = 0; //Reset resistance if it's NaN
+        }
+        double Vm = meanVoltageLast((double)MULTIMETER_PERIOD/(double)1000, 1, 2048);
         double rtest_para_r = 1/(1/seriesResistance + 1/estimated_resistance);
         double perturbation = ch2_ref * (rtest_para_r / (R3 + R4 + rtest_para_r));
-        Vm = Vm + perturbation;
-        double Vin = 3;
+        Vm = Vm - perturbation;
+        double Vin = (multimeterRsource * 2) + 3;
         double Vrat = (Vin-Vm)/Vin;
         double Rp = 1/(1/seriesResistance + 1/(R3+R4));
         estimated_resistance = ((1-Vrat)/Vrat) * Rp; //Perturbation term on V2 ignored.  V1 = Vin.  V2 = Vin(Rp/(R+Rp)) + Vn(Rtest||R / (R34 + (Rtest||R34));
+        qDebug() << "Vm = " << Vm;
+        qDebug() << "Vin = " << Vin;
         qDebug() << "perturbation = " << perturbation;
         qDebug() << "Vrat = " << Vrat;
         qDebug() << "Rp = " << Rp;
         qDebug() << "estimated_resistance = " << estimated_resistance;
+        multimeterMax(0);
+        multimeterMin(0);
+        multimeterMean(0);
+
+        if(autoMultimeterR){
+            kOhms = (estimated_resistance) > 1000;
+        }
+
+        if(kOhms){
+            estimated_resistance /= 1000;
+            sendMultimeterLabel4("Resistance (kΩ)");
+        }else sendMultimeterLabel4("Resistance (Ω)");
+        multimeterRMS(estimated_resistance);
     }
 }
 
@@ -974,6 +1022,9 @@ void isoDriver::setAutoMultimeterI(bool enabled){
     autoMultimeterI = enabled;
 }
 
+void isoDriver::setAutoMultimeterR(bool enabled){
+    autoMultimeterR = enabled;
+}
 
 void isoDriver::setForceMillivolts(bool enabled){
     forceMillivolts = enabled;
@@ -983,12 +1034,20 @@ void isoDriver::setForceMilliamps(bool enabled){
     forceMilliamps = enabled;
 }
 
+void isoDriver::setForceKiloOhms(bool enabled){
+    forceKiloOhms = enabled;
+}
+
 void isoDriver::setForceVolts(bool enabled){
     forceVolts = enabled;
 }
 
 void isoDriver::setForceAmps(bool enabled){
     forceAmps = enabled;
+}
+
+void isoDriver::setForceOhms(bool enabled){
+    forceOhms = enabled;
 }
 
 void isoDriver::setSerialDecodeEnabled_CH1(bool enabled){
@@ -1092,4 +1151,8 @@ double isoDriver::meanVoltageLast(double seconds, unsigned char channel, int TOP
         sum += temp;
     }
     return sum / 1024;
+}
+
+void isoDriver::rSourceChanged(int newSource){
+    multimeterRsource = newSource;
 }

@@ -269,6 +269,12 @@ void MainWindow::menuSetup(){
     rangeGroupI->addAction(ui->actionMA);
     rangeGroupI->addAction(ui->actionA);
 
+    rangeGroupR = new QActionGroup(this);
+    rangeGroupI->addAction(ui->actionAutoR);
+    rangeGroupI->addAction(ui->actionKOhm);
+    rangeGroupI->addAction(ui->actionOhm);
+
+
     fpsGroup = new QActionGroup(this);
     fpsGroup->addAction(ui->action60FPS);
     fpsGroup->addAction(ui->action30FPS);
@@ -284,6 +290,10 @@ void MainWindow::menuSetup(){
     connect(ui->actionAutoI, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setAutoMultimeterI(bool)));
     connect(ui->actionA, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceAmps(bool)));
     connect(ui->actionMA, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceMilliamps(bool)));
+    connect(ui->actionAutoR, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setAutoMultimeterR(bool)));
+    connect(ui->actionOhm, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceOhms(bool)));
+    connect(ui->actionKOhm, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceKiloOhms(bool)));
+
 
     uartBaudGroup_CH1 = new QActionGroup(this);
     uartBaudGroup_CH1->addAction(ui->action300);
@@ -1382,3 +1392,17 @@ void MainWindow::calibrateStage3(){
     calibrationMessages->exec();
 }
 
+void MainWindow::rSourceIndexChanged(int newSource){
+    if(newSource == 0){
+        ui->signalGenGroup_CH2->setEnabled(false);
+        ui->psuGroup->setEnabled(true);
+        ui->waveformSelect_CH2->setCurrentText("DC");
+        ui->dcOffsetValue_CH2->setValue(0);
+        ui->amplitudeValue_CH2->setValue(3);
+    }
+    if(newSource == 1){
+        ui->psuGroup->setEnabled(false);
+        ui->signalGenGroup_CH2->setEnabled(true);
+        ui->psuSlider->setValue(100);
+    }
+}

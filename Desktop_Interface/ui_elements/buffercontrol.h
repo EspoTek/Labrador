@@ -13,6 +13,7 @@ class bufferControl : public QLabel
 public:
     explicit bufferControl(QWidget *parent = 0);
     void refreshImage(void);
+    bool busSnifferState_CH1 = false;
 private:
     QPixmap bufferImage;
     int numBuffers = 1;
@@ -20,7 +21,6 @@ private:
     bool scopeState_CH2 = false;
     bool scopeDsrState = false;
     //bool signalGenState = false;
-    bool busSnifferState_CH1 = false;
     bool busSnifferState_CH2 = false;
     bool multimeterState = false;
     unsigned char digState = 0x00;

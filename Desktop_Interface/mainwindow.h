@@ -124,6 +124,7 @@ private slots:
     void reinitUsb(void);
     void reinitUsbStage2(void);
     void resetUsbState(void);
+    void rSourceIndexChanged(int newSource);
 
 #ifdef PLATFORM_ANDROID
     //Android Special
@@ -135,8 +136,7 @@ private slots:
     void vertScaleEvent(bool enabled);
 #endif
 
-    void on_actionCalibrate_triggered();
-
+    void on_actionCalibrate_triggered();    
 private:
     //Generic Vars
     Ui::MainWindow *ui;
@@ -165,6 +165,7 @@ private:
     QActionGroup *gainGroup;
     QActionGroup *rangeGroupV;
     QActionGroup *rangeGroupI;
+    QActionGroup *rangeGroupR;
     QActionGroup *uartBaudGroup_CH1;
     QActionGroup *uartBaudGroup_CH2;
     QActionGroup *fpsGroup;

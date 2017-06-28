@@ -116,6 +116,9 @@ public:
     QAction *actionSnap_to_Cursors;
     QAction *actionEnter_Manually;
     QAction *actionTake_Snapshot;
+    QAction *actionAutoR;
+    QAction *actionOhm;
+    QAction *actionKOhm;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
@@ -177,17 +180,19 @@ public:
     QComboBox *multimeterModeSelect;
     QFormLayout *formLayout;
     QLabel *multimeterMaxLabel;
+    QLCDNumber *multimeterMaxDisplay;
     QLabel *multimeterMinLabel;
     QLCDNumber *multimeterMinDisplay;
     QLabel *multimeterMeanLabel;
     QLCDNumber *multimeterMeanDisplay;
     QLabel *multimeterRmsLabel;
     QLCDNumber *multimeterRmsDisplay;
-    QLCDNumber *multimeterMaxDisplay;
     QCheckBox *multimeterPauseCheckBox;
     QLabel *multimeterResistanceLabel;
     QLabel *multimeterModeLabel;
     espoSpinBox *multimeterResistanceSelect;
+    QComboBox *comboBox;
+    QLabel *label;
     QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_5;
     QGroupBox *signalGenGroup_CH1;
@@ -252,6 +257,7 @@ public:
     QMenu *menuMultimeter_2;
     QMenu *menuV_2;
     QMenu *menuI_2;
+    QMenu *menuRange_R;
     QMenu *menuBus_Sniffer;
     QMenu *menuUART_1;
     QMenu *menuBaud_Rate;
@@ -474,6 +480,16 @@ public:
         actionEnter_Manually->setObjectName(QStringLiteral("actionEnter_Manually"));
         actionTake_Snapshot = new QAction(MainWindow);
         actionTake_Snapshot->setObjectName(QStringLiteral("actionTake_Snapshot"));
+        actionAutoR = new QAction(MainWindow);
+        actionAutoR->setObjectName(QStringLiteral("actionAutoR"));
+        actionAutoR->setCheckable(true);
+        actionAutoR->setChecked(true);
+        actionOhm = new QAction(MainWindow);
+        actionOhm->setObjectName(QStringLiteral("actionOhm"));
+        actionOhm->setCheckable(true);
+        actionKOhm = new QAction(MainWindow);
+        actionKOhm->setObjectName(QStringLiteral("actionKOhm"));
+        actionKOhm->setCheckable(true);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
@@ -835,6 +851,14 @@ public:
 
         formLayout->setWidget(0, QFormLayout::LabelRole, multimeterMaxLabel);
 
+        multimeterMaxDisplay = new QLCDNumber(multimeterGroup);
+        multimeterMaxDisplay->setObjectName(QStringLiteral("multimeterMaxDisplay"));
+        multimeterMaxDisplay->setMinimumSize(QSize(0, 24));
+        multimeterMaxDisplay->setFrameShape(QFrame::NoFrame);
+        multimeterMaxDisplay->setDigitCount(4);
+
+        formLayout->setWidget(0, QFormLayout::FieldRole, multimeterMaxDisplay);
+
         multimeterMinLabel = new QLabel(multimeterGroup);
         multimeterMinLabel->setObjectName(QStringLiteral("multimeterMinLabel"));
 
@@ -874,26 +898,18 @@ public:
 
         formLayout->setWidget(3, QFormLayout::FieldRole, multimeterRmsDisplay);
 
-        multimeterMaxDisplay = new QLCDNumber(multimeterGroup);
-        multimeterMaxDisplay->setObjectName(QStringLiteral("multimeterMaxDisplay"));
-        multimeterMaxDisplay->setMinimumSize(QSize(0, 24));
-        multimeterMaxDisplay->setFrameShape(QFrame::NoFrame);
-        multimeterMaxDisplay->setDigitCount(4);
 
-        formLayout->setWidget(0, QFormLayout::FieldRole, multimeterMaxDisplay);
-
-
-        gridLayout->addLayout(formLayout, 0, 1, 6, 1);
+        gridLayout->addLayout(formLayout, 0, 1, 8, 1);
 
         multimeterPauseCheckBox = new QCheckBox(multimeterGroup);
         multimeterPauseCheckBox->setObjectName(QStringLiteral("multimeterPauseCheckBox"));
 
-        gridLayout->addWidget(multimeterPauseCheckBox, 5, 0, 1, 1);
+        gridLayout->addWidget(multimeterPauseCheckBox, 7, 0, 1, 1);
 
         multimeterResistanceLabel = new QLabel(multimeterGroup);
         multimeterResistanceLabel->setObjectName(QStringLiteral("multimeterResistanceLabel"));
 
-        gridLayout->addWidget(multimeterResistanceLabel, 2, 0, 1, 1);
+        gridLayout->addWidget(multimeterResistanceLabel, 4, 0, 1, 1);
 
         multimeterModeLabel = new QLabel(multimeterGroup);
         multimeterModeLabel->setObjectName(QStringLiteral("multimeterModeLabel"));
@@ -905,7 +921,17 @@ public:
         multimeterResistanceSelect->setDecimals(0);
         multimeterResistanceSelect->setMaximum(1e+6);
 
-        gridLayout->addWidget(multimeterResistanceSelect, 3, 0, 1, 1);
+        gridLayout->addWidget(multimeterResistanceSelect, 5, 0, 1, 1);
+
+        comboBox = new QComboBox(multimeterGroup);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+
+        gridLayout->addWidget(comboBox, 3, 0, 1, 1);
+
+        label = new QLabel(multimeterGroup);
+        label->setObjectName(QStringLiteral("label"));
+
+        gridLayout->addWidget(label, 2, 0, 1, 1);
 
 
         verticalLayout_5->addWidget(multimeterGroup);
@@ -1263,8 +1289,11 @@ public:
         menuMultimeter_2->setObjectName(QStringLiteral("menuMultimeter_2"));
         menuV_2 = new QMenu(menuMultimeter_2);
         menuV_2->setObjectName(QStringLiteral("menuV_2"));
+        menuV_2->setGeometry(QRect(0, 0, 135, 116));
         menuI_2 = new QMenu(menuMultimeter_2);
         menuI_2->setObjectName(QStringLiteral("menuI_2"));
+        menuRange_R = new QMenu(menuMultimeter_2);
+        menuRange_R->setObjectName(QStringLiteral("menuRange_R"));
         menuBus_Sniffer = new QMenu(menuBar);
         menuBus_Sniffer->setObjectName(QStringLiteral("menuBus_Sniffer"));
         menuUART_1 = new QMenu(menuBus_Sniffer);
@@ -1335,12 +1364,16 @@ public:
         menuMultimeter_2->addSeparator();
         menuMultimeter_2->addAction(menuV_2->menuAction());
         menuMultimeter_2->addAction(menuI_2->menuAction());
+        menuMultimeter_2->addAction(menuRange_R->menuAction());
         menuV_2->addAction(actionAutoV);
         menuV_2->addAction(actionMV);
         menuV_2->addAction(actionV);
         menuI_2->addAction(actionAutoI);
         menuI_2->addAction(actionMA);
         menuI_2->addAction(actionA);
+        menuRange_R->addAction(actionAutoR);
+        menuRange_R->addAction(actionOhm);
+        menuRange_R->addAction(actionKOhm);
         menuBus_Sniffer->addAction(menuUART_1->menuAction());
         menuBus_Sniffer->addAction(menuUART_2->menuAction());
         menuUART_1->addAction(menuBaud_Rate->menuAction());
@@ -1477,6 +1510,11 @@ public:
         QObject::connect(frequencyValue_CH1, SIGNAL(valueChanged(double)), frequencyValue_CH1, SLOT(changeStepping(double)));
         QObject::connect(frequencyValue_CH2, SIGNAL(valueChanged(double)), frequencyValue_CH2, SLOT(changeStepping(double)));
         QObject::connect(debugButton2, SIGNAL(clicked()), MainWindow, SLOT(reinitUsb()));
+        QObject::connect(comboBox, SIGNAL(currentIndexChanged(int)), MainWindow, SLOT(rSourceIndexChanged(int)));
+        QObject::connect(controller_iso, SIGNAL(multimeterREnabled(int)), MainWindow, SLOT(rSourceIndexChanged(int)));
+        QObject::connect(controller_iso, SIGNAL(multimeterRMS(double)), multimeterRmsDisplay, SLOT(display(double)));
+        QObject::connect(controller_iso, SIGNAL(sendMultimeterLabel4(QString)), multimeterRmsLabel, SLOT(setText(QString)));
+        QObject::connect(comboBox, SIGNAL(currentIndexChanged(int)), controller_iso, SLOT(rSourceChanged(int)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -1550,6 +1588,9 @@ public:
         actionSnap_to_Cursors->setText(QApplication::translate("MainWindow", "Snap to Cursors", Q_NULLPTR));
         actionEnter_Manually->setText(QApplication::translate("MainWindow", "Enter Manually", Q_NULLPTR));
         actionTake_Snapshot->setText(QApplication::translate("MainWindow", "Take Snapshot", Q_NULLPTR));
+        actionAutoR->setText(QApplication::translate("MainWindow", "Auto", Q_NULLPTR));
+        actionOhm->setText(QApplication::translate("MainWindow", "\316\251", Q_NULLPTR));
+        actionKOhm->setText(QApplication::translate("MainWindow", "k\316\251", Q_NULLPTR));
         cursorStatsLabel->setText(QApplication::translate("MainWindow", "cursorStatsLabel", Q_NULLPTR));
         controller_fg->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER", Q_NULLPTR));
         deviceConnected->setText(QApplication::translate("MainWindow", "Device Not Connected!", Q_NULLPTR));
@@ -1600,6 +1641,12 @@ public:
         multimeterResistanceLabel->setText(QApplication::translate("MainWindow", "Series Resistance", Q_NULLPTR));
         multimeterModeLabel->setText(QApplication::translate("MainWindow", "Mode", Q_NULLPTR));
         multimeterResistanceSelect->setSuffix(QApplication::translate("MainWindow", "\316\251", Q_NULLPTR));
+        comboBox->clear();
+        comboBox->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "Signal Gen CH2", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "Power Supply", Q_NULLPTR)
+        );
+        label->setText(QApplication::translate("MainWindow", "Source", Q_NULLPTR));
         signalGenGroup_CH1->setTitle(QApplication::translate("MainWindow", "Signal Gen CH1", Q_NULLPTR));
         waveformLabel_CH1->setText(QApplication::translate("MainWindow", "Waveform", Q_NULLPTR));
         frequencyLabel_CH1->setText(QApplication::translate("MainWindow", "Frequency", Q_NULLPTR));
@@ -1653,6 +1700,7 @@ public:
         menuMultimeter_2->setTitle(QApplication::translate("MainWindow", "Multimeter", Q_NULLPTR));
         menuV_2->setTitle(QApplication::translate("MainWindow", "Range (V)", Q_NULLPTR));
         menuI_2->setTitle(QApplication::translate("MainWindow", "Range (I)", Q_NULLPTR));
+        menuRange_R->setTitle(QApplication::translate("MainWindow", "Range(R)", Q_NULLPTR));
         menuBus_Sniffer->setTitle(QApplication::translate("MainWindow", "Logic Analyzer", Q_NULLPTR));
         menuUART_1->setTitle(QApplication::translate("MainWindow", "UART 1", Q_NULLPTR));
         menuBaud_Rate->setTitle(QApplication::translate("MainWindow", "Baud Rate", Q_NULLPTR));
