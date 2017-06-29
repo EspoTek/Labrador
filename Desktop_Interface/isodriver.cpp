@@ -1007,6 +1007,31 @@ void isoDriver::multimeterStats(){
         }else sendMultimeterLabel4("Resistance (Ω)");
         multimeterRMS(estimated_resistance);
     }
+    if(multimeterType == C){
+        double cap_vbot = 0.5;
+        double cap_vtop = 1.2;
+
+        int cap_x0 = internalBuffer375_CH1->cap_x0fromLast(1, cap_vbot);
+        if(cap_x0 == -1){
+            qDebug() << "cap_x0 == -1";
+            return;
+        }
+        int cap_x1 = internalBuffer375_CH1->cap_x1fromLast(1, cap_x0, cap_vbot);
+        if(cap_x1 == -1){
+            qDebug() << "cap_x1 == -1";
+            return;
+        }
+        int cap_x2 = internalBuffer375_CH1->cap_x2fromLast(1, cap_x1, cap_vtop);
+        if(cap_x2 == -1){
+            qDebug() << "cap_x2 == -1";
+            return;
+        }
+        qDebug() << "x0 = " << cap_x0;
+        qDebug() << "x1 = " << cap_x1;
+        qDebug() << "x2 = " << cap_x2;
+        qDebug() << "dt = " << cap_x2-cap_x1;
+    }
+
 }
 
 void isoDriver::enableMM(){

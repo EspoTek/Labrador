@@ -330,10 +330,10 @@ bool isoBuffer::jitterCompensationProcedure(double baudRate, unsigned char curre
     return true;
 }
 
-int isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC){
+short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC){
 
     double scope_gain = (double)(virtualParent->driver->scopeGain);
-    int sample;
+    short sample;
 
     if(AC){
         voltageLevel += virtualParent->currentVmean; //This is old (1 frame in past) value and might not be good for signals with large variations in DC level (although the cap should filter that anyway)??
@@ -347,4 +347,93 @@ int isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC){
     sample = (voltageLevel * (frontendGain*scope_gain*TOP))/(vcc/2);
     return sample;
 }
+
+#define NUM_SAMPLES_SEEKING_CAP (20)
+
+#ifdef INVERT_MM
+    #define X0_COMPARISON_CAP >
+    #define X1_X2_COMPARISON_CAP <
+#else
+    #define X0_COMPARISON_CAP <
+    #define X1_X2_COMPARISON_CAP >
+#endif
+
+
+int isoBuffer::cap_x0fromLast(double seconds, double vbot){
+    int samplesInPast = seconds * samplesPerSecond;
+    if(back < samplesInPast){
+        return -1; //too hard, not really important
+    }
+    short vbot_s = inverseSampleConvert(vbot, 2048, 0);
+    qDebug() << "vbot_s (x0) = " << vbot_s;
+
+    int num_found = 0;
+    for(int i=samplesInPast; i; i--){
+        short currentSample = buffer[back - i];
+        if(currentSample X0_COMPARISON_CAP vbot_s){
+            num_found++;
+        } else num_found--;
+        if(num_found < 0){
+            num_found = 0;
+        }
+        if (num_found > NUM_SAMPLES_SEEKING_CAP){
+            return samplesInPast-i;
+        }
+    }
+    return -1;
+}
+
+int isoBuffer::cap_x1fromLast(double seconds, int x0, double vbot){
+    int samplesInPast = seconds * samplesPerSecond;
+    samplesInPast -= x0;
+    if(back < samplesInPast){
+        return -1; //too hard, not really important
+    }
+    short vbot_s = inverseSampleConvert(vbot, 2048, 0);
+    qDebug() << "vbot_s (x1) = " << vbot_s;
+
+    int num_found = 0;
+    for(int i=samplesInPast; i; i--){
+        short currentSample = buffer[back - i];
+        if(currentSample X1_X2_COMPARISON_CAP vbot_s){
+            num_found++;
+        } else num_found--;
+        if(num_found < 0){
+            num_found = 0;
+        }
+        if (num_found > NUM_SAMPLES_SEEKING_CAP){
+            return samplesInPast-i + x0;
+        }
+
+    }
+    return -1;
+}
+
+int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop){
+    int samplesInPast = seconds * samplesPerSecond;
+    samplesInPast -= x1;
+    if(back < samplesInPast){
+        return -1; //too hard, not really important
+    }
+    short vtop_s = inverseSampleConvert(vtop, 2048, 0);
+    qDebug() << "vtop_s (x2) = " << vtop_s;
+
+    int num_found = 0;
+    for(int i=samplesInPast; i; i--){
+        short currentSample = buffer[back - i];
+        if(currentSample X1_X2_COMPARISON_CAP vtop_s){
+            num_found++;
+        } else num_found--;
+        if(num_found < 0){
+            num_found = 0;
+        }
+        if (num_found > NUM_SAMPLES_SEEKING_CAP){
+            return samplesInPast-i + x1;
+        }
+    }
+    return -1;
+}
+
+
+
 

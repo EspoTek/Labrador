@@ -39,8 +39,10 @@ public:
     void serialDecode(double baudRate);
     int serialDistance();
     double sampleConvert(short sample, int TOP, bool AC);
-    int inverseSampleConvert(double voltageLevel, int TOP, bool AC);
-    //int cap_x0fromLast(double seconds, double vbot);
+    short inverseSampleConvert(double voltageLevel, int TOP, bool AC);
+    int cap_x0fromLast(double seconds, double vbot);
+    int cap_x1fromLast(double seconds, int x0, double vbot);
+    int cap_x2fromLast(double seconds, int x1, double vtop);
     //Generic Vars
     QPlainTextEdit *console, *console1, *console2;
     bool serialAutoScroll = true;
