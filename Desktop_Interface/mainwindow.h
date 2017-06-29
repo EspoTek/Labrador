@@ -167,6 +167,7 @@ private:
     QActionGroup *rangeGroupV;
     QActionGroup *rangeGroupI;
     QActionGroup *rangeGroupR;
+    QActionGroup *rangeGroupC;
     QActionGroup *uartBaudGroup_CH1;
     QActionGroup *uartBaudGroup_CH2;
     QActionGroup *fpsGroup;

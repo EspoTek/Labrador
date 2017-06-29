@@ -273,10 +273,14 @@ void MainWindow::menuSetup(){
     rangeGroupI->addAction(ui->actionA);
 
     rangeGroupR = new QActionGroup(this);
-    rangeGroupI->addAction(ui->actionAutoR);
-    rangeGroupI->addAction(ui->actionKOhm);
-    rangeGroupI->addAction(ui->actionOhm);
+    rangeGroupR->addAction(ui->actionAutoR);
+    rangeGroupR->addAction(ui->actionKOhm);
+    rangeGroupR->addAction(ui->actionOhm);
 
+    rangeGroupC = new QActionGroup(this);
+    rangeGroupC->addAction(ui->actionAutoC);
+    rangeGroupC->addAction(ui->actionNF);
+    rangeGroupC->addAction(ui->action_F);
 
     fpsGroup = new QActionGroup(this);
     fpsGroup->addAction(ui->action60FPS);
@@ -296,6 +300,9 @@ void MainWindow::menuSetup(){
     connect(ui->actionAutoR, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setAutoMultimeterR(bool)));
     connect(ui->actionOhm, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceOhms(bool)));
     connect(ui->actionKOhm, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceKiloOhms(bool)));
+    connect(ui->actionAutoC, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setAutoMultimeterC(bool)));
+    connect(ui->actionNF, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceNFarads(bool)));
+    connect(ui->action_F, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceUFarads(bool)));
 
 
     uartBaudGroup_CH1 = new QActionGroup(this);
@@ -1411,6 +1418,17 @@ void MainWindow::rSourceIndexChanged(int newSource){
         ui->psuGroup->setEnabled(false);
         ui->signalGenGroup_CH2->setEnabled(true);
         ui->psuSlider->setValue(100);
+    }
+
+    if(newSource == 254){
+        ui->signalGenGroup_CH2->setEnabled(false);
+        ui->psuGroup->setEnabled(true);
+        ui->multimeterRLabel->setVisible(false);
+        ui->multimeterRComboBox->setVisible(false);
+        ui->waveformSelect_CH2->setCurrentText("Square");
+        ui->frequencyValue_CH2->setValue(4);
+        ui->dcOffsetValue_CH2->setValue(0);
+        ui->amplitudeValue_CH2->setValue(3);
     }
 
     if(newSource == 255){

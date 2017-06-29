@@ -853,9 +853,18 @@ void isoDriver::setAC_CH2(bool enabled){
 
 void isoDriver::setMultimeterType(int type){
     multimeterType = (multimeterType_enum) type;
-    if(type==R){
+    switch (type){
+
+    case R:
         multimeterREnabled(multimeterRsource);
-    }else multimeterREnabled(255);
+        break;
+    case C:
+        multimeterREnabled(254);
+        break;
+    default:
+        multimeterREnabled(255);
+    }
+
     qDebug() << "multimeterType = " << multimeterType;
 }
 
@@ -871,7 +880,7 @@ void isoDriver::multimeterStats(){
     QTimer::singleShot(MULTIMETER_PERIOD, this, SLOT(enableMM()));
 
     multimeterShow = false;
-    bool mvMax, mvMin, mvMean, mvRMS, maMax, maMin, maMean, maRMS, kOhms;  //We'll let the compiler work out this one.
+    bool mvMax, mvMin, mvMean, mvRMS, maMax, maMin, maMean, maRMS, kOhms, uFarads;  //We'll let the compiler work out this one.
 
     if(autoMultimeterV){
         mvMax = currentVmax < 1;
@@ -901,6 +910,9 @@ void isoDriver::multimeterStats(){
     if(forceKiloOhms){
         kOhms = true;
     }
+    if(forceUFarads){
+        uFarads = true;
+    }
 
     if(forceVolts){
         mvMax = false;
@@ -916,6 +928,9 @@ void isoDriver::multimeterStats(){
     }
     if(forceOhms){
         kOhms = false;
+    }
+    if(forceNFarads){
+        uFarads = false;
     }
 
     if(multimeterType == V){
@@ -1008,8 +1023,8 @@ void isoDriver::multimeterStats(){
         multimeterRMS(estimated_resistance);
     }
     if(multimeterType == C){
-        double cap_vbot = 0.5;
-        double cap_vtop = 1.2;
+        double cap_vbot = 0.8;
+        double cap_vtop = 2.5;
 
         int cap_x0 = internalBuffer375_CH1->cap_x0fromLast(1, cap_vbot);
         if(cap_x0 == -1){
@@ -1030,6 +1045,23 @@ void isoDriver::multimeterStats(){
         qDebug() << "x1 = " << cap_x1;
         qDebug() << "x2 = " << cap_x2;
         qDebug() << "dt = " << cap_x2-cap_x1;
+
+        double dt = (double)(cap_x2-cap_x1)/internalBuffer375_CH1->samplesPerSecond;
+        double Cm = -dt/(seriesResistance * log((vcc-cap_vtop)/(vcc-cap_vbot)));
+        qDebug() << "Cm = " << Cm;
+
+        if(autoMultimeterC){
+            uFarads = (Cm) > 1e-6;
+        }
+
+        if(uFarads){
+            sendMultimeterLabel4("Capacitance (μF)");
+            Cm = Cm*1000000;
+        } else {
+            sendMultimeterLabel4("Capacitance (nF)");
+            Cm = Cm*1000000000;
+        }
+        multimeterRMS(Cm);
     }
 
 }
@@ -1051,6 +1083,10 @@ void isoDriver::setAutoMultimeterR(bool enabled){
     autoMultimeterR = enabled;
 }
 
+void isoDriver::setAutoMultimeterC(bool enabled){
+    autoMultimeterC = enabled;
+}
+
 void isoDriver::setForceMillivolts(bool enabled){
     forceMillivolts = enabled;
 }
@@ -1063,6 +1099,10 @@ void isoDriver::setForceKiloOhms(bool enabled){
     forceKiloOhms = enabled;
 }
 
+void isoDriver::setForceUFarads(bool enabled){
+    forceUFarads = enabled;
+}
+
 void isoDriver::setForceVolts(bool enabled){
     forceVolts = enabled;
 }
@@ -1073,6 +1113,10 @@ void isoDriver::setForceAmps(bool enabled){
 
 void isoDriver::setForceOhms(bool enabled){
     forceOhms = enabled;
+}
+
+void isoDriver::setForceNFarads(bool enabled){
+    forceNFarads = enabled;
 }
 
 void isoDriver::setSerialDecodeEnabled_CH1(bool enabled){

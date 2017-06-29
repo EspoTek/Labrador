@@ -119,6 +119,9 @@ public:
     QAction *actionAutoR;
     QAction *actionOhm;
     QAction *actionKOhm;
+    QAction *actionAutoC;
+    QAction *actionNF;
+    QAction *action_F;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
@@ -258,6 +261,7 @@ public:
     QMenu *menuV_2;
     QMenu *menuI_2;
     QMenu *menuRange_R;
+    QMenu *menuRange_C;
     QMenu *menuBus_Sniffer;
     QMenu *menuUART_1;
     QMenu *menuBaud_Rate;
@@ -490,6 +494,16 @@ public:
         actionKOhm = new QAction(MainWindow);
         actionKOhm->setObjectName(QStringLiteral("actionKOhm"));
         actionKOhm->setCheckable(true);
+        actionAutoC = new QAction(MainWindow);
+        actionAutoC->setObjectName(QStringLiteral("actionAutoC"));
+        actionAutoC->setCheckable(true);
+        actionAutoC->setChecked(true);
+        actionNF = new QAction(MainWindow);
+        actionNF->setObjectName(QStringLiteral("actionNF"));
+        actionNF->setCheckable(true);
+        action_F = new QAction(MainWindow);
+        action_F->setObjectName(QStringLiteral("action_F"));
+        action_F->setCheckable(true);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
@@ -1294,6 +1308,8 @@ public:
         menuI_2->setObjectName(QStringLiteral("menuI_2"));
         menuRange_R = new QMenu(menuMultimeter_2);
         menuRange_R->setObjectName(QStringLiteral("menuRange_R"));
+        menuRange_C = new QMenu(menuMultimeter_2);
+        menuRange_C->setObjectName(QStringLiteral("menuRange_C"));
         menuBus_Sniffer = new QMenu(menuBar);
         menuBus_Sniffer->setObjectName(QStringLiteral("menuBus_Sniffer"));
         menuUART_1 = new QMenu(menuBus_Sniffer);
@@ -1365,6 +1381,7 @@ public:
         menuMultimeter_2->addAction(menuV_2->menuAction());
         menuMultimeter_2->addAction(menuI_2->menuAction());
         menuMultimeter_2->addAction(menuRange_R->menuAction());
+        menuMultimeter_2->addAction(menuRange_C->menuAction());
         menuV_2->addAction(actionAutoV);
         menuV_2->addAction(actionMV);
         menuV_2->addAction(actionV);
@@ -1374,6 +1391,9 @@ public:
         menuRange_R->addAction(actionAutoR);
         menuRange_R->addAction(actionOhm);
         menuRange_R->addAction(actionKOhm);
+        menuRange_C->addAction(actionAutoC);
+        menuRange_C->addAction(actionNF);
+        menuRange_C->addAction(action_F);
         menuBus_Sniffer->addAction(menuUART_1->menuAction());
         menuBus_Sniffer->addAction(menuUART_2->menuAction());
         menuUART_1->addAction(menuBaud_Rate->menuAction());
@@ -1592,6 +1612,9 @@ public:
         actionAutoR->setText(QApplication::translate("MainWindow", "Auto", Q_NULLPTR));
         actionOhm->setText(QApplication::translate("MainWindow", "\316\251", Q_NULLPTR));
         actionKOhm->setText(QApplication::translate("MainWindow", "k\316\251", Q_NULLPTR));
+        actionAutoC->setText(QApplication::translate("MainWindow", "Auto", Q_NULLPTR));
+        actionNF->setText(QApplication::translate("MainWindow", "nF", Q_NULLPTR));
+        action_F->setText(QApplication::translate("MainWindow", "\316\274F", Q_NULLPTR));
         cursorStatsLabel->setText(QApplication::translate("MainWindow", "cursorStatsLabel", Q_NULLPTR));
         controller_fg->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER", Q_NULLPTR));
         deviceConnected->setText(QApplication::translate("MainWindow", "Device Not Connected!", Q_NULLPTR));
@@ -1701,7 +1724,8 @@ public:
         menuMultimeter_2->setTitle(QApplication::translate("MainWindow", "Multimeter", Q_NULLPTR));
         menuV_2->setTitle(QApplication::translate("MainWindow", "Range (V)", Q_NULLPTR));
         menuI_2->setTitle(QApplication::translate("MainWindow", "Range (I)", Q_NULLPTR));
-        menuRange_R->setTitle(QApplication::translate("MainWindow", "Range(R)", Q_NULLPTR));
+        menuRange_R->setTitle(QApplication::translate("MainWindow", "Range (R)", Q_NULLPTR));
+        menuRange_C->setTitle(QApplication::translate("MainWindow", "Range (C)", Q_NULLPTR));
         menuBus_Sniffer->setTitle(QApplication::translate("MainWindow", "Logic Analyzer", Q_NULLPTR));
         menuUART_1->setTitle(QApplication::translate("MainWindow", "UART 1", Q_NULLPTR));
         menuBaud_Rate->setTitle(QApplication::translate("MainWindow", "Baud Rate", Q_NULLPTR));

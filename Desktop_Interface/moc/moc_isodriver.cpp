@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_isoDriver_t {
-    QByteArrayData data[92];
-    char stringdata0[1267];
+    QByteArrayData data[95];
+    char stringdata0[1318];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -102,25 +102,28 @@ QT_MOC_LITERAL(69, 915, 8), // "enableMM"
 QT_MOC_LITERAL(70, 924, 18), // "setAutoMultimeterV"
 QT_MOC_LITERAL(71, 943, 18), // "setAutoMultimeterI"
 QT_MOC_LITERAL(72, 962, 18), // "setAutoMultimeterR"
-QT_MOC_LITERAL(73, 981, 18), // "setForceMillivolts"
-QT_MOC_LITERAL(74, 1000, 17), // "setForceMilliamps"
-QT_MOC_LITERAL(75, 1018, 16), // "setForceKiloOhms"
-QT_MOC_LITERAL(76, 1035, 13), // "setForceVolts"
-QT_MOC_LITERAL(77, 1049, 12), // "setForceAmps"
-QT_MOC_LITERAL(78, 1062, 12), // "setForceOhms"
-QT_MOC_LITERAL(79, 1075, 26), // "setSerialDecodeEnabled_CH1"
-QT_MOC_LITERAL(80, 1102, 26), // "setSerialDecodeEnabled_CH2"
-QT_MOC_LITERAL(81, 1129, 9), // "setXYmode"
-QT_MOC_LITERAL(82, 1139, 23), // "triggerGroupStateChange"
-QT_MOC_LITERAL(83, 1163, 13), // "slowTimerTick"
-QT_MOC_LITERAL(84, 1177, 11), // "setTopRange"
-QT_MOC_LITERAL(85, 1189, 6), // "newTop"
-QT_MOC_LITERAL(86, 1196, 11), // "setBotRange"
-QT_MOC_LITERAL(87, 1208, 6), // "newBot"
-QT_MOC_LITERAL(88, 1215, 13), // "setTimeWindow"
-QT_MOC_LITERAL(89, 1229, 12), // "takeSnapshot"
-QT_MOC_LITERAL(90, 1242, 14), // "rSourceChanged"
-QT_MOC_LITERAL(91, 1257, 9) // "newSource"
+QT_MOC_LITERAL(73, 981, 18), // "setAutoMultimeterC"
+QT_MOC_LITERAL(74, 1000, 18), // "setForceMillivolts"
+QT_MOC_LITERAL(75, 1019, 17), // "setForceMilliamps"
+QT_MOC_LITERAL(76, 1037, 16), // "setForceKiloOhms"
+QT_MOC_LITERAL(77, 1054, 15), // "setForceUFarads"
+QT_MOC_LITERAL(78, 1070, 13), // "setForceVolts"
+QT_MOC_LITERAL(79, 1084, 12), // "setForceAmps"
+QT_MOC_LITERAL(80, 1097, 12), // "setForceOhms"
+QT_MOC_LITERAL(81, 1110, 15), // "setForceNFarads"
+QT_MOC_LITERAL(82, 1126, 26), // "setSerialDecodeEnabled_CH1"
+QT_MOC_LITERAL(83, 1153, 26), // "setSerialDecodeEnabled_CH2"
+QT_MOC_LITERAL(84, 1180, 9), // "setXYmode"
+QT_MOC_LITERAL(85, 1190, 23), // "triggerGroupStateChange"
+QT_MOC_LITERAL(86, 1214, 13), // "slowTimerTick"
+QT_MOC_LITERAL(87, 1228, 11), // "setTopRange"
+QT_MOC_LITERAL(88, 1240, 6), // "newTop"
+QT_MOC_LITERAL(89, 1247, 11), // "setBotRange"
+QT_MOC_LITERAL(90, 1259, 6), // "newBot"
+QT_MOC_LITERAL(91, 1266, 13), // "setTimeWindow"
+QT_MOC_LITERAL(92, 1280, 12), // "takeSnapshot"
+QT_MOC_LITERAL(93, 1293, 14), // "rSourceChanged"
+QT_MOC_LITERAL(94, 1308, 9) // "newSource"
 
     },
     "isoDriver\0setGain\0\0newGain\0disableWindow\0"
@@ -149,10 +152,11 @@ QT_MOC_LITERAL(91, 1257, 9) // "newSource"
     "setMultimeterType\0type\0setSeriesResistance\0"
     "resistance\0multimeterStats\0enableMM\0"
     "setAutoMultimeterV\0setAutoMultimeterI\0"
-    "setAutoMultimeterR\0setForceMillivolts\0"
-    "setForceMilliamps\0setForceKiloOhms\0"
+    "setAutoMultimeterR\0setAutoMultimeterC\0"
+    "setForceMillivolts\0setForceMilliamps\0"
+    "setForceKiloOhms\0setForceUFarads\0"
     "setForceVolts\0setForceAmps\0setForceOhms\0"
-    "setSerialDecodeEnabled_CH1\0"
+    "setForceNFarads\0setSerialDecodeEnabled_CH1\0"
     "setSerialDecodeEnabled_CH2\0setXYmode\0"
     "triggerGroupStateChange\0slowTimerTick\0"
     "setTopRange\0newTop\0setBotRange\0newBot\0"
@@ -167,7 +171,7 @@ static const uint qt_meta_data_isoDriver[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      68,   14, // methods
+      71,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -175,76 +179,79 @@ static const uint qt_meta_data_isoDriver[] = {
       22,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  354,    2, 0x06 /* Public */,
-       4,    1,  357,    2, 0x06 /* Public */,
-       6,    1,  360,    2, 0x06 /* Public */,
-       7,    1,  363,    2, 0x06 /* Public */,
-       9,    1,  366,    2, 0x06 /* Public */,
-      11,    1,  369,    2, 0x06 /* Public */,
-      12,    1,  372,    2, 0x06 /* Public */,
-      13,    1,  375,    2, 0x06 /* Public */,
-      14,    1,  378,    2, 0x06 /* Public */,
-      15,    1,  381,    2, 0x06 /* Public */,
-      16,    1,  384,    2, 0x06 /* Public */,
-      17,    1,  387,    2, 0x06 /* Public */,
-      18,    1,  390,    2, 0x06 /* Public */,
-      19,    1,  393,    2, 0x06 /* Public */,
-      21,    1,  396,    2, 0x06 /* Public */,
-      22,    1,  399,    2, 0x06 /* Public */,
-      23,    1,  402,    2, 0x06 /* Public */,
-      24,    1,  405,    2, 0x06 /* Public */,
-      25,    1,  408,    2, 0x06 /* Public */,
-      26,    1,  411,    2, 0x06 /* Public */,
-      27,    1,  414,    2, 0x06 /* Public */,
-      28,    1,  417,    2, 0x06 /* Public */,
+       1,    1,  369,    2, 0x06 /* Public */,
+       4,    1,  372,    2, 0x06 /* Public */,
+       6,    1,  375,    2, 0x06 /* Public */,
+       7,    1,  378,    2, 0x06 /* Public */,
+       9,    1,  381,    2, 0x06 /* Public */,
+      11,    1,  384,    2, 0x06 /* Public */,
+      12,    1,  387,    2, 0x06 /* Public */,
+      13,    1,  390,    2, 0x06 /* Public */,
+      14,    1,  393,    2, 0x06 /* Public */,
+      15,    1,  396,    2, 0x06 /* Public */,
+      16,    1,  399,    2, 0x06 /* Public */,
+      17,    1,  402,    2, 0x06 /* Public */,
+      18,    1,  405,    2, 0x06 /* Public */,
+      19,    1,  408,    2, 0x06 /* Public */,
+      21,    1,  411,    2, 0x06 /* Public */,
+      22,    1,  414,    2, 0x06 /* Public */,
+      23,    1,  417,    2, 0x06 /* Public */,
+      24,    1,  420,    2, 0x06 /* Public */,
+      25,    1,  423,    2, 0x06 /* Public */,
+      26,    1,  426,    2, 0x06 /* Public */,
+      27,    1,  429,    2, 0x06 /* Public */,
+      28,    1,  432,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      30,    1,  420,    2, 0x0a /* Public */,
-      32,    1,  423,    2, 0x0a /* Public */,
-      35,    0,  426,    2, 0x0a /* Public */,
-      36,    1,  427,    2, 0x0a /* Public */,
-      37,    1,  430,    2, 0x0a /* Public */,
-      38,    1,  433,    2, 0x0a /* Public */,
-      39,    0,  436,    2, 0x0a /* Public */,
-      40,    3,  437,    2, 0x0a /* Public */,
-      44,    1,  444,    2, 0x0a /* Public */,
-      46,    1,  447,    2, 0x0a /* Public */,
-      48,    0,  450,    2, 0x0a /* Public */,
-      49,    1,  451,    2, 0x0a /* Public */,
-      50,    1,  454,    2, 0x0a /* Public */,
-      52,    1,  457,    2, 0x0a /* Public */,
-      53,    1,  460,    2, 0x0a /* Public */,
-      54,    1,  463,    2, 0x0a /* Public */,
-      55,    1,  466,    2, 0x0a /* Public */,
-      56,    1,  469,    2, 0x0a /* Public */,
-      57,    1,  472,    2, 0x0a /* Public */,
-      59,    1,  475,    2, 0x0a /* Public */,
-      60,    1,  478,    2, 0x0a /* Public */,
-      62,    1,  481,    2, 0x0a /* Public */,
-      63,    1,  484,    2, 0x0a /* Public */,
-      64,    1,  487,    2, 0x0a /* Public */,
-      66,    1,  490,    2, 0x0a /* Public */,
-      68,    0,  493,    2, 0x0a /* Public */,
-      69,    0,  494,    2, 0x0a /* Public */,
-      70,    1,  495,    2, 0x0a /* Public */,
-      71,    1,  498,    2, 0x0a /* Public */,
-      72,    1,  501,    2, 0x0a /* Public */,
-      73,    1,  504,    2, 0x0a /* Public */,
-      74,    1,  507,    2, 0x0a /* Public */,
-      75,    1,  510,    2, 0x0a /* Public */,
-      76,    1,  513,    2, 0x0a /* Public */,
-      77,    1,  516,    2, 0x0a /* Public */,
-      78,    1,  519,    2, 0x0a /* Public */,
-      79,    1,  522,    2, 0x0a /* Public */,
-      80,    1,  525,    2, 0x0a /* Public */,
-      81,    1,  528,    2, 0x0a /* Public */,
-      82,    1,  531,    2, 0x0a /* Public */,
-      83,    0,  534,    2, 0x0a /* Public */,
-      84,    1,  535,    2, 0x0a /* Public */,
-      86,    1,  538,    2, 0x0a /* Public */,
-      88,    1,  541,    2, 0x0a /* Public */,
-      89,    0,  544,    2, 0x0a /* Public */,
-      90,    1,  545,    2, 0x0a /* Public */,
+      30,    1,  435,    2, 0x0a /* Public */,
+      32,    1,  438,    2, 0x0a /* Public */,
+      35,    0,  441,    2, 0x0a /* Public */,
+      36,    1,  442,    2, 0x0a /* Public */,
+      37,    1,  445,    2, 0x0a /* Public */,
+      38,    1,  448,    2, 0x0a /* Public */,
+      39,    0,  451,    2, 0x0a /* Public */,
+      40,    3,  452,    2, 0x0a /* Public */,
+      44,    1,  459,    2, 0x0a /* Public */,
+      46,    1,  462,    2, 0x0a /* Public */,
+      48,    0,  465,    2, 0x0a /* Public */,
+      49,    1,  466,    2, 0x0a /* Public */,
+      50,    1,  469,    2, 0x0a /* Public */,
+      52,    1,  472,    2, 0x0a /* Public */,
+      53,    1,  475,    2, 0x0a /* Public */,
+      54,    1,  478,    2, 0x0a /* Public */,
+      55,    1,  481,    2, 0x0a /* Public */,
+      56,    1,  484,    2, 0x0a /* Public */,
+      57,    1,  487,    2, 0x0a /* Public */,
+      59,    1,  490,    2, 0x0a /* Public */,
+      60,    1,  493,    2, 0x0a /* Public */,
+      62,    1,  496,    2, 0x0a /* Public */,
+      63,    1,  499,    2, 0x0a /* Public */,
+      64,    1,  502,    2, 0x0a /* Public */,
+      66,    1,  505,    2, 0x0a /* Public */,
+      68,    0,  508,    2, 0x0a /* Public */,
+      69,    0,  509,    2, 0x0a /* Public */,
+      70,    1,  510,    2, 0x0a /* Public */,
+      71,    1,  513,    2, 0x0a /* Public */,
+      72,    1,  516,    2, 0x0a /* Public */,
+      73,    1,  519,    2, 0x0a /* Public */,
+      74,    1,  522,    2, 0x0a /* Public */,
+      75,    1,  525,    2, 0x0a /* Public */,
+      76,    1,  528,    2, 0x0a /* Public */,
+      77,    1,  531,    2, 0x0a /* Public */,
+      78,    1,  534,    2, 0x0a /* Public */,
+      79,    1,  537,    2, 0x0a /* Public */,
+      80,    1,  540,    2, 0x0a /* Public */,
+      81,    1,  543,    2, 0x0a /* Public */,
+      82,    1,  546,    2, 0x0a /* Public */,
+      83,    1,  549,    2, 0x0a /* Public */,
+      84,    1,  552,    2, 0x0a /* Public */,
+      85,    1,  555,    2, 0x0a /* Public */,
+      86,    0,  558,    2, 0x0a /* Public */,
+      87,    1,  559,    2, 0x0a /* Public */,
+      89,    1,  562,    2, 0x0a /* Public */,
+      91,    1,  565,    2, 0x0a /* Public */,
+      92,    0,  568,    2, 0x0a /* Public */,
+      93,    1,  569,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Double,    3,
@@ -311,12 +318,15 @@ static const uint qt_meta_data_isoDriver[] = {
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void, QMetaType::Bool,    5,
+    QMetaType::Void, QMetaType::Bool,    5,
+    QMetaType::Void, QMetaType::Bool,    5,
+    QMetaType::Void, QMetaType::Bool,    5,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Double,   85,
-    QMetaType::Void, QMetaType::Double,   87,
+    QMetaType::Void, QMetaType::Double,   88,
+    QMetaType::Void, QMetaType::Double,   90,
     QMetaType::Void, QMetaType::Double,   31,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   91,
+    QMetaType::Void, QMetaType::Int,   94,
 
        0        // eod
 };
@@ -379,22 +389,25 @@ void isoDriver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 49: _t->setAutoMultimeterV((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 50: _t->setAutoMultimeterI((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 51: _t->setAutoMultimeterR((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 52: _t->setForceMillivolts((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 53: _t->setForceMilliamps((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 54: _t->setForceKiloOhms((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 55: _t->setForceVolts((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 56: _t->setForceAmps((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 57: _t->setForceOhms((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 58: _t->setSerialDecodeEnabled_CH1((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 59: _t->setSerialDecodeEnabled_CH2((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 60: _t->setXYmode((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 61: _t->triggerGroupStateChange((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 62: _t->slowTimerTick(); break;
-        case 63: _t->setTopRange((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 64: _t->setBotRange((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 65: _t->setTimeWindow((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 66: _t->takeSnapshot(); break;
-        case 67: _t->rSourceChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 52: _t->setAutoMultimeterC((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 53: _t->setForceMillivolts((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 54: _t->setForceMilliamps((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 55: _t->setForceKiloOhms((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 56: _t->setForceUFarads((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 57: _t->setForceVolts((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 58: _t->setForceAmps((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 59: _t->setForceOhms((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 60: _t->setForceNFarads((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 61: _t->setSerialDecodeEnabled_CH1((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 62: _t->setSerialDecodeEnabled_CH2((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 63: _t->setXYmode((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 64: _t->triggerGroupStateChange((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 65: _t->slowTimerTick(); break;
+        case 66: _t->setTopRange((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 67: _t->setBotRange((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 68: _t->setTimeWindow((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 69: _t->takeSnapshot(); break;
+        case 70: _t->rSourceChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -582,13 +595,13 @@ int isoDriver::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 68)
+        if (_id < 71)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 68;
+        _id -= 71;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 68)
+        if (_id < 71)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 68;
+        _id -= 71;
     }
     return _id;
 }

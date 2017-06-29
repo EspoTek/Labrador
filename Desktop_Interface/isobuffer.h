@@ -50,11 +50,12 @@ public:
     QTimer *updateTimer;
     double voltage_ref = 1.65;
     double frontendGain = (R4 / (R3 + R4));
+    int samplesPerSecond;
 private:
     //Generic Vars
     short *buffer, *readData = NULL;
     int bufferEnd, back = 0;
-    int samplesPerSecond, sampleRate_bit;
+    int sampleRate_bit;
     bool firstTime = true;
     //File I/O
     bool fileIOEnabled = false;
