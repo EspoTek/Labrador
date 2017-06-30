@@ -131,11 +131,11 @@ public:
     swipeyStack *stackedWidget;
     QWidget *page;
     QHBoxLayout *horizontalLayout;
-    QHBoxLayout *horizontalLayout_13;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_5;
     QVBoxLayout *verticalLayout_9;
     QGroupBox *scopeGroup_CH1;
     QVBoxLayout *verticalLayout_2;
-    QCheckBox *pausedLabeL_CH1;
     QCheckBox *acCoupledLabel_CH1;
     QCheckBox *filterLabel_CH1;
     QCheckBox *doubleSampleLabel;
@@ -158,7 +158,6 @@ public:
     QVBoxLayout *verticalLayout_10;
     QGroupBox *scopeGroup_CH2;
     QVBoxLayout *verticalLayout_11;
-    QCheckBox *pausedLabel_CH2;
     QCheckBox *acCoupledLabel_CH2;
     QCheckBox *filterLabel_CH2;
     QCheckBox *xyDisplayLabel;
@@ -176,6 +175,8 @@ public:
     QComboBox *triggerChannelSelect;
     QDoubleSpinBox *triggerLevelValue;
     QCheckBox *singleShotCheckBox;
+    QCheckBox *pausedLabel_CH2;
+    QCheckBox *pausedLabeL_CH1;
     QWidget *page_2;
     QHBoxLayout *horizontalLayout_2;
     QGroupBox *signalGenGroup_CH1;
@@ -201,26 +202,35 @@ public:
     QWidget *page_3;
     QHBoxLayout *horizontalLayout_3;
     QGroupBox *multimeterGroup;
-    QGridLayout *gridLayout;
+    QVBoxLayout *verticalLayout_13;
+    QHBoxLayout *horizontalLayout_9;
+    QSpacerItem *horizontalSpacer_3;
+    QVBoxLayout *verticalLayout_22;
+    QSpacerItem *verticalSpacer_7;
+    QLabel *multimeterModeLabel;
+    QComboBox *multimeterModeSelect;
+    QSpacerItem *verticalSpacer_8;
+    QLabel *multimeterResistanceLabel;
+    espoSpinBox *multimeterResistanceSelect;
+    QSpacerItem *verticalSpacer_6;
+    QSpacerItem *horizontalSpacer;
+    QVBoxLayout *verticalLayout_23;
     QFormLayout *formLayout;
     QLabel *multimeterMaxLabel;
     QLCDNumber *multimeterMaxDisplay;
     QLabel *multimeterMinLabel;
     QLCDNumber *multimeterMinDisplay;
+    QSpacerItem *verticalSpacer_2;
     QLabel *multimeterMeanLabel;
     QLCDNumber *multimeterMeanDisplay;
+    QSpacerItem *verticalSpacer_4;
     QLabel *multimeterRmsLabel;
     QLCDNumber *multimeterRmsDisplay;
     QSpacerItem *verticalSpacer;
-    QSpacerItem *verticalSpacer_2;
     QSpacerItem *verticalSpacer_3;
-    QSpacerItem *verticalSpacer_4;
     QSpacerItem *verticalSpacer_5;
+    QSpacerItem *horizontalSpacer_2;
     QCheckBox *multimeterPauseCheckBox;
-    QLabel *multimeterResistanceLabel;
-    QLabel *multimeterModeLabel;
-    espoSpinBox *multimeterResistanceSelect;
-    QComboBox *multimeterModeSelect;
     QWidget *page_5;
     QHBoxLayout *horizontalLayout_8;
     QGroupBox *psuGroup;
@@ -251,7 +261,6 @@ public:
     QCheckBox *digitalOutCheckbox_CH4;
     QGroupBox *busSifferGroup_CH1;
     QVBoxLayout *verticalLayout_7;
-    QCheckBox *pause_LA;
     QGroupBox *serialDecodingCheck_CH1;
     QVBoxLayout *verticalLayout_6;
     QComboBox *serialDecodingModeSelect_CH1;
@@ -260,6 +269,7 @@ public:
     QGroupBox *serialDecodingCheck_CH2;
     QVBoxLayout *verticalLayout_17;
     QComboBox *serialDecodingModeSelect_CH2;
+    QCheckBox *pause_LA;
     QMenuBar *menuBar;
     QMenu *menuOscilloscope_2;
     QMenu *menuGain_2;
@@ -562,9 +572,12 @@ public:
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 2, 0, 0);
-        horizontalLayout_13 = new QHBoxLayout();
-        horizontalLayout_13->setSpacing(6);
-        horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         verticalLayout_9 = new QVBoxLayout();
         verticalLayout_9->setSpacing(2);
         verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
@@ -578,11 +591,6 @@ public:
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        pausedLabeL_CH1 = new QCheckBox(scopeGroup_CH1);
-        pausedLabeL_CH1->setObjectName(QStringLiteral("pausedLabeL_CH1"));
-
-        verticalLayout_2->addWidget(pausedLabeL_CH1);
-
         acCoupledLabel_CH1 = new QCheckBox(scopeGroup_CH1);
         acCoupledLabel_CH1->setObjectName(QStringLiteral("acCoupledLabel_CH1"));
 
@@ -652,10 +660,6 @@ public:
 
         verticalLayout_2->addLayout(gridLayout_2);
 
-        acCoupledLabel_CH1->raise();
-        filterLabel_CH1->raise();
-        pausedLabeL_CH1->raise();
-        doubleSampleLabel->raise();
 
         verticalLayout_9->addWidget(scopeGroup_CH1);
 
@@ -698,7 +702,7 @@ public:
         verticalLayout_9->addWidget(cursorGroup);
 
 
-        horizontalLayout_13->addLayout(verticalLayout_9);
+        horizontalLayout_5->addLayout(verticalLayout_9);
 
         verticalLayout_10 = new QVBoxLayout();
         verticalLayout_10->setSpacing(2);
@@ -714,11 +718,6 @@ public:
         verticalLayout_11->setContentsMargins(11, 11, 11, 11);
         verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
         verticalLayout_11->setContentsMargins(0, 0, 0, 0);
-        pausedLabel_CH2 = new QCheckBox(scopeGroup_CH2);
-        pausedLabel_CH2->setObjectName(QStringLiteral("pausedLabel_CH2"));
-
-        verticalLayout_11->addWidget(pausedLabel_CH2);
-
         acCoupledLabel_CH2 = new QCheckBox(scopeGroup_CH2);
         acCoupledLabel_CH2->setObjectName(QStringLiteral("acCoupledLabel_CH2"));
 
@@ -823,10 +822,23 @@ public:
         verticalLayout_10->addWidget(triggerGroup);
 
 
-        horizontalLayout_13->addLayout(verticalLayout_10);
+        horizontalLayout_5->addLayout(verticalLayout_10);
 
 
-        horizontalLayout->addLayout(horizontalLayout_13);
+        verticalLayout->addLayout(horizontalLayout_5);
+
+        pausedLabel_CH2 = new QCheckBox(page);
+        pausedLabel_CH2->setObjectName(QStringLiteral("pausedLabel_CH2"));
+
+        verticalLayout->addWidget(pausedLabel_CH2);
+
+        pausedLabeL_CH1 = new QCheckBox(page);
+        pausedLabeL_CH1->setObjectName(QStringLiteral("pausedLabeL_CH1"));
+
+        verticalLayout->addWidget(pausedLabeL_CH1);
+
+
+        horizontalLayout->addLayout(verticalLayout);
 
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
@@ -980,11 +992,85 @@ public:
         multimeterGroup->setEnabled(false);
         multimeterGroup->setCheckable(true);
         multimeterGroup->setChecked(false);
-        gridLayout = new QGridLayout(multimeterGroup);
-        gridLayout->setSpacing(0);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
+        verticalLayout_13 = new QVBoxLayout(multimeterGroup);
+        verticalLayout_13->setSpacing(0);
+        verticalLayout_13->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
+        verticalLayout_13->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setSpacing(6);
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_9->addItem(horizontalSpacer_3);
+
+        verticalLayout_22 = new QVBoxLayout();
+        verticalLayout_22->setSpacing(6);
+        verticalLayout_22->setObjectName(QStringLiteral("verticalLayout_22"));
+        verticalSpacer_7 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_22->addItem(verticalSpacer_7);
+
+        multimeterModeLabel = new QLabel(multimeterGroup);
+        multimeterModeLabel->setObjectName(QStringLiteral("multimeterModeLabel"));
+        QSizePolicy sizePolicy2(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(multimeterModeLabel->sizePolicy().hasHeightForWidth());
+        multimeterModeLabel->setSizePolicy(sizePolicy2);
+        multimeterModeLabel->setMaximumSize(QSize(180, 16777215));
+        multimeterModeLabel->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
+
+        verticalLayout_22->addWidget(multimeterModeLabel);
+
+        multimeterModeSelect = new QComboBox(multimeterGroup);
+        multimeterModeSelect->setObjectName(QStringLiteral("multimeterModeSelect"));
+        QSizePolicy sizePolicy3(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(multimeterModeSelect->sizePolicy().hasHeightForWidth());
+        multimeterModeSelect->setSizePolicy(sizePolicy3);
+        multimeterModeSelect->setMaximumSize(QSize(180, 16777215));
+
+        verticalLayout_22->addWidget(multimeterModeSelect);
+
+        verticalSpacer_8 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_22->addItem(verticalSpacer_8);
+
+        multimeterResistanceLabel = new QLabel(multimeterGroup);
+        multimeterResistanceLabel->setObjectName(QStringLiteral("multimeterResistanceLabel"));
+        sizePolicy2.setHeightForWidth(multimeterResistanceLabel->sizePolicy().hasHeightForWidth());
+        multimeterResistanceLabel->setSizePolicy(sizePolicy2);
+        multimeterResistanceLabel->setMaximumSize(QSize(180, 16777215));
+        multimeterResistanceLabel->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
+
+        verticalLayout_22->addWidget(multimeterResistanceLabel);
+
+        multimeterResistanceSelect = new espoSpinBox(multimeterGroup);
+        multimeterResistanceSelect->setObjectName(QStringLiteral("multimeterResistanceSelect"));
+        sizePolicy3.setHeightForWidth(multimeterResistanceSelect->sizePolicy().hasHeightForWidth());
+        multimeterResistanceSelect->setSizePolicy(sizePolicy3);
+        multimeterResistanceSelect->setMaximumSize(QSize(180, 16777215));
+        multimeterResistanceSelect->setDecimals(0);
+        multimeterResistanceSelect->setMaximum(1e+6);
+
+        verticalLayout_22->addWidget(multimeterResistanceSelect);
+
+        verticalSpacer_6 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_22->addItem(verticalSpacer_6);
+
+
+        horizontalLayout_9->addLayout(verticalLayout_22);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_9->addItem(horizontalSpacer);
+
+        verticalLayout_23 = new QVBoxLayout();
+        verticalLayout_23->setSpacing(6);
+        verticalLayout_23->setObjectName(QStringLiteral("verticalLayout_23"));
         formLayout = new QFormLayout();
         formLayout->setSpacing(6);
         formLayout->setObjectName(QStringLiteral("formLayout"));
@@ -992,19 +1078,20 @@ public:
         formLayout->setVerticalSpacing(0);
         multimeterMaxLabel = new QLabel(multimeterGroup);
         multimeterMaxLabel->setObjectName(QStringLiteral("multimeterMaxLabel"));
-        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(multimeterMaxLabel->sizePolicy().hasHeightForWidth());
-        multimeterMaxLabel->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy4(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(multimeterMaxLabel->sizePolicy().hasHeightForWidth());
+        multimeterMaxLabel->setSizePolicy(sizePolicy4);
+        multimeterMaxLabel->setMinimumSize(QSize(0, 96));
 
         formLayout->setWidget(1, QFormLayout::LabelRole, multimeterMaxLabel);
 
         multimeterMaxDisplay = new QLCDNumber(multimeterGroup);
         multimeterMaxDisplay->setObjectName(QStringLiteral("multimeterMaxDisplay"));
-        sizePolicy2.setHeightForWidth(multimeterMaxDisplay->sizePolicy().hasHeightForWidth());
-        multimeterMaxDisplay->setSizePolicy(sizePolicy2);
-        multimeterMaxDisplay->setMinimumSize(QSize(0, 48));
+        sizePolicy4.setHeightForWidth(multimeterMaxDisplay->sizePolicy().hasHeightForWidth());
+        multimeterMaxDisplay->setSizePolicy(sizePolicy4);
+        multimeterMaxDisplay->setMinimumSize(QSize(0, 96));
         multimeterMaxDisplay->setFrameShape(QFrame::NoFrame);
         multimeterMaxDisplay->setDigitCount(4);
 
@@ -1012,133 +1099,104 @@ public:
 
         multimeterMinLabel = new QLabel(multimeterGroup);
         multimeterMinLabel->setObjectName(QStringLiteral("multimeterMinLabel"));
-        sizePolicy2.setHeightForWidth(multimeterMinLabel->sizePolicy().hasHeightForWidth());
-        multimeterMinLabel->setSizePolicy(sizePolicy2);
+        sizePolicy4.setHeightForWidth(multimeterMinLabel->sizePolicy().hasHeightForWidth());
+        multimeterMinLabel->setSizePolicy(sizePolicy4);
+        multimeterMinLabel->setMinimumSize(QSize(0, 96));
 
         formLayout->setWidget(3, QFormLayout::LabelRole, multimeterMinLabel);
 
         multimeterMinDisplay = new QLCDNumber(multimeterGroup);
         multimeterMinDisplay->setObjectName(QStringLiteral("multimeterMinDisplay"));
-        sizePolicy2.setHeightForWidth(multimeterMinDisplay->sizePolicy().hasHeightForWidth());
-        multimeterMinDisplay->setSizePolicy(sizePolicy2);
-        multimeterMinDisplay->setMinimumSize(QSize(0, 48));
+        sizePolicy4.setHeightForWidth(multimeterMinDisplay->sizePolicy().hasHeightForWidth());
+        multimeterMinDisplay->setSizePolicy(sizePolicy4);
+        multimeterMinDisplay->setMinimumSize(QSize(0, 96));
         multimeterMinDisplay->setFrameShape(QFrame::NoFrame);
         multimeterMinDisplay->setDigitCount(4);
 
         formLayout->setWidget(3, QFormLayout::FieldRole, multimeterMinDisplay);
 
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
+
+        formLayout->setItem(5, QFormLayout::FieldRole, verticalSpacer_2);
+
         multimeterMeanLabel = new QLabel(multimeterGroup);
         multimeterMeanLabel->setObjectName(QStringLiteral("multimeterMeanLabel"));
-        sizePolicy2.setHeightForWidth(multimeterMeanLabel->sizePolicy().hasHeightForWidth());
-        multimeterMeanLabel->setSizePolicy(sizePolicy2);
+        sizePolicy4.setHeightForWidth(multimeterMeanLabel->sizePolicy().hasHeightForWidth());
+        multimeterMeanLabel->setSizePolicy(sizePolicy4);
+        multimeterMeanLabel->setMinimumSize(QSize(0, 96));
 
-        formLayout->setWidget(5, QFormLayout::LabelRole, multimeterMeanLabel);
+        formLayout->setWidget(6, QFormLayout::LabelRole, multimeterMeanLabel);
 
         multimeterMeanDisplay = new QLCDNumber(multimeterGroup);
         multimeterMeanDisplay->setObjectName(QStringLiteral("multimeterMeanDisplay"));
-        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(multimeterMeanDisplay->sizePolicy().hasHeightForWidth());
-        multimeterMeanDisplay->setSizePolicy(sizePolicy3);
-        multimeterMeanDisplay->setMinimumSize(QSize(0, 48));
+        QSizePolicy sizePolicy5(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(multimeterMeanDisplay->sizePolicy().hasHeightForWidth());
+        multimeterMeanDisplay->setSizePolicy(sizePolicy5);
+        multimeterMeanDisplay->setMinimumSize(QSize(0, 96));
         multimeterMeanDisplay->setFrameShape(QFrame::NoFrame);
         multimeterMeanDisplay->setDigitCount(4);
 
-        formLayout->setWidget(5, QFormLayout::FieldRole, multimeterMeanDisplay);
+        formLayout->setWidget(6, QFormLayout::FieldRole, multimeterMeanDisplay);
+
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
+
+        formLayout->setItem(7, QFormLayout::FieldRole, verticalSpacer_4);
 
         multimeterRmsLabel = new QLabel(multimeterGroup);
         multimeterRmsLabel->setObjectName(QStringLiteral("multimeterRmsLabel"));
-        sizePolicy2.setHeightForWidth(multimeterRmsLabel->sizePolicy().hasHeightForWidth());
-        multimeterRmsLabel->setSizePolicy(sizePolicy2);
+        sizePolicy4.setHeightForWidth(multimeterRmsLabel->sizePolicy().hasHeightForWidth());
+        multimeterRmsLabel->setSizePolicy(sizePolicy4);
+        multimeterRmsLabel->setMinimumSize(QSize(0, 96));
 
-        formLayout->setWidget(7, QFormLayout::LabelRole, multimeterRmsLabel);
+        formLayout->setWidget(8, QFormLayout::LabelRole, multimeterRmsLabel);
 
         multimeterRmsDisplay = new QLCDNumber(multimeterGroup);
         multimeterRmsDisplay->setObjectName(QStringLiteral("multimeterRmsDisplay"));
-        sizePolicy2.setHeightForWidth(multimeterRmsDisplay->sizePolicy().hasHeightForWidth());
-        multimeterRmsDisplay->setSizePolicy(sizePolicy2);
-        multimeterRmsDisplay->setMinimumSize(QSize(0, 48));
+        sizePolicy4.setHeightForWidth(multimeterRmsDisplay->sizePolicy().hasHeightForWidth());
+        multimeterRmsDisplay->setSizePolicy(sizePolicy4);
+        multimeterRmsDisplay->setMinimumSize(QSize(0, 96));
         multimeterRmsDisplay->setFrameShape(QFrame::NoFrame);
         multimeterRmsDisplay->setDigitCount(4);
 
-        formLayout->setWidget(7, QFormLayout::FieldRole, multimeterRmsDisplay);
+        formLayout->setWidget(8, QFormLayout::FieldRole, multimeterRmsDisplay);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
 
         formLayout->setItem(2, QFormLayout::FieldRole, verticalSpacer);
-
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        formLayout->setItem(4, QFormLayout::FieldRole, verticalSpacer_2);
 
         verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         formLayout->setItem(0, QFormLayout::FieldRole, verticalSpacer_3);
 
-        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        formLayout->setItem(6, QFormLayout::FieldRole, verticalSpacer_4);
+        verticalLayout_23->addLayout(formLayout);
 
         verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        formLayout->setItem(8, QFormLayout::FieldRole, verticalSpacer_5);
+        verticalLayout_23->addItem(verticalSpacer_5);
 
 
-        gridLayout->addLayout(formLayout, 0, 1, 7, 1);
+        horizontalLayout_9->addLayout(verticalLayout_23);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_9->addItem(horizontalSpacer_2);
+
+
+        verticalLayout_13->addLayout(horizontalLayout_9);
 
         multimeterPauseCheckBox = new QCheckBox(multimeterGroup);
         multimeterPauseCheckBox->setObjectName(QStringLiteral("multimeterPauseCheckBox"));
-        QSizePolicy sizePolicy4(QSizePolicy::Maximum, QSizePolicy::Fixed);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(multimeterPauseCheckBox->sizePolicy().hasHeightForWidth());
-        multimeterPauseCheckBox->setSizePolicy(sizePolicy4);
+        sizePolicy3.setHeightForWidth(multimeterPauseCheckBox->sizePolicy().hasHeightForWidth());
+        multimeterPauseCheckBox->setSizePolicy(sizePolicy3);
         multimeterPauseCheckBox->setMaximumSize(QSize(180, 16777215));
         QFont font1;
         font1.setUnderline(false);
         multimeterPauseCheckBox->setFont(font1);
 
-        gridLayout->addWidget(multimeterPauseCheckBox, 6, 0, 1, 1);
-
-        multimeterResistanceLabel = new QLabel(multimeterGroup);
-        multimeterResistanceLabel->setObjectName(QStringLiteral("multimeterResistanceLabel"));
-        QSizePolicy sizePolicy5(QSizePolicy::Maximum, QSizePolicy::Preferred);
-        sizePolicy5.setHorizontalStretch(0);
-        sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(multimeterResistanceLabel->sizePolicy().hasHeightForWidth());
-        multimeterResistanceLabel->setSizePolicy(sizePolicy5);
-        multimeterResistanceLabel->setMaximumSize(QSize(180, 16777215));
-        multimeterResistanceLabel->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
-
-        gridLayout->addWidget(multimeterResistanceLabel, 3, 0, 1, 1);
-
-        multimeterModeLabel = new QLabel(multimeterGroup);
-        multimeterModeLabel->setObjectName(QStringLiteral("multimeterModeLabel"));
-        sizePolicy5.setHeightForWidth(multimeterModeLabel->sizePolicy().hasHeightForWidth());
-        multimeterModeLabel->setSizePolicy(sizePolicy5);
-        multimeterModeLabel->setMaximumSize(QSize(180, 16777215));
-        multimeterModeLabel->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
-
-        gridLayout->addWidget(multimeterModeLabel, 0, 0, 1, 1);
-
-        multimeterResistanceSelect = new espoSpinBox(multimeterGroup);
-        multimeterResistanceSelect->setObjectName(QStringLiteral("multimeterResistanceSelect"));
-        sizePolicy4.setHeightForWidth(multimeterResistanceSelect->sizePolicy().hasHeightForWidth());
-        multimeterResistanceSelect->setSizePolicy(sizePolicy4);
-        multimeterResistanceSelect->setMaximumSize(QSize(180, 16777215));
-        multimeterResistanceSelect->setDecimals(0);
-        multimeterResistanceSelect->setMaximum(1e+6);
-
-        gridLayout->addWidget(multimeterResistanceSelect, 4, 0, 1, 1);
-
-        multimeterModeSelect = new QComboBox(multimeterGroup);
-        multimeterModeSelect->setObjectName(QStringLiteral("multimeterModeSelect"));
-        sizePolicy4.setHeightForWidth(multimeterModeSelect->sizePolicy().hasHeightForWidth());
-        multimeterModeSelect->setSizePolicy(sizePolicy4);
-        multimeterModeSelect->setMaximumSize(QSize(180, 16777215));
-
-        gridLayout->addWidget(multimeterModeSelect, 1, 0, 1, 1);
+        verticalLayout_13->addWidget(multimeterPauseCheckBox);
 
 
         horizontalLayout_3->addWidget(multimeterGroup);
@@ -1266,15 +1324,16 @@ public:
         console1 = new QPlainTextEdit(page_4);
         console1->setObjectName(QStringLiteral("console1"));
         console1->setEnabled(true);
-        console1->setMinimumSize(QSize(0, 0));
-        console1->setMaximumSize(QSize(16777215, 48));
+        console1->setMinimumSize(QSize(0, 48));
+        console1->setMaximumSize(QSize(16777215, 96));
         console1->setReadOnly(true);
 
         verticalLayout_3->addWidget(console1);
 
         console2 = new QPlainTextEdit(page_4);
         console2->setObjectName(QStringLiteral("console2"));
-        console2->setMaximumSize(QSize(16777215, 48));
+        console2->setMinimumSize(QSize(0, 48));
+        console2->setMaximumSize(QSize(16777215, 96));
         console2->setReadOnly(true);
 
         verticalLayout_3->addWidget(console2);
@@ -1323,12 +1382,6 @@ public:
         verticalLayout_7->setSpacing(6);
         verticalLayout_7->setContentsMargins(11, 11, 11, 11);
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
-        pause_LA = new QCheckBox(busSifferGroup_CH1);
-        pause_LA->setObjectName(QStringLiteral("pause_LA"));
-        pause_LA->setEnabled(true);
-
-        verticalLayout_7->addWidget(pause_LA);
-
         serialDecodingCheck_CH1 = new QGroupBox(busSifferGroup_CH1);
         serialDecodingCheck_CH1->setObjectName(QStringLiteral("serialDecodingCheck_CH1"));
         serialDecodingCheck_CH1->setFlat(true);
@@ -1382,6 +1435,12 @@ public:
 
 
         verticalLayout_3->addLayout(horizontalLayout_6);
+
+        pause_LA = new QCheckBox(page_4);
+        pause_LA->setObjectName(QStringLiteral("pause_LA"));
+        pause_LA->setEnabled(true);
+
+        verticalLayout_3->addWidget(pause_LA);
 
         stackedWidget->addWidget(page_4);
 
@@ -1603,8 +1662,6 @@ public:
         QObject::connect(controller_iso, SIGNAL(sendMultimeterLabel3(QString)), multimeterMeanLabel, SLOT(setText(QString)));
         QObject::connect(serialDecodingCheck_CH1, SIGNAL(toggled(bool)), controller_iso, SLOT(setSerialDecodeEnabled_CH1(bool)));
         QObject::connect(serialDecodingCheck_CH2, SIGNAL(toggled(bool)), controller_iso, SLOT(setSerialDecodeEnabled_CH2(bool)));
-        QObject::connect(serialDecodingCheck_CH1, SIGNAL(toggled(bool)), console1, SLOT(setVisible(bool)));
-        QObject::connect(serialDecodingCheck_CH2, SIGNAL(toggled(bool)), console2, SLOT(setVisible(bool)));
         QObject::connect(controller_iso, SIGNAL(changeTimeAxis(bool)), MainWindow, SLOT(timeBaseNeedsChanging(bool)));
         QObject::connect(xyDisplayLabel, SIGNAL(toggled(bool)), controller_iso, SLOT(setXYmode(bool)));
         QObject::connect(busSnifferGroup_CH2, SIGNAL(toggled(bool)), signalGenGroup_CH2, SLOT(setDisabled(bool)));
@@ -1637,7 +1694,7 @@ public:
         QObject::connect(frequencyValue_CH2, SIGNAL(valueChanged(double)), frequencyValue_CH2, SLOT(changeStepping(double)));
         QObject::connect(debugButton2, SIGNAL(clicked()), MainWindow, SLOT(reinitUsb()));
 
-        stackedWidget->setCurrentIndex(0);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -1721,7 +1778,6 @@ public:
         action_F->setText(QApplication::translate("MainWindow", "\316\274F", Q_NULLPTR));
         deviceConnected->setText(QApplication::translate("MainWindow", "Device Not Connected!", Q_NULLPTR));
         scopeGroup_CH1->setTitle(QApplication::translate("MainWindow", "Oscilloscope CH1", Q_NULLPTR));
-        pausedLabeL_CH1->setText(QApplication::translate("MainWindow", "Paused", Q_NULLPTR));
         acCoupledLabel_CH1->setText(QApplication::translate("MainWindow", "AC Coupled", Q_NULLPTR));
         filterLabel_CH1->setText(QApplication::translate("MainWindow", "Filter", Q_NULLPTR));
         doubleSampleLabel->setText(QApplication::translate("MainWindow", "Double Sample Rate", Q_NULLPTR));
@@ -1736,7 +1792,6 @@ public:
         scaleHoriCheck->setText(QApplication::translate("MainWindow", "H-Scale", Q_NULLPTR));
         scaleVertCheck->setText(QApplication::translate("MainWindow", "V-Scale", Q_NULLPTR));
         scopeGroup_CH2->setTitle(QApplication::translate("MainWindow", "Oscilloscope CH2", Q_NULLPTR));
-        pausedLabel_CH2->setText(QApplication::translate("MainWindow", "Paused", Q_NULLPTR));
         acCoupledLabel_CH2->setText(QApplication::translate("MainWindow", "AC Coupled", Q_NULLPTR));
         filterLabel_CH2->setText(QApplication::translate("MainWindow", "Filter", Q_NULLPTR));
         xyDisplayLabel->setText(QApplication::translate("MainWindow", "X-Y Display", Q_NULLPTR));
@@ -1753,6 +1808,8 @@ public:
          << QApplication::translate("MainWindow", "CH2 (Falling)", Q_NULLPTR)
         );
         singleShotCheckBox->setText(QApplication::translate("MainWindow", "Single Shot", Q_NULLPTR));
+        pausedLabel_CH2->setText(QApplication::translate("MainWindow", "Paused", Q_NULLPTR));
+        pausedLabeL_CH1->setText(QApplication::translate("MainWindow", "Paused", Q_NULLPTR));
         signalGenGroup_CH1->setTitle(QApplication::translate("MainWindow", "Signal Gen CH1", Q_NULLPTR));
         waveformLabel_CH1->setText(QApplication::translate("MainWindow", "Waveform", Q_NULLPTR));
         frequencyLabel_CH1->setText(QApplication::translate("MainWindow", "Frequency", Q_NULLPTR));
@@ -1768,14 +1825,7 @@ public:
         dcOffsetLabel_CH2->setText(QApplication::translate("MainWindow", "Offset", Q_NULLPTR));
         dcOffsetValue_CH2->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
         multimeterGroup->setTitle(QApplication::translate("MainWindow", "Multimeter++", Q_NULLPTR));
-        multimeterMaxLabel->setText(QApplication::translate("MainWindow", " Max", Q_NULLPTR));
-        multimeterMinLabel->setText(QApplication::translate("MainWindow", " Min", Q_NULLPTR));
-        multimeterMeanLabel->setText(QApplication::translate("MainWindow", " Mean", Q_NULLPTR));
-        multimeterRmsLabel->setText(QApplication::translate("MainWindow", " RMS", Q_NULLPTR));
-        multimeterPauseCheckBox->setText(QApplication::translate("MainWindow", "Paused", Q_NULLPTR));
-        multimeterResistanceLabel->setText(QApplication::translate("MainWindow", "Series Resistance", Q_NULLPTR));
         multimeterModeLabel->setText(QApplication::translate("MainWindow", "Mode", Q_NULLPTR));
-        multimeterResistanceSelect->setSuffix(QApplication::translate("MainWindow", "\316\251", Q_NULLPTR));
         multimeterModeSelect->clear();
         multimeterModeSelect->insertItems(0, QStringList()
          << QApplication::translate("MainWindow", "V", Q_NULLPTR)
@@ -1783,6 +1833,13 @@ public:
          << QApplication::translate("MainWindow", "R", Q_NULLPTR)
          << QApplication::translate("MainWindow", "C", Q_NULLPTR)
         );
+        multimeterResistanceLabel->setText(QApplication::translate("MainWindow", "Series Resistance", Q_NULLPTR));
+        multimeterResistanceSelect->setSuffix(QApplication::translate("MainWindow", "\316\251", Q_NULLPTR));
+        multimeterMaxLabel->setText(QApplication::translate("MainWindow", " Max", Q_NULLPTR));
+        multimeterMinLabel->setText(QApplication::translate("MainWindow", " Min", Q_NULLPTR));
+        multimeterMeanLabel->setText(QApplication::translate("MainWindow", " Mean", Q_NULLPTR));
+        multimeterRmsLabel->setText(QApplication::translate("MainWindow", " RMS", Q_NULLPTR));
+        multimeterPauseCheckBox->setText(QApplication::translate("MainWindow", "Paused", Q_NULLPTR));
         psuGroup->setTitle(QApplication::translate("MainWindow", "PSU", Q_NULLPTR));
         lockPsuCheckBox->setText(QApplication::translate("MainWindow", "Lock PSU", Q_NULLPTR));
         controller_fg->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER", Q_NULLPTR));
@@ -1798,7 +1855,6 @@ public:
         digitalOutCheckbox_CH1->setText(QApplication::translate("MainWindow", "Pin 1", Q_NULLPTR));
         digitalOutCheckbox_CH4->setText(QApplication::translate("MainWindow", "Pin 4", Q_NULLPTR));
         busSifferGroup_CH1->setTitle(QApplication::translate("MainWindow", "Logic Analyzer CH1", Q_NULLPTR));
-        pause_LA->setText(QApplication::translate("MainWindow", "Pause", Q_NULLPTR));
         serialDecodingCheck_CH1->setTitle(QApplication::translate("MainWindow", "Serial Decoding", Q_NULLPTR));
         serialDecodingModeSelect_CH1->clear();
         serialDecodingModeSelect_CH1->insertItems(0, QStringList()
@@ -1814,6 +1870,7 @@ public:
          << QApplication::translate("MainWindow", "SPI", Q_NULLPTR)
          << QApplication::translate("MainWindow", "I2C", Q_NULLPTR)
         );
+        pause_LA->setText(QApplication::translate("MainWindow", "Paused", Q_NULLPTR));
         menuOscilloscope_2->setTitle(QApplication::translate("MainWindow", "Oscilloscope", Q_NULLPTR));
         menuGain_2->setTitle(QApplication::translate("MainWindow", "Gain", Q_NULLPTR));
         menuCH1_Stats->setTitle(QApplication::translate("MainWindow", "CH1 Stats", Q_NULLPTR));

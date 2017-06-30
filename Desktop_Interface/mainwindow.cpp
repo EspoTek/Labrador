@@ -43,8 +43,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->debugButton2->setVisible(0);
     ui->debugButton3->setVisible(0);
     ui->debugConsole->setVisible(0);
+#ifndef PLATFORM_ANDROID
     ui->console1->setVisible(0);
     ui->console2->setVisible(0);
+#endif
     ui->timeBaseSlider->setVisible(0);
 
     //ui->pausedLabel_CH2->setVisible(0);
@@ -85,6 +87,8 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete(void)), ui->deviceConnected, SLOT(resetUsbState(bool)));
     #endif
     #ifdef PLATFORM_ANDROID
+        //hide second pause label
+        ui->pausedLabel_CH2->setVisible(false);
         //Capture pinches
         ui->scopeAxes->grabGesture(Qt::PinchGesture);
         ui->scopeAxes->installEventFilter(this);
@@ -132,8 +136,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
     //ui->console1->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
     //ui->console2->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
-    ui->frequencyValue_CH2->setValue(912);
-    ui->amplitudeValue_CH2->setValue(2);
+    //ui->frequencyValue_CH2->setValue(912);
+    //ui->amplitudeValue_CH2->setValue(2);
     ui->controller_iso->doNotTouchGraph = false;
 
     calibrationMessages = new QMessageBox();
@@ -1203,7 +1207,7 @@ void MainWindow::screenRotateEvent(Qt::ScreenOrientation orientation)
     oldLayout->removeWidget(ui->deviceConnected);
 
     QLayout *newLayout;
-    if(orientation == Qt::LandscapeOrientation){
+    if((orientation == Qt::LandscapeOrientation) || (orientation == Qt::InvertedLandscapeOrientation)){
       newLayout = new QHBoxLayout(this);
       ui->stackedWidget->setVisible(0);
     } else {

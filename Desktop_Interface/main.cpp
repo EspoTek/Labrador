@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 #ifdef PLATFORM_ANDROID
     //Android default font sizes are just plain ridiculous
     QFont font = qApp->font();
-    font.setPointSize(6);
+    font.setPointSize(8);
     qApp->setFont(font);
 #endif
 
