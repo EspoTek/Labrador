@@ -1757,9 +1757,27 @@
      <addaction name="actionMA"/>
      <addaction name="actionA"/>
     </widget>
+    <widget class="QMenu" name="menuRange_R">
+     <property name="title">
+      <string>Range (R)</string>
+     </property>
+     <addaction name="actionAutoR"/>
+     <addaction name="actionOhm"/>
+     <addaction name="actionKOhm"/>
+    </widget>
+    <widget class="QMenu" name="menuRange_C">
+     <property name="title">
+      <string>Range (C)</string>
+     </property>
+     <addaction name="actionAutoC"/>
+     <addaction name="actionNF"/>
+     <addaction name="action_F"/>
+    </widget>
     <addaction name="separator"/>
     <addaction name="menuV_2"/>
     <addaction name="menuI_2"/>
+    <addaction name="menuRange_R"/>
+    <addaction name="menuRange_C"/>
    </widget>
    <widget class="QMenu" name="menuBus_Sniffer">
     <property name="title">
@@ -2413,6 +2431,60 @@
     <string>Old Person Mode</string>
    </property>
   </action>
+  <action name="actionAutoR">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto</string>
+   </property>
+  </action>
+  <action name="actionOhm">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Ω</string>
+   </property>
+  </action>
+  <action name="actionKOhm">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>kΩ</string>
+   </property>
+  </action>
+  <action name="actionAutoC">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto</string>
+   </property>
+  </action>
+  <action name="actionNF">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>nF</string>
+   </property>
+  </action>
+  <action name="action_F">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>μF</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -2529,6 +2601,9 @@
     <signal>sendVmax_CH2(double)</signal>
     <signal>sendVmin_CH2(double)</signal>
     <signal>sendVmean_CH2(double)</signal>
+    <signal>multimeterREnabled(int)</signal>
+    <signal>multimeterRMS(double)</signal>
+    <signal>sendMultimeterLabel4(QString)</signal>
     <slot>setWindow(int)</slot>
     <slot>setVoltageRange(QWheelEvent*)</slot>
     <slot>pauseEnable_CH1(bool)</slot>
@@ -2558,6 +2633,7 @@
     <slot>triggerGroupStateChange(bool)</slot>
     <slot>pauseEnable_multimeter(bool)</slot>
     <slot>timerTick()</slot>
+    <slot>rSourceChanged(int)</slot>
    </slots>
   </customwidget>
   <customwidget>

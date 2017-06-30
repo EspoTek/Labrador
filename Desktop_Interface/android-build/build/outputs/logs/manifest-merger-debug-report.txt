@@ -31,6 +31,8 @@ ADDED from AndroidManifest.xml:4:9
 		ADDED from AndroidManifest.xml:4:296
 	android:configChanges
 		ADDED from AndroidManifest.xml:4:19
+	android:icon
+		ADDED from AndroidManifest.xml:4:327
 	android:name
 		ADDED from AndroidManifest.xml:4:173
 intent-filter#android.hardware.usb.action.USB_DEVICE_ATTACHED+android.intent.action.MAIN+android.intent.category.LAUNCHER

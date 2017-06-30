@@ -137,8 +137,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->controller_iso->doNotTouchGraph = false;
 
     calibrationMessages = new QMessageBox();
+#ifndef PLATFORM_ANDROID
     ui->multimeterRLabel->setVisible(false);
     ui->multimeterRComboBox->setVisible(false);
+#endif
+
+    connect(ui->controller_iso, SIGNAL(multimeterREnabled(int)), this, SLOT(rSourceIndexChanged(int)));
+    connect(ui->controller_iso, SIGNAL(multimeterRMS(double)), ui->multimeterRmsDisplay, SLOT(display(double)));
+    connect(ui->controller_iso, SIGNAL(sendMultimeterLabel4(QString)), ui->multimeterRmsLabel, SLOT(setText(QString)));
 
 }
 
@@ -1404,8 +1410,10 @@ void MainWindow::calibrateStage3(){
 
 void MainWindow::rSourceIndexChanged(int newSource){
     if(newSource == 0){
+#ifndef PLATFORM_ANDROID
         ui->multimeterRLabel->setVisible(true);
         ui->multimeterRComboBox->setVisible(true);
+#endif
         ui->signalGenGroup_CH2->setEnabled(false);
         ui->psuGroup->setEnabled(true);
         ui->waveformSelect_CH2->setCurrentText("DC");
@@ -1413,8 +1421,10 @@ void MainWindow::rSourceIndexChanged(int newSource){
         ui->amplitudeValue_CH2->setValue(3);
     }
     if(newSource == 1){
+#ifndef PLATFORM_ANDROID
         ui->multimeterRLabel->setVisible(true);
         ui->multimeterRComboBox->setVisible(true);
+#endif
         ui->psuGroup->setEnabled(false);
         ui->signalGenGroup_CH2->setEnabled(true);
         ui->psuSlider->setValue(100);
@@ -1423,8 +1433,10 @@ void MainWindow::rSourceIndexChanged(int newSource){
     if(newSource == 254){
         ui->signalGenGroup_CH2->setEnabled(false);
         ui->psuGroup->setEnabled(true);
+#ifndef PLATFORM_ANDROID
         ui->multimeterRLabel->setVisible(false);
         ui->multimeterRComboBox->setVisible(false);
+#endif
         ui->waveformSelect_CH2->setCurrentText("Square");
         ui->frequencyValue_CH2->setValue(4);
         ui->dcOffsetValue_CH2->setValue(0);
@@ -1434,8 +1446,10 @@ void MainWindow::rSourceIndexChanged(int newSource){
     if(newSource == 255){
         ui->signalGenGroup_CH2->setEnabled(true);
         ui->psuGroup->setEnabled(true);
+#ifndef PLATFORM_ANDROID
         ui->multimeterRLabel->setVisible(false);
         ui->multimeterRComboBox->setVisible(false);
+#endif
     }
 }
 

@@ -34,6 +34,7 @@
         <activity
             android:name="com.EspoTek.Labrador.Java.androidInterface"
             android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation"
+            android:icon="@mipmap/ic_launcher"
             android:label="Labrador"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified" >
