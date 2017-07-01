@@ -136,8 +136,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
     //ui->console1->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
     //ui->console2->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
-    //ui->frequencyValue_CH2->setValue(912);
-    //ui->amplitudeValue_CH2->setValue(2);
+    ui->frequencyValue_CH2->setValue(369);
+    ui->amplitudeValue_CH2->setValue(2);
     ui->controller_iso->doNotTouchGraph = false;
 
     calibrationMessages = new QMessageBox();

@@ -6,13 +6,13 @@ ADDED from AndroidManifest.xml:2:1
 	android:versionName
 		ADDED from AndroidManifest.xml:2:111
 	android:versionCode
-		ADDED from AndroidManifest.xml:2:137
+		ADDED from AndroidManifest.xml:2:138
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
 	xmlns:android
 		ADDED from AndroidManifest.xml:2:52
 	android:installLocation
-		ADDED from AndroidManifest.xml:2:161
+		ADDED from AndroidManifest.xml:2:162
 application
 ADDED from AndroidManifest.xml:3:5
 	android:label

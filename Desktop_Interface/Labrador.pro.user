@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.1.0, 2017-06-30T13:19:08. -->
+<!-- Written by QtCreator 4.1.0, 2017-07-01T12:55:20. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -8,7 +8,7 @@
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">2</value>
+  <value type="int">0</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
