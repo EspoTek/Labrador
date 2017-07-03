@@ -224,8 +224,8 @@ bool main_vendor_enable(void)
 {
 	main_b_vendor_enable = true;
 	firstFrame = 1;
-	#ifndef SINGLE_ENDPOINT_INTERFACE
 	udd_ep_run(0x81, false, (uint8_t *)&isoBuf[0], 125, iso_callback);
+	#ifndef SINGLE_ENDPOINT_INTERFACE
 	udd_ep_run(0x82, false, (uint8_t *)&isoBuf[125], 125, iso_callback);
 	udd_ep_run(0x83, false, (uint8_t *)&isoBuf[250], 125, iso_callback);
 	udd_ep_run(0x84, false, (uint8_t *)&isoBuf[375], 125, iso_callback);
