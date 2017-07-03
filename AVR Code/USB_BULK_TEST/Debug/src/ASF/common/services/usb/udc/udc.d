@@ -31,6 +31,7 @@ src/ASF/common/services/usb/udc/udc.d \
  ../src/ASF/common/utils/interrupt.h \
  ../src/ASF/common/utils/interrupt/interrupt_avr8.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
+ ../src/globals.h ../src/unified_debug_structure.h \
  ../src/ASF/common/services/usb/class/vendor/device/udi_vendor_conf.h \
  ../src/ASF/common/services/usb/class/vendor/device/udi_vendor.h \
  ../src/ASF/common/services/usb/usb_protocol.h \
@@ -42,8 +43,7 @@ src/ASF/common/services/usb/udc/udc.d \
  ../src/ASF/common/services/usb/udc/udc_desc.h \
  ../src/ASF/common/services/usb/udc/udi.h ../src/ui.h ../src/main.h \
  ../src/ASF/common/services/usb/udc/udd.h \
- ../src/ASF/common/services/usb/udc/udc.h ../src/globals.h \
- ../src/unified_debug_structure.h ../src/tiny_dma.h \
+ ../src/ASF/common/services/usb/udc/udc.h ../src/tiny_dma.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\4.9.2\include\stdarg.h \
  ../src/asf.h ../src/ASF/xmega/drivers/cpu/ccp.h \
@@ -133,6 +133,10 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
 
+../src/globals.h:
+
+../src/unified_debug_structure.h:
+
 ../src/ASF/common/services/usb/class/vendor/device/udi_vendor_conf.h:
 
 ../src/ASF/common/services/usb/class/vendor/device/udi_vendor.h:
@@ -160,10 +164,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../src/ASF/common/services/usb/udc/udd.h:
 
 ../src/ASF/common/services/usb/udc/udc.h:
-
-../src/globals.h:
-
-../src/unified_debug_structure.h:
 
 ../src/tiny_dma.h:
 

@@ -249,13 +249,23 @@ bool main_setup_in_received(void)
 }
 
 void iso_callback(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t ep){
-	unsigned short offset = (ep - 0x81) * 125;
-	if (global_mode < 5){
-		if(ep > 0x83) offset += 375; //Shift from range [375, 750]  to [750, 1125]  Don't do this in modes 6 and 7 because they use 750 byte long sub-buffers.
-		udd_ep_run(ep, false, (uint8_t *)&isoBuf[usb_state * HALFPACKET_SIZE + offset], 125, iso_callback);
-	}
-	else{
-		udd_ep_run(ep, false, (uint8_t *)&isoBuf[usb_state * PACKET_SIZE + offset], 125, iso_callback);
-	}
-	return;
+	#ifndef SINGLE_ENDPOINT_INTERFACE
+		unsigned short offset = (ep - 0x81) * 125;
+		if (global_mode < 5){
+			if(ep > 0x83) offset += 375; //Shift from range [375, 750]  to [750, 1125]  Don't do this in modes 6 and 7 because they use 750 byte long sub-buffers.
+			udd_ep_run(ep, false, (uint8_t *)&isoBuf[usb_state * HALFPACKET_SIZE + offset], 125, iso_callback);
+		}
+		else{
+			udd_ep_run(ep, false, (uint8_t *)&isoBuf[usb_state * PACKET_SIZE + offset], 125, iso_callback);
+		}
+		return;
+	#else
+			if (global_mode < 1){
+		udd_ep_run(0x81, false, (uint8_t *)&isoBuf[usb_state * HALFPACKET_SIZE], PACKET_SIZE, iso_callback);
+			}
+			else{
+		udd_ep_run(0x81, false, (uint8_t *)&isoBuf[usb_state * PACKET_SIZE], PACKET_SIZE, iso_callback);
+			}
+
+	#endif
 }

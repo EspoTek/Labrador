@@ -48,6 +48,7 @@
 #define _CONF_USB_H_
 
 #include "compiler.h"
+#include "globals.h"
 
 
 /**
@@ -129,7 +130,11 @@
 #if SAMG55
 #define UDI_VENDOR_EPS_SIZE_ISO_FS   0
 #else
-#define UDI_VENDOR_EPS_SIZE_ISO_FS   128
+	#ifdef SINGLE_ENDPOINT_INTERFACE
+			#define UDI_VENDOR_EPS_SIZE_ISO_FS   1023
+	#else
+		#define UDI_VENDOR_EPS_SIZE_ISO_FS   128
+	#endif
 #endif
 
 //! endpoints size for high speed

@@ -51,6 +51,7 @@ src/ASF/common/services/usb/class/vendor/device/example/atxmega256a3bu_xmega_a3b
  ../src/ASF/common/services/clock/pll.h \
  ../src/ASF/common/services/clock/xmega/pll.h \
  ../src/ASF/common/services/usb/udc/udc.h ../src/config/conf_usb.h \
+ ../src/globals.h ../src/unified_debug_structure.h \
  ../src/ASF/common/services/usb/class/vendor/device/udi_vendor_conf.h \
  ../src/ASF/common/services/usb/class/vendor/device/udi_vendor.h \
  ../src/ASF/common/services/usb/usb_protocol.h \
@@ -172,6 +173,10 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../src/ASF/common/services/usb/udc/udc.h:
 
 ../src/config/conf_usb.h:
+
+../src/globals.h:
+
+../src/unified_debug_structure.h:
 
 ../src/ASF/common/services/usb/class/vendor/device/udi_vendor_conf.h:
 

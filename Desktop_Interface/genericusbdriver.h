@@ -15,7 +15,9 @@
 #include "buffercontrol.h"
 #include "unified_debug_structure.h"
 
-#define ISO_PACKET_SIZE 125
+#define ISO_PACKET_SIZE 750
+#define NUM_ISO_ENDPOINTS (1)
+
 #ifdef PLATFORM_WINDOWS
 #define ISO_PACKETS_PER_CTX 17
 #define NUM_FUTURE_CTX 40
@@ -24,7 +26,6 @@
 #define NUM_FUTURE_CTX 34
 #endif
 #define ISO_TIMER_PERIOD 1
-#define NUM_ISO_ENDPOINTS (6)
 #define MAX_OVERLAP (NUM_FUTURE_CTX*NUM_ISO_ENDPOINTS + 1)
 
 #define RECOVERY_PERIOD 1000

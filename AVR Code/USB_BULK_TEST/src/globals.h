@@ -9,9 +9,11 @@
 #ifndef GLOBALS_H_
 #define GLOBALS_H_
 
-//#define VERO
+#define SINGLE_ENDPOINT_INTERFACE
+
+#define VERO
 #define OVERCLOCK 48
-#define FIRMWARE_VERSION_ID 0x0001
+#define FIRMWARE_VERSION_ID 0x0002
 #define ATMEL_DFU_OFFSET 0x01fc
 
 #define TC_SPISLAVE TCD0
