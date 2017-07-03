@@ -173,6 +173,34 @@ void main_resume_action(void)
 
 void main_sof_action(void)
 {
+	#ifdef SINGLE_ENDPOINT_INTERFACE
+	switch(global_mode){
+		case 0:
+		tiny_dma_loop_mode_0();
+		break;
+		case 1:
+		tiny_dma_loop_mode_1();
+		break;
+		case 2:
+		tiny_dma_loop_mode_2();
+		break;
+		case 3:
+		tiny_dma_loop_mode_3();
+		break;
+		case 4:
+		tiny_dma_loop_mode_4();
+		break;
+		case 6:
+		tiny_dma_loop_mode_6();
+		break;
+		case 7:
+		tiny_dma_loop_mode_7();
+		break;
+		default:
+		break;
+	}
+	#endif
+
 	uds.trfcntL0 = DMA.CH0.TRFCNTL;
 	uds.trfcntH0 = DMA.CH0.TRFCNTH;	
 	uds.trfcntL1 = DMA.CH1.TRFCNTL;
@@ -211,12 +239,17 @@ void main_sof_action(void)
 		currentTrfcnt = DMA.CH0.TRFCNT;
 		debugOnNextEnd = 0;
 	}
-	if(global_mode < 5){
-		usb_state = (DMA.CH0.TRFCNT < 375) ? 1 : 0;
-	}
-	else{
-		usb_state = (DMA.CH0.TRFCNT < 750) ? 1 : 0;
-	}
+	#ifndef SINGLE_ENDPOINT_INTERFACE
+		if(global_mode < 5){
+			usb_state = (DMA.CH0.TRFCNT < 375) ? 1 : 0;
+		}
+		else{
+			usb_state = (DMA.CH0.TRFCNT < 750) ? 1 : 0;
+		}
+	#else
+		usb_state = !usb_state;
+	#endif
+		
 	return;
 }
 
@@ -262,12 +295,6 @@ void iso_callback(udd_ep_status_t status, iram_size_t nb_transfered, udd_ep_id_t
 		}
 		return;
 	#else
-			if (global_mode < 1){
-		udd_ep_run(0x81, false, (uint8_t *)&isoBuf[usb_state * HALFPACKET_SIZE], PACKET_SIZE, iso_callback);
-			}
-			else{
 		udd_ep_run(0x81, false, (uint8_t *)&isoBuf[usb_state * PACKET_SIZE], PACKET_SIZE, iso_callback);
-			}
-
 	#endif
 }
