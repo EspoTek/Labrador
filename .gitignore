@@ -1,2 +1,7 @@
 *.csv
 /.project
+
+.DS_Store
+._*
+Thumbs.db
+*~
