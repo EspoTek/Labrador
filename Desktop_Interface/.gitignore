@@ -1,0 +1,13 @@
+# Compiled object files
+/*.o
+/*.obj
+
+# Qmake generated files
+/.qmake.cache
+/.qmake.stash
+/*.pro.user
+/*.pro.user.*
+/moc/*
+/qrc_*.cpp
+/ui_*.h
+/Makefile*
