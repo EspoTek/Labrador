@@ -106,6 +106,12 @@ unix:!android:!macx:LIBS += -Lbuild_linux/libusb -lusb-1.0  ##I suspect the -L h
 unix:!android:!macx:INCLUDEPATH += build_linux/libusb
 unix:!android:!macx:DEPENDPATH += build_linux/libusb
 
+#libdfuprog include
+unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib -ldfuprog-0.9
+unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
+unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
+
+
 #############################################################
 ################    MAC OSX BUILD ONLY    ##################
 ###########################################################

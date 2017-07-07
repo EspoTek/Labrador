@@ -8,7 +8,7 @@ extern "C"
 unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
     qDebug() << "Testing libdfuprog";
-    dfuprog_virtual_cmd("dfu-programmer atxmega32a4u");
+    dfuprog_virtual_cmd("dfu-programmer atxmega32a4u erase");
 
     qDebug() << "unixUsbDriver created!";
     tv.tv_sec = 0;
@@ -138,7 +138,7 @@ unsigned char unixUsbDriver::usbIsoInit(void){
                     qDebug() << "isoCtx submitted successfully!";
                     qDebug() << "[n, k] = " << n << k;
                     qDebug() << "t = " << t;
-                    qDebug() << "Delay = " << midBufferOffsets[k];
+                    qDebug() << "Delay = " << 0;//midBufferOffsets[k];
                 }
             }
         }
