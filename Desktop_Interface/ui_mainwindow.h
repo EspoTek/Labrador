@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.1
+** Created by: Qt User Interface Compiler version 5.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -1542,200 +1542,200 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "EspoTek Labrador", Q_NULLPTR));
-        actionGainAuto->setText(QApplication::translate("MainWindow", "Auto", Q_NULLPTR));
-        actionGain0_5->setText(QApplication::translate("MainWindow", "0.5", Q_NULLPTR));
-        actionGain1->setText(QApplication::translate("MainWindow", "1", Q_NULLPTR));
-        actionGain2->setText(QApplication::translate("MainWindow", "2", Q_NULLPTR));
-        actionGain4->setText(QApplication::translate("MainWindow", "4", Q_NULLPTR));
-        actionGain8->setText(QApplication::translate("MainWindow", "8", Q_NULLPTR));
-        actionGain16->setText(QApplication::translate("MainWindow", "16", Q_NULLPTR));
-        actionGain32->setText(QApplication::translate("MainWindow", "32", Q_NULLPTR));
-        actionGain64->setText(QApplication::translate("MainWindow", "64", Q_NULLPTR));
-        actionCalibrate->setText(QApplication::translate("MainWindow", "Calibrate (coming soon!)", Q_NULLPTR));
-        actionCursor_Stats->setText(QApplication::translate("MainWindow", "Cursor Stats", Q_NULLPTR));
-        actionMax->setText(QApplication::translate("MainWindow", "Max", Q_NULLPTR));
-        actionMin->setText(QApplication::translate("MainWindow", "Min", Q_NULLPTR));
-        actionMean->setText(QApplication::translate("MainWindow", "Mean", Q_NULLPTR));
-        actionRMS->setText(QApplication::translate("MainWindow", "RMS", Q_NULLPTR));
-        actionMax_2->setText(QApplication::translate("MainWindow", "Max", Q_NULLPTR));
-        actionMin_2->setText(QApplication::translate("MainWindow", "Min", Q_NULLPTR));
-        actionMean_2->setText(QApplication::translate("MainWindow", "Mean", Q_NULLPTR));
-        actionRMS_2->setText(QApplication::translate("MainWindow", "RMS", Q_NULLPTR));
-        actionMV->setText(QApplication::translate("MainWindow", "mV", Q_NULLPTR));
-        actionV->setText(QApplication::translate("MainWindow", "V", Q_NULLPTR));
-        actionAutoV->setText(QApplication::translate("MainWindow", "Auto", Q_NULLPTR));
-        actionAutoI->setText(QApplication::translate("MainWindow", "Auto", Q_NULLPTR));
-        actionMA->setText(QApplication::translate("MainWindow", "mA", Q_NULLPTR));
-        actionA->setText(QApplication::translate("MainWindow", "A", Q_NULLPTR));
-        action300->setText(QApplication::translate("MainWindow", "300", Q_NULLPTR));
-        action600->setText(QApplication::translate("MainWindow", "600", Q_NULLPTR));
-        action1200->setText(QApplication::translate("MainWindow", "1200", Q_NULLPTR));
-        action2400->setText(QApplication::translate("MainWindow", "2400", Q_NULLPTR));
-        action4800->setText(QApplication::translate("MainWindow", "4800", Q_NULLPTR));
-        action9600->setText(QApplication::translate("MainWindow", "9600", Q_NULLPTR));
-        action14400->setText(QApplication::translate("MainWindow", "14400", Q_NULLPTR));
-        action19200->setText(QApplication::translate("MainWindow", "19200", Q_NULLPTR));
-        action28800->setText(QApplication::translate("MainWindow", "28800", Q_NULLPTR));
-        action38400->setText(QApplication::translate("MainWindow", "38400", Q_NULLPTR));
-        action57600->setText(QApplication::translate("MainWindow", "57600 (Glitchy)", Q_NULLPTR));
-        action115200->setText(QApplication::translate("MainWindow", "115200 (Glitchy)", Q_NULLPTR));
-        action8->setText(QApplication::translate("MainWindow", "8", Q_NULLPTR));
-        actionNone->setText(QApplication::translate("MainWindow", "None", Q_NULLPTR));
-        action300_2->setText(QApplication::translate("MainWindow", "300", Q_NULLPTR));
-        action600_2->setText(QApplication::translate("MainWindow", "600", Q_NULLPTR));
-        action1200_2->setText(QApplication::translate("MainWindow", "1200", Q_NULLPTR));
-        action2400_2->setText(QApplication::translate("MainWindow", "2400", Q_NULLPTR));
-        action4800_2->setText(QApplication::translate("MainWindow", "4800", Q_NULLPTR));
-        action9600_2->setText(QApplication::translate("MainWindow", "9600", Q_NULLPTR));
-        action14400_2->setText(QApplication::translate("MainWindow", "14400", Q_NULLPTR));
-        action19200_2->setText(QApplication::translate("MainWindow", "19200", Q_NULLPTR));
-        action28800_2->setText(QApplication::translate("MainWindow", "28800", Q_NULLPTR));
-        action38400_2->setText(QApplication::translate("MainWindow", "38400", Q_NULLPTR));
-        action57600_2->setText(QApplication::translate("MainWindow", "57600 (Glitchy)", Q_NULLPTR));
-        action115200_2->setText(QApplication::translate("MainWindow", "115200 (Glitchy)", Q_NULLPTR));
-        action8_2->setText(QApplication::translate("MainWindow", "8", Q_NULLPTR));
-        actionNone_2->setText(QApplication::translate("MainWindow", "None", Q_NULLPTR));
-        actionRecord->setText(QApplication::translate("MainWindow", "Record", Q_NULLPTR));
-        actionForce_Square->setText(QApplication::translate("MainWindow", "Force Square Display (Not Officially Supported)", Q_NULLPTR));
-        actionAutomatically_Enable_Cursors->setText(QApplication::translate("MainWindow", "Enable Cursors on Click", Q_NULLPTR));
-        action60FPS->setText(QApplication::translate("MainWindow", "60FPS", Q_NULLPTR));
-        action30FPS->setText(QApplication::translate("MainWindow", "30FPS", Q_NULLPTR));
-        action20FPS->setText(QApplication::translate("MainWindow", "20FPS", Q_NULLPTR));
-        action15FPS->setText(QApplication::translate("MainWindow", "15FPS", Q_NULLPTR));
-        action10FPS->setText(QApplication::translate("MainWindow", "10FPS", Q_NULLPTR));
-        action5FPS->setText(QApplication::translate("MainWindow", "5FPS", Q_NULLPTR));
-        actionAuto_Lock->setText(QApplication::translate("MainWindow", "Auto Lock", Q_NULLPTR));
-        actionSnap_to_Cursors->setText(QApplication::translate("MainWindow", "Snap to Cursors", Q_NULLPTR));
-        actionEnter_Manually->setText(QApplication::translate("MainWindow", "Enter Manually", Q_NULLPTR));
-        actionTake_Snapshot->setText(QApplication::translate("MainWindow", "Take Snapshot", Q_NULLPTR));
-        actionAutoR->setText(QApplication::translate("MainWindow", "Auto", Q_NULLPTR));
-        actionOhm->setText(QApplication::translate("MainWindow", "\316\251", Q_NULLPTR));
-        actionKOhm->setText(QApplication::translate("MainWindow", "k\316\251", Q_NULLPTR));
-        actionAutoC->setText(QApplication::translate("MainWindow", "Auto", Q_NULLPTR));
-        actionNF->setText(QApplication::translate("MainWindow", "nF", Q_NULLPTR));
-        action_F->setText(QApplication::translate("MainWindow", "\316\274F", Q_NULLPTR));
-        cursorStatsLabel->setText(QApplication::translate("MainWindow", "cursorStatsLabel", Q_NULLPTR));
-        controller_fg->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER", Q_NULLPTR));
-        deviceConnected->setText(QApplication::translate("MainWindow", "Device Not Connected!", Q_NULLPTR));
-        scopeGroup_CH1->setTitle(QApplication::translate("MainWindow", "Oscilloscope CH1", Q_NULLPTR));
-        pausedLabeL_CH1->setText(QApplication::translate("MainWindow", "Paused", Q_NULLPTR));
-        acCoupledLabel_CH1->setText(QApplication::translate("MainWindow", "AC Coupled", Q_NULLPTR));
-        filterLabel_CH1->setText(QApplication::translate("MainWindow", "Filter", Q_NULLPTR));
-        doubleSampleLabel->setText(QApplication::translate("MainWindow", "Double Sample Rate", Q_NULLPTR));
-        voltageInfoMaxLabel_CH1->setText(QApplication::translate("MainWindow", " Max", Q_NULLPTR));
-        voltageInfoMinLabel_CH1->setText(QApplication::translate("MainWindow", " Min", Q_NULLPTR));
-        VoltageInfoMeanLabel_CH1->setText(QApplication::translate("MainWindow", " Mean", Q_NULLPTR));
-        voltageInfoRmsLabel_CH1->setText(QApplication::translate("MainWindow", " RMS", Q_NULLPTR));
-        cursorGroup->setTitle(QApplication::translate("MainWindow", "Cursor", Q_NULLPTR));
-        cursorHoriCheck->setText(QApplication::translate("MainWindow", "Horizontal", Q_NULLPTR));
-        cursorVertCheck->setText(QApplication::translate("MainWindow", "Vertical", Q_NULLPTR));
-        makeCursorsNicer->setText(QApplication::translate("MainWindow", "CURSOR ENABLER", Q_NULLPTR));
-        scopeGroup_CH2->setTitle(QApplication::translate("MainWindow", "Oscilloscope CH2", Q_NULLPTR));
-        pausedLabel_CH2->setText(QApplication::translate("MainWindow", "Paused", Q_NULLPTR));
-        acCoupledLabel_CH2->setText(QApplication::translate("MainWindow", "AC Coupled", Q_NULLPTR));
-        filterLabel_CH2->setText(QApplication::translate("MainWindow", "Filter", Q_NULLPTR));
-        xyDisplayLabel->setText(QApplication::translate("MainWindow", "X-Y Display", Q_NULLPTR));
-        voltageInfoMaxLabel_CH2->setText(QApplication::translate("MainWindow", " Max", Q_NULLPTR));
-        voltageInfoMinLabel_CH2->setText(QApplication::translate("MainWindow", " Min", Q_NULLPTR));
-        VoltageInfoMeanLabel_CH2->setText(QApplication::translate("MainWindow", " Mean", Q_NULLPTR));
-        voltageInfoRmsLabel_CH2->setText(QApplication::translate("MainWindow", " RMS", Q_NULLPTR));
-        triggerGroup->setTitle(QApplication::translate("MainWindow", "Trigger", Q_NULLPTR));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "EspoTek Labrador", 0));
+        actionGainAuto->setText(QApplication::translate("MainWindow", "Auto", 0));
+        actionGain0_5->setText(QApplication::translate("MainWindow", "0.5", 0));
+        actionGain1->setText(QApplication::translate("MainWindow", "1", 0));
+        actionGain2->setText(QApplication::translate("MainWindow", "2", 0));
+        actionGain4->setText(QApplication::translate("MainWindow", "4", 0));
+        actionGain8->setText(QApplication::translate("MainWindow", "8", 0));
+        actionGain16->setText(QApplication::translate("MainWindow", "16", 0));
+        actionGain32->setText(QApplication::translate("MainWindow", "32", 0));
+        actionGain64->setText(QApplication::translate("MainWindow", "64", 0));
+        actionCalibrate->setText(QApplication::translate("MainWindow", "Calibrate (coming soon!)", 0));
+        actionCursor_Stats->setText(QApplication::translate("MainWindow", "Cursor Stats", 0));
+        actionMax->setText(QApplication::translate("MainWindow", "Max", 0));
+        actionMin->setText(QApplication::translate("MainWindow", "Min", 0));
+        actionMean->setText(QApplication::translate("MainWindow", "Mean", 0));
+        actionRMS->setText(QApplication::translate("MainWindow", "RMS", 0));
+        actionMax_2->setText(QApplication::translate("MainWindow", "Max", 0));
+        actionMin_2->setText(QApplication::translate("MainWindow", "Min", 0));
+        actionMean_2->setText(QApplication::translate("MainWindow", "Mean", 0));
+        actionRMS_2->setText(QApplication::translate("MainWindow", "RMS", 0));
+        actionMV->setText(QApplication::translate("MainWindow", "mV", 0));
+        actionV->setText(QApplication::translate("MainWindow", "V", 0));
+        actionAutoV->setText(QApplication::translate("MainWindow", "Auto", 0));
+        actionAutoI->setText(QApplication::translate("MainWindow", "Auto", 0));
+        actionMA->setText(QApplication::translate("MainWindow", "mA", 0));
+        actionA->setText(QApplication::translate("MainWindow", "A", 0));
+        action300->setText(QApplication::translate("MainWindow", "300", 0));
+        action600->setText(QApplication::translate("MainWindow", "600", 0));
+        action1200->setText(QApplication::translate("MainWindow", "1200", 0));
+        action2400->setText(QApplication::translate("MainWindow", "2400", 0));
+        action4800->setText(QApplication::translate("MainWindow", "4800", 0));
+        action9600->setText(QApplication::translate("MainWindow", "9600", 0));
+        action14400->setText(QApplication::translate("MainWindow", "14400", 0));
+        action19200->setText(QApplication::translate("MainWindow", "19200", 0));
+        action28800->setText(QApplication::translate("MainWindow", "28800", 0));
+        action38400->setText(QApplication::translate("MainWindow", "38400", 0));
+        action57600->setText(QApplication::translate("MainWindow", "57600 (Glitchy)", 0));
+        action115200->setText(QApplication::translate("MainWindow", "115200 (Glitchy)", 0));
+        action8->setText(QApplication::translate("MainWindow", "8", 0));
+        actionNone->setText(QApplication::translate("MainWindow", "None", 0));
+        action300_2->setText(QApplication::translate("MainWindow", "300", 0));
+        action600_2->setText(QApplication::translate("MainWindow", "600", 0));
+        action1200_2->setText(QApplication::translate("MainWindow", "1200", 0));
+        action2400_2->setText(QApplication::translate("MainWindow", "2400", 0));
+        action4800_2->setText(QApplication::translate("MainWindow", "4800", 0));
+        action9600_2->setText(QApplication::translate("MainWindow", "9600", 0));
+        action14400_2->setText(QApplication::translate("MainWindow", "14400", 0));
+        action19200_2->setText(QApplication::translate("MainWindow", "19200", 0));
+        action28800_2->setText(QApplication::translate("MainWindow", "28800", 0));
+        action38400_2->setText(QApplication::translate("MainWindow", "38400", 0));
+        action57600_2->setText(QApplication::translate("MainWindow", "57600 (Glitchy)", 0));
+        action115200_2->setText(QApplication::translate("MainWindow", "115200 (Glitchy)", 0));
+        action8_2->setText(QApplication::translate("MainWindow", "8", 0));
+        actionNone_2->setText(QApplication::translate("MainWindow", "None", 0));
+        actionRecord->setText(QApplication::translate("MainWindow", "Record", 0));
+        actionForce_Square->setText(QApplication::translate("MainWindow", "Force Square Display (Not Officially Supported)", 0));
+        actionAutomatically_Enable_Cursors->setText(QApplication::translate("MainWindow", "Enable Cursors on Click", 0));
+        action60FPS->setText(QApplication::translate("MainWindow", "60FPS", 0));
+        action30FPS->setText(QApplication::translate("MainWindow", "30FPS", 0));
+        action20FPS->setText(QApplication::translate("MainWindow", "20FPS", 0));
+        action15FPS->setText(QApplication::translate("MainWindow", "15FPS", 0));
+        action10FPS->setText(QApplication::translate("MainWindow", "10FPS", 0));
+        action5FPS->setText(QApplication::translate("MainWindow", "5FPS", 0));
+        actionAuto_Lock->setText(QApplication::translate("MainWindow", "Auto Lock", 0));
+        actionSnap_to_Cursors->setText(QApplication::translate("MainWindow", "Snap to Cursors", 0));
+        actionEnter_Manually->setText(QApplication::translate("MainWindow", "Enter Manually", 0));
+        actionTake_Snapshot->setText(QApplication::translate("MainWindow", "Take Snapshot", 0));
+        actionAutoR->setText(QApplication::translate("MainWindow", "Auto", 0));
+        actionOhm->setText(QApplication::translate("MainWindow", "\316\251", 0));
+        actionKOhm->setText(QApplication::translate("MainWindow", "k\316\251", 0));
+        actionAutoC->setText(QApplication::translate("MainWindow", "Auto", 0));
+        actionNF->setText(QApplication::translate("MainWindow", "nF", 0));
+        action_F->setText(QApplication::translate("MainWindow", "\316\274F", 0));
+        cursorStatsLabel->setText(QApplication::translate("MainWindow", "cursorStatsLabel", 0));
+        controller_fg->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER", 0));
+        deviceConnected->setText(QApplication::translate("MainWindow", "Device Not Connected!", 0));
+        scopeGroup_CH1->setTitle(QApplication::translate("MainWindow", "Oscilloscope CH1", 0));
+        pausedLabeL_CH1->setText(QApplication::translate("MainWindow", "Paused", 0));
+        acCoupledLabel_CH1->setText(QApplication::translate("MainWindow", "AC Coupled", 0));
+        filterLabel_CH1->setText(QApplication::translate("MainWindow", "Filter", 0));
+        doubleSampleLabel->setText(QApplication::translate("MainWindow", "Double Sample Rate", 0));
+        voltageInfoMaxLabel_CH1->setText(QApplication::translate("MainWindow", " Max", 0));
+        voltageInfoMinLabel_CH1->setText(QApplication::translate("MainWindow", " Min", 0));
+        VoltageInfoMeanLabel_CH1->setText(QApplication::translate("MainWindow", " Mean", 0));
+        voltageInfoRmsLabel_CH1->setText(QApplication::translate("MainWindow", " RMS", 0));
+        cursorGroup->setTitle(QApplication::translate("MainWindow", "Cursor", 0));
+        cursorHoriCheck->setText(QApplication::translate("MainWindow", "Horizontal", 0));
+        cursorVertCheck->setText(QApplication::translate("MainWindow", "Vertical", 0));
+        makeCursorsNicer->setText(QApplication::translate("MainWindow", "CURSOR ENABLER", 0));
+        scopeGroup_CH2->setTitle(QApplication::translate("MainWindow", "Oscilloscope CH2", 0));
+        pausedLabel_CH2->setText(QApplication::translate("MainWindow", "Paused", 0));
+        acCoupledLabel_CH2->setText(QApplication::translate("MainWindow", "AC Coupled", 0));
+        filterLabel_CH2->setText(QApplication::translate("MainWindow", "Filter", 0));
+        xyDisplayLabel->setText(QApplication::translate("MainWindow", "X-Y Display", 0));
+        voltageInfoMaxLabel_CH2->setText(QApplication::translate("MainWindow", " Max", 0));
+        voltageInfoMinLabel_CH2->setText(QApplication::translate("MainWindow", " Min", 0));
+        VoltageInfoMeanLabel_CH2->setText(QApplication::translate("MainWindow", " Mean", 0));
+        voltageInfoRmsLabel_CH2->setText(QApplication::translate("MainWindow", " RMS", 0));
+        triggerGroup->setTitle(QApplication::translate("MainWindow", "Trigger", 0));
         triggerChannelSelect->clear();
         triggerChannelSelect->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "CH1 (Rising)", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "CH1 (Falling)", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "CH2 (Rising)", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "CH2 (Falling)", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "CH1 (Rising)", 0)
+         << QApplication::translate("MainWindow", "CH1 (Falling)", 0)
+         << QApplication::translate("MainWindow", "CH2 (Rising)", 0)
+         << QApplication::translate("MainWindow", "CH2 (Falling)", 0)
         );
-        singleShotCheckBox->setText(QApplication::translate("MainWindow", "Single Shot", Q_NULLPTR));
-        multimeterGroup->setTitle(QApplication::translate("MainWindow", "Multimeter++", Q_NULLPTR));
+        singleShotCheckBox->setText(QApplication::translate("MainWindow", "Single Shot", 0));
+        multimeterGroup->setTitle(QApplication::translate("MainWindow", "Multimeter++", 0));
         multimeterModeSelect->clear();
         multimeterModeSelect->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "V", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "I", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "R", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "C", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "V", 0)
+         << QApplication::translate("MainWindow", "I", 0)
+         << QApplication::translate("MainWindow", "R", 0)
+         << QApplication::translate("MainWindow", "C", 0)
         );
-        multimeterMaxLabel->setText(QApplication::translate("MainWindow", " Max", Q_NULLPTR));
-        multimeterMinLabel->setText(QApplication::translate("MainWindow", " Min", Q_NULLPTR));
-        multimeterMeanLabel->setText(QApplication::translate("MainWindow", " Mean", Q_NULLPTR));
-        multimeterRmsLabel->setText(QApplication::translate("MainWindow", " RMS", Q_NULLPTR));
-        multimeterPauseCheckBox->setText(QApplication::translate("MainWindow", "Paused", Q_NULLPTR));
-        multimeterResistanceLabel->setText(QApplication::translate("MainWindow", "Series Resistance", Q_NULLPTR));
-        multimeterModeLabel->setText(QApplication::translate("MainWindow", "Mode", Q_NULLPTR));
-        multimeterResistanceSelect->setSuffix(QApplication::translate("MainWindow", "\316\251", Q_NULLPTR));
+        multimeterMaxLabel->setText(QApplication::translate("MainWindow", " Max", 0));
+        multimeterMinLabel->setText(QApplication::translate("MainWindow", " Min", 0));
+        multimeterMeanLabel->setText(QApplication::translate("MainWindow", " Mean", 0));
+        multimeterRmsLabel->setText(QApplication::translate("MainWindow", " RMS", 0));
+        multimeterPauseCheckBox->setText(QApplication::translate("MainWindow", "Paused", 0));
+        multimeterResistanceLabel->setText(QApplication::translate("MainWindow", "Series Resistance", 0));
+        multimeterModeLabel->setText(QApplication::translate("MainWindow", "Mode", 0));
+        multimeterResistanceSelect->setSuffix(QApplication::translate("MainWindow", "\316\251", 0));
         multimeterRComboBox->clear();
         multimeterRComboBox->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Signal Gen CH2", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "Power Supply", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "Signal Gen CH2", 0)
+         << QApplication::translate("MainWindow", "Power Supply", 0)
         );
-        multimeterRLabel->setText(QApplication::translate("MainWindow", "Source", Q_NULLPTR));
-        signalGenGroup_CH1->setTitle(QApplication::translate("MainWindow", "Signal Gen CH1", Q_NULLPTR));
-        waveformLabel_CH1->setText(QApplication::translate("MainWindow", "Waveform", Q_NULLPTR));
-        frequencyLabel_CH1->setText(QApplication::translate("MainWindow", "Frequency", Q_NULLPTR));
-        amplitudeLabel_CH1->setText(QApplication::translate("MainWindow", "Amplitude (Peak-Peak)", Q_NULLPTR));
-        amplitudeValue_CH1->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
-        dcOffsetLabel_CH1->setText(QApplication::translate("MainWindow", "Offset", Q_NULLPTR));
-        dcOffsetValue_CH1->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
-        signalGenGroup_CH2->setTitle(QApplication::translate("MainWindow", "Signal Gen CH2", Q_NULLPTR));
-        waveformLabel_CH2->setText(QApplication::translate("MainWindow", "Waveform", Q_NULLPTR));
-        frequencyLabel_CH2->setText(QApplication::translate("MainWindow", "Frequency", Q_NULLPTR));
-        amplitudeLabel_CH2->setText(QApplication::translate("MainWindow", "Amplitude (Peak-Peak)", Q_NULLPTR));
-        amplitudeValue_CH2->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
-        dcOffsetLabel_CH2->setText(QApplication::translate("MainWindow", "Offset", Q_NULLPTR));
-        dcOffsetValue_CH2->setSuffix(QApplication::translate("MainWindow", "V", Q_NULLPTR));
-        controller_iso->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS ISO DRIVER", Q_NULLPTR));
-        psuGroup->setTitle(QApplication::translate("MainWindow", "PSU", Q_NULLPTR));
-        lockPsuCheckBox->setText(QApplication::translate("MainWindow", "Lock PSU", Q_NULLPTR));
-        busSifferGroup_CH1->setTitle(QApplication::translate("MainWindow", "Logic Analyzer CH1", Q_NULLPTR));
-        pause_LA->setText(QApplication::translate("MainWindow", "Pause", Q_NULLPTR));
-        serialDecodingCheck_CH1->setTitle(QApplication::translate("MainWindow", "Serial Decoding", Q_NULLPTR));
+        multimeterRLabel->setText(QApplication::translate("MainWindow", "Source", 0));
+        signalGenGroup_CH1->setTitle(QApplication::translate("MainWindow", "Signal Gen CH1", 0));
+        waveformLabel_CH1->setText(QApplication::translate("MainWindow", "Waveform", 0));
+        frequencyLabel_CH1->setText(QApplication::translate("MainWindow", "Frequency", 0));
+        amplitudeLabel_CH1->setText(QApplication::translate("MainWindow", "Amplitude (Peak-Peak)", 0));
+        amplitudeValue_CH1->setSuffix(QApplication::translate("MainWindow", "V", 0));
+        dcOffsetLabel_CH1->setText(QApplication::translate("MainWindow", "Offset", 0));
+        dcOffsetValue_CH1->setSuffix(QApplication::translate("MainWindow", "V", 0));
+        signalGenGroup_CH2->setTitle(QApplication::translate("MainWindow", "Signal Gen CH2", 0));
+        waveformLabel_CH2->setText(QApplication::translate("MainWindow", "Waveform", 0));
+        frequencyLabel_CH2->setText(QApplication::translate("MainWindow", "Frequency", 0));
+        amplitudeLabel_CH2->setText(QApplication::translate("MainWindow", "Amplitude (Peak-Peak)", 0));
+        amplitudeValue_CH2->setSuffix(QApplication::translate("MainWindow", "V", 0));
+        dcOffsetLabel_CH2->setText(QApplication::translate("MainWindow", "Offset", 0));
+        dcOffsetValue_CH2->setSuffix(QApplication::translate("MainWindow", "V", 0));
+        controller_iso->setText(QApplication::translate("MainWindow", "SALUTON MI ESTAS ISO DRIVER", 0));
+        psuGroup->setTitle(QApplication::translate("MainWindow", "PSU", 0));
+        lockPsuCheckBox->setText(QApplication::translate("MainWindow", "Lock PSU", 0));
+        busSifferGroup_CH1->setTitle(QApplication::translate("MainWindow", "Logic Analyzer CH1", 0));
+        pause_LA->setText(QApplication::translate("MainWindow", "Pause", 0));
+        serialDecodingCheck_CH1->setTitle(QApplication::translate("MainWindow", "Serial Decoding", 0));
         serialDecodingModeSelect_CH1->clear();
         serialDecodingModeSelect_CH1->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "UART", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "SPI", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "I2C", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "UART", 0)
+         << QApplication::translate("MainWindow", "SPI", 0)
+         << QApplication::translate("MainWindow", "I2C", 0)
         );
-        busSnifferGroup_CH2->setTitle(QApplication::translate("MainWindow", "Logic Analyzer CH2", Q_NULLPTR));
-        serialDecodingCheck_CH2->setTitle(QApplication::translate("MainWindow", "Serial Decoding", Q_NULLPTR));
+        busSnifferGroup_CH2->setTitle(QApplication::translate("MainWindow", "Logic Analyzer CH2", 0));
+        serialDecodingCheck_CH2->setTitle(QApplication::translate("MainWindow", "Serial Decoding", 0));
         serialDecodingModeSelect_CH2->clear();
         serialDecodingModeSelect_CH2->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "UART", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "SPI", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "I2C", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "UART", 0)
+         << QApplication::translate("MainWindow", "SPI", 0)
+         << QApplication::translate("MainWindow", "I2C", 0)
         );
-        digitalOutputGroup->setTitle(QApplication::translate("MainWindow", "Digital Output", Q_NULLPTR));
-        digitalOutCheckbox_CH3->setText(QApplication::translate("MainWindow", "Pin 3", Q_NULLPTR));
-        digitalOutCheckbox_CH2->setText(QApplication::translate("MainWindow", "Pin 2", Q_NULLPTR));
-        digitalOutCheckbox_CH1->setText(QApplication::translate("MainWindow", "Pin 1", Q_NULLPTR));
-        digitalOutCheckbox_CH4->setText(QApplication::translate("MainWindow", "Pin 4", Q_NULLPTR));
-        debugButton1->setText(QApplication::translate("MainWindow", "Debug!", Q_NULLPTR));
-        debugButton2->setText(QApplication::translate("MainWindow", "ReinitUsb()", Q_NULLPTR));
-        debugButton3->setText(QApplication::translate("MainWindow", "Jump to Bootloader", Q_NULLPTR));
-        bufferDisplay->setText(QApplication::translate("MainWindow", "BUFFER IMAGE HERE", Q_NULLPTR));
-        menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
-        menuOscilloscope_2->setTitle(QApplication::translate("MainWindow", "Oscilloscope", Q_NULLPTR));
-        menuGain_2->setTitle(QApplication::translate("MainWindow", "Gain", Q_NULLPTR));
-        menuCH1_Stats->setTitle(QApplication::translate("MainWindow", "CH1 Stats", Q_NULLPTR));
-        menuCH2_Stats->setTitle(QApplication::translate("MainWindow", "CH2 Stats", Q_NULLPTR));
-        menuFrame_rate->setTitle(QApplication::translate("MainWindow", "Frame rate", Q_NULLPTR));
-        menuRange->setTitle(QApplication::translate("MainWindow", "Range", Q_NULLPTR));
-        menuMultimeter_2->setTitle(QApplication::translate("MainWindow", "Multimeter", Q_NULLPTR));
-        menuV_2->setTitle(QApplication::translate("MainWindow", "Range (V)", Q_NULLPTR));
-        menuI_2->setTitle(QApplication::translate("MainWindow", "Range (I)", Q_NULLPTR));
-        menuRange_R->setTitle(QApplication::translate("MainWindow", "Range (R)", Q_NULLPTR));
-        menuRange_C->setTitle(QApplication::translate("MainWindow", "Range (C)", Q_NULLPTR));
-        menuBus_Sniffer->setTitle(QApplication::translate("MainWindow", "Logic Analyzer", Q_NULLPTR));
-        menuUART_1->setTitle(QApplication::translate("MainWindow", "UART 1", Q_NULLPTR));
-        menuBaud_Rate->setTitle(QApplication::translate("MainWindow", "Baud Rate", Q_NULLPTR));
-        menuParity_Bit->setTitle(QApplication::translate("MainWindow", "Parity Bit", Q_NULLPTR));
-        menuData_Bits->setTitle(QApplication::translate("MainWindow", "Data Bits", Q_NULLPTR));
-        menuUART_2->setTitle(QApplication::translate("MainWindow", "UART 2", Q_NULLPTR));
-        menuBaud_Rate_2->setTitle(QApplication::translate("MainWindow", "Baud Rate", Q_NULLPTR));
-        menuData_Bits_2->setTitle(QApplication::translate("MainWindow", "Data Bits", Q_NULLPTR));
-        menuParity_Bit_2->setTitle(QApplication::translate("MainWindow", "Parity Bit", Q_NULLPTR));
-        menuPower_Supply->setTitle(QApplication::translate("MainWindow", "Power Supply", Q_NULLPTR));
+        digitalOutputGroup->setTitle(QApplication::translate("MainWindow", "Digital Output", 0));
+        digitalOutCheckbox_CH3->setText(QApplication::translate("MainWindow", "Pin 3", 0));
+        digitalOutCheckbox_CH2->setText(QApplication::translate("MainWindow", "Pin 2", 0));
+        digitalOutCheckbox_CH1->setText(QApplication::translate("MainWindow", "Pin 1", 0));
+        digitalOutCheckbox_CH4->setText(QApplication::translate("MainWindow", "Pin 4", 0));
+        debugButton1->setText(QApplication::translate("MainWindow", "Debug!", 0));
+        debugButton2->setText(QApplication::translate("MainWindow", "ReinitUsb()", 0));
+        debugButton3->setText(QApplication::translate("MainWindow", "Jump to Bootloader", 0));
+        bufferDisplay->setText(QApplication::translate("MainWindow", "BUFFER IMAGE HERE", 0));
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
+        menuOscilloscope_2->setTitle(QApplication::translate("MainWindow", "Oscilloscope", 0));
+        menuGain_2->setTitle(QApplication::translate("MainWindow", "Gain", 0));
+        menuCH1_Stats->setTitle(QApplication::translate("MainWindow", "CH1 Stats", 0));
+        menuCH2_Stats->setTitle(QApplication::translate("MainWindow", "CH2 Stats", 0));
+        menuFrame_rate->setTitle(QApplication::translate("MainWindow", "Frame rate", 0));
+        menuRange->setTitle(QApplication::translate("MainWindow", "Range", 0));
+        menuMultimeter_2->setTitle(QApplication::translate("MainWindow", "Multimeter", 0));
+        menuV_2->setTitle(QApplication::translate("MainWindow", "Range (V)", 0));
+        menuI_2->setTitle(QApplication::translate("MainWindow", "Range (I)", 0));
+        menuRange_R->setTitle(QApplication::translate("MainWindow", "Range (R)", 0));
+        menuRange_C->setTitle(QApplication::translate("MainWindow", "Range (C)", 0));
+        menuBus_Sniffer->setTitle(QApplication::translate("MainWindow", "Logic Analyzer", 0));
+        menuUART_1->setTitle(QApplication::translate("MainWindow", "UART 1", 0));
+        menuBaud_Rate->setTitle(QApplication::translate("MainWindow", "Baud Rate", 0));
+        menuParity_Bit->setTitle(QApplication::translate("MainWindow", "Parity Bit", 0));
+        menuData_Bits->setTitle(QApplication::translate("MainWindow", "Data Bits", 0));
+        menuUART_2->setTitle(QApplication::translate("MainWindow", "UART 2", 0));
+        menuBaud_Rate_2->setTitle(QApplication::translate("MainWindow", "Baud Rate", 0));
+        menuData_Bits_2->setTitle(QApplication::translate("MainWindow", "Data Bits", 0));
+        menuParity_Bit_2->setTitle(QApplication::translate("MainWindow", "Parity Bit", 0));
+        menuPower_Supply->setTitle(QApplication::translate("MainWindow", "Power Supply", 0));
     } // retranslateUi
 
 };

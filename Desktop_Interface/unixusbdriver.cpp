@@ -1,8 +1,15 @@
 #include "unixusbdriver.h"
 #include "platformspecific.h"
+extern "C"
+{
+    #include "libdfuprog.h"
+}
 
 unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
+    qDebug() << "Testing libdfuprog";
+    dfuprog_virtual_cmd("dfu-programmer atxmega32a4u");
+
     qDebug() << "unixUsbDriver created!";
     tv.tv_sec = 0;
     tv.tv_usec = 100000;

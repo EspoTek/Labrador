@@ -117,6 +117,23 @@ macx:LIBS += -L$$PWD/build_mac/libusb/lib -lusb-1.0
 macx:INCLUDEPATH += $$PWD/build_mac/libusb/include/libusb-1.0
 macx:DEPENDPATH += $$PWD/build_mac/libusb/include/libusb-1.0
 
+#libdfuprog dylib include
+macx:LIBS += -L$$PWD/build_mac/libdfuprog/lib -ldfuprog-0.9
+macx:INCLUDEPATH += $$PWD/build_mac/libdfuprog/include
+macx:DEPENDPATH += $$PWD/build_mac/libdfuprog/include
+
+
+#macx:INCLUDEPATH += $$PWD/dfusrc
+macx:DEFINES += "HAVE_CONFIG_H=1"
+macx:DEFINES += "HAVE_LIBUSB_1_0"
+
+macx:QMAKE_LFLAGS += "-undefined dynamic_lookup"
+
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.10
+
+
+
+
 #############################################################
 ########   SHARED UNIX-LIKE BUILDS (MAC + LINUX)   #########
 ###########################################################

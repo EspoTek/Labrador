@@ -31,3 +31,16 @@ QMAKE_MAC_SDK.macx-clang.macosx.QMAKE_RANLIB = \
     -s
 QMAKE_MAC_SDK.macx-clang.macosx.QMAKE_LINK = /Volumes/Xcode/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 QMAKE_MAC_SDK.macx-clang.macosx.QMAKE_LINK_SHLIB = /Volumes/Xcode/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
+QMAKE_MAC_SDK.macx-g++.macosx.QMAKE_CC = /Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+QMAKE_MAC_SDK.macx-g++.macosx.QMAKE_CXX = /Applications/Xcode.app/Contents/Developer/usr/bin/g++
+QMAKE_MAC_SDK.macx-g++.macosx.QMAKE_FIX_RPATH = \
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/install_name_tool \
+    -id
+QMAKE_MAC_SDK.macx-g++.macosx.QMAKE_AR = \
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar \
+    cq
+QMAKE_MAC_SDK.macx-g++.macosx.QMAKE_RANLIB = \
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib \
+    -s
+QMAKE_MAC_SDK.macx-g++.macosx.QMAKE_LINK = /Applications/Xcode.app/Contents/Developer/usr/bin/g++
+QMAKE_MAC_SDK.macx-g++.macosx.QMAKE_LINK_SHLIB = /Applications/Xcode.app/Contents/Developer/usr/bin/g++
