@@ -194,6 +194,12 @@ android:{
     assets_deploy.path=/assets
     INSTALLS += asssets_deploy
 
+    #libdfuprog include
+    LIBS += -L$$PWD/build_android/libdfuprog/lib -ldfuprog-0.9
+    INCLUDEPATH += $$PWD/build_android/libdfuprog/include
+    DEPENDPATH += $$PWD/build_android/libdfuprog/include
+    ANDROID_EXTRA_LIBS += $${PWD}/build_android/libdfuprog/lib/libdfuprog-0.9.so
+
 
     DISTFILES += \
         build_android/package_source/AndroidManifest.xml \

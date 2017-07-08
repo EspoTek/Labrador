@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- From: file:/C:/Qt/5.7/android_armv7/src/android/java/res/values-zh-rCN/strings.xml -->
-    <eat-comment/>
-    <string name="fatal_error_msg">您的应用程序遇到一个致命错误导致它无法继续。</string>
-    <string name="ministro_needed_msg">此应用程序需要Ministro服务。您想安装它吗？</string>
-    <string name="ministro_not_found_msg">无法找到Ministro服务。\n应用程序无法启动。</string>
-</resources>

@@ -10,7 +10,7 @@
    "ndk-host": "windows-x86_64",
    "target-architecture": "armeabi-v7a",
    "android-package-source-directory": "C:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android/package_source",
-   "android-extra-libs": "C:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface\\build_android\\libusb-martin-kuldeep\\android\\armeabi-v7a/libusb1.0.so",
+   "android-extra-libs": "C:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/build_android/libdfuprog/lib/libdfuprog-0.9.so,C:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface\\build_android\\libusb-martin-kuldeep\\android\\armeabi-v7a/libusb1.0.so",
    "qml-root-path": "C:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface",
    "application-binary": "C:/Users/Esposch/Documents/GitHub/Labrador/Desktop_Interface/bin/libLabrador.so"
 }
