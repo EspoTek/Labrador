@@ -73,3 +73,76 @@ unsigned char androidUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin
 
     return 0;
 }
+
+int winUsbDriver::flashFirmware(void){
+    char fname[64];
+    qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
+    sprintf(fname, "labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
+    qDebug() << "FLASHING " << fname;
+
+    bootloaderJump();
+    mainActivity.callMethod<void>("closeDevice");
+
+    QThread::msleep(2000);
+
+    mainActivity.callMethod<void>("findDevice_bootloader");
+
+    //assets:/firmware
+
+    //Set up interface to dfuprog
+    QString dfuprog_location = QCoreApplication::applicationDirPath();
+    dfuprog_location.append("/firmware/dfu-programmer");
+    QString file_location = QCoreApplication::applicationDirPath();
+    file_location.append("/firmware/");
+    file_location.append(fname);
+    QProcess dfu_exe;
+    QStringList args_stage1;
+    args_stage1 << "atxmega32a4u" << "erase" << "--force";
+    QStringList args_stage2;
+    args_stage2 << "atxmega32a4u" << "flash" << file_location;
+    QStringList args_stage3;
+    args_stage3 << "atxmega32a4u" << "launch";
+    QStringList args_stage4;
+    args_stage4 << "atxmega32a4u" << "launch";
+
+    //Run stage 1
+    dfu_exe.start(dfuprog_location, args_stage1);
+    dfu_exe.waitForFinished(-1);
+    qDebug() << "stdio_stage1" << dfu_exe.readAllStandardOutput();
+    qDebug() << "sterr_stage1" << dfu_exe.readAllStandardError();
+    qDebug() << "EXIT_CODE stage1" << dfu_exe.exitCode();
+    if(dfu_exe.exitCode()){
+        return dfu_exe.exitCode()+100;
+    }
+
+    //Run stage 2
+    dfu_exe.start(dfuprog_location, args_stage2);
+    dfu_exe.waitForFinished(-1);
+    qDebug() << "stdio_stage2" << dfu_exe.readAllStandardOutput();
+    qDebug() << "sterr_stage2" << dfu_exe.readAllStandardError();
+    qDebug() << "EXIT_CODE stage2" << dfu_exe.exitCode();
+    if(dfu_exe.exitCode()){
+        return dfu_exe.exitCode()+200;
+    }
+
+    //Run stage 3
+    dfu_exe.start(dfuprog_location, args_stage3);
+    dfu_exe.waitForFinished(-1);
+    qDebug() << "stdio_stage3" << dfu_exe.readAllStandardOutput();
+    qDebug() << "sterr_stage3" << dfu_exe.readAllStandardError();
+    qDebug() << "EXIT_CODE stage3" << dfu_exe.exitCode();
+    if(dfu_exe.exitCode()){
+        return dfu_exe.exitCode()+300;
+    }
+
+    QThread::msleep(2000);
+
+    //Run stage 4 - double launch to clear the eeprom flag from bootloaderJump.
+    dfu_exe.start(dfuprog_location, args_stage4);
+    dfu_exe.waitForFinished(-1);
+    qDebug() << "stdio_stage4" << dfu_exe.readAllStandardOutput();
+    qDebug() << "sterr_stage4" << dfu_exe.readAllStandardError();
+    qDebug() << "EXIT_CODE stage4" << dfu_exe.exitCode();
+    return 0;
+}
+

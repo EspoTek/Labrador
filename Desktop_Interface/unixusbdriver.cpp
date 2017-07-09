@@ -7,9 +7,6 @@ extern "C"
 
 unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
-    qDebug() << "Testing libdfuprog";
-    dfuprog_virtual_cmd("dfu-programmer atxmega32a4u erase");
-
     qDebug() << "unixUsbDriver created!";
     tv.tv_sec = 0;
     tv.tv_usec = 100000;
@@ -301,4 +298,9 @@ void unixUsbDriver::shutdownProcedure(){
 //On physical disconnect, isoTimerTick will not assert stopTime.  Hence this duct-tape function.
 void unixUsbDriver::backupCleanup(){
     isoHandler->stopTime = true;
+}
+
+int unixUsbDriver::flashFirmware(void){
+    qDebug() << "Testing libdfuprog";
+    dfuprog_virtual_cmd("dfu-programmer atxmega32a4u erase");
 }

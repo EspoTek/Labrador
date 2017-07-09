@@ -17,6 +17,12 @@
 
 #define EXPECTED_FIRMWARE_VERSION 0x0002
 
+#ifdef PLATFORM_WINDOWS
+    #define DEFINED_EXPECTED_VARIANT 1
+#else
+    #define DEFINED_EXPECTED_VARIANT 2
+#endif
+
 #define ISO_PACKET_SIZE 125
 #define NUM_ISO_ENDPOINTS (6)
 
@@ -83,6 +89,7 @@ protected:
     void requestFirmwareVariant(void);
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin) = 0;
     virtual unsigned char usbIsoInit(void) = 0;
+    virtual int flashFirmware(void) = 0;
     uint8_t numero_uno = 1;
 signals:
     void sendClearBuffer(bool ch3751, bool ch3752, bool ch750);

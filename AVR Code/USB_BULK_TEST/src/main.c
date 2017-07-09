@@ -68,7 +68,7 @@ unified_debug uds;
 const unsigned short firmver = FIRMWARE_VERSION_ID;
 
 #ifdef SINGLE_ENDPOINT_INTERFACE
-	const unsigned short variant = 0x02;
+	const unsigned char variant = 0x02;
 #else
 	const unsigned char variant = 0x01;
 #endif

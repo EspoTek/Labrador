@@ -22,6 +22,7 @@ private:
     //Generic Functions
     QAndroidJniObject mainActivity;
     unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
+    int flashFirmware(void);
 };
 
 #endif // unixUsbDriver_H

@@ -335,7 +335,7 @@ void genericUsbDriver::requestFirmwareVersion(void){
 }
 
 void genericUsbDriver::requestFirmwareVariant(void){
-    usbSendControl(0xc0, 0xa8, 0, 0, 1, NULL);
+    usbSendControl(0xc0, 0xa9, 0, 0, 1, NULL);
     variant = *((unsigned char *) inBuffer);
 }
 
@@ -355,6 +355,20 @@ void genericUsbDriver::checkConnection(){
         connected = !(usbInit(BOARD_VID, BOARD_PID));
         return;
     }
+    connectTimer->stop();
+
+    requestFirmwareVersion();
+    qDebug("BOARD IS RUNNING FIRMWARE VERSION 0x%04hx", firmver);
+    requestFirmwareVariant();
+    qDebug("FIRMWARE VARIANT = 0x%02hx", variant);
+    qDebug("EXPECTED VARIANT = 0x%02hx", DEFINED_EXPECTED_VARIANT);
+
+    if((firmver != EXPECTED_FIRMWARE_VERSION) || (variant != DEFINED_EXPECTED_VARIANT)){
+        int flashRet = flashFirmware();
+        connected = false;
+        connectTimer->start();
+        return;
+    }
 
     qDebug() << "Connecting now!";
 
@@ -364,11 +378,6 @@ void genericUsbDriver::checkConnection(){
 
     connectedStatus(true);
 
-    requestFirmwareVersion();
-    qDebug("BOARD IS RUNNING FIRMWARE VERSION 0x%04hx", firmver);
-    requestFirmwareVariant();
-    qDebug("FIRMWARE VARIANT = 0x%02hx", variant);
-    qDebug("EXPECTED VARIANT = 0x%02hx", expected_variant);
 
     setDeviceMode(deviceMode);
     newDig(digitalPinState);

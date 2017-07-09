@@ -136,8 +136,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
     //ui->console1->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
     //ui->console2->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
-    ui->frequencyValue_CH2->setValue(369);
-    ui->amplitudeValue_CH2->setValue(2);
+    //ui->frequencyValue_CH2->setValue(369);
+    //ui->amplitudeValue_CH2->setValue(2);
     ui->controller_iso->doNotTouchGraph = false;
 
     calibrationMessages = new QMessageBox();
@@ -351,6 +351,8 @@ void MainWindow::menuSetup(){
     connectionTypeGroup->addAction(ui->actionSingle_ep_async);
     ui->actionLo_bw->setChecked(1);
     expected_variant = 1; //for default Lo_bw mode;
+
+    ui->menuConnection_Type->setVisible(false);
 }
 
 void MainWindow::on_actionGain0_5_triggered()
@@ -1507,16 +1509,19 @@ void MainWindow::on_actionLo_bw_triggered()
 {
     expected_variant = 1;
     settings->setValue("ConnectionType", 0);
+    if(ui->controller_iso->driver->connected) reinitUsb();
 }
 
 void MainWindow::on_actionSingle_ep_msync_triggered()
 {
     expected_variant = 2;
     settings->setValue("ConnectionType", 1);
+    if(ui->controller_iso->driver->connected) reinitUsb();
 }
 
 void MainWindow::on_actionSingle_ep_async_triggered()
 {
     expected_variant = 2;
     settings->setValue("ConnectionType", 2);
+    if(ui->controller_iso->driver->connected) reinitUsb();
 }
