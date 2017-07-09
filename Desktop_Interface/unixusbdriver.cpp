@@ -297,6 +297,8 @@ void unixUsbDriver::backupCleanup(){
 }
 
 int unixUsbDriver::flashFirmware(void){
+#ifndef PLATFORM_ANDROID
     qDebug() << "Testing libdfuprog";
     dfuprog_virtual_cmd("dfu-programmer atxmega32a4u erase");
+#endif
 }
