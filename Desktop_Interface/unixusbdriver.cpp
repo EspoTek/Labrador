@@ -1,9 +1,5 @@
 #include "unixusbdriver.h"
 #include "platformspecific.h"
-extern "C"
-{
-    #include "libdfuprog.h"
-}
 
 unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
@@ -97,7 +93,7 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
     if(error){
         qDebug("unixUsbDriver::usbSendControl FAILED with error %s", libusb_error_name(error));
     } //else qDebug() << "unixUsbDriver::usbSendControl SUCCESS";
-    if(error == LIBUSB_ERROR_NO_DEVICE){
+    if((error == LIBUSB_ERROR_NO_DEVICE) && (Request!=0xa7)){ //Bootloader Jump won't return; this is expected behaviour.
         qDebug() << "Device not found.  Becoming an hero.";
         connectedStatus(false);
         killMe();

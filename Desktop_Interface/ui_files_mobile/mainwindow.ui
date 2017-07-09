@@ -1998,10 +1998,19 @@
     </property>
     <addaction name="actionOld_Person_Mode"/>
    </widget>
+   <widget class="QMenu" name="menuConnection_Type">
+    <property name="title">
+     <string>Connection Type</string>
+    </property>
+    <addaction name="actionLo_bw"/>
+    <addaction name="actionSingle_ep_msync"/>
+    <addaction name="actionSingle_ep_async"/>
+   </widget>
    <addaction name="menuOscilloscope_2"/>
    <addaction name="menuMultimeter_2"/>
    <addaction name="menuBus_Sniffer"/>
    <addaction name="menuAndroid_Special"/>
+   <addaction name="menuConnection_Type"/>
   </widget>
   <action name="actionGainAuto">
    <property name="checkable">
@@ -2609,6 +2618,33 @@
    </property>
    <property name="text">
     <string>μF</string>
+   </property>
+  </action>
+  <action name="actionLo_bw">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>lo-bw</string>
+   </property>
+  </action>
+  <action name="actionSingle_ep_msync">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>single-ep-msync</string>
+   </property>
+  </action>
+  <action name="actionSingle_ep_async">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>single-ep-async</string>
    </property>
   </action>
  </widget>

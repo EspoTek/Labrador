@@ -8,6 +8,10 @@
 
 #include "genericusbdriver.h"
 #include "libusb.h"
+extern "C"
+{
+    #include "libdfuprog.h"
+}
 
 #define MAX_ALLOWABLE_CUMULATIVE_FRAME_ERROR 50
 

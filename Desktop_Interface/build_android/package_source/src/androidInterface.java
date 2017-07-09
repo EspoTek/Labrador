@@ -87,7 +87,7 @@ public class androidInterface extends QtActivity
     }
     public void findDevice_bootloader()
     {
-        Log.d(QtApplication.QtTAG, "findDevice");
+        Log.d(QtApplication.QtTAG, "findDevice_bootloader");
         PendingIntent mPermissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);  //???
         UsbManager manager = (UsbManager) getSystemService(Context.USB_SERVICE);  //Handle to system USB service?
         HashMap<String, UsbDevice> deviceList = manager.getDeviceList();
