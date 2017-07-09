@@ -1203,7 +1203,10 @@ static bool udc_reqvend(void){
 			    __builtin_unreachable();
 		case 0xa8:  //Firmware Version Request
 			udd_set_setup_payload(&firmver, udd_g_ctrlreq.req.wLength);
-			return 1;		
+			return 1;	
+		case 0xa9:  //Variant Version Request
+			udd_set_setup_payload(&variant, udd_g_ctrlreq.req.wLength);
+			return 1;
 		default:
 			return 0;
 	}

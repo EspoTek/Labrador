@@ -4,7 +4,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    readSettingsFile();
     ui->setupUi(this);
     ui->psuDisplay->display("4.00");
     ui->bufferDisplay->refreshImage();
@@ -25,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->cursorStatsLabel->hide();
     initialisePlot();
     menuSetup();
+    readSettingsFile();
 
     ui->voltageInfoMaxDisplay_CH1->display(5312);
     ui->voltageInfoMinDisplay_CH1->display(0.01);
@@ -344,6 +344,13 @@ void MainWindow::menuSetup(){
     uartBaudGroup_CH2->addAction(ui->action57600_2);
     uartBaudGroup_CH2->addAction(ui->action115200_2);
     ui->action9600_2->setChecked(1);
+
+    connectionTypeGroup = new QActionGroup(this);
+    connectionTypeGroup->addAction(ui->actionLo_bw);
+    connectionTypeGroup->addAction(ui->actionSingle_ep_msync);
+    connectionTypeGroup->addAction(ui->actionSingle_ep_async);
+    ui->actionLo_bw->setChecked(1);
+    expected_variant = 1; //for default Lo_bw mode;
 }
 
 void MainWindow::on_actionGain0_5_triggered()
@@ -1060,22 +1067,42 @@ void MainWindow::helloWorld(){
     qDebug() << "Hello World!";
 }
 
+#define QSETTINGS_DEFAULT_RETURN 42069
 void MainWindow::readSettingsFile(){
-    QFile *settings;
-    settings = new QFile("settings.set");
-#ifdef DEBUG_SETTINGSDOTSET
-    goto createFile;
-#endif
-    if (!settings->open(QIODevice::ReadOnly | QIODevice::Text)){
-        createFile:
-        qDebug() << "settings.set does not exist!!!!  Creating...";
-        settings->open(QIODevice::WriteOnly | QIODevice::Text);
-        //Default init;
-        settings->write("420\n");
-        //Reset and continue;
-        settings->close();
-        settings->open(QIODevice::ReadOnly | QIODevice::Text);
+    settings = new QSettings("settings.ini", QSettings::IniFormat);
+    int connectionType = settings->value("ConnectionType", QSETTINGS_DEFAULT_RETURN).toInt();
+    double calibrate_vref_ch1 = settings->value("CalibrateVrefCH1", 1.65).toDouble();
+    double calibrate_vref_ch2 = settings->value("CalibrateVrefCH2", 1.65).toDouble();
+    double calibrate_gain_ch1 = settings->value("CalibrateGainCH1", R4/(R3+R4)).toDouble();
+    double calibrate_gain_ch2 = settings->value("CalibrateGainCH2", R4/(R3+R4)).toDouble();
+
+    //Change connection Type
+    switch(connectionType){
+    case 0:
+        ui->actionLo_bw->setChecked(1);
+        on_actionLo_bw_triggered();
+        break;
+    case 1:
+        ui->actionSingle_ep_msync->setChecked(1);
+        on_actionSingle_ep_msync_triggered();
+        break;
+    case 2:
+        ui->actionSingle_ep_async->setChecked(1);
+        on_actionSingle_ep_async_triggered();
+        break;
     }
+
+    //Fill in calibration data
+    ui->controller_iso->ch1_ref = 3.3 - calibrate_vref_ch1;
+    ui->controller_iso->ch2_ref = 3.3 - calibrate_vref_ch2;
+    ui->controller_iso->frontendGain_CH1 = calibrate_gain_ch1;
+    ui->controller_iso->frontendGain_CH2 = calibrate_gain_ch2;
+    ui->controller_iso->internalBuffer375_CH1->voltage_ref = 3.3 - calibrate_vref_ch1;
+    ui->controller_iso->internalBuffer750->voltage_ref = 3.3 - calibrate_vref_ch1;
+    ui->controller_iso->internalBuffer375_CH2->voltage_ref = 3.3 - calibrate_vref_ch2;
+    ui->controller_iso->internalBuffer375_CH1->frontendGain = calibrate_gain_ch1;
+    ui->controller_iso->internalBuffer750->frontendGain = calibrate_gain_ch1;
+    ui->controller_iso->internalBuffer375_CH2->frontendGain = calibrate_gain_ch2;
 }
 
 void MainWindow::on_actionRecord_triggered(bool checked)
@@ -1161,6 +1188,8 @@ void MainWindow::reinitUsbStage2(void){
     connect(ui->controller_iso->driver, SIGNAL(connectedStatus(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
     connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete()), this, SLOT(resetUsbState()));
     ui->controller_iso->driver->setGain(reinitScopeGain);
+
+    readSettingsFile();
 
     qDebug() << "ReinitUsbStage2 is returning";
 }
@@ -1349,6 +1378,11 @@ void MainWindow::on_actionCalibrate_triggered()
     ui->controller_iso->internalBuffer750->frontendGain = R4/(R3+R4);
     ui->controller_iso->internalBuffer375_CH2->frontendGain = R4/(R3+R4);
 
+    settings->setValue("CalibrateVrefCH1", 1.65);
+    settings->setValue("CalibrateVrefCH2", 1.65);
+    settings->setValue("CalibrateGainCH1", R4/(R3+R4));
+    settings->setValue("CalibrateGainCH2", R4/(R3+R4));
+
     qDebug() << "Calibration routine beginning!";
     calibrationMessages->setText("Please disconnect all wires from your Labrador board then press OK to continue.");
     calibrationMessages->exec();
@@ -1363,7 +1397,7 @@ void MainWindow::calibrateStage2(){
     qDebug() << "VRef (CH1) = " << vref_CH1;
     qDebug() << "VRef (CH2) = " << vref_CH2;
 
-    if((vref_CH1 > 1.8) | (vref_CH1 < 1.5) | (vref_CH2 > 1.8) | (vref_CH2 < 1.5)){
+    if((vref_CH1 > 1.9) | (vref_CH1 < 1.4) | (vref_CH2 > 1.9) | (vref_CH2 < 1.4)){
         calibrationMessages->setText("Calibration has been abandoned due to out-of-range values.  Both channels should show approximately 1.6V.  Please disconnect all wires from your Labrador board and try again.");
         calibrationMessages->exec();
         return;
@@ -1375,6 +1409,9 @@ void MainWindow::calibrateStage2(){
     ui->controller_iso->internalBuffer375_CH1->voltage_ref = 3.3 - vref_CH1;
     ui->controller_iso->internalBuffer750->voltage_ref = 3.3 - vref_CH1;
     ui->controller_iso->internalBuffer375_CH2->voltage_ref = 3.3 - vref_CH2;
+
+    settings->setValue("CalibrateVrefCH1", vref_CH1);
+    settings->setValue("CalibrateVrefCH2", vref_CH2);
 
     calibrationMessages->setText("Please connect both oscilloscope channels to the outer shield of the USB connector then press OK to continue.");
     calibrationMessages->exec();
@@ -1408,6 +1445,8 @@ void MainWindow::calibrateStage3(){
     ui->controller_iso->internalBuffer375_CH1->frontendGain = (vref_CH1 - vMeasured_CH1)*(ui->controller_iso->frontendGain_CH1)/vref_CH1;
     ui->controller_iso->internalBuffer750->frontendGain = (vref_CH1 - vMeasured_CH1)*(ui->controller_iso->frontendGain_CH1)/vref_CH1;
     ui->controller_iso->internalBuffer375_CH2->frontendGain = (vref_CH2 - vMeasured_CH2)*(ui->controller_iso->frontendGain_CH2)/vref_CH2;
+    settings->setValue("CalibrateGainCH1", ui->controller_iso->frontendGain_CH1);
+    settings->setValue("CalibrateGainCH2", ui->controller_iso->frontendGain_CH2);
     calibrationMessages->setText("Calibration complete.");
     calibrationMessages->exec();
 }
@@ -1462,4 +1501,22 @@ void MainWindow::multimeterStateChange(bool enabled){
         int cIdx = ui->multimeterModeSelect->currentIndex();
         ui->controller_iso->setMultimeterType(cIdx);
     } else rSourceIndexChanged(255);
+}
+
+void MainWindow::on_actionLo_bw_triggered()
+{
+    expected_variant = 1;
+    settings->setValue("ConnectionType", 0);
+}
+
+void MainWindow::on_actionSingle_ep_msync_triggered()
+{
+    expected_variant = 2;
+    settings->setValue("ConnectionType", 1);
+}
+
+void MainWindow::on_actionSingle_ep_async_triggered()
+{
+    expected_variant = 2;
+    settings->setValue("ConnectionType", 2);
 }

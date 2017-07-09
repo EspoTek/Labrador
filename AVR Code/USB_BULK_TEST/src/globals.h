@@ -65,6 +65,7 @@ extern volatile unsigned char modeChanged;
 
 COMPILER_WORD_ALIGNED
 extern const unsigned short firmver;
+extern const unsigned char variant;
 
 #include "unified_debug_structure.h"
 extern unified_debug uds;

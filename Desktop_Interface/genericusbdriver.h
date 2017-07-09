@@ -15,6 +15,8 @@
 #include "buffercontrol.h"
 #include "unified_debug_structure.h"
 
+#define EXPECTED_FIRMWARE_VERSION 0x0002
+
 #define ISO_PACKET_SIZE 125
 #define NUM_ISO_ENDPOINTS (6)
 
@@ -65,6 +67,7 @@ protected:
     double currentPsuVoltage;
     int digitalPinState = 0;
     unsigned char firmver = 0;
+    unsigned char variant = 0;
     //Generic Vars
     bufferControl *bufferPtr = NULL;
     QTimer *psuTimer;
@@ -77,6 +80,7 @@ protected:
     unsigned char inBuffer[256];
     //Generic Functions
     void requestFirmwareVersion(void);
+    void requestFirmwareVariant(void);
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin) = 0;
     virtual unsigned char usbIsoInit(void) = 0;
     uint8_t numero_uno = 1;

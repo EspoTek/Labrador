@@ -27,6 +27,8 @@ extern QMutex tcBlockMutex;
 extern QMutex unixDriverDeleteMutex;
 extern struct timeval tv;
 
+extern unsigned char expected_variant;
+
 #define DEBUG_SETTINGSDOTSET
 
 #define USB_RECONNECT_PERIOD 420

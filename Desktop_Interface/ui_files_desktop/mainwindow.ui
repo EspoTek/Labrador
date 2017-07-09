@@ -1547,11 +1547,20 @@
     </property>
     <addaction name="actionAuto_Lock"/>
    </widget>
+   <widget class="QMenu" name="menuConnection_Type">
+    <property name="title">
+     <string>Connection Type</string>
+    </property>
+    <addaction name="actionLo_bw"/>
+    <addaction name="actionSingle_ep_msync"/>
+    <addaction name="actionSingle_ep_async"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOscilloscope_2"/>
    <addaction name="menuMultimeter_2"/>
    <addaction name="menuBus_Sniffer"/>
    <addaction name="menuPower_Supply"/>
+   <addaction name="menuConnection_Type"/>
   </widget>
   <action name="actionGainAuto">
    <property name="checkable">
@@ -1630,7 +1639,7 @@
   </action>
   <action name="actionCalibrate">
    <property name="text">
-    <string>Calibrate (coming soon!)</string>
+    <string>Calibrate</string>
    </property>
   </action>
   <action name="actionCursor_Stats">
@@ -2151,6 +2160,33 @@
    </property>
    <property name="text">
     <string>μF</string>
+   </property>
+  </action>
+  <action name="actionLo_bw">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>lo-bw</string>
+   </property>
+  </action>
+  <action name="actionSingle_ep_msync">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>single-ep-msync</string>
+   </property>
+  </action>
+  <action name="actionSingle_ep_async">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>single-ep-async</string>
    </property>
   </action>
  </widget>

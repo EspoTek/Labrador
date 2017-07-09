@@ -20,6 +20,8 @@ double SERIAL_DELAY = 0.01;  //100 baud?
 QMutex tcBlockMutex;
 QMutex unixDriverDeleteMutex;
 
+unsigned char expected_variant;
+
 #ifndef PLATFORM_WINDOWS
 struct timeval tv;
 #endif

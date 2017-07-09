@@ -138,6 +138,12 @@ private slots:
 #endif
 
     void on_actionCalibrate_triggered();    
+    void on_actionLo_bw_triggered();
+
+    void on_actionSingle_ep_msync_triggered();
+
+    void on_actionSingle_ep_async_triggered();
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
@@ -154,6 +160,7 @@ private:
     double reinitCurrentPsuVoltage;
     int reinitDigitalPinState;
 
+    QSettings *settings;
 
     //Generic Functions
     void initialisePlot();
@@ -171,6 +178,7 @@ private:
     QActionGroup *uartBaudGroup_CH1;
     QActionGroup *uartBaudGroup_CH2;
     QActionGroup *fpsGroup;
+    QActionGroup *connectionTypeGroup;
     QShortcut *shortcut_cycleBaudRate_CH1;
     QShortcut *shortcut_cycleBaudRateBackwards_CH1;
     QShortcut *shortcut_cycleBaudRate_CH2;

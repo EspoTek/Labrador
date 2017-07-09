@@ -330,8 +330,13 @@ void genericUsbDriver::avrDebug(void){
 }
 
 void genericUsbDriver::requestFirmwareVersion(void){
-    usbSendControl(0xc0, 0xa8, 0, 0, 64, NULL);
+    usbSendControl(0xc0, 0xa8, 0, 0, 2, NULL);
     firmver = *((unsigned short *) inBuffer);
+}
+
+void genericUsbDriver::requestFirmwareVariant(void){
+    usbSendControl(0xc0, 0xa8, 0, 0, 1, NULL);
+    variant = *((unsigned char *) inBuffer);
 }
 
 
@@ -359,6 +364,12 @@ void genericUsbDriver::checkConnection(){
 
     connectedStatus(true);
 
+    requestFirmwareVersion();
+    qDebug("BOARD IS RUNNING FIRMWARE VERSION 0x%04hx", firmver);
+    requestFirmwareVariant();
+    qDebug("FIRMWARE VARIANT = 0x%02hx", variant);
+    qDebug("EXPECTED VARIANT = 0x%02hx", expected_variant);
+
     setDeviceMode(deviceMode);
     newDig(digitalPinState);
     usbIsoInit();
@@ -374,8 +385,6 @@ void genericUsbDriver::checkConnection(){
     recoveryTimer->setTimerType(Qt::PreciseTimer);
     recoveryTimer->start(RECOVERY_PERIOD);
     connect(recoveryTimer, SIGNAL(timeout()), this, SLOT(recoveryTick()));
-    requestFirmwareVersion();
-    qDebug("BOARD IS RUNNING FIRMWARE VERSION 0x%04hx", firmver);
     initialConnectComplete();
 }
 
