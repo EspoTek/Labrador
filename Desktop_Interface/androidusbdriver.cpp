@@ -1,4 +1,5 @@
 #include "androidusbdriver.h"
+#include "QStandardPaths"
 
 androidUsbDriver::androidUsbDriver(QWidget *parent) : unixUsbDriver(parent)
 {
@@ -81,11 +82,35 @@ unsigned char androidUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin
 }
 
 int androidUsbDriver::flashFirmware(void){
+
+    //File name
     char fname[128];
     qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
     sprintf(fname, "assets:/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
     qDebug() << "FLASHING " << fname;
 
+    //Copy to somewhere that fopen can access
+    QFile asset_file(fname);
+    qDebug() << "asset_file.exists()" << asset_file.exists();
+     QString filePath = QStandardPaths::writableLocation( QStandardPaths::StandardLocation::AppLocalDataLocation );
+     filePath.append( "/firmware.hex");
+     if (asset_file.exists()) {
+         if( QFile::exists( filePath ) )
+             QFile::remove( filePath );
+
+         if( asset_file.copy( filePath ) ){
+             QFile::setPermissions( filePath, QFile::WriteOwner | QFile::ReadOwner );
+            qDebug() << "firmware temp file copied to" << filePath;
+         }
+     } else qDebug() << "File not found in assets";
+
+     std::string filePath_stdstr = filePath.toStdString();
+     char filePath_cstring[256];
+     strcpy(filePath_cstring, filePath_stdstr.c_str());
+
+     qDebug() << "File path is" << "filePath_cstring";
+
+     //Switch modes
     bootloaderJump();
     mainActivity.callMethod<void>("closeDevice");
     libusb_release_interface(handle, 0);
@@ -156,7 +181,7 @@ int androidUsbDriver::flashFirmware(void){
     char command1[256];
     sprintf(command1, "dfu-programmer atxmega32a4u erase --force --debug 300");
     char command2[256];
-    sprintf(command2, "dfu-programmer atxmega32a4u flash %s --debug 300", fname);
+    sprintf(command2, "dfu-programmer atxmega32a4u flash %s --debug 300", filePath_cstring);
     char command3[256];
     sprintf(command3, "dfu-programmer atxmega32a4u launch --debug 300");
     char command4[256];

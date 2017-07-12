@@ -352,6 +352,9 @@ void MainWindow::menuSetup(){
     ui->actionLo_bw->setChecked(1);
     expected_variant = 1; //for default Lo_bw mode;
 
+    ui->actionLo_bw->setVisible(false);
+    ui->actionSingle_ep_msync->setVisible(false);
+    ui->actionSingle_ep_async->setVisible(false);
     ui->menuConnection_Type->menuAction()->setVisible(false);
 }
 
