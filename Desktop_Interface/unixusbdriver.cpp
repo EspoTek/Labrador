@@ -297,8 +297,56 @@ void unixUsbDriver::backupCleanup(){
 }
 
 int unixUsbDriver::flashFirmware(void){
-#ifndef PLATFORM_ANDROID
-    qDebug() << "Testing libdfuprog";
-    dfuprog_virtual_cmd("dfu-programmer atxmega32a4u erase");
-#endif
+    char fname[128];
+    qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
+    sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
+    qDebug() << "FLASHING " << fname;
+
+    bootloaderJump();
+    qDebug() << "BA94 closed";
+
+    QThread::msleep(2000);
+
+    QString dirString = QCoreApplication::applicationDirPath();
+    dirString.append(fname);
+    QByteArray array = dirString.toLocal8Bit();
+    char* buffer = array.data();
+    //qDebug() << buffer;
+
+
+    //Set up interface to dfuprog
+    int exit_code;
+    char command1[256];
+    sprintf(command1, "dfu-programmer atxmega32a4u erase --force");
+    char command2[256];
+    sprintf(command2, "dfu-programmer atxmega32a4u flash %s", buffer);
+    char command3[256];
+    sprintf(command3, "dfu-programmer atxmega32a4u launch");
+    char command4[256];
+    sprintf(command4, "dfu-programmer atxmega32a4u launch");
+
+    //Run stage 1
+    exit_code = dfuprog_virtual_cmd(command1);
+    if(exit_code){
+        return exit_code+100;
+    }
+
+    //Run stage 2
+    exit_code = dfuprog_virtual_cmd(command2);
+    if(exit_code){
+        return exit_code+200;
+    }
+
+    //Run stage 3
+    exit_code = dfuprog_virtual_cmd(command3);
+    if(exit_code){
+       return exit_code+300;
+    }
+
+    QThread::msleep(2000);
+
+    //Run stage 4 - double launch to clear the eeprom flag from bootloaderJump.
+    exit_code = dfuprog_virtual_cmd(command4);
+
+    return 0;
 }
