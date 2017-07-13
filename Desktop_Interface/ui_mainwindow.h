@@ -1732,7 +1732,7 @@ public:
         actionGain16->setText(QApplication::translate("MainWindow", "16", Q_NULLPTR));
         actionGain32->setText(QApplication::translate("MainWindow", "32", Q_NULLPTR));
         actionGain64->setText(QApplication::translate("MainWindow", "64", Q_NULLPTR));
-        actionCalibrate->setText(QApplication::translate("MainWindow", "Calibrate (coming soon!)", Q_NULLPTR));
+        actionCalibrate->setText(QApplication::translate("MainWindow", "Calibrate", Q_NULLPTR));
         actionCursor_Stats->setText(QApplication::translate("MainWindow", "Cursor Stats", Q_NULLPTR));
         actionMax->setText(QApplication::translate("MainWindow", "Max", Q_NULLPTR));
         actionMin->setText(QApplication::translate("MainWindow", "Min", Q_NULLPTR));

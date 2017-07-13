@@ -27272,7 +27272,9 @@ androidusbdriver.obj: androidusbdriver.cpp androidusbdriver.h \
 		I:\AndroidSDK\qtdroid\android-ndk-r13b\platforms\android-16\arch-arm\usr\include\inttypes.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidextrasglobal.h \
 		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\QtAndroid \
-		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h
+		C:\Qt\5.7\android_armv7\include\QtAndroidExtras\qandroidfunctions.h \
+		C:\Qt\5.7\android_armv7\include\QtCore\QStandardPaths \
+		C:\Qt\5.7\android_armv7\include\QtCore\qstandardpaths.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o androidusbdriver.obj androidusbdriver.cpp
 
 qrc_resources.obj: qrc_resources.cpp 

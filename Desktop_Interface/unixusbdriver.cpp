@@ -297,6 +297,7 @@ void unixUsbDriver::backupCleanup(){
 }
 
 int unixUsbDriver::flashFirmware(void){
+#ifndef PLATFORM_ANDROID
     char fname[128];
     qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
     sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
@@ -349,4 +350,5 @@ int unixUsbDriver::flashFirmware(void){
     exit_code = dfuprog_virtual_cmd(command4);
 
     return 0;
+#endif
 }

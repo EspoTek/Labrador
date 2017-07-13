@@ -87,6 +87,7 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete(void)), ui->deviceConnected, SLOT(resetUsbState(bool)));
     #endif
     #ifdef PLATFORM_ANDROID
+        ui->actionAutomatically_Enable_Cursors->setVisible(false);
         //hide second pause label
         ui->pausedLabel_CH2->setVisible(false);
         //Capture pinches
@@ -356,6 +357,10 @@ void MainWindow::menuSetup(){
     ui->actionSingle_ep_msync->setVisible(false);
     ui->actionSingle_ep_async->setVisible(false);
     ui->menuConnection_Type->menuAction()->setVisible(false);
+
+    //Hide unsupported option!!!
+    ui->menuFrame_rate->menuAction()->setVisible(false);
+
 }
 
 void MainWindow::on_actionGain0_5_triggered()

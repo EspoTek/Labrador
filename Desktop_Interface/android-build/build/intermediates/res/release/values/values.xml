@@ -19,7 +19,8 @@
 
     </array>
     <array name="bundled_libs">
-        <item>usb1.0</item>
+        <item>dfuprog-0.9</item>
+<item>usb1.0</item>
 
     </array>
     <array name="qt_libs">

@@ -23,6 +23,7 @@ private:
     QAndroidJniObject mainActivity;
     unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
     int flashFirmware(void);
+    int get_new_bootloader_ctx(libusb_device **device_ptr, libusb_device_handle **handle, libusb_context **ctx);
 };
 
 #endif // unixUsbDriver_H

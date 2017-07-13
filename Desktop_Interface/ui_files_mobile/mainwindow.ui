@@ -2089,7 +2089,7 @@
   </action>
   <action name="actionCalibrate">
    <property name="text">
-    <string>Calibrate (coming soon!)</string>
+    <string>Calibrate</string>
    </property>
   </action>
   <action name="actionCursor_Stats">

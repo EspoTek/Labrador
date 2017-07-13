@@ -171,6 +171,8 @@ ADDED from AndroidManifest.xml:60:13
 		ADDED from AndroidManifest.xml:60:24
 uses-sdk
 ADDED from AndroidManifest.xml:68:5
+	android:maxSdkVersion
+		ADDED from AndroidManifest.xml:68:72
 	android:targetSdkVersion
 		ADDED from AndroidManifest.xml:68:42
 	android:minSdkVersion
@@ -190,6 +192,10 @@ ADDED from AndroidManifest.xml:73:9
 	android:name
 		ADDED from AndroidManifest.xml:73:26
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from AndroidManifest.xml:74:5
+ADDED from AndroidManifest.xml:74:9
 	android:name
-		ADDED from AndroidManifest.xml:74:22
+		ADDED from AndroidManifest.xml:74:26
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from AndroidManifest.xml:75:9
+	android:name
+		ADDED from AndroidManifest.xml:75:26

@@ -81,6 +81,66 @@ unsigned char androidUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin
     return 0;
 }
 
+int androidUsbDriver::get_new_bootloader_ctx(libusb_device **device_ptr, libusb_device_handle **handle, libusb_context **ctx){
+
+    *(ctx) = NULL;
+    *(handle) = NULL;
+    *(device_ptr) = NULL;
+
+    mainActivity.callMethod<void>("closeDevice");
+    //Find device in Java
+    mainActivity.callMethod<void>("findDevice_bootloader");
+    QAndroidJniObject usbfs_path_java = mainActivity.getObjectField<jstring>("usbfs_path");
+    QString usbfs_path_qstring = usbfs_path_java.toString();
+    std::string usbfs_path_stdstr = usbfs_path_qstring.toStdString();
+    char usbfs_path[128];
+    strcpy(usbfs_path, usbfs_path_stdstr.c_str());
+    jint file_descriptor_java = mainActivity.getField<jint>("file_descriptor");
+    int file_descriptor = (int)file_descriptor_java;
+
+    qDebug() << "usbfs path = " << usbfs_path;
+    qDebug() << "file descriptor = " << file_descriptor;
+
+    //Initialise libusb-martin-kuldeep
+    int error = libusb_init(ctx);
+    if(error){
+        qDebug() << "libusb_init FAILED";
+        return error;
+    } else qDebug() << "Libusb context initialised";
+
+    libusb_set_debug(*(ctx), 3);
+
+    qDebug() << "Opening Device!";
+    *(device_ptr) = libusb_get_device2(*(ctx), usbfs_path);
+
+    error = libusb_open2(*(device_ptr), handle, file_descriptor);
+    if(error){
+        qDebug() << "ERROR OPENING DEVICE";
+        return error;
+    }
+    qDebug() << "Device Found!!";
+    /*qDebug("Looking for device %x:%x", VIDin, PIDin);
+    handle = libusb_open_device_with_vid_pid(ctx, VIDin, PIDin);
+    if(handle==NULL){
+        qDebug() << "DEVICE NOT FOUND";
+        return -1;
+    }
+    qDebug() << "Device found!!";
+*/
+    qDebug() << (libusb_kernel_driver_active(*(handle), 0) ? "KERNEL DRIVER ACTIVE" : "KERNEL DRIVER INACTIVE");
+    if(libusb_kernel_driver_active(*(handle), 0)){
+        libusb_detach_kernel_driver(*(handle), 0);
+    }
+    error = libusb_claim_interface(*(handle), 0);
+    if(error){
+        qDebug() << "libusb_claim_interface FAILED";
+        qDebug() << "ERROR" << error << libusb_error_name(error);
+        return error;
+    } else qDebug() << "Interface claimed!";
+
+    return 0;
+}
+
 int androidUsbDriver::flashFirmware(void){
 
     //File name
@@ -121,60 +181,38 @@ int androidUsbDriver::flashFirmware(void){
 
     QThread::msleep(2000);
 
-    mainActivity.callMethod<void>("findDevice_bootloader");
-
-    QAndroidJniObject usbfs_path_java = mainActivity.getObjectField<jstring>("usbfs_path");
-    QString usbfs_path_qstring = usbfs_path_java.toString();
-    std::string usbfs_path_stdstr = usbfs_path_qstring.toStdString();
-    char usbfs_path[128];
-    strcpy(usbfs_path, usbfs_path_stdstr.c_str());
-
-    jint file_descriptor_java = mainActivity.getField<jint>("file_descriptor");
-    int file_descriptor = (int)file_descriptor_java;
-
-    qDebug() << "usbfs path = " << usbfs_path;
-    qDebug() << "file descriptor = " << file_descriptor;
-
+    //Initialise libusb-martin-kuldeep
     libusb_context *ctx;
-    int error = libusb_init(&ctx);
+    libusb_device * device_ptr;
+    libusb_device_handle *handle;
+    int error = get_new_bootloader_ctx(&device_ptr, &handle, &ctx);
     if(error){
-        qDebug() << "libusb_init FAILED";
-        return error;
-    } else qDebug() << "Libusb context initialised";
-
-    libusb_set_debug(ctx, 3);
-
-    qDebug() << "Opening Device!";
-    libusb_device * device_ptr = libusb_get_device2(ctx, usbfs_path);
-
-    libusb_device_handle *handle = NULL;
-
-    error = libusb_open2(device_ptr, &handle, file_descriptor);
-    if(error){
-        qDebug() << "ERROR OPENING DEVICE";
-        return error;
+            qDebug() << "get_new_bootloader_ctx FAILED";
+            return 69;
     }
-    qDebug() << "Device Found!!";
-    /*qDebug("Looking for device %x:%x", VIDin, PIDin);
-    handle = libusb_open_device_with_vid_pid(ctx, VIDin, PIDin);
-    if(handle==NULL){
-        qDebug() << "DEVICE NOT FOUND";
-        return -1;
+
+    /*
+    //Extract bus/device number
+    usbfs_path[16] = NULL;
+    char *busNumber = &usbfs_path[13];
+    char *devNumber = &usbfs_path[17];
+
+    qDebug() << "Thingo thinks it's octal!!";
+    qDebug() << busNumber;
+    qDebug() << devNumber;
+
+    qDebug() << "Remove those leading zeros";
+
+    for (int i=0; i<3; i++){
+        if(busNumber[0] == '0') busNumber++;
+        if(devNumber[0] == '0') devNumber++;
     }
-    qDebug() << "Device found!!";
+
+    qDebug() << "Here we go!";
+
+    qDebug() << busNumber;
+    qDebug() << devNumber;
 */
-    qDebug() << (libusb_kernel_driver_active(handle, 0) ? "KERNEL DRIVER ACTIVE" : "KERNEL DRIVER INACTIVE");
-    if(libusb_kernel_driver_active(handle, 0)){
-        libusb_detach_kernel_driver(handle, 0);
-    }
-    error = libusb_claim_interface(handle, 0);
-    if(error){
-        qDebug() << "libusb_claim_interface FAILED";
-        qDebug() << "ERROR" << error << libusb_error_name(error);
-        return error;
-    } else qDebug() << "Interface claimed!";
-
-
 
     //Set up interface to dfuprog
     int exit_code;
@@ -183,9 +221,9 @@ int androidUsbDriver::flashFirmware(void){
     char command2[256];
     sprintf(command2, "dfu-programmer atxmega32a4u flash %s --debug 300", filePath_cstring);
     char command3[256];
-    sprintf(command3, "dfu-programmer atxmega32a4u launch --debug 300");
+    sprintf(command3, "dfu-programmer atxmega32a4u launch");
     char command4[256];
-    sprintf(command4, "dfu-programmer atxmega32a4u launch --debug 300");
+    sprintf(command4, "dfu-programmer atxmega32a4u launch");
 
     //Run stage 1
     exit_code = dfuprog_virtual_cmd(command1, device_ptr, handle, ctx,  0);
@@ -193,11 +231,25 @@ int androidUsbDriver::flashFirmware(void){
         //return exit_code+100;
     }
 
+    error = get_new_bootloader_ctx(&device_ptr, &handle, &ctx);
+    if(error){
+            qDebug() << "get_new_bootloader_ctx FAILED";
+            return 169;
+    }
+
+
     //Run stage 2
     exit_code = dfuprog_virtual_cmd(command2, device_ptr, handle, ctx,  0);
     if(exit_code){
         //return exit_code+200;
     }
+
+    error = get_new_bootloader_ctx(&device_ptr, &handle, &ctx);
+    if(error){
+            qDebug() << "get_new_bootloader_ctx FAILED";
+            return 269;
+    }
+
 
     //Run stage 3
     exit_code = dfuprog_virtual_cmd(command3, device_ptr, handle, ctx,  0);
@@ -206,6 +258,12 @@ int androidUsbDriver::flashFirmware(void){
     }
 
     QThread::msleep(2000);
+
+    error = get_new_bootloader_ctx(&device_ptr, &handle, &ctx);
+    if(error){
+            qDebug() << "get_new_bootloader_ctx FAILED";
+            return 369;
+    }
 
     //Run stage 4 - double launch to clear the eeprom flag from bootloaderJump.
     exit_code = dfuprog_virtual_cmd(command4, device_ptr, handle, ctx,  0);

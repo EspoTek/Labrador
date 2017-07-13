@@ -261,7 +261,7 @@ void winUsbDriver::isoTimerTick(void){
     UINT framePhaseError = epkframe - ep0frame;
     if(framePhaseError){
         qDebug("Frame phase error of %d", framePhaseError);
-       // killMe();
+        killMe();
     }
 
 
