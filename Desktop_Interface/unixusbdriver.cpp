@@ -15,24 +15,30 @@ unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 unixUsbDriver::~unixUsbDriver(void){
     qDebug() << "\n\nunixUsbDriver destructor ran!";
     //unixDriverDeleteMutex.lock();
-    workerThread->terminate();
-    delete(isoHandler);
-    delete(workerThread);
-    qDebug() << "THREAD Gone!";
+    if(connected){
+        workerThread->terminate();
+        delete(isoHandler);
+        delete(workerThread);
+        qDebug() << "THREAD Gone!";
 
-    for (int i=0; i<NUM_FUTURE_CTX; i++){
-        for (int k=0; k<NUM_ISO_ENDPOINTS; k++){
-            libusb_free_transfer(isoCtx[k][i]);
+        for (int i=0; i<NUM_FUTURE_CTX; i++){
+            for (int k=0; k<NUM_ISO_ENDPOINTS; k++){
+                libusb_free_transfer(isoCtx[k][i]);
+            }
         }
+        qDebug() << "Transfers freed.";
     }
-    qDebug() << "Transfers freed.";
 
+    if(handle != NULL){
     libusb_release_interface(handle, 0);
-    qDebug() << "Interface released";
-    libusb_close(handle);
-    qDebug() << "Device Closed";
-    libusb_exit(ctx);
-    qDebug() << "Libusb exited";
+        qDebug() << "Interface released";
+        libusb_close(handle);
+        qDebug() << "Device Closed";
+    }
+    if(ctx != NULL){
+        libusb_exit(ctx);
+        qDebug() << "Libusb exited";
+    }
     //unixDriverDeleteMutex.unlock();
     qDebug() << "unixUsbDriver destructor completed!\n\n";
 }
@@ -69,6 +75,7 @@ unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     if(error){
         qDebug() << "libusb_claim_interface FAILED";
         qDebug() << "ERROR" << error << libusb_error_name(error);
+        handle = NULL;
         return 1;
     } else qDebug() << "Interface claimed!";
 
@@ -288,7 +295,7 @@ bool unixUsbDriver::allEndpointsComplete(int n){
 
 void unixUsbDriver::shutdownProcedure(){
     shutdownMode = true;
-    QTimer::singleShot(1000, this, SLOT(backupCleanup()));
+    QTimer::singleShot(1500, this, SLOT(backupCleanup()));
 }
 
 //On physical disconnect, isoTimerTick will not assert stopTime.  Hence this duct-tape function.
@@ -316,7 +323,7 @@ int unixUsbDriver::flashFirmware(void){
 
 
     //Set up interface to dfuprog
-    int exit_code;
+    int exit_code = 1;
     char command1[256];
     sprintf(command1, "dfu-programmer atxmega32a4u erase --force");
     char command2[256];
@@ -327,9 +334,9 @@ int unixUsbDriver::flashFirmware(void){
     sprintf(command4, "dfu-programmer atxmega32a4u launch");
 
     //Run stage 1
-    exit_code = dfuprog_virtual_cmd(command1);
-    if(exit_code){
-        return exit_code+100;
+    while(exit_code){
+        QThread::msleep(250);
+        exit_code = dfuprog_virtual_cmd(command1);
     }
 
     //Run stage 2
@@ -347,7 +354,21 @@ int unixUsbDriver::flashFirmware(void){
     QThread::msleep(2000);
 
     //Run stage 4 - double launch to clear the eeprom flag from bootloaderJump.
-    exit_code = dfuprog_virtual_cmd(command4);
+    exit_code = 1;
+    while(exit_code){
+        QThread::msleep(250);
+        exit_code = dfuprog_virtual_cmd(command4);
+    }
+
+    libusb_release_interface(handle, 0);
+    qDebug() << "Interface released";
+    libusb_close(handle);
+    qDebug() << "Device Closed";
+    libusb_exit(ctx);
+    qDebug() << "Libusb exited";
+    connected = false;
+    handle = NULL;
+    ctx = NULL;
 
     return 0;
 #endif

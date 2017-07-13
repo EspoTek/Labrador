@@ -15,9 +15,8 @@
 #include "buffercontrol.h"
 #include "unified_debug_structure.h"
 
-#define EXPECTED_FIRMWARE_VERSION 0x0002
+#define EXPECTED_FIRMWARE_VERSION 0x0003
 
-#ifdef PLATFORM_BABABOOEY
     #define DEFINED_EXPECTED_VARIANT 1
     #define ISO_PACKET_SIZE 125
     #define NUM_ISO_ENDPOINTS (6)

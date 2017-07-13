@@ -28,12 +28,16 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
 }
 
 genericUsbDriver::~genericUsbDriver(void){
-    psuTimer->stop();
-    recoveryTimer->stop();
-    isoTimer->stop();
-    delete(psuTimer);
-    delete(recoveryTimer);
-    delete(isoTimer);
+    qDebug() << "genericUsbDriver dectructor entering";
+    if(connected){
+        psuTimer->stop();
+        recoveryTimer->stop();
+        isoTimer->stop();
+        delete(psuTimer);
+        delete(recoveryTimer);
+        delete(isoTimer);
+    }
+    qDebug() << "genericUsbDriver dectructor completed";
 }
 
 
@@ -321,8 +325,7 @@ void genericUsbDriver::avrDebug(void){
     qDebug() << "outOfRange = " << outOfRange;
     qDebug() << "counter = " << counter;
     qDebug() << "calValNeg = " << udsPtr->calValNeg;
-    qDebug() << "calValPos = " << udsPtr->calValPos;
-    qDebug() << "CALA = " << udsPtr->CALA;
+    qDebug() << "calValPos = " << udsPtr->calValPos;    qDebug() << "CALA = " << udsPtr->CALA;
     qDebug() << "CALB = " << udsPtr->CALB;
     qDebug() << "dma_ch0_cnt = " << dma_ch0_cnt;
     qDebug() << "dma_ch1_cnt = " << dma_ch1_cnt;
@@ -353,17 +356,20 @@ void genericUsbDriver::checkConnection(){
     if(!connected){
         qDebug() << "CHECKING CONNECTION!";
         connected = !(usbInit(BOARD_VID, BOARD_PID));
+        qDebug() << "Connected";
         return;
     }
     connectTimer->stop();
 
     requestFirmwareVersion();
     qDebug("BOARD IS RUNNING FIRMWARE VERSION 0x%04hx", firmver);
+    qDebug("EXPECTING FIRMWARE VERSION 0x%04hx", EXPECTED_FIRMWARE_VERSION);
     requestFirmwareVariant();
     qDebug("FIRMWARE VARIANT = 0x%02hx", variant);
     qDebug("EXPECTED VARIANT = 0x%02hx", DEFINED_EXPECTED_VARIANT);
 
     if((firmver != EXPECTED_FIRMWARE_VERSION) || (variant != DEFINED_EXPECTED_VARIANT)){
+        qDebug() << "Unexpected Firmware!!";
         int flashRet = flashFirmware();
         connected = false;
         connectTimer->start();

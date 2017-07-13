@@ -63,6 +63,8 @@ MainWindow::MainWindow(QWidget *parent) :
         reinitUsb();
     #endif
     #ifdef PLATFORM_MAC
+        reinitUsb();
+        /*
         //Reconnect the other objects.
         ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
         connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
@@ -84,7 +86,7 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
         connect(ui->controller_iso->driver, SIGNAL(upTick()), ui->controller_iso, SLOT(timerTick()));
         connect(ui->controller_iso->driver, SIGNAL(connectedStatus(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
-        connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete(void)), ui->deviceConnected, SLOT(resetUsbState(bool)));
+        connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete(void)), ui->deviceConnected, SLOT(resetUsbState(bool)));*/
     #endif
     #ifdef PLATFORM_ANDROID
         ui->actionAutomatically_Enable_Cursors->setVisible(false);
@@ -1131,7 +1133,10 @@ void MainWindow::on_actionRecord_triggered(bool checked)
     QString dateString = now.toString("yyyyMMddhhmmsszzz");
     qDebug() << dateString;
 
-    outputDir = new QDir();
+    qDebug() << "QStandardPaths::DocumentsLocation" << QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    outputDir = new QDir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+    outputDir->mkdir("EspoTek");
+    outputDir->cd("EspoTek");
     outputDir->mkdir("recordings");
     outputDir->cd("recordings");
     outputDir->mkdir(dateString);
@@ -1163,8 +1168,12 @@ void MainWindow::reinitUsb(void){
 #ifdef PLATFORM_WINDOWS
     reinitUsbStage2();
 #else
-    ui->controller_iso->driver->shutdownProcedure();
-    QTimer::singleShot(3000, this, SLOT(reinitUsbStage2()));
+    if(!(ui->controller_iso->driver->connected)){
+        reinitUsbStage2();
+    } else{
+        ui->controller_iso->driver->shutdownProcedure();
+        QTimer::singleShot(3500, this, SLOT(reinitUsbStage2()));
+    }
 #endif
     qDebug() << "ReinitUsb Stage 1 complete";
 }
@@ -1172,6 +1181,7 @@ void MainWindow::reinitUsb(void){
 void MainWindow::reinitUsbStage2(void){
     qDebug() << "ReinitUsb entering stage 2";
     delete(ui->controller_iso->driver);
+    qDebug() << "Reinitialising USB driver!";
     ui->controller_iso->driver = new _PLATFORM_DEPENDENT_USB_OBJECT();
 
     //Reconnect the other objects.

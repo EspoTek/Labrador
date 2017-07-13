@@ -1188,7 +1188,9 @@ void isoDriver::takeSnapshot(){
     QString fileName_CH2 = now.toString("yyyyMMddhhmmsszzz");
     fileName_CH2.append("_CH2.csv");
 
-    QDir *dir = new QDir();
+    QDir *dir = new QDir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+    dir->mkdir("EspoTek");
+    dir->cd("EspoTek");
     dir->mkdir("snapshots");
     dir->cd("snapshots");
 
