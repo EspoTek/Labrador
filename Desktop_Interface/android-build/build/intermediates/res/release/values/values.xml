@@ -20,6 +20,7 @@
     </array>
     <array name="bundled_libs">
         <item>dfuprog-0.9</item>
+<item>log</item>
 <item>usb1.0</item>
 
     </array>

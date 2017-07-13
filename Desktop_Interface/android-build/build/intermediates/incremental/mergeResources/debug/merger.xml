@@ -17,6 +17,7 @@
         <item>https://download.qt.io/ministro/android/qt5/qt-5.7</item>
     </array><array name="bundled_libs">
         <item>dfuprog-0.9</item>
+<item>log</item>
 <item>usb1.0</item>
 
     </array><array name="qt_libs">

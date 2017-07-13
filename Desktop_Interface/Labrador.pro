@@ -200,6 +200,11 @@ android:{
     DEPENDPATH += $$PWD/build_android/libdfuprog/include
     ANDROID_EXTRA_LIBS += $${PWD}/build_android/libdfuprog/lib/libdfuprog-0.9.so
 
+    #liblog include
+    LIBS += -L$$PWD/build_android/liblog/lib -llog
+    ANDROID_EXTRA_LIBS += $${PWD}/build_android/liblog/lib/liblog.so
+
+
 
     DISTFILES += \
         build_android/package_source/AndroidManifest.xml \

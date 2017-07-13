@@ -171,6 +171,8 @@ ADDED from AndroidManifest.xml:60:13
 		ADDED from AndroidManifest.xml:60:24
 uses-sdk
 ADDED from AndroidManifest.xml:68:5
+	android:maxSdkVersion
+		ADDED from AndroidManifest.xml:68:72
 	android:targetSdkVersion
 		ADDED from AndroidManifest.xml:68:42
 	android:minSdkVersion
