@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'isodriver.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.7.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.5.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'isodriver.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.7.1. It"
+#error "This file was generated using the moc from 5.5.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -417,154 +417,132 @@ void isoDriver::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::setGain)) {
                 *result = 0;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(bool );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::disableWindow)) {
                 *result = 1;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(bool );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::setCursorStatsVisible)) {
                 *result = 2;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendCursorStatsText)) {
                 *result = 3;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(bool );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::singleShotTriggered)) {
                 *result = 4;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::multimeterMax)) {
                 *result = 5;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::multimeterMin)) {
                 *result = 6;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::multimeterMean)) {
                 *result = 7;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::multimeterRMS)) {
                 *result = 8;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendMultimeterLabel1)) {
                 *result = 9;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendMultimeterLabel2)) {
                 *result = 10;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendMultimeterLabel3)) {
                 *result = 11;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(QString );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendMultimeterLabel4)) {
                 *result = 12;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(bool );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::changeTimeAxis)) {
                 *result = 13;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendTriggerValue)) {
                 *result = 14;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendVmax_CH1)) {
                 *result = 15;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendVmin_CH1)) {
                 *result = 16;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendVmean_CH1)) {
                 *result = 17;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendVmax_CH2)) {
                 *result = 18;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendVmin_CH2)) {
                 *result = 19;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(double );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::sendVmean_CH2)) {
                 *result = 20;
-                return;
             }
         }
         {
             typedef void (isoDriver::*_t)(int );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&isoDriver::multimeterREnabled)) {
                 *result = 21;
-                return;
             }
         }
     }

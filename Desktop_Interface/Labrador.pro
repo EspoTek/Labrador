@@ -101,15 +101,29 @@ win32{
 
 unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux
 
-#libusb include
-unix:!android:!macx:LIBS += -Lbuild_linux/libusb -lusb-1.0  ##I suspect the -L here does nothing!
-unix:!android:!macx:INCLUDEPATH += build_linux/libusb
-unix:!android:!macx:DEPENDPATH += build_linux/libusb
+    contains(QT_ARCH, i386) {
+        message("Building for Linux (x86)")
+        unix:!android:!macx:LIBS += -lusb-1.0  ##make sure you have the libusb-1.0-0-dev package!
+        unix:!android:!macx:INCLUDEPATH += build_linux/libusb
+        unix:!android:!macx:DEPENDPATH += build_linux/libusb
 
-#libdfuprog include
-unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib -ldfuprog-0.9
-unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
-unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
+        #libdfuprog include
+        unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/x86 -ldfuprog-0.9
+        unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
+        unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
+    } else {
+        message("Building for Linux (x64)")
+        #libusb include
+        unix:!android:!macx:LIBS += -Lbuild_linux/libusb -lusb-1.0  ##I suspect the -L here does nothing!
+        unix:!android:!macx:INCLUDEPATH += build_linux/libusb
+        unix:!android:!macx:DEPENDPATH += build_linux/libusb
+
+        #libdfuprog include
+        unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9
+        unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
+        unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
+    }
+
 
 
 #############################################################
