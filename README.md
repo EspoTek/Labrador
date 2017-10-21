@@ -4,6 +4,17 @@ http://espotek.com/labrador
 
 https://www.crowdsupply.com/espotek/labrador
 
+# Build Instructions
+I use Qt Creator to build the software interface.
+Open Desktop Interface/Labrador.pro, then Clean All -> Run qmake -> Build All.
+Others have done it manually, thoguh.
+Just make sure you have Qt 5.6 or later.
+
+For the AVR software, I use Atmel Studio 7.  Just load up the .atsln and push F7.
+Again, you can use avr-gcc if you don't want to install a full IDE.
+
+The PCB files were done in KiCAD 4.0.
+
 # Documentation and Binary
 All documentation and binary files are currently hosted here:
 https://drive.google.com/drive/u/0/folders/0B7U0ulRLHf8cRVBkeFc2SHpUOGs
