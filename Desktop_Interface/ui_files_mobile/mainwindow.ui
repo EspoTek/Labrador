@@ -1,0 +1,4368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>720</width>
+    <height>1280</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>480</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>EspoTek Labrador</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout_5">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="deviceConnectedDisplay" name="deviceConnected">
+      <property name="text">
+       <string>Device Not Connected!</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCustomPlot" name="scopeAxes" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>720</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="swipeyStack" name="stackedWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="page">
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+        </font>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>2</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_9">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <item>
+               <widget class="QGroupBox" name="scopeGroup_CH1">
+                <property name="title">
+                 <string>Oscilloscope CH1</string>
+                </property>
+                <property name="flat">
+                 <bool>false</bool>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_2">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QCheckBox" name="acCoupledLabel_CH1">
+                   <property name="text">
+                    <string>AC Coupled</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="filterLabel_CH1">
+                   <property name="text">
+                    <string>Filter</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="doubleSampleLabel">
+                   <property name="text">
+                    <string>Double Sample Rate</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_2">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="voltageInfoMaxLabel_CH1">
+                     <property name="text">
+                      <string> Max</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLCDNumber" name="voltageInfoMaxDisplay_CH1">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>24</height>
+                      </size>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="voltageInfoMinLabel_CH1">
+                     <property name="text">
+                      <string> Min</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLCDNumber" name="voltageInfoMinDisplay_CH1">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>24</height>
+                      </size>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="VoltageInfoMeanLabel_CH1">
+                     <property name="text">
+                      <string> Mean</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="voltageInfoRmsLabel_CH1">
+                     <property name="text">
+                      <string> RMS</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QLCDNumber" name="voltageInfoRmsDisplay_CH1">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>24</height>
+                      </size>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLCDNumber" name="voltageInfoMeanDisplay_CH1">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>24</height>
+                      </size>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="cursorGroup">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="title">
+                 <string>Cursor/Scaling</string>
+                </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_5">
+                 <item row="0" column="0">
+                  <widget class="QCheckBox" name="cursorHoriCheck">
+                   <property name="text">
+                    <string>Horizontal</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="cursorEnabler" name="makeCursorsNicer">
+                   <property name="text">
+                    <string>CURSOR ENABLER</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QCheckBox" name="cursorVertCheck">
+                   <property name="text">
+                    <string>Vertical</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QCheckBox" name="scaleHoriCheck">
+                   <property name="text">
+                    <string>H-Scale</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QCheckBox" name="scaleVertCheck">
+                   <property name="text">
+                    <string>V-Scale</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <item>
+               <widget class="QGroupBox" name="scopeGroup_CH2">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="title">
+                 <string>Oscilloscope CH2</string>
+                </property>
+                <property name="flat">
+                 <bool>false</bool>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QCheckBox" name="acCoupledLabel_CH2">
+                   <property name="text">
+                    <string>AC Coupled</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="filterLabel_CH2">
+                   <property name="text">
+                    <string>Filter</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="xyDisplayLabel">
+                   <property name="text">
+                    <string>X-Y Display</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_3">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="voltageInfoMaxLabel_CH2">
+                     <property name="text">
+                      <string> Max</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLCDNumber" name="voltageInfoMaxDisplay_CH2">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>24</height>
+                      </size>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="voltageInfoMinLabel_CH2">
+                     <property name="text">
+                      <string> Min</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLCDNumber" name="voltageInfoMinDisplay_CH2">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>24</height>
+                      </size>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="VoltageInfoMeanLabel_CH2">
+                     <property name="text">
+                      <string> Mean</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="voltageInfoRmsLabel_CH2">
+                     <property name="text">
+                      <string> RMS</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QLCDNumber" name="voltageInfoRmsDisplay_CH2">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>24</height>
+                      </size>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1">
+                    <widget class="QLCDNumber" name="voltageInfoMeanDisplay_CH2">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>24</height>
+                      </size>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="triggerGroup">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="title">
+                 <string>Trigger</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_14">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QComboBox" name="triggerChannelSelect">
+                   <item>
+                    <property name="text">
+                     <string>CH1 (Rising)</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>CH1 (Falling)</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>CH2 (Rising)</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>CH2 (Falling)</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDoubleSpinBox" name="triggerLevelValue">
+                   <property name="minimum">
+                    <double>-20.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>20.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="singleShotCheckBox">
+                   <property name="text">
+                    <string>Single Shot</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="pausedLabel_CH2">
+            <property name="text">
+             <string>Paused</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="pausedLabeL_CH1">
+            <property name="text">
+             <string>Paused</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QGroupBox" name="signalGenGroup_CH1">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="title">
+           <string>Signal Gen CH1</string>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_19">
+           <item>
+            <widget class="QLabel" name="waveformLabel_CH1">
+             <property name="text">
+              <string>Waveform</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="espoComboBox" name="waveformSelect_CH1"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="frequencyLabel_CH1">
+             <property name="text">
+              <string>Frequency</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="espoSpinBox" name="frequencyValue_CH1">
+             <property name="suffix">
+              <string notr="true">Hz</string>
+             </property>
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="minimum">
+              <double>0.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>1000000.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>100.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>1000.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="amplitudeLabel_CH1">
+             <property name="text">
+              <string>Amplitude (Peak-Peak)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="espoSpinBox" name="amplitudeValue_CH1">
+             <property name="suffix">
+              <string>V</string>
+             </property>
+             <property name="maximum">
+              <double>9.600000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="dcOffsetLabel_CH1">
+             <property name="text">
+              <string>Offset</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="espoSpinBox" name="dcOffsetValue_CH1">
+             <property name="suffix">
+              <string>V</string>
+             </property>
+             <property name="maximum">
+              <double>9.600000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="signalGenGroup_CH2">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="title">
+           <string>Signal Gen CH2</string>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_21">
+           <item>
+            <widget class="QLabel" name="waveformLabel_CH2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Waveform</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="espoComboBox" name="waveformSelect_CH2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="frequencyLabel_CH2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Frequency</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="espoSpinBox" name="frequencyValue_CH2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="suffix">
+              <string notr="true">Hz</string>
+             </property>
+             <property name="decimals">
+              <number>2</number>
+             </property>
+             <property name="maximum">
+              <double>1000000.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>100.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>1000.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="amplitudeLabel_CH2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Amplitude (Peak-Peak)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="espoSpinBox" name="amplitudeValue_CH2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="suffix">
+              <string>V</string>
+             </property>
+             <property name="maximum">
+              <double>10.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="dcOffsetLabel_CH2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Offset</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="espoSpinBox" name="dcOffsetValue_CH2">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="suffix">
+              <string>V</string>
+             </property>
+             <property name="maximum">
+              <double>10.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_3">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QGroupBox" name="multimeterGroup">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="title">
+           <string>Multimeter++</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_13">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_22">
+               <item>
+                <spacer name="verticalSpacer_7">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="multimeterModeLabel">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>180</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Mode</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="multimeterModeSelect">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>180</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>V</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>I</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>R</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>C</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item>
+                <spacer name="verticalSpacer_8">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="multimeterResistanceLabel">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>180</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Series Resistance</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="espoSpinBox" name="multimeterResistanceSelect">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>180</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="suffix">
+                  <string>Ω</string>
+                 </property>
+                 <property name="decimals">
+                  <number>0</number>
+                 </property>
+                 <property name="maximum">
+                  <double>1000000.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="verticalSpacer_6">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_23">
+               <item>
+                <layout class="QFormLayout" name="formLayout">
+                 <property name="horizontalSpacing">
+                  <number>0</number>
+                 </property>
+                 <property name="verticalSpacing">
+                  <number>0</number>
+                 </property>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="multimeterMaxLabel">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>96</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string> Max</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLCDNumber" name="multimeterMaxDisplay">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>96</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="digitCount">
+                    <number>4</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="multimeterMinLabel">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>96</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string> Min</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QLCDNumber" name="multimeterMinDisplay">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>96</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="digitCount">
+                    <number>4</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="1">
+                  <spacer name="verticalSpacer_2">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Preferred</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="6" column="0">
+                  <widget class="QLabel" name="multimeterMeanLabel">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>96</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string> Mean</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="1">
+                  <widget class="QLCDNumber" name="multimeterMeanDisplay">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>96</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="digitCount">
+                    <number>4</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="1">
+                  <spacer name="verticalSpacer_4">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Preferred</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="8" column="0">
+                  <widget class="QLabel" name="multimeterRmsLabel">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>96</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string> RMS</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="8" column="1">
+                  <widget class="QLCDNumber" name="multimeterRmsDisplay">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>96</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::NoFrame</enum>
+                   </property>
+                   <property name="digitCount">
+                    <number>4</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <spacer name="verticalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Preferred</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="0" column="1">
+                  <spacer name="verticalSpacer_3">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <spacer name="verticalSpacer_5">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="multimeterPauseCheckBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>180</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <underline>false</underline>
+              </font>
+             </property>
+             <property name="text">
+              <string>Paused</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_5">
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QGroupBox" name="psuGroup">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="title">
+           <string>PSU</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_15">
+           <item>
+            <widget class="espoSlider" name="psuSlider">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="minimum">
+              <number>90</number>
+             </property>
+             <property name="maximum">
+              <number>300</number>
+             </property>
+             <property name="singleStep">
+              <number>1</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="tickPosition">
+              <enum>QSlider::TicksBelow</enum>
+             </property>
+             <property name="tickInterval">
+              <number>20</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="timedTickBox" name="lockPsuCheckBox">
+             <property name="text">
+              <string>Lock PSU</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLCDNumber" name="psuDisplay">
+             <property name="minimumSize">
+              <size>
+               <width>108</width>
+               <height>36</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>108</width>
+               <height>36</height>
+              </size>
+             </property>
+             <property name="smallDecimalPoint">
+              <bool>true</bool>
+             </property>
+             <property name="digitCount">
+              <number>4</number>
+             </property>
+             <property name="value" stdset="0">
+              <double>5.000000000000000</double>
+             </property>
+             <property name="intValue" stdset="0">
+              <number>5</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="functionGenControl" name="controller_fg">
+            <property name="text">
+             <string>SALUTON MI ESTAS FUNCTION GENERATOR CONTROLLER</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="bufferControl" name="bufferDisplay">
+            <property name="minimumSize">
+             <size>
+              <width>96</width>
+              <height>36</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>96</width>
+              <height>36</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>BUFFER IMAGE HERE</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="cursorStatsLabel">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>48</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>cursorStatsLabel</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="debugButton3">
+            <property name="text">
+             <string>Jump to Bootloader</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="debugButton1">
+            <property name="text">
+             <string>Debug!</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="timeBaseSlider">
+            <property name="minimum">
+             <number>-60</number>
+            </property>
+            <property name="maximum">
+             <number>10</number>
+            </property>
+            <property name="pageStep">
+             <number>10</number>
+            </property>
+            <property name="value">
+             <number>-20</number>
+            </property>
+            <property name="sliderPosition">
+             <number>-20</number>
+            </property>
+            <property name="tracking">
+             <bool>true</bool>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksBelow</enum>
+            </property>
+            <property name="tickInterval">
+             <number>10</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="debugButton2">
+            <property name="text">
+             <string>ReinitUsb()</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="debugConsole"/>
+          </item>
+          <item>
+           <widget class="isoDriver" name="controller_iso">
+            <property name="text">
+             <string>SALUTON MI ESTAS ISO DRIVER</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_4">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QPlainTextEdit" name="console1">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>48</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>96</height>
+           </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPlainTextEdit" name="console2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>48</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>96</height>
+           </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QGroupBox" name="digitalOutputGroup">
+            <property name="title">
+             <string>Digital Output</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="1" column="0">
+              <widget class="QCheckBox" name="digitalOutCheckbox_CH3">
+               <property name="text">
+                <string>Pin 3</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QCheckBox" name="digitalOutCheckbox_CH2">
+               <property name="text">
+                <string>Pin 2</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="digitalOutCheckbox_CH1">
+               <property name="text">
+                <string>Pin 1</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QCheckBox" name="digitalOutCheckbox_CH4">
+               <property name="text">
+                <string>Pin 4</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+            <zorder>digitalOutCheckbox_CH2</zorder>
+            <zorder>digitalOutCheckbox_CH1</zorder>
+            <zorder>digitalOutCheckbox_CH3</zorder>
+            <zorder>digitalOutCheckbox_CH4</zorder>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="busSifferGroup_CH1">
+            <property name="title">
+             <string>Logic Analyzer CH1</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <widget class="QGroupBox" name="serialDecodingCheck_CH1">
+               <property name="title">
+                <string>Serial Decoding</string>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>6</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QComboBox" name="serialDecodingModeSelect_CH1">
+                  <item>
+                   <property name="text">
+                    <string>UART</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>SPI</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>I2C</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="busSnifferGroup_CH2">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="title">
+             <string>Logic Analyzer CH2</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_16">
+             <item>
+              <widget class="QGroupBox" name="serialDecodingCheck_CH2">
+               <property name="title">
+                <string>Serial Decoding</string>
+               </property>
+               <property name="flat">
+                <bool>true</bool>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_17">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>6</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QComboBox" name="serialDecodingModeSelect_CH2">
+                  <item>
+                   <property name="text">
+                    <string>UART</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>SPI</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>I2C</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="pause_LA">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string>Paused</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+   <zorder>scopeAxes</zorder>
+   <zorder>deviceConnected</zorder>
+   <zorder>stackedWidget</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>720</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuOscilloscope_2">
+    <property name="title">
+     <string>Oscilloscope</string>
+    </property>
+    <widget class="QMenu" name="menuGain_2">
+     <property name="title">
+      <string>Gain</string>
+     </property>
+     <addaction name="actionGainAuto"/>
+     <addaction name="actionGain0_5"/>
+     <addaction name="actionGain1"/>
+     <addaction name="actionGain2"/>
+     <addaction name="actionGain4"/>
+     <addaction name="actionGain8"/>
+     <addaction name="actionGain16"/>
+     <addaction name="actionGain32"/>
+     <addaction name="actionGain64"/>
+    </widget>
+    <widget class="noCloseMenu" name="menuCH1_Stats">
+     <property name="title">
+      <string>CH1 Stats</string>
+     </property>
+     <addaction name="actionMax"/>
+     <addaction name="actionMin"/>
+     <addaction name="actionMean"/>
+     <addaction name="actionRMS"/>
+    </widget>
+    <widget class="noCloseMenu" name="menuCH2_Stats">
+     <property name="title">
+      <string>CH2 Stats</string>
+     </property>
+     <addaction name="actionMax_2"/>
+     <addaction name="actionMin_2"/>
+     <addaction name="actionMean_2"/>
+     <addaction name="actionRMS_2"/>
+    </widget>
+    <widget class="QMenu" name="menuFrame_rate">
+     <property name="title">
+      <string>Frame rate</string>
+     </property>
+     <addaction name="action60FPS"/>
+     <addaction name="action30FPS"/>
+     <addaction name="action20FPS"/>
+     <addaction name="action15FPS"/>
+     <addaction name="action10FPS"/>
+     <addaction name="action5FPS"/>
+    </widget>
+    <widget class="QMenu" name="menuRange">
+     <property name="title">
+      <string>Range</string>
+     </property>
+     <addaction name="actionSnap_to_Cursors"/>
+     <addaction name="actionEnter_Manually"/>
+    </widget>
+    <addaction name="menuRange"/>
+    <addaction name="separator"/>
+    <addaction name="menuFrame_rate"/>
+    <addaction name="separator"/>
+    <addaction name="menuGain_2"/>
+    <addaction name="separator"/>
+    <addaction name="menuCH1_Stats"/>
+    <addaction name="menuCH2_Stats"/>
+    <addaction name="actionCursor_Stats"/>
+    <addaction name="separator"/>
+    <addaction name="actionCalibrate"/>
+    <addaction name="actionForce_Square"/>
+    <addaction name="actionAutomatically_Enable_Cursors"/>
+   </widget>
+   <widget class="QMenu" name="menuMultimeter_2">
+    <property name="title">
+     <string>Multimeter</string>
+    </property>
+    <widget class="QMenu" name="menuV_2">
+     <property name="title">
+      <string>Range (V)</string>
+     </property>
+     <addaction name="actionAutoV"/>
+     <addaction name="actionMV"/>
+     <addaction name="actionV"/>
+    </widget>
+    <widget class="QMenu" name="menuI_2">
+     <property name="title">
+      <string>Range (I)</string>
+     </property>
+     <addaction name="actionAutoI"/>
+     <addaction name="actionMA"/>
+     <addaction name="actionA"/>
+    </widget>
+    <widget class="QMenu" name="menuRange_R">
+     <property name="title">
+      <string>Range (R)</string>
+     </property>
+     <addaction name="actionAutoR"/>
+     <addaction name="actionOhm"/>
+     <addaction name="actionKOhm"/>
+    </widget>
+    <widget class="QMenu" name="menuRange_C">
+     <property name="title">
+      <string>Range (C)</string>
+     </property>
+     <addaction name="actionAutoC"/>
+     <addaction name="actionNF"/>
+     <addaction name="action_F"/>
+    </widget>
+    <addaction name="separator"/>
+    <addaction name="menuV_2"/>
+    <addaction name="menuI_2"/>
+    <addaction name="menuRange_R"/>
+    <addaction name="menuRange_C"/>
+   </widget>
+   <widget class="QMenu" name="menuBus_Sniffer">
+    <property name="title">
+     <string>Logic Analyzer</string>
+    </property>
+    <widget class="QMenu" name="menuUART_1">
+     <property name="title">
+      <string>UART 1</string>
+     </property>
+     <widget class="QMenu" name="menuBaud_Rate">
+      <property name="title">
+       <string>Baud Rate</string>
+      </property>
+      <addaction name="action300"/>
+      <addaction name="action600"/>
+      <addaction name="action1200"/>
+      <addaction name="action2400"/>
+      <addaction name="action4800"/>
+      <addaction name="action9600"/>
+      <addaction name="action14400"/>
+      <addaction name="action19200"/>
+      <addaction name="action28800"/>
+      <addaction name="action38400"/>
+      <addaction name="action57600"/>
+      <addaction name="action115200"/>
+     </widget>
+     <widget class="QMenu" name="menuType_Here_2">
+      <property name="title">
+       <string>Type Here</string>
+      </property>
+     </widget>
+     <widget class="QMenu" name="menuParity_Bit">
+      <property name="title">
+       <string>Parity Bit</string>
+      </property>
+      <addaction name="actionNone"/>
+     </widget>
+     <widget class="QMenu" name="menuData_Bits">
+      <property name="title">
+       <string>Data Bits</string>
+      </property>
+      <addaction name="action8"/>
+     </widget>
+     <addaction name="menuBaud_Rate"/>
+     <addaction name="menuParity_Bit"/>
+     <addaction name="menuData_Bits"/>
+     <addaction name="menuType_Here_2"/>
+    </widget>
+    <widget class="QMenu" name="menuUART_2">
+     <property name="title">
+      <string>UART 2</string>
+     </property>
+     <widget class="QMenu" name="menuBaud_Rate_2">
+      <property name="title">
+       <string>Baud Rate</string>
+      </property>
+      <addaction name="action300_2"/>
+      <addaction name="action600_2"/>
+      <addaction name="action1200_2"/>
+      <addaction name="action2400_2"/>
+      <addaction name="action4800_2"/>
+      <addaction name="action9600_2"/>
+      <addaction name="action14400_2"/>
+      <addaction name="action19200_2"/>
+      <addaction name="action28800_2"/>
+      <addaction name="action38400_2"/>
+      <addaction name="action57600_2"/>
+      <addaction name="action115200_2"/>
+     </widget>
+     <widget class="QMenu" name="menuData_Bits_2">
+      <property name="title">
+       <string>Data Bits</string>
+      </property>
+      <addaction name="action8_2"/>
+     </widget>
+     <widget class="QMenu" name="menuParity_Bit_2">
+      <property name="title">
+       <string>Parity Bit</string>
+      </property>
+      <addaction name="actionNone_2"/>
+     </widget>
+     <addaction name="menuBaud_Rate_2"/>
+     <addaction name="menuData_Bits_2"/>
+     <addaction name="menuParity_Bit_2"/>
+    </widget>
+    <addaction name="menuUART_1"/>
+    <addaction name="menuUART_2"/>
+   </widget>
+   <widget class="QMenu" name="menuAndroid_Special">
+    <property name="title">
+     <string>Android Special</string>
+    </property>
+    <addaction name="actionOld_Person_Mode"/>
+   </widget>
+   <widget class="QMenu" name="menuConnection_Type">
+    <property name="title">
+     <string>Connection Type</string>
+    </property>
+    <addaction name="actionLo_bw"/>
+    <addaction name="actionSingle_ep_msync"/>
+    <addaction name="actionSingle_ep_async"/>
+   </widget>
+   <addaction name="menuOscilloscope_2"/>
+   <addaction name="menuMultimeter_2"/>
+   <addaction name="menuBus_Sniffer"/>
+   <addaction name="menuAndroid_Special"/>
+   <addaction name="menuConnection_Type"/>
+  </widget>
+  <action name="actionGainAuto">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto</string>
+   </property>
+  </action>
+  <action name="actionGain0_5">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>0.5</string>
+   </property>
+  </action>
+  <action name="actionGain1">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+  </action>
+  <action name="actionGain2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>2</string>
+   </property>
+  </action>
+  <action name="actionGain4">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>4</string>
+   </property>
+  </action>
+  <action name="actionGain8">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>8</string>
+   </property>
+  </action>
+  <action name="actionGain16">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>16</string>
+   </property>
+  </action>
+  <action name="actionGain32">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>32</string>
+   </property>
+  </action>
+  <action name="actionGain64">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>64</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::TextHeuristicRole</enum>
+   </property>
+  </action>
+  <action name="actionCalibrate">
+   <property name="text">
+    <string>Calibrate</string>
+   </property>
+  </action>
+  <action name="actionCursor_Stats">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cursor Stats</string>
+   </property>
+  </action>
+  <action name="actionMax">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Max</string>
+   </property>
+  </action>
+  <action name="actionMin">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Min</string>
+   </property>
+  </action>
+  <action name="actionMean">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Mean</string>
+   </property>
+  </action>
+  <action name="actionRMS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>RMS</string>
+   </property>
+  </action>
+  <action name="actionMax_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Max</string>
+   </property>
+  </action>
+  <action name="actionMin_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Min</string>
+   </property>
+  </action>
+  <action name="actionMean_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Mean</string>
+   </property>
+  </action>
+  <action name="actionRMS_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>RMS</string>
+   </property>
+  </action>
+  <action name="actionMV">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>mV</string>
+   </property>
+  </action>
+  <action name="actionV">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>V</string>
+   </property>
+  </action>
+  <action name="actionAutoV">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto</string>
+   </property>
+  </action>
+  <action name="actionAutoI">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto</string>
+   </property>
+  </action>
+  <action name="actionMA">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>mA</string>
+   </property>
+  </action>
+  <action name="actionA">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>A</string>
+   </property>
+  </action>
+  <action name="action300">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>300</string>
+   </property>
+  </action>
+  <action name="action600">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>600</string>
+   </property>
+  </action>
+  <action name="action1200">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>1200</string>
+   </property>
+  </action>
+  <action name="action2400">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>2400</string>
+   </property>
+  </action>
+  <action name="action4800">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>4800</string>
+   </property>
+  </action>
+  <action name="action9600">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>9600</string>
+   </property>
+  </action>
+  <action name="action14400">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>14400</string>
+   </property>
+  </action>
+  <action name="action19200">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>19200</string>
+   </property>
+  </action>
+  <action name="action28800">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>28800</string>
+   </property>
+  </action>
+  <action name="action38400">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>38400</string>
+   </property>
+  </action>
+  <action name="action57600">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>57600 (Glitchy)</string>
+   </property>
+  </action>
+  <action name="action115200">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>115200 (Glitchy)</string>
+   </property>
+  </action>
+  <action name="action8">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>8</string>
+   </property>
+  </action>
+  <action name="actionNone">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>None</string>
+   </property>
+  </action>
+  <action name="action300_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>300</string>
+   </property>
+  </action>
+  <action name="action600_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>600</string>
+   </property>
+  </action>
+  <action name="action1200_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>1200</string>
+   </property>
+  </action>
+  <action name="action2400_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>2400</string>
+   </property>
+  </action>
+  <action name="action4800_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>4800</string>
+   </property>
+  </action>
+  <action name="action9600_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>9600</string>
+   </property>
+  </action>
+  <action name="action14400_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>14400</string>
+   </property>
+  </action>
+  <action name="action19200_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>19200</string>
+   </property>
+  </action>
+  <action name="action28800_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>28800</string>
+   </property>
+  </action>
+  <action name="action38400_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>38400</string>
+   </property>
+  </action>
+  <action name="action57600_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>57600 (Glitchy)</string>
+   </property>
+  </action>
+  <action name="action115200_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>115200 (Glitchy)</string>
+   </property>
+  </action>
+  <action name="action8_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>8</string>
+   </property>
+  </action>
+  <action name="actionNone_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>None</string>
+   </property>
+  </action>
+  <action name="actionRecord">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Record</string>
+   </property>
+  </action>
+  <action name="actionForce_Square">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Force Square Display (Not Officially Supported)</string>
+   </property>
+  </action>
+  <action name="actionAutomatically_Enable_Cursors">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Enable Cursors on Click</string>
+   </property>
+  </action>
+  <action name="action60FPS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>60FPS</string>
+   </property>
+  </action>
+  <action name="action30FPS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>30FPS</string>
+   </property>
+  </action>
+  <action name="action20FPS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>20FPS</string>
+   </property>
+  </action>
+  <action name="action15FPS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>15FPS</string>
+   </property>
+  </action>
+  <action name="action10FPS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>10FPS</string>
+   </property>
+  </action>
+  <action name="action5FPS">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>5FPS</string>
+   </property>
+  </action>
+  <action name="actionAuto_Lock">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto Lock</string>
+   </property>
+  </action>
+  <action name="actionSnap_to_Cursors">
+   <property name="text">
+    <string>Snap to Cursors</string>
+   </property>
+  </action>
+  <action name="actionEnter_Manually">
+   <property name="text">
+    <string>Enter Manually</string>
+   </property>
+  </action>
+  <action name="actionTake_Snapshot">
+   <property name="text">
+    <string>Take Snapshot</string>
+   </property>
+  </action>
+  <action name="actionOld_Person_Mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Old Person Mode</string>
+   </property>
+  </action>
+  <action name="actionAutoR">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto</string>
+   </property>
+  </action>
+  <action name="actionOhm">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Ω</string>
+   </property>
+  </action>
+  <action name="actionKOhm">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>kΩ</string>
+   </property>
+  </action>
+  <action name="actionAutoC">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto</string>
+   </property>
+  </action>
+  <action name="actionNF">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>nF</string>
+   </property>
+  </action>
+  <action name="action_F">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>μF</string>
+   </property>
+  </action>
+  <action name="actionLo_bw">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>lo-bw</string>
+   </property>
+  </action>
+  <action name="actionSingle_ep_msync">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>single-ep-msync</string>
+   </property>
+  </action>
+  <action name="actionSingle_ep_async">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>single-ep-async</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+   <slots>
+    <signal>mouseWheel(QWheelEvent*)</signal>
+    <signal>mouseRelease(QMouseEvent*)</signal>
+    <signal>mousePress(QMouseEvent*)</signal>
+    <signal>mouseMove(QMouseEvent*)</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>bufferControl</class>
+   <extends>QLabel</extends>
+   <header location="global">buffercontrol.h</header>
+   <slots>
+    <signal>scopeOut_CH1(bool)</signal>
+    <signal>scopeOut_CH2(bool)</signal>
+    <signal>scopeUncheck(bool)</signal>
+    <signal>signalGenOut(bool)</signal>
+    <signal>busSnifferOut_CH1(bool)</signal>
+    <signal>busSnifferOut_CH2(bool)</signal>
+    <signal>busSnifferUncheck(bool)</signal>
+    <signal>multimeterOut(bool)</signal>
+    <signal>scopeDsrOut(bool)</signal>
+    <signal>scopeDsrUncheck(bool)</signal>
+    <signal>updateDig(int)</signal>
+    <signal>modeChange(int)</signal>
+    <signal>setDSR(bool)</signal>
+    <slot>scopeIn_CH1(bool)</slot>
+    <slot>scopeIn_CH2(bool)</slot>
+    <slot>signalGenIn(bool)</slot>
+    <slot>busSnifferIn_CH1(bool)</slot>
+    <slot>busSnifferIn_CH2(bool)</slot>
+    <slot>multimeterIn(bool)</slot>
+    <slot>scopeDsrIn(bool)</slot>
+    <slot>digIn_CH1(bool)</slot>
+    <slot>digIn_CH2(bool)</slot>
+    <slot>digIn_CH3(bool)</slot>
+    <slot>digIn_CH4(bool)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>espoSlider</class>
+   <extends>QSlider</extends>
+   <header location="global">esposlider.h</header>
+   <slots>
+    <signal>lcdOut(QString)</signal>
+    <signal>voltageChanged(double)</signal>
+    <slot>selfMoved(int)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>espoSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header location="global">espospinbox.h</header>
+   <slots>
+    <slot>maximumChanged(double)</slot>
+    <slot>setMax(double)</slot>
+    <slot>setMin(double)</slot>
+    <slot>changeStepping(double)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>espoComboBox</class>
+   <extends>QComboBox</extends>
+   <header location="global">espocombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>functionGenControl</class>
+   <extends>QLabel</extends>
+   <header location="global">functiongencontrol.h</header>
+   <slots>
+    <signal>functionGenToUpdate(int,functionGenControl*)</signal>
+    <signal>setMaxFreq_CH1(double)</signal>
+    <signal>setMinFreq_CH1(double)</signal>
+    <signal>setMaxFreq_CH2(double)</signal>
+    <signal>setMinFreq_CH2(double)</signal>
+    <slot>waveformName_CH1(QString)</slot>
+    <slot>waveformName_CH2(QString)</slot>
+    <slot>freqUpdate_CH1(double)</slot>
+    <slot>amplitudeUpdate_CH1(double)</slot>
+    <slot>offsetUpdate_CH1(double)</slot>
+    <slot>freqUpdate_CH2(double)</slot>
+    <slot>amplitudeUpdate_CH2(double)</slot>
+    <slot>offsetUpdate_CH2(double)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>isoDriver</class>
+   <extends>QLabel</extends>
+   <header location="global">isodriver.h</header>
+   <slots>
+    <signal>setGain(double)</signal>
+    <signal>disableWindow(bool)</signal>
+    <signal>setCursorStatsVisible(bool)</signal>
+    <signal>sendCursorStatsText(QString)</signal>
+    <signal>singleShotTriggered(bool)</signal>
+    <signal>multimeterMax(double)</signal>
+    <signal>multimeterMin(double)</signal>
+    <signal>multimeterMean(double)</signal>
+    <signal>sendMultimeterLabel1(QString)</signal>
+    <signal>sendMultimeterLabel2(QString)</signal>
+    <signal>sendMultimeterLabel3(QString)</signal>
+    <signal>changeTimeAxis(bool)</signal>
+    <signal>sendTriggerValue(double)</signal>
+    <signal>sendVmax_CH1(double)</signal>
+    <signal>sendVmin_CH1(double)</signal>
+    <signal>sendVmean_CH1(double)</signal>
+    <signal>sendVmax_CH2(double)</signal>
+    <signal>sendVmin_CH2(double)</signal>
+    <signal>sendVmean_CH2(double)</signal>
+    <signal>multimeterREnabled(int)</signal>
+    <signal>multimeterRMS(double)</signal>
+    <signal>sendMultimeterLabel4(QString)</signal>
+    <slot>setWindow(int)</slot>
+    <slot>setVoltageRange(QWheelEvent*)</slot>
+    <slot>pauseEnable_CH1(bool)</slot>
+    <slot>pauseEnable_CH2(bool)</slot>
+    <slot>startTimer()</slot>
+    <slot>clearBuffers(bool,bool,bool)</slot>
+    <slot>setVisible_CH2(bool)</slot>
+    <slot>gainBuffers(double)</slot>
+    <slot>setAutoGain(bool)</slot>
+    <slot>graphMousePress(QMouseEvent*)</slot>
+    <slot>graphMouseRelease(QMouseEvent*)</slot>
+    <slot>cursorEnableHori(bool)</slot>
+    <slot>cursorEnableVert(bool)</slot>
+    <slot>graphMouseMove(QMouseEvent*)</slot>
+    <slot>setTriggerEnabled(bool)</slot>
+    <slot>setTriggerLevel(double)</slot>
+    <slot>setSingleShotEnabled(bool)</slot>
+    <slot>setTriggerMode(int)</slot>
+    <slot>setAC_CH1(bool)</slot>
+    <slot>setAC_CH2(bool)</slot>
+    <slot>setMultimeterType(int)</slot>
+    <slot>setSeriesResistance(double)</slot>
+    <slot>enableMM()</slot>
+    <slot>setSerialDecodeEnabled_CH1(bool)</slot>
+    <slot>setSerialDecodeEnabled_CH2(bool)</slot>
+    <slot>setXYmode(bool)</slot>
+    <slot>triggerGroupStateChange(bool)</slot>
+    <slot>pauseEnable_multimeter(bool)</slot>
+    <slot>timerTick()</slot>
+    <slot>rSourceChanged(int)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>noCloseMenu</class>
+   <extends>QMenu</extends>
+   <header location="global">noclosemenu.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cursorEnabler</class>
+   <extends>QLabel</extends>
+   <header location="global">cursorenabler.h</header>
+   <slots>
+    <signal>tickHori(bool)</signal>
+    <signal>tickVert(bool)</signal>
+    <signal>passOnSignal(QMouseEvent*)</signal>
+    <slot>clickDetected(QMouseEvent*)</slot>
+    <slot>setTurnedOn(bool)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>deviceConnectedDisplay</class>
+   <extends>QLabel</extends>
+   <header location="global">deviceconnecteddisplay.h</header>
+   <slots>
+    <slot>connectedStatusChanged(bool)</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>timedTickBox</class>
+   <extends>QCheckBox</extends>
+   <header location="global">timedtickbox.h</header>
+   <slots>
+    <slot>resetTimer()</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>swipeyStack</class>
+   <extends>QStackedWidget</extends>
+   <header location="global">swipeystack.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>scopeGroup_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bufferDisplay</receiver>
+   <slot>scopeIn_CH1(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>843</x>
+     <y>116</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>scopeGroup_CH2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bufferDisplay</receiver>
+   <slot>scopeIn_CH2(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>983</x>
+     <y>106</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>signalGenGroup_CH2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bufferDisplay</receiver>
+   <slot>signalGenIn(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>984</x>
+     <y>723</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bufferDisplay</sender>
+   <signal>busSnifferOut_CH2(bool)</signal>
+   <receiver>busSnifferGroup_CH2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1124</x>
+     <y>577</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bufferDisplay</sender>
+   <signal>signalGenOut(bool)</signal>
+   <receiver>signalGenGroup_CH2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>984</x>
+     <y>723</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bufferDisplay</sender>
+   <signal>scopeOut_CH1(bool)</signal>
+   <receiver>scopeGroup_CH1</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>818</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bufferDisplay</sender>
+   <signal>scopeOut_CH2(bool)</signal>
+   <receiver>scopeGroup_CH2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>958</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bufferDisplay</sender>
+   <signal>busSnifferUncheck(bool)</signal>
+   <receiver>busSnifferGroup_CH2</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1124</x>
+     <y>577</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bufferDisplay</sender>
+   <signal>scopeUncheck(bool)</signal>
+   <receiver>scopeGroup_CH2</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>958</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSampleLabel</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bufferDisplay</receiver>
+   <slot>scopeDsrIn(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>160</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bufferDisplay</sender>
+   <signal>scopeDsrUncheck(bool)</signal>
+   <receiver>doubleSampleLabel</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>808</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bufferDisplay</sender>
+   <signal>scopeDsrOut(bool)</signal>
+   <receiver>doubleSampleLabel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>808</x>
+     <y>160</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>psuSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>psuSlider</receiver>
+   <slot>selfMoved(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1027</x>
+     <y>322</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1027</x>
+     <y>322</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>psuSlider</sender>
+   <signal>lcdOut(QString)</signal>
+   <receiver>psuDisplay</receiver>
+   <slot>display(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1027</x>
+     <y>322</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1086</x>
+     <y>368</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>amplitudeValue_CH1</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>dcOffsetValue_CH1</receiver>
+   <slot>maximumChanged(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>806</x>
+     <y>668</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>806</x>
+     <y>713</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>amplitudeValue_CH2</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>dcOffsetValue_CH2</receiver>
+   <slot>maximumChanged(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>949</x>
+     <y>668</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>713</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dcOffsetValue_CH1</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>amplitudeValue_CH1</receiver>
+   <slot>maximumChanged(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>806</x>
+     <y>713</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>806</x>
+     <y>668</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dcOffsetValue_CH2</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>amplitudeValue_CH2</receiver>
+   <slot>maximumChanged(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>949</x>
+     <y>713</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>668</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>waveformSelect_CH1</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>waveformName_CH1(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>806</x>
+     <y>578</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>waveformSelect_CH2</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>waveformName_CH2(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>949</x>
+     <y>578</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>amplitudeValue_CH1</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>amplitudeUpdate_CH1(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>806</x>
+     <y>668</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dcOffsetValue_CH1</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>offsetUpdate_CH1(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>806</x>
+     <y>713</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bufferDisplay</sender>
+   <signal>busSnifferOut_CH1(bool)</signal>
+   <receiver>busSifferGroup_CH1</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1124</x>
+     <y>499</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bufferDisplay</sender>
+   <signal>busSnifferOut_CH2(bool)</signal>
+   <receiver>busSnifferGroup_CH2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1124</x>
+     <y>577</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>busSifferGroup_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bufferDisplay</receiver>
+   <slot>busSnifferIn_CH1(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1124</x>
+     <y>499</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>busSnifferGroup_CH2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bufferDisplay</receiver>
+   <slot>busSnifferIn_CH2(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1124</x>
+     <y>577</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>digitalOutCheckbox_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bufferDisplay</receiver>
+   <slot>digIn_CH1(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1044</x>
+     <y>623</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>digitalOutCheckbox_CH2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bufferDisplay</receiver>
+   <slot>digIn_CH2(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1114</x>
+     <y>623</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>digitalOutCheckbox_CH3</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bufferDisplay</receiver>
+   <slot>digIn_CH3(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1044</x>
+     <y>646</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>digitalOutCheckbox_CH4</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bufferDisplay</receiver>
+   <slot>digIn_CH4(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1114</x>
+     <y>646</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>amplitudeValue_CH2</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>amplitudeUpdate_CH2(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>949</x>
+     <y>668</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dcOffsetValue_CH2</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>offsetUpdate_CH2(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>949</x>
+     <y>713</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>timeBaseSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setWindow(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>424</x>
+     <y>647</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>scopeAxes</sender>
+   <signal>mouseWheel(QWheelEvent*)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setVoltageRange(QWheelEvent*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>482</x>
+     <y>567</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pausedLabeL_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>pauseEnable_CH1(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>833</x>
+     <y>91</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pausedLabel_CH2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>pauseEnable_CH2(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>973</x>
+     <y>91</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pausedLabeL_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pausedLabel_CH2</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>833</x>
+     <y>91</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>973</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pausedLabel_CH2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pausedLabeL_CH1</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>973</x>
+     <y>91</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>833</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>disableWindow(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1023</x>
+     <y>226</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>scopeAxes</sender>
+   <signal>mouseRelease(QMouseEvent*)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>graphMouseRelease(QMouseEvent*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>354</x>
+     <y>510</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cursorHoriCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>cursorEnableHori(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>253</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cursorVertCheck</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>cursorEnableVert(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>276</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>scopeAxes</sender>
+   <signal>mouseMove(QMouseEvent*)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>graphMouseMove(QMouseEvent*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>441</x>
+     <y>474</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>setCursorStatsVisible(bool)</signal>
+   <receiver>cursorStatsLabel</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>332</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lockPsuCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>psuSlider</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1115</x>
+     <y>345</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1027</x>
+     <y>322</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>triggerGroup</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setTriggerEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>983</x>
+     <y>305</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>triggerLevelValue</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setTriggerLevel(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>948</x>
+     <y>272</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>singleShotTriggered(bool)</signal>
+   <receiver>pausedLabeL_CH1</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>833</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>singleShotCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setSingleShotEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>948</x>
+     <y>295</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>triggerChannelSelect</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setTriggerMode(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>948</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>acCoupledLabel_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setAC_CH1(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>114</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>acCoupledLabel_CH2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setAC_CH2(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>948</x>
+     <y>114</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>multimeterGroup</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>bufferDisplay</receiver>
+   <slot>multimeterIn(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>484</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bufferDisplay</sender>
+   <signal>multimeterOut(bool)</signal>
+   <receiver>multimeterGroup</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1065</x>
+     <y>756</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>484</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>multimeterModeSelect</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setMultimeterType(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>816</x>
+     <y>400</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterMax(double)</signal>
+   <receiver>multimeterMaxDisplay</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>386</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterMin(double)</signal>
+   <receiver>multimeterMinDisplay</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>410</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterMean(double)</signal>
+   <receiver>multimeterMeanDisplay</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>434</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>multimeterResistanceSelect</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setSeriesResistance(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>816</x>
+     <y>445</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendMultimeterLabel1(QString)</signal>
+   <receiver>multimeterMaxLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>871</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendMultimeterLabel2(QString)</signal>
+   <receiver>multimeterMinLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>867</x>
+     <y>408</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendMultimeterLabel3(QString)</signal>
+   <receiver>multimeterMeanLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>852</x>
+     <y>432</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>serialDecodingCheck_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setSerialDecodeEnabled_CH1(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1114</x>
+     <y>489</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>serialDecodingCheck_CH2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setSerialDecodeEnabled_CH2(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1114</x>
+     <y>567</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>changeTimeAxis(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>timeBaseNeedsChanging(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>800</x>
+     <y>696</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>xyDisplayLabel</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>setXYmode(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>863</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>busSnifferGroup_CH2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>signalGenGroup_CH2</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1124</x>
+     <y>577</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>959</x>
+     <y>723</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>scopeAxes</sender>
+   <signal>mousePress(QMouseEvent*)</signal>
+   <receiver>makeCursorsNicer</receiver>
+   <slot>clickDetected(QMouseEvent*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>590</x>
+     <y>401</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>808</x>
+     <y>295</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>makeCursorsNicer</sender>
+   <signal>tickHori(bool)</signal>
+   <receiver>cursorHoriCheck</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>295</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>808</x>
+     <y>253</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>makeCursorsNicer</sender>
+   <signal>tickVert(bool)</signal>
+   <receiver>cursorVertCheck</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>295</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>808</x>
+     <y>276</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>makeCursorsNicer</sender>
+   <signal>passOnSignal(QMouseEvent*)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>graphMousePress(QMouseEvent*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>808</x>
+     <y>295</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendTriggerValue(double)</signal>
+   <receiver>triggerLevelValue</receiver>
+   <slot>setValue(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>948</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>triggerGroup</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>triggerGroupStateChange(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>905</x>
+     <y>230</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>disableWindow(bool)</signal>
+   <receiver>deviceConnected</receiver>
+   <slot>connectedStatusChanged(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>828</x>
+     <y>35</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>multimeterPauseCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>controller_iso</receiver>
+   <slot>pauseEnable_multimeter(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>816</x>
+     <y>474</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendVmax_CH1(double)</signal>
+   <receiver>voltageInfoMaxDisplay_CH1</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>790</x>
+     <y>175</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendVmin_CH1(double)</signal>
+   <receiver>voltageInfoMinDisplay_CH1</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>800</x>
+     <y>193</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendVmean_CH1(double)</signal>
+   <receiver>voltageInfoMeanDisplay_CH1</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>807</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendVmax_CH2(double)</signal>
+   <receiver>voltageInfoMaxDisplay_CH2</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>929</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendVmin_CH2(double)</signal>
+   <receiver>voltageInfoMinDisplay_CH2</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>943</x>
+     <y>184</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendVmean_CH2(double)</signal>
+   <receiver>voltageInfoMeanDisplay_CH2</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>940</x>
+     <y>196</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lockPsuCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lockPsuCheckBox</receiver>
+   <slot>resetTimer(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1115</x>
+     <y>345</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1115</x>
+     <y>345</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lockPsuCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lockPsuCheckBox</receiver>
+   <slot>resetTimer()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1115</x>
+     <y>345</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1115</x>
+     <y>345</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>psuSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>lockPsuCheckBox</receiver>
+   <slot>resetTimer()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1027</x>
+     <y>167</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1115</x>
+     <y>345</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pause_LA</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pausedLabeL_CH1</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1114</x>
+     <y>444</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>722</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pausedLabeL_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pause_LA</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>762</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1114</x>
+     <y>444</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_fg</sender>
+   <signal>setMaxFreq_CH2(double)</signal>
+   <receiver>frequencyValue_CH2</receiver>
+   <slot>setMax(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>623</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_fg</sender>
+   <signal>setMinFreq_CH2(double)</signal>
+   <receiver>frequencyValue_CH2</receiver>
+   <slot>setMin(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>623</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>frequencyValue_CH2</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>freqUpdate_CH2(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>949</x>
+     <y>623</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>frequencyValue_CH1</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>freqUpdate_CH1(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>806</x>
+     <y>623</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_fg</sender>
+   <signal>setMaxFreq_CH1(double)</signal>
+   <receiver>frequencyValue_CH1</receiver>
+   <slot>setMax(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>806</x>
+     <y>623</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_fg</sender>
+   <signal>setMinFreq_CH1(double)</signal>
+   <receiver>frequencyValue_CH1</receiver>
+   <slot>setMin(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>806</x>
+     <y>623</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>frequencyValue_CH1</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>frequencyValue_CH1</receiver>
+   <slot>changeStepping(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>740</x>
+     <y>611</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>831</x>
+     <y>623</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>frequencyValue_CH2</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>frequencyValue_CH2</receiver>
+   <slot>changeStepping(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>881</x>
+     <y>608</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>904</x>
+     <y>613</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>debugButton2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>reinitUsb()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1038</x>
+     <y>700</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>682</x>
+     <y>738</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>timeBaseNeedsChanging(bool)</slot>
+  <slot>reinitUsb()</slot>
+ </slots>
+</ui>

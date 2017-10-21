@@ -1,0 +1,27 @@
+Id,Designator,Package,Quantity,Designation,Description,Notes
+1,"C6,C9,C15",c_elec_4x5.3,3,CP1,"SMD Electrolytic Capacitor, 33uH 16V",
+2,IC1,LQFP-44_10x10mm_Pitch0.8mm,1,ATXMEGA32A4U-A,ATXMEGA32A4U-AU,
+3,P2,USB_Micro-B_WIDE,1,USB_OTG,Micro USB-B connector,
+5,"C1,C2,C7,C8,C10,C11,C13,C14,C16,C17,C18",C_0603,11,C,1uF 0603 Ceramic Cap,
+6,"C3,C4,C5",C_0603,3,C_Small,1uF 0603 Ceramic Cap,
+7,D1,SMA_Standard,1,D_Schottky,"SMA Schottky Diode, 1.5V 1A",
+8,D2,LED_0603,1,LED,0603 LED,
+9,F1,C_1210,1,F_Small,PTC Fuse,
+10,L1,SELF-WE-PD-XXL,1,INDUCTOR,SMD Inductor (self-wound package),
+11,"L2,L3,L4",R_1206,3,INDUCTOR,SMD Inductor 1206,
+4,"P1,P5",Pin_Header_Straight_1x04,2,SCOPE_OUT,Female 1x4 header,
+12,P3,Pin_Header_Straight_1x04,1,DIG_OUT,Stackable 1x10 Header,"P3, P4 and P4 share a single header.  Please do not use flimsy/weak pins!"
+14,P6,Pin_Header_Straight_1x04,1,DAC_OUT,Stackable 1x10 Header,"P3, P4 and P4 share a single header.  Please do not use flimsy/weak pins!"
+13,P4,Pin_Header_Straight_2x02,1,PDI/3V3,Stackable 1x10 Header,"P3, P4 and P4 share a single header.  Please do not use flimsy/weak pins!"
+,P7,Pin_Header_Straight_1x02,1,PSU,Stackable 1x2 Header,"“Stackable” refers to the pins that are female on one side and male on the other, like on many Arduino shields."
+16,P8,Pin_Header_Straight_1x02,1,DIG_IN,Female 1x2 Header,
+17,P10,Pin_Header_Straight_1x03,1,EXPANSION,-,Unpopulated
+18,P11,Pin_Header_Straight_1x03,1,SWITCH,Male 1x3 Header,
+26,REF**,Pin_Header_Straight_1x02,1,Pin_Header_Straight_1x02,Male 1x2 Header,This will need to be soldered on upside down
+19,Q1,SOT-23-3,1,Q_NMOS_GSD,,
+20,"R1,R2,R3,R4,R5,R6,R15,R16,R17,R18,R19,R20,R21,R22,R23,R24,R25,R26,R27,R28,R29,R30,R31",R_0603,23,R,,
+21,"R7,R8,R9,R10,R11,R12,R13,R14",R_0603,8,28R,,
+22,R32,R_0603,1,R_Small,,
+23,U1,SOT-23-3,1,78L05,,
+24,U2,SOIC-14_3.9x8.7mm_Pitch1.27mm,1,LM324,,
+25,"U3,U4",SOT-363,2,DMN63D8LDW,,
