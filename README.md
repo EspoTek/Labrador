@@ -1,4 +1,4 @@
-This is the project page for the EspoTek Labrador. 
+Welcome to the GitHub page for the EspoTek Labrador!
 
 http://espotek.com/labrador
 
@@ -17,11 +17,20 @@ The intention is to move to a less restrictive licence in future, where commerci
 
 # Known bugs.
 Most of the main bugs have now been fixed, including all synchronisation issues.
-There are still a few small bugs, most notably a crash when you disconnect and reconnect the board on a non-Windows platform, and the issue with the logic analyzer still persists.  Both will hopefully be cleaned up before launch.
+Please open an issue or email me at admin@espotek.com if you're aware of any in particular.
 
 # Collaboration
 Mailing list is here and open to all who wish to collaborate on the project:
 https://groups.google.com/forum/#!forum/labrador-devel
+Or you can just use GitHub's issues.  :)
+
+# Cleanup Notice
+Please note that this repository was cleaned up on 21/10/17.
+This significantly reduced the size - from over 200MB to about 3MB, but I was fairly aggressive and it's possible that something was deleted that shouldn't have been.
+For this reason, the old, unclean repo has been preserved at:
+
+https://github.com/EspoTek/Labrador_backup
+
 
 Thanks to all.
 
