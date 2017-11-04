@@ -1179,26 +1179,22 @@ void isoDriver::setTimeWindow(double newWindow){
     windowAtPause = window;
 }
 
-void isoDriver::takeSnapshot(){
+void isoDriver::takeSnapshot(QString *fileName){
     snapshotEnabled = true;
 
-    QDateTime now = QDateTime::currentDateTime();
-    QString fileName_CH1 = now.toString("yyyyMMddhhmmsszzz");
-    fileName_CH1.append("_CH1.csv");
+    QString fname_CH1 = *(fileName);
+    fname_CH1.append("_CH1.csv");
 
-    QString fileName_CH2 = now.toString("yyyyMMddhhmmsszzz");
-    fileName_CH2.append("_CH2.csv");
+    QString fname_CH2 = *(fileName);
+    fname_CH2.append("_CH2.csv");
 
-    QDir *dir = new QDir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
-    dir->mkdir("EspoTek");
-    dir->cd("EspoTek");
-    dir->mkdir("snapshots");
-    dir->cd("snapshots");
 
-    snapshotFile_CH1 = new QFile(dir->filePath(fileName_CH1));
-    snapshotFile_CH2 = new QFile(dir->filePath(fileName_CH2));
+    qDebug() << fname_CH1;
+    qDebug() << fname_CH2;
 
-    free(dir);
+    snapshotFile_CH1 = new QFile(fname_CH1);
+    snapshotFile_CH2 = new QFile(fname_CH2);
+
 }
 
 double isoDriver::meanVoltageLast(double seconds, unsigned char channel, int TOP){

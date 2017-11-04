@@ -43,6 +43,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void resizeEvent(QResizeEvent *event);
+    void showFileDialog(QString *fileName);
 private slots:
     //Oscilloscope
     void on_actionGain0_5_triggered();

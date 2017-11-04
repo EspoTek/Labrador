@@ -152,7 +152,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->controller_iso, SIGNAL(multimeterREnabled(int)), this, SLOT(rSourceIndexChanged(int)));
     connect(ui->controller_iso, SIGNAL(multimeterRMS(double)), ui->multimeterRmsDisplay, SLOT(display(double)));
     connect(ui->controller_iso, SIGNAL(sendMultimeterLabel4(QString)), ui->multimeterRmsLabel, SLOT(setText(QString)));
-
 }
 
 MainWindow::~MainWindow()
@@ -1158,7 +1157,17 @@ void MainWindow::on_actionRecord_triggered(bool checked)
 
 void MainWindow::on_actionTake_Snapshot_triggered()
 {
-    ui->controller_iso->takeSnapshot();
+    QString fileName;
+    showFileDialog(&fileName);
+    qDebug() << fileName;
+    int len = fileName.length();
+
+    if(len==0) return; //User cancelled
+
+    qDebug() << len;
+    fileName.remove(len-4, 4);
+    qDebug() << fileName;
+    ui->controller_iso->takeSnapshot(&fileName);
 }
 
 void MainWindow::reinitUsb(void){
@@ -1542,4 +1551,15 @@ void MainWindow::on_actionSingle_ep_async_triggered()
     expected_variant = 2;
     settings->setValue("ConnectionType", 2);
     if(ui->controller_iso->driver->connected) reinitUsb();
+}
+
+void MainWindow::showFileDialog(QString *fileName){
+    QString filters("CSV files (*.csv)");
+    QString defaultFilter("CSV files (*.csv)");
+
+    /* Static method approach */
+    QString temp = QFileDialog::getSaveFileName(0, "Save file", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
+        filters, &defaultFilter);
+
+    *(fileName) = temp;
 }
