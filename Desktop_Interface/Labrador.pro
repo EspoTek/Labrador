@@ -213,8 +213,8 @@ android:{
     INCLUDEPATH += $$PWD/build_android
     SOURCES += androidusbdriver.cpp
     HEADERS += androidusbdriver.h
-    INCLUDEPATH += $$PWD/build_android/libusb-martin-kuldeep
-    DEPENDPATH += $$PWD/build_android/libusb-martin-kuldeep
+    INCLUDEPATH += $$PWD/build_android/libusb-242
+    DEPENDPATH += $$PWD/build_android/libusb-242
 
     ANDROID_PACKAGE_SOURCE_DIR  = $$PWD/build_android/package_source
     assets_deploy.files=$$files($$PWD/build_android/package_source/assets/*)
@@ -248,13 +248,13 @@ android:{
 
     equals(ANDROID_TARGET_ARCH, armeabi-v7a){
         message("qmake building for Android (ARM) platform")
-        LIBS += -L$${PWD}\build_android\libusb-martin-kuldeep\android\armeabi-v7a -lusb1.0
-        ANDROID_EXTRA_LIBS += $${PWD}\build_android\libusb-martin-kuldeep\android\armeabi-v7a/libusb1.0.so
+        LIBS += -L$${PWD}\build_android\libusb-242\android\armeabi-v7a -lusb1.0
+        ANDROID_EXTRA_LIBS += $${PWD}\build_android\libusb-242\android\armeabi-v7a/libusb1.0.so
         }
     equals(ANDROID_TARGET_ARCH, x86){
         message("qmake building for Android (x86) platform")
-        LIBS += -L$$PWD/build_android/libusb-martin-kuldeep/android/x86 -lusb1.0
-        ANDROID_EXTRA_LIBS += $$PWD/build_android/libusb-martin-kuldeep/android/x86/libusb1.0.so
+        LIBS += -L$$PWD/build_android/libusb-242/android/x86 -lusb1.0
+        ANDROID_EXTRA_LIBS += $$PWD/build_android/libusb-242/android/x86/libusb1.0.so
         }
 }
 

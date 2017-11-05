@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<manifest package="org.qtproject.example.Labrador" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.04" android:versionCode="5" android:installLocation="auto">
+<manifest package="org.qtproject.example.Labrador" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="1.1" android:versionCode="6" android:installLocation="auto">
     <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="Labrador">
         <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="com.EspoTek.Labrador.Java.androidInterface" android:label="Labrador" android:screenOrientation="unspecified" android:launchMode="singleTop" android:icon="@mipmap/ic_launcher">
             <intent-filter>
@@ -65,7 +65,7 @@
 
     </application>
 
-    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="16" android:maxSdkVersion="23"/>
+    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="16"/>
     <supports-screens android:largeScreens="true" android:normalScreens="true" android:anyDensity="true" android:smallScreens="true"/>
 
     <!-- The following comment will be replaced upon deployment with default permissions based on the dependencies of the application.
