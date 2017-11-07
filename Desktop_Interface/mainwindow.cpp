@@ -1633,11 +1633,12 @@ void MainWindow::on_actionRecord_CH1_triggered(bool checked)
     qDebug() << fileName;
     int len = fileName.length();
 
+#ifndef PLATFORM_ANDROID
     if(len==0){
         ui->actionRecord_CH1->setChecked(0);
         return; //User cancelled
     }
-
+#endif
     if(ui->controller_iso->driver->deviceMode!=6){
         output375_CH1 = new QFile(fileName);
         ui->controller_iso->internalBuffer375_CH1->enableFileIO(output375_CH1);
@@ -1664,11 +1665,12 @@ void MainWindow::on_actionRecord_CH2_triggered(bool checked)
     qDebug() << fileName;
     int len = fileName.length();
 
+#ifndef PLATFORM_ANDROID
     if(len==0){
         ui->actionRecord_CH2->setChecked(0);
         return; //User cancelled
     }
-
+#endif
     output375_CH2 = new QFile(outputDir->filePath("375_CH2.csv"));
     ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2);
     return;
