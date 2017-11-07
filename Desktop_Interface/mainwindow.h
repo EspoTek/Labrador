@@ -114,6 +114,8 @@ private slots:
     void ctrlArrowDownTriggered();
     void cycleDelayLeft();
     void cycleDelayRight();
+    void cycleDelayLeft_large();
+    void cycleDelayRight_large();
     void enableLabradorDebugging();
 
     //Power Supply
@@ -205,6 +207,8 @@ private:
     QShortcut *shortcut_d;
     QShortcut *shortcut_ArrowLeft;
     QShortcut *shortcut_ArrowRight;
+    QShortcut *shortcut_CtrlArrowLeft;
+    QShortcut *shortcut_CtrlArrowRight;
     QShortcut *shortcut_snapScopeToCursors;\
     QShortcut *shortcut_manualRange;
     QShortcut *shortcut_snapshot_CH1;

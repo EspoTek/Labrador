@@ -874,6 +874,9 @@ void MainWindow::initShortcuts(){
     shortcut_d = new QShortcut(QKeySequence("d"), this);
     shortcut_ArrowLeft = new QShortcut(QKeySequence("Left"), this);
     shortcut_ArrowRight = new QShortcut(QKeySequence("Right"), this);
+    shortcut_CtrlArrowLeft = new QShortcut(QKeySequence("Ctrl+Left"), this);
+    shortcut_CtrlArrowRight = new QShortcut(QKeySequence("Ctrl+Right"), this);
+
 
 
     shortcut_Debug = new QShortcut(QKeySequence("Home"), this);
@@ -901,6 +904,8 @@ void MainWindow::initShortcuts(){
 
     connect(shortcut_ArrowLeft, SIGNAL(activated()), this, SLOT(cycleDelayLeft()));
     connect(shortcut_ArrowRight, SIGNAL(activated()), this, SLOT(cycleDelayRight()));
+    connect(shortcut_CtrlArrowLeft, SIGNAL(activated()), this, SLOT(cycleDelayLeft_large()));
+    connect(shortcut_CtrlArrowRight, SIGNAL(activated()), this, SLOT(cycleDelayRight_large()));
 
     connect(shortcut_snapScopeToCursors, SIGNAL(activated()), this, SLOT(on_actionSnap_to_Cursors_triggered()));
     connect(shortcut_manualRange, SIGNAL(activated()), this, SLOT(on_actionEnter_Manually_triggered()));
@@ -971,6 +976,18 @@ void MainWindow::cycleDelayRight(){
 void MainWindow::cycleDelayLeft(){
     qDebug() << "LEFT";
     ui->controller_iso->delay += ui->controller_iso->window/10;
+    if(ui->controller_iso->delay > (MAX_WINDOW_SIZE - ui->controller_iso->window)) ui->controller_iso->delay = (MAX_WINDOW_SIZE - ui->controller_iso->window);
+}
+
+void MainWindow::cycleDelayRight_large(){
+    qDebug() << "RIGHT";
+    ui->controller_iso->delay -= ui->controller_iso->window/2;
+    if(ui->controller_iso->delay < 0) ui->controller_iso->delay = 0;
+}
+
+void MainWindow::cycleDelayLeft_large(){
+    qDebug() << "LEFT";
+    ui->controller_iso->delay += ui->controller_iso->window/2;
     if(ui->controller_iso->delay > (MAX_WINDOW_SIZE - ui->controller_iso->window)) ui->controller_iso->delay = (MAX_WINDOW_SIZE - ui->controller_iso->window);
 }
 
