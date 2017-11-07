@@ -115,6 +115,7 @@ void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int T
 
     double scope_gain = (double)(driver->scopeGain);
     double accumulated = 0;
+    double accumulated_square = 0;
     currentVmax = -20;
     currentVmin = 20;
 
@@ -130,14 +131,29 @@ void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int T
         #endif
 
         accumulated += data[i];
+        accumulated_square += data[i] * data[i];
         if (data[i] > currentVmax) currentVmax = data[i];
         if (data[i] < currentVmin) currentVmin = data[i];
     }
     currentVmean  = accumulated / GRAPH_SAMPLES;
+    currentVRMS = sqrt(accumulated_square / GRAPH_SAMPLES);
     if(AC){
+        //Previous measurments are wrong, edit and redo.
+        accumulated = 0;
+        accumulated_square = 0;
+        currentVmax = -20;
+        currentVmin = 20;
+
         for (int i=0;i<GRAPH_SAMPLES;i++){
             data[i] -= currentVmean;
+
+            accumulated += data[i];
+            accumulated_square += (data[i] * data[i]);
+            if (data[i] > currentVmax) currentVmax = data[i];
+            if (data[i] < currentVmin) currentVmin = data[i];
         }
+        currentVmean  = accumulated / GRAPH_SAMPLES;
+        currentVRMS = sqrt(accumulated_square / GRAPH_SAMPLES);
     }
     //cool_waveform = cool_waveform - AC_offset;
 }
@@ -1154,14 +1170,14 @@ void isoDriver::broadcastStats(bool CH2){
         sendVmax_CH2(currentVmax);
         sendVmin_CH2(currentVmin);
         sendVmean_CH2(currentVmean);
-        //sendVrms_CH2(currentVrms);
+        sendVRMS_CH2(currentVRMS);
     } else{
         if(!update_CH1) return;
         update_CH1 = false;
         sendVmax_CH1(currentVmax);
         sendVmin_CH1(currentVmin);
         sendVmean_CH1(currentVmean);
-        //sendVrms_CH1(currentVrms);
+        sendVRMS_CH1(currentVRMS);
     }
 }
 

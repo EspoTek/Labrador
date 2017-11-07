@@ -130,9 +130,12 @@ signals:
     void sendVmax_CH1(double);
     void sendVmin_CH1(double);
     void sendVmean_CH1(double);
+    void sendVRMS_CH1(double);
     void sendVmax_CH2(double);
     void sendVmin_CH2(double);
     void sendVmean_CH2(double);
+    void sendVRMS_CH2(double);
+
     void multimeterREnabled(int source);
 public slots:
     void setWindow(int newWindow);

@@ -152,6 +152,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->controller_iso, SIGNAL(multimeterREnabled(int)), this, SLOT(rSourceIndexChanged(int)));
     connect(ui->controller_iso, SIGNAL(multimeterRMS(double)), ui->multimeterRmsDisplay, SLOT(display(double)));
     connect(ui->controller_iso, SIGNAL(sendMultimeterLabel4(QString)), ui->multimeterRmsLabel, SLOT(setText(QString)));
+    connect(ui->controller_iso, SIGNAL(sendVRMS_CH1(double)), ui->voltageInfoRmsDisplay_CH1, SLOT(display(double)));
+    connect(ui->controller_iso, SIGNAL(sendVRMS_CH2(double)), ui->voltageInfoRmsDisplay_CH2, SLOT(display(double)));
 }
 
 MainWindow::~MainWindow()
