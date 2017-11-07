@@ -19,3 +19,4 @@ Desktop_Interface/android-libLabrador.so-deployment-settings.json
 Desktop_Interface/libc.so
 Desktop_Interface/qrc_resources.cpp
 Desktop_Interface/app_process
+Desktop_Interface/bin/settings.ini
