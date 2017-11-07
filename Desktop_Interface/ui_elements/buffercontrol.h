@@ -14,6 +14,7 @@ public:
     explicit bufferControl(QWidget *parent = 0);
     void refreshImage(void);
     bool busSnifferState_CH1 = false;
+    bool scopeDsrDisableOverride = false;
 private:
     QPixmap bufferImage;
     int numBuffers = 1;

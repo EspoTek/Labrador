@@ -149,6 +149,11 @@ private slots:
 
     void on_actionSnapshot_CH2_triggered();
 
+    void on_actionRecord_CH1_triggered(bool checked);
+
+    void on_actionRecord_CH2_triggered(bool checked);
+
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;

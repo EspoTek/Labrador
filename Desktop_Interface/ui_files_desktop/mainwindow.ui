@@ -1346,7 +1346,14 @@
      <addaction name="actionSnapshot_CH1"/>
      <addaction name="actionSnapshot_CH2"/>
     </widget>
-    <addaction name="actionRecord"/>
+    <widget class="QMenu" name="menuRecord">
+     <property name="title">
+      <string>Record</string>
+     </property>
+     <addaction name="actionRecord_CH1"/>
+     <addaction name="actionRecord_CH2"/>
+    </widget>
+    <addaction name="menuRecord"/>
     <addaction name="menuTake_Snapshot"/>
    </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
@@ -2011,14 +2018,6 @@
     <string>None</string>
    </property>
   </action>
-  <action name="actionRecord">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Record</string>
-   </property>
-  </action>
   <action name="actionForce_Square">
    <property name="checkable">
     <bool>true</bool>
@@ -2197,6 +2196,22 @@
    </property>
   </action>
   <action name="actionSnapshot_CH2">
+   <property name="text">
+    <string>CH2</string>
+   </property>
+  </action>
+  <action name="actionRecord_CH1">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>CH1</string>
+   </property>
+  </action>
+  <action name="actionRecord_CH2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>CH2</string>
    </property>

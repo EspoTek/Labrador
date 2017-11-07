@@ -1120,6 +1120,7 @@ void MainWindow::readSettingsFile(){
 
 void MainWindow::on_actionRecord_triggered(bool checked)
 {
+    /*
     if(!checked){
         ui->controller_iso->internalBuffer375_CH1->disableFileIO();
         ui->controller_iso->internalBuffer375_CH2->disableFileIO();
@@ -1155,6 +1156,7 @@ void MainWindow::on_actionRecord_triggered(bool checked)
 
     delete(outputDir);
     return;
+    */
 }
 
 void MainWindow::on_actionTake_Snapshot_triggered()
@@ -1591,4 +1593,65 @@ void MainWindow::on_actionSnapshot_CH2_triggered()
 
   if(len==0) return; //User cancelled
   ui->controller_iso->takeSnapshot(&fileName, 2);
+}
+
+void MainWindow::on_actionRecord_CH1_triggered(bool checked)
+{
+    qDebug() << "on_actionRecord_CH1_triggered(bool checked)";
+    if(!checked){
+        if(ui->controller_iso->driver->deviceMode!=6){
+            ui->controller_iso->internalBuffer375_CH1->disableFileIO();
+            delete(output375_CH1);
+        } else {
+            ui->controller_iso->internalBuffer750->disableFileIO();
+            delete(output750);
+        }
+        ui->bufferDisplay->scopeDsrDisableOverride = false;
+        ui->bufferDisplay->poke();
+        return;
+    }
+    QString fileName;
+    showFileDialog(&fileName);
+    qDebug() << fileName;
+    int len = fileName.length();
+
+    if(len==0){
+        ui->actionRecord_CH1->setChecked(0);
+        return; //User cancelled
+    }
+
+    if(ui->controller_iso->driver->deviceMode!=6){
+        output375_CH1 = new QFile(fileName);
+        ui->controller_iso->internalBuffer375_CH1->enableFileIO(output375_CH1);
+    } else {
+        output750 = new QFile(fileName);
+        ui->controller_iso->internalBuffer750->enableFileIO(output750);
+    }
+    ui->bufferDisplay->scopeDsrDisableOverride = true;
+    ui->bufferDisplay->poke();
+    return;
+}
+
+void MainWindow::on_actionRecord_CH2_triggered(bool checked)
+{
+    qDebug() << "on_actionRecord_CH2_triggered(bool checked)";
+    if(!checked){
+        ui->controller_iso->internalBuffer375_CH2->disableFileIO();
+        delete(output375_CH2);
+        return;
+    }
+
+    QString fileName;
+    showFileDialog(&fileName);
+    qDebug() << fileName;
+    int len = fileName.length();
+
+    if(len==0){
+        ui->actionRecord_CH2->setChecked(0);
+        return; //User cancelled
+    }
+
+    output375_CH2 = new QFile(outputDir->filePath("375_CH2.csv"));
+    ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2);
+    return;
 }

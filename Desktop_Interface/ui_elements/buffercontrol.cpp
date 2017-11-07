@@ -38,7 +38,7 @@ void bufferControl::scopeIn_CH1(bool state){  //What about DSR!?
     }
 
     //Turn off the DSR when CH1 is disabled.
-    if(!state){
+    if(!state && !scopeDsrDisableOverride){
         scopeDsrUncheck(0);
     }
 
@@ -159,6 +159,9 @@ void bufferControl::updateBuffer(bool decrement, int amount){
         qFatal("numBuffers is not equal to 0, 1 or 2");
     }
 
+    if(scopeDsrDisableOverride){
+        scopeDsrOut(0);
+    }
 }
 
 void bufferControl::digIn_CH1(bool state){
@@ -249,5 +252,6 @@ void bufferControl::updateMode(void){
 void bufferControl::poke(void){
     updateDig(digState);
     updateMode();
+    updateBuffer(0,0);
 }
 
