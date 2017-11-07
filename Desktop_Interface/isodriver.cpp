@@ -736,28 +736,32 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
         axes->yAxis->setRange(topRange, botRange);
     }
 
-    if(snapshotEnabled){
+    if(snapshotEnabled_CH1){
         snapshotFile_CH1->open(QIODevice::WriteOnly);
         snapshotFile_CH1->write("t, v\n");
-
-        snapshotFile_CH2->open(QIODevice::WriteOnly);
-        snapshotFile_CH2->write("t, v\n");
 
         char tempchar[32];
         for(int i=0; i<GRAPH_SAMPLES; i++){
             sprintf(tempchar, "%f, %f\n", x.at(i), CH1.at(i));
             snapshotFile_CH1->write(tempchar);
+        }
+        snapshotEnabled_CH1 = false;
+        snapshotFile_CH1->close();
+        delete(snapshotFile_CH1);
+    }
 
+    if(snapshotEnabled_CH2){
+        snapshotFile_CH2->open(QIODevice::WriteOnly);
+        snapshotFile_CH2->write("t, v\n");
+
+        char tempchar[32];
+        for(int i=0; i<GRAPH_SAMPLES; i++){
             sprintf(tempchar, "%f, %f\n", x.at(i), CH2.at(i));
             snapshotFile_CH2->write(tempchar);
         }
-        snapshotEnabled = false;
-        snapshotFile_CH1->close();
-        delete(snapshotFile_CH1);
-
+        snapshotEnabled_CH2 = false;
         snapshotFile_CH2->close();
         delete(snapshotFile_CH2);
-
     }
 
     axes->replot();
@@ -1179,22 +1183,18 @@ void isoDriver::setTimeWindow(double newWindow){
     windowAtPause = window;
 }
 
-void isoDriver::takeSnapshot(QString *fileName){
-    snapshotEnabled = true;
-
-    QString fname_CH1 = *(fileName);
-    fname_CH1.append("_CH1.csv");
-
-    QString fname_CH2 = *(fileName);
-    fname_CH2.append("_CH2.csv");
-
-
-    qDebug() << fname_CH1;
-    qDebug() << fname_CH2;
-
-    snapshotFile_CH1 = new QFile(fname_CH1);
-    snapshotFile_CH2 = new QFile(fname_CH2);
-
+void isoDriver::takeSnapshot(QString *fileName, unsigned char channel){
+    if(channel==1){
+        snapshotEnabled_CH1 = true;
+        QString fname_CH1 = *(fileName);
+        snapshotFile_CH1 = new QFile(fname_CH1);
+        qDebug() << fname_CH1;
+    } else if(channel==2){
+        snapshotEnabled_CH2 = true;
+        QString fname_CH2 = *(fileName);
+        snapshotFile_CH2 = new QFile(fname_CH2);
+        qDebug() << fname_CH2;
+    }
 }
 
 double isoDriver::meanVoltageLast(double seconds, unsigned char channel, int TOP){

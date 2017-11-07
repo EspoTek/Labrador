@@ -1332,15 +1332,22 @@
      <x>0</x>
      <y>0</y>
      <width>1440</width>
-     <height>21</height>
+     <height>31</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuTake_Snapshot">
+     <property name="title">
+      <string>Take Snapshot</string>
+     </property>
+     <addaction name="actionSnapshot_CH1"/>
+     <addaction name="actionSnapshot_CH2"/>
+    </widget>
     <addaction name="actionRecord"/>
-    <addaction name="actionTake_Snapshot"/>
+    <addaction name="menuTake_Snapshot"/>
    </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
     <property name="title">
@@ -1419,8 +1426,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>135</width>
-       <height>116</height>
+       <width>183</width>
+       <height>151</height>
       </rect>
      </property>
      <property name="title">
@@ -2103,11 +2110,6 @@
     <string>Enter Manually</string>
    </property>
   </action>
-  <action name="actionTake_Snapshot">
-   <property name="text">
-    <string>Take Snapshot</string>
-   </property>
-  </action>
   <action name="actionAutoR">
    <property name="checkable">
     <bool>true</bool>
@@ -2187,6 +2189,16 @@
    </property>
    <property name="text">
     <string>single-ep-async</string>
+   </property>
+  </action>
+  <action name="actionSnapshot_CH1">
+   <property name="text">
+    <string>CH1</string>
+   </property>
+  </action>
+  <action name="actionSnapshot_CH2">
+   <property name="text">
+    <string>CH2</string>
    </property>
   </action>
  </widget>

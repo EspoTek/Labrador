@@ -66,7 +66,8 @@ private:
     bool serialDecodeEnabled_CH1 = false, serialDecodeEnabled_CH2 = false;
     bool XYmode = false;
     bool update_CH1 = true, update_CH2 = true;
-    bool snapshotEnabled = false;
+    bool snapshotEnabled_CH1 = false;
+    bool snapshotEnabled_CH2 = false;
     bool firstFrame = true;
     double triggerDelay;
     bool singleShotEnabled = false;
@@ -181,7 +182,7 @@ public slots:
     void setTopRange(double newTop);
     void setBotRange(double newBot);
     void setTimeWindow(double newWindow);
-    void takeSnapshot(QString *fileName);
+    void takeSnapshot(QString *fileName, unsigned char channel);
     void rSourceChanged(int newSource);
 };
 

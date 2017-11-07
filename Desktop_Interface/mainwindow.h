@@ -145,6 +145,10 @@ private slots:
 
     void on_actionSingle_ep_async_triggered();
 
+    void on_actionSnapshot_CH1_triggered();
+
+    void on_actionSnapshot_CH2_triggered();
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
@@ -198,7 +202,8 @@ private:
     QShortcut *shortcut_ArrowRight;
     QShortcut *shortcut_snapScopeToCursors;\
     QShortcut *shortcut_manualRange;
-    QShortcut *shortcut_snapshot;
+    QShortcut *shortcut_snapshot_CH1;
+    QShortcut *shortcut_snapshot_CH2;
     QShortcut *shortcut_Debug;
     QShortcut *shortcut_Esc;
 

@@ -858,7 +858,8 @@ void MainWindow::initShortcuts(){
     shortcut_cycleBaudRateBackwards_CH2 = new QShortcut(QKeySequence("Ctrl+Shift+Alt+B"), ui->menuBar);
     shortcut_snapScopeToCursors = new QShortcut(QKeySequence("Z"), ui->menuBar);
     shortcut_manualRange = new QShortcut(QKeySequence("M"), ui->menuBar);
-    shortcut_snapshot = new QShortcut(QKeySequence("c"), this);
+    shortcut_snapshot_CH1 = new QShortcut(QKeySequence("c"), this);
+    shortcut_snapshot_CH2 = new QShortcut(QKeySequence("v"), this);
 
     shortcut_ArrowUp = new QShortcut(QKeySequence("Up"), ui->menuBar);
     shortcut_ArrowDown = new QShortcut(QKeySequence("Down"), ui->menuBar);
@@ -883,7 +884,8 @@ void MainWindow::initShortcuts(){
     connect(shortcut_cycleBaudRateBackwards_CH1, SIGNAL(activated()), this, SLOT(cycleBaudRateBackwards_CH1()));
     connect(shortcut_cycleBaudRate_CH2, SIGNAL(activated()), this, SLOT(cycleBaudRate_CH2()));
     connect(shortcut_cycleBaudRateBackwards_CH2, SIGNAL(activated()), this, SLOT(cycleBaudRateBackwards_CH2()));
-    connect(shortcut_snapshot, SIGNAL(activated()), this, SLOT(on_actionTake_Snapshot_triggered()));
+    connect(shortcut_snapshot_CH1, SIGNAL(activated()), this, SLOT(on_actionSnapshot_CH1_triggered()));
+    connect(shortcut_snapshot_CH2, SIGNAL(activated()), this, SLOT(on_actionSnapshot_CH2_triggered()));
 
     connect(shortcut_ArrowUp, SIGNAL(activated()), this, SLOT(arrowUpTriggered()));
     connect(shortcut_ArrowDown, SIGNAL(activated()), this, SLOT(arrowDownTriggered()));
@@ -1157,6 +1159,7 @@ void MainWindow::on_actionRecord_triggered(bool checked)
 
 void MainWindow::on_actionTake_Snapshot_triggered()
 {
+    /*
     QString fileName;
     showFileDialog(&fileName);
     qDebug() << fileName;
@@ -1168,6 +1171,7 @@ void MainWindow::on_actionTake_Snapshot_triggered()
     fileName.remove(len-4, 4);
     qDebug() << fileName;
     ui->controller_iso->takeSnapshot(&fileName);
+    */
 }
 
 void MainWindow::reinitUsb(void){
@@ -1562,4 +1566,29 @@ void MainWindow::showFileDialog(QString *fileName){
         filters, &defaultFilter);
 
     *(fileName) = temp;
+}
+
+void MainWindow::on_actionSnapshot_CH1_triggered()
+{
+  qDebug() << "on_actionSnapshot_CH1_triggered()";
+  QString fileName;
+  showFileDialog(&fileName);
+  qDebug() << fileName;
+  int len = fileName.length();
+
+  if(len==0) return; //User cancelled
+
+  ui->controller_iso->takeSnapshot(&fileName, 1);
+}
+
+void MainWindow::on_actionSnapshot_CH2_triggered()
+{
+  qDebug() << "on_actionSnapshot_CH2_triggered()";
+  QString fileName;
+  showFileDialog(&fileName);
+  qDebug() << fileName;
+  int len = fileName.length();
+
+  if(len==0) return; //User cancelled
+  ui->controller_iso->takeSnapshot(&fileName, 2);
 }
