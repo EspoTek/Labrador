@@ -1183,6 +1183,10 @@ void isoDriver::setTimeWindow(double newWindow){
     windowAtPause = window;
 }
 
+void isoDriver::setDelay(double newDelay){
+    delay = newDelay;
+}
+
 void isoDriver::takeSnapshot(QString *fileName, unsigned char channel){
     if(channel==1){
         snapshotEnabled_CH1 = true;

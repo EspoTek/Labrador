@@ -33,5 +33,13 @@ void scopeRangeEnterDialog::toUpdateYBot(double val){
 void scopeRangeEnterDialog::toUpdateWindow(double val){
     qDebug() << val;
     windowUpdated(val);
+    ui->delayBox->setMax(((double)MAX_WINDOW_SIZE) - ui->timeWindowBox->value());
+    qDebug() << "delayBox updating to" << ui->delayBox->maximum();
 }
 
+void scopeRangeEnterDialog::toUpdateDelay(double val){
+    qDebug() << val;
+    delayUpdated(val);
+    ui->timeWindowBox->setMax(((double)MAX_WINDOW_SIZE) - ui->delayBox->value());
+    qDebug() << "timeWindowBox updating max to" << ui->timeWindowBox->maximum();
+}

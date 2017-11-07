@@ -1073,6 +1073,7 @@ void MainWindow::on_actionEnter_Manually_triggered()
     connect(&dialog, SIGNAL(yTopUpdated(double)), ui->controller_iso, SLOT(setTopRange(double)));
     connect(&dialog, SIGNAL(yBotUpdated(double)), ui->controller_iso, SLOT(setBotRange(double)));
     connect(&dialog, SIGNAL(windowUpdated(double)), ui->controller_iso, SLOT(setTimeWindow(double)));
+    connect(&dialog, SIGNAL(delayUpdated(double)), ui->controller_iso, SLOT(setDelay(double)));
     dialog.exec();
 }
 

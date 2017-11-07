@@ -182,6 +182,7 @@ public slots:
     void setTopRange(double newTop);
     void setBotRange(double newBot);
     void setTimeWindow(double newWindow);
+    void setDelay(double newDelay);
     void takeSnapshot(QString *fileName, unsigned char channel);
     void rSourceChanged(int newSource);
 };
