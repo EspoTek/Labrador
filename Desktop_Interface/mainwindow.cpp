@@ -1693,6 +1693,7 @@ void MainWindow::serialEmergencyDisable(int channel){
         //Bring back the lost text.
         ui->console1->setVisible(true);
         //Warn the user that the wire has been disconnected.
+        QApplication::beep();
         ui->console1->appendPlainText("\n\n***Error:UART is not connected***\n***Serial Decoding has been disabled***");
         //Scroll to end of console.
         QTextCursor c =  ui->console1->textCursor();
@@ -1700,7 +1701,18 @@ void MainWindow::serialEmergencyDisable(int channel){
         ui->console1->setTextCursor(c);
     }
     else{
+        //Disable the serial as if the user turned it off manually.
         ui->serialDecodingCheck_CH2->setChecked(false);
+
+        //Bring back the lost text.
+        ui->console2->setVisible(true);
+        //Warn the user that the wire has been disconnected.
+        QApplication::beep();
+        ui->console2->appendPlainText("\n\n***Error:UART is not connected***\n***Serial Decoding has been disabled***");
+        //Scroll to end of console.
+        QTextCursor c =  ui->console2->textCursor();
+        c.movePosition(QTextCursor::End);
+        ui->console2->setTextCursor(c);
     }
 
 }

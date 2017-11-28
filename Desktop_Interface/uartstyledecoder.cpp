@@ -68,7 +68,7 @@ void uartStyleDecoder::serialDecode(double baudRate)
     //Not a single stop bit, or idle bit, in the whole stream.  Wire must be disconnected.
     if(allZeroes){
         qDebug() << "Wire Disconnect detected!";
-        wireDisconnected(1);
+        wireDisconnected(parent->channel);
         parent->stopDecoding = true;
         updateTimer->stop();
     }
