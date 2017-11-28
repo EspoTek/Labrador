@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     desktop_settings.cpp \
     scoperangeenterdialog.cpp \
     genericusbdriver.cpp \
-    isobufferbuffer.cpp
+    isobufferbuffer.cpp \
+    uartstyledecoder.cpp
 
 HEADERS  += mainwindow.h \
     functiongencontrol.h \
@@ -47,7 +48,8 @@ HEADERS  += mainwindow.h \
     genericusbdriver.h \
     isobufferbuffer.h \
     q_debugstream.h \
-    unified_debug_structure.h
+    unified_debug_structure.h \
+    uartstyledecoder.h
 
 android:{
 FORMS    += ui_files_mobile/mainwindow.ui \
