@@ -53,6 +53,8 @@ public:
     int sampleRate_bit;
     int bufferEnd, back = 0;
     short *buffer, *readData = NULL;
+    uartStyleDecoder *decoder = NULL;
+    bool stopDecoding = false;
 private:
     //Generic Vars
     bool firstTime = true;
@@ -60,10 +62,9 @@ private:
     bool fileIOEnabled = false;
     FILE* fptr = NULL;
     QFile *currentFile;
-    isoDriver *parent;
+    //isoDriver *parent;
     unsigned int currentColumn = 0;
     isoDriver *virtualParent;
-    uartStyleDecoder *decoder = NULL;
 public slots:
     void enableFileIO(QFile *file);
     void disableFileIO();

@@ -13,6 +13,10 @@ uartStyleDecoder::uartStyleDecoder(QObject *parent_in) : QObject(parent_in)
 
     qDebug() << "uartStyleDecoder() checkpoint 3";
     serialBuffer = new isoBufferBuffer(SERIAL_BUFFER_LENGTH*2);
+
+    if(parent->channel == 1) console = parent->console1;
+    else if(parent->channel == 2) console = parent->console2;
+    else qFatal("Nonexistant console requested in uartStyleDecoder::serialDecode");
 }
 
 
@@ -34,32 +38,40 @@ void uartStyleDecoder::updateConsole(){
 
 void uartStyleDecoder::serialDecode(double baudRate)
 {
+    /*if(stopDecoding){
+        return;
+    }*/
     double dist_seconds = (double)serialDistance()/(parent->sampleRate_bit);
     double bitPeriod_seconds = 1/baudRate;
 
-    if(parent->channel == 1) console = parent->console1;
-    else if(parent->channel == 2) console = parent->console2;
-    else qFatal("Nonexistant console requested in uartStyleDecoder::serialDecode");
-
+    //Used to check for wire disconnects.  You should get at least one "1" for a stop bit.
+    bool allZeroes = true;
 
     while(dist_seconds > (bitPeriod_seconds + SERIAL_DELAY)){
         //Read next uart bit
         unsigned char uart_bit = getNextUartBit();
+        if(uart_bit) allZeroes = false;
+
         //Process it
         if(uartTransmitting){
             decodeNextUartBit(uart_bit);
-            //qDebug() << "uart_bit = " << uart_bit;
         } else{
-            uartTransmitting = (uart_bit==1) ? false : true;
+            uartTransmitting = (uart_bit == 1) ? false : true;  //Uart starts transmitting after start bit (logic low).
             jitterCompensationNeeded = true;
-            //if(uartTransmitting)  qDebug() << "Decoding symbol!";
         }
         //Update the pointer, accounting for jitter
         updateSerialPtr(baudRate, uart_bit);
         //Calculate stopping condition
         dist_seconds = (double)serialDistance()/(parent->sampleRate_bit);
     }
-    //qDebug() << "\n\n\n\n\n";
+
+    //Not a single stop bit, or idle bit, in the whole stream.  Wire must be disconnected.
+    if(allZeroes){
+        qDebug() << "Wire Disconnect detected!";
+        wireDisconnected(1);
+        parent->stopDecoding = true;
+        updateTimer->stop();
+    }
 }
 
 int uartStyleDecoder::serialDistance()
@@ -75,7 +87,6 @@ void uartStyleDecoder::updateSerialPtr(double baudRate, unsigned char current_bi
 {
     if(jitterCompensationNeeded && uartTransmitting){
         jitterCompensationNeeded = jitterCompensationProcedure(baudRate, current_bit);
-        //qDebug() << "JitterCompensation Needed?" << jitterCompensationNeeded;
     }
 
     int distance_between_bits = (parent->sampleRate_bit)/baudRate;
@@ -112,31 +123,34 @@ void uartStyleDecoder::decodeNextUartBit(unsigned char bitValue)
     dataBit_current++;
 }
 
+//This function compensates for jitter by, when the current bit is a "1", and the last bit was a zero, setting the pointer
+//to the sample at the midpoint between this bit and the last.
 bool uartStyleDecoder::jitterCompensationProcedure(double baudRate, unsigned char current_bit){
 
-    if(current_bit !=0){
-        //qDebug() << "Current bit not zero!!";
+    //We only run when the current bit is a "1", to prevent slowdown when there are long breaks between transmissions.
+    if(current_bit == 0){
         return true;
     }
 
+    //Can't be bothered dealing with the corner case where the serial pointer is at the very start of the buffer.
+    //Just return and try again next time.
     int left_coord = serialPtr_bit - (parent->sampleRate_bit)/baudRate;
+    //qDebug() << "left_coord =" << left_coord;
     if (left_coord < 0){
         return true; //Don't want to read out of bounds!!
     }
 
+    //The usual case, when transmitting anyway.
     unsigned char left_byte = (parent->buffer[left_coord/8] & 0xff);
-    //qDebug() << "current_bit" << current_bit;
-    //qDebug() << "left_byte" << left_byte;
-
-    if(left_byte > 0){
-        //qDebug() << "Recalibration Opportunity";
-        unsigned char temp_bit = 0;
-        //Go back to 1-0 transition point
-        while(!temp_bit){
+    //Only run when a zero is detected in the leftmost symbol.
+    if(left_byte != 255){
+        //Step back, one sample at a time, to the 0->1 transition point
+        unsigned char temp_bit = 1;
+        while(temp_bit){
             temp_bit = getNextUartBit();
             serialPtr_bit--;
         }
-        //Jump by half a uart bit period.
+        //Jump the pointer forward by half a uart bit period, and return "done!".
         serialPtr_bit += (parent->sampleRate_bit/baudRate)/2;
         return false;
     }

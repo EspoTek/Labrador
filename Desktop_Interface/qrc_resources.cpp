@@ -1,15 +1,13 @@
 /****************************************************************************
 ** Resource object code
 **
-** Created by: The Resource Compiler for Qt version 5.3.2
+** Created by: The Resource Compiler for Qt version 5.7.1
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include <QtCore/qglobal.h>
-
 static const unsigned char qt_resource_data[] = {
-  // /home/pi/Desktop/Git_Shit/labrador/Desktop_Interface/buffer_0.bmp
+  // C:/Users/Esposch/Documents/Git/labrador/Desktop_Interface/buffer_0.bmp
   0x0,0x0,0x0,0x8d,
   0x0,
   0x0,0x28,0xb6,0x78,0x9c,0xed,0xd0,0xb1,0xd,0xc2,0x30,0x0,0x45,0xc1,0xb0,0x45,
@@ -21,7 +19,7 @@ static const unsigned char qt_resource_data[] = {
   0xab,0x8f,0xd5,0xc7,0xea,0x63,0xf5,0xb1,0xfa,0x58,0x7d,0xac,0x3e,0x56,0x1f,0xab,
   0x8f,0xd5,0xc7,0xea,0x63,0xf5,0xb1,0xfa,0x58,0x7d,0xac,0x3e,0x56,0x1f,0xab,0x8f,
   0xd5,0xc7,0xea,0x63,0x73,0xf6,0xf9,0x2,0xf4,0x4,0x42,0xe7,
-    // /home/pi/Desktop/Git_Shit/labrador/Desktop_Interface/buffer_2.bmp
+    // C:/Users/Esposch/Documents/Git/labrador/Desktop_Interface/buffer_2.bmp
   0x0,0x0,0x0,0x7b,
   0x0,
   0x0,0x28,0xb6,0x78,0x9c,0xed,0xd0,0x31,0xd,0x80,0x30,0x14,0x45,0xd1,0xe2,0x82,
@@ -32,7 +30,7 @@ static const unsigned char qt_resource_data[] = {
   0x3e,0x99,0xf1,0xe1,0xc3,0x87,0xf,0x9f,0xcc,0xf8,0xf0,0xe1,0xc3,0x87,0x4f,0x66,
   0x7c,0xf8,0xf0,0xe1,0xc3,0x27,0x33,0x3e,0x7c,0xf8,0xf0,0xe1,0x93,0x19,0x1f,0x3e,
   0x7c,0xf8,0xf0,0x19,0x7b,0x1,0x6d,0x5a,0xf,0xce,
-    // /home/pi/Desktop/Git_Shit/labrador/Desktop_Interface/buffer_1.bmp
+    // C:/Users/Esposch/Documents/Git/labrador/Desktop_Interface/buffer_1.bmp
   0x0,0x0,0x0,0x97,
   0x0,
   0x0,0x28,0xb6,0x78,0x9c,0xed,0xd0,0xb1,0xd,0xc2,0x30,0x10,0x40,0xd1,0xb0,0x5,
@@ -86,32 +84,49 @@ static const unsigned char qt_resource_struct[] = {
 
 };
 
-QT_BEGIN_NAMESPACE
+#ifdef QT_NAMESPACE
+#  define QT_RCC_PREPEND_NAMESPACE(name) ::QT_NAMESPACE::name
+#  define QT_RCC_MANGLE_NAMESPACE0(x) x
+#  define QT_RCC_MANGLE_NAMESPACE1(a, b) a##_##b
+#  define QT_RCC_MANGLE_NAMESPACE2(a, b) QT_RCC_MANGLE_NAMESPACE1(a,b)
+#  define QT_RCC_MANGLE_NAMESPACE(name) QT_RCC_MANGLE_NAMESPACE2( \
+        QT_RCC_MANGLE_NAMESPACE0(name), QT_RCC_MANGLE_NAMESPACE0(QT_NAMESPACE))
+#else
+#   define QT_RCC_PREPEND_NAMESPACE(name) name
+#   define QT_RCC_MANGLE_NAMESPACE(name) name
+#endif
 
-extern Q_CORE_EXPORT bool qRegisterResourceData
-    (int, const unsigned char *, const unsigned char *, const unsigned char *);
+#ifdef QT_NAMESPACE
+namespace QT_NAMESPACE {
+#endif
 
-extern Q_CORE_EXPORT bool qUnregisterResourceData
-    (int, const unsigned char *, const unsigned char *, const unsigned char *);
+bool qRegisterResourceData(int, const unsigned char *, const unsigned char *, const unsigned char *);
 
-QT_END_NAMESPACE
+bool qUnregisterResourceData(int, const unsigned char *, const unsigned char *, const unsigned char *);
 
+#ifdef QT_NAMESPACE
+}
+#endif
 
-int QT_MANGLE_NAMESPACE(qInitResources_resources)()
+int QT_RCC_MANGLE_NAMESPACE(qInitResources_resources)();
+int QT_RCC_MANGLE_NAMESPACE(qInitResources_resources)()
 {
-    QT_PREPEND_NAMESPACE(qRegisterResourceData)
+    QT_RCC_PREPEND_NAMESPACE(qRegisterResourceData)
         (0x01, qt_resource_struct, qt_resource_name, qt_resource_data);
     return 1;
 }
 
-Q_CONSTRUCTOR_FUNCTION(QT_MANGLE_NAMESPACE(qInitResources_resources))
-
-int QT_MANGLE_NAMESPACE(qCleanupResources_resources)()
+int QT_RCC_MANGLE_NAMESPACE(qCleanupResources_resources)();
+int QT_RCC_MANGLE_NAMESPACE(qCleanupResources_resources)()
 {
-    QT_PREPEND_NAMESPACE(qUnregisterResourceData)
+    QT_RCC_PREPEND_NAMESPACE(qUnregisterResourceData)
        (0x01, qt_resource_struct, qt_resource_name, qt_resource_data);
     return 1;
 }
 
-Q_DESTRUCTOR_FUNCTION(QT_MANGLE_NAMESPACE(qCleanupResources_resources))
-
+namespace {
+   struct initializer {
+       initializer() { QT_RCC_MANGLE_NAMESPACE(qInitResources_resources)(); }
+       ~initializer() { QT_RCC_MANGLE_NAMESPACE(qCleanupResources_resources)(); }
+   } dummy;
+}

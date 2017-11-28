@@ -305,6 +305,12 @@ void isoBuffer::serialManage(double baudRate, int type){
     qDebug() << "serialManage() checkpoint 1";
     if(decoder == NULL){
         decoder = new uartStyleDecoder(this);
+        qDebug() << decoder;
+        connect(decoder, SIGNAL(wireDisconnected(int)), virtualParent, SLOT(serialNeedsDisabling(int)));
+    }
+    if(stopDecoding){
+        decoder->updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
+        stopDecoding = false;
     }
     qDebug() << "serialManage() checkpoint 2";
     decoder->serialDecode(baudRate);

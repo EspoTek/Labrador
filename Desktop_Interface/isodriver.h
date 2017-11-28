@@ -135,8 +135,8 @@ signals:
     void sendVmin_CH2(double);
     void sendVmean_CH2(double);
     void sendVRMS_CH2(double);
-
     void multimeterREnabled(int source);
+    void mainWindowPleaseDisableSerial(int);
 public slots:
     void setWindow(int newWindow);
     void setVoltageRange(QWheelEvent *event);
@@ -188,6 +188,7 @@ public slots:
     void setDelay(double newDelay);
     void takeSnapshot(QString *fileName, unsigned char channel);
     void rSourceChanged(int newSource);
+    void serialNeedsDisabling(int channel);
 };
 
 #endif // ISODRIVER_H

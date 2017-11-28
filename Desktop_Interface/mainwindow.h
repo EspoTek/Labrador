@@ -22,7 +22,7 @@
 #include "qcustomplot.h"
 #include "ui_mainwindow.h"
 #include "scoperangeenterdialog.h"
-#include "isobuffer.h"
+//#include "isobuffer.h"
 #include "q_debugstream.h"
 #include "pinchcatcher.h"
 
@@ -155,7 +155,7 @@ private slots:
 
     void on_actionRecord_CH2_triggered(bool checked);
 
-
+    void serialEmergencyDisable(int channel);
 private:
     //Generic Vars
     Ui::MainWindow *ui;

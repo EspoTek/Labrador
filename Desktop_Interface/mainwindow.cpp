@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "uartstyledecoder.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -154,6 +155,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->controller_iso, SIGNAL(sendMultimeterLabel4(QString)), ui->multimeterRmsLabel, SLOT(setText(QString)));
     connect(ui->controller_iso, SIGNAL(sendVRMS_CH1(double)), ui->voltageInfoRmsDisplay_CH1, SLOT(display(double)));
     connect(ui->controller_iso, SIGNAL(sendVRMS_CH2(double)), ui->voltageInfoRmsDisplay_CH2, SLOT(display(double)));
+
+    connect(ui->controller_iso, SIGNAL(mainWindowPleaseDisableSerial(int)), this, SLOT(serialEmergencyDisable(int)));
+
 }
 
 MainWindow::~MainWindow()
@@ -1676,4 +1680,27 @@ void MainWindow::on_actionRecord_CH2_triggered(bool checked)
     output375_CH2 = new QFile(outputDir->filePath("375_CH2.csv"));
     ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2);
     return;
+}
+
+//Disable the serial, without wiping everything!
+void MainWindow::serialEmergencyDisable(int channel){
+    qDebug("MainWindow acknowledges disconnect from channel %d", channel);
+
+    if(channel==1){
+        //Disable the serial as if the user turned it off manually.
+        ui->serialDecodingCheck_CH1->setChecked(false);
+
+        //Bring back the lost text.
+        ui->console1->setVisible(true);
+        //Warn the user that the wire has been disconnected.
+        ui->console1->appendPlainText("\n\n***Error:UART is not connected***\n***Serial Decoding has been disabled***");
+        //Scroll to end of console.
+        QTextCursor c =  ui->console1->textCursor();
+        c.movePosition(QTextCursor::End);
+        ui->console1->setTextCursor(c);
+    }
+    else{
+        ui->serialDecodingCheck_CH2->setChecked(false);
+    }
+
 }

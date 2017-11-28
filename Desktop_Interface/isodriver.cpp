@@ -1244,3 +1244,8 @@ double isoDriver::meanVoltageLast(double seconds, unsigned char channel, int TOP
 void isoDriver::rSourceChanged(int newSource){
     multimeterRsource = newSource;
 }
+
+void isoDriver::serialNeedsDisabling(int channel){
+    qDebug("isoDriver acknowledges disconnect from channel %d", channel);
+    mainWindowPleaseDisableSerial(channel);
+}
