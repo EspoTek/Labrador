@@ -38,14 +38,13 @@ void tiny_spi_setup(void){
 	PR.PRPC &= 0b11110111;
 
 	//SPI enable
-	SPIC.CTRL = SPI_ENABLE_bm;  //Slave mode
 	SPIC.INTCTRL = SPI_INTLVL_OFF_gc;
 	//#ifdef VERO
 		PORTC.PIN5CTRL = PORT_INVEN_bm | PORT_OPC_PULLUP_gc;
 	//#else
 	//	PORTC.PIN7CTRL = PORT_INVEN_bm | PORT_OPC_PULLUP_gc;  //Pin5 if not swapped		
 	//#endif
-
+	SPIC.CTRL = SPI_DORD_bm | SPI_ENABLE_bm;  //Slave mode
 	return;
 }
 
