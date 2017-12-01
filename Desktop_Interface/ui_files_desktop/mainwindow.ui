@@ -1874,7 +1874,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>57600 (Glitchy)</string>
+    <string>57600</string>
    </property>
   </action>
   <action name="action115200">
@@ -1882,7 +1882,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>115200 (Glitchy)</string>
+    <string>115200</string>
    </property>
   </action>
   <action name="action8">
@@ -1986,7 +1986,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>57600 (Glitchy)</string>
+    <string>57600</string>
    </property>
   </action>
   <action name="action115200_2">
@@ -1994,7 +1994,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>115200 (Glitchy)</string>
+    <string>115200</string>
    </property>
   </action>
   <action name="action8_2">
