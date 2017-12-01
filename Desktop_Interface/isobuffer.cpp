@@ -302,19 +302,19 @@ int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop){
 }
 
 void isoBuffer::serialManage(double baudRate, int type){
-    qDebug() << "serialManage() checkpoint 1";
+    //Types:
+    // 0 - standard UART, no parity
+    // 1 - standard UART, with parity bit
+    // 100 - I2C
     if(decoder == NULL){
         decoder = new uartStyleDecoder(this);
-        qDebug() << decoder;
         connect(decoder, SIGNAL(wireDisconnected(int)), virtualParent, SLOT(serialNeedsDisabling(int)));
     }
     if(stopDecoding){
         decoder->updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
         stopDecoding = false;
     }
-    qDebug() << "serialManage() checkpoint 2";
     decoder->serialDecode(baudRate);
-    qDebug() << "serialManage() end";
 }
 
 

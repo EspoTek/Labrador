@@ -157,6 +157,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->controller_iso, SIGNAL(sendVRMS_CH2(double)), ui->voltageInfoRmsDisplay_CH2, SLOT(display(double)));
 
     connect(ui->controller_iso, SIGNAL(mainWindowPleaseDisableSerial(int)), this, SLOT(serialEmergencyDisable(int)));
+    connect(ui->serialDecodingModeSelect_CH1, SIGNAL(currentIndexChanged(int)), this, SLOT(checkForI2C(int)));
+
 
 }
 
@@ -1715,4 +1717,17 @@ void MainWindow::serialEmergencyDisable(int channel){
         ui->console2->setTextCursor(c);
     }
 
+}
+
+//This is a slot that intercepts a signal from the serial decoding CH1 checkbox.
+//It changes the mode to ensure I2C can work.
+//Both channels are necessary; SDA and SCL.
+void MainWindow::checkForI2C(int value){
+    if(value==2){
+        ui->scopeGroup_CH1->setChecked(false);
+        ui->scopeGroup_CH2->setChecked(false);
+        ui->multimeterGroup->setChecked(false);
+
+    }
+    return;
 }

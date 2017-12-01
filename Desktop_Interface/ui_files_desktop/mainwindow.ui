@@ -1223,11 +1223,6 @@
                   <string>SPI</string>
                  </property>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>I2C</string>
-                 </property>
-                </item>
                </widget>
               </item>
              </layout>

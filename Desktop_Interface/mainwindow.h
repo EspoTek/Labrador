@@ -156,6 +156,8 @@ private slots:
     void on_actionRecord_CH2_triggered(bool checked);
 
     void serialEmergencyDisable(int channel);
+
+    void checkForI2C(int value);
 private:
     //Generic Vars
     Ui::MainWindow *ui;

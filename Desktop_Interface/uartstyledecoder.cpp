@@ -2,16 +2,13 @@
 
 uartStyleDecoder::uartStyleDecoder(QObject *parent_in) : QObject(parent_in)
 {
-    qDebug() << "uartStyleDecoder() checkpoint 1";
     parent = (isoBuffer *) parent_in;
 
-    qDebug() << "uartStyleDecoder() checkpoint 2";
     updateTimer = new QTimer();
     updateTimer->setTimerType(Qt::PreciseTimer);
     updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
     connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateConsole()));
 
-    qDebug() << "uartStyleDecoder() checkpoint 3";
     serialBuffer = new isoBufferBuffer(SERIAL_BUFFER_LENGTH*2);
 
     if(parent->channel == 1) console = parent->console1;
@@ -22,7 +19,7 @@ uartStyleDecoder::uartStyleDecoder(QObject *parent_in) : QObject(parent_in)
 
 void uartStyleDecoder::updateConsole(){
     if(!newUartSymbol) return;
-    qDebug() << numCharsInBuffer;
+    //qDebug() << numCharsInBuffer;
 
     console->setPlainText(QString::fromLocal8Bit(serialBuffer->get(numCharsInBuffer), numCharsInBuffer));
     if(parent->serialAutoScroll){

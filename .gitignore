@@ -26,3 +26,5 @@ Desktop_Interface/build_android/package_source/gradle.properties~
 Desktop_Interface/build_android/package_source/local.properties
 Desktop_Interface/build_android/package_source/local.properties~
 Desktop_Interface/qrc_resources.cpp
+AVR Code/USB_BULK_TEST/Debug
+AVR Code/USB_BULK_TEST/Release

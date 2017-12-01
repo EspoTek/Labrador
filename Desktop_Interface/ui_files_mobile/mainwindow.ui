@@ -88,7 +88,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="font">
@@ -1752,11 +1752,6 @@
                     <string>SPI</string>
                    </property>
                   </item>
-                  <item>
-                   <property name="text">
-                    <string>I2C</string>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                </layout>
@@ -1792,7 +1787,7 @@
      <x>0</x>
      <y>0</y>
      <width>720</width>
-     <height>21</height>
+     <height>31</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOscilloscope_2">
