@@ -106,6 +106,7 @@ signals:
     void killMe(void);
     void connectedStatus(bool status);
     void initialConnectComplete(void);
+    void signalFirmwareFlash(void);
 public slots:
     void setPsu(double voltage);
     void setFunctionGen(int channel, functionGenControl *fGenControl);

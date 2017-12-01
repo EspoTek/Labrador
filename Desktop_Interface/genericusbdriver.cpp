@@ -354,6 +354,7 @@ void genericUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, d
 void genericUsbDriver::checkConnection(){
     //This will connect to the board, then wait one more period before actually starting the stack.
     if(!connected){
+        connectedStatus(false);
         qDebug() << "CHECKING CONNECTION!";
         connected = !(usbInit(BOARD_VID, BOARD_PID));
         qDebug() << "Connected";

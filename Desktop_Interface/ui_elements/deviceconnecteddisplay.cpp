@@ -21,3 +21,9 @@ void deviceConnectedDisplay::connectedStatusChanged(bool status){
         this->setVisible(!status);
     #endif
 }
+
+void deviceConnectedDisplay::flashingFirmware(void){
+    qDebug() << "deviceConnectedDisplay::flashingFirmware";
+    this->setText("Flashing Device Firmware");
+    this->setStyleSheet("QLabel { color:green; }");
+}

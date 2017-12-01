@@ -15,6 +15,7 @@ public:
 signals:
 public slots:
     void connectedStatusChanged(bool status);
+    void flashingFirmware(void);
 };
 
 #endif // DEVICECONNECTEDDISPLAY_H

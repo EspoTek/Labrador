@@ -1,4 +1,5 @@
 #include "winusbdriver.h"
+#include <QApplication>
 #include <qprocess.h>
 
 #define SLEEP_DIVIDER 16
@@ -323,14 +324,17 @@ void winUsbDriver::shutdownProcedure(){
 }
 
 int winUsbDriver::flashFirmware(void){
-
     char fname[64];
     qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
     sprintf(fname, "labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
     qDebug() << "FLASHING " << fname;
 
+    signalFirmwareFlash();
+    QApplication::processEvents();
+
+
+    //Go to bootloader mode
     bootloaderJump();
-    QThread::msleep(2000);
 
     //Set up interface to dfuprog
     QString dfuprog_location = QCoreApplication::applicationDirPath();
@@ -348,15 +352,22 @@ int winUsbDriver::flashFirmware(void){
     QStringList args_stage4;
     args_stage4 << "atxmega32a4u" << "launch";
 
-    //Run stage 1
-    dfu_exe.start(dfuprog_location, args_stage1);
-    dfu_exe.waitForFinished(-1);
-    qDebug() << "stdio_stage1" << dfu_exe.readAllStandardOutput();
-    qDebug() << "sterr_stage1" << dfu_exe.readAllStandardError();
-    qDebug() << "EXIT_CODE stage1" << dfu_exe.exitCode();
-    if(dfu_exe.exitCode()){
-        return dfu_exe.exitCode()+100;
+    bool atxmega32a4u_connected = false;
+    //Run stage 1, until there's a success
+    while(!atxmega32a4u_connected){
+        QThread::msleep(200);
+        dfu_exe.start(dfuprog_location, args_stage1);
+        dfu_exe.waitForFinished(-1);
+        qDebug() << "stdio_stage1" << dfu_exe.readAllStandardOutput();
+        qDebug() << "sterr_stage1" << dfu_exe.readAllStandardError();
+        qDebug() << "EXIT_CODE stage1" << dfu_exe.exitCode();
+        atxmega32a4u_connected = !dfu_exe.exitCode();
+        /*if(dfu_exe.exitCode()){
+            return dfu_exe.exitCode()+100;
+        }*/
+        QApplication::processEvents();
     }
+
 
     //Run stage 2
     dfu_exe.start(dfuprog_location, args_stage2);
@@ -378,14 +389,18 @@ int winUsbDriver::flashFirmware(void){
         return dfu_exe.exitCode()+300;
     }
 
-    QThread::msleep(2000);
-
     //Run stage 4 - double launch to clear the eeprom flag from bootloaderJump.
-    dfu_exe.start(dfuprog_location, args_stage4);
-    dfu_exe.waitForFinished(-1);
-    qDebug() << "stdio_stage4" << dfu_exe.readAllStandardOutput();
-    qDebug() << "sterr_stage4" << dfu_exe.readAllStandardError();
-    qDebug() << "EXIT_CODE stage4" << dfu_exe.exitCode();
+    //Connect back to labrador
+    while(atxmega32a4u_connected){
+        QThread::msleep(200);
+        dfu_exe.start(dfuprog_location, args_stage4);
+        dfu_exe.waitForFinished(-1);
+        qDebug() << "stdio_stage4" << dfu_exe.readAllStandardOutput();
+        qDebug() << "sterr_stage4" << dfu_exe.readAllStandardError();
+        qDebug() << "EXIT_CODE stage4" << dfu_exe.exitCode();
+        atxmega32a4u_connected = (dfu_exe.exitCode()!=0);
+        QApplication::processEvents();
+    }
 
 
     return 0;
