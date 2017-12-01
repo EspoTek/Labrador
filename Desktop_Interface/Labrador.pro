@@ -20,6 +20,7 @@ QCP_VER = 1
 DEFINES += "QCP_VER=$${QCP_VER}"
 equals(QCP_VER,"2"){
     DEFINES += QCUSTOMPLOT_USE_OPENGL
+    LIBS += -lOpenGL32
     message("Using QCP2 with OpenGL support")
 }
 

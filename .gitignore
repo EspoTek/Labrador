@@ -28,3 +28,6 @@ Desktop_Interface/build_android/package_source/local.properties~
 Desktop_Interface/qrc_resources.cpp
 AVR Code/USB_BULK_TEST/Debug
 AVR Code/USB_BULK_TEST/Release
+Desktop_Interface/debug/Labrador.vc.pdb
+Desktop_Interface/debug/Labrador_resource.res
+Desktop_Interface/debug/qrc_resources.cpp
