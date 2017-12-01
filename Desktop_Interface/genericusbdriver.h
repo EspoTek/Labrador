@@ -15,7 +15,7 @@
 #include "buffercontrol.h"
 #include "unified_debug_structure.h"
 
-#define EXPECTED_FIRMWARE_VERSION 0x0003
+#define EXPECTED_FIRMWARE_VERSION 0x0004
 
 #ifdef PLATFORM_WINDOWS
     #define DEFINED_EXPECTED_VARIANT 1

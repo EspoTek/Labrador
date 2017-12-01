@@ -31,3 +31,4 @@ AVR Code/USB_BULK_TEST/Release
 Desktop_Interface/debug/Labrador.vc.pdb
 Desktop_Interface/debug/Labrador_resource.res
 Desktop_Interface/debug/qrc_resources.cpp
+!Desktop_Interface/bin/firmware/dfu-programmer.exe
