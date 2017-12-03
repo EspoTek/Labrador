@@ -108,7 +108,7 @@ void uartStyleDecoder::decodeNextUartBit(unsigned char bitValue)
 {
     if(dataBit_current == dataBit_max){
         if(numCharsInBuffer<SERIAL_BUFFER_LENGTH) numCharsInBuffer++;
-        serialBuffer->add(currentUartSymbol);
+        decodeDatabit(dataBit_max+1);
         currentUartSymbol = 0;
         dataBit_current = 0;
         uartTransmitting = false;
@@ -154,3 +154,25 @@ bool uartStyleDecoder::jitterCompensationProcedure(double baudRate, unsigned cha
 
     return true;
 }
+
+//Basically scaffoldingto add character maps for other modes (5 bit, for example).
+void uartStyleDecoder::decodeDatabit(int mode){
+    unsigned short tempchar;
+    switch(mode){
+        case 5:
+            tempchar = decode_baudot(currentUartSymbol);
+        case 8:  //8-bit ASCII;
+            tempchar = currentUartSymbol;
+            break;
+        default:
+            qDebug() << "uartStyleDecoder::decodeDatabit is failing...";
+    }
+    serialBuffer->add(tempchar);
+}
+
+char uartStyleDecoder::decode_baudot(short symbol){
+    return 'a';
+}
+
+
+

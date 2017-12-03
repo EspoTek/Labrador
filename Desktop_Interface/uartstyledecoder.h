@@ -28,6 +28,8 @@ private:
     QPlainTextEdit *console;
     isoBufferBuffer *serialBuffer;
     int numCharsInBuffer = 0;
+    void decodeDatabit(int mode);
+    char decode_baudot(short symbol);
 signals:
     void wireDisconnected(int);
 public slots:
