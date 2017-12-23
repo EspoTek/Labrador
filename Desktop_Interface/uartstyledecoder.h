@@ -9,7 +9,7 @@ class uartStyleDecoder : public QObject
 {
     Q_OBJECT
 public:
-    explicit uartStyleDecoder(QObject *parent_in = nullptr);
+    explicit uartStyleDecoder(QObject *parent_in = NULL);
     void serialDecode(double baudRate);
     int serialDistance();
     QTimer *updateTimer;
