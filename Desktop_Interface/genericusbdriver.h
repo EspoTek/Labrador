@@ -61,6 +61,7 @@ public:
     unsigned char *outBuffers[2];
     unsigned int bufferLengths[2];
     bool connected = false;
+    bool calibrateOnConnect = false;
     //Generic Functions
     explicit genericUsbDriver(QWidget *parent = 0);
     ~genericUsbDriver();
@@ -107,6 +108,7 @@ signals:
     void connectedStatus(bool status);
     void initialConnectComplete(void);
     void signalFirmwareFlash(void);
+    void calibrateMe(void);
 public slots:
     void setPsu(double voltage);
     void setFunctionGen(int channel, functionGenControl *fGenControl);

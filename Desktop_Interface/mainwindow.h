@@ -218,6 +218,10 @@ private:
     QShortcut *shortcut_Debug;
     QShortcut *shortcut_Esc;
 
+    //Duct Tape
+    bool dt_AlreadyAskedAboutCalibration = false;
+    int dt_userWantsToCalibrate;
+
 #ifdef PLATFORM_ANDROID
     //Android Special
     QScreen *screenPtr;

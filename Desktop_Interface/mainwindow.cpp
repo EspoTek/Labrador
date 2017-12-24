@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    calibrationMessages = new QMessageBox();
     ui->psuDisplay->display("4.00");
     ui->bufferDisplay->refreshImage();
 
@@ -122,7 +123,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->amplitudeValue_CH2->setValue(2);
     ui->controller_iso->doNotTouchGraph = false;
 
-    calibrationMessages = new QMessageBox();
 #ifndef PLATFORM_ANDROID
     ui->multimeterRLabel->setVisible(false);
     ui->multimeterRComboBox->setVisible(false);
@@ -1122,8 +1122,15 @@ void MainWindow::readSettingsFile(){
     ui->controller_iso->internalBuffer750->frontendGain = calibrate_gain_ch1;
     ui->controller_iso->internalBuffer375_CH2->frontendGain = calibrate_gain_ch2;
 
-    //Prompt user to calibrate if no calibration data found.
-
+    if(!dt_AlreadyAskedAboutCalibration && ((calibrate_vref_ch1 == 1.65) || (calibrate_vref_ch2 == 1.65) || (calibrate_gain_ch1 == R4/(R3+R4)) || (calibrate_gain_ch2 == R4/(R3+R4)))){
+        //Prompt user to calibrate if no calibration data found.
+        QApplication::processEvents();
+        calibrationMessages->setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+        calibrationMessages->setText("No calibration data detected!\nWould you like to run calibration once connected?");
+        dt_userWantsToCalibrate = calibrationMessages->exec();
+        qDebug() << "dt_userWantsToCalibrate" << dt_userWantsToCalibrate;
+        dt_AlreadyAskedAboutCalibration = true;
+    }
 }
 
 void MainWindow::on_actionRecord_triggered(bool checked)
@@ -1235,6 +1242,8 @@ void MainWindow::reinitUsbStage2(void){
 
     readSettingsFile();
 
+    ui->controller_iso->driver->calibrateOnConnect = (dt_userWantsToCalibrate == 16384); //Yes/No are 16384/65536 for some reason.  I think 0/1 are reserved for OK/Cancel.
+    connect(ui->controller_iso->driver, SIGNAL(calibrateMe()), this, SLOT(on_actionCalibrate_triggered()));
     qDebug() << "ReinitUsbStage2 is returning";
 }
 
@@ -1379,6 +1388,7 @@ void MainWindow::on_actionCalibrate_triggered()
     caibrateStage = 0;
 
     if(!ui->controller_iso->driver->connected){
+        calibrationMessages->setStandardButtons(QMessageBox::Ok);
         calibrationMessages->setText("You need to connect the board before calibrating it!");
         calibrationMessages->exec();
         return;

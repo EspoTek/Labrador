@@ -402,6 +402,10 @@ void genericUsbDriver::checkConnection(){
     recoveryTimer->start(RECOVERY_PERIOD);
     connect(recoveryTimer, SIGNAL(timeout()), this, SLOT(recoveryTick()));
     initialConnectComplete();
+
+    if(!killOnConnect && calibrateOnConnect){
+        calibrateMe();
+    }
 }
 
 void genericUsbDriver::bootloaderJump(){
