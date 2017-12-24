@@ -1724,3 +1724,14 @@ void MainWindow::checkForI2C(int value){
     }
     return;
 }
+
+void MainWindow::on_actionFirmware_Recovery_triggered()
+{
+    qDebug() << "on_actionFirmware_Recovery_triggered";
+    ui->controller_iso->driver->manualFirmwareRecovery();
+}
+
+void MainWindow::on_actionShow_Debug_Console_triggered()
+{
+    enableLabradorDebugging();
+}

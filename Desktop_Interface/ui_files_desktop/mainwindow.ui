@@ -1327,7 +1327,7 @@
      <x>0</x>
      <y>0</y>
      <width>1440</width>
-     <height>31</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1428,8 +1428,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>183</width>
-       <height>151</height>
+       <width>178</width>
+       <height>115</height>
       </rect>
      </property>
      <property name="title">
@@ -1564,12 +1564,20 @@
     <addaction name="actionSingle_ep_msync"/>
     <addaction name="actionSingle_ep_async"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionFirmware_Recovery"/>
+    <addaction name="actionShow_Debug_Console"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOscilloscope_2"/>
    <addaction name="menuMultimeter_2"/>
    <addaction name="menuBus_Sniffer"/>
    <addaction name="menuPower_Supply"/>
    <addaction name="menuConnection_Type"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionGainAuto">
    <property name="checkable">
@@ -2209,6 +2217,16 @@
    </property>
    <property name="text">
     <string>CH2</string>
+   </property>
+  </action>
+  <action name="actionFirmware_Recovery">
+   <property name="text">
+    <string>Firmware Recovery</string>
+   </property>
+  </action>
+  <action name="actionShow_Debug_Console">
+   <property name="text">
+    <string>Show Debug Console</string>
    </property>
   </action>
  </widget>

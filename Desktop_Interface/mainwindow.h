@@ -158,6 +158,10 @@ private slots:
     void serialEmergencyDisable(int channel);
 
     void checkForI2C(int value);
+    void on_actionFirmware_Recovery_triggered();
+
+    void on_actionShow_Debug_Console_triggered();
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
