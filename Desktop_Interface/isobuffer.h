@@ -62,11 +62,17 @@ private:
     bool fileIOEnabled = false;
     FILE* fptr = NULL;
     QFile *currentFile;
+    int fileIO_maxIncrementedSampleValue;
+    int fileIO_sampleCount;
+    qulonglong fileIO_max_file_size;
+    qulonglong fileIO_numBytesWritten;
     //isoDriver *parent;
     unsigned int currentColumn = 0;
     isoDriver *virtualParent;
+signals:
+    void fileIOinternalDisable();
 public slots:
-    void enableFileIO(QFile *file);
+    void enableFileIO(QFile *file, int samplesToSkip, qulonglong max_file_size);
     void disableFileIO();
 };
 

@@ -1350,6 +1350,7 @@
     </widget>
     <addaction name="menuRecord"/>
     <addaction name="menuTake_Snapshot"/>
+    <addaction name="actionDAQ_Settings"/>
    </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
     <property name="title">
@@ -2227,6 +2228,11 @@
   <action name="actionShow_Debug_Console">
    <property name="text">
     <string>Show Debug Console</string>
+   </property>
+  </action>
+  <action name="actionDAQ_Settings">
+   <property name="text">
+    <string>DAQ Settings</string>
    </property>
   </action>
  </widget>

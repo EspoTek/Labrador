@@ -162,6 +162,12 @@ private slots:
 
     void on_actionShow_Debug_Console_triggered();
 
+    void on_actionDAQ_Settings_triggered();
+
+    void fileLimitReached_CH1(void);
+    void fileLimitReached_CH2(void);
+
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
@@ -225,6 +231,8 @@ private:
     //Duct Tape
     bool dt_AlreadyAskedAboutCalibration = false;
     int dt_userWantsToCalibrate;
+    int daq_sample_skip_interval;
+    qulonglong daq_max_file_size;
 
 #ifdef PLATFORM_ANDROID
     //Android Special

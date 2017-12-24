@@ -45,16 +45,24 @@ void isoBuffer::writeBuffer_char(char* data, int len)
 
         //Output to CSV
         if(fileIOEnabled){
-            convertedSample = sampleConvert(data[i], 128, channel==1 ? virtualParent->AC_CH1 : virtualParent->AC_CH2);
-            char numStr[32];
-            sprintf(numStr,"%f, ", convertedSample);
-            currentFile->write(numStr);
-            currentColumn++;
-            if (currentColumn > COLUMN_BREAK){
-                currentFile->write("\n");
-                currentColumn = 0;
+            fileIO_sampleCount++; //Counter, determines if we've skipped enough.
+            if(fileIO_sampleCount == fileIO_maxIncrementedSampleValue){
+                convertedSample = sampleConvert(data[i], 128, channel==1 ? virtualParent->AC_CH1 : virtualParent->AC_CH2);
+                char numStr[32];
+                sprintf(numStr,"%7.5f, ", convertedSample); //10 bytes per character
+                currentFile->write(numStr);
+                currentColumn++;
+                if (currentColumn > COLUMN_BREAK){
+                    currentFile->write("\n");
+                    currentColumn = 0;
+                }
+                fileIO_sampleCount = 0;
+                fileIO_numBytesWritten += 10;
+                if(fileIO_numBytesWritten >= fileIO_max_file_size){
+                    fileIOEnabled = false; //Just in case signalling fails.
+                    fileIOinternalDisable();
+                }
             }
-
         }
     }
     return;
@@ -164,10 +172,18 @@ void isoBuffer::glitchInsert(short type)
 
 }
 
-void isoBuffer::enableFileIO(QFile *file){
+void isoBuffer::enableFileIO(QFile *file, int samplesToSkip, qulonglong max_file_size){
     file->open(QIODevice::WriteOnly);
     currentFile = file;
     fileIOEnabled = true;
+
+    fileIO_maxIncrementedSampleValue = samplesToSkip + 1;
+    fileIO_max_file_size = max_file_size;
+    fileIO_sampleCount = 0;
+    fileIO_numBytesWritten = 0;
+
+    qDebug("File IO enabled, skipping %d samples, max file size %uMB", samplesToSkip, max_file_size/1000000);
+    qDebug() << max_file_size;
     return;
 }
 

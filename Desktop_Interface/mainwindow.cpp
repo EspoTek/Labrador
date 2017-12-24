@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "uartstyledecoder.h"
+#include "daqform.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -138,6 +139,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->serialDecodingModeSelect_CH1, SIGNAL(currentIndexChanged(int)), this, SLOT(checkForI2C(int)));
 
     connect(ui->controller_iso->driver, SIGNAL(signalFirmwareFlash(void)), ui->deviceConnected, SLOT(flashingFirmware(void)));
+    connect(ui->controller_iso->internalBuffer375_CH1, SIGNAL(fileIOinternalDisable()), this, SLOT(fileLimitReached_CH1()));
+    connect(ui->controller_iso->internalBuffer750, SIGNAL(fileIOinternalDisable()), this, SLOT(fileLimitReached_CH1()));
+    connect(ui->controller_iso->internalBuffer375_CH2, SIGNAL(fileIOinternalDisable()), this, SLOT(fileLimitReached_CH2()));
 
 }
 
@@ -1094,6 +1098,9 @@ void MainWindow::readSettingsFile(){
     double calibrate_gain_ch1 = settings->value("CalibrateGainCH1", R4/(R3+R4)).toDouble();
     double calibrate_gain_ch2 = settings->value("CalibrateGainCH2", R4/(R3+R4)).toDouble();
 
+    daq_sample_skip_interval = settings->value("daq_sample_skip_interval", 0).toInt();
+    daq_max_file_size = settings->value("daq_max_file_size", 1024000000).toULongLong();
+
     //Change connection Type
     switch(connectionType){
     case 0:
@@ -1617,6 +1624,7 @@ void MainWindow::on_actionSnapshot_CH2_triggered()
 void MainWindow::on_actionRecord_CH1_triggered(bool checked)
 {
     qDebug() << "on_actionRecord_CH1_triggered(bool checked)";
+    qDebug() << daq_max_file_size;
     if(!checked){
         if(ui->controller_iso->driver->deviceMode!=6){
             ui->controller_iso->internalBuffer375_CH1->disableFileIO();
@@ -1642,10 +1650,10 @@ void MainWindow::on_actionRecord_CH1_triggered(bool checked)
 #endif
     if(ui->controller_iso->driver->deviceMode!=6){
         output375_CH1 = new QFile(fileName);
-        ui->controller_iso->internalBuffer375_CH1->enableFileIO(output375_CH1);
+        ui->controller_iso->internalBuffer375_CH1->enableFileIO(output375_CH1, daq_sample_skip_interval, daq_max_file_size);
     } else {
         output750 = new QFile(fileName);
-        ui->controller_iso->internalBuffer750->enableFileIO(output750);
+        ui->controller_iso->internalBuffer750->enableFileIO(output750, daq_sample_skip_interval, daq_max_file_size);
     }
     ui->bufferDisplay->scopeDsrDisableOverride = true;
     ui->bufferDisplay->poke();
@@ -1673,7 +1681,7 @@ void MainWindow::on_actionRecord_CH2_triggered(bool checked)
     }
 #endif
     output375_CH2 = new QFile(outputDir->filePath("375_CH2.csv"));
-    ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2);
+    ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2, daq_sample_skip_interval, daq_max_file_size);
     return;
 }
 
@@ -1735,3 +1743,32 @@ void MainWindow::on_actionShow_Debug_Console_triggered()
 {
     enableLabradorDebugging();
 }
+
+void MainWindow::on_actionDAQ_Settings_triggered()
+{
+    qDebug() << "on_actionDAQ_Settings_triggered()";
+    daqForm df(this);
+    df.setModal(true);
+    df.exec();
+}
+
+void MainWindow::fileLimitReached_CH1(void){
+    ui->actionRecord_CH1->setChecked(0);
+
+    QMessageBox recordingStoppedMessageBox;
+    char recordingStoppedMessage[256];
+    sprintf(recordingStoppedMessage, "Maximum file size limit of %uMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
+    recordingStoppedMessageBox.setText(recordingStoppedMessage);
+    recordingStoppedMessageBox.exec();
+}
+
+void MainWindow::fileLimitReached_CH2(void){
+    ui->actionRecord_CH2->setChecked(0);
+
+    QMessageBox recordingStoppedMessageBox;
+    char recordingStoppedMessage[256];
+    sprintf(recordingStoppedMessage, "Maximum file size limit of %uMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
+    recordingStoppedMessageBox.setText(recordingStoppedMessage);
+    recordingStoppedMessageBox.exec();
+}
+
