@@ -1,5 +1,6 @@
 #include "unixusbdriver.h"
 #include "platformspecific.h"
+#include <QApplication>
 
 unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
@@ -310,11 +311,14 @@ int unixUsbDriver::flashFirmware(void){
     sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
     qDebug() << "FLASHING " << fname;
 
+    signalFirmwareFlash();
+    QApplication::processEvents();
+
+    //Go to bootloader mode
     bootloaderJump();
     qDebug() << "BA94 closed";
 
-    QThread::msleep(2000);
-
+    //Get location of firmware file
     QString dirString = QCoreApplication::applicationDirPath();
     dirString.append(fname);
     QByteArray array = dirString.toLocal8Bit();
@@ -333,10 +337,11 @@ int unixUsbDriver::flashFirmware(void){
     char command4[256];
     sprintf(command4, "dfu-programmer atxmega32a4u launch");
 
-    //Run stage 1
+    //Run stage 1, until there's a success
     while(exit_code){
-        QThread::msleep(250);
+        QThread::msleep(200);
         exit_code = dfuprog_virtual_cmd(command1);
+        QApplication::processEvents();
     }
 
     //Run stage 2
@@ -351,13 +356,12 @@ int unixUsbDriver::flashFirmware(void){
        return exit_code+300;
     }
 
-    QThread::msleep(2000);
-
     //Run stage 4 - double launch to clear the eeprom flag from bootloaderJump.
     exit_code = 1;
     while(exit_code){
-        QThread::msleep(250);
+        QThread::msleep(200);
         exit_code = dfuprog_virtual_cmd(command4);
+        QApplication::processEvents();
     }
 
     libusb_release_interface(handle, 0);

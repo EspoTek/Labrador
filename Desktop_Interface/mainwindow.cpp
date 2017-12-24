@@ -1121,6 +1121,9 @@ void MainWindow::readSettingsFile(){
     ui->controller_iso->internalBuffer375_CH1->frontendGain = calibrate_gain_ch1;
     ui->controller_iso->internalBuffer750->frontendGain = calibrate_gain_ch1;
     ui->controller_iso->internalBuffer375_CH2->frontendGain = calibrate_gain_ch2;
+
+    //Prompt user to calibrate if no calibration data found.
+
 }
 
 void MainWindow::on_actionRecord_triggered(bool checked)
