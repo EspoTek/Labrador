@@ -1790,3 +1790,8 @@ void MainWindow::daq_saveButtonPressed(){
     settings->setValue("daq_defaultAverage", daq_num_to_average);
     settings->setValue("daq_defaultFileSize", daq_max_file_size);
 }
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox::about(this, "About EspoTek Labrador", "EspoTek Labrador, Christmas Edition 2017.\nWebsite: http://espotek.com\nContact Email: admin@espotek.com");
+}

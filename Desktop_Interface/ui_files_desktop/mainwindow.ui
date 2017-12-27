@@ -1571,6 +1571,7 @@
     </property>
     <addaction name="actionFirmware_Recovery"/>
     <addaction name="actionShow_Debug_Console"/>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOscilloscope_2"/>
@@ -2233,6 +2234,11 @@
   <action name="actionDAQ_Settings">
    <property name="text">
     <string>DAQ Settings</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

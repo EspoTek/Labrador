@@ -173,6 +173,8 @@ private slots:
 
 
 
+    void on_actionAbout_triggered();
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
