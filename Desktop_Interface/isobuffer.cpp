@@ -57,7 +57,7 @@ void isoBuffer::writeBuffer_char(char* data, int len)
                 sprintf(numStr,"%7.5f, ", average_sample_temp/((double)fileIO_maxIncrementedSampleValue));
                 currentFile->write(numStr);
                 currentColumn++;
-                if (currentColumn > COLUMN_BREAK){
+                if (currentColumn >= COLUMN_BREAK){
                     currentFile->write("\n");
                     currentColumn = 0;
                 }
@@ -108,7 +108,7 @@ void isoBuffer::writeBuffer_short(short* data, int len)
                 sprintf(numStr,"%7.5f, ", average_sample_temp/((double)fileIO_maxIncrementedSampleValue));
                 currentFile->write(numStr);
                 currentColumn++;
-                if (currentColumn > COLUMN_BREAK){
+                if (currentColumn >= COLUMN_BREAK){
                     currentFile->write("\n");
                     currentColumn = 0;
                 }

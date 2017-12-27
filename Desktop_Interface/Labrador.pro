@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     genericusbdriver.cpp \
     isobufferbuffer.cpp \
     uartstyledecoder.cpp \
-    daqform.cpp
+    daqform.cpp \
+    daqloadprompt.cpp
 
 HEADERS  += mainwindow.h \
     functiongencontrol.h \
@@ -52,16 +53,19 @@ HEADERS  += mainwindow.h \
     q_debugstream.h \
     unified_debug_structure.h \
     uartstyledecoder.h \
-    daqform.h
+    daqform.h \
+    daqloadprompt.h
 
 android:{
 FORMS    += ui_files_mobile/mainwindow.ui \
-    ui_files_mobile/scoperangeenterdialog.ui
+    ui_files_mobile/scoperangeenterdialog.ui \
 }
 
 !android:{
 FORMS    += ui_files_desktop/mainwindow.ui \
-    ui_files_desktop/scoperangeenterdialog.ui
+    ui_files_desktop/scoperangeenterdialog.ui \
+    ui_files_desktop/daqform.ui \
+    ui_files_desktop/daqloadprompt.ui
 }
 
 
@@ -279,6 +283,3 @@ DISTFILES += \
     build_android/package_source/gradle/wrapper/gradle-wrapper.properties \
     build_android/package_source/gradlew.bat \
     build_android/package_source/res/xml/device_filter.xml
-
-FORMS += \
-    ui_files_desktop/daqform.ui

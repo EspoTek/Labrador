@@ -111,6 +111,7 @@ private:
     unsigned int length;
     QFile *snapshotFile_CH1;
     QFile *snapshotFile_CH2;
+    double daqLoad_startTime, daqLoad_endTime;
 
 signals:
     void setGain(double newGain);
@@ -190,6 +191,8 @@ public slots:
     void takeSnapshot(QString *fileName, unsigned char channel);
     void rSourceChanged(int newSource);
     void serialNeedsDisabling(int channel);
+    void daqLoad_startChanged(double newStart);
+    void daqLoad_endChanged(double newEnd);
 };
 
 #endif // ISODRIVER_H

@@ -2,6 +2,7 @@
 #include "isobuffer.h"
 #include "platformspecific.h"
 #include <math.h>
+#include "daqloadprompt.h"
 
 
 isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
@@ -1279,16 +1280,52 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
     qDebug() << averages;
 
     //Mode line
+    tempList.clear();
     currentLine = fileToLoad->readLine();
     qDebug() << currentLine;
+    tempList.append(currentLine.split('\n'));
+    tempList.append(currentLine.split('\r'));
+    tempList.append(tempList.first().split(' '));
+    qDebug() << tempList;
+    int mode = tempList.back().toInt();
+    qDebug() << mode;
 
-
-
+    tempList.clear();
     //Count the number of elements
+    qulonglong numel = 0;
     while (!fileToLoad->atEnd()) {
         currentLine = fileToLoad->readLine();
-        //tempList = currentLine.split(',').first();
+        tempList.append(currentLine.split(','));
+        numel += tempList.count() - 1;
+        tempList.clear();
     }
+
+    qDebug("There are %d elements!", numel);
     //Prompt user for start and end times
+    double defaultSampleRate = 375000;
+    if(mode == 6){
+        defaultSampleRate = 750000;
+    }
+    double minTime = ((double)averages) / defaultSampleRate;
+    double maxTime = numel * ((double)averages) / defaultSampleRate;
+    qDebug() << "maxTime =" << maxTime;
+
+    daqLoadPrompt dlp(this, minTime, maxTime);
+    connect(&dlp, SIGNAL(startTime(double)), this, SLOT(daqLoad_startChanged(double)));
+    connect(&dlp, SIGNAL(endTime(double)), this, SLOT(daqLoad_endChanged(double)));
+    dlp.exec();
     //Copy the data into the isoBuffer
 }
+
+void isoDriver::daqLoad_startChanged(double newStart){
+    qDebug() << "isoDriver::daqLoad_startChanged" << newStart;
+    daqLoad_startTime = newStart;
+}
+
+void isoDriver::daqLoad_endChanged(double newEnd){
+    qDebug() << "isoDriver::daqLoad_endChanged" << newEnd;
+    daqLoad_endTime = newEnd;
+}
+
+
+
