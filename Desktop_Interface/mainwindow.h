@@ -44,6 +44,7 @@ public:
     ~MainWindow();
     void resizeEvent(QResizeEvent *event);
     void showFileDialog(QString *fileName);
+    void openFileDialog(QString *fileName);
 private slots:
     //Oscilloscope
     void on_actionGain0_5_triggered();
@@ -174,6 +175,8 @@ private slots:
 
 
     void on_actionAbout_triggered();
+
+    void on_actionOpen_DAQ_File_triggered();
 
 private:
     //Generic Vars

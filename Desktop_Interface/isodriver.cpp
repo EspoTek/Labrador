@@ -1249,3 +1249,46 @@ void isoDriver::serialNeedsDisabling(int channel){
     qDebug("isoDriver acknowledges disconnect from channel %d", channel);
     mainWindowPleaseDisableSerial(channel);
 }
+
+//Thank you https://stackoverflow.com/questions/27318631/parsing-through-a-csv-file-in-qt
+void isoDriver::loadFileBuffer(QFile *fileToLoad){
+    //Delete the current buffer if it exists
+    if(internalBufferFile != NULL){
+        delete internalBufferFile;
+    }
+
+    //Load the file
+    if (!fileToLoad->open(QIODevice::ReadOnly)) {
+        qDebug() << fileToLoad->errorString();
+        return;
+    }
+    QByteArray currentLine;
+    QList<QByteArray> tempList;
+    //First Header line
+    currentLine = fileToLoad->readLine();
+    qDebug() << currentLine;
+
+    //Averaging line
+    currentLine = fileToLoad->readLine();
+    qDebug() << currentLine;
+    tempList.append(currentLine.split('\n'));
+    tempList.append(currentLine.split('\r'));
+    tempList.append(tempList.first().split(' '));
+    qDebug() << tempList;
+    int averages = tempList.back().toInt();
+    qDebug() << averages;
+
+    //Mode line
+    currentLine = fileToLoad->readLine();
+    qDebug() << currentLine;
+
+
+
+    //Count the number of elements
+    while (!fileToLoad->atEnd()) {
+        currentLine = fileToLoad->readLine();
+        //tempList = currentLine.split(',').first();
+    }
+    //Prompt user for start and end times
+    //Copy the data into the isoBuffer
+}

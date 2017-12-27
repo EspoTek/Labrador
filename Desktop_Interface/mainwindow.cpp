@@ -1586,13 +1586,42 @@ void MainWindow::on_actionSingle_ep_async_triggered()
 }
 
 void MainWindow::showFileDialog(QString *fileName){
-    QString filters("CSV files (*.csv)");
-    QString defaultFilter("CSV files (*.csv)");
+    QFileDialog dialog;
 
-    /* Static method approach */
-    QString temp = QFileDialog::getSaveFileName(0, "Save file", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
-        filters, &defaultFilter);
+    dialog.setDefaultSuffix("csv");
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setDirectory(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setNameFilter("CSV files (*.csv);;All Files (*)");
 
+    int retVal = dialog.exec();
+
+    if(!retVal){
+        return; //User did not select a file!
+    }
+
+    QStringList tempList = dialog.selectedFiles();
+    QString temp = tempList.first();
+    *(fileName) = temp;
+}
+
+void MainWindow::openFileDialog(QString *fileName){
+    QFileDialog dialog;
+
+    dialog.setDefaultSuffix("csv");
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setDirectory(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+    dialog.setFileMode(QFileDialog::ExistingFile);
+    dialog.setNameFilter("CSV files (*.csv);;All Files (*)");
+
+    int retVal = dialog.exec();
+
+    if(!retVal){
+        return; //User did not select a file!
+    }
+
+    QStringList tempList = dialog.selectedFiles();
+    QString temp = tempList.first();
     *(fileName) = temp;
 }
 
@@ -1794,4 +1823,19 @@ void MainWindow::daq_saveButtonPressed(){
 void MainWindow::on_actionAbout_triggered()
 {
     QMessageBox::about(this, "About EspoTek Labrador", "EspoTek Labrador, Christmas Edition 2017.\nWebsite: http://espotek.com\nContact Email: admin@espotek.com");
+}
+
+void MainWindow::on_actionOpen_DAQ_File_triggered()
+{
+    qDebug() << "on_actionOpen_DAQ_File_triggered";
+    //Prompt user for file name
+    QString fileName;
+    openFileDialog(&fileName);
+    qDebug() << fileName;
+    int len = fileName.length();
+
+    if(len==0) return; //User cancelled
+
+    QFile *inputFile = new QFile(fileName);
+    ui->controller_iso->loadFileBuffer(inputFile);
 }

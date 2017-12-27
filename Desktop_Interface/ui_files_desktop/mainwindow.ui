@@ -1343,14 +1343,15 @@
     </widget>
     <widget class="QMenu" name="menuRecord">
      <property name="title">
-      <string>Enable Data Aquisition</string>
+      <string>Enable DAQ</string>
      </property>
      <addaction name="actionRecord_CH1"/>
      <addaction name="actionRecord_CH2"/>
     </widget>
     <addaction name="actionDAQ_Settings"/>
-    <addaction name="menuTake_Snapshot"/>
     <addaction name="menuRecord"/>
+    <addaction name="actionOpen_DAQ_File"/>
+    <addaction name="menuTake_Snapshot"/>
    </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
     <property name="title">
@@ -2239,6 +2240,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionOpen_DAQ_File">
+   <property name="text">
+    <string>Open DAQ File</string>
    </property>
   </action>
  </widget>

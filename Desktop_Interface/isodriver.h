@@ -22,7 +22,7 @@ class isoDriver : public QLabel
 public:
     explicit isoDriver(QWidget *parent = 0);
     //Generic Vars
-    isoBuffer *internalBuffer375_CH1, *internalBuffer375_CH2, *internalBuffer750;
+    isoBuffer *internalBuffer375_CH1, *internalBuffer375_CH2, *internalBuffer750, *internalBufferFile = NULL;
 #if QCP_VER == 1
     QCPItemText *cursorTextPtr;
 #endif
@@ -43,6 +43,7 @@ public:
     void setDriver(genericUsbDriver *newDriver);
     void setAxes(QCustomPlot *newAxes);
     double meanVoltageLast(double seconds, unsigned char channel, int TOP);
+    void loadFileBuffer(QFile *fileToLoad);
 private:
     //Those bloody bools that just Enable/Disable a single property
     bool paused_CH1 = false, paused_CH2 = false, paused_multimeter = false;
