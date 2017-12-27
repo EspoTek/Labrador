@@ -228,7 +228,7 @@ void isoBuffer::enableFileIO(QFile *file, int samplesToAverage, qulonglong max_f
 
     //Add the header
     char headerLine[256];
-    sprintf(headerLine, "EspoTek Labrador DAQ V1.0 Output File\nAveraging = %d\n", samplesToAverage);
+    sprintf(headerLine, "EspoTek Labrador DAQ V1.0 Output File\nAveraging = %d\nMode = %d\n", samplesToAverage, virtualParent->driver->deviceMode);
     currentFile->write(headerLine);
 
     //Set up the isoBuffer for DAQ
