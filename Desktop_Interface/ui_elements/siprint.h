@@ -15,7 +15,6 @@ public:
     double value;
 private:
     char printString[160];
-
 };
 
 #endif // SIPRINT_H

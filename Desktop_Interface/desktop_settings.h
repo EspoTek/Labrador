@@ -44,5 +44,7 @@ extern unsigned char expected_variant;
 
 #define ANDROID_SCALE_INSENSITIVITY 1.2
 
+#define NUM_BYTES_STORED_PER_DAQ_SAMPLE 9
+
 #endif // DESKTOP_SETTINGS_H
 

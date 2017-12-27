@@ -167,6 +167,11 @@ private slots:
     void fileLimitReached_CH1(void);
     void fileLimitReached_CH2(void);
 
+    void daq_updatedAveraging(int newVal);
+    void daq_updatedMaxFileSize(qulonglong newVal);
+    void daq_saveButtonPressed();
+
+
 
 private:
     //Generic Vars
@@ -231,7 +236,7 @@ private:
     //Duct Tape
     bool dt_AlreadyAskedAboutCalibration = false;
     int dt_userWantsToCalibrate;
-    int daq_sample_skip_interval;
+    int daq_num_to_average;
     qulonglong daq_max_file_size;
 
 #ifdef PLATFORM_ANDROID

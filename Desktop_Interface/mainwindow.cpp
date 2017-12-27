@@ -1098,8 +1098,8 @@ void MainWindow::readSettingsFile(){
     double calibrate_gain_ch1 = settings->value("CalibrateGainCH1", R4/(R3+R4)).toDouble();
     double calibrate_gain_ch2 = settings->value("CalibrateGainCH2", R4/(R3+R4)).toDouble();
 
-    daq_sample_skip_interval = settings->value("daq_sample_skip_interval", 0).toInt();
-    daq_max_file_size = settings->value("daq_max_file_size", 1024000000).toULongLong();
+    daq_num_to_average = settings->value("daq_defaultAverage", 1).toInt();
+    daq_max_file_size = settings->value("daq_defaultFileSize", 2048000000).toULongLong();
 
     //Change connection Type
     switch(connectionType){
@@ -1650,10 +1650,10 @@ void MainWindow::on_actionRecord_CH1_triggered(bool checked)
 #endif
     if(ui->controller_iso->driver->deviceMode!=6){
         output375_CH1 = new QFile(fileName);
-        ui->controller_iso->internalBuffer375_CH1->enableFileIO(output375_CH1, daq_sample_skip_interval, daq_max_file_size);
+        ui->controller_iso->internalBuffer375_CH1->enableFileIO(output375_CH1, daq_num_to_average, daq_max_file_size);
     } else {
         output750 = new QFile(fileName);
-        ui->controller_iso->internalBuffer750->enableFileIO(output750, daq_sample_skip_interval, daq_max_file_size);
+        ui->controller_iso->internalBuffer750->enableFileIO(output750, daq_num_to_average, daq_max_file_size);
     }
     ui->bufferDisplay->scopeDsrDisableOverride = true;
     ui->bufferDisplay->poke();
@@ -1681,7 +1681,7 @@ void MainWindow::on_actionRecord_CH2_triggered(bool checked)
     }
 #endif
     output375_CH2 = new QFile(outputDir->filePath("375_CH2.csv"));
-    ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2, daq_sample_skip_interval, daq_max_file_size);
+    ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2, daq_num_to_average, daq_max_file_size);
     return;
 }
 
@@ -1728,7 +1728,6 @@ void MainWindow::checkForI2C(int value){
         ui->scopeGroup_CH1->setChecked(false);
         ui->scopeGroup_CH2->setChecked(false);
         ui->multimeterGroup->setChecked(false);
-
     }
     return;
 }
@@ -1747,8 +1746,12 @@ void MainWindow::on_actionShow_Debug_Console_triggered()
 void MainWindow::on_actionDAQ_Settings_triggered()
 {
     qDebug() << "on_actionDAQ_Settings_triggered()";
-    daqForm df(this);
+    daqForm df(this, daq_num_to_average, daq_max_file_size);
     df.setModal(true);
+    connect(&df, SIGNAL(updatedAveraging(int)), this, SLOT(daq_updatedAveraging(int)));
+    connect(&df, SIGNAL(updatedMaxFileSize(qulonglong)), this, SLOT(daq_updatedMaxFileSize(qulonglong)));
+    connect(&df, SIGNAL(saveButtonPressed()), this, SLOT(daq_saveButtonPressed()));
+
     df.exec();
 }
 
@@ -1772,3 +1775,18 @@ void MainWindow::fileLimitReached_CH2(void){
     recordingStoppedMessageBox.exec();
 }
 
+void MainWindow::daq_updatedAveraging(int newVal){
+    qDebug() << "MainWindow::daq_updatedAveraging" << newVal;
+    daq_num_to_average = newVal;
+}
+
+void MainWindow::daq_updatedMaxFileSize(qulonglong newVal){
+    qDebug() << "MainWindow::daq_updatedMaxFileSize" << newVal;
+    daq_max_file_size = newVal;
+}
+
+void MainWindow::daq_saveButtonPressed(){
+    qDebug() << "MainWindow::daq_saveButtonPressed";
+    settings->setValue("daq_defaultAverage", daq_num_to_average);
+    settings->setValue("daq_defaultFileSize", daq_max_file_size);
+}

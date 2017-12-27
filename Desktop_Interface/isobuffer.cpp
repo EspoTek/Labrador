@@ -45,22 +45,34 @@ void isoBuffer::writeBuffer_char(char* data, int len)
 
         //Output to CSV
         if(fileIOEnabled){
-            fileIO_sampleCount++; //Counter, determines if we've skipped enough.
+            //Current sample
+            convertedSample = sampleConvert(data[i], 128, channel==1 ? virtualParent->AC_CH1 : virtualParent->AC_CH2);
+
+            //Accumulate
+            average_sample_temp += convertedSample;
+            fileIO_sampleCount++;
+            //Check to see if we can write a new sample to file
             if(fileIO_sampleCount == fileIO_maxIncrementedSampleValue){
-                convertedSample = sampleConvert(data[i], 128, channel==1 ? virtualParent->AC_CH1 : virtualParent->AC_CH2);
                 char numStr[32];
-                sprintf(numStr,"%7.5f, ", convertedSample); //10 bytes per character
+                sprintf(numStr,"%7.5f, ", average_sample_temp/((double)fileIO_maxIncrementedSampleValue));
                 currentFile->write(numStr);
                 currentColumn++;
                 if (currentColumn > COLUMN_BREAK){
                     currentFile->write("\n");
                     currentColumn = 0;
                 }
+
+                //Reset the average and sample count for next data point
                 fileIO_sampleCount = 0;
-                fileIO_numBytesWritten += 10;
-                if(fileIO_numBytesWritten >= fileIO_max_file_size){
-                    fileIOEnabled = false; //Just in case signalling fails.
-                    fileIOinternalDisable();
+                average_sample_temp = 0;
+
+                //Check to see if we've reached the max file size.
+                if(fileIO_max_file_size != 0){ //value of 0 means "no limit"
+                    fileIO_numBytesWritten += 9;  //7 chars for the number, 1 for the comma and 1 for the space = 9 bytes per sample.
+                    if(fileIO_numBytesWritten >= fileIO_max_file_size){
+                        fileIOEnabled = false; //Just in case signalling fails.
+                        fileIOinternalDisable();
+                    }
                 }
             }
         }
@@ -172,17 +184,28 @@ void isoBuffer::glitchInsert(short type)
 
 }
 
-void isoBuffer::enableFileIO(QFile *file, int samplesToSkip, qulonglong max_file_size){
+void isoBuffer::enableFileIO(QFile *file, int samplesToAverage, qulonglong max_file_size){
+
+    //Open the file
     file->open(QIODevice::WriteOnly);
     currentFile = file;
-    fileIOEnabled = true;
 
-    fileIO_maxIncrementedSampleValue = samplesToSkip + 1;
+    //Add the header
+    char headerLine[256];
+    sprintf(headerLine, "EspoTek Labrador DAQ V1.0 Output File\nAveraging = %d\n", samplesToAverage);
+    currentFile->write(headerLine);
+
+    //Set up the isoBuffer for DAQ
+    fileIO_maxIncrementedSampleValue = samplesToAverage;
     fileIO_max_file_size = max_file_size;
     fileIO_sampleCount = 0;
     fileIO_numBytesWritten = 0;
+    average_sample_temp = 0;
 
-    qDebug("File IO enabled, skipping %d samples, max file size %uMB", samplesToSkip, max_file_size/1000000);
+    //Enable DAQ
+    fileIOEnabled = true;
+
+    qDebug("File IO enabled, averaging %d samples, max file size %uMB", samplesToAverage, max_file_size/1000000);
     qDebug() << max_file_size;
     return;
 }

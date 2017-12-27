@@ -1343,14 +1343,14 @@
     </widget>
     <widget class="QMenu" name="menuRecord">
      <property name="title">
-      <string>Record</string>
+      <string>Enable Data Aquisition</string>
      </property>
      <addaction name="actionRecord_CH1"/>
      <addaction name="actionRecord_CH2"/>
     </widget>
-    <addaction name="menuRecord"/>
-    <addaction name="menuTake_Snapshot"/>
     <addaction name="actionDAQ_Settings"/>
+    <addaction name="menuTake_Snapshot"/>
+    <addaction name="menuRecord"/>
    </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
     <property name="title">

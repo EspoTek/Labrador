@@ -307,6 +307,7 @@ void genericUsbDriver::setGain(double newGain){
 
 void genericUsbDriver::avrDebug(void){
     usbSendControl(0xc0, 0xa0, 0, 0, sizeof(unified_debug), NULL);
+    /*
 #ifndef PLATFORM_ANDROID
     unified_debug *udsPtr = (unified_debug *) inBuffer;
     uint16_t trfcnt0 = (udsPtr->trfcntH0 << 8) + udsPtr->trfcntL0;
@@ -316,7 +317,6 @@ void genericUsbDriver::avrDebug(void){
     uint16_t counter = (udsPtr->counterH << 8) + udsPtr->counterL;
     uint16_t dma_ch0_cnt = (udsPtr->dma_ch0_cntH << 8) + udsPtr->dma_ch0_cntL;
     uint16_t dma_ch1_cnt = (udsPtr->dma_ch1_cntH << 8) + udsPtr->dma_ch1_cntL;
-
 
     qDebug("%s", udsPtr->header);
     qDebug() << "trfcnt0 =" << trfcnt0;
@@ -330,6 +330,7 @@ void genericUsbDriver::avrDebug(void){
     qDebug() << "dma_ch0_cnt = " << dma_ch0_cnt;
     qDebug() << "dma_ch1_cnt = " << dma_ch1_cnt;
 #endif
+*/
 }
 
 void genericUsbDriver::requestFirmwareVersion(void){

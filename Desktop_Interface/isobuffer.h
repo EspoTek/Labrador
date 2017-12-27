@@ -69,10 +69,11 @@ private:
     //isoDriver *parent;
     unsigned int currentColumn = 0;
     isoDriver *virtualParent;
+    double average_sample_temp;
 signals:
     void fileIOinternalDisable();
 public slots:
-    void enableFileIO(QFile *file, int samplesToSkip, qulonglong max_file_size);
+    void enableFileIO(QFile *file, int samplesToAverage, qulonglong max_file_size);
     void disableFileIO();
 };
 

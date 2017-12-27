@@ -99,7 +99,8 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
     else controlBuffer = LDATA;
 
     int error = libusb_control_transfer(handle, RequestType, Request, Value, Index, controlBuffer, Length, 4000);
-    if(error){
+    if(error<0){
+        qDebug() << "Error number:" << error;
         qDebug("unixUsbDriver::usbSendControl FAILED with error %s", libusb_error_name(error));
     } //else qDebug() << "unixUsbDriver::usbSendControl SUCCESS";
     if((error == LIBUSB_ERROR_NO_DEVICE) && (Request!=0xa7)){ //Bootloader Jump won't return; this is expected behaviour.
