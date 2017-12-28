@@ -1277,6 +1277,9 @@ void isoDriver::serialNeedsDisabling(int channel){
 //Thank you https://stackoverflow.com/questions/27318631/parsing-through-a-csv-file-in-qt
 void isoDriver::loadFileBuffer(QFile *fileToLoad){
     //Delete the current buffer if it exists
+
+    disableFileMode();
+
     if(internalBufferFile != NULL){
         delete internalBufferFile;
     }
@@ -1398,6 +1401,8 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
         tempList.clear();
     }
 
+    fileToLoad->close();
+
     qDebug() << "Initialising timer";
     //Initialise the file timer.
     if (fileTimer != NULL){
@@ -1436,7 +1441,9 @@ void isoDriver::enableFileMode(){
 void isoDriver::disableFileMode(){
     fileModeEnabled = false;
     showRealtimeButton(false);
-    fileTimer->stop();
+    if(fileTimer != NULL){
+        fileTimer->stop();
+    }
 
     //Shrink screen back, if necessary.
     double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
