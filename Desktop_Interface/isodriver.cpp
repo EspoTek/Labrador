@@ -1,5 +1,6 @@
 #include "isodriver.h"
 #include "isobuffer.h"
+#include "isobuffer_file.h"
 #include "platformspecific.h"
 #include <math.h>
 #include "daqloadprompt.h"
@@ -60,6 +61,11 @@ void isoDriver::timerTick(void){
     isoTemp = driver->isoRead(&length);
     //qDebug() << length << "read in!!";
     total_read += length;
+
+    if(fileModeEnabled){
+        qDebug() << "File mode is active.  Abort live refresh";
+        return;
+    }
 
     if (length==0){
         //Zero length packet means something's gone wrong.  Probably a disconnect.
@@ -170,6 +176,14 @@ void isoDriver::digitalConvert(short *shortPtr, QVector<double> *doublePtr){
     //cool_waveform = cool_waveform - AC_offset;
 }
 
+void isoDriver::fileStreamConvert(float *floatPtr, QVector<double> *doublePtr){
+    double *data = doublePtr->data();
+    for (int i=0;i<GRAPH_SAMPLES;i++){
+        data[i] = floatPtr[i];
+    }
+}
+
+
 
 void isoDriver::startTimer(){
     /*if (isoTimer!=NULL){
@@ -194,7 +208,7 @@ void isoDriver::setVisible_CH2(bool visible){
 }
 
 void isoDriver::setVoltageRange(QWheelEvent *event){
-    if(doNotTouchGraph == true) return;
+    if(doNotTouchGraph && !fileModeEnabled) return;
 
     if (!(event->modifiers() == Qt::ControlModifier)){
         double c = (topRange - botRange) / (double)400;
@@ -243,8 +257,10 @@ void isoDriver::setVoltageRange(QWheelEvent *event){
             delay -= c* ((double)100 - (double)pixPct) * pixPct/100;
         }
 
-        if (window > (double)MAX_WINDOW_SIZE) window = (double)MAX_WINDOW_SIZE;
-        if ((window + delay) > MAX_WINDOW_SIZE) delay -= window + delay - (double)MAX_WINDOW_SIZE;
+        double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
+
+        if (window > mws) window = mws;
+        if ((window + delay) > mws) delay -= window + delay - mws;
         if (delay < 0) delay = 0;
         qDebug() << window << delay;
     } else {
@@ -273,8 +289,10 @@ void isoDriver::setVoltageRange(QWheelEvent *event){
             delay -= c* ((double)100 - (double)pixPct) * pixPct/100;
         }
 
-        if (window > (double)MAX_WINDOW_SIZE) window = (double)MAX_WINDOW_SIZE;
-        if ((window + delay) > MAX_WINDOW_SIZE) delay -= window + delay - (double)MAX_WINDOW_SIZE;
+        double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
+
+        if (window > mws) window = mws;
+        if ((window + delay) > mws) delay -= window + delay - mws;
         if (delay < 0) delay = 0;
         windowAtPause = window;
         qDebug() << window << delay;
@@ -633,7 +651,7 @@ void isoDriver::setTriggerMode(int newMode){
     triggerType = (triggerType_enum)newMode;
 }
 
-void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1 for ana, 2 for dig, -1 for ana750
+void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
 {
     //qDebug() << "made it to frameActionGeneric";
     if(!paused_CH1 && CH1_mode == - 1){
@@ -702,7 +720,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
     readData375_CH1 = internalBuffer375_CH1->readBuffer(window,GRAPH_SAMPLES,CH1_mode==2, delay + ((triggerEnabled&&!paused_CH1) ? triggerDelay + window/2 : 0));
     if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(window,GRAPH_SAMPLES,CH2_mode==2, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
     if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(window,GRAPH_SAMPLES,false, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
-
+    if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(window,GRAPH_SAMPLES,false, delay);
 
     //qDebug() << "Trigger Delay =" << triggerDelay;
 
@@ -731,6 +749,11 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
         broadcastStats(0);
     }
+
+    if(CH1_mode == -2) {
+        fileStreamConvert(readDataFile, &CH1);
+    }
+
 
     for (double i=0; i<GRAPH_SAMPLES; i++){
         x[i] = -(window*i)/((double)(GRAPH_SAMPLES-1)) - delay;
@@ -1301,6 +1324,7 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
     }
 
     qDebug("There are %d elements!", numel);
+
     //Prompt user for start and end times
     double defaultSampleRate = 375000;
     if(mode == 6){
@@ -1313,8 +1337,61 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
     daqLoadPrompt dlp(this, minTime, maxTime);
     connect(&dlp, SIGNAL(startTime(double)), this, SLOT(daqLoad_startChanged(double)));
     connect(&dlp, SIGNAL(endTime(double)), this, SLOT(daqLoad_endChanged(double)));
+
+    //Defaults
+    daqLoad_startTime = minTime;
+    daqLoad_endTime = maxTime;
+
     dlp.exec();
-    //Copy the data into the isoBuffer
+
+    //Initialise the (modified) isoBuffer.
+    int bufferLen = (int)(((daqLoad_endTime - daqLoad_startTime)/minTime) * 1.1) + 1; //Add a bit on to account for rounding error.  Int conversion rounds down, so we add 1.
+    qDebug() << "daqLoad_endTime" << daqLoad_endTime;
+    qDebug() << "daqLoad_startTime" << daqLoad_startTime;
+    qDebug() << "minTime" << minTime;
+    qDebug() << "bufferLen" << bufferLen;
+    double sampleRate_Hz = defaultSampleRate/averages;
+    internalBufferFile = new isoBuffer_file(this, bufferLen, sampleRate_Hz);
+
+    //Go to start of data section
+    fileToLoad->seek(0);//Return to start
+    currentLine = fileToLoad->readLine();  //Chew up header
+    qDebug() << currentLine;
+    currentLine = fileToLoad->readLine();  //Chew up averages line
+    qDebug() << currentLine;
+    currentLine = fileToLoad->readLine();  //Chew up mode line
+    qDebug() << currentLine;
+    tempList.clear();
+
+    //Copy the data into the (modified) isoBuffer
+    float tempArray[COLUMN_BREAK + 1];  //751 elements per row with the old files; this just avoids a possible crash;
+    int temp_len;
+
+    qDebug() << "Loading data into isoBuffer_file";
+    while (!fileToLoad->atEnd()) {
+        currentLine = fileToLoad->readLine();
+        tempList.append(currentLine.split(','));
+        tempList.removeLast();  //Last element is a "\n", not a number.
+        temp_len = tempList.count();
+        for (int i=0; i<temp_len; i++){
+            tempArray[i] = tempList.at(i).toFloat();
+        }
+        internalBufferFile->writeBuffer_float(tempArray, temp_len);
+        tempList.clear();
+    }
+
+    qDebug() << "Initialising timer";
+    //Initialise the file timer.
+    if (fileTimer != NULL){
+        delete fileTimer;
+    }
+    fileTimer = new QTimer();
+    fileTimer->setTimerType(Qt::PreciseTimer);
+    fileTimer->start(TIMER_PERIOD);
+    connect(fileTimer, SIGNAL(timeout()), this, SLOT(fileTimerTick()));
+    qDebug() << "File Buffer loaded!";
+    enableFileMode();
+    qDebug() << "File Mode Enabled";
 }
 
 void isoDriver::daqLoad_startChanged(double newStart){
@@ -1325,6 +1402,20 @@ void isoDriver::daqLoad_startChanged(double newStart){
 void isoDriver::daqLoad_endChanged(double newEnd){
     qDebug() << "isoDriver::daqLoad_endChanged" << newEnd;
     daqLoad_endTime = newEnd;
+}
+
+void isoDriver::fileTimerTick(){
+    //qDebug() << "isoDriver::fileTimerTick()";
+    frameActionGeneric(-2,0);
+}
+
+void isoDriver::enableFileMode(){
+    fileModeEnabled = true;
+    daq_maxWindowSize = daqLoad_endTime - daqLoad_startTime;
+}
+
+void isoDriver::disableFileMode(){
+    fileModeEnabled = false;
 }
 
 

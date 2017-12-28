@@ -11,6 +11,7 @@
 #include "siprint.h"
 
 class isoBuffer;
+class isoBuffer_file;
 
 //isoDriver is a huge class.  It handles everything related to the isochronous IN stream - and perhaps that constraint was applied a bit too loosely (spot the C programmer...).
 //Too much stuff is handled in this class, and it's too heavily entangled with the (generic/win/unix)UsbDriver classes.
@@ -22,7 +23,8 @@ class isoDriver : public QLabel
 public:
     explicit isoDriver(QWidget *parent = 0);
     //Generic Vars
-    isoBuffer *internalBuffer375_CH1, *internalBuffer375_CH2, *internalBuffer750, *internalBufferFile = NULL;
+    isoBuffer *internalBuffer375_CH1, *internalBuffer375_CH2, *internalBuffer750;
+    isoBuffer_file *internalBufferFile = NULL;
 #if QCP_VER == 1
     QCPItemText *cursorTextPtr;
 #endif
@@ -44,6 +46,9 @@ public:
     void setAxes(QCustomPlot *newAxes);
     double meanVoltageLast(double seconds, unsigned char channel, int TOP);
     void loadFileBuffer(QFile *fileToLoad);
+    //DAQ
+    bool fileModeEnabled = false;
+    double daq_maxWindowSize;
 private:
     //Those bloody bools that just Enable/Disable a single property
     bool paused_CH1 = false, paused_CH2 = false, paused_multimeter = false;
@@ -75,6 +80,7 @@ private:
     //Generic Functions
     void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC, int channel);
     void digitalConvert(short *shortPtr, QVector<double> *doublePtr);
+    void fileStreamConvert(float *floatPtr, QVector<double> *doublePtr);
     bool properlyPaused();
     void autoGain(void);
     void udateCursors(void);
@@ -86,6 +92,7 @@ private:
     //Variables that are just pointers to other classes/vars
     QCustomPlot *axes;
     short *readData375_CH1, *readData375_CH2, *readData750;
+    float *readDataFile;
     char *isoTemp = NULL;
     short *isoTemp_short = NULL;
     siprint *v0, *v1, *dv, *t0, *t1, *dt, *f;
@@ -106,11 +113,12 @@ private:
     double seriesResistance = 0;
     //Generic Vars
     double windowAtPause = 0.01;
-    QTimer* isoTimer = NULL, *slowTimer = NULL;
+    QTimer* isoTimer = NULL, *slowTimer = NULL, *fileTimer = NULL;
     long total_read = 0;
     unsigned int length;
     QFile *snapshotFile_CH1;
     QFile *snapshotFile_CH2;
+    //DAQ
     double daqLoad_startTime, daqLoad_endTime;
 
 signals:
@@ -193,6 +201,9 @@ public slots:
     void serialNeedsDisabling(int channel);
     void daqLoad_startChanged(double newStart);
     void daqLoad_endChanged(double newEnd);
+    void fileTimerTick();
+    void enableFileMode();
+    void disableFileMode();
 };
 
 #endif // ISODRIVER_H

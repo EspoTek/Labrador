@@ -966,8 +966,9 @@ void MainWindow::cycleDelayRight(){
 
 void MainWindow::cycleDelayLeft(){
     qDebug() << "LEFT";
+    double mws = ui->controller_iso->fileModeEnabled ? ui->controller_iso->daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
     ui->controller_iso->delay += ui->controller_iso->window/10;
-    if(ui->controller_iso->delay > (MAX_WINDOW_SIZE - ui->controller_iso->window)) ui->controller_iso->delay = (MAX_WINDOW_SIZE - ui->controller_iso->window);
+    if(ui->controller_iso->delay > (mws - ui->controller_iso->window)) ui->controller_iso->delay = (mws - ui->controller_iso->window);
 }
 
 void MainWindow::cycleDelayRight_large(){
@@ -978,8 +979,9 @@ void MainWindow::cycleDelayRight_large(){
 
 void MainWindow::cycleDelayLeft_large(){
     qDebug() << "LEFT";
+    double mws = ui->controller_iso->fileModeEnabled ? ui->controller_iso->daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
     ui->controller_iso->delay += ui->controller_iso->window/2;
-    if(ui->controller_iso->delay > (MAX_WINDOW_SIZE - ui->controller_iso->window)) ui->controller_iso->delay = (MAX_WINDOW_SIZE - ui->controller_iso->window);
+    if(ui->controller_iso->delay > (mws - ui->controller_iso->window)) ui->controller_iso->delay = (mws - ui->controller_iso->window);
 }
 
 void MainWindow::enableLabradorDebugging(){

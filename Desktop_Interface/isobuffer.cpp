@@ -300,7 +300,7 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC){
     #define X1_X2_COMPARISON_CAP >
 #endif
 
-
+//For capacitance measurement.  x0, x1 and x2 are all various time points used to find the RC coefficient.
 int isoBuffer::cap_x0fromLast(double seconds, double vbot){
     int samplesInPast = seconds * samplesPerSecond;
     if(back < samplesInPast){
