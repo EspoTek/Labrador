@@ -1367,16 +1367,34 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
     float tempArray[COLUMN_BREAK + 1];  //751 elements per row with the old files; this just avoids a possible crash;
     int temp_len;
 
+    qulonglong sampleCount = 0;
+    qulonglong minCount = (daqLoad_startTime / minTime);
+    qulonglong maxCount = (daqLoad_endTime / minTime);
+
+    qDebug() << "minCount" << minCount;
+    qDebug() << "maxCount" << maxCount;
+
+    int min_i;
+    int tempCount;
     qDebug() << "Loading data into isoBuffer_file";
     while (!fileToLoad->atEnd()) {
         currentLine = fileToLoad->readLine();
         tempList.append(currentLine.split(','));
         tempList.removeLast();  //Last element is a "\n", not a number.
-        temp_len = tempList.count();
-        for (int i=0; i<temp_len; i++){
-            tempArray[i] = tempList.at(i).toFloat();
+        temp_len = 0;
+        tempCount = tempList.count();
+        min_i = 2000000000; //Arbitrary big number.
+        for (int i=0; i<tempCount; i++){
+            if((sampleCount > minCount) && (sampleCount < maxCount)){
+                if(i < min_i){
+                    min_i = i;
+                }
+                tempArray[i] = tempList.at(i).toFloat();
+                temp_len++;
+            }
+            sampleCount++;
         }
-        internalBufferFile->writeBuffer_float(tempArray, temp_len);
+        internalBufferFile->writeBuffer_float(&tempArray[min_i], temp_len);
         tempList.clear();
     }
 
