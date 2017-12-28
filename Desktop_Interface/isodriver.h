@@ -147,6 +147,7 @@ signals:
     void sendVRMS_CH2(double);
     void multimeterREnabled(int source);
     void mainWindowPleaseDisableSerial(int);
+    void showRealtimeButton(bool visible);
 public slots:
     void setWindow(int newWindow);
     void setVoltageRange(QWheelEvent *event);

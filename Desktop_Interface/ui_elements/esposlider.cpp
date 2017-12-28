@@ -67,7 +67,7 @@ int espoSlider::maxTick(int ti){
 
 void espoSlider::rearrange(){
     QLabel *working;
-    int k = 5;
+    int k = 7;
     int c = 5;
 
     int left = this->geometry().left();
@@ -83,10 +83,10 @@ void espoSlider::rearrange(){
     if (addressBook.size() > 1)
         for (int i=addressBook.size()-1; i>0; i--){
             working = addressBook.at(i);
-            working->setGeometry(QRect(right-margin+labelMargin, top + c + (internalHeight * i * this->tickInterval()) / (this->maximum() - this->minimum()) - 5, 100, 9));
+            working->setGeometry(QRect(right-margin+labelMargin, top + c + (internalHeight * i * this->tickInterval()) / (this->maximum() - this->minimum()) - 5, 100, k*2));
         }
     working = addressBook.at(0);
-    working->setGeometry(QRect(right-margin+labelMargin, top + c - 5, 100, 9));
+    working->setGeometry(QRect(right-margin+labelMargin, top + c - 5, 100, k*2));
 }
 
 void espoSlider::selfMoved(int newval)

@@ -143,6 +143,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->controller_iso->internalBuffer750, SIGNAL(fileIOinternalDisable()), this, SLOT(fileLimitReached_CH1()));
     connect(ui->controller_iso->internalBuffer375_CH2, SIGNAL(fileIOinternalDisable()), this, SLOT(fileLimitReached_CH2()));
 
+    connect(ui->controller_iso, SIGNAL(showRealtimeButton(bool)), ui->realTimeButton, SLOT(setVisible(bool)));
+    connect(ui->realTimeButton, SIGNAL(pressed()), ui->controller_iso, SLOT(disableFileMode()));
+
+    ui->realTimeButton->setVisible(false);
 }
 
 MainWindow::~MainWindow()

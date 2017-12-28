@@ -1430,10 +1430,19 @@ void isoDriver::fileTimerTick(){
 void isoDriver::enableFileMode(){
     fileModeEnabled = true;
     daq_maxWindowSize = daqLoad_endTime - daqLoad_startTime;
+    showRealtimeButton(true);
 }
 
 void isoDriver::disableFileMode(){
     fileModeEnabled = false;
+    showRealtimeButton(false);
+    fileTimer->stop();
+
+    //Shrink screen back, if necessary.
+    double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
+    if (window > mws) window = mws;
+    if ((window + delay) > mws) delay -= window + delay - mws;
+    if (delay < 0) delay = 0;
 }
 
 

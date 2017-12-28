@@ -49,6 +49,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="realTimeButton">
+        <property name="text">
+         <string>Return to Real Time Display</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="cursorStatsLabel">
         <property name="maximumSize">
          <size>
