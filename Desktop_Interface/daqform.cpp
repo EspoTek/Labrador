@@ -51,8 +51,9 @@ void daqForm::updateLabels(){
     int num_samples_stored = (ui->fileSizeSpinBox->value() * 1000000) / NUM_BYTES_STORED_PER_DAQ_SAMPLE;
 
     //Print in SI units
-    siprint label_single_siprint("Hz", effective_sample_rate_single);
-    siprint label_double_siprint("Hz", effective_sample_rate_double);
+    char units[3] = "Hz";
+    siprint label_single_siprint(&units[0], effective_sample_rate_single);
+    siprint label_double_siprint(&units[0], effective_sample_rate_double);
 
     //Shove commas in there, or decimal points if you're European!
     QString label_numSamples = QLocale().toString(num_samples_stored);
