@@ -1,6 +1,7 @@
 #include "winusbdriver.h"
 #include <QApplication>
 #include <qprocess.h>
+#include <QMessageBox>
 
 #define SLEEP_DIVIDER 16
 
@@ -404,4 +405,115 @@ int winUsbDriver::flashFirmware(void){
 
 
     return 0;
+}
+
+void winUsbDriver::manualFirmwareRecovery(void){
+    //Get location of firmware file
+    char fname[128];
+    sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
+
+    QString file_location = QCoreApplication::applicationDirPath();
+    file_location.append(fname);
+
+    //Set up interface to dfuprog
+    QString dfuprog_location = QCoreApplication::applicationDirPath();
+    dfuprog_location.append("/firmware/dfu-programmer");
+    QProcess dfu_exe;
+
+    //Vars
+    QMessageBox manualFirmwareMessages;
+    int messageBoxReturn;
+
+    QStringList leaveBootloaderCommand;
+    leaveBootloaderCommand << "atxmega32a4u" << "launch";
+    int exit_code;
+    QStringList eraseCommand;
+    eraseCommand << "atxmega32a4u" << "erase" << "--force";
+    QStringList flashCommand;
+    flashCommand << "atxmega32a4u" << "flash" << file_location;
+
+
+
+
+    //Intro
+    manualFirmwareMessages.setText("Welcome to the firmware recovery wizard.\nThis tool will attempt various steps to troubleshoot a board with connection issues.\n\nPress OK to continue.");
+    manualFirmwareMessages.exec();
+
+
+    //Hello, this is IT, can you try turning it off and on again?
+    manualFirmwareMessages.setText("Before continuing, please disconnect and reconnect your Labrador board, then wait 10 seconds.\n\nAlso ensure that there are no other instances of the Labrador software running on this machine.");
+    manualFirmwareMessages.exec();
+    manualFirmwareMessages.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+    manualFirmwareMessages.setText("Did that fix things?");
+    messageBoxReturn = manualFirmwareMessages.exec();
+    manualFirmwareMessages.setStandardButtons(QMessageBox::Ok);
+    if(messageBoxReturn == 16384){ //"Yes" is 16384, no is 65536
+        manualFirmwareMessages.setText("Awesome!  Have fun!");
+        messageBoxReturn = manualFirmwareMessages.exec();
+        return;
+    }
+
+    //Real troubleshooting begins here.....
+
+    //USB Problems.
+    if(connected){
+        manualFirmwareMessages.setText("It seems like your board is already connected and configured correctly.\n\nIf your board is not functioning correctly, this indicates that there is an issue with the USB driver.\n\nLet's go through some manual troubleshooting steps.");
+        manualFirmwareMessages.exec();
+        manualFirmwareMessages.setText("There are two main possibilities:\n\n - Your USB Controller does not support Isochronous mode at USB 2.0 FS\n - Another device is competing with Labrador for bandwidth.");
+        manualFirmwareMessages.exec();
+        manualFirmwareMessages.setText("If Labrador is connected to a USB 2.0 port, unplug it and connect it to a USB3 port.\n\nIf it's in a USB3 port, try connecting it to a USB 2.0 port.\n\nIf you have other USB devices, such as a keyboard and mouse, ensure they're connected to a port of a different type than Labrador (e.g., if your mouse and keyboard are in USB 2.0 ports, try putting Labrador in a USB 3.0 port).\n\nIf you're not sure which is which, USB3 ports are usually blue on the inside.");
+        manualFirmwareMessages.exec();
+        manualFirmwareMessages.setText("If you have a spare USB hub, connect Labrador (and only Labrador) to the hub.\n\nThis will usually result in a huge reduction in bandwidth required to communicate with Labrador, since a Hi-Speed hub reads from Labrador at 12MHz, but transmits upstream to the host at 480MHz.\n\n(If the host is connected to Labrador directly, it is slowed down to 12MHz!) ");
+        manualFirmwareMessages.exec();
+        manualFirmwareMessages.setText("If it's still not working, please disconnect all USB devices from your machine, then one by one, insert Labrador into each USB port on your machine until it starts working.");
+        manualFirmwareMessages.exec();
+        manualFirmwareMessages.setText("If that doesn't fix it, please open an issue on github.com/espotek/labrador, or contact me at admin@espotek.com.");
+        manualFirmwareMessages.exec();
+        return;
+    } else {
+        qDebug() << "Attempting to leave bootloader!";
+        dfu_exe.start(dfuprog_location, leaveBootloaderCommand);
+        dfu_exe.waitForFinished(-1);
+        exit_code = dfu_exe.exitCode();
+        manualFirmwareMessages.setText("No Labrador board could be detected.\n\nIt's possible that you're stuck in booloader mode.\n\nI've attempted to launch the firmware manually.");
+        manualFirmwareMessages.exec();
+        if(exit_code){
+            qDebug("Exit code = %d", exit_code);
+            manualFirmwareMessages.setText("Command failed.  This usually means that no device is detected.\n\nPlease Ensure that the cable you're using can carry data (for example, by using it to transfer data to your phone).\n\nSome cables are for charging only, and not physically contain data lines.\n\nAlso note that the red light on the Labrador board is a power indicator for the PSU output pins.\nIt will turn on even if no data lines are present.");
+            manualFirmwareMessages.exec();
+            return;
+        }
+        //Firmware launch failed, but bootloader preset
+        if(!connected){
+            qDebug() << "Attempting to erase!";
+            dfu_exe.start(dfuprog_location, eraseCommand);
+            dfu_exe.waitForFinished(-1);
+            exit_code = dfu_exe.exitCode();
+
+            qDebug("Exit code for erase = %d", exit_code);
+
+            qDebug("Attempting to flash file %s!", file_location.toLocal8Bit().data());
+            dfu_exe.start(dfuprog_location, flashCommand);
+            dfu_exe.waitForFinished(-1);
+            exit_code += dfu_exe.exitCode();
+
+            qDebug("Exit code for flash = %d", exit_code);
+
+            manualFirmwareMessages.setText("The bootloader is present, but firmware launch failed.  I've attempted to reprogram it.");
+            manualFirmwareMessages.exec();
+
+            if(!exit_code){            //Reprogramming was successful, but board is still in bootloader mode.
+                dfu_exe.start(dfuprog_location, leaveBootloaderCommand);
+                dfu_exe.waitForFinished(-1);
+                exit_code = dfu_exe.exitCode();
+                manualFirmwareMessages.setText("Reprogramming was successful!  Attempting to launch the board.\n\nIf it does not start working immediately, please wait 10 seconds and then reconnect the board.");
+                manualFirmwareMessages.exec();
+            } else { //Programming failed.
+                manualFirmwareMessages.setText("Automatic Reprogramming failed.\n\nPlease try again, making sure you read every message carefully and slowly before pushing 'OK'.\nWindows can take several seconds to detect USB events, so this is sometimes necessary.\n\nIf it's still not programming properly, please contact me at admin@espotek.com for further support.");
+                manualFirmwareMessages.exec();
+            }
+
+            return;
+        }
+    }
 }

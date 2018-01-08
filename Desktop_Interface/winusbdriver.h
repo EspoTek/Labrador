@@ -21,6 +21,7 @@ public:
     ~winUsbDriver();
     void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA);
     char *isoRead(unsigned int *newLength);
+    void manualFirmwareRecovery(void);
 private:
     //USB Vars
     KUSB_HANDLE handle = NULL;

@@ -36,8 +36,9 @@ void daqLoadPrompt::valueChange(){
     startTime(ui->startTimeDoubleSpinBox->value());
     endTime(ui->endTimeDoubleSpinBox->value());
 
+    char units[2] = "B";
     double contig_ram_required = ((ui->endTimeDoubleSpinBox->value() - ui->startTimeDoubleSpinBox->value()) / min_interval) * 4 + 512;  //4 bytes per sample (float), each sample is stored only once.  512 is just a bullshit value to represent the overhead required to store the other variables in the buffer object
-    siprint cotig_print("B",contig_ram_required);
+    siprint cotig_print(&units[0],contig_ram_required);
 
     ui->contigRamLabel_Value->setText(cotig_print.printVal());
 
