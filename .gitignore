@@ -34,3 +34,5 @@ Desktop_Interface/debug/qrc_resources.cpp
 !Desktop_Interface/bin/firmware/dfu-programmer.exe
 *.o
 Desktop_Interface/bin/Labrador
+*.deb
+*.tar.gz

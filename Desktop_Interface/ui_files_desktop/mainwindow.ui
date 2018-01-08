@@ -2251,7 +2251,7 @@
   </action>
   <action name="actionOpen_DAQ_File">
    <property name="text">
-    <string>Open DAQ File</string>
+    <string>DAQ Playback</string>
    </property>
   </action>
  </widget>

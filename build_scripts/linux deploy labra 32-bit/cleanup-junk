@@ -1,0 +1,14 @@
+#!/bin/bash
+
+rm -r LABRADEPLOY
+rm -r Labrador
+rm -r lib
+rm -r plugins
+rm -r translations
+rm -r waveforms
+rm -r settings.set
+rm -r doc
+rm -r labradeb/usr/share/espotek/labrador
+rm AppRun
+rm qt.conf
+

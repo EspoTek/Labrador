@@ -1,0 +1,8 @@
+Package: espotek-labrador
+Version: 1.1
+Section: base
+Priority: optional
+Architecture: amd64
+Depends: libusb-1.0-0 (>= 1.0.19)
+Maintainer: Chris Esposito <admin@espotek.com>
+Description: EspoTek Labrador Christmas 2017 update!
