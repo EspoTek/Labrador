@@ -1,6 +1,8 @@
 clear all
 clc
 
+#https://docs.google.com/document/d/1ZDO1RTarQTNB6Pdfi_T4YukL51oYan_kk_teb1cu6-o/edit?usp=sharing
+
 __addpaths;
 __load_globals;
 fflush(stdout);
@@ -12,6 +14,10 @@ if(isequal(usb_handle, "0000000000000000"))
   fprintf("Null USB Handle!  Cancelling...\n");
   return;
 end
+
+fprintf("\nSending AVR Debug Command...\n");
+fflush(stdout);
+labrador_send_debug_command(usb_handle, usb_context);
 
 fprintf("\nSetting Device Mode to 2 (Scope CH1 and CH2) with gain 8...\n");
 fflush(stdout);
@@ -36,4 +42,3 @@ labrador_set_psu_voltage(usb_handle, usb_context, 8.8);
 fprintf("\nExiting Libusb...\n");
 fflush(stdout);
 mex_usb_exit(usb_handle, usb_context);
-  

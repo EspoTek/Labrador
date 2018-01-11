@@ -307,6 +307,8 @@ void genericUsbDriver::setGain(double newGain){
 
 void genericUsbDriver::avrDebug(void){
     usbSendControl(0xc0, 0xa0, 0, 0, sizeof(unified_debug), NULL);
+
+    qDebug() << "unified debug is of size" << sizeof(unified_debug);
     /*
 #ifndef PLATFORM_ANDROID
     unified_debug *udsPtr = (unified_debug *) inBuffer;

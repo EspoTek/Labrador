@@ -37,13 +37,13 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     uint16_t Value;
     uint16_t Index;
     uint16_t Length;
-    unsigned char *LDATA;
   
     //Interals
     unsigned char *controlBuffer;
   
     //To export:
-    unsigned char inBuffer[INPUT_BUFFER_SIZE];
+    mwSize dims[2] = {1,INPUT_BUFFER_SIZE};
+    unsigned char *out_ptr;
   
     //Parse Inputs    
     HANDLE_CHAR_RAW_IN = mxArrayToString(prhs[0]);       
@@ -65,16 +65,36 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     sscanf(INDEX_RAW_IN, "%4x", &Index);
     
     LENGTH_RAW_IN = mxArrayToString(prhs[6]);  
-    sscanf(LENGTH_RAW_IN, "%4x", &Length);
+    sscanf(LENGTH_RAW_IN, "%4x", &Length);    
+    
+    //Allocate buffer memory if it's an IN transaction.  Set it to an input pointer if it's an OUT.
+    if(Request & 0x80){
+      controlBuffer = mxMalloc(INPUT_BUFFER_SIZE);
+    } else controlBuffer = mxGetData(prhs[7]);
 
-    controlBuffer = mxGetData(prhs[7]);
     
     //Send the packet
     int error;
+    mexPrintf("Length = %hu\n", Length);
     error = libusb_control_transfer(handle, RequestType, Request, Value, Index, controlBuffer, Length, 4000);
     if(error<0){
       mexPrintf("Error number: %d\n", error);
-      mexPrintf("libusb_control_transfer FAILED with error %s", libusb_error_name(error));
+      mexPrintf("libusb_control_transfer FAILED with error %s\n", libusb_error_name(error));
     }
+    
+    plhs[0] = mxCreateNumericArray(2, dims, mxUINT8_CLASS, mxREAL);
+    
+    //Setup function output.
+    int n;
+    out_ptr = mxMalloc(INPUT_BUFFER_SIZE);
+    
+    //Copy data , even if it's not an IN transaction.
+    for (n=0;n<INPUT_BUFFER_SIZE;n++){
+        out_ptr[n] = controlBuffer[n];
+    }
+    
+    plhs[0] = mxCreateNumericArray(2, dims, mxUINT8_CLASS, mxREAL);
+    mxSetData(plhs[0], out_ptr);
+    
     return;    
 }
