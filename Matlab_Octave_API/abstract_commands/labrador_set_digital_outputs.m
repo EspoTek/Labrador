@@ -1,5 +1,4 @@
 function [] = labrador_set_digital_outputs(usb_handle, usb_context, port0, port1, port2, port3);
-    %labrador_set_digital_outputs(usb_handle, usb_context, 1,1,1,1);
     digital_state = uint16(0);
     
     if(port0 ~= 0) digital_state = digital_state + 1; end
