@@ -16,6 +16,7 @@
 #include <math.h>
 #include <string.h>
 #include <sys/time.h>
+#include <sys/resource.h>
 
 //Defines
 #define ISO_PACKET_SIZE (750)
@@ -34,7 +35,6 @@ typedef struct thread_data {
 //Second thread to check for libusb complete
 void *thread_run(thread_data *thread_init)
 {
-    
     //Copied inputs
     libusb_context *ctx;
     timeval tv;
@@ -51,10 +51,10 @@ void *thread_run(thread_data *thread_init)
     while(1){
       if(libusb_event_handling_ok(ctx)){
         libusb_handle_events_timeout(ctx, &tv);
-        mexPrintf("libusb_handle_events_timeout completed!");
+        mexPrintf("libusb_handle_events_timeout completed!\n");
         } else {
           mexPrintf("Cannot handle libusb events.  Backing off...");
-          usleep(20000);
+          usleep(100000);
         }
     }
 }  
@@ -75,6 +75,28 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
 //Main mex function
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
+  
+    //Code to set stack size after compilation
+    //https://stackoverflow.com/questions/2275550/change-stack-size-for-a-c-application-in-linux-during-compilation-with-gnu-com
+    const rlim_t kStackSize = 128 * 1024 * 1024;   // min stack size = 128 MB
+    struct rlimit rl;
+    int result;
+
+    result = getrlimit(RLIMIT_STACK, &rl);
+    if (result == 0)
+    {
+        if (rl.rlim_cur < kStackSize)
+        {
+            rl.rlim_cur = kStackSize;
+            result = setrlimit(RLIMIT_STACK, &rl);
+            if (result != 0)
+            {
+                mexPrintf("setrlimit returned result = %d\n", result);
+            }
+        }
+    } else mexPrintf("Result was not zero!\n");
+
+
   /*
     char test1_string[9] = "12345678";
     char test2_string[9] = "abcdabcd";
@@ -171,8 +193,11 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     
     //Create the libusb thread;
     pthread_t thread;
-    error = pthread_create(&thread, NULL, thread_run, &ctx);
+    error = pthread_create(&thread, NULL, thread_run, &thread_init);
     if(error) mexPrintf("Could not create Libusb thread!");
+
+    //Short sleep to ensure the other thread has enough time to copy everything from memory.  Just in case...
+    usleep(100000);
 
     mexPrintf("Iso Stack initialised!\n");
     return;    

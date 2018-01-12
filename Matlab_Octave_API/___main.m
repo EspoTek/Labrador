@@ -1,4 +1,5 @@
 %clear all
+fflush(stdout);
 clc
 
 #https://docs.google.com/document/d/1ZDO1RTarQTNB6Pdfi_T4YukL51oYan_kk_teb1cu6-o/edit?usp=sharing
@@ -15,8 +16,12 @@ if(isequal(usb_handle, "0000000000000000"))
   return;
 end
 
+return;
+
 fprintf("\nInitialising USB ISO...\n");
+fflush(stdout)
 mex_usb_iso_init(usb_handle, usb_context, '81');
+fflush(stdout)
 
 fprintf("\nSending AVR Debug Command...\n");
 fflush(stdout);
