@@ -32,8 +32,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     HANDLE_CHAR_RAW_IN = mxArrayToString(prhs[0]);
     CTX_CHAR_RAW_IN = mxArrayToString(prhs[1]);
         
-    sscanf(HANDLE_CHAR_RAW_IN, "%016x", &ctx);
-	  sscanf(CTX_CHAR_RAW_IN, "%016x", &handle);
+    sscanf(HANDLE_CHAR_RAW_IN, "%016x", &handle);
+	  sscanf(CTX_CHAR_RAW_IN, "%016x", &ctx);
     
     //Delete the handle and the CTX
     mexPrintf("\nFreeing the following Libusb structures:\n");

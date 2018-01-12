@@ -22,6 +22,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   
     //Processed inputs
     unsigned int VID, PID;
+    libusb_context *old_ctx;
   
     //Interals
     libusb_context *ctx;
@@ -39,14 +40,14 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     printf("PID=%s\n", PID_CHAR_RAW_IN);
     
     sscanf(VID_CHAR_RAW_IN, "%4x", &VID);
-	  sscanf(PID_CHAR_RAW_IN, "%04x", &PID);
+	  sscanf(PID_CHAR_RAW_IN, "%04x", &PID);    
     
     //Initialise the Library
     int error;
     error = libusb_init(&ctx);
     if(error){
         mexPrintf("libusb_init FAILED\n");
-        return;
+        goto return_zeros;
     } else mexPrintf("Libusb context initialised\n");
     libusb_set_debug(ctx, 3);
     
@@ -54,7 +55,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     handle = libusb_open_device_with_vid_pid(ctx, VID, PID);
     if(handle==NULL){
         mexPrintf("DEVICE NOT FOUND\n");
-        return;
+        goto abort_libusb_open;
     }
     mexPrintf("Device found!!\n");
 
@@ -62,7 +63,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     error = libusb_claim_interface(handle, 0);
     if(error){
         mexPrintf("libusb_claim_interface FAILED\n");
-        return;
+        goto abort_libusb_claim_interface;
     } else mexPrintf("Interface claimed!\n");
 
     mexPrintf("Handle is %d bytes long\n", sizeof(handle));
@@ -81,5 +82,21 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     plhs[0] = mxCreateString(handle_string);   
     plhs[1] = mxCreateString(ctx_string);   
         
-    return;    
+    return; 
+    
+    abort_libusb_claim_interface:
+    libusb_close(handle);
+    mexPrintf("Device Closed\n");
+
+    abort_libusb_open:
+    libusb_exit(ctx);
+    mexPrintf("Libusb exited\n");
+    
+    return_zeros:
+    sprintf(handle_string, "%016x", 0);
+    sprintf(ctx_string, "%016x", 0);
+
+    plhs[0] = mxCreateString(handle_string);   
+    plhs[1] = mxCreateString(ctx_string);   
+    return;
 }

@@ -20,6 +20,21 @@
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
+  /*
+    char test1_string[9] = "12345678";
+    char test2_string[9] = "abcdabcd";
+  
+    int test1_int;
+    int test2_int;
+    sscanf(test1_string, "%x", &test1_int);
+    sscanf(test2_string, "%x", &test2_int);
+    
+    printf("test1_int = %x\n", test1_int);
+    printf("test1_string = %s\n", test1_string);
+    printf("test2_int = %x\n", test2_int);
+    printf("test2_string = %s\n", test2_string);
+*/
+    
     //Raw Inputs
     char *HANDLE_CHAR_RAW_IN;
     char *CTX_CHAR_RAW_IN;
@@ -28,6 +43,9 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     char *VALUE_RAW_IN;
     char *INDEX_RAW_IN;
     char *LENGTH_RAW_IN;
+    
+    char HANDLE_STRING_ON_STACK[17];
+    char CTX_STRING_ON_STACK[17];
   
     //Processed inputs
     libusb_context *ctx;
@@ -40,17 +58,20 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   
     //Interals
     unsigned char *controlBuffer;
+    uint64_t temp_read_handle, temp_read_ctx;
   
     //To export:
     mwSize dims[2] = {1,INPUT_BUFFER_SIZE};
     unsigned char *out_ptr;
   
     //Parse Inputs    
-    HANDLE_CHAR_RAW_IN = mxArrayToString(prhs[0]);       
-    sscanf(HANDLE_CHAR_RAW_IN, "%016x", &ctx);
+    HANDLE_CHAR_RAW_IN = mxArrayToString(prhs[0]);     
+    //strcpy(HANDLE_STRING_ON_STACK, HANDLE_CHAR_RAW_IN);
+    sscanf(HANDLE_CHAR_RAW_IN, "%x", &handle);
     
     CTX_CHAR_RAW_IN = mxArrayToString(prhs[1]);
-	  sscanf(CTX_CHAR_RAW_IN, "%016x", &handle);
+    //strcpy(CTX_STRING_ON_STACK, CTX_CHAR_RAW_IN);
+	  sscanf(CTX_CHAR_RAW_IN, "%x", &ctx);
     
     REQUEST_TYPE_RAW_IN = mxArrayToString(prhs[2]);  
     sscanf(REQUEST_TYPE_RAW_IN, "%2x", &RequestType);
@@ -65,7 +86,14 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     sscanf(INDEX_RAW_IN, "%4x", &Index);
     
     LENGTH_RAW_IN = mxArrayToString(prhs[6]);  
-    sscanf(LENGTH_RAW_IN, "%4x", &Length);    
+    sscanf(LENGTH_RAW_IN, "%4x", &Length);        
+   
+    mexPrintf("\nHandle String : %s\n", HANDLE_CHAR_RAW_IN);
+    mexPrintf("Handle = %016x\n", (unsigned long)handle);
+
+    mexPrintf("Context String : %s\n", CTX_CHAR_RAW_IN);
+    mexPrintf("Context = %016x\n\n", (unsigned long)ctx);
+    
     
     //Allocate buffer memory if it's an IN transaction.  Set it to an input pointer if it's an OUT.
     if(Request & 0x80){

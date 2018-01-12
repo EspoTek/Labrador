@@ -1,4 +1,4 @@
-clear all
+%clear all
 clc
 
 #https://docs.google.com/document/d/1ZDO1RTarQTNB6Pdfi_T4YukL51oYan_kk_teb1cu6-o/edit?usp=sharing
@@ -8,12 +8,15 @@ __load_globals;
 fflush(stdout);
 
 fprintf("\nInitialising USB...\n");
-
 [usb_handle, usb_context] = mex_usb_init("03eb", "ba94");
+
 if(isequal(usb_handle, "0000000000000000"))
   fprintf("Null USB Handle!  Cancelling...\n");
   return;
 end
+
+fprintf("\nInitialising USB ISO...\n");
+mex_usb_iso_init(usb_handle, usb_context, '81');
 
 fprintf("\nSending AVR Debug Command...\n");
 fflush(stdout);
@@ -29,9 +32,9 @@ fflush(stdout);
 labrador_set_digital_outputs(usb_handle, usb_context, 1,1,1,1);
 
 
-fprintf("\nSetting PSU to 8.8V...\n");
+fprintf("\nSetting PSU to 6.6V...\n");
 fflush(stdout);
-labrador_set_psu_voltage(usb_handle, usb_context, 8.8);
+labrador_set_psu_voltage(usb_handle, usb_context, 6.6);
 
 %pause(2)
 %fprintf("\nTurning off the digital outputs...\n");
