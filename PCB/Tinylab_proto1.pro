@@ -1,4 +1,4 @@
-update=23/03/2016 12:02:25 PM
+update=Tue 06 Feb 2018 03:40:09 AEDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -69,4 +69,4 @@ LibName27=opto
 LibName28=atmel
 LibName29=contrib
 LibName30=valves
-LibName31=C:/Users/Esposch/Documents/KiCAD/ESPO_PART
+LibName31=ESPO_PART
