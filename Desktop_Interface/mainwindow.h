@@ -140,6 +140,7 @@ private slots:
     void horiScaleEvent(bool enabled);
     void vertScaleEvent(bool enabled);
     void dpiAutoScaling();
+    void on_androidMenuButton_clicked();
 #endif
 
     void on_actionCalibrate_triggered();
@@ -179,7 +180,7 @@ private slots:
 
     void on_actionOpen_DAQ_File_triggered();
 
-    void on_androidMenuButton_clicked();
+    void on_actionQuit_triggered();
 
 private:
     //Generic Vars

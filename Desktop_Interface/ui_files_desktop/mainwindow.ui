@@ -1334,7 +1334,7 @@
      <x>0</x>
      <y>0</y>
      <width>1440</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1359,6 +1359,7 @@
     <addaction name="menuRecord"/>
     <addaction name="actionOpen_DAQ_File"/>
     <addaction name="menuTake_Snapshot"/>
+    <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
     <property name="title">
@@ -1437,8 +1438,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>178</width>
-       <height>115</height>
+       <width>181</width>
+       <height>125</height>
       </rect>
      </property>
      <property name="title">
@@ -2252,6 +2253,11 @@
   <action name="actionOpen_DAQ_File">
    <property name="text">
     <string>DAQ Playback</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
    </property>
   </action>
  </widget>

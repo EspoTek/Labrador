@@ -2040,6 +2040,8 @@ void MainWindow::on_actionOpen_DAQ_File_triggered()
     ui->controller_iso->loadFileBuffer(inputFile);
 }
 
+#ifdef PLATFORM_ANDROID
+
 void MainWindow::dpiAutoScaling(){
     this->update();
     this->updateGeometry();
@@ -2064,4 +2066,11 @@ void MainWindow::on_androidMenuButton_clicked()
     //ui->menuBar->actions();
     ui->menuBar->show();
     dpiAutoScaling();
+}
+
+#endif
+
+void MainWindow::on_actionQuit_triggered()
+{
+    QApplication::quit();
 }
