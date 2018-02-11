@@ -61,6 +61,8 @@ HEADERS  += mainwindow.h \
 android:{
 FORMS    += ui_files_mobile/mainwindow.ui \
     ui_files_mobile/scoperangeenterdialog.ui \
+    ui_files_desktop/daqform.ui \
+    ui_files_desktop/daqloadprompt.ui
 }
 
 !android:{
@@ -259,8 +261,8 @@ android:{
 
     equals(ANDROID_TARGET_ARCH, armeabi-v7a){
         message("qmake building for Android (ARM) platform")
-        LIBS += -L$${PWD}\build_android\libusb-242\android\armeabi-v7a -lusb1.0
-        ANDROID_EXTRA_LIBS += $${PWD}\build_android\libusb-242\android\armeabi-v7a/libusb1.0.so
+        LIBS += -L$${PWD}/build_android/libusb-242/android/armeabi-v7a -lusb1.0
+        ANDROID_EXTRA_LIBS += $${PWD}/build_android/libusb-242/android/armeabi-v7a/libusb1.0.so
         }
     equals(ANDROID_TARGET_ARCH, x86){
         message("qmake building for Android (x86) platform")

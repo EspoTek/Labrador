@@ -139,9 +139,10 @@ private slots:
     bool gestureFilter(QGestureEvent *event);
     void horiScaleEvent(bool enabled);
     void vertScaleEvent(bool enabled);
+    void dpiAutoScaling();
 #endif
 
-    void on_actionCalibrate_triggered();    
+    void on_actionCalibrate_triggered();
     void on_actionLo_bw_triggered();
 
     void on_actionSingle_ep_msync_triggered();
@@ -177,6 +178,8 @@ private slots:
     void on_actionAbout_triggered();
 
     void on_actionOpen_DAQ_File_triggered();
+
+    void on_androidMenuButton_clicked();
 
 private:
     //Generic Vars

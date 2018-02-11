@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     calibrationMessages = new QMessageBox();
     ui->psuDisplay->display("4.00");
     ui->bufferDisplay->refreshImage();
@@ -115,6 +116,16 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso->driver, SIGNAL(upTick()), ui->controller_iso, SLOT(timerTick()));
         connect(ui->controller_iso->driver, SIGNAL(connectedStatus(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
         connect(ui->controller_iso->driver, SIGNAL(signalFirmwareFlash(void)), ui->deviceConnected, SLOT(flashingFirmware(void)));
+
+        ui->serialDecodingModeSelect_CH1->setVisible(false);
+        ui->serialDecodingModeSelect_CH2->setVisible(false);
+
+        QTimer::singleShot(30, this, SLOT(dpiAutoScaling()));
+
+        ui->androidMenuButton->setVisible(false);
+
+
+        ui->menuAndroid_Special->menuAction()->setVisible(false);
     #endif
 
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
@@ -1275,20 +1286,203 @@ void MainWindow::resetUsbState(void){
 
 
 #ifdef PLATFORM_ANDROID
-
+//Should be called "High Resolution mode".  This function has been comandeered for Android devices with 1080p or higher resolutions.
 void MainWindow::on_actionOld_Person_Mode_triggered(bool checked)
 {
-    qDebug() << "Old Person Mode" << checked;
-    if(checked){
-        QFont font = qApp->font();
-        font.setPointSize(8);
-        qApp->setFont(font);
-        return;
-    }else{
-        QFont font = qApp->font();
-        font.setPointSize(6);
-        qApp->setFont(font);
+    //Scope Page
+    ui->scopeGroup_CH1->setFlat(true);
+    ui->scopeGroup_CH2->setFlat(true);
+    ui->triggerGroup->setFlat(true);
+    ui->cursorGroup->setFlat(true);
+
+
+    //Signal Gen Page
+    ui->signalGenGroup_CH1->setFlat(true);
+    ui->signalGenGroup_CH2->setFlat(true);
+
+    //Multimeter Page
+    ui->multimeterGroup->setFlat(true);
+
+    //Logic Analyzer Page
+    ui->digitalOutputGroup->setFlat(true);
+    ui->busSifferGroup_CH1->setFlat(true);
+    ui->busSnifferGroup_CH2->setFlat(true);
+    ui->serialDecodingCheck_CH1->setFlat(true);
+    ui->serialDecodingCheck_CH2->setFlat(true);
+
+
+
+
+    for (int i=1;i<100;i++){
+        qDebug() << "High Resolution Mode" << checked;
     }
+    if(checked){
+        //Embiggen the fonts
+        QFont font_scope1 = ui->scopeGroup_CH1->font();
+        font_scope1.setPointSize(16);
+        font_scope1.setBold(true);
+        ui->scopeGroup_CH1->setFont(font_scope1);
+
+        QFont font_scope2 = ui->scopeGroup_CH2->font();
+        font_scope2.setPointSize(16);
+        font_scope2.setBold(true);
+        ui->scopeGroup_CH2->setFont(font_scope2);
+
+        QFont font_scope_trigger = ui->triggerGroup->font();
+        font_scope_trigger.setPointSize(16);
+        font_scope_trigger.setBold(true);
+        ui->triggerGroup->setFont(font_scope_trigger);
+
+        QFont font_cursor_scaling = ui->cursorGroup->font();
+        font_cursor_scaling.setPointSize(16);
+        font_cursor_scaling.setBold(true);
+        ui->cursorGroup->setFont(font_cursor_scaling);
+
+        QFont font_scope_pause = ui->pausedLabeL_CH1->font();
+        font_scope_pause.setPointSize(16);
+        font_scope_pause.setBold(true);
+        ui->pausedLabeL_CH1->setFont(font_scope_pause);
+
+        QFont font_sg1 = ui->signalGenGroup_CH1->font();
+        font_sg1.setPointSize(16);
+        font_sg1.setBold(true);
+        ui->signalGenGroup_CH1->setFont(font_sg1);
+
+        QFont font_sg2 = ui->signalGenGroup_CH2->font();
+        font_sg2.setPointSize(16);
+        font_sg2.setBold(true);
+        ui->signalGenGroup_CH2->setFont(font_sg2);
+
+        QFont font_3 = ui->page_3->font();
+        font_3.setPointSize(16);
+        font_3.setBold(true);
+        ui->page_3->setFont(font_3);
+
+        QFont font_4 = ui->page_4->font();
+        font_4.setPointSize(16);
+        font_4.setBold(true);
+        ui->page_4->setFont(font_4);
+
+        QFont font_5 = ui->page_5->font();
+        font_5.setPointSize(16);
+        font_5.setBold(true);
+        ui->page_5->setFont(font_5);
+
+        QFont font_realtime = ui->realTimeButton->font();
+        font_realtime.setPointSize(16);
+        font_realtime.setBold(true);
+        ui->realTimeButton->setFont(font_realtime);
+
+        QFont font_android_menu = ui->androidMenuButton->font();
+        font_android_menu.setPointSize(16);
+        font_android_menu.setBold(true);
+        ui->androidMenuButton->setFont(font_android_menu);
+
+
+        //Embiggen the serial consoles.
+        ui->console1->setMinimumHeight(128);
+        ui->console1->setMaximumHeight(256);
+        ui->console2->setMinimumHeight(128);
+        ui->console2->setMaximumHeight(256);
+
+        //Increase the size of the swiped stack
+        ui->stackedWidget->setMaximumHeight(720);
+        ui->stackedWidget->setMinimumHeight(480);
+
+        //Grow Pause buttons
+        ui->pausedLabeL_CH1->setMaximumHeight(80);
+        ui->pausedLabel_CH2->setMaximumHeight(80);
+        ui->pause_LA->setMaximumHeight(80);
+        ui->multimeterPauseCheckBox->setMaximumHeight(80);
+
+        //Show the "single shot" button
+        ui->singleShotCheckBox->setVisible(true);
+
+
+    }else{
+        //Shrink the fonts
+        QFont font_scope1 = ui->scopeGroup_CH1->font();
+        font_scope1.setPointSize(11);
+        font_scope1.setBold(true);
+        ui->scopeGroup_CH1->setFont(font_scope1);
+
+        QFont font_scope2 = ui->scopeGroup_CH2->font();
+        font_scope2.setPointSize(11);
+        font_scope2.setBold(true);
+        ui->scopeGroup_CH2->setFont(font_scope2);
+
+        QFont font_scope_trigger = ui->triggerGroup->font();
+        font_scope_trigger.setPointSize(11);
+        font_scope_trigger.setBold(true);
+        ui->triggerGroup->setFont(font_scope_trigger);
+
+        QFont font_cursor_scaling = ui->cursorGroup->font();
+        font_cursor_scaling.setPointSize(11);
+        font_cursor_scaling.setBold(true);
+        ui->cursorGroup->setFont(font_cursor_scaling);
+
+        QFont font_scope_pause = ui->pausedLabeL_CH1->font();
+        font_scope_pause.setPointSize(11);
+        font_scope_pause.setBold(true);
+        ui->pausedLabeL_CH1->setFont(font_scope_pause);
+
+        QFont font_sg1 = ui->signalGenGroup_CH1->font();
+        font_sg1.setPointSize(11);
+        font_sg1.setBold(true);
+        ui->signalGenGroup_CH1->setFont(font_sg1);
+
+        QFont font_sg2 = ui->signalGenGroup_CH2->font();
+        font_sg2.setPointSize(11);
+        font_sg2.setBold(true);
+        ui->signalGenGroup_CH2->setFont(font_sg2);
+
+        QFont font_3 = ui->page_3->font();
+        font_3.setPointSize(11);
+        font_3.setBold(true);
+        ui->page_3->setFont(font_3);
+
+        QFont font_4 = ui->page_4->font();
+        font_4.setPointSize(11);
+        font_4.setBold(true);
+        ui->page_4->setFont(font_4);
+
+        QFont font_5 = ui->page_5->font();
+        font_5.setPointSize(11);
+        font_5.setBold(true);
+        ui->page_5->setFont(font_5);
+
+        QFont font_realtime = ui->realTimeButton->font();
+        font_realtime.setPointSize(11);
+        font_realtime.setBold(true);
+        ui->realTimeButton->setFont(font_realtime);
+
+        QFont font_android_menu = ui->androidMenuButton->font();
+        font_android_menu.setPointSize(11);
+        font_android_menu.setBold(true);
+        ui->androidMenuButton->setFont(font_android_menu);
+
+        //Shrink the serial consoles.
+        ui->console1->setMinimumHeight(0);
+        ui->console1->setMaximumHeight(96);
+        ui->console2->setMinimumHeight(0);
+        ui->console2->setMaximumHeight(96);
+
+        //Increase the size of the swiped stack
+        ui->stackedWidget->setMaximumHeight(480);
+        ui->stackedWidget->setMinimumHeight(400);
+
+        //Shrink Pause buttons
+        ui->pausedLabeL_CH1->setMaximumHeight(40);
+        ui->pausedLabel_CH2->setMaximumHeight(40);
+        ui->pause_LA->setMaximumHeight(40);
+        ui->multimeterPauseCheckBox->setMaximumHeight(40);
+
+        //Hide the "single shot" button
+        ui->singleShotCheckBox->setVisible(false);
+
+    }
+    return;
+
 }
 
 void MainWindow::screenRotateEvent(Qt::ScreenOrientation orientation)
@@ -1844,4 +2038,30 @@ void MainWindow::on_actionOpen_DAQ_File_triggered()
 
     QFile *inputFile = new QFile(fileName);
     ui->controller_iso->loadFileBuffer(inputFile);
+}
+
+void MainWindow::dpiAutoScaling(){
+    this->update();
+    this->updateGeometry();
+    this->repaint();
+    QSize size = this->size();
+    int numPixels = size.height() * size.width();
+
+    for(int i=0;i<100;i++){
+        qDebug() << size.height();
+        qDebug() << size.width();
+        qDebug() << numPixels;
+    }
+
+    if(numPixels > (1280 * 720 * 1.5)){
+        on_actionOld_Person_Mode_triggered(true);
+    } else on_actionOld_Person_Mode_triggered(false);
+}
+
+
+void MainWindow::on_androidMenuButton_clicked()
+{
+    //ui->menuBar->actions();
+    ui->menuBar->show();
+    dpiAutoScaling();
 }

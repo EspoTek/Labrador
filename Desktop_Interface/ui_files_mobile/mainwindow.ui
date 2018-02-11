@@ -13,6 +13,12 @@
     <height>1280</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="minimumSize">
    <size>
     <width>480</width>
@@ -23,10 +29,7 @@
    <string>EspoTek Labrador</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_5">
-    <property name="spacing">
-     <number>0</number>
-    </property>
+   <layout class="QGridLayout" name="gridLayout">
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -39,8 +42,34 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <item>
+    <item row="4" column="0">
+     <widget class="QPushButton" name="realTimeButton">
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Return to Real-Time Display</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="androidMenuButton">
+      <property name="text">
+       <string>Menu</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
      <widget class="deviceConnectedDisplay" name="deviceConnected">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="text">
        <string>Device Not Connected!</string>
       </property>
@@ -49,7 +78,7 @@
       </property>
      </widget>
     </item>
-    <item>
+    <item row="1" column="0">
      <widget class="QCustomPlot" name="scopeAxes" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
@@ -68,13 +97,19 @@
       </property>
      </widget>
     </item>
-    <item>
+    <item row="2" column="0">
      <widget class="swipeyStack" name="stackedWidget">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
       </property>
       <property name="maximumSize">
        <size>
@@ -88,7 +123,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="font">
@@ -123,6 +158,11 @@
               </property>
               <item>
                <widget class="QGroupBox" name="scopeGroup_CH1">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="title">
                  <string>Oscilloscope CH1</string>
                 </property>
@@ -143,13 +183,13 @@
                   <number>0</number>
                  </property>
                  <property name="topMargin">
-                  <number>0</number>
+                  <number>9</number>
                  </property>
                  <property name="rightMargin">
                   <number>0</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>0</number>
+                  <number>9</number>
                  </property>
                  <item>
                   <widget class="QCheckBox" name="acCoupledLabel_CH1">
@@ -267,6 +307,11 @@
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="title">
                  <string>Cursor/Scaling</string>
                 </property>
@@ -330,6 +375,11 @@
                 <property name="enabled">
                  <bool>true</bool>
                 </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
                 <property name="title">
                  <string>Oscilloscope CH2</string>
                 </property>
@@ -350,13 +400,13 @@
                   <number>0</number>
                  </property>
                  <property name="topMargin">
-                  <number>0</number>
+                  <number>9</number>
                  </property>
                  <property name="rightMargin">
                   <number>0</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>0</number>
+                  <number>9</number>
                  </property>
                  <item>
                   <widget class="QCheckBox" name="acCoupledLabel_CH2">
@@ -384,23 +434,10 @@
                    <property name="spacing">
                     <number>0</number>
                    </property>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="voltageInfoMaxLabel_CH2">
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="voltageInfoRmsLabel_CH2">
                      <property name="text">
-                      <string> Max</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLCDNumber" name="voltageInfoMaxDisplay_CH2">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>24</height>
-                      </size>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::NoFrame</enum>
+                      <string> RMS</string>
                      </property>
                     </widget>
                    </item>
@@ -408,33 +445,6 @@
                     <widget class="QLabel" name="voltageInfoMinLabel_CH2">
                      <property name="text">
                       <string> Min</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLCDNumber" name="voltageInfoMinDisplay_CH2">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>24</height>
-                      </size>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::NoFrame</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="VoltageInfoMeanLabel_CH2">
-                     <property name="text">
-                      <string> Mean</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="voltageInfoRmsLabel_CH2">
-                     <property name="text">
-                      <string> RMS</string>
                      </property>
                     </widget>
                    </item>
@@ -464,6 +474,46 @@
                      </property>
                     </widget>
                    </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="voltageInfoMaxLabel_CH2">
+                     <property name="text">
+                      <string> Max</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLCDNumber" name="voltageInfoMinDisplay_CH2">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>24</height>
+                      </size>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLCDNumber" name="voltageInfoMaxDisplay_CH2">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>24</height>
+                      </size>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="VoltageInfoMeanLabel_CH2">
+                     <property name="text">
+                      <string> Mean</string>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </item>
                 </layout>
@@ -473,6 +523,11 @@
                <widget class="QGroupBox" name="triggerGroup">
                 <property name="enabled">
                  <bool>true</bool>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
                 </property>
                 <property name="title">
                  <string>Trigger</string>
@@ -485,19 +540,19 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_14">
                  <property name="spacing">
-                  <number>2</number>
+                  <number>4</number>
                  </property>
                  <property name="leftMargin">
                   <number>0</number>
                  </property>
                  <property name="topMargin">
-                  <number>0</number>
+                  <number>9</number>
                  </property>
                  <property name="rightMargin">
                   <number>0</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>0</number>
+                  <number>9</number>
                  </property>
                  <item>
                   <widget class="QComboBox" name="triggerChannelSelect">
@@ -589,6 +644,13 @@
          <widget class="QGroupBox" name="signalGenGroup_CH1">
           <property name="enabled">
            <bool>true</bool>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
           </property>
           <property name="title">
            <string>Signal Gen CH1</string>
@@ -686,6 +748,11 @@
          <widget class="QGroupBox" name="signalGenGroup_CH2">
           <property name="enabled">
            <bool>true</bool>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>8</pointsize>
+           </font>
           </property>
           <property name="title">
            <string>Signal Gen CH2</string>
@@ -852,23 +919,13 @@
            </property>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_9">
-             <item>
-              <spacer name="horizontalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
+             <property name="sizeConstraint">
+              <enum>QLayout::SetDefaultConstraint</enum>
+             </property>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_22">
                <item>
-                <spacer name="verticalSpacer_7">
+                <spacer name="verticalSpacer">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
                  </property>
@@ -883,14 +940,14 @@
                <item>
                 <widget class="QLabel" name="multimeterModeLabel">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>180</width>
+                   <width>16777215</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -905,14 +962,14 @@
                <item>
                 <widget class="QComboBox" name="multimeterModeSelect">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>180</width>
+                   <width>16777215</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -939,29 +996,16 @@
                 </widget>
                </item>
                <item>
-                <spacer name="verticalSpacer_8">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
                 <widget class="QLabel" name="multimeterResistanceLabel">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>180</width>
+                   <width>16777215</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -976,14 +1020,14 @@
                <item>
                 <widget class="espoSpinBox" name="multimeterResistanceSelect">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>180</width>
+                   <width>16777215</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -998,50 +1042,33 @@
                  </property>
                 </widget>
                </item>
-               <item>
-                <spacer name="verticalSpacer_6">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
               </layout>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
              </item>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_23">
                <item>
                 <layout class="QFormLayout" name="formLayout">
+                 <property name="sizeConstraint">
+                  <enum>QLayout::SetMinimumSize</enum>
+                 </property>
+                 <property name="fieldGrowthPolicy">
+                  <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                 </property>
+                 <property name="rowWrapPolicy">
+                  <enum>QFormLayout::DontWrapRows</enum>
+                 </property>
                  <property name="horizontalSpacing">
                   <number>0</number>
                  </property>
                  <property name="verticalSpacing">
                   <number>0</number>
                  </property>
-                 <item row="1" column="0">
+                 <item row="0" column="0">
                   <widget class="QLabel" name="multimeterMaxLabel">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <verstretch>25</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="minimumSize">
@@ -1055,18 +1082,18 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="1">
+                 <item row="0" column="1">
                   <widget class="QLCDNumber" name="multimeterMaxDisplay">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <verstretch>25</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
-                     <height>96</height>
+                     <height>0</height>
                     </size>
                    </property>
                    <property name="frameShape">
@@ -1077,12 +1104,12 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="0">
+                 <item row="1" column="0">
                   <widget class="QLabel" name="multimeterMinLabel">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <verstretch>25</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="minimumSize">
@@ -1096,18 +1123,18 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="1">
+                 <item row="1" column="1">
                   <widget class="QLCDNumber" name="multimeterMinDisplay">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <verstretch>25</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
-                     <height>96</height>
+                     <height>0</height>
                     </size>
                    </property>
                    <property name="frameShape">
@@ -1118,28 +1145,12 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="1">
-                  <spacer name="verticalSpacer_2">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                   </property>
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Preferred</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>40</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item row="6" column="0">
+                 <item row="2" column="0">
                   <widget class="QLabel" name="multimeterMeanLabel">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <verstretch>25</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="minimumSize">
@@ -1153,18 +1164,18 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="6" column="1">
+                 <item row="2" column="1">
                   <widget class="QLCDNumber" name="multimeterMeanDisplay">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <verstretch>25</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
-                     <height>96</height>
+                     <height>0</height>
                     </size>
                    </property>
                    <property name="frameShape">
@@ -1175,28 +1186,12 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="7" column="1">
-                  <spacer name="verticalSpacer_4">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                   </property>
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Preferred</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>40</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item row="8" column="0">
+                 <item row="3" column="0">
                   <widget class="QLabel" name="multimeterRmsLabel">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <verstretch>25</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="minimumSize">
@@ -1210,18 +1205,18 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="8" column="1">
+                 <item row="3" column="1">
                   <widget class="QLCDNumber" name="multimeterRmsDisplay">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
+                     <verstretch>25</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
-                     <height>96</height>
+                     <height>0</height>
                     </size>
                    </property>
                    <property name="frameShape">
@@ -1232,78 +1227,23 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="1">
-                  <spacer name="verticalSpacer">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                   </property>
-                   <property name="sizeType">
-                    <enum>QSizePolicy::Preferred</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>40</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item row="0" column="1">
-                  <spacer name="verticalSpacer_3">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>40</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
                 </layout>
                </item>
-               <item>
-                <spacer name="verticalSpacer_5">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
               </layout>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
              </item>
             </layout>
            </item>
            <item>
             <widget class="QCheckBox" name="multimeterPauseCheckBox">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
              <property name="maximumSize">
               <size>
-               <width>180</width>
+               <width>16777215</width>
                <height>16777215</height>
               </size>
              </property>
@@ -1586,49 +1526,8 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
-          <item>
-           <widget class="QGroupBox" name="digitalOutputGroup">
-            <property name="title">
-             <string>Digital Output</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_4">
-             <item row="1" column="0">
-              <widget class="QCheckBox" name="digitalOutCheckbox_CH3">
-               <property name="text">
-                <string>Pin 3</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QCheckBox" name="digitalOutCheckbox_CH2">
-               <property name="text">
-                <string>Pin 2</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QCheckBox" name="digitalOutCheckbox_CH1">
-               <property name="text">
-                <string>Pin 1</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QCheckBox" name="digitalOutCheckbox_CH4">
-               <property name="text">
-                <string>Pin 4</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-            <zorder>digitalOutCheckbox_CH2</zorder>
-            <zorder>digitalOutCheckbox_CH1</zorder>
-            <zorder>digitalOutCheckbox_CH3</zorder>
-            <zorder>digitalOutCheckbox_CH4</zorder>
-           </widget>
-          </item>
-          <item>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="1">
            <widget class="QGroupBox" name="busSifferGroup_CH1">
             <property name="title">
              <string>Logic Analyzer CH1</string>
@@ -1695,7 +1594,7 @@
             </layout>
            </widget>
           </item>
-          <item>
+          <item row="1" column="1">
            <widget class="QGroupBox" name="busSnifferGroup_CH2">
             <property name="enabled">
              <bool>false</bool>
@@ -1760,12 +1659,65 @@
             </layout>
            </widget>
           </item>
+          <item row="0" column="0" rowspan="2">
+           <widget class="QGroupBox" name="digitalOutputGroup">
+            <property name="title">
+             <string>Digital Output</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_8">
+             <item>
+              <widget class="QCheckBox" name="digitalOutCheckbox_CH1">
+               <property name="text">
+                <string>Pin 1</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="digitalOutCheckbox_CH2">
+               <property name="text">
+                <string>Pin 2</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="digitalOutCheckbox_CH4">
+               <property name="text">
+                <string>Pin 4</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="digitalOutCheckbox_CH3">
+               <property name="text">
+                <string>Pin 3</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+            <zorder>digitalOutCheckbox_CH2</zorder>
+            <zorder>digitalOutCheckbox_CH1</zorder>
+            <zorder>digitalOutCheckbox_CH3</zorder>
+            <zorder>digitalOutCheckbox_CH4</zorder>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
          <widget class="QCheckBox" name="pause_LA">
           <property name="enabled">
            <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>32</height>
+           </size>
           </property>
           <property name="text">
            <string>Paused</string>
@@ -1779,6 +1731,8 @@
    </layout>
    <zorder>scopeAxes</zorder>
    <zorder>deviceConnected</zorder>
+   <zorder>realTimeButton</zorder>
+   <zorder>androidMenuButton</zorder>
    <zorder>stackedWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -1787,7 +1741,7 @@
      <x>0</x>
      <y>0</y>
      <width>720</width>
-     <height>31</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOscilloscope_2">
@@ -2001,6 +1955,30 @@
     <addaction name="actionSingle_ep_msync"/>
     <addaction name="actionSingle_ep_async"/>
    </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="menuTake_Snapshot">
+     <property name="title">
+      <string>Take Snapshot</string>
+     </property>
+     <addaction name="actionSnapshot_CH1"/>
+     <addaction name="actionSnapshot_CH1_2"/>
+    </widget>
+    <widget class="QMenu" name="menuEnable_DAQ">
+     <property name="title">
+      <string>Enable DAQ</string>
+     </property>
+     <addaction name="actionRecord_CH1"/>
+     <addaction name="actionRecord_CH2"/>
+    </widget>
+    <addaction name="actionDAQ_Settings"/>
+    <addaction name="menuEnable_DAQ"/>
+    <addaction name="actionOpen_DAQ_File"/>
+    <addaction name="menuTake_Snapshot"/>
+   </widget>
+   <addaction name="menuFile"/>
    <addaction name="menuOscilloscope_2"/>
    <addaction name="menuMultimeter_2"/>
    <addaction name="menuBus_Sniffer"/>
@@ -2640,6 +2618,42 @@
    </property>
    <property name="text">
     <string>single-ep-async</string>
+   </property>
+  </action>
+  <action name="actionDAQ_Settings">
+   <property name="text">
+    <string>DAQ Settings</string>
+   </property>
+  </action>
+  <action name="actionOpen_DAQ_File">
+   <property name="text">
+    <string>DAQ Playback</string>
+   </property>
+  </action>
+  <action name="actionSnapshot_CH1">
+   <property name="text">
+    <string>CH1</string>
+   </property>
+  </action>
+  <action name="actionSnapshot_CH1_2">
+   <property name="text">
+    <string>CH2</string>
+   </property>
+  </action>
+  <action name="actionRecord_CH1">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>CH1</string>
+   </property>
+  </action>
+  <action name="actionRecord_CH2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>CH2</string>
    </property>
   </action>
  </widget>
@@ -3716,54 +3730,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>controller_iso</sender>
-   <signal>multimeterMax(double)</signal>
-   <receiver>multimeterMaxDisplay</receiver>
-   <slot>display(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>949</x>
-     <y>386</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>multimeterMin(double)</signal>
-   <receiver>multimeterMinDisplay</receiver>
-   <slot>display(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>949</x>
-     <y>410</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>multimeterMean(double)</signal>
-   <receiver>multimeterMeanDisplay</receiver>
-   <slot>display(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>949</x>
-     <y>434</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>multimeterResistanceSelect</sender>
    <signal>valueChanged(double)</signal>
    <receiver>controller_iso</receiver>
@@ -3776,54 +3742,6 @@
     <hint type="destinationlabel">
      <x>960</x>
      <y>757</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>sendMultimeterLabel1(QString)</signal>
-   <receiver>multimeterMaxLabel</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>871</x>
-     <y>384</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>sendMultimeterLabel2(QString)</signal>
-   <receiver>multimeterMinLabel</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>867</x>
-     <y>408</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>sendMultimeterLabel3(QString)</signal>
-   <receiver>multimeterMeanLabel</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>960</x>
-     <y>757</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>852</x>
-     <y>432</y>
     </hint>
    </hints>
   </connection>
@@ -4352,6 +4270,102 @@
     <hint type="destinationlabel">
      <x>682</x>
      <y>738</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterMean(double)</signal>
+   <receiver>multimeterMeanDisplay</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>434</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendMultimeterLabel2(QString)</signal>
+   <receiver>multimeterMinLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>867</x>
+     <y>408</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendMultimeterLabel1(QString)</signal>
+   <receiver>multimeterMaxLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>871</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterMin(double)</signal>
+   <receiver>multimeterMinDisplay</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>410</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterMax(double)</signal>
+   <receiver>multimeterMaxDisplay</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>386</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendMultimeterLabel3(QString)</signal>
+   <receiver>multimeterMeanLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>960</x>
+     <y>757</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>852</x>
+     <y>432</y>
     </hint>
    </hints>
   </connection>
