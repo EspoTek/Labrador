@@ -18,9 +18,14 @@ unixUsbDriver::~unixUsbDriver(void){
     qDebug() << "\n\nunixUsbDriver destructor ran!";
     //unixDriverDeleteMutex.lock();
     if(connected){
-        workerThread->terminate();
+        workerThread->deleteLater();
+        while(workerThread->isRunning()){
+            workerThread->quit();
+            qDebug() << "isRunning?" << workerThread->isFinished();
+            QThread::msleep(100);
+        }
         delete(isoHandler);
-        delete(workerThread);
+        //delete(workerThread);
         qDebug() << "THREAD Gone!";
 
         for (int i=0; i<NUM_FUTURE_CTX; i++){
@@ -298,7 +303,7 @@ bool unixUsbDriver::allEndpointsComplete(int n){
 
 void unixUsbDriver::shutdownProcedure(){
     shutdownMode = true;
-    QTimer::singleShot(1500, this, SLOT(backupCleanup()));
+    QTimer::singleShot(100, this, SLOT(backupCleanup()));
 }
 
 //On physical disconnect, isoTimerTick will not assert stopTime.  Hence this duct-tape function.

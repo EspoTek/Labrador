@@ -33,11 +33,11 @@ public:
     ~worker(){};
     libusb_context *ctx;
     bool stopTime = false;
-    unsigned char cleanupRemaining = 2;
+    unsigned char cleanupRemaining = 4;
 public slots:
     void handle(){
         qDebug() << "SUB THREAD ID" << QThread::currentThreadId();
-        while(1){
+        while(cleanupRemaining){
             //qDebug() << cleanupRemaining;
             if(libusb_event_handling_ok(ctx)){
                 libusb_handle_events_timeout(ctx, &tv);
@@ -46,12 +46,11 @@ public slots:
             if(stopTime){
                 if(cleanupRemaining){
                     cleanupRemaining--;
-                }else while(1){
-                    QThread::msleep(100);
-                    //qDebug() << "Cleanup complete";  //THIS THREAD STILL EXISTS
+                    qDebug("Cleaning... #%hhu phases remain.\n", cleanupRemaining);
                 }
             }
         }
+        qDebug() << "Cleanup complete";  //THIS THREAD STILL EXISTS
     }
 };
 
