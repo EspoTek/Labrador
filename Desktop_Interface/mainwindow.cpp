@@ -1658,7 +1658,7 @@ void MainWindow::calibrateStage2(){
     qDebug() << "VRef (CH1) = " << vref_CH1;
     qDebug() << "VRef (CH2) = " << vref_CH2;
 
-    if((vref_CH1 > 1.9) | (vref_CH1 < 1.4) | (vref_CH2 > 1.9) | (vref_CH2 < 1.4)){
+    if((vref_CH1 > 2.1) | (vref_CH1 < 1.1) | (vref_CH2 > 2.1) | (vref_CH2 < 1.1)){
         calibrationMessages->setText("Calibration has been abandoned due to out-of-range values.  Both channels should show approximately 1.6V.  Please disconnect all wires from your Labrador board and try again.");
         calibrationMessages->exec();
         return;
