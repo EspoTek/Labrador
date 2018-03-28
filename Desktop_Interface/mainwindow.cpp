@@ -181,7 +181,7 @@ void MainWindow::initialisePlot()
     textLabel->position->setType(QCPItemPosition::ptAxisRectRatio);
     textLabel->position->setCoords(0.99, 0); // place position at center/top of axis rect
     textLabel->setText("Cursor Label Here");
-    textLabel->setFont(QFont("Courier New", 12));
+    textLabel->setFont(QFont("Courier New", 16));
     textLabel->setColor(Qt::white);
     textLabel->setPen(QPen(Qt::white));
     textLabel->setBrush(QBrush(Qt::black));
