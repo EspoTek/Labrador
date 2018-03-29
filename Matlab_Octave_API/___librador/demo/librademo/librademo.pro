@@ -37,3 +37,20 @@ FORMS += \
 unix:LIBS += -L../../librador/ -lrador
 unix:INCLUDEPATH += ../../librador
 unix:DEPENDPATH += ../../librador
+
+unix:!android:!macx {
+    #libusb include
+    LIBS += -L../../../Desktop_Interface/build_linux/libusb -lusb-1.0  ##I suspect the -L here does nothing!
+    INCLUDEPATH += ../../../Desktop_Interface/build_linux/libusb
+    DEPENDPATH += ../../../Desktop_Interface/build_linux/libusb
+
+    #libdfuprog include
+    LIBS += -L../../../Desktop_Interface/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9
+    INCLUDEPATH += ../../../Desktop_Interface/build_linux/libdfuprog/include
+    DEPENDPATH += ../../../Desktop_Interface/build_linux/libdfuprog/include
+
+    #linux defines
+    DEFINES += \
+        PLATFORM_LINUX \
+}
+

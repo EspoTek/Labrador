@@ -1,5 +1,8 @@
 #include "genericusbdriver.h"
-#include "platformspecific.h"
+
+#ifndef LIBRADOR_LIBRARY
+    #include "platformspecific.h"
+#endif
 
 genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
 {
@@ -194,9 +197,11 @@ void genericUsbDriver::newDig(int digState){
     usbSendControl(0x40, 0xa6, digState, 0, 0, NULL);
 }
 
+/*
 void genericUsbDriver::setBufferPtr(bufferControl *newPtr){
     bufferPtr = newPtr;
 }
+*/
 
 void genericUsbDriver::setDeviceMode(int mode){
     int oldMode = deviceMode;

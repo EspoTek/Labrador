@@ -24,15 +24,38 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+#Include Labrador Sources
+INCLUDEPATH += ../../../Desktop_Interface
+DEPENDPATH += ../../../Desktop_Interface
+
 SOURCES += \
-        librador.cpp
+        librador.cpp \
+    usbcallhandler.cpp
 
 HEADERS += \
         librador.h \
         librador_global.h \ 
-    librador_internal.h
+        librador_internal.h \
+    usbcallhandler.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+unix:!android:!macx {
+    #libusb include
+    LIBS += -L../../../Desktop_Interface/build_linux/libusb -lusb-1.0  ##I suspect the -L here does nothing!
+    INCLUDEPATH += ../../../Desktop_Interface/build_linux/libusb
+    DEPENDPATH += ../../../Desktop_Interface/build_linux/libusb
+
+    #libdfuprog include
+    LIBS += -L../../../Desktop_Interface/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9
+    INCLUDEPATH += ../../../Desktop_Interface/build_linux/libdfuprog/include
+    DEPENDPATH += ../../../Desktop_Interface/build_linux/libdfuprog/include
+
+    #linux defines
+    DEFINES += \
+        PLATFORM_LINUX \
+}
+

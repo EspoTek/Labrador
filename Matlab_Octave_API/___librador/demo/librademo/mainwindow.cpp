@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setbuf(stdout, 0);
+    setbuf(stderr, 0);
 }
 
 MainWindow::~MainWindow()
@@ -23,4 +25,14 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     qDebug() << librador_exit();
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    qDebug() << librador_setup_usb();
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    qDebug() << librador_avr_debug();
 }

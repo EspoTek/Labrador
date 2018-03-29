@@ -31,6 +31,8 @@ public:
     QVBoxLayout *verticalLayout;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
+    QPushButton *pushButton_3;
+    QPushButton *pushButton_4;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -56,6 +58,16 @@ public:
 
         verticalLayout->addWidget(pushButton_2);
 
+        pushButton_3 = new QPushButton(centralWidget);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+
+        verticalLayout->addWidget(pushButton_3);
+
+        pushButton_4 = new QPushButton(centralWidget);
+        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+
+        verticalLayout->addWidget(pushButton_4);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -78,6 +90,8 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
         pushButton->setText(QApplication::translate("MainWindow", "Open API", nullptr));
         pushButton_2->setText(QApplication::translate("MainWindow", "Close API", nullptr));
+        pushButton_3->setText(QApplication::translate("MainWindow", "Setup USB", nullptr));
+        pushButton_4->setText(QApplication::translate("MainWindow", "avrDebug()", nullptr));
     } // retranslateUi
 
 };

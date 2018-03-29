@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DPLATFORM_LINUX -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I../../librador -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -I../../librador -I../../../Desktop_Interface/build_linux/libusb -I../../../Desktop_Interface/build_linux/libdfuprog/include -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/esposch/Qt/5.10.0/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = librademo1.0.0
 DISTDIR = /home/esposch/Git/Labrador/Matlab_Octave_API/___librador/demo/librademo/.tmp/librademo1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/esposch/Qt/5.10.0/gcc_64/lib
-LIBS          = $(SUBLIBS) -L../../librador/ -lrador -L/home/esposch/Qt/5.10.0/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L../../librador/ -lrador -L../../../Desktop_Interface/build_linux/libusb -lusb-1.0 -L../../../Desktop_Interface/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9 -L/home/esposch/Qt/5.10.0/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -784,7 +784,7 @@ moc_mainwindow.cpp: /home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QMainWindow
 		mainwindow.h \
 		moc_predefs.h \
 		/home/esposch/Qt/5.10.0/gcc_64/bin/moc
-	/home/esposch/Qt/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/esposch/Git/Labrador/Matlab_Octave_API/___librador/demo/librademo -I/home/esposch/Git/Labrador/Matlab_Octave_API/___librador/librador -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/home/esposch/Qt/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/esposch/Git/Labrador/Matlab_Octave_API/___librador/demo/librademo -I/home/esposch/Git/Labrador/Matlab_Octave_API/___librador/librador -I/home/esposch/Git/Labrador/Matlab_Octave_API/Desktop_Interface/build_linux/libusb -I/home/esposch/Git/Labrador/Matlab_Octave_API/Desktop_Interface/build_linux/libdfuprog/include -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1030,7 +1030,10 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtGui/qtouchdevice.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtGui/qicon.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		../../librador/librador.h \
+		../../librador/librador_global.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

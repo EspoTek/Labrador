@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DLIBRADOR_LIBRARY -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DLIBRADOR_LIBRARY -DQT_DEPRECATED_WARNINGS -DPLATFORM_LINUX -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -I../../../Desktop_Interface -I../../../Desktop_Interface/build_linux/libusb -I../../../Desktop_Interface/build_linux/libdfuprog/include -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/esposch/Qt/5.10.0/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = rador1.0.0
 DISTDIR = /home/esposch/Git/Labrador/Matlab_Octave_API/___librador/librador/.tmp/rador1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/esposch/Qt/5.10.0/gcc_64/lib -shared -Wl,-soname,librador.so.1
-LIBS          = $(SUBLIBS) -L/home/esposch/Qt/5.10.0/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L../../../Desktop_Interface/build_linux/libusb -lusb-1.0 -L../../../Desktop_Interface/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9 -L/home/esposch/Qt/5.10.0/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -50,8 +50,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = librador.cpp 
-OBJECTS       = librador.o
+SOURCES       = librador.cpp \
+		usbcallhandler.cpp 
+OBJECTS       = librador.o \
+		usbcallhandler.o
 DIST          = /home/esposch/Qt/5.10.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/esposch/Qt/5.10.0/gcc_64/mkspecs/common/unix.conf \
 		/home/esposch/Qt/5.10.0/gcc_64/mkspecs/common/linux.conf \
@@ -236,7 +238,9 @@ DIST          = /home/esposch/Qt/5.10.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/esposch/Qt/5.10.0/gcc_64/mkspecs/features/lex.prf \
 		librador.pro librador.h \
 		librador_global.h \
-		librador_internal.h librador.cpp
+		librador_internal.h \
+		usbcallhandler.h librador.cpp \
+		usbcallhandler.cpp
 QMAKE_TARGET  = rador
 DESTDIR       = 
 TARGET        = librador.so.1.0.0
@@ -653,8 +657,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/esposch/Qt/5.10.0/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents librador.h librador_global.h librador_internal.h $(DISTDIR)/
-	$(COPY_FILE) --parents librador.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents librador.h librador_global.h librador_internal.h usbcallhandler.h $(DISTDIR)/
+	$(COPY_FILE) --parents librador.cpp usbcallhandler.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -728,8 +732,14 @@ librador.o: librador.cpp librador.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qmutex.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qnumeric.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qversiontagging.h \
-		librador_internal.h
+		librador_internal.h \
+		usbcallhandler.h \
+		../../../Desktop_Interface/build_linux/libusb/libusb.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o librador.o librador.cpp
+
+usbcallhandler.o: usbcallhandler.cpp usbcallhandler.h \
+		../../../Desktop_Interface/build_linux/libusb/libusb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o usbcallhandler.o usbcallhandler.cpp
 
 ####### Install
 

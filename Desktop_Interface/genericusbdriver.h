@@ -12,7 +12,7 @@
 #include "functiongencontrol.h"
 #include "xmega.h"
 #include "desktop_settings.h"
-#include "buffercontrol.h"
+//#include "buffercontrol.h"
 #include "unified_debug_structure.h"
 
 #define EXPECTED_FIRMWARE_VERSION 0x0004
@@ -66,7 +66,7 @@ public:
     explicit genericUsbDriver(QWidget *parent = 0);
     ~genericUsbDriver();
     virtual char *isoRead(unsigned int *newLength) = 0;
-    void setBufferPtr(bufferControl *newPtr);
+    //void setBufferPtr(bufferControl *newPtr);
     void saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState);
     virtual void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA) = 0;
     virtual void manualFirmwareRecovery(void) = 0;
@@ -81,7 +81,7 @@ protected:
     unsigned char firmver = 0;
     unsigned char variant = 0;
     //Generic Vars
-    bufferControl *bufferPtr = NULL;
+    //bufferControl *bufferPtr = NULL;
     QTimer *psuTimer;
     unsigned char pipeID[3];
     QTimer *isoTimer;

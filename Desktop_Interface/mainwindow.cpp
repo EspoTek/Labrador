@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->timeBaseSlider->setMaximum(10*log10(MAX_WINDOW_SIZE));
 
-    ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
+    //ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
     ui->cursorStatsLabel->hide();
     initialisePlot();
     menuSetup();
@@ -1239,7 +1239,7 @@ void MainWindow::reinitUsbStage2(void){
     ui->controller_iso->driver = new _PLATFORM_DEPENDENT_USB_OBJECT();
 
     //Reconnect the other objects.
-    ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
+    //ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
     connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
     connect(ui->debugButton3, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(bootloaderJump()));
     connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
