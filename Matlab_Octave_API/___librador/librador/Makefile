@@ -51,8 +51,10 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = librador.cpp \
+		o1buffer.cpp \
 		usbcallhandler.cpp 
 OBJECTS       = librador.o \
+		o1buffer.o \
 		usbcallhandler.o
 DIST          = /home/esposch/Qt/5.10.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/esposch/Qt/5.10.0/gcc_64/mkspecs/common/unix.conf \
@@ -239,7 +241,9 @@ DIST          = /home/esposch/Qt/5.10.0/gcc_64/mkspecs/features/spec_pre.prf \
 		librador.pro librador.h \
 		librador_global.h \
 		librador_internal.h \
+		o1buffer.h \
 		usbcallhandler.h librador.cpp \
+		o1buffer.cpp \
 		usbcallhandler.cpp
 QMAKE_TARGET  = rador
 DESTDIR       = 
@@ -657,8 +661,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/esposch/Qt/5.10.0/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents librador.h librador_global.h librador_internal.h usbcallhandler.h $(DISTDIR)/
-	$(COPY_FILE) --parents librador.cpp usbcallhandler.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents librador.h librador_global.h librador_internal.h o1buffer.h usbcallhandler.h $(DISTDIR)/
+	$(COPY_FILE) --parents librador.cpp o1buffer.cpp usbcallhandler.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -737,8 +741,12 @@ librador.o: librador.cpp librador.h \
 		../../../Desktop_Interface/build_linux/libusb/libusb.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o librador.o librador.cpp
 
+o1buffer.o: o1buffer.cpp o1buffer.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o o1buffer.o o1buffer.cpp
+
 usbcallhandler.o: usbcallhandler.cpp usbcallhandler.h \
-		../../../Desktop_Interface/build_linux/libusb/libusb.h
+		../../../Desktop_Interface/build_linux/libusb/libusb.h \
+		o1buffer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o usbcallhandler.o usbcallhandler.cpp
 
 ####### Install

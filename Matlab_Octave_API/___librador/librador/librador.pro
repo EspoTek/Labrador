@@ -30,12 +30,14 @@ DEPENDPATH += ../../../Desktop_Interface
 
 SOURCES += \
         librador.cpp \
+        o1buffer.cpp \
     usbcallhandler.cpp
 
 HEADERS += \
         librador.h \
         librador_global.h \ 
         librador_internal.h \
+        o1buffer.h \
     usbcallhandler.h
 
 unix {

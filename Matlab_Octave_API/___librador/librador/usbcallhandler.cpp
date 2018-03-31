@@ -1,13 +1,22 @@
 #include "usbcallhandler.h"
 #include <stdio.h>
 
+#include "o1buffer.h"
+
+//shared vars
+o1buffer *internal_o1_buffer;
+
 static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
 
     //Thread mutex??
 
     if(transfer->status!=LIBUSB_TRANSFER_CANCELLED){
         printf("Copy the data...\n");
-
+        //TODO: a switch statement here to handle all the modes.
+        for(int i=0;i<transfer->num_iso_packets;i++){
+            unsigned char *packetPointer = libusb_get_iso_packet_buffer_simple(transfer, i);
+            internal_o1_buffer->addVector(packetPointer, 375);
+        }
         printf("Re-arm the endpoint...\n");
         int error = libusb_submit_transfer(transfer);
         if(error){
@@ -20,8 +29,8 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
 void usb_polling_function(libusb_context *ctx){
     printf("usb_polling_function thread spawned\n");
     struct timeval tv;
-    tv.tv_sec = 2;
-    tv.tv_usec = 0;
+    tv.tv_sec = 0;
+    tv.tv_usec = ISO_PACKETS_PER_CTX*4000;
     while(1){
         printf("usb_polling_function begin loop\n");
         if(libusb_event_handling_ok(ctx)){
@@ -39,6 +48,8 @@ usbCallHandler::usbCallHandler(unsigned short VID_in, unsigned short PID_in)
         pipeID[k] = 0x81+k;
         printf("pipeID %d = %d\n", k, pipeID[k]);
     }
+
+    internal_o1_buffer = new o1buffer();
 }
 
 usbCallHandler::~usbCallHandler(){
