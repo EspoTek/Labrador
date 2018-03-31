@@ -15,10 +15,16 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
         //TODO: a switch statement here to handle all the modes.
         for(int i=0;i<transfer->num_iso_packets;i++){
             unsigned char *packetPointer = libusb_get_iso_packet_buffer_simple(transfer, i);
+            printf("Expected length is %d\n", transfer->length);
+            printf("Actual length is %d\n", transfer->actual_length);
+            for(int k=0; k<transfer->actual_length; k++){
+                printf("%d ", packetPointer[k]);
+            }
+            printf("\n");
             internal_o1_buffer->addVector(packetPointer, 375);
         }
         printf("Re-arm the endpoint...\n");
-        int error = libusb_submit_transfer(transfer);
+        int error = 0;//libusb_submit_transfer(transfer);
         if(error){
             printf("Error re-arming the endpoint!\n");
         }
@@ -29,8 +35,8 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
 void usb_polling_function(libusb_context *ctx){
     printf("usb_polling_function thread spawned\n");
     struct timeval tv;
-    tv.tv_sec = 0;
-    tv.tv_usec = ISO_PACKETS_PER_CTX*4000;
+    tv.tv_sec = 1;
+    tv.tv_usec = 0;//ISO_PACKETS_PER_CTX*4000;
     while(1){
         printf("usb_polling_function begin loop\n");
         if(libusb_event_handling_ok(ctx)){
@@ -92,6 +98,14 @@ int usbCallHandler::setup_usb_control(){
         handle = NULL;
         return -3;
     } else printf("Interface claimed!\n");
+
+    error = libusb_set_interface_alt_setting(handle, 0, 0);
+    if(error){
+        printf("libusb_set_interface_alt_setting FAILED\n");
+        libusb_close(handle);
+        handle = NULL;
+        return -4;
+    } else printf("bAlternateSetting claimed!\n");
 
     connected = true;
     return 0;
@@ -180,4 +194,8 @@ int usbCallHandler::avrDebug(void){
     printf("dma_ch1_cnt = %d\n", dma_ch1_cnt);
 
     return 0;
+}
+
+std::vector<double>* usbCallHandler::getMany_double(int numToGet, int interval_samples, int delay_sample, int filter_mode){
+    return internal_o1_buffer->getMany_double(numToGet, interval_samples, delay_sample, filter_mode);
 }

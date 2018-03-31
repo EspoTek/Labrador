@@ -2,6 +2,9 @@
 #include "librador_internal.h"
 #include "usbcallhandler.h"
 
+#include <vector>
+#include <QThread>
+
 Librador::Librador()
 {
     usb_driver = new usbCallHandler(LABRADOR_VID, LABRADOR_PID);
@@ -55,4 +58,8 @@ int librador_setup_usb(){
 int librador_avr_debug(){
     CHECK_API_INITIALISED
     return internal_librador_object->usb_driver->avrDebug();
+}
+
+std::vector<double> * librador_get_iso_data(int numToGet, int interval_samples, int delay_sample, int filter_mode){
+    return internal_librador_object->usb_driver->getMany_double(numToGet, interval_samples, delay_sample, filter_mode);
 }

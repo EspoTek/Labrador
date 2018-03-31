@@ -3,11 +3,12 @@
 
 #include "libusb.h"
 #include <thread>
+#include <vector>
 
-#define NUM_ISO_ENDPOINTS 1
-#define NUM_FUTURE_CTX 4
-#define ISO_PACKET_SIZE 750
-#define ISO_PACKETS_PER_CTX 33
+#define NUM_ISO_ENDPOINTS (1)
+#define NUM_FUTURE_CTX (2)
+#define ISO_PACKET_SIZE (750)
+#define ISO_PACKETS_PER_CTX (125)
 
 //EVERYTHING MUST BE SENT ONE BYTE AT A TIME, HIGH AND LOW BYTES SEPARATE, IN ORDER TO AVOID ISSUES WITH ENDIANNESS.
 typedef struct uds{
@@ -43,6 +44,7 @@ public:
     int setup_usb_iso();
     int send_control_transfer(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA);
     int avrDebug(void);
+    std::vector<double> *getMany_double(int numToGet, int interval_samples, int delay_sample, int filter_mode);
     bool connected;
 private:
     unsigned short VID, PID;

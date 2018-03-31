@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui widgets printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,10 +25,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        ../../../../Desktop_Interface/ui_elements/qcp1/qcustomplot.cpp
+
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+        ../../../../Desktop_Interface/ui_elements/qcp1/qcustomplot.h
+
+INCLUDEPATH += \
+        ../../../../Desktop_Interface/ui_elements/qcp1
+
 
 FORMS += \
         mainwindow.ui
@@ -40,14 +47,14 @@ unix:DEPENDPATH += ../../librador
 
 unix:!android:!macx {
     #libusb include
-    LIBS += -L../../../Desktop_Interface/build_linux/libusb -lusb-1.0  ##I suspect the -L here does nothing!
-    INCLUDEPATH += ../../../Desktop_Interface/build_linux/libusb
-    DEPENDPATH += ../../../Desktop_Interface/build_linux/libusb
+    LIBS += -L../../../../Desktop_Interface/build_linux/libusb -lusb-1.0  ##I suspect the -L here does nothing!
+    INCLUDEPATH += ../../../../Desktop_Interface/build_linux/libusb
+    DEPENDPATH += ../../../../Desktop_Interface/build_linux/libusb
 
     #libdfuprog include
-    LIBS += -L../../../Desktop_Interface/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9
-    INCLUDEPATH += ../../../Desktop_Interface/build_linux/libdfuprog/include
-    DEPENDPATH += ../../../Desktop_Interface/build_linux/libdfuprog/include
+    LIBS += -L../../../../Desktop_Interface/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9
+    INCLUDEPATH += ../../../../Desktop_Interface/build_linux/libdfuprog/include
+    DEPENDPATH += ../../../../Desktop_Interface/build_linux/libdfuprog/include
 
     #linux defines
     DEFINES += \
