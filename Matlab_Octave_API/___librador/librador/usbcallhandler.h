@@ -2,6 +2,12 @@
 #define USBCALLHANDLER_H
 
 #include "libusb.h"
+#include <thread>
+
+#define NUM_ISO_ENDPOINTS 1
+#define NUM_FUTURE_CTX 4
+#define ISO_PACKET_SIZE 750
+#define ISO_PACKETS_PER_CTX 33
 
 //EVERYTHING MUST BE SENT ONE BYTE AT A TIME, HIGH AND LOW BYTES SEPARATE, IN ORDER TO AVOID ISSUES WITH ENDIANNESS.
 typedef struct uds{
@@ -31,6 +37,7 @@ class usbCallHandler
 {
 public:
     usbCallHandler(unsigned short VID_in, unsigned short PID_in);
+    ~usbCallHandler();
     int setup_usb_control();
     int setup_usb_iso();
     int send_control_transfer(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA);
@@ -41,6 +48,12 @@ private:
     libusb_context *ctx = NULL;
     libusb_device_handle *handle = NULL;
     unsigned char inBuffer[256];
+
+    //USBIso Vars
+    unsigned char pipeID[NUM_ISO_ENDPOINTS];
+    libusb_transfer *isoCtx[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
+    unsigned char dataBuffer[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
+    std::thread *usb_polling_thread;
 };
 
 #endif // USBCALLHANDLER_H

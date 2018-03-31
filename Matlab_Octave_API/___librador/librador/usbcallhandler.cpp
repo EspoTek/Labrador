@@ -1,10 +1,48 @@
 #include "usbcallhandler.h"
 #include <stdio.h>
 
+static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
+
+    //Thread mutex??
+
+    if(transfer->status!=LIBUSB_TRANSFER_CANCELLED){
+        printf("Copy the data...\n");
+
+        printf("Re-arm the endpoint...\n");
+        int error = libusb_submit_transfer(transfer);
+        if(error){
+            printf("Error re-arming the endpoint!\n");
+        }
+    }
+    return;
+}
+
+void usb_polling_function(libusb_context *ctx){
+    printf("usb_polling_function thread spawned\n");
+    struct timeval tv;
+    tv.tv_sec = 2;
+    tv.tv_usec = 0;
+    while(1){
+        printf("usb_polling_function begin loop\n");
+        if(libusb_event_handling_ok(ctx)){
+            libusb_handle_events_timeout(ctx, &tv);
+        }
+    }
+}
+
 usbCallHandler::usbCallHandler(unsigned short VID_in, unsigned short PID_in)
 {
     VID = VID_in;
     PID = PID_in;
+
+    for(int k=0; k<NUM_ISO_ENDPOINTS; k++){
+        pipeID[k] = 0x81+k;
+        printf("pipeID %d = %d\n", k, pipeID[k]);
+    }
+}
+
+usbCallHandler::~usbCallHandler(){
+    //Kill off usb_polling_thread.  Maybe join then get it to detect its own timeout condition.
 }
 
 
@@ -49,6 +87,23 @@ int usbCallHandler::setup_usb_control(){
 }
 
 int usbCallHandler::setup_usb_iso(){
+    int error;
+    printf("usbCallHandler::setup_usb_iso()\n");
+
+    for(int n=0;n<NUM_FUTURE_CTX;n++){
+        for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
+            isoCtx[k][n] = libusb_alloc_transfer(ISO_PACKETS_PER_CTX);
+            libusb_fill_iso_transfer(isoCtx[k][n], handle, pipeID[k], dataBuffer[k][n], ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX, ISO_PACKETS_PER_CTX, isoCallback, NULL, 4000);
+            libusb_set_iso_packet_lengths(isoCtx[k][n], ISO_PACKET_SIZE);
+            error = libusb_submit_transfer(isoCtx[k][n]);
+            if(error){
+                printf("libusb_submit_transfer #%d:%d FAILED with error %d %s\n", n, k, error, libusb_error_name(error));
+                return error;
+            }
+        }
+    }
+
+    usb_polling_thread = new std::thread(usb_polling_function, ctx);
     return 0;
 }
 
