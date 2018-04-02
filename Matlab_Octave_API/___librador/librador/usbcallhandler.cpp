@@ -2,6 +2,44 @@
 #include <stdio.h>
 
 #include "o1buffer.h"
+#include <mutex>
+#include <chrono>
+#include <thread>
+
+std::mutex usb_shutdown_mutex;
+bool usb_shutdown_requested = false;
+int usb_shutdown_remaining_transfers = NUM_FUTURE_CTX;
+bool thread_active = true;
+
+int begin_usb_thread_shutdown(){
+    usb_shutdown_mutex.lock();
+    usb_shutdown_requested = true;
+    usb_shutdown_mutex.unlock();
+    return 0;
+}
+
+bool usb_iso_needs_rearming(){
+    bool tempReturn;
+    usb_shutdown_mutex.lock();
+    tempReturn = !usb_shutdown_requested;
+    usb_shutdown_mutex.unlock();
+    return tempReturn;
+}
+
+int decrement_remaining_transfers(){
+    usb_shutdown_mutex.lock();
+    usb_shutdown_remaining_transfers--;
+    usb_shutdown_mutex.unlock();
+    return 0;
+}
+
+bool safe_to_exit_thread(){
+    bool tempReturn;
+    usb_shutdown_mutex.lock();
+    tempReturn = (usb_shutdown_remaining_transfers == 0);
+    usb_shutdown_mutex.unlock();
+    return tempReturn;
+}
 
 //shared vars
 o1buffer *internal_o1_buffer;
@@ -9,25 +47,29 @@ o1buffer *internal_o1_buffer;
 static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
 
     //Thread mutex??
-
-    if(transfer->status!=LIBUSB_TRANSFER_CANCELLED){
-        printf("Copy the data...\n");
-        //TODO: a switch statement here to handle all the modes.
-        for(int i=0;i<transfer->num_iso_packets;i++){
-            unsigned char *packetPointer = libusb_get_iso_packet_buffer_simple(transfer, i);
+    printf("Copy the data...\n");
+    for(int i=0;i<transfer->num_iso_packets;i++){
+        unsigned char *packetPointer = libusb_get_iso_packet_buffer_simple(transfer, i);
+        if(transfer->actual_length){
             printf("Expected length is %d\n", transfer->length);
             printf("Actual length is %d\n", transfer->actual_length);
-            for(int k=0; k<transfer->actual_length; k++){
-                printf("%d ", packetPointer[k]);
-            }
             printf("\n");
-            internal_o1_buffer->addVector(packetPointer, 375);
         }
-        printf("Re-arm the endpoint...\n");
-        int error = 0;//libusb_submit_transfer(transfer);
+        //TODO: a switch statement here to handle all the modes.
+        internal_o1_buffer->addVector(packetPointer, 375);
+    }
+    printf("Re-arm the endpoint...\n");
+    if(usb_iso_needs_rearming()){
+        int error = libusb_submit_transfer(transfer);
         if(error){
             printf("Error re-arming the endpoint!\n");
+            begin_usb_thread_shutdown();
+            decrement_remaining_transfers();
+            printf("Transfer not being rearmed!  %d armed transfers remaining\n", usb_shutdown_remaining_transfers);
         }
+    } else {
+        decrement_remaining_transfers();
+        printf("Transfer not being rearmed!  %d armed transfers remaining\n", usb_shutdown_remaining_transfers);
     }
     return;
 }
@@ -37,7 +79,7 @@ void usb_polling_function(libusb_context *ctx){
     struct timeval tv;
     tv.tv_sec = 1;
     tv.tv_usec = 0;//ISO_PACKETS_PER_CTX*4000;
-    while(1){
+    while(!safe_to_exit_thread()){
         printf("usb_polling_function begin loop\n");
         if(libusb_event_handling_ok(ctx)){
             libusb_handle_events_timeout(ctx, &tv);
@@ -56,10 +98,42 @@ usbCallHandler::usbCallHandler(unsigned short VID_in, unsigned short PID_in)
     }
 
     internal_o1_buffer = new o1buffer();
+
+    //In case it was deleted before; reset the shared variables.
+    usb_shutdown_requested = false;
+    usb_shutdown_remaining_transfers = NUM_FUTURE_CTX;
+    thread_active = true;
 }
 
 usbCallHandler::~usbCallHandler(){
     //Kill off usb_polling_thread.  Maybe join then get it to detect its own timeout condition.
+    printf("Calling destructor for librador USB call handler\n");
+    begin_usb_thread_shutdown();
+
+    printf("Shutting down USB polling thread...\n");
+    usb_polling_thread->join();
+    printf("USB polling thread stopped.\n");
+    delete usb_polling_thread;
+
+    for (int i=0; i<NUM_FUTURE_CTX; i++){
+        for (int k=0; k<NUM_ISO_ENDPOINTS; k++){
+            libusb_free_transfer(isoCtx[k][i]);
+        }
+    }
+    printf("Transfers freed.\n");
+
+    if(handle != NULL){
+    libusb_release_interface(handle, 0);
+        printf("Interface released\n");
+        libusb_close(handle);
+        printf("Device Closed\n");
+    }
+    if(ctx != NULL){
+        libusb_exit(ctx);
+        printf("Libusb exited\n");
+    }
+
+    printf("librador USB call handler deleted\n");
 }
 
 

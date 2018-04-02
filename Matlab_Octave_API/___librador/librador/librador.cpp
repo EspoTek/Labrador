@@ -63,3 +63,11 @@ int librador_avr_debug(){
 std::vector<double> * librador_get_iso_data(int numToGet, int interval_samples, int delay_sample, int filter_mode){
     return internal_librador_object->usb_driver->getMany_double(numToGet, interval_samples, delay_sample, filter_mode);
 }
+
+int librador_reset_usb(){
+    printf("\n\n\nlibrador_reset_usb() received\n");
+    delete internal_librador_object->usb_driver;
+    internal_librador_object->usb_driver = new usbCallHandler(LABRADOR_VID, LABRADOR_PID);
+
+    return 0;
+}

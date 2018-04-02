@@ -92,3 +92,8 @@ void MainWindow::on_pushButton_5_clicked()
     ui->widget->replot();
 }
 
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    qDebug() << librador_reset_usb();
+}

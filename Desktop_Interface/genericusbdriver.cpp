@@ -340,6 +340,11 @@ void genericUsbDriver::avrDebug(void){
 */
 }
 
+void genericUsbDriver::kickstartIso(void){
+    qDebug() << "Attempting to kickstart iso...";
+    usbSendControl(0x40, 0xaa, 0, 0, 0, NULL);
+}
+
 void genericUsbDriver::requestFirmwareVersion(void){
     usbSendControl(0xc0, 0xa8, 0, 0, 2, NULL);
     firmver = *((unsigned short *) inBuffer);

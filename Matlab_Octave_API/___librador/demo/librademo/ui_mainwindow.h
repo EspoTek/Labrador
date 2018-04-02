@@ -35,6 +35,7 @@ public:
     QPushButton *pushButton;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
+    QPushButton *pushButton_6;
     QPushButton *pushButton_4;
     QPushButton *pushButton_5;
     QCustomPlot *widget;
@@ -70,6 +71,11 @@ public:
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
 
         verticalLayout->addWidget(pushButton_3);
+
+        pushButton_6 = new QPushButton(centralWidget);
+        pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
+
+        verticalLayout->addWidget(pushButton_6);
 
         pushButton_4 = new QPushButton(centralWidget);
         pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
@@ -112,6 +118,7 @@ public:
         pushButton->setText(QApplication::translate("MainWindow", "Open API", nullptr));
         pushButton_2->setText(QApplication::translate("MainWindow", "Close API", nullptr));
         pushButton_3->setText(QApplication::translate("MainWindow", "Setup USB", nullptr));
+        pushButton_6->setText(QApplication::translate("MainWindow", "Reset USB", nullptr));
         pushButton_4->setText(QApplication::translate("MainWindow", "avrDebug()", nullptr));
         pushButton_5->setText(QApplication::translate("MainWindow", "Get Scope Data", nullptr));
     } // retranslateUi

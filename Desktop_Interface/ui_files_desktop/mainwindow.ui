@@ -1294,6 +1294,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="kickstartIsoButton">
+          <property name="text">
+           <string>kickstartIso()</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="debugButton3">
           <property name="text">
            <string>Jump to Bootloader</string>

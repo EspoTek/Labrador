@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->debugButton1->setVisible(0);
     ui->debugButton2->setVisible(0);
     ui->debugButton3->setVisible(0);
+    ui->kickstartIsoButton->setVisible(0);
     ui->debugConsole->setVisible(0);
 #ifndef PLATFORM_ANDROID
     ui->console1->setVisible(0);
@@ -1005,6 +1006,7 @@ void MainWindow::enableLabradorDebugging(){
     ui->debugButton1->setVisible(1);
     ui->debugButton2->setVisible(1);
     ui->debugButton3->setVisible(1);
+    ui->kickstartIsoButton->setVisible(1);
     ui->debugConsole->setVisible(1);
 
     new Q_DebugStream(std::cout, ui->debugConsole); //Redirect Console output to QTextEdit
@@ -2073,4 +2075,9 @@ void MainWindow::on_androidMenuButton_clicked()
 void MainWindow::on_actionQuit_triggered()
 {
     QApplication::quit();
+}
+
+void MainWindow::on_kickstartIsoButton_clicked()
+{
+    ui->controller_iso->driver->kickstartIso();
 }

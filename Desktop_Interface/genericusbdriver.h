@@ -15,7 +15,7 @@
 //#include "buffercontrol.h"
 #include "unified_debug_structure.h"
 
-#define EXPECTED_FIRMWARE_VERSION 0x0004
+#define EXPECTED_FIRMWARE_VERSION 0x0005
 
 #ifdef WINDOWS_64_BIT
     #define DEFINED_EXPECTED_VARIANT 1
@@ -123,6 +123,7 @@ public slots:
     virtual void shutdownProcedure() = 0;
     void checkConnection();
     void bootloaderJump();
+    void kickstartIso();
 };
 
 
