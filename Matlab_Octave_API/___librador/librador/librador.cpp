@@ -66,8 +66,8 @@ std::vector<double> * librador_get_iso_data(int numToGet, int interval_samples, 
 
 int librador_reset_usb(){
     printf("\n\n\nlibrador_reset_usb() received\n");
+    //internal_librador_object->usb_driver->send_device_reset();
     delete internal_librador_object->usb_driver;
     internal_librador_object->usb_driver = new usbCallHandler(LABRADOR_VID, LABRADOR_PID);
-
     return 0;
 }
