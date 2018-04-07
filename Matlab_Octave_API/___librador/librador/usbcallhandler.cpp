@@ -225,7 +225,7 @@ int usbCallHandler::send_control_transfer(uint8_t RequestType, uint8_t Request, 
 
     int error = libusb_control_transfer(handle, RequestType, Request, Value, Index, controlBuffer, Length, 4000);
     if(error<0){
-        printf("unixUsbDriver::usbSendControl FAILED with error %s", libusb_error_name(error));
+        printf("send_control_transfer FAILED with error %s", libusb_error_name(error));
         return error - 100;
     }
     /*
@@ -404,4 +404,50 @@ int usbCallHandler::send_function_gen_settings(int channel){
     }
     send_control_transfer(0x40, 0xa4, fGenTriple, 0, 0, NULL);
     return 0;
+}
+
+int usbCallHandler::set_psu_voltage(double voltage){
+    double vinp = voltage/11;
+    double vinn = 0;
+
+    uint8_t dutyPsu = (uint8_t) ((vinp - vinn)/vref_psu * gain_psu * PSU_ADC_TOP);
+
+
+    if ((dutyPsu>106) || (dutyPsu<21)){
+        return -1;  //Out of range
+    }
+    send_control_transfer(0x40, 0xa3, dutyPsu, 0, 0, NULL);
+    return 0;
+}
+
+int usbCallHandler::set_digital_state(uint8_t digState){
+    send_control_transfer(0x40, 0xa6, digState, 0, 0, NULL);
+    #warning Need a macro to return on failure of send_control_transfer()
+    #warning Need a macro to return on failure of send_control_transfer()
+    #warning Need a macro to return on failure of send_control_transfer()
+    #warning Need a macro to return on failure of send_control_transfer()
+    #warning Need a macro to return on failure of send_control_transfer()
+    #warning Need a macro to return on failure of send_control_transfer()
+    #warning Need a macro to return on failure of send_control_transfer()
+    #warning Need a macro to return on failure of send_control_transfer()
+    #warning Need a macro to return on failure of send_control_transfer()
+    #warning Need a macro to return on failure of send_control_transfer()
+    #warning Need a macro to return on failure of send_control_transfer()
+    #warning Need a macro to return on failure of send_control_transfer()
+    return 0;
+}
+
+int usbCallHandler::reset_device(bool goToBootloader){
+    send_control_transfer(0x40, 0xa7, (goToBootloader ? 1 : 0), 0, 0, NULL);
+    return 0;
+}
+
+uint16_t usbCallHandler::get_firmware_version(){
+    send_control_transfer(0xc0, 0xa8, 0, 0, 2, NULL);
+    return *((uint16_t *) inBuffer);
+}
+
+uint8_t usbCallHandler::get_firmware_variant(){
+    send_control_transfer(0xc0, 0xa9, 0, 0, 1, NULL);
+    return *((uint8_t *) inBuffer);
 }

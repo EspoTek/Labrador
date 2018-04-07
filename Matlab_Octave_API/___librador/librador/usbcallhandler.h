@@ -14,6 +14,7 @@
 #define FGEN_MAX_SAMPLES (512)
 #define FGEN_SAMPLE_MIN (5.0)
 #define XMEGA_MAIN_FREQ (48000000)
+#define PSU_ADC_TOP (128)
 
 //EVERYTHING MUST BE SENT ONE BYTE AT A TIME, HIGH AND LOW BYTES SEPARATE, IN ORDER TO AVOID ISSUES WITH ENDIANNESS.
 typedef struct uds{
@@ -67,6 +68,11 @@ public:
     int set_gain(double newGain);
     int update_function_gen_settings(int channel, unsigned char* sampleBuffer, int numSamples, double usecs_between_samples, double amplitude_v, double offset_v);
     int send_function_gen_settings(int channel);
+    int set_psu_voltage(double voltage);
+    int set_digital_state(uint8_t digState);
+    int reset_device(bool goToBootloader);
+    uint16_t get_firmware_version();
+    uint8_t get_firmware_variant();
 private:
     unsigned short VID, PID;
     libusb_context *ctx = NULL;
@@ -82,6 +88,8 @@ private:
     uint8_t fGenTriple = 0;
     fGenSettings functionGen_CH1;
     fGenSettings functionGen_CH2;
+    double gain_psu = 1;
+    double vref_psu = 1.65;
 };
 
 #endif // USBCALLHANDLER_H
