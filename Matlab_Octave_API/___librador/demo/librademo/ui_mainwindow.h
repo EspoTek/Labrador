@@ -13,6 +13,8 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
@@ -37,6 +39,15 @@ public:
     QPushButton *pushButton_3;
     QPushButton *pushButton_6;
     QPushButton *pushButton_4;
+    QPushButton *pushButton_7;
+    QPushButton *pushButton_8;
+    QHBoxLayout *horizontalLayout_3;
+    QPushButton *pushButton_9;
+    QDoubleSpinBox *powerSupplySpinBox;
+    QCheckBox *checkBox;
+    QCheckBox *checkBox_2;
+    QCheckBox *checkBox_3;
+    QCheckBox *checkBox_4;
     QPushButton *pushButton_5;
     QCustomPlot *widget;
     QMenuBar *menuBar;
@@ -82,6 +93,54 @@ public:
 
         verticalLayout->addWidget(pushButton_4);
 
+        pushButton_7 = new QPushButton(centralWidget);
+        pushButton_7->setObjectName(QStringLiteral("pushButton_7"));
+
+        verticalLayout->addWidget(pushButton_7);
+
+        pushButton_8 = new QPushButton(centralWidget);
+        pushButton_8->setObjectName(QStringLiteral("pushButton_8"));
+
+        verticalLayout->addWidget(pushButton_8);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        pushButton_9 = new QPushButton(centralWidget);
+        pushButton_9->setObjectName(QStringLiteral("pushButton_9"));
+
+        horizontalLayout_3->addWidget(pushButton_9);
+
+        powerSupplySpinBox = new QDoubleSpinBox(centralWidget);
+        powerSupplySpinBox->setObjectName(QStringLiteral("powerSupplySpinBox"));
+        powerSupplySpinBox->setMinimum(5);
+        powerSupplySpinBox->setMaximum(12);
+
+        horizontalLayout_3->addWidget(powerSupplySpinBox);
+
+
+        verticalLayout->addLayout(horizontalLayout_3);
+
+        checkBox = new QCheckBox(centralWidget);
+        checkBox->setObjectName(QStringLiteral("checkBox"));
+
+        verticalLayout->addWidget(checkBox);
+
+        checkBox_2 = new QCheckBox(centralWidget);
+        checkBox_2->setObjectName(QStringLiteral("checkBox_2"));
+
+        verticalLayout->addWidget(checkBox_2);
+
+        checkBox_3 = new QCheckBox(centralWidget);
+        checkBox_3->setObjectName(QStringLiteral("checkBox_3"));
+
+        verticalLayout->addWidget(checkBox_3);
+
+        checkBox_4 = new QCheckBox(centralWidget);
+        checkBox_4->setObjectName(QStringLiteral("checkBox_4"));
+
+        verticalLayout->addWidget(checkBox_4);
+
         pushButton_5 = new QPushButton(centralWidget);
         pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
 
@@ -120,6 +179,13 @@ public:
         pushButton_3->setText(QApplication::translate("MainWindow", "Setup USB", nullptr));
         pushButton_6->setText(QApplication::translate("MainWindow", "Reset USB", nullptr));
         pushButton_4->setText(QApplication::translate("MainWindow", "avrDebug()", nullptr));
+        pushButton_7->setText(QApplication::translate("MainWindow", "Get Firmware Version", nullptr));
+        pushButton_8->setText(QApplication::translate("MainWindow", "Get Firmware Variant", nullptr));
+        pushButton_9->setText(QApplication::translate("MainWindow", "Send Power Supply Voltage", nullptr));
+        checkBox->setText(QApplication::translate("MainWindow", "Digital Out 1", nullptr));
+        checkBox_2->setText(QApplication::translate("MainWindow", "Digital Out 2", nullptr));
+        checkBox_3->setText(QApplication::translate("MainWindow", "Digital Out 3", nullptr));
+        checkBox_4->setText(QApplication::translate("MainWindow", "Digital Out 4", nullptr));
         pushButton_5->setText(QApplication::translate("MainWindow", "Get Scope Data", nullptr));
     } // retranslateUi
 

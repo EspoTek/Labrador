@@ -73,7 +73,7 @@ void MainWindow::on_pushButton_4_clicked()
 void MainWindow::on_pushButton_5_clicked()
 {
 
-    QVector<double> yaxis = QVector<double>::fromStdVector(*(librador_get_iso_data(75000, 1, 750000, 0)));
+    QVector<double> yaxis = QVector<double>::fromStdVector(*(librador_get_iso_data(75000, 1, 1500, 0)));
 
     qDebug() << yaxis;
 
@@ -96,4 +96,39 @@ void MainWindow::on_pushButton_5_clicked()
 void MainWindow::on_pushButton_6_clicked()
 {
     qDebug() << librador_reset_usb();
+}
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    qDebug() << librador_get_device_firmware_version();
+}
+
+void MainWindow::on_pushButton_8_clicked()
+{
+    qDebug() << librador_get_device_firmware_variant();
+}
+
+void MainWindow::on_pushButton_9_clicked()
+{
+    qDebug() << librador_set_power_supply_voltage(ui->powerSupplySpinBox->value());
+}
+
+void MainWindow::on_checkBox_stateChanged(int arg1)
+{
+    qDebug() << librador_set_digital_out(1, arg1);
+}
+
+void MainWindow::on_checkBox_2_stateChanged(int arg1)
+{
+    qDebug() << librador_set_digital_out(2, arg1);
+}
+
+void MainWindow::on_checkBox_3_stateChanged(int arg1)
+{
+    qDebug() << librador_set_digital_out(3, arg1);
+}
+
+void MainWindow::on_checkBox_4_stateChanged(int arg1)
+{
+    qDebug() << librador_set_digital_out(4, arg1);
 }

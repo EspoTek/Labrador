@@ -99,6 +99,10 @@ int librador_set_oscilloscope_gain(double gain){
 int librador_set_digital_out(int channel, bool state_on){
     CHECK_API_INITIALISED
     static uint8_t channelStates[4] = {0, 0, 0, 0};
+    channel--;
+    if((channel < 0) || (channel > 3)){
+        return -1000; //Invalid Channel
+    }
     channelStates[channel] = state_on ? 1 : 0;
 
     return internal_librador_object->usb_driver->set_digital_state((channelStates [0] | channelStates[1] << 1 | channelStates[2] << 2 | channelStates[3] << 3));
@@ -119,7 +123,7 @@ uint16_t librador_get_device_firmware_version(){
     return internal_librador_object->usb_driver->get_firmware_version();
 }
 
-uint8_t librador_get_device_firmware_variand(){
+uint8_t librador_get_device_firmware_variant(){
     CHECK_API_INITIALISED
     return internal_librador_object->usb_driver->get_firmware_variant();
 }

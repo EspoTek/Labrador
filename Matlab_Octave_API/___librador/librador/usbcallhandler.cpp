@@ -47,18 +47,18 @@ o1buffer *internal_o1_buffer;
 static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
 
     //Thread mutex??
-    printf("Copy the data...\n");
+    //printf("Copy the data...\n");
     for(int i=0;i<transfer->num_iso_packets;i++){
         unsigned char *packetPointer = libusb_get_iso_packet_buffer_simple(transfer, i);
         if(transfer->actual_length){
-            printf("Expected length is %d\n", transfer->length);
-            printf("Actual length is %d\n", transfer->actual_length);
-            printf("\n");
+            //printf("Expected length is %d\n", transfer->length);
+            //printf("Actual length is %d\n", transfer->actual_length);
+            //printf("\n");
         }
         //TODO: a switch statement here to handle all the modes.
         internal_o1_buffer->addVector(packetPointer, 375);
     }
-    printf("Re-arm the endpoint...\n");
+    //printf("Re-arm the endpoint...\n");
     if(usb_iso_needs_rearming()){
         int error = libusb_submit_transfer(transfer);
         if(error){
@@ -80,7 +80,7 @@ void usb_polling_function(libusb_context *ctx){
     tv.tv_sec = 1;
     tv.tv_usec = 0;//ISO_PACKETS_PER_CTX*4000;
     while(!safe_to_exit_thread()){
-        printf("usb_polling_function begin loop\n");
+        //printf("usb_polling_function begin loop\n");
         if(libusb_event_handling_ok(ctx)){
             libusb_handle_events_timeout(ctx, &tv);
         }
