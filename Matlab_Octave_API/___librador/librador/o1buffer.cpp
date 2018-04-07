@@ -39,7 +39,7 @@ int o1buffer::addVector(int *firstElement, int numElements){
     return 0;
 }
 
-int o1buffer::addVector(unsigned char *firstElement, int numElements){
+int o1buffer::addVector(char *firstElement, int numElements){
     int currentAddress = mostRecentAddress;
 
     for(int i=0; i< numElements; i++){
@@ -153,7 +153,7 @@ double o1buffer::get_filtered_sample(int index, int filter_type, int filter_size
 
     switch(filter_type){
         case 0: //No filter
-            return buffer[index];
+            return sampleConvert(buffer[index]);
         case 1: //Moving Average filter
             if(currentPos < 0){
                 currentPos += NUM_SAMPLES_PER_CHANNEL;
@@ -165,9 +165,25 @@ double o1buffer::get_filtered_sample(int index, int filter_type, int filter_size
                 accum += buffer[currentPos];
                 currentPos = (currentPos + 1) % NUM_SAMPLES_PER_CHANNEL;
             }
-            return accum/((double)filter_size);
+            return sampleConvert(accum/((double)filter_size));
         break;
         default: //Default to "no filter"
             return buffer[index];
     }
 }
+
+double o1buffer::sampleConvert(int sample){
+    double voltageLevel;
+
+    voltageLevel = ((double)sample * (vcc/2)) / (frontendGain*librador_scope_gain*TOP);
+    if (!twelve_bit_multimeter) voltageLevel += voltage_ref;
+    #ifdef MULTIMETER_INVERT
+        if(twelve_bit_multimeter) voltageLevel *= -1;
+    #endif
+
+    if(AC){
+        voltageLevel -= voltage_ref;
+    }
+    return voltageLevel;
+}
+

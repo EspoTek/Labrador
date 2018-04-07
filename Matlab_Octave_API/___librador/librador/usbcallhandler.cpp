@@ -42,7 +42,10 @@ bool safe_to_exit_thread(){
 }
 
 //shared vars
-o1buffer *internal_o1_buffer;
+o1buffer *internal_o1_buffer_375_CH1;
+o1buffer *internal_o1_buffer_375_CH2;
+o1buffer *internal_o1_buffer_750;
+
 
 static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
 
@@ -56,7 +59,7 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
             //printf("\n");
         }
         //TODO: a switch statement here to handle all the modes.
-        internal_o1_buffer->addVector(packetPointer, 375);
+        internal_o1_buffer_375_CH1->addVector((char*) packetPointer, 375);
     }
     //printf("Re-arm the endpoint...\n");
     if(usb_iso_needs_rearming()){
@@ -97,7 +100,9 @@ usbCallHandler::usbCallHandler(unsigned short VID_in, unsigned short PID_in)
         printf("pipeID %d = %d\n", k, pipeID[k]);
     }
 
-    internal_o1_buffer = new o1buffer();
+    internal_o1_buffer_375_CH1 = new o1buffer();
+    internal_o1_buffer_375_CH2 = new o1buffer();
+    internal_o1_buffer_750 = new o1buffer();
 
     //In case it was deleted before; reset the shared variables.
     usb_shutdown_requested = false;
@@ -275,7 +280,19 @@ int usbCallHandler::avrDebug(void){
 }
 
 std::vector<double>* usbCallHandler::getMany_double(int numToGet, int interval_samples, int delay_sample, int filter_mode){
-    return internal_o1_buffer->getMany_double(numToGet, interval_samples, delay_sample, filter_mode);
+    #warning ASSUMING MODE 0
+    #warning ASSUMING MODE 0
+    #warning ASSUMING MODE 0
+    #warning ASSUMING MODE 0
+    #warning ASSUMING MODE 0
+    #warning ASSUMING MODE 0
+    #warning ASSUMING MODE 0
+    #warning ASSUMING MODE 0
+    #warning ASSUMING MODE 0
+    #warning ASSUMING MODE 0
+    #warning ASSUMING MODE 0
+
+    return internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode);
 }
 
 int usbCallHandler::send_device_reset(){
@@ -314,6 +331,9 @@ int usbCallHandler::set_gain(double newGain){
     gainMask = gainMask << 2;
     gainMask |= (gainMask << 8);
     send_control_transfer(0x40, 0xa5, deviceMode, gainMask, 0, NULL);
+    internal_o1_buffer_375_CH1->librador_scope_gain = newGain;
+    internal_o1_buffer_375_CH2->librador_scope_gain = newGain;
+    internal_o1_buffer_750->librador_scope_gain = newGain;
     return 0;
 }
 

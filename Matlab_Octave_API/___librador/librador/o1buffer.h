@@ -4,7 +4,7 @@
 #include <vector>
 
 #define NUM_SAMPLES_PER_CHANNEL 7500000
-
+#define MULTIMETER_INVERT
 
 class o1buffer
 {
@@ -13,18 +13,34 @@ public:
     ~o1buffer();
     void add(int value, int address);
     int addVector(int *firstElement, int numElements);
-    int addVector(unsigned char *firstElement, int numElements);
+    int addVector(char *firstElement, int numElements);
     int get(int address);
     int mostRecentAddress = 0;
     int stream_index_at_last_call = 0;
     int distanceFromMostRecentAddress(int index);
     std::vector<double> *getMany_double(int numToGet, int interval_samples, int delay_sample, int filter_mode);
     std::vector<double> *getSinceLast(int feasible_window_begin, int feasible_window_end, int interval_samples, int filter_mode);
+#warning Asssuming Mode 0 DC
+#warning Asssuming Mode 0 DC
+#warning Asssuming Mode 0 DC
+#warning Asssuming Mode 0 DC
+#warning Asssuming Mode 0 DC
+#warning Asssuming Mode 0 DC
+#warning Asssuming Mode 0 DC
+#warning Asssuming Mode 0 DC
+    double librador_scope_gain = 1;
+    double vcc = 3.3;
+    bool AC = false;
+    double TOP = 128;
+    double frontendGain = (75.0/1075.0);
+    bool twelve_bit_multimeter = false;
+    double voltage_ref = 1.65;
 private:
     int *buffer;
     std::vector<double> convertedStream_double;
     void updateMostRecentAddress(int newAddress);
     double get_filtered_sample(int index, int filter_type, int filter_size);
+    double sampleConvert(int sample);
 };
 
 #endif // O1BUFFER_H

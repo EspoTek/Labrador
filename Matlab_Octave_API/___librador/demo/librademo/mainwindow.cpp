@@ -75,7 +75,7 @@ void MainWindow::on_pushButton_5_clicked()
 
     QVector<double> yaxis = QVector<double>::fromStdVector(*(librador_get_iso_data(75000, 1, 1500, 0)));
 
-    qDebug() << yaxis;
+    //qDebug() << yaxis;
 
     QVector<double> xaxis;
     for (int i=0; i<yaxis.length(); i++){
@@ -85,7 +85,7 @@ void MainWindow::on_pushButton_5_clicked()
     qDebug() << yaxis.length();
     qDebug() << xaxis.length();
 
-    ui->widget->yAxis->setRange(0, 255);
+    ui->widget->yAxis->setRange(ymin, ymax);
     ui->widget->xAxis->setRange(0, yaxis.length());
 
     ui->widget->graph(0)->setData(xaxis, yaxis);
@@ -131,4 +131,15 @@ void MainWindow::on_checkBox_3_stateChanged(int arg1)
 void MainWindow::on_checkBox_4_stateChanged(int arg1)
 {
     qDebug() << librador_set_digital_out(4, arg1);
+}
+
+void MainWindow::on_comboBox_activated(int index)
+{
+    double gainValues[8] = {0.5, 1, 2 , 4, 8, 16, 32, 64};
+    qDebug() << index;
+
+    double newGain = gainValues[index];
+    ymax = 1.65 + (11/newGain);
+    ymin = 1.65 - (11/newGain);
+    qDebug() << librador_set_oscilloscope_gain(newGain);
 }

@@ -16,6 +16,7 @@ public:
     ~MainWindow();
 private:
     void initialisePlot();
+    double ymin = -20, ymax = 20;
 private slots:
     void on_pushButton_clicked();
 
@@ -42,6 +43,8 @@ private slots:
     void on_checkBox_3_stateChanged(int arg1);
 
     void on_checkBox_4_stateChanged(int arg1);
+
+    void on_comboBox_activated(int index);
 
 private:
     Ui::MainWindow *ui;

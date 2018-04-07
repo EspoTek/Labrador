@@ -14,9 +14,11 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -44,10 +46,14 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QPushButton *pushButton_9;
     QDoubleSpinBox *powerSupplySpinBox;
+    QHBoxLayout *horizontalLayout_2;
     QCheckBox *checkBox;
     QCheckBox *checkBox_2;
     QCheckBox *checkBox_3;
     QCheckBox *checkBox_4;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *label;
+    QComboBox *comboBox;
     QPushButton *pushButton_5;
     QCustomPlot *widget;
     QMenuBar *menuBar;
@@ -121,25 +127,55 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_3);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         checkBox = new QCheckBox(centralWidget);
         checkBox->setObjectName(QStringLiteral("checkBox"));
 
-        verticalLayout->addWidget(checkBox);
+        horizontalLayout_2->addWidget(checkBox);
 
         checkBox_2 = new QCheckBox(centralWidget);
         checkBox_2->setObjectName(QStringLiteral("checkBox_2"));
 
-        verticalLayout->addWidget(checkBox_2);
+        horizontalLayout_2->addWidget(checkBox_2);
 
         checkBox_3 = new QCheckBox(centralWidget);
         checkBox_3->setObjectName(QStringLiteral("checkBox_3"));
 
-        verticalLayout->addWidget(checkBox_3);
+        horizontalLayout_2->addWidget(checkBox_3);
 
         checkBox_4 = new QCheckBox(centralWidget);
         checkBox_4->setObjectName(QStringLiteral("checkBox_4"));
 
-        verticalLayout->addWidget(checkBox_4);
+        horizontalLayout_2->addWidget(checkBox_4);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+
+        horizontalLayout_4->addWidget(label);
+
+        comboBox = new QComboBox(centralWidget);
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->addItem(QString());
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+
+        horizontalLayout_4->addWidget(comboBox);
+
+
+        verticalLayout->addLayout(horizontalLayout_4);
 
         pushButton_5 = new QPushButton(centralWidget);
         pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
@@ -186,6 +222,17 @@ public:
         checkBox_2->setText(QApplication::translate("MainWindow", "Digital Out 2", nullptr));
         checkBox_3->setText(QApplication::translate("MainWindow", "Digital Out 3", nullptr));
         checkBox_4->setText(QApplication::translate("MainWindow", "Digital Out 4", nullptr));
+        label->setText(QApplication::translate("MainWindow", "Set Gain:", nullptr));
+        comboBox->setItemText(0, QApplication::translate("MainWindow", "0.5", nullptr));
+        comboBox->setItemText(1, QApplication::translate("MainWindow", "1", nullptr));
+        comboBox->setItemText(2, QApplication::translate("MainWindow", "2", nullptr));
+        comboBox->setItemText(3, QApplication::translate("MainWindow", "4", nullptr));
+        comboBox->setItemText(4, QApplication::translate("MainWindow", "8", nullptr));
+        comboBox->setItemText(5, QApplication::translate("MainWindow", "16", nullptr));
+        comboBox->setItemText(6, QApplication::translate("MainWindow", "32", nullptr));
+        comboBox->setItemText(7, QApplication::translate("MainWindow", "64", nullptr));
+
+        comboBox->setCurrentText(QApplication::translate("MainWindow", "1", nullptr));
         pushButton_5->setText(QApplication::translate("MainWindow", "Get Scope Data", nullptr));
     } // retranslateUi
 
