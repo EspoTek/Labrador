@@ -7,6 +7,7 @@
 #include <thread>
 
 std::mutex usb_shutdown_mutex;
+std::mutex buffer_read_write_mutex;
 bool usb_shutdown_requested = false;
 int usb_shutdown_remaining_transfers = NUM_FUTURE_CTX;
 bool thread_active = true;
@@ -54,6 +55,7 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
     for(int i=0;i<transfer->num_iso_packets;i++){
         unsigned char *packetPointer = libusb_get_iso_packet_buffer_simple(transfer, i);
         //TODO: a switch statement here to handle all the modes.
+        buffer_read_write_mutex.lock();
         switch(deviceMode){
         case 0:
             internal_o1_buffer_375_CH1->addVector((char*) packetPointer, 375);
@@ -80,6 +82,7 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
             internal_o1_buffer_375_CH1->addVector((short*) packetPointer, 375);
             break;
         }
+        buffer_read_write_mutex.unlock();
     }
     //printf("Re-arm the endpoint...\n");
     if(usb_iso_needs_rearming()){
@@ -295,33 +298,32 @@ int usbCallHandler::avrDebug(void){
 }
 
 std::vector<double>* usbCallHandler::getMany_double(int channel, int numToGet, int interval_samples, int delay_sample, int filter_mode){
+std::vector<double>* temp_to_return;
 
+buffer_read_write_mutex.lock();
     switch(deviceMode){
     case 0:
-        if(channel == 1){
-            return internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
-        } else return NULL;
+        if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
+        break;
     case 1:
-        if(channel == 1){
-            return internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
-        } else return NULL;
+        if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
+        break;
     case 2:
-        if(channel == 1){
-            return internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
-        } else if (channel == 2){
-            return internal_o1_buffer_375_CH2->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
-        } else return NULL;
+        if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
+        else if (channel == 2) temp_to_return = internal_o1_buffer_375_CH2->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
+        break;
     case 6:
-        if(channel == 1){
-            return internal_o1_buffer_750->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
-        } else return NULL;
+        if(channel == 1) temp_to_return = internal_o1_buffer_750->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
+        break;
     case 7:
-        if(channel == 1){
-            return internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, true);
-        } else return NULL;
+        if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, true);
+        break;
     default:
+        buffer_read_write_mutex.unlock();
         return NULL;
     }
+    buffer_read_write_mutex.unlock();
+    return temp_to_return;
 }
 
 int usbCallHandler::send_device_reset(){

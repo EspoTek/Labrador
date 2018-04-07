@@ -6,7 +6,7 @@
 #include <vector>
 
 #define NUM_ISO_ENDPOINTS (1)
-#define NUM_FUTURE_CTX (4)
+#define NUM_FUTURE_CTX (8)
 #define ISO_PACKET_SIZE (750)
 #define ISO_PACKETS_PER_CTX (33)
 #define MAX_SUPPORTED_DEVICE_MODE (7)
