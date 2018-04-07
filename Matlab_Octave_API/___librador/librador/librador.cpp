@@ -60,8 +60,18 @@ int librador_avr_debug(){
     return internal_librador_object->usb_driver->avrDebug();
 }
 
-std::vector<double> * librador_get_iso_data(int numToGet, int interval_samples, int delay_sample, int filter_mode){
-    return internal_librador_object->usb_driver->getMany_double(numToGet, interval_samples, delay_sample, filter_mode);
+std::vector<double> * librador_get_iso_data(double timeWindow_seconds, double sample_rate_hz, double delay_seconds, int filter_mode){
+    double samples_per_second = internal_librador_object->usb_driver->get_samples_per_second();
+
+    if(samples_per_second == 0){
+        return NULL;
+    }
+
+
+    int interval_samples = round(samples_per_second / sample_rate_hz);
+    int delay_samples = round(delay_seconds * samples_per_second);
+    int numToGet = round(timeWindow_seconds * samples_per_second);
+    return internal_librador_object->usb_driver->getMany_double(numToGet, interval_samples, delay_samples, filter_mode);
 }
 
 int librador_reset_usb(){

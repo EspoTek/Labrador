@@ -58,6 +58,7 @@ public:
     int send_control_transfer(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA);
     int avrDebug(void);
     int send_device_reset();
+    double get_samples_per_second();
     std::vector<double> *getMany_double(int numToGet, int interval_samples, int delay_sample, int filter_mode);
     bool connected;
     //Control Command Vars

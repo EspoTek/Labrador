@@ -73,7 +73,7 @@ void MainWindow::on_pushButton_4_clicked()
 void MainWindow::on_pushButton_5_clicked()
 {
 
-    QVector<double> yaxis = QVector<double>::fromStdVector(*(librador_get_iso_data(75000, 1, 1500, 0)));
+    QVector<double> yaxis = QVector<double>::fromStdVector(*(librador_get_iso_data(0.5, 375000, 0.1, 0)));
 
     //qDebug() << yaxis;
 

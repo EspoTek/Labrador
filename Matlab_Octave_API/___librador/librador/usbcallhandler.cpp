@@ -471,3 +471,20 @@ uint8_t usbCallHandler::get_firmware_variant(){
     send_control_transfer(0xc0, 0xa9, 0, 0, 1, NULL);
     return *((uint8_t *) inBuffer);
 }
+
+double usbCallHandler::get_samples_per_second(){
+    switch(deviceMode){
+    case 0:
+        return (double)(375000.0);
+    case 1:
+        return (double)(375000.0);
+    case 2:
+        return (double)(375000.0);
+    case 6:
+        return (double)(750000.0);
+    case 7:
+        return (double)(375000.0);
+    default:
+        return 0;
+    }
+}
