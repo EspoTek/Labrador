@@ -183,26 +183,8 @@ int usbCallHandler::setup_usb_control(){
 */
     connected = true;
 
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-    #warning Hack here...
-
-    send_control_transfer(0x40, 0xa5, 0x0000, 0x0808, 0, NULL);
-    send_control_transfer(0x40, 0xa6, 0x0000, 0x0000, 0, NULL);
+    set_device_mode(0);
+    set_gain(1);
 
     return 0;
 }
@@ -265,7 +247,7 @@ int usbCallHandler::avrDebug(void){
         return error;
     }
 
-    printf("unified debug is of size %d\n", sizeof(unified_debug));
+    printf("unified debug is of size %lu\n", sizeof(unified_debug));
 
     unified_debug *udsPtr = (unified_debug *) inBuffer;
     uint16_t trfcnt0 = (udsPtr->trfcntH0 << 8) + udsPtr->trfcntL0;
@@ -298,4 +280,128 @@ std::vector<double>* usbCallHandler::getMany_double(int numToGet, int interval_s
 
 int usbCallHandler::send_device_reset(){
     libusb_reset_device(handle);
+    return 0;
+}
+
+
+int usbCallHandler::set_device_mode(int mode){
+    if((mode < 0) || (mode > MAX_SUPPORTED_DEVICE_MODE)){
+        return -1;
+    }
+    deviceMode = mode;
+    send_control_transfer(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
+
+    send_function_gen_settings(1);
+    send_function_gen_settings(2);
+    return 0;
+}
+
+int usbCallHandler::set_gain(double newGain){
+    //See XMEGA_AU Manual, page 359.  ADC.CTRL.GAIN.
+    if(newGain==0.5) gainMask = 0x07;
+    else if (newGain == 1) gainMask = 0x00;
+    else if (newGain == 2) gainMask = 0x01;
+    else if (newGain == 4) gainMask = 0x02;
+    else if (newGain == 8) gainMask = 0x03;
+    else if (newGain == 16) gainMask = 0x04;
+    else if (newGain == 32) gainMask = 0x05;
+    else if (newGain == 64) gainMask = 0x06;
+    else{
+      printf("Invalid gain value.  Valid values are 0.1, 1, 2, 4, 8, 16, 32, 64\n");
+      return -1;
+    }
+
+    gainMask = gainMask << 2;
+    gainMask |= (gainMask << 8);
+    send_control_transfer(0x40, 0xa5, deviceMode, gainMask, 0, NULL);
+    return 0;
+}
+
+int usbCallHandler::update_function_gen_settings(int channel, unsigned char *sampleBuffer, int numSamples, double usecs_between_samples, double amplitude_v, double offset_v){
+
+
+    //Parse the channel
+    fGenSettings *fGenSelected;
+    if(channel == 1){
+        fGenSelected = &functionGen_CH1;
+    } else if (channel == 2){
+        fGenSelected = &functionGen_CH2;
+    } else {
+        return -1;  //Invalid channel
+    }
+
+    //Update number of samples.
+    fGenSelected->numSamples = numSamples;
+
+    //Does the output amplifier need to be enabled?
+    if ((amplitude_v+offset_v) > FGEN_LIMIT){
+        amplitude_v = amplitude_v / 3;
+        offset_v = offset_v / 3;
+        if(channel == 1){
+            fGenTriple |= 0b00000010;  //This is correct.  Somehow the channels got switched around on the board's firmware and this is a duct-tape solution.
+        } else {
+            fGenTriple |= 0x00000001;
+        }
+    }
+    else {
+        if(channel == 1){
+            fGenTriple &= 0b11111101;
+        } else {
+            fGenTriple &= 0b11111110;
+        }
+    }
+
+    //Fiddle with the waveform to deal with the fact that the Xmega has a minimum DAC output value.
+    double amplitude_sample = (amplitude_v * 255) / FGEN_LIMIT;
+    double offset_sample = (offset_v * 255) / FGEN_LIMIT;
+    if (offset_sample < FGEN_SAMPLE_MIN){  //If the offset is in the range where the XMEGA output cannot physically drive the signal that low...
+        if (amplitude_sample > FGEN_SAMPLE_MIN){  //And the amplitude of the signal can go above this minimum range
+            amplitude_sample -= FGEN_SAMPLE_MIN;  //Then reduce the amplitude and add a small offset
+            }
+        else {
+            amplitude_sample = 0;
+        }
+        offset_sample = FGEN_SAMPLE_MIN;
+    }
+
+    //Apply amplitude and offset scaling to all samples.
+    double tempDouble;
+    for (int i=0;i<numSamples;i++){
+        tempDouble = (double) sampleBuffer[i];
+        tempDouble *= amplitude_sample;
+        tempDouble /= 255.0;
+        tempDouble += offset_sample;
+        fGenSelected->samples[i] = (uint8_t) tempDouble;
+    }
+
+    //Calculate timer values
+    int validClockDivs[7] = {1, 2, 4, 8, 64, 256, 1024};
+
+    int clkSetting;
+    for(clkSetting = 0; clkSetting<7; clkSetting++){
+        if ( ((XMEGA_MAIN_FREQ * usecs_between_samples)/(1000000 * validClockDivs[clkSetting])) < 65535)
+             break;
+    }
+    fGenSelected->timerPeriod = (usecs_between_samples * XMEGA_MAIN_FREQ) / (1000000 * validClockDivs[clkSetting]);
+    fGenSelected->clockDividerSetting = clkSetting + 1;
+
+    return 0;
+}
+
+int usbCallHandler::send_function_gen_settings(int channel){
+    if(channel == 1){
+        if(functionGen_CH1.numSamples == 0){
+            return -1; //Channel not initialised
+        }
+        send_control_transfer(0x40, 0xa2, functionGen_CH1.timerPeriod, functionGen_CH1.clockDividerSetting, functionGen_CH1.numSamples, functionGen_CH1.samples);
+    } else if (channel == 2){
+        if(functionGen_CH2.numSamples == 0){
+            return -1; //Channel not initialised
+        }
+        send_control_transfer(0x40, 0xa1, functionGen_CH1.timerPeriod, functionGen_CH1.clockDividerSetting, functionGen_CH1.numSamples, functionGen_CH1.samples);
+    } else {
+        return -2; //Invalid channel
+    }
+    send_control_transfer(0x40, 0xa4, fGenTriple, 0, 0, NULL);
+    return 0;
 }
