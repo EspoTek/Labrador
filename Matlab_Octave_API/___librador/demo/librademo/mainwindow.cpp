@@ -73,7 +73,18 @@ void MainWindow::on_pushButton_4_clicked()
 void MainWindow::on_pushButton_5_clicked()
 {
 
-    QVector<double> yaxis = QVector<double>::fromStdVector(*(librador_get_iso_data(0.5, 375000, 0.1, 0)));
+    std::vector<double> *from_librador = (librador_get_analog_data(current_channel, 0.5, 375000, 0.1, 0));
+    if(from_librador == NULL){
+        qDebug() << "from_librador NULL!";
+        return;
+    }
+
+    QVector<double> yaxis = QVector<double>::fromStdVector(*from_librador);
+
+    if(yaxis.length() == 0){
+        qDebug() << "NO DATA RETURNED!";
+        return;
+    }
 
     //qDebug() << yaxis;
 
@@ -140,6 +151,26 @@ void MainWindow::on_comboBox_activated(int index)
 
     double newGain = gainValues[index];
     ymax = 1.65 + (11/newGain);
-    ymin = 1.65 - (11/newGain);
+    ymin = 1.65 - (14/newGain);
     qDebug() << librador_set_oscilloscope_gain(newGain);
+}
+
+void MainWindow::on_pushButton_10_clicked()
+{
+    qDebug() << librador_reset_device();
+}
+
+void MainWindow::on_pushButton_11_clicked()
+{
+    qDebug() << librador_jump_to_bootloader();
+}
+
+void MainWindow::on_comboBox_2_activated(int index)
+{
+    qDebug() << librador_set_device_mode(index);
+}
+
+void MainWindow::on_comboBox_3_activated(int index)
+{
+    current_channel = index + 1;
 }

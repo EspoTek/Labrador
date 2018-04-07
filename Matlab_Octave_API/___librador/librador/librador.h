@@ -34,6 +34,6 @@ uint8_t LIBRADORSHARED_EXPORT librador_get_device_firmware_variant();
 //aa
 //int LIBRADORSHARED_EXPORT librador_kickstart_isochronous_loop();
 
-std::vector<double> * LIBRADORSHARED_EXPORT librador_get_iso_data(double timeWindow_seconds, double sample_rate_hz, double delay_seconds, int filter_mode);
+std::vector<double> * LIBRADORSHARED_EXPORT librador_get_analog_data(int channel, double timeWindow_seconds, double sample_rate_hz, double delay_seconds, int filter_mode);
 
 #endif // LIBRADOR_H

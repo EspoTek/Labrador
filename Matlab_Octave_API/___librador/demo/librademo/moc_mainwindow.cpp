@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[18];
-    char stringdata0[365];
+    QByteArrayData data[22];
+    char stringdata0[463];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -48,7 +48,11 @@ QT_MOC_LITERAL(13, 256, 26), // "on_checkBox_2_stateChanged"
 QT_MOC_LITERAL(14, 283, 26), // "on_checkBox_3_stateChanged"
 QT_MOC_LITERAL(15, 310, 26), // "on_checkBox_4_stateChanged"
 QT_MOC_LITERAL(16, 337, 21), // "on_comboBox_activated"
-QT_MOC_LITERAL(17, 359, 5) // "index"
+QT_MOC_LITERAL(17, 359, 5), // "index"
+QT_MOC_LITERAL(18, 365, 24), // "on_pushButton_10_clicked"
+QT_MOC_LITERAL(19, 390, 24), // "on_pushButton_11_clicked"
+QT_MOC_LITERAL(20, 415, 23), // "on_comboBox_2_activated"
+QT_MOC_LITERAL(21, 439, 23) // "on_comboBox_3_activated"
 
     },
     "MainWindow\0on_pushButton_clicked\0\0"
@@ -60,7 +64,10 @@ QT_MOC_LITERAL(17, 359, 5) // "index"
     "on_checkBox_2_stateChanged\0"
     "on_checkBox_3_stateChanged\0"
     "on_checkBox_4_stateChanged\0"
-    "on_comboBox_activated\0index"
+    "on_comboBox_activated\0index\0"
+    "on_pushButton_10_clicked\0"
+    "on_pushButton_11_clicked\0"
+    "on_comboBox_2_activated\0on_comboBox_3_activated"
 };
 #undef QT_MOC_LITERAL
 
@@ -70,7 +77,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -78,20 +85,24 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   84,    2, 0x08 /* Private */,
-       3,    0,   85,    2, 0x08 /* Private */,
-       4,    0,   86,    2, 0x08 /* Private */,
-       5,    0,   87,    2, 0x08 /* Private */,
-       6,    0,   88,    2, 0x08 /* Private */,
-       7,    0,   89,    2, 0x08 /* Private */,
-       8,    0,   90,    2, 0x08 /* Private */,
-       9,    0,   91,    2, 0x08 /* Private */,
-      10,    0,   92,    2, 0x08 /* Private */,
-      11,    1,   93,    2, 0x08 /* Private */,
-      13,    1,   96,    2, 0x08 /* Private */,
-      14,    1,   99,    2, 0x08 /* Private */,
-      15,    1,  102,    2, 0x08 /* Private */,
-      16,    1,  105,    2, 0x08 /* Private */,
+       1,    0,  104,    2, 0x08 /* Private */,
+       3,    0,  105,    2, 0x08 /* Private */,
+       4,    0,  106,    2, 0x08 /* Private */,
+       5,    0,  107,    2, 0x08 /* Private */,
+       6,    0,  108,    2, 0x08 /* Private */,
+       7,    0,  109,    2, 0x08 /* Private */,
+       8,    0,  110,    2, 0x08 /* Private */,
+       9,    0,  111,    2, 0x08 /* Private */,
+      10,    0,  112,    2, 0x08 /* Private */,
+      11,    1,  113,    2, 0x08 /* Private */,
+      13,    1,  116,    2, 0x08 /* Private */,
+      14,    1,  119,    2, 0x08 /* Private */,
+      15,    1,  122,    2, 0x08 /* Private */,
+      16,    1,  125,    2, 0x08 /* Private */,
+      18,    0,  128,    2, 0x08 /* Private */,
+      19,    0,  129,    2, 0x08 /* Private */,
+      20,    1,  130,    2, 0x08 /* Private */,
+      21,    1,  133,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -107,6 +118,10 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,   12,
     QMetaType::Void, QMetaType::Int,   12,
     QMetaType::Void, QMetaType::Int,   12,
+    QMetaType::Void, QMetaType::Int,   17,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   17,
     QMetaType::Void, QMetaType::Int,   17,
 
        0        // eod
@@ -132,6 +147,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 11: _t->on_checkBox_3_stateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 12: _t->on_checkBox_4_stateChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 13: _t->on_comboBox_activated((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 14: _t->on_pushButton_10_clicked(); break;
+        case 15: _t->on_pushButton_11_clicked(); break;
+        case 16: _t->on_comboBox_2_activated((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 17: _t->on_comboBox_3_activated((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -162,13 +181,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 18;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 18)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 14;
+        _id -= 18;
     }
     return _id;
 }

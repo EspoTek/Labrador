@@ -49,6 +49,26 @@ int o1buffer::addVector(char *firstElement, int numElements){
     return 0;
 }
 
+int o1buffer::addVector(unsigned char *firstElement, int numElements){
+    int currentAddress = mostRecentAddress;
+
+    for(int i=0; i< numElements; i++){
+        add(firstElement[i], currentAddress);
+        currentAddress = (currentAddress + 1) % NUM_SAMPLES_PER_CHANNEL;
+    }
+    return 0;
+}
+
+int o1buffer::addVector(short *firstElement, int numElements){
+    int currentAddress = mostRecentAddress;
+
+    for(int i=0; i< numElements; i++){
+        add(firstElement[i], currentAddress);
+        currentAddress = (currentAddress + 1) % NUM_SAMPLES_PER_CHANNEL;
+    }
+    return 0;
+}
+
 
 int o1buffer::get(int address){
     //Ensure that the address is not too high.
@@ -68,7 +88,7 @@ inline void o1buffer::updateMostRecentAddress(int newAddress){
 
 //This function places samples in a buffer than can be plotted on the streamingDisplay.
 //A small delay, is added in case the packets arrive out of order.
-std::vector<double> *o1buffer::getMany_double(int numToGet, int interval_samples, int delay_samples, int filter_mode){
+std::vector<double> *o1buffer::getMany_double(int numToGet, int interval_samples, int delay_samples, int filter_mode, double scope_gain, bool AC, bool twelve_bit_multimeter){
     //Resize the vector
     convertedStream_double.resize(numToGet);
 
@@ -80,13 +100,13 @@ std::vector<double> *o1buffer::getMany_double(int numToGet, int interval_samples
             tempAddress += NUM_SAMPLES_PER_CHANNEL;
         }
         double *data = convertedStream_double.data();
-        data[i] = get_filtered_sample(tempAddress, filter_mode, interval_samples);
+        data[i] = get_filtered_sample(tempAddress, filter_mode, interval_samples, scope_gain, AC, twelve_bit_multimeter);
         //convertedStream_double.replace(i, buffer[tempAddress]);
     }
     return &convertedStream_double;
 }
 
-std::vector<double> *o1buffer::getSinceLast(int feasible_window_begin, int feasible_window_end, int interval_samples, int filter_mode){
+std::vector<double> *o1buffer::getSinceLast(int feasible_window_begin, int feasible_window_end, int interval_samples, int filter_mode, double scope_gain, bool AC, bool twelve_bit_multimeter){
 
     //Calculate what sample the feasible window begins at
     //printf_debugging("o1buffer::getSinceLast()\n")
@@ -119,7 +139,7 @@ std::vector<double> *o1buffer::getSinceLast(int feasible_window_begin, int feasi
             tempAddress -= NUM_SAMPLES_PER_CHANNEL;
         }
         double *data = convertedStream_double.data();
-        data[numToGet-1-i] = get_filtered_sample(tempAddress, filter_mode, interval_samples);
+        data[numToGet-1-i] = get_filtered_sample(tempAddress, filter_mode, interval_samples, scope_gain, AC, twelve_bit_multimeter);
         //convertedStream_double.replace(i, buffer[tempAddress]);
     }
 
@@ -146,14 +166,14 @@ int o1buffer::distanceFromMostRecentAddress(int index){
 }
 
 //replace with get_filtered_sample
-double o1buffer::get_filtered_sample(int index, int filter_type, int filter_size){
+double o1buffer::get_filtered_sample(int index, int filter_type, int filter_size, double scope_gain, bool AC, bool twelve_bit_multimeter){
     double accum = 0;
     int currentPos = index - (filter_size / 2);
     int end = currentPos + filter_size;
 
     switch(filter_type){
         case 0: //No filter
-            return sampleConvert(buffer[index]);
+            return sampleConvert(buffer[index], scope_gain, AC, twelve_bit_multimeter);
         case 1: //Moving Average filter
             if(currentPos < 0){
                 currentPos += NUM_SAMPLES_PER_CHANNEL;
@@ -165,17 +185,22 @@ double o1buffer::get_filtered_sample(int index, int filter_type, int filter_size
                 accum += buffer[currentPos];
                 currentPos = (currentPos + 1) % NUM_SAMPLES_PER_CHANNEL;
             }
-            return sampleConvert(accum/((double)filter_size));
+            return sampleConvert(accum/((double)filter_size), scope_gain, AC, twelve_bit_multimeter);
         break;
         default: //Default to "no filter"
             return buffer[index];
     }
 }
 
-double o1buffer::sampleConvert(int sample){
+double o1buffer::sampleConvert(int sample, double scope_gain, bool AC, bool twelve_bit_multimeter){
     double voltageLevel;
+    double TOP;
 
-    voltageLevel = ((double)sample * (vcc/2)) / (frontendGain*librador_scope_gain*TOP);
+    if(twelve_bit_multimeter){
+        TOP = 2048;
+    } else TOP = 128;
+
+    voltageLevel = ((double)sample * (vcc/2)) / (frontendGain * scope_gain * TOP);
     if (!twelve_bit_multimeter) voltageLevel += voltage_ref;
     #ifdef MULTIMETER_INVERT
         if(twelve_bit_multimeter) voltageLevel *= -1;
@@ -184,6 +209,12 @@ double o1buffer::sampleConvert(int sample){
     if(AC){
         voltageLevel -= voltage_ref;
     }
+
+    if(twelve_bit_multimeter){
+        #warning Hack here.  Do not know why this line works, but it does.
+        voltageLevel = voltageLevel / 16;
+    }
+
     return voltageLevel;
 }
 

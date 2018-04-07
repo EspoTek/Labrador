@@ -47,6 +47,12 @@ typedef struct fGenSettings{
     uint8_t clockDividerSetting = 0;
 } fGenSettings;
 
+#define send_control_transfer_with_error_checks(A, B, C, D, E, F) \
+    int temp_control_transfer_error_value = send_control_transfer(A,B,C,D,E,F); \
+    if(temp_control_transfer_error_value < 0){ \
+        return temp_control_transfer_error_value - 1000; \
+    }
+
 
 class usbCallHandler
 {
@@ -59,11 +65,8 @@ public:
     int avrDebug(void);
     int send_device_reset();
     double get_samples_per_second();
-    std::vector<double> *getMany_double(int numToGet, int interval_samples, int delay_sample, int filter_mode);
+    std::vector<double> *getMany_double(int channel, int numToGet, int interval_samples, int delay_sample, int filter_mode);
     bool connected;
-    //Control Command Vars
-    uint16_t gainMask = 0x0000;
-    int deviceMode = 0;
     //Control Commands
     int set_device_mode(int mode);
     int set_gain(double newGain);
@@ -91,6 +94,9 @@ private:
     fGenSettings functionGen_CH2;
     double gain_psu = 1;
     double vref_psu = 1.65;
+    uint16_t gainMask = 0x0000;
+    double current_scope_gain = 1;
+    bool current_AC_setting = false;
 };
 
 #endif // USBCALLHANDLER_H

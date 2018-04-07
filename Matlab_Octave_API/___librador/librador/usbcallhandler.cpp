@@ -10,6 +10,7 @@ std::mutex usb_shutdown_mutex;
 bool usb_shutdown_requested = false;
 int usb_shutdown_remaining_transfers = NUM_FUTURE_CTX;
 bool thread_active = true;
+int deviceMode = 0;
 
 int begin_usb_thread_shutdown(){
     usb_shutdown_mutex.lock();
@@ -48,18 +49,37 @@ o1buffer *internal_o1_buffer_750;
 
 
 static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
-
     //Thread mutex??
     //printf("Copy the data...\n");
     for(int i=0;i<transfer->num_iso_packets;i++){
         unsigned char *packetPointer = libusb_get_iso_packet_buffer_simple(transfer, i);
-        if(transfer->actual_length){
-            //printf("Expected length is %d\n", transfer->length);
-            //printf("Actual length is %d\n", transfer->actual_length);
-            //printf("\n");
-        }
         //TODO: a switch statement here to handle all the modes.
-        internal_o1_buffer_375_CH1->addVector((char*) packetPointer, 375);
+        switch(deviceMode){
+        case 0:
+            internal_o1_buffer_375_CH1->addVector((char*) packetPointer, 375);
+            break;
+        case 1:
+            internal_o1_buffer_375_CH1->addVector((char*) packetPointer, 375);
+            internal_o1_buffer_375_CH2->addVector((unsigned char*) &packetPointer[375], 375);
+            break;
+        case 2:
+            internal_o1_buffer_375_CH1->addVector((char*) packetPointer, 375);
+            internal_o1_buffer_375_CH2->addVector((char*) &packetPointer[375], 375);
+            break;
+        case 3:
+            internal_o1_buffer_375_CH1->addVector((unsigned char*) packetPointer, 375);
+            break;
+        case 4:
+            internal_o1_buffer_375_CH1->addVector((unsigned char*) packetPointer, 375);
+            internal_o1_buffer_375_CH2->addVector((unsigned char*) &packetPointer[375], 375);
+            break;
+        case 6:
+            internal_o1_buffer_750->addVector((char*) packetPointer, 750);
+            break;
+        case 7:
+            internal_o1_buffer_375_CH1->addVector((short*) packetPointer, 375);
+            break;
+        }
     }
     //printf("Re-arm the endpoint...\n");
     if(usb_iso_needs_rearming()){
@@ -189,7 +209,7 @@ int usbCallHandler::setup_usb_control(){
     connected = true;
 
     set_device_mode(0);
-    set_gain(1);
+    set_gain(current_scope_gain);
 
     return 0;
 }
@@ -245,12 +265,7 @@ int usbCallHandler::send_control_transfer(uint8_t RequestType, uint8_t Request, 
 
 
 int usbCallHandler::avrDebug(void){
-    int error;
-    error = send_control_transfer(0xc0, 0xa0, 0, 0, sizeof(unified_debug), NULL);
-
-    if (error < 0){
-        return error;
-    }
+    send_control_transfer_with_error_checks(0xc0, 0xa0, 0, 0, sizeof(unified_debug), NULL);
 
     printf("unified debug is of size %lu\n", sizeof(unified_debug));
 
@@ -279,20 +294,34 @@ int usbCallHandler::avrDebug(void){
     return 0;
 }
 
-std::vector<double>* usbCallHandler::getMany_double(int numToGet, int interval_samples, int delay_sample, int filter_mode){
-    #warning ASSUMING MODE 0
-    #warning ASSUMING MODE 0
-    #warning ASSUMING MODE 0
-    #warning ASSUMING MODE 0
-    #warning ASSUMING MODE 0
-    #warning ASSUMING MODE 0
-    #warning ASSUMING MODE 0
-    #warning ASSUMING MODE 0
-    #warning ASSUMING MODE 0
-    #warning ASSUMING MODE 0
-    #warning ASSUMING MODE 0
+std::vector<double>* usbCallHandler::getMany_double(int channel, int numToGet, int interval_samples, int delay_sample, int filter_mode){
 
-    return internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode);
+    switch(deviceMode){
+    case 0:
+        if(channel == 1){
+            return internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
+        } else return NULL;
+    case 1:
+        if(channel == 1){
+            return internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
+        } else return NULL;
+    case 2:
+        if(channel == 1){
+            return internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
+        } else if (channel == 2){
+            return internal_o1_buffer_375_CH2->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
+        } else return NULL;
+    case 6:
+        if(channel == 1){
+            return internal_o1_buffer_750->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, false);
+        } else return NULL;
+    case 7:
+        if(channel == 1){
+            return internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, true);
+        } else return NULL;
+    default:
+        return NULL;
+    }
 }
 
 int usbCallHandler::send_device_reset(){
@@ -306,7 +335,7 @@ int usbCallHandler::set_device_mode(int mode){
         return -1;
     }
     deviceMode = mode;
-    send_control_transfer(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
+    send_control_transfer_with_error_checks(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
 
     send_function_gen_settings(1);
     send_function_gen_settings(2);
@@ -330,10 +359,8 @@ int usbCallHandler::set_gain(double newGain){
 
     gainMask = gainMask << 2;
     gainMask |= (gainMask << 8);
-    send_control_transfer(0x40, 0xa5, deviceMode, gainMask, 0, NULL);
-    internal_o1_buffer_375_CH1->librador_scope_gain = newGain;
-    internal_o1_buffer_375_CH2->librador_scope_gain = newGain;
-    internal_o1_buffer_750->librador_scope_gain = newGain;
+    send_control_transfer_with_error_checks(0x40, 0xa5, deviceMode, gainMask, 0, NULL);
+    current_scope_gain = newGain;
     return 0;
 }
 
@@ -413,16 +440,16 @@ int usbCallHandler::send_function_gen_settings(int channel){
         if(functionGen_CH1.numSamples == 0){
             return -1; //Channel not initialised
         }
-        send_control_transfer(0x40, 0xa2, functionGen_CH1.timerPeriod, functionGen_CH1.clockDividerSetting, functionGen_CH1.numSamples, functionGen_CH1.samples);
+        send_control_transfer_with_error_checks(0x40, 0xa2, functionGen_CH1.timerPeriod, functionGen_CH1.clockDividerSetting, functionGen_CH1.numSamples, functionGen_CH1.samples);
     } else if (channel == 2){
         if(functionGen_CH2.numSamples == 0){
             return -1; //Channel not initialised
         }
-        send_control_transfer(0x40, 0xa1, functionGen_CH1.timerPeriod, functionGen_CH1.clockDividerSetting, functionGen_CH1.numSamples, functionGen_CH1.samples);
+        send_control_transfer_with_error_checks(0x40, 0xa1, functionGen_CH1.timerPeriod, functionGen_CH1.clockDividerSetting, functionGen_CH1.numSamples, functionGen_CH1.samples);
     } else {
         return -2; //Invalid channel
     }
-    send_control_transfer(0x40, 0xa4, fGenTriple, 0, 0, NULL);
+    send_control_transfer_with_error_checks(0x40, 0xa4, fGenTriple, 0, 0, NULL);
     return 0;
 }
 
@@ -436,39 +463,27 @@ int usbCallHandler::set_psu_voltage(double voltage){
     if ((dutyPsu>106) || (dutyPsu<21)){
         return -1;  //Out of range
     }
-    send_control_transfer(0x40, 0xa3, dutyPsu, 0, 0, NULL);
+    send_control_transfer_with_error_checks(0x40, 0xa3, dutyPsu, 0, 0, NULL);
     return 0;
 }
 
 int usbCallHandler::set_digital_state(uint8_t digState){
-    send_control_transfer(0x40, 0xa6, digState, 0, 0, NULL);
-    #warning Need a macro to return on failure of send_control_transfer()
-    #warning Need a macro to return on failure of send_control_transfer()
-    #warning Need a macro to return on failure of send_control_transfer()
-    #warning Need a macro to return on failure of send_control_transfer()
-    #warning Need a macro to return on failure of send_control_transfer()
-    #warning Need a macro to return on failure of send_control_transfer()
-    #warning Need a macro to return on failure of send_control_transfer()
-    #warning Need a macro to return on failure of send_control_transfer()
-    #warning Need a macro to return on failure of send_control_transfer()
-    #warning Need a macro to return on failure of send_control_transfer()
-    #warning Need a macro to return on failure of send_control_transfer()
-    #warning Need a macro to return on failure of send_control_transfer()
+    send_control_transfer_with_error_checks(0x40, 0xa6, digState, 0, 0, NULL);
     return 0;
 }
 
 int usbCallHandler::reset_device(bool goToBootloader){
-    send_control_transfer(0x40, 0xa7, (goToBootloader ? 1 : 0), 0, 0, NULL);
+    send_control_transfer_with_error_checks(0x40, 0xa7, (goToBootloader ? 1 : 0), 0, 0, NULL);
     return 0;
 }
 
 uint16_t usbCallHandler::get_firmware_version(){
-    send_control_transfer(0xc0, 0xa8, 0, 0, 2, NULL);
+    send_control_transfer_with_error_checks(0xc0, 0xa8, 0, 0, 2, NULL);
     return *((uint16_t *) inBuffer);
 }
 
 uint8_t usbCallHandler::get_firmware_variant(){
-    send_control_transfer(0xc0, 0xa9, 0, 0, 1, NULL);
+    send_control_transfer_with_error_checks(0xc0, 0xa9, 0, 0, 1, NULL);
     return *((uint8_t *) inBuffer);
 }
 
