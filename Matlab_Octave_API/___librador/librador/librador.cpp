@@ -84,12 +84,10 @@ int librador_reset_usb(){
 
 int librador_update_signal_gen_settings(int channel, unsigned char *sampleBuffer, int numSamples, double usecs_between_samples, double amplitude_v, double offset_v){
     CHECK_API_INITIALISED
-    return internal_librador_object->usb_driver->update_function_gen_settings(channel, sampleBuffer, numSamples, usecs_between_samples, amplitude_v, offset_v);
-}
-
-int librador_send_signal_gen_settings(int channel){
-    CHECK_API_INITIALISED
-    return internal_librador_object->usb_driver->send_function_gen_settings(channel);
+    int error = internal_librador_object->usb_driver->update_function_gen_settings(channel, sampleBuffer, numSamples, usecs_between_samples, amplitude_v, offset_v);
+    if(error){
+        return error-1000;
+    } else return internal_librador_object->usb_driver->send_function_gen_settings(channel);
 }
 
 int librador_set_power_supply_voltage(double voltage){
@@ -177,7 +175,6 @@ int librador_send_sin_wave(int channel, double frequency_Hz, double amplitude_v,
     }
 
     librador_update_signal_gen_settings(channel, sampleBuffer, num_samples, usecs_between_samples, amplitude_v, offset_v);
-    librador_send_signal_gen_settings(channel);
 
     free(sampleBuffer);
     return 0;
