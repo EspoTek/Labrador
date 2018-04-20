@@ -6,7 +6,7 @@
 #include <vector>
 
 #define NUM_ISO_ENDPOINTS (1)
-#define NUM_FUTURE_CTX (4)
+#define NUM_FUTURE_CTX (8)
 #define ISO_PACKET_SIZE (750)
 #define ISO_PACKETS_PER_CTX (33)
 #define MAX_SUPPORTED_DEVICE_MODE (7)
@@ -66,6 +66,7 @@ public:
     int send_device_reset();
     double get_samples_per_second();
     std::vector<double> *getMany_double(int channel, int numToGet, int interval_samples, int delay_sample, int filter_mode);
+    std::vector<double> *getMany_sincelast(int channel, int feasible_window_begin, int feasible_window_end, int interval_samples, int filter_mode);
     bool connected;
     //Control Commands
     int set_device_mode(int mode);
@@ -77,6 +78,7 @@ public:
     int reset_device(bool goToBootloader);
     uint16_t get_firmware_version();
     uint8_t get_firmware_variant();
+    int set_synchronous_pause_state(bool newState);
 private:
     unsigned short VID, PID;
     libusb_context *ctx = NULL;
@@ -97,6 +99,7 @@ private:
     uint16_t gainMask = 0x0000;
     double current_scope_gain = 1;
     bool current_AC_setting = false;
+    bool synchronous_pause_state = false;
 };
 
 #endif // USBCALLHANDLER_H

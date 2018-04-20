@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#define NUM_SAMPLES_PER_CHANNEL 7500000
+#define NUM_SAMPLES_PER_CHANNEL (375000 * 60) //1 minute of samples at 375ksps!
 #define MULTIMETER_INVERT
 
 class o1buffer
@@ -16,7 +16,6 @@ public:
     int addVector(char *firstElement, int numElements);
     int addVector(unsigned char *firstElement, int numElements);
     int addVector(short *firstElement, int numElements);
-
     int get(int address);
     int mostRecentAddress = 0;
     int stream_index_at_last_call = 0;

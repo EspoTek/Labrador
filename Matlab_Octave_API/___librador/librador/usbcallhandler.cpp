@@ -326,6 +326,36 @@ buffer_read_write_mutex.lock();
     return temp_to_return;
 }
 
+std::vector<double> *usbCallHandler::getMany_sincelast(int channel, int feasible_window_begin, int feasible_window_end, int interval_samples, int filter_mode){
+    std::vector<double>* temp_to_return;
+
+    buffer_read_write_mutex.lock();
+        switch(deviceMode){
+        case 0:
+            if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getSinceLast(feasible_window_begin, feasible_window_end, interval_samples, filter_mode, current_scope_gain, current_AC_setting, false);
+            break;
+        case 1:
+            if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getSinceLast(feasible_window_begin, feasible_window_end, interval_samples, filter_mode, current_scope_gain, current_AC_setting, false);
+            break;
+        case 2:
+            if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getSinceLast(feasible_window_begin, feasible_window_end, interval_samples, filter_mode, current_scope_gain, current_AC_setting, false);
+            else if (channel == 2) temp_to_return = internal_o1_buffer_375_CH2->getSinceLast(feasible_window_begin, feasible_window_end, interval_samples, filter_mode, current_scope_gain, current_AC_setting, false);
+            break;
+        case 6:
+            if(channel == 1) temp_to_return = internal_o1_buffer_750->getSinceLast(feasible_window_begin, feasible_window_end, interval_samples, filter_mode, current_scope_gain, current_AC_setting, false);
+            break;
+        case 7:
+            if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getSinceLast(feasible_window_begin, feasible_window_end, interval_samples, filter_mode, current_scope_gain, current_AC_setting, false);
+            break;
+        default:
+            buffer_read_write_mutex.unlock();
+            return NULL;
+        }
+        buffer_read_write_mutex.unlock();
+        return temp_to_return;
+
+}
+
 int usbCallHandler::send_device_reset(){
     libusb_reset_device(handle);
     return 0;
@@ -504,4 +534,20 @@ double usbCallHandler::get_samples_per_second(){
     default:
         return 0;
     }
+}
+
+int usbCallHandler::set_synchronous_pause_state(bool newState){
+    if(newState && !synchronous_pause_state){
+        buffer_read_write_mutex.lock();
+        synchronous_pause_state = true;
+        return 0;
+    }
+
+    if(!newState && synchronous_pause_state){
+        buffer_read_write_mutex.unlock();
+        return 0;
+    }
+
+    //Otherwise you don't want to do anything.  You should never set the state twice.
+    return 1;
 }

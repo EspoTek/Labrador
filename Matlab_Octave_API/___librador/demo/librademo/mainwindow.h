@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+class QCPGraph;
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +20,7 @@ private:
     double ymin = -20, ymax = 20;
     int current_channel = 1;
     void signal_gen_convenience(int channel);
+    void plot_from_librador(std::vector<double> *from_librador, double sampleRate, QCPGraph *graph);
 private slots:
     void on_pushButton_clicked();
 
@@ -59,6 +61,8 @@ private slots:
     void on_pushButton_12_clicked();
 
     void on_pushButton_13_clicked();
+
+    void on_pushButton_14_clicked();
 
 private:
     Ui::MainWindow *ui;

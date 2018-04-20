@@ -275,16 +275,32 @@
               <string>2</string>
              </property>
             </item>
+            <item>
+             <property name="text">
+              <string>Both</string>
+             </property>
+            </item>
            </widget>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_5">
-          <property name="text">
-           <string>Get Scope Data</string>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QPushButton" name="pushButton_5">
+            <property name="text">
+             <string>Get Scope Data (1s)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_14">
+            <property name="text">
+             <string>Get Scope Data (SinceLast)</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>

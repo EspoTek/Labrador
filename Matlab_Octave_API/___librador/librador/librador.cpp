@@ -71,9 +71,26 @@ std::vector<double> * librador_get_analog_data(int channel, double timeWindow_se
 
     int interval_samples = round(samples_per_second / sample_rate_hz);
     int delay_samples = round(delay_seconds * samples_per_second);
-    int numToGet = round(timeWindow_seconds * samples_per_second);
+    int numToGet = round(timeWindow_seconds * samples_per_second)/interval_samples;
+
     return internal_librador_object->usb_driver->getMany_double(channel, numToGet, interval_samples, delay_samples, filter_mode);
 }
+
+std::vector<double> * librador_get_analog_data_sincelast(int channel, double timeWindow_max_seconds, double sample_rate_hz, double delay_seconds, int filter_mode){
+    double samples_per_second = internal_librador_object->usb_driver->get_samples_per_second();
+
+    if(samples_per_second == 0){
+        return NULL;
+    }
+
+    int interval_samples = round(samples_per_second / sample_rate_hz);
+    int feasible_window_end = round(delay_seconds * samples_per_second);
+    int feasible_window_begin = round((delay_seconds + timeWindow_max_seconds) * samples_per_second);
+
+    return internal_librador_object->usb_driver->getMany_sincelast(channel, feasible_window_begin, feasible_window_end, interval_samples, filter_mode);
+
+}
+
 
 int librador_reset_usb(){
     CHECK_API_INITIALISED
@@ -225,4 +242,14 @@ int librador_send_sawtooth_wave(int channel, double frequency_Hz, double amplitu
     return send_convenience_waveform(channel, frequency_Hz, amplitude_v, offset_v, generator_sawtooth);
 }
 
+/*
+int librador_synchronise_begin(){
+    CHECK_API_INITIALISED
+    return internal_librador_object->usb_driver->set_synchronous_pause_state(true);
+}
 
+int librador_synchronise_end(){
+    CHECK_API_INITIALISED
+    return internal_librador_object->usb_driver->set_synchronous_pause_state(false);
+}
+*/

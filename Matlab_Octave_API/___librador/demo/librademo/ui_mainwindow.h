@@ -63,7 +63,9 @@ public:
     QVBoxLayout *verticalLayout_2;
     QLabel *label_3;
     QComboBox *comboBox_3;
+    QVBoxLayout *verticalLayout_8;
     QPushButton *pushButton_5;
+    QPushButton *pushButton_14;
     QHBoxLayout *horizontalLayout_7;
     QVBoxLayout *verticalLayout_3;
     QLabel *label_4;
@@ -252,6 +254,7 @@ public:
         comboBox_3 = new QComboBox(centralWidget);
         comboBox_3->addItem(QString());
         comboBox_3->addItem(QString());
+        comboBox_3->addItem(QString());
         comboBox_3->setObjectName(QStringLiteral("comboBox_3"));
 
         verticalLayout_2->addWidget(comboBox_3);
@@ -259,10 +262,21 @@ public:
 
         horizontalLayout_6->addLayout(verticalLayout_2);
 
+        verticalLayout_8 = new QVBoxLayout();
+        verticalLayout_8->setSpacing(6);
+        verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
         pushButton_5 = new QPushButton(centralWidget);
         pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
 
-        horizontalLayout_6->addWidget(pushButton_5);
+        verticalLayout_8->addWidget(pushButton_5);
+
+        pushButton_14 = new QPushButton(centralWidget);
+        pushButton_14->setObjectName(QStringLiteral("pushButton_14"));
+
+        verticalLayout_8->addWidget(pushButton_14);
+
+
+        horizontalLayout_6->addLayout(verticalLayout_8);
 
 
         verticalLayout->addLayout(horizontalLayout_6);
@@ -425,8 +439,10 @@ public:
         label_3->setText(QApplication::translate("MainWindow", "Channel", nullptr));
         comboBox_3->setItemText(0, QApplication::translate("MainWindow", "1", nullptr));
         comboBox_3->setItemText(1, QApplication::translate("MainWindow", "2", nullptr));
+        comboBox_3->setItemText(2, QApplication::translate("MainWindow", "Both", nullptr));
 
-        pushButton_5->setText(QApplication::translate("MainWindow", "Get Scope Data", nullptr));
+        pushButton_5->setText(QApplication::translate("MainWindow", "Get Scope Data (1s)", nullptr));
+        pushButton_14->setText(QApplication::translate("MainWindow", "Get Scope Data (SinceLast)", nullptr));
         label_4->setText(QApplication::translate("MainWindow", "Frequency (Hz)", nullptr));
         label_6->setText(QApplication::translate("MainWindow", "Amplitude (V)", nullptr));
         label_7->setText(QApplication::translate("MainWindow", "Offset(V)", nullptr));
