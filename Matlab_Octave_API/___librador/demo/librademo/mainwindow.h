@@ -18,6 +18,7 @@ private:
     void initialisePlot();
     double ymin = -20, ymax = 20;
     int current_channel = 1;
+    void signal_gen_convenience(int channel);
 private slots:
     void on_pushButton_clicked();
 
@@ -54,6 +55,10 @@ private slots:
     void on_comboBox_2_activated(int index);
 
     void on_comboBox_3_activated(int index);
+
+    void on_pushButton_12_clicked();
+
+    void on_pushButton_13_clicked();
 
 private:
     Ui::MainWindow *ui;

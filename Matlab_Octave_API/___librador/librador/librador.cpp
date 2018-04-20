@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <QThread>
+#include <math.h>
 
 Librador::Librador()
 {
@@ -136,4 +137,48 @@ uint16_t librador_get_device_firmware_version(){
 uint8_t librador_get_device_firmware_variant(){
     CHECK_API_INITIALISED
     return internal_librador_object->usb_driver->get_firmware_variant();
+}
+
+int round_to_log2(double in){
+    //Round down to the nearest power of 2.
+    return round(pow(2, floor(log2(in))));
+}
+
+int librador_send_sin_wave(int channel, double frequency_Hz, double amplitude_v, double offset_v){
+    CHECK_API_INITIALISED
+
+    if((amplitude_v + offset_v) > 9.6){
+        return -1;
+        //Voltage range too high
+    }
+    if((amplitude_v < 0) | (offset_v < 0)){
+        return -2;
+        //Negative voltage
+    }
+
+    if((channel != 1) && (channel != 2)){
+        return -3;
+        //Invalid channel
+    }
+    int num_samples = fmin(1000000.0/frequency_Hz, 512);
+    //The maximum number of samples that Labrador's buffer holds is 512.
+    //The minimum time between samples is 1us.  Using T=1/f, this gives a maximum sample number of 10^6/f.
+    double usecs_between_samples = 1000000.0/((double)num_samples * frequency_Hz);
+    //Again, from T=1/f.
+    unsigned char* sampleBuffer = (unsigned char*)malloc(num_samples);
+
+    int i;
+    double x_temp;
+    for(i=0; i< num_samples; i++){
+        x_temp = (double)i * (2.0*M_PI/(double)num_samples);
+        //Generate points at interval 2*pi/num_samples.
+        sampleBuffer[i] = (unsigned char)round(255 * ((sin(x_temp)+1)/2));
+        //Offset of 1 and divided by 2 shifts range from -1:1 to 0:1.  Helpful for unsigned.
+    }
+
+    librador_update_signal_gen_settings(channel, sampleBuffer, num_samples, usecs_between_samples, amplitude_v, offset_v);
+    librador_send_signal_gen_settings(channel);
+
+    free(sampleBuffer);
+    return 0;
 }

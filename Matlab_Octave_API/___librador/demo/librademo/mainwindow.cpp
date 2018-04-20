@@ -73,7 +73,7 @@ void MainWindow::on_pushButton_4_clicked()
 void MainWindow::on_pushButton_5_clicked()
 {
 
-    std::vector<double> *from_librador = (librador_get_analog_data(current_channel, 0.5, 375000, 0.1, 0));
+    std::vector<double> *from_librador = (librador_get_analog_data(current_channel, 1, 375000, 0.1, 0));
     if(from_librador == NULL){
         qDebug() << "from_librador NULL!";
         return;
@@ -173,4 +173,30 @@ void MainWindow::on_comboBox_2_activated(int index)
 void MainWindow::on_comboBox_3_activated(int index)
 {
     current_channel = index + 1;
+}
+
+void MainWindow::signal_gen_convenience(int channel)
+{
+    double frequency_hz = ui->doubleSpinBox_frequency->value();
+    double amplitude_v = ui->doubleSpinBox_amplitude->value();
+    double offset_v = ui->doubleSpinBox_offset->value();
+
+    switch(ui->comboBox_signal_gen_type->currentIndex()){
+    case 0:
+        librador_send_sin_wave(channel, frequency_hz, amplitude_v, offset_v);
+        break;
+    default:
+        qDebug() << "INVALID WAVEFORM";
+    }
+
+}
+
+void MainWindow::on_pushButton_12_clicked()
+{
+    signal_gen_convenience(1);
+}
+
+void MainWindow::on_pushButton_13_clicked()
+{
+    signal_gen_convenience(2);
 }

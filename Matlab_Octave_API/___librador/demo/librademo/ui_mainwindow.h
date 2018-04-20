@@ -64,6 +64,22 @@ public:
     QLabel *label_3;
     QComboBox *comboBox_3;
     QPushButton *pushButton_5;
+    QHBoxLayout *horizontalLayout_7;
+    QVBoxLayout *verticalLayout_3;
+    QLabel *label_4;
+    QDoubleSpinBox *doubleSpinBox_frequency;
+    QVBoxLayout *verticalLayout_5;
+    QLabel *label_6;
+    QDoubleSpinBox *doubleSpinBox_amplitude;
+    QVBoxLayout *verticalLayout_6;
+    QLabel *label_7;
+    QDoubleSpinBox *doubleSpinBox_offset;
+    QVBoxLayout *verticalLayout_4;
+    QLabel *label_5;
+    QComboBox *comboBox_signal_gen_type;
+    QVBoxLayout *verticalLayout_7;
+    QPushButton *pushButton_12;
+    QPushButton *pushButton_13;
     QCustomPlot *widget;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -251,6 +267,95 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_6);
 
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setSpacing(6);
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        label_4 = new QLabel(centralWidget);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        verticalLayout_3->addWidget(label_4);
+
+        doubleSpinBox_frequency = new QDoubleSpinBox(centralWidget);
+        doubleSpinBox_frequency->setObjectName(QStringLiteral("doubleSpinBox_frequency"));
+
+        verticalLayout_3->addWidget(doubleSpinBox_frequency);
+
+
+        horizontalLayout_7->addLayout(verticalLayout_3);
+
+        verticalLayout_5 = new QVBoxLayout();
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
+        label_6 = new QLabel(centralWidget);
+        label_6->setObjectName(QStringLiteral("label_6"));
+
+        verticalLayout_5->addWidget(label_6);
+
+        doubleSpinBox_amplitude = new QDoubleSpinBox(centralWidget);
+        doubleSpinBox_amplitude->setObjectName(QStringLiteral("doubleSpinBox_amplitude"));
+        doubleSpinBox_amplitude->setMaximum(10);
+
+        verticalLayout_5->addWidget(doubleSpinBox_amplitude);
+
+
+        horizontalLayout_7->addLayout(verticalLayout_5);
+
+        verticalLayout_6 = new QVBoxLayout();
+        verticalLayout_6->setSpacing(6);
+        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
+        label_7 = new QLabel(centralWidget);
+        label_7->setObjectName(QStringLiteral("label_7"));
+
+        verticalLayout_6->addWidget(label_7);
+
+        doubleSpinBox_offset = new QDoubleSpinBox(centralWidget);
+        doubleSpinBox_offset->setObjectName(QStringLiteral("doubleSpinBox_offset"));
+        doubleSpinBox_offset->setMaximum(10);
+
+        verticalLayout_6->addWidget(doubleSpinBox_offset);
+
+
+        horizontalLayout_7->addLayout(verticalLayout_6);
+
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
+        label_5 = new QLabel(centralWidget);
+        label_5->setObjectName(QStringLiteral("label_5"));
+
+        verticalLayout_4->addWidget(label_5);
+
+        comboBox_signal_gen_type = new QComboBox(centralWidget);
+        comboBox_signal_gen_type->addItem(QString());
+        comboBox_signal_gen_type->setObjectName(QStringLiteral("comboBox_signal_gen_type"));
+
+        verticalLayout_4->addWidget(comboBox_signal_gen_type);
+
+
+        horizontalLayout_7->addLayout(verticalLayout_4);
+
+        verticalLayout_7 = new QVBoxLayout();
+        verticalLayout_7->setSpacing(6);
+        verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
+        pushButton_12 = new QPushButton(centralWidget);
+        pushButton_12->setObjectName(QStringLiteral("pushButton_12"));
+
+        verticalLayout_7->addWidget(pushButton_12);
+
+        pushButton_13 = new QPushButton(centralWidget);
+        pushButton_13->setObjectName(QStringLiteral("pushButton_13"));
+
+        verticalLayout_7->addWidget(pushButton_13);
+
+
+        horizontalLayout_7->addLayout(verticalLayout_7);
+
+
+        verticalLayout->addLayout(horizontalLayout_7);
+
 
         horizontalLayout->addLayout(verticalLayout);
 
@@ -319,6 +424,14 @@ public:
         comboBox_3->setItemText(1, QApplication::translate("MainWindow", "2", nullptr));
 
         pushButton_5->setText(QApplication::translate("MainWindow", "Get Scope Data", nullptr));
+        label_4->setText(QApplication::translate("MainWindow", "Frequency (Hz)", nullptr));
+        label_6->setText(QApplication::translate("MainWindow", "Amplitude (V)", nullptr));
+        label_7->setText(QApplication::translate("MainWindow", "Offset(V)", nullptr));
+        label_5->setText(QApplication::translate("MainWindow", "Type", nullptr));
+        comboBox_signal_gen_type->setItemText(0, QApplication::translate("MainWindow", "Sin", nullptr));
+
+        pushButton_12->setText(QApplication::translate("MainWindow", "Send CH1", nullptr));
+        pushButton_13->setText(QApplication::translate("MainWindow", "Send CH2", nullptr));
     } // retranslateUi
 
 };

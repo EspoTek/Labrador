@@ -387,16 +387,16 @@ int usbCallHandler::update_function_gen_settings(int channel, unsigned char *sam
         amplitude_v = amplitude_v / 3;
         offset_v = offset_v / 3;
         if(channel == 1){
-            fGenTriple |= 0b00000010;  //This is correct.  Somehow the channels got switched around on the board's firmware and this is a duct-tape solution.
+            fGenTriple |= 0b00000001;
         } else {
-            fGenTriple |= 0x00000001;
+            fGenTriple |= 0b00000010;
         }
     }
     else {
         if(channel == 1){
-            fGenTriple &= 0b11111101;
-        } else {
             fGenTriple &= 0b11111110;
+        } else {
+            fGenTriple &= 0b11111101;
         }
     }
 
@@ -447,7 +447,7 @@ int usbCallHandler::send_function_gen_settings(int channel){
         if(functionGen_CH2.numSamples == 0){
             return -1; //Channel not initialised
         }
-        send_control_transfer_with_error_checks(0x40, 0xa1, functionGen_CH1.timerPeriod, functionGen_CH1.clockDividerSetting, functionGen_CH1.numSamples, functionGen_CH1.samples);
+        send_control_transfer_with_error_checks(0x40, 0xa1, functionGen_CH2.timerPeriod, functionGen_CH2.clockDividerSetting, functionGen_CH2.numSamples, functionGen_CH2.samples);
     } else {
         return -2; //Invalid channel
     }
