@@ -72,8 +72,8 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::on_pushButton_5_clicked()
 {
-
-    std::vector<double> *from_librador = (librador_get_analog_data(current_channel, 1, 375000, 0.1, 0));
+    double sampleRate = 375000;
+    std::vector<double> *from_librador = (librador_get_analog_data(current_channel, 1, sampleRate, 0.1, 0));
     if(from_librador == NULL){
         qDebug() << "from_librador NULL!";
         return;
@@ -90,14 +90,14 @@ void MainWindow::on_pushButton_5_clicked()
 
     QVector<double> xaxis;
     for (int i=0; i<yaxis.length(); i++){
-        xaxis.append(i);
+        xaxis.append(-i/sampleRate);
     }
 
     qDebug() << yaxis.length();
     qDebug() << xaxis.length();
 
     ui->widget->yAxis->setRange(ymin, ymax);
-    ui->widget->xAxis->setRange(0, yaxis.length());
+    ui->widget->xAxis->setRange(-yaxis.length()/sampleRate, 0);
 
     ui->widget->graph(0)->setData(xaxis, yaxis);
     ui->widget->replot();
@@ -184,6 +184,15 @@ void MainWindow::signal_gen_convenience(int channel)
     switch(ui->comboBox_signal_gen_type->currentIndex()){
     case 0:
         librador_send_sin_wave(channel, frequency_hz, amplitude_v, offset_v);
+        break;
+    case 1:
+        librador_send_square_wave(channel, frequency_hz, amplitude_v, offset_v);
+        break;
+    case 2:
+        librador_send_triangle_wave(channel, frequency_hz, amplitude_v, offset_v);
+        break;
+    case 3:
+        librador_send_sawtooth_wave(channel, frequency_hz, amplitude_v, offset_v);
         break;
     default:
         qDebug() << "INVALID WAVEFORM";

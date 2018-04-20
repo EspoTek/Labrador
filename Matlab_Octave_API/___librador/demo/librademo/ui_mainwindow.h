@@ -330,6 +330,9 @@ public:
 
         comboBox_signal_gen_type = new QComboBox(centralWidget);
         comboBox_signal_gen_type->addItem(QString());
+        comboBox_signal_gen_type->addItem(QString());
+        comboBox_signal_gen_type->addItem(QString());
+        comboBox_signal_gen_type->addItem(QString());
         comboBox_signal_gen_type->setObjectName(QStringLiteral("comboBox_signal_gen_type"));
 
         verticalLayout_4->addWidget(comboBox_signal_gen_type);
@@ -429,6 +432,9 @@ public:
         label_7->setText(QApplication::translate("MainWindow", "Offset(V)", nullptr));
         label_5->setText(QApplication::translate("MainWindow", "Type", nullptr));
         comboBox_signal_gen_type->setItemText(0, QApplication::translate("MainWindow", "Sin", nullptr));
+        comboBox_signal_gen_type->setItemText(1, QApplication::translate("MainWindow", "Square", nullptr));
+        comboBox_signal_gen_type->setItemText(2, QApplication::translate("MainWindow", "Triangle", nullptr));
+        comboBox_signal_gen_type->setItemText(3, QApplication::translate("MainWindow", "Sawtooth", nullptr));
 
         pushButton_12->setText(QApplication::translate("MainWindow", "Send CH1", nullptr));
         pushButton_13->setText(QApplication::translate("MainWindow", "Send CH2", nullptr));

@@ -142,9 +142,33 @@ int round_to_log2(double in){
     return round(pow(2, floor(log2(in))));
 }
 
-int librador_send_sin_wave(int channel, double frequency_Hz, double amplitude_v, double offset_v){
-    CHECK_API_INITIALISED
+unsigned char generator_sin(double x)
+{
+    //Offset of 1 and divided by 2 shifts range from -1:1 to 0:1.  We've got to return an unsigned char, after all!
+    return (unsigned char)round(255.0 * ((sin(x)+1)/2));
+}
 
+unsigned char generator_square(double x)
+{
+    return (x > M_PI) ? 255 : 0;
+}
+
+unsigned char generator_sawtooth(double x)
+{
+    return round(255.0 * (x/(2.0*M_PI)));
+}
+
+unsigned char generator_triangle(double x)
+{
+    if(x <= M_PI){
+        return round(255.0 * (x/M_PI));
+    } else {
+        return round(255.0 * (1 -((x - M_PI)/M_PI)));
+    }
+}
+
+int send_convenience_waveform(int channel, double frequency_Hz, double amplitude_v, double offset_v, unsigned char (*sample_generator)(double))
+{
     if((amplitude_v + offset_v) > 9.6){
         return -1;
         //Voltage range too high
@@ -161,6 +185,8 @@ int librador_send_sin_wave(int channel, double frequency_Hz, double amplitude_v,
     int num_samples = fmin(1000000.0/frequency_Hz, 512);
     //The maximum number of samples that Labrador's buffer holds is 512.
     //The minimum time between samples is 1us.  Using T=1/f, this gives a maximum sample number of 10^6/f.
+    num_samples = 2*(num_samples / 2);
+    //Square waves need an even number.  Others don't care.
     double usecs_between_samples = 1000000.0/((double)num_samples * frequency_Hz);
     //Again, from T=1/f.
     unsigned char* sampleBuffer = (unsigned char*)malloc(num_samples);
@@ -170,8 +196,7 @@ int librador_send_sin_wave(int channel, double frequency_Hz, double amplitude_v,
     for(i=0; i< num_samples; i++){
         x_temp = (double)i * (2.0*M_PI/(double)num_samples);
         //Generate points at interval 2*pi/num_samples.
-        sampleBuffer[i] = (unsigned char)round(255 * ((sin(x_temp)+1)/2));
-        //Offset of 1 and divided by 2 shifts range from -1:1 to 0:1.  Helpful for unsigned.
+        sampleBuffer[i] = sample_generator(x_temp);
     }
 
     librador_update_signal_gen_settings(channel, sampleBuffer, num_samples, usecs_between_samples, amplitude_v, offset_v);
@@ -179,3 +204,25 @@ int librador_send_sin_wave(int channel, double frequency_Hz, double amplitude_v,
     free(sampleBuffer);
     return 0;
 }
+
+int librador_send_sin_wave(int channel, double frequency_Hz, double amplitude_v, double offset_v){
+    CHECK_API_INITIALISED
+    return send_convenience_waveform(channel, frequency_Hz, amplitude_v, offset_v, generator_sin);
+}
+
+int librador_send_square_wave(int channel, double frequency_Hz, double amplitude_v, double offset_v){
+    CHECK_API_INITIALISED
+    return send_convenience_waveform(channel, frequency_Hz, amplitude_v, offset_v, generator_square);
+}
+
+int librador_send_triangle_wave(int channel, double frequency_Hz, double amplitude_v, double offset_v){
+    CHECK_API_INITIALISED
+    return send_convenience_waveform(channel, frequency_Hz, amplitude_v, offset_v, generator_triangle);
+}
+
+int librador_send_sawtooth_wave(int channel, double frequency_Hz, double amplitude_v, double offset_v){
+    CHECK_API_INITIALISED
+    return send_convenience_waveform(channel, frequency_Hz, amplitude_v, offset_v, generator_sawtooth);
+}
+
+
