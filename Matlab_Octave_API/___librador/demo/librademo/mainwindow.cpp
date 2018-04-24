@@ -75,11 +75,11 @@ void MainWindow::on_pushButton_5_clicked()
 {
     double sampleRate = 375000;
     if((current_channel == 1) || (current_channel == 2)){
-        std::vector<double> *from_librador = (librador_get_analog_data(current_channel, 0.05, sampleRate, 0.1, 0));
+        std::vector<double> *from_librador = (librador_get_analog_data(current_channel, 1, sampleRate, 0.1, 0));
         plot_from_librador(from_librador, sampleRate, ui->widget->graph(0));
     } else {
-        std::vector<double> *from_librador_ch1 = (librador_get_analog_data(1, 0.05, sampleRate, 0.1, 0));
-        std::vector<double> *from_librador_ch2 = (librador_get_analog_data(2, 0.05, sampleRate, 0.1, 0));
+        std::vector<double> *from_librador_ch1 = (librador_get_analog_data(1, 1, sampleRate, 0.1, 0));
+        std::vector<double> *from_librador_ch2 = (librador_get_analog_data(2, 1, sampleRate, 0.1, 0));
         plot_from_librador(from_librador_ch1, sampleRate, ui->widget->graph(0));
         plot_from_librador(from_librador_ch2, sampleRate, ui->widget->graph(1));
     }
@@ -198,11 +198,18 @@ void MainWindow::on_pushButton_14_clicked()
     if((current_channel == 1) || (current_channel == 2)){
         std::vector<double> *from_librador = (librador_get_analog_data_sincelast(current_channel, 10, sampleRate, 0.1, 0));
         plot_from_librador(from_librador, sampleRate, ui->widget->graph(0));
+    } else {
+        std::vector<double> *from_librador_ch1 = (librador_get_analog_data_sincelast(1, 10, sampleRate, 0.1, 0));
+        std::vector<double> *from_librador_ch2 = (librador_get_analog_data_sincelast(2, 10, sampleRate, 0.1, 0));
+        plot_from_librador(from_librador_ch1, sampleRate, ui->widget->graph(0));
+        plot_from_librador(from_librador_ch2, sampleRate, ui->widget->graph(1));
     }
 }
 
 void MainWindow::plot_from_librador(std::vector<double> *from_librador, double sampleRate, QCPGraph *graph)
 {
+    qDebug() << "check1";
+
     if(from_librador == NULL){
         qDebug() << "from_librador NULL!";
         return;

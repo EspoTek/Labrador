@@ -298,7 +298,7 @@ int usbCallHandler::avrDebug(void){
 }
 
 std::vector<double>* usbCallHandler::getMany_double(int channel, int numToGet, int interval_samples, int delay_sample, int filter_mode){
-std::vector<double>* temp_to_return;
+std::vector<double>* temp_to_return = NULL;
 
 buffer_read_write_mutex.lock();
     switch(deviceMode){
@@ -327,8 +327,7 @@ buffer_read_write_mutex.lock();
 }
 
 std::vector<double> *usbCallHandler::getMany_sincelast(int channel, int feasible_window_begin, int feasible_window_end, int interval_samples, int filter_mode){
-    std::vector<double>* temp_to_return;
-
+    std::vector<double>* temp_to_return = NULL;
     buffer_read_write_mutex.lock();
         switch(deviceMode){
         case 0:
