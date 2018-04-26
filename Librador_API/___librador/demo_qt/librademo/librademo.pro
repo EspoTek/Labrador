@@ -41,9 +41,9 @@ FORMS += \
         mainwindow.ui
 
 
-unix:LIBS += -L../../librador/ -lrador
-unix:INCLUDEPATH += ../../librador
-unix:DEPENDPATH += ../../librador
+unix:LIBS += -L../../librador_shared_library -lrador
+unix:INCLUDEPATH += ../../librador_shared_library
+unix:DEPENDPATH += ../../librador_shared_library
 
 unix:!android:!macx {
     #libusb include
@@ -60,4 +60,3 @@ unix:!android:!macx {
     DEFINES += \
         PLATFORM_LINUX \
 }
-

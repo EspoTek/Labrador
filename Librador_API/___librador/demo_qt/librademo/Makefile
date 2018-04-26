@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DPLATFORM_LINUX -DQT_NO_DEBUG -DQT_PRINTSUPPORT_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I../../../../Desktop_Interface/ui_elements/qcp1 -I../../librador -I../../../../Desktop_Interface/build_linux/libusb -I../../../../Desktop_Interface/build_linux/libdfuprog/include -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -I../../../../Desktop_Interface/ui_elements/qcp1 -I../../librador_shared_library -I../../../../Desktop_Interface/build_linux/libusb -I../../../../Desktop_Interface/build_linux/libdfuprog/include -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/esposch/Qt/5.10.0/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,10 +35,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = librademo1.0.0
-DISTDIR = /home/esposch/Git/Labrador/Matlab_Octave_API/___librador/demo/librademo/.tmp/librademo1.0.0
+DISTDIR = /home/esposch/Git/Labrador/Librador_API/___librador/demo_qt/librademo/.tmp/librademo1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/esposch/Qt/5.10.0/gcc_64/lib
-LIBS          = $(SUBLIBS) -L../../librador/ -lrador -L../../../../Desktop_Interface/build_linux/libusb -lusb-1.0 -L../../../../Desktop_Interface/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9 -L/home/esposch/Qt/5.10.0/gcc_64/lib -lQt5PrintSupport -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L../../librador_shared_library -lrador -L../../../../Desktop_Interface/build_linux/libusb -lusb-1.0 -L../../../../Desktop_Interface/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9 -L/home/esposch/Qt/5.10.0/gcc_64/lib -lQt5PrintSupport -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -792,7 +792,7 @@ moc_mainwindow.cpp: /home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QMainWindow
 		mainwindow.h \
 		moc_predefs.h \
 		/home/esposch/Qt/5.10.0/gcc_64/bin/moc
-	/home/esposch/Qt/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/esposch/Git/Labrador/Matlab_Octave_API/___librador/demo/librademo -I/home/esposch/Git/Labrador/Desktop_Interface/ui_elements/qcp1 -I/home/esposch/Git/Labrador/Matlab_Octave_API/___librador/librador -I/home/esposch/Git/Labrador/Desktop_Interface/build_linux/libusb -I/home/esposch/Git/Labrador/Desktop_Interface/build_linux/libdfuprog/include -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/home/esposch/Qt/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/esposch/Git/Labrador/Librador_API/___librador/demo_qt/librademo -I/home/esposch/Git/Labrador/Desktop_Interface/ui_elements/qcp1 -I/home/esposch/Git/Labrador/Librador_API/___librador/librador_shared_library -I/home/esposch/Git/Labrador/Desktop_Interface/build_linux/libusb -I/home/esposch/Git/Labrador/Desktop_Interface/build_linux/libdfuprog/include -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_qcustomplot.cpp: /home/esposch/Qt/5.10.0/gcc_64/include/QtCore/QObject \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qobject.h \
@@ -1280,7 +1280,7 @@ moc_qcustomplot.cpp: /home/esposch/Qt/5.10.0/gcc_64/include/QtCore/QObject \
 		../../../../Desktop_Interface/ui_elements/qcp1/qcustomplot.h \
 		moc_predefs.h \
 		/home/esposch/Qt/5.10.0/gcc_64/bin/moc
-	/home/esposch/Qt/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/esposch/Git/Labrador/Matlab_Octave_API/___librador/demo/librademo -I/home/esposch/Git/Labrador/Desktop_Interface/ui_elements/qcp1 -I/home/esposch/Git/Labrador/Matlab_Octave_API/___librador/librador -I/home/esposch/Git/Labrador/Desktop_Interface/build_linux/libusb -I/home/esposch/Git/Labrador/Desktop_Interface/build_linux/libdfuprog/include -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../../../Desktop_Interface/ui_elements/qcp1/qcustomplot.h -o moc_qcustomplot.cpp
+	/home/esposch/Qt/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/esposch/Git/Labrador/Librador_API/___librador/demo_qt/librademo -I/home/esposch/Git/Labrador/Desktop_Interface/ui_elements/qcp1 -I/home/esposch/Git/Labrador/Librador_API/___librador/librador_shared_library -I/home/esposch/Git/Labrador/Desktop_Interface/build_linux/libusb -I/home/esposch/Git/Labrador/Desktop_Interface/build_linux/libdfuprog/include -I/home/esposch/Qt/5.10.0/gcc_64/include -I/home/esposch/Qt/5.10.0/gcc_64/include/QtPrintSupport -I/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets -I/home/esposch/Qt/5.10.0/gcc_64/include/QtGui -I/home/esposch/Qt/5.10.0/gcc_64/include/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../../../Desktop_Interface/ui_elements/qcp1/qcustomplot.h -o moc_qcustomplot.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -2024,18 +2024,11 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtGui/qinputmethod.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QButtonGroup \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qbuttongroup.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QHBoxLayout \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qboxlayout.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qlayout.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qlayoutitem.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qgridlayout.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QHeaderView \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qheaderview.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qabstractitemview.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qframe.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qabstractitemmodel.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QCheckBox \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qcheckbox.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QComboBox \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qcombobox.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qstyleoption.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
@@ -2046,12 +2039,27 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qstyle.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qtabbar.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qframe.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QDoubleSpinBox \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qspinbox.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qlayout.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QHeaderView \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QLabel \
+		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qlabel.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QMenuBar \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qmenubar.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qmenu.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QPushButton \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qpushbutton.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qabstractbutton.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QStatusBar \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qstatusbar.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QToolBar \
@@ -2292,12 +2300,10 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/QtWidgetsDepends \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qaccessiblewidget.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qcalendarwidget.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qcheckbox.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qcolordialog.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qdialog.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qcolormap.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qcolumnview.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qcombobox.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qcommandlinkbutton.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qcommonstyle.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qcompleter.h \
@@ -2342,7 +2348,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qitemeditorfactory.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qkeyeventtransition.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qkeysequenceedit.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qlabel.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qlcdnumber.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qlistview.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qlistwidget.h \
@@ -2366,7 +2371,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/QMetaType \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qshortcut.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qsizegrip.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qspinbox.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qsplashscreen.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qsplitter.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtWidgets/qstackedlayout.h \
@@ -2400,8 +2404,8 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtPrintSupport/qprintpreviewdialog.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtPrintSupport/qprintpreviewwidget.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtPrintSupport/qtprintsupportversion.h \
-		../../librador/librador.h \
-		../../librador/librador_global.h
+		../../librador_shared_library/librador.h \
+		../../librador_shared_library/librador_global.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 qcustomplot.o: ../../../../Desktop_Interface/ui_elements/qcp1/qcustomplot.cpp ../../../../Desktop_Interface/ui_elements/qcp1/qcustomplot.h \
