@@ -65,6 +65,7 @@ public:
     QComboBox *comboBox_3;
     QVBoxLayout *verticalLayout_8;
     QPushButton *pushButton_5;
+    QPushButton *pushButton_15;
     QPushButton *pushButton_14;
     QHBoxLayout *horizontalLayout_7;
     QVBoxLayout *verticalLayout_3;
@@ -270,6 +271,11 @@ public:
 
         verticalLayout_8->addWidget(pushButton_5);
 
+        pushButton_15 = new QPushButton(centralWidget);
+        pushButton_15->setObjectName(QStringLiteral("pushButton_15"));
+
+        verticalLayout_8->addWidget(pushButton_15);
+
         pushButton_14 = new QPushButton(centralWidget);
         pushButton_14->setObjectName(QStringLiteral("pushButton_14"));
 
@@ -442,6 +448,7 @@ public:
         comboBox_3->setItemText(2, QApplication::translate("MainWindow", "Both", nullptr));
 
         pushButton_5->setText(QApplication::translate("MainWindow", "Get Scope Data (1s)", nullptr));
+        pushButton_15->setText(QApplication::translate("MainWindow", "Get Digital (1s)", nullptr));
         pushButton_14->setText(QApplication::translate("MainWindow", "Get Scope Data (SinceLast)", nullptr));
         label_4->setText(QApplication::translate("MainWindow", "Frequency (Hz)", nullptr));
         label_6->setText(QApplication::translate("MainWindow", "Amplitude (V)", nullptr));

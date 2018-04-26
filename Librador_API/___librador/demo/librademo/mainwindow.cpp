@@ -238,3 +238,26 @@ void MainWindow::plot_from_librador(std::vector<double> *from_librador, double s
     graph->setData(xaxis, yaxis);
     ui->widget->replot();
 }
+
+void MainWindow::on_pushButton_15_clicked()
+{
+    double sampleRate = 3000000;
+    if((current_channel == 1) || (current_channel == 2)){
+        std::vector<uint8_t> *from_librador_uint8 = (librador_get_digital_data(current_channel, 1, sampleRate, 0.1));
+        if(from_librador_uint8 != NULL){
+            std::vector<double> from_librador(from_librador_uint8->begin(), from_librador_uint8->end());
+            plot_from_librador(&from_librador, sampleRate, ui->widget->graph(0));
+        }
+    } else {
+        std::vector<uint8_t> *from_librador_ch1_uint8 = (librador_get_digital_data(1, 1, sampleRate, 0.1));
+        std::vector<uint8_t> *from_librador_ch2_uint8 = (librador_get_digital_data(2, 1, sampleRate, 0.1));
+        if(from_librador_ch1_uint8 != NULL){
+            std::vector<double> from_librador_ch1(from_librador_ch1_uint8->begin(), from_librador_ch1_uint8->end());
+            plot_from_librador(&from_librador_ch1, sampleRate, ui->widget->graph(0));
+        }
+        if(from_librador_ch2_uint8 != NULL){
+            std::vector<double> from_librador_ch2(from_librador_ch2_uint8->begin(), from_librador_ch2_uint8->end());
+            plot_from_librador(&from_librador_ch2, sampleRate, ui->widget->graph(1));
+        }
+    }
+}

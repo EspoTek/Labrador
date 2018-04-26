@@ -80,6 +80,27 @@ std::vector<double> * librador_get_analog_data(int channel, double timeWindow_se
     return internal_librador_object->usb_driver->getMany_double(channel, numToGet, interval_samples, delay_samples, filter_mode);
 }
 
+std::vector<uint8_t> * librador_get_digital_data(int channel, double timeWindow_seconds, double sample_rate_hz, double delay_seconds){
+    VECTOR_API_INIT_CHECK
+    VECTOR_USB_INIT_CHECK
+
+    double subsamples_per_second = internal_librador_object->usb_driver->get_samples_per_second() * 8;
+
+    if(subsamples_per_second == 0){
+        return NULL;
+    }
+
+
+    int interval_subsamples = round(subsamples_per_second / sample_rate_hz);
+    int delay_subsamples = round(delay_seconds * subsamples_per_second);
+    int numToGet = round(timeWindow_seconds * subsamples_per_second)/interval_subsamples;
+
+    printf("interval_subsamples = %d\ndelay_subsamples = %d\nnumToGet=%d\n", interval_subsamples, delay_subsamples, numToGet);
+
+    return internal_librador_object->usb_driver->getMany_singleBit(channel, numToGet, interval_subsamples, delay_subsamples);
+}
+
+
 std::vector<double> * librador_get_analog_data_sincelast(int channel, double timeWindow_max_seconds, double sample_rate_hz, double delay_seconds, int filter_mode){
 
     VECTOR_API_INIT_CHECK

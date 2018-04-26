@@ -1,6 +1,7 @@
 #include "o1buffer.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 
 //o1buffer is an object that has o(1) access times for its elements.
@@ -13,6 +14,17 @@ o1buffer::o1buffer()
 
 o1buffer::~o1buffer(){
     free(buffer);
+}
+
+int o1buffer::reset(bool hard){
+    mostRecentAddress = 0;
+    stream_index_at_last_call = 0;
+    if(hard){
+        for (int i=0; i<NUM_SAMPLES_PER_CHANNEL; i++){
+            buffer[i] = 0;
+        }
+    }
+    return 0;
 }
 
 
@@ -104,6 +116,31 @@ std::vector<double> *o1buffer::getMany_double(int numToGet, int interval_samples
         //convertedStream_double.replace(i, buffer[tempAddress]);
     }
     return &convertedStream_double;
+}
+
+//Reads each int as 8 bools.  Upper 3 bytes are ignored.
+std::vector<uint8_t> *o1buffer::getMany_singleBit(int numToGet, int interval_subsamples, int delay_subsamples){
+    //Resize the vector
+    convertedStream_digital.resize(numToGet);
+
+    //Copy raw samples out.
+    int tempAddress;
+    int subsample_current_delay;
+    uint8_t mask;
+    uint8_t *data = convertedStream_digital.data();
+    int tempInt;
+
+    for(int i=0;i<numToGet;i++){
+        subsample_current_delay = delay_subsamples + (interval_subsamples * i);
+        tempAddress = mostRecentAddress - subsample_current_delay / 8;
+        mask = 0x01 << (subsample_current_delay % 8);
+        if(tempAddress < 0){
+            tempAddress += NUM_SAMPLES_PER_CHANNEL;
+        }
+        tempInt = get(tempAddress);
+        data[i] = (((uint8_t)tempInt) & mask) ? 1 : 0;
+    }
+    return &convertedStream_digital;
 }
 
 std::vector<double> *o1buffer::getSinceLast(int feasible_window_begin, int feasible_window_end, int interval_samples, int filter_mode, double scope_gain, bool AC, bool twelve_bit_multimeter){

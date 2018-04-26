@@ -294,6 +294,13 @@
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="pushButton_15">
+            <property name="text">
+             <string>Get Digital (1s)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="pushButton_14">
             <property name="text">
              <string>Get Scope Data (SinceLast)</string>

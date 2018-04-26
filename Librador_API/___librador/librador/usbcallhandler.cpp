@@ -318,13 +318,31 @@ buffer_read_write_mutex.lock();
     case 7:
         if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getMany_double(numToGet, interval_samples, delay_sample, filter_mode, current_scope_gain, current_AC_setting, true);
         break;
-    default:
-        buffer_read_write_mutex.unlock();
-        return NULL;
     }
     buffer_read_write_mutex.unlock();
     return temp_to_return;
 }
+
+std::vector<uint8_t> * usbCallHandler::getMany_singleBit(int channel, int numToGet, int interval_subsamples, int delay_subsamples){
+    std::vector<uint8_t>* temp_to_return = NULL;
+
+    buffer_read_write_mutex.lock();
+        switch(deviceMode){
+        case 1:
+            if(channel == 1) temp_to_return = internal_o1_buffer_375_CH2->getMany_singleBit(numToGet, interval_subsamples, delay_subsamples);
+            break;
+        case 3:
+            if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getMany_singleBit(numToGet, interval_subsamples, delay_subsamples);
+            break;
+        case 4:
+            if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getMany_singleBit(numToGet, interval_subsamples, delay_subsamples);
+            else if (channel == 2) temp_to_return = internal_o1_buffer_375_CH2->getMany_singleBit(numToGet, interval_subsamples, delay_subsamples);
+            break;
+        }
+    buffer_read_write_mutex.unlock();
+    return temp_to_return;
+}
+
 
 std::vector<double> *usbCallHandler::getMany_sincelast(int channel, int feasible_window_begin, int feasible_window_end, int interval_samples, int filter_mode){
     std::vector<double>* temp_to_return = NULL;
@@ -346,9 +364,6 @@ std::vector<double> *usbCallHandler::getMany_sincelast(int channel, int feasible
         case 7:
             if(channel == 1) temp_to_return = internal_o1_buffer_375_CH1->getSinceLast(feasible_window_begin, feasible_window_end, interval_samples, filter_mode, current_scope_gain, current_AC_setting, false);
             break;
-        default:
-            buffer_read_write_mutex.unlock();
-            return NULL;
         }
         buffer_read_write_mutex.unlock();
         return temp_to_return;
@@ -370,6 +385,11 @@ int usbCallHandler::set_device_mode(int mode){
 
     send_function_gen_settings(1);
     send_function_gen_settings(2);
+
+    internal_o1_buffer_375_CH1->reset(false);
+    internal_o1_buffer_375_CH2->reset(false);
+    internal_o1_buffer_750->reset(false);
+
     return 0;
 }
 
@@ -525,6 +545,10 @@ double usbCallHandler::get_samples_per_second(){
     case 1:
         return (double)(375000.0);
     case 2:
+        return (double)(375000.0);
+    case 3:
+        return (double)(375000.0);
+    case 4:
         return (double)(375000.0);
     case 6:
         return (double)(750000.0);
