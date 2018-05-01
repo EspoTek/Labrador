@@ -1,7 +1,17 @@
 #ifndef LIBRADOR_GLOBAL_H
 #define LIBRADOR_GLOBAL_H
 
-#include <QtCore/qglobal.h>
+#ifdef FORCE_COMPILATION_FOR_QT5
+    #include <QtCore/qglobal.h>
+#else
+    #ifdef _WIN32 | _WIN64
+        #define Q_DECL_EXPORT __declspec(dllexport)
+        #define Q_DECL_IMPORT __declspec(dllimport)
+    #else
+        #define Q_DECL_EXPORT
+        #define Q_DECL_IMPORT
+    #endif
+#endif
 
 #if defined(LIBRADOR_LIBRARY)
 #  define LIBRADORSHARED_EXPORT Q_DECL_EXPORT

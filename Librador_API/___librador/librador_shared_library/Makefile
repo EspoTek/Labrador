@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = rador1.0.0
-DISTDIR = /home/esposch/Git/Labrador/Matlab_Octave_API/___librador/librador/.tmp/rador1.0.0
+DISTDIR = /home/esposch/Git/Labrador/Librador_API/___librador/librador_shared_library/.tmp/rador1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/esposch/Qt/5.10.0/gcc_64/lib -shared -Wl,-soname,librador.so.1
 LIBS          = $(SUBLIBS) -L../../../Desktop_Interface/build_linux/libusb -lusb-1.0 -L../../../Desktop_Interface/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9 -L/home/esposch/Qt/5.10.0/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
@@ -738,37 +738,7 @@ librador.o: librador.cpp librador.h \
 		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qversiontagging.h \
 		librador_internal.h \
 		usbcallhandler.h \
-		../../../Desktop_Interface/build_linux/libusb/libusb.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/QThread \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qthread.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qobject.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qobjectdefs.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qnamespace.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qstring.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qchar.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qbytearray.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qrefcount.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qarraydata.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qstringliteral.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qstringalgorithms.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qstringview.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qstringbuilder.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qlist.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qalgorithms.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qiterator.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qhashfunctions.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qpair.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qbytearraylist.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qstringlist.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qregexp.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qstringmatcher.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qcoreevent.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qscopedpointer.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qmetatype.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qvarlengtharray.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qcontainerfwd.h \
-		/home/esposch/Qt/5.10.0/gcc_64/include/QtCore/qobject_impl.h
+		../../../Desktop_Interface/build_linux/libusb/libusb.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o librador.o librador.cpp
 
 o1buffer.o: o1buffer.cpp o1buffer.h

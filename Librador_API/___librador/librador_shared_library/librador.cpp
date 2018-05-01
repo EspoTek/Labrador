@@ -3,7 +3,6 @@
 #include "usbcallhandler.h"
 
 #include <vector>
-#include <QThread>
 #include <math.h>
 
 Librador::Librador()
