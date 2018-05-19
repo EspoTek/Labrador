@@ -224,8 +224,6 @@ unsigned char generator_triangle(double x)
 
 int send_convenience_waveform(int channel, double frequency_Hz, double amplitude_v, double offset_v, unsigned char (*sample_generator)(double))
 {
-    CHECK_API_INITIALISED
-    CHECK_USB_INITIALISED
     if((amplitude_v + offset_v) > 9.6){
         return -1;
         //Voltage range too high

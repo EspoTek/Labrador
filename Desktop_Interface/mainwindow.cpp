@@ -46,9 +46,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->debugButton1->setVisible(0);
     ui->debugButton2->setVisible(0);
     ui->debugButton3->setVisible(0);
-    ui->kickstartIsoButton->setVisible(0);
     ui->debugConsole->setVisible(0);
 #ifndef PLATFORM_ANDROID
+    ui->kickstartIsoButton->setVisible(0);
     ui->console1->setVisible(0);
     ui->console2->setVisible(0);
 #endif
@@ -97,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->stackedWidget->removeWidget(ui->page_5);
 
         //Reconnect the other objects.
-        ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
+        //ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
         connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
         connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
         connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
@@ -1006,7 +1006,9 @@ void MainWindow::enableLabradorDebugging(){
     ui->debugButton1->setVisible(1);
     ui->debugButton2->setVisible(1);
     ui->debugButton3->setVisible(1);
+#ifndef PLATFORM_ANDROID
     ui->kickstartIsoButton->setVisible(1);
+#endif
     ui->debugConsole->setVisible(1);
 
     new Q_DebugStream(std::cout, ui->debugConsole); //Redirect Console output to QTextEdit

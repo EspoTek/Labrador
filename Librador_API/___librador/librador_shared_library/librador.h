@@ -8,7 +8,7 @@
 int LIBRADORSHARED_EXPORT librador_init();
 int LIBRADORSHARED_EXPORT librador_exit();
 int LIBRADORSHARED_EXPORT librador_setup_usb();
-int LIBRADORSHARED_EXPORT librador_reset_usb();
+//int LIBRADORSHARED_EXPORT librador_reset_usb();
 //Control
 //a0
 int LIBRADORSHARED_EXPORT librador_avr_debug();
