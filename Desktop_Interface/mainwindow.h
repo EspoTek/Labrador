@@ -182,6 +182,8 @@ private slots:
 
     void on_actionQuit_triggered();
 
+    void on_kickstartIsoButton_clicked();
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;

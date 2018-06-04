@@ -1,0 +1,25 @@
+!#/bin/sh
+
+#Clean Up
+rm -f librador.o o1buffer.o usbcallhandler.o
+
+#Build Librador main object
+g++ -c -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DLIBRADOR_LIBRARY -DPLATFORM_LINUX -I. -I../../../Desktop_Interface -I../../../Desktop_Interface/build_linux/libusb -I../../../Desktop_Interface/build_linux/libdfuprog/include -I. -isystem /usr/include/libdrm -o librador.o librador.cpp
+
+#Build O1buffer
+g++ -c -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DLIBRADOR_LIBRARY -DPLATFORM_LINUX -DQT_NO_DEBUG -I. -I../../../Desktop_Interface -I../../../Desktop_Interface/build_linux/libusb -I../../../Desktop_Interface/build_linux/libdfuprog/include -I. -isystem /usr/include/libdrm -o o1buffer.o o1buffer.cpp
+
+#Build USB Call Handler
+g++ -c -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DLIBRADOR_LIBRARY -DPLATFORM_LINUX -I. -I../../../Desktop_Interface -I../../../Desktop_Interface/build_linux/libusb -I../../../Desktop_Interface/build_linux/libdfuprog/include -I. -isystem /usr/include/libdrm -I/home/esposch/Qt/5.10.0/gcc_64/mkspecs/linux-g++ -o usbcallhandler.o usbcallhandler.cpp
+
+#???
+rm -f librador.so.1.0.0 librador.so librador.so.1 librador.so.1.0
+
+#Build main shared lib
+g++ -Wl,-O1 -Wl,-rpath,/home/esposch/Qt/5.10.0/gcc_64/lib -shared -Wl,-soname,librador.so.1 -o librador.so.1.0.0 librador.o o1buffer.o usbcallhandler.o  -L../../../Desktop_Interface/build_linux/libusb -lusb-1.0 -L../../../Desktop_Interface/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9 -lGL -lpthread  
+
+#make symbolic links
+ln -s librador.so.1.0.0 librador.so
+ln -s librador.so.1.0.0 librador.so.1
+ln -s librador.so.1.0.0 librador.so.1.0
+

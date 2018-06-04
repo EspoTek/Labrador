@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->timeBaseSlider->setMaximum(10*log10(MAX_WINDOW_SIZE));
 
-    ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
+    //ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
     ui->cursorStatsLabel->hide();
     initialisePlot();
     menuSetup();
@@ -48,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->debugButton3->setVisible(0);
     ui->debugConsole->setVisible(0);
 #ifndef PLATFORM_ANDROID
+    ui->kickstartIsoButton->setVisible(0);
     ui->console1->setVisible(0);
     ui->console2->setVisible(0);
 #endif
@@ -96,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->stackedWidget->removeWidget(ui->page_5);
 
         //Reconnect the other objects.
-        ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
+        //ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
         connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
         connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
         connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
@@ -181,7 +182,7 @@ void MainWindow::initialisePlot()
     textLabel->position->setType(QCPItemPosition::ptAxisRectRatio);
     textLabel->position->setCoords(0.99, 0); // place position at center/top of axis rect
     textLabel->setText("Cursor Label Here");
-    textLabel->setFont(QFont("Courier New", 12));
+    textLabel->setFont(QFont("Courier New", 16));
     textLabel->setColor(Qt::white);
     textLabel->setPen(QPen(Qt::white));
     textLabel->setBrush(QBrush(Qt::black));
@@ -1005,6 +1006,9 @@ void MainWindow::enableLabradorDebugging(){
     ui->debugButton1->setVisible(1);
     ui->debugButton2->setVisible(1);
     ui->debugButton3->setVisible(1);
+#ifndef PLATFORM_ANDROID
+    ui->kickstartIsoButton->setVisible(1);
+#endif
     ui->debugConsole->setVisible(1);
 
     new Q_DebugStream(std::cout, ui->debugConsole); //Redirect Console output to QTextEdit
@@ -1239,7 +1243,7 @@ void MainWindow::reinitUsbStage2(void){
     ui->controller_iso->driver = new _PLATFORM_DEPENDENT_USB_OBJECT();
 
     //Reconnect the other objects.
-    ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
+    //ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
     connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
     connect(ui->debugButton3, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(bootloaderJump()));
     connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
@@ -2073,4 +2077,9 @@ void MainWindow::on_androidMenuButton_clicked()
 void MainWindow::on_actionQuit_triggered()
 {
     QApplication::quit();
+}
+
+void MainWindow::on_kickstartIsoButton_clicked()
+{
+    ui->controller_iso->driver->kickstartIso();
 }

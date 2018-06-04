@@ -1,5 +1,8 @@
 #include "genericusbdriver.h"
-#include "platformspecific.h"
+
+#ifndef LIBRADOR_LIBRARY
+    #include "platformspecific.h"
+#endif
 
 genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
 {
@@ -194,9 +197,11 @@ void genericUsbDriver::newDig(int digState){
     usbSendControl(0x40, 0xa6, digState, 0, 0, NULL);
 }
 
+/*
 void genericUsbDriver::setBufferPtr(bufferControl *newPtr){
     bufferPtr = newPtr;
 }
+*/
 
 void genericUsbDriver::setDeviceMode(int mode){
     int oldMode = deviceMode;
@@ -333,6 +338,11 @@ void genericUsbDriver::avrDebug(void){
     qDebug() << "dma_ch1_cnt = " << dma_ch1_cnt;
 #endif
 */
+}
+
+void genericUsbDriver::kickstartIso(void){
+    qDebug() << "Attempting to kickstart iso...";
+    usbSendControl(0x40, 0xaa, 0, 0, 0, NULL);
 }
 
 void genericUsbDriver::requestFirmwareVersion(void){

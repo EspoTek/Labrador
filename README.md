@@ -8,13 +8,6 @@ http://espotek.com/labrador
 
 This repo hosts all of the software and hardware that makes Labrador possible.
 
-# Licence
-All software files are licenced under GNU GPL v3.  https://www.gnu.org/licenses/gpl.html
-
-All hardware files (schematics, PCB) are licenced under Creative Commons 4.0 (CC BY-NC-SA).  https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-The intention is to move to a less restrictive licence in future, where commercial hardware derivatives are allowed but the use of the Labrador name or any branding is not.  If anyone knows how to implement such a licence, I'm all ears.
-
 # Documentation and Software
 To download binary (executable) versions of the software, go to:
 
@@ -24,6 +17,10 @@ For the documentation, please visit:
 
 https://github.com/espotek/labrador/wiki
 
+# Licence
+All software files are licenced under GNU GPL v3.  https://www.gnu.org/licenses/gpl.html
+
+All hardware files (schematics, PCB) are licenced under Creative Commons 4.0 (CC BY-NC-SA).  https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 # Building from Source
 I use Qt Creator to build the software interface.
