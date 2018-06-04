@@ -48,8 +48,9 @@ void genericUsbDriver::setPsu(double voltage){
 
     qDebug() << "New voltage =" << voltage;
     currentPsuVoltage = voltage;
+
     //if(deviceMode > 6) qFatal("setPsu is not configured for mode 7!!!");
-    double vinp = voltage/11;
+    double vinp = (voltage - psu_offset)/11;
     double vinn = 0;
     //double vref = 1.65;
     double gainPsu = 1;

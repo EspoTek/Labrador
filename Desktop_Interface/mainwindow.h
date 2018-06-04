@@ -184,6 +184,12 @@ private slots:
 
     void on_kickstartIsoButton_clicked();
 
+    void on_actionCalibrate_2_triggered();
+
+    void calibrate_psu_stage2();
+
+    void calibrate_psu_stage3();
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
@@ -194,6 +200,8 @@ private:
     QFile *output375_CH1, *output375_CH2, *output750;
     unsigned char caibrateStage;
     QMessageBox *calibrationMessages;
+    double PSU5, PSU10;
+    double psu_voltage_calibration_offset;
 
     int reinitdeviceMode;
     double reinitScopeGain;

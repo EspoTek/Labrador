@@ -1341,7 +1341,7 @@
      <x>0</x>
      <y>0</y>
      <width>1440</width>
-     <height>22</height>
+     <height>31</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1445,8 +1445,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>181</width>
-       <height>125</height>
+       <width>183</width>
+       <height>151</height>
       </rect>
      </property>
      <property name="title">
@@ -1572,6 +1572,7 @@
      <string>Power Supply</string>
     </property>
     <addaction name="actionAuto_Lock"/>
+    <addaction name="actionCalibrate_2"/>
    </widget>
    <widget class="QMenu" name="menuConnection_Type">
     <property name="title">
@@ -2265,6 +2266,11 @@
   <action name="actionQuit">
    <property name="text">
     <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionCalibrate_2">
+   <property name="text">
+    <string>Calibrate</string>
    </property>
   </action>
  </widget>

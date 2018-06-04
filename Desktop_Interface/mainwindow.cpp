@@ -1118,6 +1118,7 @@ void MainWindow::readSettingsFile(){
     double calibrate_vref_ch2 = settings->value("CalibrateVrefCH2", 1.65).toDouble();
     double calibrate_gain_ch1 = settings->value("CalibrateGainCH1", R4/(R3+R4)).toDouble();
     double calibrate_gain_ch2 = settings->value("CalibrateGainCH2", R4/(R3+R4)).toDouble();
+    psu_voltage_calibration_offset = settings->value("CalibratePsu", 0).toDouble();
 
     daq_num_to_average = settings->value("daq_defaultAverage", 1).toInt();
     daq_max_file_size = settings->value("daq_defaultFileSize", 2048000000).toULongLong();
@@ -1267,6 +1268,7 @@ void MainWindow::reinitUsbStage2(void){
     connect(ui->controller_iso->driver, SIGNAL(signalFirmwareFlash(void)), ui->deviceConnected, SLOT(flashingFirmware(void)));
     connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete()), this, SLOT(resetUsbState()));
     ui->controller_iso->driver->setGain(reinitScopeGain);
+    ui->controller_iso->driver->psu_offset = psu_voltage_calibration_offset;
 
     readSettingsFile();
 
@@ -2082,4 +2084,107 @@ void MainWindow::on_actionQuit_triggered()
 void MainWindow::on_kickstartIsoButton_clicked()
 {
     ui->controller_iso->driver->kickstartIso();
+}
+
+void MainWindow::on_actionCalibrate_2_triggered()
+{
+    qDebug() << "Calibrating PSU!";
+
+    //Abort if Scope is uncalibrated
+    if ((ui->controller_iso->ch1_ref == 1.65) && (ui->controller_iso->ch2_ref == 1.65) && (ui->controller_iso->frontendGain_CH1 ==  R4/(R3+R4)) && (ui->controller_iso->frontendGain_CH2 == R4/(R3+R4)))\
+    {
+        calibrationMessages->setStandardButtons(QMessageBox::Ok);
+        calibrationMessages->setText("You need to calibrate the oscilloscope before the power supply!");
+        calibrationMessages->exec();
+        return;
+    }
+
+    calibrationMessages->setStandardButtons(QMessageBox::Ok);
+    calibrationMessages->setText("Calibration requires me to control your power supply temporarily.  \n\nTO PREVENT BLUE SMOKE DAMAGE, DISCONNECT ANY CIRCUIT ATTACHED TO YOUR POWER SUPPLY NOW.");
+    calibrationMessages->exec();
+
+    qDebug() << "Beginning PSU calibration!";
+
+    //Must be mode 0
+    //Must be DC coupled
+    //CH1 must be shorted to PSU out
+    //Gain must be 1x
+    qDebug() << "Changing workspace...";
+    ui->psuSlider->setValue(0);
+    ui->busSifferGroup_CH1->setChecked(false);
+    ui->busSnifferGroup_CH2->setChecked(false);
+    ui->multimeterGroup->setChecked(false);
+    ui->triggerGroup->setChecked(false);
+    ui->scopeGroup_CH1->setChecked(true);
+    ui->scopeGroup_CH2->setChecked(false);
+    ui->pausedLabeL_CH1->setChecked(false);
+    ui->pausedLabel_CH2->setChecked(false);
+    ui->doubleSampleLabel->setChecked(false);
+    ui->acCoupledLabel_CH1->setChecked(false);
+    ui->acCoupledLabel_CH2->setChecked(false);
+    ui->pause_LA->setChecked(false);
+    ui->multimeterPauseCheckBox->setChecked(false);
+
+    ui->controller_iso->setAutoGain(false);
+    ui->controller_iso->setGain(4);
+
+    //Remove the offset before setting it again; don't want them to stack!
+    ui->controller_iso->driver->psu_offset = 0;
+
+    qDebug() << "PSU Calibration routine beginning!";
+    calibrationMessages->setStandardButtons(QMessageBox::Ok);
+    calibrationMessages->setText("Please connect your Labrador's Oscilloscope CH1 (DC) pin to the Power Supply Output (positive) then press OK to continue.");
+    calibrationMessages->exec();
+
+    ui->controller_iso->driver->setPsu(5);
+    ui->controller_iso->clearBuffers(1,1,1);
+    QTimer::singleShot(1800, this, SLOT(calibrate_psu_stage2()));
+}
+
+void MainWindow::calibrate_psu_stage2()
+{
+    PSU5 = ui->controller_iso->meanVoltageLast(1, 1, 128);
+    qDebug() << "PSU5 =" << PSU5;
+    if((PSU5 > 6) | (PSU5 < 4) ){
+        ui->psuSlider->setValue(1);
+        ui->psuSlider->setValue(0);
+        ui->controller_iso->clearBuffers(1,1,1);
+        ui->controller_iso->setAutoGain(true);
+        ui->controller_iso->autoGain();
+        calibrationMessages->setText("Calibration has been abandoned due to out-of-range values.  The oscilloscope should show approximately 5V.  Please check all wires on your Labrador board and try again.");
+        calibrationMessages->exec();
+        return;
+    }
+    ui->controller_iso->setGain(1);
+    ui->controller_iso->driver->setPsu(10);
+    ui->controller_iso->clearBuffers(1,1,1);
+    QTimer::singleShot(1800, this, SLOT(calibrate_psu_stage3()));
+}
+
+void MainWindow::calibrate_psu_stage3()
+{
+    PSU10 = ui->controller_iso->meanVoltageLast(1, 1, 128);
+    qDebug() << "PSU10 =" << PSU10;
+    ui->psuSlider->setValue(1);
+    ui->psuSlider->setValue(0);
+    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->setAutoGain(true);
+    ui->controller_iso->autoGain();
+
+
+    if((PSU10 > 11) | (PSU10 < 9) ){
+        calibrationMessages->setText("Calibration has been abandoned due to out-of-range values.  The oscilloscope should show approximately 10V.  Please check all wires on your Labrador board and try again.");
+        calibrationMessages->exec();
+        return;
+    }
+
+    psu_voltage_calibration_offset = ((PSU5 - 5) + (PSU10 - 10)) / 2.0;
+    settings->setValue("CalibratePsu", psu_voltage_calibration_offset);
+    ui->controller_iso->driver->psu_offset = psu_voltage_calibration_offset;
+
+    calibrationMessages->setStandardButtons(QMessageBox::Ok);
+    calibrationMessages->setText("PSU calibration complete.");
+    calibrationMessages->exec();
+
+    qDebug() << "PSU Calibration complete!  Offset =" << psu_voltage_calibration_offset;
 }

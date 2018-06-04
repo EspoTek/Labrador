@@ -22,6 +22,7 @@ class isoDriver : public QLabel
     Q_OBJECT
 public:
     explicit isoDriver(QWidget *parent = 0);
+    void autoGain(void);
     //Generic Vars
     isoBuffer *internalBuffer375_CH1, *internalBuffer375_CH2, *internalBuffer750;
     isoBuffer_file *internalBufferFile = NULL;
@@ -82,7 +83,6 @@ private:
     void digitalConvert(short *shortPtr, QVector<double> *doublePtr);
     void fileStreamConvert(float *floatPtr, QVector<double> *doublePtr);
     bool properlyPaused();
-    void autoGain(void);
     void udateCursors(void);
     short reverseFrontEnd(double voltage);
     int trigger(void);
