@@ -1714,8 +1714,11 @@ void MainWindow::calibrateStage3(){
     ui->controller_iso->internalBuffer375_CH2->frontendGain = (vref_CH2 - vMeasured_CH2)*(ui->controller_iso->frontendGain_CH2)/vref_CH2;
     settings->setValue("CalibrateGainCH1", ui->controller_iso->frontendGain_CH1);
     settings->setValue("CalibrateGainCH2", ui->controller_iso->frontendGain_CH2);
-    calibrationMessages->setText("Calibration complete.");
+    calibrationMessages->setText("Oscilloscope Calibration complete.");
     calibrationMessages->exec();
+
+    if (dt_userWantsToCalibrate)
+        on_actionCalibrate_2_triggered();
 }
 
 void MainWindow::rSourceIndexChanged(int newSource){
@@ -2100,7 +2103,7 @@ void MainWindow::on_actionCalibrate_2_triggered()
     }
 
     calibrationMessages->setStandardButtons(QMessageBox::Ok);
-    calibrationMessages->setText("Calibration requires me to control your power supply temporarily.  \n\nTO PREVENT BLUE SMOKE DAMAGE, DISCONNECT ANY CIRCUIT ATTACHED TO YOUR POWER SUPPLY NOW.");
+    calibrationMessages->setText("Power Supply calibration requires me to control your power supply temporarily.  \n\nTO PREVENT BLUE SMOKE DAMAGE, DISCONNECT ANY CIRCUIT ATTACHED TO YOUR POWER SUPPLY NOW.");
     calibrationMessages->exec();
 
     qDebug() << "Beginning PSU calibration!";
@@ -2146,7 +2149,7 @@ void MainWindow::calibrate_psu_stage2()
     PSU5 = ui->controller_iso->meanVoltageLast(1, 1, 128);
     qDebug() << "PSU5 =" << PSU5;
     if((PSU5 > 6) | (PSU5 < 4) ){
-        ui->psuSlider->setValue(1);
+        ui->controller_iso->driver->setPsu(4.5);
         ui->psuSlider->setValue(0);
         ui->controller_iso->clearBuffers(1,1,1);
         ui->controller_iso->setAutoGain(true);
@@ -2165,7 +2168,7 @@ void MainWindow::calibrate_psu_stage3()
 {
     PSU10 = ui->controller_iso->meanVoltageLast(1, 1, 128);
     qDebug() << "PSU10 =" << PSU10;
-    ui->psuSlider->setValue(1);
+    ui->controller_iso->driver->setPsu(4.5);
     ui->psuSlider->setValue(0);
     ui->controller_iso->clearBuffers(1,1,1);
     ui->controller_iso->setAutoGain(true);

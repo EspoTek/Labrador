@@ -1590,8 +1590,22 @@
     <addaction name="actionShow_Debug_Console"/>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuSignal_Generator">
+    <property name="title">
+     <string>Signal Generator</string>
+    </property>
+    <widget class="QMenu" name="menuOffset_Type">
+     <property name="title">
+      <string>Offset Type</string>
+     </property>
+     <addaction name="actionFrom_GND"/>
+     <addaction name="actionMean_Point_from_GND"/>
+    </widget>
+    <addaction name="menuOffset_Type"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOscilloscope_2"/>
+   <addaction name="menuSignal_Generator"/>
    <addaction name="menuMultimeter_2"/>
    <addaction name="menuBus_Sniffer"/>
    <addaction name="menuPower_Supply"/>
@@ -2271,6 +2285,21 @@
   <action name="actionCalibrate_2">
    <property name="text">
     <string>Calibrate</string>
+   </property>
+  </action>
+  <action name="actionOffset_is_A0_from_Fourier_Series">
+   <property name="text">
+    <string>Offset is A0 from Fourier Series</string>
+   </property>
+  </action>
+  <action name="actionFrom_GND">
+   <property name="text">
+    <string>Lowest Point from GND</string>
+   </property>
+  </action>
+  <action name="actionMean_Point_from_GND">
+   <property name="text">
+    <string>Mean Point from GND</string>
    </property>
   </action>
  </widget>
