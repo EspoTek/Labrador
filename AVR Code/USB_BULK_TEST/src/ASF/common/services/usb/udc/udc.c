@@ -1207,6 +1207,8 @@ static bool udc_reqvend(void){
 		case 0xa9:  //Variant Version Request
 			udd_set_setup_payload(&variant, udd_g_ctrlreq.req.wLength);
 			return 1;
+		case 0xaa:  //Soft reset Iso
+			return main_vendor_enable();
 		default:
 			return 0;
 	}
