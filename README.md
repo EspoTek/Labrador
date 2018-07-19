@@ -1,5 +1,3 @@
-Welcome to the GitHub page for the EspoTek Labrador!
-
 # What is it?
 The EspoTek Labrador is an open-source board that converts your PC, Raspberry Pi or Android Smartphone and into a full-featured electronics lab bench, complete with oscilloscope, signal generator and more.
 
