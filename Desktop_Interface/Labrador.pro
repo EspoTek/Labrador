@@ -131,6 +131,9 @@ unix:!android:!macx{
             QMAKE_CXXFLAGS += -fsigned-char
             DEFINES += "PLATFORM_RASPBERRY_PI"
             #All ARM-Linux GCC treats char as unsigned by default???
+            lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/arnm/libdfuprog-0.9.so
+            lib_deploy.path = /usr/lib
+
     } else {
         contains(QT_ARCH, i386) {
             message("Building for Linux (x86)")
@@ -142,6 +145,9 @@ unix:!android:!macx{
             unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/x86 -ldfuprog-0.9
             unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
             unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
+             lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x86/libdfuprog-0.9.so
+            lib_deploy.path = /usr/lib
+
         } else {
             message("Building for Linux (x64)")
             #libusb include
@@ -153,8 +159,25 @@ unix:!android:!macx{
             unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9
             unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
             unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
+    	    lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x64/libdfuprog-0.9.so
+            lib_deploy.path = /usr/lib
         }
     }
+    other.files += bin/firmware
+    other.files += bin/waveforms
+    other.path = /usr/local/bin/EspoTek-Labrador
+    target.path = /usr/local/bin/EspoTek-Labrador
+    symlink.path = /usr/local/bin
+    symlink.extra = ln -sf /usr/local/bin/EspoTek-Labrador/Labrador /usr/local/bin/labrador
+    udev.path = /etc/udev/rules.d
+    udev.files = rules.d/69-labrador.rules
+    udevextra.path = /etc/udev/rules.d
+    udevextra.extra = udevadm control --reload-rules && udevadm trigger 
+    INSTALLS += target
+    INSTALLS += lib_deploy
+    INSTALLS += other
+    INSTALLS += symlink
+    INSTALLS += udev
 }
 
 
