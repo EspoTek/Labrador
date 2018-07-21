@@ -178,6 +178,7 @@ unix:!android:!macx{
     INSTALLS += other
     INSTALLS += symlink
     INSTALLS += udev
+    INSTALLS += udevextra
 }
 
 
