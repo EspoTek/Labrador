@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     uartstyledecoder.cpp \
     daqform.cpp \
     daqloadprompt.cpp \
-    isobuffer_file.cpp
+    isobuffer_file.cpp \
+	i2cdecoder.cpp
 
 HEADERS  += mainwindow.h \
     functiongencontrol.h \
@@ -56,7 +57,8 @@ HEADERS  += mainwindow.h \
     uartstyledecoder.h \
     daqform.h \
     daqloadprompt.h \
-    isobuffer_file.h
+    isobuffer_file.h \
+	i2cdecoder.h
 
 android:{
 FORMS    += ui_files_mobile/mainwindow.ui \
