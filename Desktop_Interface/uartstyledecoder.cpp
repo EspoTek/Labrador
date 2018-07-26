@@ -4,6 +4,9 @@ uartStyleDecoder::uartStyleDecoder(QObject *parent_in) : QObject(parent_in)
 {
     parent = (isoBuffer *) parent_in;
 
+	// Begin decoding SAMPLE_DELAY seconds in the past.
+	serialPtr_bit = (int)(parent->back * 8 - SERIAL_DELAY * parent->sampleRate_bit + parent->bufferEnd * 8) % (parent->bufferEnd*8);
+
     updateTimer = new QTimer();
     updateTimer->setTimerType(Qt::PreciseTimer);
     updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
@@ -16,9 +19,16 @@ uartStyleDecoder::uartStyleDecoder(QObject *parent_in) : QObject(parent_in)
     else qFatal("Nonexistant console requested in uartStyleDecoder::serialDecode");
 }
 
+uartStyleDecoder::~uartStyleDecoder()
+{
+    std::lock_guard<std::mutex> lock(mutex);
+	delete updateTimer;
+	delete serialBuffer;
+}
 
 void uartStyleDecoder::updateConsole(){
-    if(!newUartSymbol) return;
+    std::lock_guard<std::mutex> lock(mutex);
+	if(!newUartSymbol) return;
     //qDebug() << numCharsInBuffer;
 
     console->setPlainText(QString::fromLocal8Bit(serialBuffer->get(numCharsInBuffer), numCharsInBuffer));
