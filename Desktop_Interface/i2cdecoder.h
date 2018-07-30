@@ -14,7 +14,10 @@ public:
 private:
     isoBuffer* sda;
 	isoBuffer* scl;
+	uint8_t currentSdaValue;
+	uint8_t currentSclValue;
     int serialPtr_bit = 0;
+	void updateBitValues();
 signals:
 public slots:
 };
