@@ -9,6 +9,7 @@ namespace i2c
 
 enum class transmissionState: uint8_t
 {
+	unknown,
 	idle,
 	address,
 	data	
@@ -28,15 +29,21 @@ class i2cDecoder : public QObject
 public:
     explicit i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate);
 private:
+	// misc
     isoBuffer* sda;
 	isoBuffer* scl;
+	uint32_t stepSize;
+
+	// State vars
 	uint8_t currentSdaValue;
 	uint8_t previousSdaValue;
 	uint8_t currentSclValue;
 	uint8_t previousSclValue;
     uint64_t serialPtr_bit = 0;
+	transmissionState state = transmissionState::unknown;
+
+	// Member functions
 	void updateBitValues();
-	uint32_t stepSize;
 	void setStepSize(uint32_t clockRate);
 	void runStateMachine();
     void run(); 

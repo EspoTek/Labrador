@@ -48,7 +48,19 @@ void i2cDecoder::setStepSize(uint32_t clockRate)
 
 void i2cDecoder::runStateMachine()
 {
-
+	edge sdaEdge = edgeDetection(currentSdaValue, previousSdaValue);
+	edge sclEdge = edgeDetection(currentSclValue, previousSclValue);
+	
+	if ((sdaEdge == edge::rising) && (sclEdge == edge::held_high)) // START
+	{
+		state = transmissionState::address;	
+		return;
+	}
+	if ((sdaEdge == edge::falling) && (sclEdge == edge::held_high)) // STOP
+	{
+		state = transmissionState::idle;	
+		return;
+	}
 }
 
 edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)
