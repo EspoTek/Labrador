@@ -160,7 +160,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->realTimeButton->setVisible(false);
 
-    if ((QApplication::desktop()->availableGeometry().x() < this->geometry().x()) || QApplication::desktop()->availableGeometry().y() < this->geometry().y())
+    if ((QApplication::desktop()->availableGeometry().x() < 1440) || (QApplication::desktop()->availableGeometry().y() < 900))
         this->setGeometry(0, 0, 800, 600);
 }
 
