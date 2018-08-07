@@ -1,5 +1,7 @@
 #include "i2cdecoder.h"
 
+using namespace i2c;
+
 i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate) : QObject(nullptr)
 {
 	sda = sda_in;
@@ -47,4 +49,16 @@ void i2cDecoder::setStepSize(uint32_t clockRate)
 void i2cDecoder::runStateMachine()
 {
 
+}
+
+edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)
+{
+	if (current && prev)
+		return edge::held_high;
+	if (!current && !prev)
+		return edge::held_low;
+	if (current && !prev)
+		return edge::rising;
+	if (!current &&!prev)
+		return edge::falling;
 }

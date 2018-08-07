@@ -4,6 +4,24 @@
 #include <QObject>
 #include "isobuffer.h"
 
+namespace i2c
+{
+
+enum class transmissionState: uint8_t
+{
+	idle,
+	address,
+	data	
+};
+
+enum class edge: uint8_t
+{
+	rising,
+	falling,
+	held_high,
+	held_low
+};
+
 class i2cDecoder : public QObject
 {
     Q_OBJECT
@@ -13,7 +31,9 @@ private:
     isoBuffer* sda;
 	isoBuffer* scl;
 	uint8_t currentSdaValue;
+	uint8_t previousSdaValue;
 	uint8_t currentSclValue;
+	uint8_t previousSclValue;
     uint64_t serialPtr_bit = 0;
 	void updateBitValues();
 	uint32_t stepSize;
@@ -21,8 +41,12 @@ private:
 	void runStateMachine();
     void run(); 
     int serialDistance(isoBuffer* buffer);
+	edge edgeDetection(uint8_t current, uint8_t prev);
 signals:
 public slots:
+
 };
+
+} // Namespace i2c
 
 #endif // UARTSTYLEDECODER_H
