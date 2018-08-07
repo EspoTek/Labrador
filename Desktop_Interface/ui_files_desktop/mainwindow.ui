@@ -39,8 +39,8 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>500</width>
-          <height>400</height>
+          <width>320</width>
+          <height>240</height>
          </size>
         </property>
         <property name="layoutDirection">
@@ -1341,7 +1341,7 @@
      <x>0</x>
      <y>0</y>
      <width>1440</width>
-     <height>31</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1445,8 +1445,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>183</width>
-       <height>151</height>
+       <width>170</width>
+       <height>115</height>
       </rect>
      </property>
      <property name="title">

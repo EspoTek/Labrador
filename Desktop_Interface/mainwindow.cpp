@@ -159,6 +159,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->realTimeButton, SIGNAL(pressed()), ui->controller_iso, SLOT(disableFileMode()));
 
     ui->realTimeButton->setVisible(false);
+
+    this->setGeometry(0, 0, 800, 600);
 }
 
 MainWindow::~MainWindow()
