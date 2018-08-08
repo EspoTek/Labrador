@@ -57,6 +57,9 @@ private:
 	edge edgeDetection(uint8_t current, uint8_t prev);
 	void decodeAddress(edge sdaEdge, edge sclEdge);
 	void decodeData(edge sdaEdge, edge sclEdge);
+	void startCondition();
+	void stopCondition();
+
 signals:
 public slots:
 

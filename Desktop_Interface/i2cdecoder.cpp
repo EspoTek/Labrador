@@ -50,15 +50,22 @@ void i2cDecoder::runStateMachine()
 {
 	edge sdaEdge = edgeDetection(currentSdaValue, previousSdaValue);
 	edge sclEdge = edgeDetection(currentSclValue, previousSclValue);
-	
-	if ((sdaEdge == edge::rising) && (sclEdge == edge::held_high)) // START
+		
+	if ((sdaEdge == edge::rising) && (sclEdge == edge::falling)) // INVALID STATE TRANSITION
 	{
-		state = transmissionState::address;	
+		state = transmissionState::unknown;	
 		return;
 	}
+
+	if ((sdaEdge == edge::rising) && (sclEdge == edge::held_high)) // START
+	{
+		startCondition();
+		return;
+	}
+
 	if ((sdaEdge == edge::falling) && (sclEdge == edge::held_high)) // STOP
 	{
-		state = transmissionState::idle;	
+		stopCondition();
 		return;
 	}
 
@@ -89,10 +96,30 @@ edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)
 
 void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
 {
-
+	if (sdaEdge == edge::rising && sclEdge == edge::held_high)
+		address |= 0x0001;
+	else if (sdaEdge == edge::rising && sclEdge == edge::held_low)
+		address &= 0xFFFE;
+	
+	currentBitIndex++;
+	address = address << 1;
+						
 }
 
 void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
 {
 
+}
+
+void i2cDecoder::startCondition()
+{
+	
+}
+
+void i2cDecoder::stopCondition()
+{
+	switch (state)
+	{
+		
+	}
 }
