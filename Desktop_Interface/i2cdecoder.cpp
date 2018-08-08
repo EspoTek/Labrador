@@ -61,6 +61,18 @@ void i2cDecoder::runStateMachine()
 		state = transmissionState::idle;	
 		return;
 	}
+
+	switch (state)
+	{
+		case transmissionState::idle:
+			return;
+		case transmissionState::address:
+			decodeAddress(sdaEdge, sclEdge);
+			break;
+		case transmissionState::data:
+			decodeData(sdaEdge, sclEdge);
+			break;		
+	}
 }
 
 edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)
@@ -73,4 +85,14 @@ edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)
 		return edge::rising;
 	if (!current &&!prev)
 		return edge::falling;
+}
+
+void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
+{
+
+}
+
+void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
+{
+
 }

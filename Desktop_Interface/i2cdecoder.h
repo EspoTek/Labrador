@@ -42,6 +42,12 @@ private:
     uint64_t serialPtr_bit = 0;
 	transmissionState state = transmissionState::unknown;
 
+	// Data Transmission
+	uint8_t currentBitIndex;
+	uint16_t address;
+	uint8_t currentDataByte;
+	std::vector<uint8_t> dataBytes;
+
 	// Member functions
 	void updateBitValues();
 	void setStepSize(uint32_t clockRate);
@@ -49,6 +55,8 @@ private:
     void run(); 
     int serialDistance(isoBuffer* buffer);
 	edge edgeDetection(uint8_t current, uint8_t prev);
+	void decodeAddress(edge sdaEdge, edge sclEdge);
+	void decodeData(edge sdaEdge, edge sclEdge);
 signals:
 public slots:
 
