@@ -120,7 +120,8 @@ void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
 	}
 	else // Full byte received, check for ACK.
 	{
-
+		dataByteCompleted(currentDataByte, sclEdge == edge::held_low);	
+		currentBitIndex = 0;
 	}
 }
 
