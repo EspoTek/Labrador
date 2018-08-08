@@ -96,30 +96,52 @@ edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)
 
 void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
 {
+	// Read in the next bit.
 	if (sdaEdge == edge::rising && sclEdge == edge::held_high)
 		address |= 0x0001;
 	else if (sdaEdge == edge::rising && sclEdge == edge::held_low)
 		address &= 0xFFFE;
 	
-	currentBitIndex++;
 	address = address << 1;
-						
 }
 
 void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
 {
+	// Read in the next bit.
+	if(currentBitIndex < 8)
+	{	
+		if (sdaEdge == edge::rising && sclEdge == edge::held_high)
+			currentDataByte |= 0x01;
+		else if (sdaEdge == edge::rising && sclEdge == edge::held_low)
+			currentDataByte &= 0xFE;
+	
+		currentDataByte = currentDataByte << 1;
+		currentBitIndex++;
+	}
+	else // Full byte received, check for ACK.
+	{
 
+	}
 }
 
 void i2cDecoder::startCondition()
 {
-	
+	currentBitIndex = 0;
+	address = 0x0000;
+	state = transmissionState::address;	
 }
 
 void i2cDecoder::stopCondition()
 {
 	switch (state)
 	{
-		
+		case transmissionState::address:		
+			currentBitIndex = 0;
+			state = transmissionState::data;
+			currentDataByte = 0;
+			break;	
+		case transmissionState::data:		
+			state = transmissionState::idle;
+			break;
 	}
 }

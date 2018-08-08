@@ -46,7 +46,6 @@ private:
 	uint8_t currentBitIndex;
 	uint16_t address;
 	uint8_t currentDataByte;
-	std::vector<uint8_t> dataBytes;
 
 	// Member functions
 	void updateBitValues();
@@ -59,6 +58,7 @@ private:
 	void decodeData(edge sdaEdge, edge sclEdge);
 	void startCondition();
 	void stopCondition();
+	void dataByteCompleted(uint8_t byte, bool ACKed);	
 
 signals:
 public slots:
