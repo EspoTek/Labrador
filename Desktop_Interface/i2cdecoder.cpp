@@ -146,3 +146,8 @@ void i2cDecoder::stopCondition()
 			break;
 	}
 }
+
+void i2cDecoder::dataByteCompleted(uint8_t byte, bool ACKed)
+{
+
+}
