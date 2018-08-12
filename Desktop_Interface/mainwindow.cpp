@@ -160,8 +160,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->realTimeButton->setVisible(false);
 
-    if ((QApplication::desktop()->availableGeometry().x() < 1440) || (QApplication::desktop()->availableGeometry().y() < 900))
-        this->setGeometry(0, 0, 800, 600);
+    if ((QApplication::desktop()->availableGeometry().width() < 1440) || (QApplication::desktop()->availableGeometry().height() < 900))
+    {
+        qDebug() << "Low resolution detected:" << QApplication::desktop()->availableGeometry().width() << "x" << QApplication::desktop()->availableGeometry().height();
+        this->setGeometry(64, 64, 800, 600);
+    }
 }
 
 MainWindow::~MainWindow()
