@@ -1,37 +1,6 @@
-EESchema Schematic File Version 2
-LIBS:Tinylab_proto1-rescue
-LIBS:power
-LIBS:device
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:ESPO_PART
+EESchema Schematic File Version 4
 LIBS:Tinylab_proto1-cache
-EELAYER 25 0
+EELAYER 26 0
 EELAYER END
 $Descr A2 23386 16535
 encoding utf-8
@@ -46,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L LM324-RESCUE-Tinylab_proto1 U2
+L Tinylab_proto1-rescue:LM324-RESCUE-Tinylab_proto1 U2
 U 1 1 55CA87E2
 P 4200 8750
 F 0 "U2" H 4250 8950 60  0000 C CNN
@@ -57,7 +26,7 @@ F 3 "" H 4200 8750 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LM324-RESCUE-Tinylab_proto1 U2
+L Tinylab_proto1-rescue:LM324-RESCUE-Tinylab_proto1 U2
 U 2 1 55CA88A1
 P 4200 10550
 F 0 "U2" H 4250 10750 60  0000 C CNN
@@ -68,7 +37,7 @@ F 3 "" H 4200 10550 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LM324-RESCUE-Tinylab_proto1 U2
+L Tinylab_proto1-rescue:LM324-RESCUE-Tinylab_proto1 U2
 U 3 1 55CA8924
 P 8450 9250
 F 0 "U2" H 8500 9450 60  0000 C CNN
@@ -79,7 +48,7 @@ F 3 "" H 8450 9250 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LM324-RESCUE-Tinylab_proto1 U2
+L Tinylab_proto1-rescue:LM324-RESCUE-Tinylab_proto1 U2
 U 4 1 55CA89A3
 P 8400 11550
 F 0 "U2" H 8450 11750 60  0000 C CNN
@@ -90,7 +59,7 @@ F 3 "" H 8400 11550 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L ATXMEGA16A4U-A IC1
+L Tinylab_proto1-rescue:ATXMEGA16A4U-A IC1
 U 1 1 55CA8F25
 P 6150 5300
 F 0 "IC1" H 5400 6500 40  0000 L BNN
@@ -101,7 +70,7 @@ F 3 "" H 6150 5300 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L USB_OTG P2
+L Tinylab_proto1-rescue:USB_OTG P2
 U 1 1 55CA90D2
 P 1650 6850
 F 0 "P2" H 1975 6725 50  0000 C CNN
@@ -112,7 +81,7 @@ F 3 "" V 1600 6750 60  0000 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L 78L05-RESCUE-Tinylab_proto1 U1
+L Tinylab_proto1-rescue:78L05-RESCUE-Tinylab_proto1 U1
 U 1 1 55CA99FA
 P 3100 6700
 F 0 "U1" H 3250 6504 60  0000 C CNN
@@ -123,7 +92,7 @@ F 3 "" H 3100 6700 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R1
+L Tinylab_proto1-rescue:R R1
 U 1 1 55CAAB95
 P 2000 9250
 F 0 "R1" V 2080 9250 50  0000 C CNN
@@ -134,7 +103,7 @@ F 3 "" H 2000 9250 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R3
+L Tinylab_proto1-rescue:R R3
 U 1 1 55CAABF4
 P 2350 9400
 F 0 "R3" V 2430 9400 50  0000 C CNN
@@ -145,7 +114,7 @@ F 3 "" H 2350 9400 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R5
+L Tinylab_proto1-rescue:R R5
 U 1 1 55CAAC5F
 P 3000 9500
 F 0 "R5" V 3080 9500 50  0000 C CNN
@@ -156,7 +125,7 @@ F 3 "" H 3000 9500 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R6
+L Tinylab_proto1-rescue:R R6
 U 1 1 55CAACD2
 P 3000 9700
 F 0 "R6" V 3080 9700 50  0000 C CNN
@@ -167,7 +136,7 @@ F 3 "" H 3000 9700 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R4
+L Tinylab_proto1-rescue:R R4
 U 1 1 55CAAD11
 P 2350 9800
 F 0 "R4" V 2430 9800 50  0000 C CNN
@@ -178,7 +147,7 @@ F 3 "" H 2350 9800 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R2
+L Tinylab_proto1-rescue:R R2
 U 1 1 55CAAD4C
 P 2000 9950
 F 0 "R2" V 2080 9950 50  0000 C CNN
@@ -189,7 +158,7 @@ F 3 "" H 2000 9950 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L C_Small C2
+L Tinylab_proto1-rescue:C_Small C2
 U 1 1 55CAB4DE
 P 1550 9950
 F 0 "C2" H 1560 10020 50  0000 L CNN
@@ -200,7 +169,7 @@ F 3 "" H 1550 9950 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L C_Small C1
+L Tinylab_proto1-rescue:C_Small C1
 U 1 1 55CAB611
 P 1450 9300
 F 0 "C1" H 1460 9370 50  0000 L CNN
@@ -225,7 +194,7 @@ AVCC_ON_2
 Text Label 7050 4700 0    60   ~ 0
 AVCC_ON_2
 $Comp
-L C_Small C3
+L Tinylab_proto1-rescue:C_Small C3
 U 1 1 55CB13E1
 P 2700 6950
 F 0 "C3" H 2710 7020 50  0000 L CNN
@@ -236,7 +205,7 @@ F 3 "" H 2700 6950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C_Small C4
+L Tinylab_proto1-rescue:C_Small C4
 U 1 1 55CB147C
 P 3500 6950
 F 0 "C4" H 3510 7020 50  0000 L CNN
@@ -251,7 +220,7 @@ Analog Front End for Scope\n
 Text Notes 8950 8600 0    60   ~ 0
 DAC stuff\n
 $Comp
-L R R22
+L Tinylab_proto1-rescue:R R22
 U 1 1 55CB4680
 P 10650 9250
 F 0 "R22" V 10730 9250 50  0000 C CNN
@@ -262,7 +231,7 @@ F 3 "" H 10650 9250 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L C_Small C13
+L Tinylab_proto1-rescue:C_Small C13
 U 1 1 55CB630B
 P 11250 9350
 F 0 "C13" H 11260 9420 50  0000 L CNN
@@ -277,7 +246,7 @@ DAC_OUT
 Text Label 7050 5350 0    60   ~ 0
 DAC_OUT
 $Comp
-L R R24
+L Tinylab_proto1-rescue:R R24
 U 1 1 55CB9020
 P 11000 9250
 F 0 "R24" V 11080 9250 50  0000 C CNN
@@ -288,7 +257,7 @@ F 3 "" H 11000 9250 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R11
+L Tinylab_proto1-rescue:R R11
 U 1 1 55CBCD2A
 P 4700 5000
 F 0 "R11" V 4780 5000 50  0000 C CNN
@@ -299,7 +268,7 @@ F 3 "" H 4700 5000 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R7
+L Tinylab_proto1-rescue:R R7
 U 1 1 55CBCDA5
 P 4350 5000
 F 0 "R7" V 4430 5000 50  0000 C CNN
@@ -310,7 +279,7 @@ F 3 "" H 4350 5000 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R13
+L Tinylab_proto1-rescue:R R13
 U 1 1 55CBE0F4
 P 4700 5400
 F 0 "R13" V 4780 5400 50  0000 C CNN
@@ -321,7 +290,7 @@ F 3 "" H 4700 5400 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R9
+L Tinylab_proto1-rescue:R R9
 U 1 1 55CBE16B
 P 4350 5400
 F 0 "R9" V 4430 5400 50  0000 C CNN
@@ -332,7 +301,7 @@ F 3 "" H 4350 5400 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R14
+L Tinylab_proto1-rescue:R R14
 U 1 1 55CBE21C
 P 4700 5600
 F 0 "R14" V 4780 5600 50  0000 C CNN
@@ -343,7 +312,7 @@ F 3 "" H 4700 5600 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R10
+L Tinylab_proto1-rescue:R R10
 U 1 1 55CBE2C7
 P 4350 5600
 F 0 "R10" V 4430 5600 50  0000 C CNN
@@ -354,7 +323,7 @@ F 3 "" H 4350 5600 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R12
+L Tinylab_proto1-rescue:R R12
 U 1 1 55CBE362
 P 4700 5200
 F 0 "R12" V 4780 5200 50  0000 C CNN
@@ -365,7 +334,7 @@ F 3 "" H 4700 5200 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R8
+L Tinylab_proto1-rescue:R R8
 U 1 1 55CBE401
 P 4350 5200
 F 0 "R8" V 4430 5200 50  0000 C CNN
@@ -376,7 +345,7 @@ F 3 "" H 4350 5200 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L CONN_01X04 P3
+L Tinylab_proto1-rescue:CONN_01X04 P3
 U 1 1 55CBF4D5
 P 3550 5300
 F 0 "P3" H 3550 5550 50  0000 C CNN
@@ -391,7 +360,7 @@ Dig Output\n
 Text Notes 10050 4650 0    60   ~ 0
 PSU\n
 $Comp
-L +5V #PWR01
+L Tinylab_proto1-rescue:+5V #PWR01
 U 1 1 55CD51C0
 P 2700 6650
 F 0 "#PWR01" H 2700 6500 50  0001 C CNN
@@ -411,7 +380,7 @@ Text Label 5100 6300 0    60   ~ 0
 D+
 NoConn ~ 1950 6950
 $Comp
-L C_Small C5
+L Tinylab_proto1-rescue:C_Small C5
 U 1 1 55D60181
 P 3600 9600
 F 0 "C5" H 3610 9670 50  0000 L CNN
@@ -424,7 +393,7 @@ $EndComp
 Text Label 6450 4000 0    60   ~ 0
 AVCC
 $Comp
-L DMN63D8LDW U4
+L Tinylab_proto1-rescue:DMN63D8LDW U4
 U 1 1 55D6ACFD
 P 14400 3450
 F 0 "U4" H 14400 3150 60  0000 C CNN
@@ -437,7 +406,7 @@ $EndComp
 Text Notes 14250 2450 0    60   ~ 0
 DIG IN
 $Comp
-L CONN_01X02 P8
+L Tinylab_proto1-rescue:CONN_01X02 P8
 U 1 1 55D6DB77
 P 14400 2750
 F 0 "P8" H 14400 2900 50  0000 C CNN
@@ -452,7 +421,7 @@ DIG_CH2
 Text Label 13550 3600 0    60   ~ 0
 DIG_CH1
 $Comp
-L F_Small F1
+L Tinylab_proto1-rescue:F_Small F1
 U 1 1 55D739F3
 P 3350 4300
 F 0 "F1" H 3310 4360 50  0000 L CNN
@@ -489,18 +458,18 @@ NoConn ~ 5250 5700
 Text Label 6150 3800 0    60   ~ 0
 VCC_3V3
 $Comp
-L INDUCTOR L1
+L Tinylab_proto1-rescue:INDUCTOR L1
 U 1 1 5606EE9E
 P 10350 5050
 F 0 "L1" V 10300 5050 50  0000 C CNN
-F 1 "INDUCTOR" V 10450 5050 50  0000 C CNN
+F 1 "100uH" V 10450 5050 50  0000 C CNN
 F 2 "Special_inductor:SMALL_INDUCTOR" H 10350 5050 60  0001 C CNN
 F 3 "" H 10350 5050 60  0000 C CNN
 	1    10350 5050
 	0    1    1    0   
 $EndComp
 $Comp
-L D_Schottky D1
+L Tinylab_proto1-rescue:D_Schottky D1
 U 1 1 5606FDB4
 P 11100 5050
 F 0 "D1" H 11100 5150 50  0000 C CNN
@@ -511,7 +480,7 @@ F 3 "" H 11100 5050 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L CP1 C9
+L Tinylab_proto1-rescue:CP1 C9
 U 1 1 560719D9
 P 9300 5350
 F 0 "C9" H 9325 5450 50  0000 L CNN
@@ -522,7 +491,7 @@ F 3 "" H 9300 5350 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C10
+L Tinylab_proto1-rescue:C C10
 U 1 1 56071A50
 P 9600 5350
 F 0 "C10" H 9625 5450 50  0000 L CNN
@@ -533,7 +502,7 @@ F 3 "" H 9600 5350 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C16
+L Tinylab_proto1-rescue:C C16
 U 1 1 5607355F
 P 16600 5350
 F 0 "C16" H 16625 5450 50  0000 L CNN
@@ -544,7 +513,7 @@ F 3 "" H 16600 5350 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP1 C15
+L Tinylab_proto1-rescue:CP1 C15
 U 1 1 560735FE
 P 11500 5400
 F 0 "C15" H 11525 5500 50  0000 L CNN
@@ -559,7 +528,7 @@ NoConn ~ 7050 4600
 Text Label 7050 4900 0    60   ~ 0
 CH2
 $Comp
-L CONN_02X02 P4
+L Tinylab_proto1-rescue:CONN_02X02 P4
 U 1 1 56069A87
 P 4600 4350
 F 0 "P4" H 4600 4500 50  0000 C CNN
@@ -579,7 +548,7 @@ DAC_OUT2
 Text Label 7350 11450 0    60   ~ 0
 DAC_OUT2
 $Comp
-L R R23
+L Tinylab_proto1-rescue:R R23
 U 1 1 566DE721
 P 10850 11550
 F 0 "R23" V 10930 11550 50  0000 C CNN
@@ -590,7 +559,7 @@ F 3 "" H 10850 11550 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R25
+L Tinylab_proto1-rescue:R R25
 U 1 1 566DE7E8
 P 11150 11550
 F 0 "R25" V 11230 11550 50  0000 C CNN
@@ -601,7 +570,7 @@ F 3 "" H 11150 11550 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L C_Small C14
+L Tinylab_proto1-rescue:C_Small C14
 U 1 1 566DF655
 P 11400 11650
 F 0 "C14" H 11410 11720 50  0000 L CNN
@@ -612,7 +581,7 @@ F 3 "" H 11400 11650 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L CONN_01X04 P6
+L Tinylab_proto1-rescue:CONN_01X04 P6
 U 1 1 566DF832
 P 12450 10750
 F 0 "P6" H 12450 11000 50  0000 C CNN
@@ -623,7 +592,7 @@ F 3 "" H 12450 10750 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R26
+L Tinylab_proto1-rescue:R R26
 U 1 1 566E5C29
 P 12100 5200
 F 0 "R26" V 12180 5200 50  0000 C CNN
@@ -634,7 +603,7 @@ F 3 "" H 12100 5200 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R27
+L Tinylab_proto1-rescue:R R27
 U 1 1 566E5CBE
 P 12100 5500
 F 0 "R27" V 12180 5500 50  0000 C CNN
@@ -649,7 +618,7 @@ PSU_FDBK
 Text Label 12350 5350 0    60   ~ 0
 PSU_FDBK
 $Comp
-L CP1 C6
+L Tinylab_proto1-rescue:CP1 C6
 U 1 1 566F5A75
 P 4050 6900
 F 0 "C6" H 4075 7000 50  0000 L CNN
@@ -662,7 +631,7 @@ $EndComp
 Text Label 6250 3900 0    60   ~ 0
 VCC_3V3
 $Comp
-L R R19
+L Tinylab_proto1-rescue:R R19
 U 1 1 56AECD86
 P 8700 9750
 F 0 "R19" V 8780 9750 50  0000 C CNN
@@ -677,7 +646,7 @@ VCC_3V3
 Text Label 9150 3600 0    60   ~ 0
 AVCC
 $Comp
-L C C11
+L Tinylab_proto1-rescue:C C11
 U 1 1 5608B4BE
 P 10150 3750
 F 0 "C11" H 10175 3850 50  0000 L CNN
@@ -688,7 +657,7 @@ F 3 "" H 10150 3750 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C8
+L Tinylab_proto1-rescue:C C8
 U 1 1 56AF91A3
 P 9200 3750
 F 0 "C8" H 9225 3850 50  0000 L CNN
@@ -699,7 +668,7 @@ F 3 "" H 9200 3750 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R17
+L Tinylab_proto1-rescue:R R17
 U 1 1 56AFE83E
 P 7950 9900
 F 0 "R17" V 8030 9900 50  0000 C CNN
@@ -710,7 +679,7 @@ F 3 "" H 7950 9900 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R18
+L Tinylab_proto1-rescue:R R18
 U 1 1 56AFE8F3
 P 8150 9900
 F 0 "R18" V 8230 9900 50  0000 C CNN
@@ -721,7 +690,7 @@ F 3 "" H 8150 9900 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L DMN63D8LDW U3
+L Tinylab_proto1-rescue:DMN63D8LDW U3
 U 1 1 56B012DD
 P 9250 10750
 F 0 "U3" H 9250 10450 60  0000 C CNN
@@ -738,7 +707,7 @@ TO_B0
 Text Label 13950 5050 0    60   ~ 0
 PSU_OUT
 $Comp
-L R R20
+L Tinylab_proto1-rescue:R R20
 U 1 1 56B0C682
 P 8700 12050
 F 0 "R20" V 8780 12050 50  0000 C CNN
@@ -749,7 +718,7 @@ F 3 "" H 8700 12050 30  0000 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L R R15
+L Tinylab_proto1-rescue:R R15
 U 1 1 56B0C779
 P 7900 12200
 F 0 "R15" V 7980 12200 50  0000 C CNN
@@ -760,7 +729,7 @@ F 3 "" H 7900 12200 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R16
+L Tinylab_proto1-rescue:R R16
 U 1 1 56B0C86E
 P 8100 12200
 F 0 "R16" V 8180 12200 50  0000 C CNN
@@ -775,7 +744,7 @@ TO_B1
 Text Label 7050 5250 0    60   ~ 0
 TO_B1
 $Comp
-L +5V #PWR02
+L Tinylab_proto1-rescue:+5V #PWR02
 U 1 1 56E7FFFF
 P 8900 5050
 F 0 "#PWR02" H 8900 4900 50  0001 C CNN
@@ -786,11 +755,11 @@ F 3 "" H 8900 5050 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L INDUCTOR L2
+L Tinylab_proto1-rescue:INDUCTOR L2
 U 1 1 56E88440
 P 9700 3600
 F 0 "L2" V 9650 3600 50  0000 C CNN
-F 1 "INDUCTOR" V 9800 3600 50  0000 C CNN
+F 1 "10uH" V 9800 3600 50  0000 C CNN
 F 2 "Resistors_SMD:R_1206" H 9700 3600 60  0001 C CNN
 F 3 "" H 9700 3600 60  0000 C CNN
 	1    9700 3600
@@ -805,18 +774,18 @@ OPAMP_VCC
 Text Label 8300 11150 0    60   ~ 0
 OPAMP_VCC
 $Comp
-L INDUCTOR L3
+L Tinylab_proto1-rescue:INDUCTOR L3
 U 1 1 56E8DA35
 P 15300 5050
 F 0 "L3" V 15250 5050 50  0000 C CNN
-F 1 "INDUCTOR" V 15400 5050 50  0000 C CNN
+F 1 "10uH" V 15400 5050 50  0000 C CNN
 F 2 "Resistors_SMD:R_1206" H 15300 5050 60  0001 C CNN
 F 3 "" H 15300 5050 60  0000 C CNN
 	1    15300 5050
 	0    1    1    0   
 $EndComp
 $Comp
-L C C7
+L Tinylab_proto1-rescue:C C7
 U 1 1 56E8E263
 P 15000 5350
 F 0 "C7" H 15025 5450 50  0000 L CNN
@@ -829,7 +798,7 @@ $EndComp
 Text Label 16250 5050 0    60   ~ 0
 OPAMP_VCC
 $Comp
-L R R21
+L Tinylab_proto1-rescue:R R21
 U 1 1 56E9851A
 P 4900 8900
 F 0 "R21" V 4980 8900 50  0000 C CNN
@@ -840,7 +809,7 @@ F 3 "" H 4900 8900 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R28
+L Tinylab_proto1-rescue:R R28
 U 1 1 56E985EF
 P 4950 10400
 F 0 "R28" V 5030 10400 50  0000 C CNN
@@ -851,7 +820,7 @@ F 3 "" H 4950 10400 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R29
+L Tinylab_proto1-rescue:R R29
 U 1 1 56E9888A
 P 9600 9400
 F 0 "R29" V 9680 9400 50  0000 C CNN
@@ -862,7 +831,7 @@ F 3 "" H 9600 9400 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R30
+L Tinylab_proto1-rescue:R R30
 U 1 1 56E98921
 P 10000 11400
 F 0 "R30" V 10080 11400 50  0000 C CNN
@@ -873,7 +842,7 @@ F 3 "" H 10000 11400 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CONN_01X02 P7
+L Tinylab_proto1-rescue:CONN_01X02 P7
 U 1 1 56F2A93D
 P 14150 5350
 F 0 "P7" H 14150 5500 50  0000 C CNN
@@ -912,11 +881,11 @@ VGND
 Text Label 8300 11950 0    60   ~ 0
 VGND
 $Comp
-L INDUCTOR L4
+L Tinylab_proto1-rescue:INDUCTOR L4
 U 1 1 573254B0
 P 15950 5050
 F 0 "L4" V 15900 5050 50  0000 C CNN
-F 1 "INDUCTOR" V 16050 5050 50  0000 C CNN
+F 1 "10uH" V 16050 5050 50  0000 C CNN
 F 2 "Resistors_SMD:R_1206" H 15950 5050 60  0001 C CNN
 F 3 "" H 15950 5050 60  0000 C CNN
 	1    15950 5050
@@ -929,7 +898,7 @@ VGND
 Text Label 3900 4400 0    60   ~ 0
 VGND
 $Comp
-L C C18
+L Tinylab_proto1-rescue:C C18
 U 1 1 57564580
 P 8700 3750
 F 0 "C18" H 8725 3850 50  0000 L CNN
@@ -940,7 +909,7 @@ F 3 "" H 8700 3750 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C17
+L Tinylab_proto1-rescue:C C17
 U 1 1 57564635
 P 8450 3750
 F 0 "C17" H 8475 3850 50  0000 L CNN
@@ -951,7 +920,7 @@ F 3 "" H 8450 3750 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R31
+L Tinylab_proto1-rescue:R R31
 U 1 1 5804605C
 P 10300 5500
 F 0 "R31" V 10380 5500 50  0000 C CNN
@@ -964,7 +933,7 @@ $EndComp
 Text Label 10150 5350 0    60   ~ 0
 PSU_PWM
 $Comp
-L Q_NMOS_GSD Q1
+L Tinylab_proto1-rescue:Q_NMOS_GSD Q1
 U 1 1 583120F2
 P 10650 5350
 F 0 "Q1" H 10950 5400 50  0000 R CNN
@@ -976,7 +945,7 @@ F 3 "" H 10650 5350 50  0000 C CNN
 $EndComp
 NoConn ~ 5250 5900
 $Comp
-L LED D2
+L Tinylab_proto1-rescue:LED D2
 U 1 1 5833E159
 P 14450 5450
 F 0 "D2" H 14450 5550 50  0000 C CNN
@@ -987,7 +956,7 @@ F 3 "" H 14450 5450 50  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L R_Small R32
+L Tinylab_proto1-rescue:R_Small R32
 U 1 1 5833E34C
 P 14450 5150
 F 0 "R32" H 14480 5170 50  0000 L CNN
@@ -998,7 +967,7 @@ F 3 "" H 14450 5150 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CONN_01X03 P10
+L Tinylab_proto1-rescue:CONN_01X03 P10
 U 1 1 5837847B
 P 12800 4950
 F 0 "P10" H 12800 5150 50  0000 C CNN
@@ -1009,7 +978,7 @@ F 3 "" H 12800 4950 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CONN_01X03 P11
+L Tinylab_proto1-rescue:CONN_01X03 P11
 U 1 1 58378536
 P 13400 4950
 F 0 "P11" H 13400 5150 50  0000 C CNN
@@ -1021,7 +990,7 @@ F 3 "" H 13400 4950 50  0000 C CNN
 $EndComp
 NoConn ~ 13200 4850
 $Comp
-L CONN_01X04 P1
+L Tinylab_proto1-rescue:CONN_01X04 P1
 U 1 1 5832064B
 P 1050 9250
 F 0 "P1" H 1050 9500 50  0000 C CNN
@@ -1032,7 +1001,7 @@ F 3 "" H 1050 9250 50  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L CONN_01X04 P5
+L Tinylab_proto1-rescue:CONN_01X04 P5
 U 1 1 58320706
 P 1050 9900
 F 0 "P5" H 1050 10150 50  0000 C CNN
@@ -1121,7 +1090,7 @@ R22-R24
 Text Label 11000 11550 0    60   ~ 0
 R23-R25
 $Comp
-L C C12
+L Tinylab_proto1-rescue:C C12
 U 1 1 588029E7
 P 10100 5500
 F 0 "C12" H 10125 5600 50  0000 L CNN
@@ -1134,13 +1103,13 @@ $EndComp
 Connection ~ 13950 5050
 Connection ~ 14450 5650
 Wire Wire Line
-	13200 5050 14450 5050
+	13200 5050 13950 5050
 Connection ~ 16350 5050
 Connection ~ 13950 5650
 Wire Wire Line
 	15600 5050 15650 5050
 Wire Wire Line
-	11900 5050 11250 5050
+	11900 5050 11500 5050
 Wire Wire Line
 	16600 5650 16600 5500
 Wire Wire Line
@@ -1150,7 +1119,7 @@ Wire Wire Line
 Connection ~ 10300 5350
 Connection ~ 10300 5650
 Wire Wire Line
-	10100 5350 10450 5350
+	10100 5350 10300 5350
 Wire Wire Line
 	10750 5650 10750 5550
 Wire Wire Line
@@ -1158,14 +1127,11 @@ Wire Wire Line
 Wire Wire Line
 	13950 5650 13950 5400
 Wire Wire Line
-	8450 3600 8950 3600
+	8450 3600 8700 3600
 Connection ~ 8450 3600
 Connection ~ 8700 3600
-Connection ~ 8950 3600
-Connection ~ 8950 3900
 Connection ~ 8700 3900
 Connection ~ 8450 3900
-Connection ~ 8200 3900
 Wire Wire Line
 	2550 4000 4850 4000
 Wire Wire Line
@@ -1179,14 +1145,12 @@ Wire Wire Line
 Wire Wire Line
 	3250 4300 2700 4300
 Wire Wire Line
-	8200 3900 8950 3900
-Wire Wire Line
 	3100 6950 3100 7050
 Connection ~ 2500 7050
 Wire Wire Line
 	2500 7250 2500 7050
 Wire Wire Line
-	1950 7050 4050 7050
+	1950 7050 2500 7050
 Connection ~ 9600 9250
 Connection ~ 10000 11550
 Wire Wire Line
@@ -1231,7 +1195,7 @@ Connection ~ 7900 12350
 Wire Wire Line
 	7150 12350 7150 10900
 Wire Wire Line
-	7150 12350 8100 12350
+	7150 12350 7900 12350
 Connection ~ 8150 9750
 Wire Wire Line
 	7950 10050 7950 10350
@@ -1256,9 +1220,9 @@ Wire Wire Line
 Wire Wire Line
 	11150 9250 12250 9250
 Wire Wire Line
-	8950 9250 10500 9250
+	8950 9250 9600 9250
 Wire Wire Line
-	8900 11550 10700 11550
+	8900 11550 10000 11550
 Wire Wire Line
 	8800 10600 8500 10600
 Wire Wire Line
@@ -1266,7 +1230,7 @@ Wire Wire Line
 Wire Wire Line
 	7150 10900 8800 10900
 Wire Wire Line
-	8550 12050 7900 12050
+	8550 12050 8100 12050
 Wire Wire Line
 	8900 12050 8900 11550
 Wire Wire Line
@@ -1276,7 +1240,7 @@ Wire Wire Line
 Wire Wire Line
 	9700 10750 10350 10750
 Wire Wire Line
-	9700 10900 10300 10900
+	9700 10900 10000 10900
 Wire Wire Line
 	9700 10350 9700 10600
 Wire Wire Line
@@ -1286,17 +1250,15 @@ Wire Wire Line
 Wire Wire Line
 	8850 9750 8950 9750
 Wire Wire Line
-	7950 9750 8550 9750
+	7950 9750 8150 9750
 Wire Wire Line
 	7950 9350 7950 9750
-Wire Wire Line
-	7900 3900 9200 3900
 Connection ~ 9200 3600
 Connection ~ 10150 3600
 Wire Wire Line
-	10000 3600 10400 3600
+	10000 3600 10150 3600
 Wire Wire Line
-	9150 3600 9400 3600
+	9150 3600 9200 3600
 Wire Wire Line
 	6250 4000 6250 3900
 Wire Wire Line
@@ -1314,7 +1276,7 @@ Wire Wire Line
 Wire Wire Line
 	7900 11450 7350 11450
 Wire Wire Line
-	3600 9750 4750 9750
+	3600 9750 4150 9750
 Wire Wire Line
 	3600 9700 3600 9750
 Wire Wire Line
@@ -1343,10 +1305,10 @@ Wire Wire Line
 	9300 5200 9300 5050
 Connection ~ 9600 5050
 Wire Wire Line
-	9600 4850 9600 5200
+	9600 4850 9600 5050
 Connection ~ 10750 5050
 Wire Wire Line
-	9650 5050 8900 5050
+	9650 5050 9600 5050
 Wire Wire Line
 	1950 7250 1950 7050
 Wire Wire Line
@@ -1452,9 +1414,9 @@ Wire Wire Line
 Wire Wire Line
 	2150 9250 2350 9250
 Wire Wire Line
-	2850 9500 2850 9700
+	2850 9500 2850 9600
 Wire Wire Line
-	2350 9550 2350 9650
+	2350 9550 2350 9600
 Wire Wire Line
 	2350 9600 2850 9600
 Connection ~ 2850 9600
@@ -1494,7 +1456,7 @@ Wire Wire Line
 Connection ~ 11500 5650
 Connection ~ 11500 5050
 Wire Wire Line
-	16600 5050 16250 5050
+	16600 5050 16350 5050
 Connection ~ 12100 5650
 Wire Wire Line
 	12600 5050 12600 5650
@@ -1504,13 +1466,13 @@ Wire Wire Line
 Wire Wire Line
 	13050 4600 13050 4950
 Wire Wire Line
-	12100 4600 15000 4600
+	12100 4600 13050 4600
 Wire Wire Line
-	15000 4600 15000 5200
+	15000 4600 15000 5050
 Wire Wire Line
-	12100 4600 12100 5050
+	12100 4600 12100 4850
 Wire Wire Line
-	11900 4850 12600 4850
+	11900 4850 12100 4850
 Connection ~ 12100 4850
 Wire Wire Line
 	12350 5350 12350 4950
@@ -1522,7 +1484,7 @@ Wire Wire Line
 Wire Wire Line
 	13050 4950 13200 4950
 Wire Wire Line
-	1850 9100 1850 9400
+	1850 9100 1850 9200
 Wire Wire Line
 	1850 9100 1250 9100
 Wire Wire Line
@@ -1541,7 +1503,7 @@ Wire Wire Line
 Wire Wire Line
 	1450 9950 1250 9950
 Wire Wire Line
-	1850 9750 1850 10050
+	1850 9750 1850 9850
 Wire Wire Line
 	1850 10050 1250 10050
 Wire Wire Line
@@ -1557,12 +1519,12 @@ Connection ~ 15000 5650
 Wire Wire Line
 	16350 5200 16350 5050
 Wire Wire Line
-	8200 3600 9200 3600
+	8200 3600 8450 3600
 Connection ~ 10100 5650
 Wire Wire Line
-	10950 5050 10650 5050
+	10950 5050 10750 5050
 $Comp
-L F_Small F2
+L Tinylab_proto1-rescue:F_Small F2
 U 1 1 58F5AF9C
 P 9750 5050
 F 0 "F2" H 9710 5110 50  0000 L CNN
@@ -1573,9 +1535,9 @@ F 3 "" H 9750 5050 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9850 5050 10050 5050
+	9850 5050 9950 5050
 $Comp
-L CONN_01X02 P9
+L Tinylab_proto1-rescue:CONN_01X02 P9
 U 1 1 58FEDB8C
 P 9750 4650
 F 0 "P9" H 9750 4800 50  0000 C CNN
@@ -1593,8 +1555,114 @@ Wire Wire Line
 	9950 4850 9950 5050
 Connection ~ 9950 5050
 Wire Wire Line
-	8900 5650 16600 5650
+	8900 5650 9300 5650
 Wire Wire Line
 	16350 5650 16350 5500
 Connection ~ 16350 5650
+Wire Wire Line
+	13950 5050 14450 5050
+Wire Wire Line
+	14450 5650 15000 5650
+Wire Wire Line
+	16350 5050 16250 5050
+Wire Wire Line
+	13950 5650 14450 5650
+Wire Wire Line
+	10300 5350 10450 5350
+Wire Wire Line
+	10300 5650 10750 5650
+Wire Wire Line
+	8700 3900 8950 3900
+Wire Wire Line
+	8450 3900 8700 3900
+Wire Wire Line
+	8200 3900 8450 3900
+Wire Wire Line
+	2500 7050 2700 7050
+Wire Wire Line
+	9600 9250 10500 9250
+Wire Wire Line
+	10000 11550 10700 11550
+Wire Wire Line
+	10000 10900 10150 10900
+Wire Wire Line
+	10150 10900 10300 10900
+Wire Wire Line
+	4400 9750 4750 9750
+Wire Wire Line
+	8100 12050 7900 12050
+Wire Wire Line
+	7900 12350 8100 12350
+Wire Wire Line
+	8150 9750 8550 9750
+Wire Wire Line
+	9200 3600 9400 3600
+Wire Wire Line
+	10150 3600 10400 3600
+Wire Wire Line
+	3500 7050 4050 7050
+Wire Wire Line
+	4150 9750 4400 9750
+Wire Wire Line
+	10750 5650 11500 5650
+Wire Wire Line
+	9600 5650 10100 5650
+Wire Wire Line
+	9300 5650 9600 5650
+Wire Wire Line
+	9300 5050 8900 5050
+Wire Wire Line
+	9600 5050 9600 5200
+Wire Wire Line
+	9600 5050 9300 5050
+Wire Wire Line
+	10750 5050 10650 5050
+Wire Wire Line
+	2700 7050 3100 7050
+Wire Wire Line
+	3100 7050 3500 7050
+Wire Wire Line
+	2850 9600 2850 9700
+Wire Wire Line
+	2350 9600 2350 9650
+Wire Wire Line
+	11500 5650 12100 5650
+Wire Wire Line
+	11500 5050 11250 5050
+Wire Wire Line
+	12100 5650 12600 5650
+Wire Wire Line
+	12600 5650 13950 5650
+Wire Wire Line
+	12100 4850 12100 5050
+Wire Wire Line
+	12100 4850 12600 4850
+Wire Wire Line
+	13050 4600 15000 4600
+Wire Wire Line
+	1850 9200 1850 9250
+Wire Wire Line
+	1850 9250 1850 9300
+Wire Wire Line
+	1850 9300 1850 9400
+Wire Wire Line
+	1850 9950 1850 10050
+Wire Wire Line
+	1850 9850 1850 9950
+Wire Wire Line
+	15000 5050 15000 5200
+Wire Wire Line
+	15000 5650 16350 5650
+Wire Wire Line
+	10100 5650 10300 5650
+Wire Wire Line
+	9950 5050 10050 5050
+Wire Wire Line
+	16350 5650 16600 5650
+Wire Wire Line
+	7900 3900 8450 3900
+Wire Wire Line
+	8700 3600 9200 3600
+Wire Wire Line
+	8700 3900 9200 3900
 $EndSCHEMATC

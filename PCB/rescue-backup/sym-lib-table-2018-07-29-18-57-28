@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name Tinylab_proto1-rescue)(type Legacy)(uri ${KIPRJMOD}/Tinylab_proto1-rescue.lib)(options "")(descr ""))
+  (lib (name ESPO_PART)(type Legacy)(uri ${KIPRJMOD}/ESPO_PART.lib)(options "")(descr ""))
+)
