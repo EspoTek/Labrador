@@ -95,7 +95,7 @@ protected:
     void requestFirmwareVersion(void);
     void requestFirmwareVariant(void);
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin) = 0;
-    virtual unsigned char usbIsoInit(void) = 0;
+    virtual int usbIsoInit(void) = 0;
     virtual int flashFirmware(void) = 0;
     uint8_t numero_uno = 1;
 signals:

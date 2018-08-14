@@ -118,7 +118,7 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
     return;
 }
 
-unsigned char unixUsbDriver::usbIsoInit(void){
+int unixUsbDriver::usbIsoInit(void){
     int error;
 
     for(int n=0;n<NUM_FUTURE_CTX;n++){
@@ -137,6 +137,7 @@ unsigned char unixUsbDriver::usbIsoInit(void){
             if(error){
                 qDebug() << "libusb_submit_transfer FAILED";
                 qDebug() << "ERROR" << libusb_error_name(error);
+				return -1;
             } else {
                 if(n == 0){
                     qint64 t0;
@@ -173,7 +174,7 @@ unsigned char unixUsbDriver::usbIsoInit(void){
     qDebug() << "MAIN THREAD ID" << QThread::currentThreadId();
     //QThread::sleep(1);
     qDebug() << "Iso Stack initialised!";
-    return 1;
+    return 0;
 }
 
 void unixUsbDriver::isoTimerTick(void){

@@ -82,7 +82,7 @@ protected:
     int cumulativeFramePhaseErrors = 0;
     //Generic Functions
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
-    unsigned char usbIsoInit(void);
+    int usbIsoInit(void);
     virtual int flashFirmware(void);
     bool allEndpointsComplete(int n);
     bool shutdownMode = false;
