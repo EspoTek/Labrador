@@ -2,11 +2,14 @@
 
 using namespace i2c;
 
-i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate) : QObject(nullptr)
+static const uint32_t kClockMultiplier = 10;
+
+i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate) :
+	QObject(nullptr),
+	sda(sda_in),
+	scl(scl_in)
 {
-	sda = sda_in;
-	scl = scl_in;
-	setStepSize(clockRate);
+	setStepSize(clockRate, kClockMultiplier);
 }
 
 void i2cDecoder::run()
@@ -16,6 +19,7 @@ void i2cDecoder::run()
 		updateBitValues();
 		runStateMachine();
 		serialPtr_bit += stepSize;
+		currentStepIndex = (currentStepIndex + 1) % stepsPerBit;
 	}	
 } 
 
@@ -39,11 +43,11 @@ void i2cDecoder::updateBitValues(){
 	currentSclValue = dataByteScl & mask;
 }
 
-void i2cDecoder::setStepSize(uint32_t clockRate)
+// Step size should be a multiple of the clock rate; we need >1 clock cycle resolution.
+void i2cDecoder::setStepSize(uint32_t clockRate, uint32_t multiplier)
 {
-	stepSize = (double)((sda->sampleRate_bit)/clockRate)/2.0;
-	if (stepSize > (SERIAL_DELAY * sda->sampleRate_bit)/2)
-		stepSize = SERIAL_DELAY * sda->sampleRate_bit / 2;
+	stepSize = (double)((sda->sampleRate_bit)/clockRate)/(double)multiplier;
+	stepsPerBit = multiplier;
 }
 
 void i2cDecoder::runStateMachine()
@@ -96,6 +100,10 @@ edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)
 
 void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
 {
+	// Sample in the middle of the bits!
+	if (currentStepIndex != (stepsPerBit/2))
+		return;
+
 	// Read in the next bit.
 	if (sdaEdge == edge::rising && sclEdge == edge::held_high)
 		address |= 0x0001;
@@ -107,6 +115,10 @@ void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
 
 void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
 {
+	// Sample in the middle of the bits!
+	if (currentStepIndex != (stepsPerBit/2))
+		return;
+
 	// Read in the next bit.
 	if(currentBitIndex < 8)
 	{	
@@ -128,6 +140,7 @@ void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
 void i2cDecoder::startCondition()
 {
 	currentBitIndex = 0;
+	currentStepIndex = 0;
 	address = 0x0000;
 	state = transmissionState::address;	
 }
@@ -138,6 +151,7 @@ void i2cDecoder::stopCondition()
 	{
 		case transmissionState::address:		
 			currentBitIndex = 0;
+			currentStepIndex = 0;
 			state = transmissionState::data;
 			currentDataByte = 0;
 			break;	
