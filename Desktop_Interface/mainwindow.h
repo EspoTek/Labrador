@@ -160,7 +160,6 @@ private slots:
 
     void serialEmergencyDisable(int channel);
 
-    void checkForI2C(int value);
     void on_actionFirmware_Recovery_triggered();
 
     void on_actionShow_Debug_Console_triggered();
@@ -189,6 +188,10 @@ private slots:
     void calibrate_psu_stage2();
 
     void calibrate_psu_stage3();
+
+    void on_actionSerial_triggered(bool checked);
+
+    void on_actionI2C_triggered(bool checked);
 
 private:
     //Generic Vars
@@ -227,6 +230,7 @@ private:
     QActionGroup *uartBaudGroup_CH2;
     QActionGroup *fpsGroup;
     QActionGroup *connectionTypeGroup;
+    QActionGroup *serialProtocolGroup;
     QShortcut *shortcut_cycleBaudRate_CH1;
     QShortcut *shortcut_cycleBaudRateBackwards_CH1;
     QShortcut *shortcut_cycleBaudRate_CH2;

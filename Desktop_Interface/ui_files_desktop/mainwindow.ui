@@ -1148,25 +1148,6 @@
               <property name="bottomMargin">
                <number>0</number>
               </property>
-              <item>
-               <widget class="QComboBox" name="serialDecodingModeSelect_CH1">
-                <item>
-                 <property name="text">
-                  <string>UART</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>SPI</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>I2C</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
              </layout>
             </widget>
            </item>
@@ -1218,20 +1199,6 @@
               <property name="bottomMargin">
                <number>0</number>
               </property>
-              <item>
-               <widget class="QComboBox" name="serialDecodingModeSelect_CH2">
-                <item>
-                 <property name="text">
-                  <string>UART</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>SPI</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
              </layout>
             </widget>
            </item>
@@ -1341,7 +1308,7 @@
      <x>0</x>
      <y>0</y>
      <width>1440</width>
-     <height>26</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1445,8 +1412,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>159</width>
-       <height>126</height>
+       <width>170</width>
+       <height>115</height>
       </rect>
      </property>
      <property name="title">
@@ -1564,6 +1531,14 @@
      <addaction name="menuData_Bits_2"/>
      <addaction name="menuParity_Bit_2"/>
     </widget>
+    <widget class="QMenu" name="menuProtocol">
+     <property name="title">
+      <string>Protocol</string>
+     </property>
+     <addaction name="actionSerial"/>
+     <addaction name="actionI2C"/>
+    </widget>
+    <addaction name="menuProtocol"/>
     <addaction name="menuUART_1"/>
     <addaction name="menuUART_2"/>
    </widget>
@@ -2300,6 +2275,25 @@
   <action name="actionMean_Point_from_GND">
    <property name="text">
     <string>Mean Point from GND</string>
+   </property>
+  </action>
+  <action name="actionSerial">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Serial</string>
+   </property>
+  </action>
+  <action name="actionI2C">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>I2C</string>
    </property>
   </action>
  </widget>

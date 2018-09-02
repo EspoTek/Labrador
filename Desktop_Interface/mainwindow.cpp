@@ -148,7 +148,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->controller_iso, SIGNAL(sendVRMS_CH2(double)), ui->voltageInfoRmsDisplay_CH2, SLOT(display(double)));
 
     connect(ui->controller_iso, SIGNAL(mainWindowPleaseDisableSerial(int)), this, SLOT(serialEmergencyDisable(int)));
-    connect(ui->serialDecodingModeSelect_CH1, SIGNAL(currentIndexChanged(int)), this, SLOT(checkForI2C(int)));
 
     connect(ui->controller_iso->driver, SIGNAL(signalFirmwareFlash(void)), ui->deviceConnected, SLOT(flashingFirmware(void)));
     connect(ui->controller_iso->internalBuffer375_CH1, SIGNAL(fileIOinternalDisable()), this, SLOT(fileLimitReached_CH1()));
@@ -314,6 +313,10 @@ void MainWindow::menuSetup(){
     fpsGroup->addAction(ui->action15FPS);
     fpsGroup->addAction(ui->action10FPS);
     fpsGroup->addAction(ui->action5FPS);
+
+    serialProtocolGroup = new QActionGroup(this);
+    serialProtocolGroup->addAction(ui->actionSerial);
+    serialProtocolGroup->addAction(ui->actionI2C);
 
 
     connect(ui->actionAutoV, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setAutoMultimeterV(bool)));
@@ -1964,18 +1967,6 @@ void MainWindow::serialEmergencyDisable(int channel){
 
 }
 
-//This is a slot that intercepts a signal from the serial decoding CH1 checkbox.
-//It changes the mode to ensure I2C can work.
-//Both channels are necessary; SDA and SCL.
-void MainWindow::checkForI2C(int value){
-    if(value==2){
-        ui->scopeGroup_CH1->setChecked(false);
-        ui->scopeGroup_CH2->setChecked(false);
-        ui->multimeterGroup->setChecked(false);
-    }
-    return;
-}
-
 void MainWindow::on_actionFirmware_Recovery_triggered()
 {
     qDebug() << "on_actionFirmware_Recovery_triggered";
@@ -2196,4 +2187,14 @@ void MainWindow::calibrate_psu_stage3()
     calibrationMessages->exec();
 
     qDebug() << "PSU Calibration complete!  Offset =" << psu_voltage_calibration_offset;
+}
+
+void MainWindow::on_actionSerial_triggered(bool checked)
+{
+    ui->controller_iso->setSerialType(0);
+}
+
+void MainWindow::on_actionI2C_triggered(bool checked)
+{
+    ui->controller_iso->setSerialType(1);
 }

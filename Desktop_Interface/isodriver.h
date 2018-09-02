@@ -47,6 +47,7 @@ public:
     void setAxes(QCustomPlot *newAxes);
     double meanVoltageLast(double seconds, unsigned char channel, int TOP);
     void loadFileBuffer(QFile *fileToLoad);
+    void setSerialType(unsigned char type);
     //DAQ
     bool fileModeEnabled = false;
     double daq_maxWindowSize;
@@ -111,6 +112,8 @@ private:
     enum multimeterType_enum {V = 0, I = 1, R = 2, C = 3};
     multimeterType_enum multimeterType = V;
     double seriesResistance = 0;
+    // Logic Analyser
+    unsigned char serialType = 0;
     //Generic Vars
     double windowAtPause = 0.01;
     QTimer* isoTimer = NULL, *slowTimer = NULL, *fileTimer = NULL;

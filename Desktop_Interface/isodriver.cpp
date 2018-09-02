@@ -1452,5 +1452,9 @@ void isoDriver::disableFileMode(){
     if (delay < 0) delay = 0;
 }
 
-
+void isoDriver::setSerialType(unsigned char type)
+{
+    serialType = type;
+    qDebug() << "Serial Type changed to" << serialType;
+}
 
