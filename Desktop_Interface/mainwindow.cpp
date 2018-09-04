@@ -987,6 +987,7 @@ void MainWindow::cycleDelayRight(){
     qDebug() << "RIGHT";
     ui->controller_iso->delay -= ui->controller_iso->window/10;
     if(ui->controller_iso->delay < 0) ui->controller_iso->delay = 0;
+    ui->controller_iso->delayUpdated(ui->controller_iso->delay);
 }
 
 void MainWindow::cycleDelayLeft(){
@@ -994,12 +995,14 @@ void MainWindow::cycleDelayLeft(){
     double mws = ui->controller_iso->fileModeEnabled ? ui->controller_iso->daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
     ui->controller_iso->delay += ui->controller_iso->window/10;
     if(ui->controller_iso->delay > (mws - ui->controller_iso->window)) ui->controller_iso->delay = (mws - ui->controller_iso->window);
+    ui->controller_iso->delayUpdated(ui->controller_iso->delay);
 }
 
 void MainWindow::cycleDelayRight_large(){
     qDebug() << "RIGHT";
     ui->controller_iso->delay -= ui->controller_iso->window/2;
     if(ui->controller_iso->delay < 0) ui->controller_iso->delay = 0;
+    ui->controller_iso->delayUpdated(ui->controller_iso->delay);
 }
 
 void MainWindow::cycleDelayLeft_large(){
@@ -1007,6 +1010,7 @@ void MainWindow::cycleDelayLeft_large(){
     double mws = ui->controller_iso->fileModeEnabled ? ui->controller_iso->daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
     ui->controller_iso->delay += ui->controller_iso->window/2;
     if(ui->controller_iso->delay > (mws - ui->controller_iso->window)) ui->controller_iso->delay = (mws - ui->controller_iso->window);
+    ui->controller_iso->delayUpdated(ui->controller_iso->delay);
 }
 
 void MainWindow::enableLabradorDebugging(){
@@ -2197,4 +2201,29 @@ void MainWindow::on_actionSerial_triggered(bool checked)
 void MainWindow::on_actionI2C_triggered(bool checked)
 {
     ui->controller_iso->setSerialType(1);
+}
+
+void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
+{
+    qDebug() << "on_actionShow_Range_Dialog_on_Main_Page_triggered" << checked;
+    if (checked)
+    {
+        scopeRangeSwitch = new scopeRangeEnterDialog(nullptr, false, ui->controller_iso->topRange, ui->controller_iso->botRange, ui->controller_iso->window, ui->controller_iso->delay);
+        scopeRangeSwitch->setWindowFlags(Qt::Widget);
+        ui->verticalLayout_5->insertWidget(2, scopeRangeSwitch);
+        connect(scopeRangeSwitch, SIGNAL(yTopUpdated(double)), ui->controller_iso, SLOT(setTopRange(double)));
+        connect(scopeRangeSwitch, SIGNAL(yBotUpdated(double)), ui->controller_iso, SLOT(setBotRange(double)));
+        connect(scopeRangeSwitch, SIGNAL(windowUpdated(double)), ui->controller_iso, SLOT(setTimeWindow(double)));
+        connect(scopeRangeSwitch, SIGNAL(delayUpdated(double)), ui->controller_iso, SLOT(setDelay(double)));
+
+        connect(ui->controller_iso, SIGNAL(topRangeUpdated(double)), scopeRangeSwitch, SLOT(yTopChanged(double)));
+        connect(ui->controller_iso, SIGNAL(botRangeUpdated(double)), scopeRangeSwitch, SLOT(yBotChanged(double)));
+        connect(ui->controller_iso, SIGNAL(timeWindowUpdated(double)), scopeRangeSwitch, SLOT(windowChanged(double)));
+        connect(ui->controller_iso, SIGNAL(delayUpdated(double)), scopeRangeSwitch, SLOT(delayChanged(double)));
+    }
+    else
+    {
+        delete scopeRangeSwitch;
+        scopeRangeSwitch = nullptr;
+    }
 }

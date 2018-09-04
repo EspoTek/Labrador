@@ -1402,6 +1402,7 @@
     <addaction name="actionCalibrate"/>
     <addaction name="actionForce_Square"/>
     <addaction name="actionAutomatically_Enable_Cursors"/>
+    <addaction name="actionShow_Range_Dialog_on_Main_Page"/>
    </widget>
    <widget class="QMenu" name="menuMultimeter_2">
     <property name="title">
@@ -2294,6 +2295,14 @@
    </property>
    <property name="text">
     <string>I2C</string>
+   </property>
+  </action>
+  <action name="actionShow_Range_Dialog_on_Main_Page">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Range Dialog on Main Page</string>
    </property>
   </action>
  </widget>

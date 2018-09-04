@@ -238,6 +238,8 @@ void isoDriver::setVoltageRange(QWheelEvent *event){
         if (topRange > (double)20) topRange = (double)20;
         if (botRange <- (double)20) botRange = (double)-20;
         if (autoGainEnabled && !properlyPaused()) autoGain();
+        topRangeUpdated(topRange);
+        botRangeUpdated(botRange);
     }
     else if(properlyPaused()){
         double c = (window) / (double)200;
@@ -253,17 +255,31 @@ void isoDriver::setVoltageRange(QWheelEvent *event){
         if (event->delta()==120){
             window -= c* ((double)pixPct);
             delay += c* ((double)100 - (double)pixPct) * pixPct/100;
+            delayUpdated(delay);
         }
         else{
             window += c* ((double)pixPct);
             delay -= c* ((double)100 - (double)pixPct) * pixPct/100;
+            delayUpdated(delay);
         }
 
         double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
 
-        if (window > mws) window = mws;
-        if ((window + delay) > mws) delay -= window + delay - mws;
-        if (delay < 0) delay = 0;
+        if (window > mws)
+        {
+            window = mws;
+            timeWindowUpdated(window);
+        }
+        if ((window + delay) > mws)
+        {
+            delay -= window + delay - mws;
+            delayUpdated(delay);
+        }
+        if (delay < 0)
+        {
+            delay = 0;
+            delayUpdated(delay);
+        }
         qDebug() << window << delay;
     } else {
         qDebug() << "TIGGERED";
@@ -285,17 +301,29 @@ void isoDriver::setVoltageRange(QWheelEvent *event){
         if (event->delta()==120){
             window -= c* ((double)pixPct);
             delay += c* ((double)100 - (double)pixPct) * pixPct/100;
+            delayUpdated(delay);
+            timeWindowUpdated(window);
         }
         else{
             window += c* ((double)pixPct);
             delay -= c* ((double)100 - (double)pixPct) * pixPct/100;
+            delayUpdated(delay);
+            timeWindowUpdated(window);
         }
 
         double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
 
         if (window > mws) window = mws;
-        if ((window + delay) > mws) delay -= window + delay - mws;
-        if (delay < 0) delay = 0;
+        if ((window + delay) > mws)
+        {
+            delay -= window + delay - mws;
+            delayUpdated(delay);
+        }
+        if (delay < 0)
+        {
+            delay = 0;
+            delayUpdated(delay);
+        }
         windowAtPause = window;
         qDebug() << window << delay;
     }
@@ -325,6 +353,7 @@ void isoDriver::pauseEnable_CH1(bool enabled){
 
     if(!properlyPaused()) {
         delay = 0;
+        delayUpdated(delay);
         if (autoGainEnabled) autoGain();
         //window = windowAtPause;
     }
@@ -339,6 +368,7 @@ void isoDriver::pauseEnable_CH2(bool enabled){
 
     if(!properlyPaused()){
         delay = 0;
+        delayUpdated(delay);
         if (autoGainEnabled) autoGain();
         //window = windowAtPause;
     }
@@ -351,6 +381,7 @@ void isoDriver::pauseEnable_multimeter(bool enabled){
 
     if(!properlyPaused()) {
         delay = 0;
+        delayUpdated(delay);
         //window = windowAtPause;
     }
 
@@ -608,6 +639,7 @@ int isoDriver::trigger(void){
 
     if(singleShotEnabled && (location != -1)) {
         delay = triggerDelay;
+        delayUpdated(delay);
         singleShotTriggered(1);
     }
     return location;
@@ -1214,19 +1246,23 @@ void isoDriver::slowTimerTick(){
 
 void isoDriver::setTopRange(double newTop){
     topRange = newTop;
+    topRangeUpdated(topRange);
 }
 
 void isoDriver::setBotRange(double newBot){
     botRange = newBot;
+    botRangeUpdated(botRange);
 }
 
 void isoDriver::setTimeWindow(double newWindow){
     window = newWindow;
     windowAtPause = window;
+    timeWindowUpdated(window);
 }
 
 void isoDriver::setDelay(double newDelay){
     delay = newDelay;
+    delayUpdated(delay);
 }
 
 void isoDriver::takeSnapshot(QString *fileName, unsigned char channel){
@@ -1449,9 +1485,21 @@ void isoDriver::disableFileMode(){
 
     //Shrink screen back, if necessary.
     double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
-    if (window > mws) window = mws;
-    if ((window + delay) > mws) delay -= window + delay - mws;
-    if (delay < 0) delay = 0;
+    if (window > mws)
+    {
+        window = mws;
+        timeWindowUpdated(window);
+    }
+    if ((window + delay) > mws)
+    {
+        delay -= window + delay - mws;
+        delayUpdated(delay);
+    }
+    if (delay < 0)
+    {
+        delay = 0;
+        delayUpdated(delay);
+    }
 }
 
 void isoDriver::setSerialType(unsigned char type)

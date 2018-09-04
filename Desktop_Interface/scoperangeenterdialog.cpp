@@ -1,7 +1,7 @@
 #include "scoperangeenterdialog.h"
 #include "ui_scoperangeenterdialog.h"
 
-scopeRangeEnterDialog::scopeRangeEnterDialog(QWidget *parent, double yTop, double yBot, double window, double delay) :
+scopeRangeEnterDialog::scopeRangeEnterDialog(QWidget *parent, bool buttonVisible, double yTop, double yBot, double window, double delay) :
     QDialog(parent),
     ui(new Ui::scopeRangeEnterDialog)
 {
@@ -13,6 +13,7 @@ scopeRangeEnterDialog::scopeRangeEnterDialog(QWidget *parent, double yTop, doubl
     ui->vMaxBox->setValue(yTop);
     ui->vMinBox->setValue(yBot);
     ui->timeWindowBox->setValue(window);
+    ui->buttonBox->setVisible(buttonVisible);
 }
 
 scopeRangeEnterDialog::~scopeRangeEnterDialog()
@@ -22,24 +23,65 @@ scopeRangeEnterDialog::~scopeRangeEnterDialog()
 
 void scopeRangeEnterDialog::toUpdateYTop(double val){
     qDebug() << val;
-    yTopUpdated(val);
+
+    if (yTop != val)
+    {
+        yTop = val;
+        yTopUpdated(val);
+    }
 }
 
 void scopeRangeEnterDialog::toUpdateYBot(double val){
     qDebug() << val;
-    yBotUpdated(val);
+
+    if (yBot != val)
+    {
+        yBot = val;
+        yBotUpdated(val);
+    }
 }
 
 void scopeRangeEnterDialog::toUpdateWindow(double val){
     qDebug() << val;
-    windowUpdated(val);
-    ui->delayBox->setMax(((double)MAX_WINDOW_SIZE) - ui->timeWindowBox->value());
-    qDebug() << "delayBox updating to" << ui->delayBox->maximum();
+
+    if (timeWindow != val)
+    {
+        ui->delayBox->setMax(((double)MAX_WINDOW_SIZE) - ui->timeWindowBox->value());
+        qDebug() << "delayBox updating to" << ui->delayBox->maximum();
+        timeWindow = val;
+        windowUpdated(val);
+    }
 }
 
 void scopeRangeEnterDialog::toUpdateDelay(double val){
     qDebug() << val;
-    delayUpdated(val);
-    ui->timeWindowBox->setMax(((double)MAX_WINDOW_SIZE) - ui->delayBox->value());
-    qDebug() << "timeWindowBox updating max to" << ui->timeWindowBox->maximum();
+
+    if (delay != val)
+    {
+        ui->timeWindowBox->setMax(((double)MAX_WINDOW_SIZE) - ui->delayBox->value());
+        qDebug() << "timeWindowBox updating max to" << ui->timeWindowBox->maximum();
+        delay = val;
+        delayUpdated(val);
+    }
 }
+
+void scopeRangeEnterDialog::yTopChanged(double val)
+{
+    ui->vMaxBox->setValue(val);
+}
+
+void scopeRangeEnterDialog::yBotChanged(double val)
+{
+    ui->vMinBox->setValue(val);
+}
+
+void scopeRangeEnterDialog::windowChanged(double val)
+{
+    ui->timeWindowBox->setValue(val);
+}
+
+void scopeRangeEnterDialog::delayChanged(double val)
+{
+    ui->delayBox->setValue(val);
+}
+

@@ -154,6 +154,10 @@ signals:
     void multimeterREnabled(int source);
     void mainWindowPleaseDisableSerial(int);
     void showRealtimeButton(bool visible);
+    void topRangeUpdated(double);
+    void botRangeUpdated(double);
+    void timeWindowUpdated(double);
+    void delayUpdated(double);
 public slots:
     void setWindow(int newWindow);
     void setVoltageRange(QWheelEvent *event);

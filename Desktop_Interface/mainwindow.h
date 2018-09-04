@@ -193,6 +193,8 @@ private slots:
 
     void on_actionI2C_triggered(bool checked);
 
+    void on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked);
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
@@ -261,6 +263,8 @@ private:
     int dt_userWantsToCalibrate;
     int daq_num_to_average;
     qulonglong daq_max_file_size;
+
+    scopeRangeEnterDialog* scopeRangeSwitch = nullptr;
 
 #ifdef PLATFORM_ANDROID
     //Android Special

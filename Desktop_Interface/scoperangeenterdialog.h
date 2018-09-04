@@ -17,11 +17,15 @@ class scopeRangeEnterDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit scopeRangeEnterDialog(QWidget *parent = 0, double yTop = 20, double yBot = -20, double window = -10, double delay = 0);
+    explicit scopeRangeEnterDialog(QWidget *parent = 0, bool buttonVisible = true, double yTop = 20, double yBot = -20, double window = -10, double delay = 0);
     ~scopeRangeEnterDialog();
 
 private:
     Ui::scopeRangeEnterDialog *ui;
+    double delay = 130065506;
+    double timeWindow = 130065506;
+    double yBot = 130065506;
+    double yTop = 130065506;
 
 signals:
     void yTopUpdated(double val);
@@ -33,6 +37,10 @@ private slots:
     void toUpdateYBot(double val);
     void toUpdateWindow(double val);
     void toUpdateDelay(double val);
+    void yTopChanged(double val);
+    void yBotChanged(double val);
+    void windowChanged(double val);
+    void delayChanged(double val);
 };
 
 #endif // SCOPERANGEENTERDIALOG_H
