@@ -81,7 +81,7 @@ void isoDriver::timerTick(void){
         case 1:
             internalBuffer375_CH2->channel = 1;
             frameActionGeneric(1,2);
-            if(serialDecodeEnabled_CH1){
+            if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH2->serialManage(baudRate_CH1, 0);
             }
             break;
@@ -90,19 +90,21 @@ void isoDriver::timerTick(void){
             break;
         case 3:
             frameActionGeneric(2,0);
-            if(serialDecodeEnabled_CH1){
+            if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH1->serialManage(baudRate_CH1, 0);
             }
             break;
         case 4:
             internalBuffer375_CH2->channel = 2;
             frameActionGeneric(2,2);
-            if(serialDecodeEnabled_CH1){
+            if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH1->serialManage(baudRate_CH1, 0);
             }
-            if(serialDecodeEnabled_CH2){
+            if(serialDecodeEnabled_CH2 && serialType == 0){
                 internalBuffer375_CH2->serialManage(baudRate_CH2, 0);
             }
+            if (serialDecodeEnabled_CH1 && serialType == 1)
+                twoWire->run();
             break;
         case 5:
             break;
@@ -1456,5 +1458,13 @@ void isoDriver::setSerialType(unsigned char type)
 {
     serialType = type;
     qDebug() << "Serial Type changed to" << serialType;
+
+    if(serialType == 1)
+    {
+        if (twoWire)
+            delete twoWire;
+        twoWire = new i2c::i2cDecoder(internalBuffer375_CH1, internalBuffer375_CH2, i2cClockRate);
+        twoWire->setStepSize(1000, 1);
+    }
 }
 

@@ -28,7 +28,6 @@ class i2cDecoder : public QObject
     Q_OBJECT
 public:
     explicit i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate);
-private:
 	// misc
     isoBuffer* sda;
 	isoBuffer* scl;
@@ -51,7 +50,7 @@ private:
 
 	// Member functions
 	void updateBitValues();
-	void setStepSize(uint32_t clockRate, uint32_t multiplier);
+    void setStepSize(uint32_t clockRate, uint32_t multiplier);
 	void runStateMachine();
     void run(); 
     int serialDistance(isoBuffer* buffer);

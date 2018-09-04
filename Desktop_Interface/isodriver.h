@@ -9,6 +9,7 @@
 #include "genericusbdriver.h"
 #include "desktop_settings.h"
 #include "siprint.h"
+#include "i2cdecoder.h"
 
 class isoBuffer;
 class isoBuffer_file;
@@ -114,6 +115,8 @@ private:
     double seriesResistance = 0;
     // Logic Analyser
     unsigned char serialType = 0;
+    i2c::i2cDecoder* twoWire = nullptr;
+    uint32_t i2cClockRate = 100000;
     //Generic Vars
     double windowAtPause = 0.01;
     QTimer* isoTimer = NULL, *slowTimer = NULL, *fileTimer = NULL;
