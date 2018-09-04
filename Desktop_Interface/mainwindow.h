@@ -195,6 +195,8 @@ private slots:
 
     void on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked);
 
+	void paused(bool enabled);
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;

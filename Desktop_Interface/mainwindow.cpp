@@ -157,6 +157,19 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->controller_iso, SIGNAL(showRealtimeButton(bool)), ui->realTimeButton, SLOT(setVisible(bool)));
     connect(ui->realTimeButton, SIGNAL(pressed()), ui->controller_iso, SLOT(disableFileMode()));
 
+
+	
+    connect(ui->pausedLabeL_CH1, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
+    connect(ui->pausedLabel_CH2, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
+    connect(ui->pause_LA, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
+    connect(ui->multimeterPauseCheckBox, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
+
+    connect(ui->hideCH1Box, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(hideCH1(bool)));
+    connect(ui->hideCH2Box, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(hideCH2(bool)));
+
+	ui->hideCH1Box->setVisible(false);
+	ui->hideCH2Box->setVisible(false);
+
     ui->realTimeButton->setVisible(false);
 
     if ((QApplication::desktop()->availableGeometry().width() < 1440) || (QApplication::desktop()->availableGeometry().height() < 900))
@@ -2226,4 +2239,17 @@ void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
         delete scopeRangeSwitch;
         scopeRangeSwitch = nullptr;
     }
+}
+
+void MainWindow::paused(bool enabled)
+{
+	qDebug() << "MainWindow::paused(" << enabled << ")";
+	ui->hideCH1Box->setVisible(enabled);
+	ui->hideCH2Box->setVisible(enabled);
+	
+	if (! enabled)
+	{
+		ui->hideCH1Box->setChecked(false);
+		ui->hideCH2Box->setChecked(false);
+	}
 }

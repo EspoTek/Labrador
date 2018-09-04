@@ -1516,3 +1516,12 @@ void isoDriver::setSerialType(unsigned char type)
     }
 }
 
+void isoDriver::hideCH1(bool enable)
+{
+	axes->graph(0)->setVisible(!enable);
+}
+
+void isoDriver::hideCH2(bool enable)
+{
+	axes->graph(1)->setVisible(!enable);
+}

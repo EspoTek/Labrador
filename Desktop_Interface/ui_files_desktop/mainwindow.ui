@@ -561,6 +561,20 @@
        </spacer>
       </item>
       <item>
+       <widget class="QCheckBox" name="hideCH1Box">
+        <property name="text">
+         <string>Hide CH1</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="hideCH2Box">
+        <property name="text">
+         <string>Hide CH2</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QGroupBox" name="multimeterGroup">
         <property name="enabled">
          <bool>false</bool>

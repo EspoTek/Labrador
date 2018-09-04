@@ -215,6 +215,8 @@ public slots:
     void fileTimerTick();
     void enableFileMode();
     void disableFileMode();
+	void hideCH1(bool enable);
+	void hideCH2(bool enable);
 };
 
 #endif // ISODRIVER_H
