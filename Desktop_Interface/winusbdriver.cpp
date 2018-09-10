@@ -131,7 +131,7 @@ void winUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t
     }
 }
 
-unsigned char winUsbDriver::usbIsoInit(void){
+int  winUsbDriver::usbIsoInit(void){
     //Iso is slightly less easy than plain old USB.
     //You must set up NUM_FUTURE_CTX iso transfers, with each transfer containing ISO_PACKETS_PER_CTX isochronous packets.
     //These transactions are numbered by n = 0,1,2,3...NUM_FUTURE_CTX-1.  Transfer n should read data into dataBuffer[n].
@@ -148,14 +148,14 @@ unsigned char winUsbDriver::usbIsoInit(void){
     if(!success){
         errorCode = GetLastError();
         qDebug() << "OvlK_Init failed with error code" << errorCode;
-        return 0;
+        return -1;
     }
     for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
         success = UsbK_ResetPipe(handle, pipeID[k]);
         if(!success){
             errorCode = GetLastError();
             qDebug() << "UsbK_ResetPipe failed with error code" << errorCode;
-            return 0;
+            return -2;
         }
     }
 
@@ -170,7 +170,7 @@ unsigned char winUsbDriver::usbIsoInit(void){
                 errorCode = GetLastError();
                 qDebug() << "IsoK_Init failed with error code" << errorCode;
                 qDebug() << "n =" << n;
-                return 0;
+                return -3;
             }
 
             success = IsoK_SetPackets(isoCtx[k][n], ISO_PACKET_SIZE);
@@ -178,7 +178,7 @@ unsigned char winUsbDriver::usbIsoInit(void){
                 errorCode = GetLastError();
                 qDebug() << "IsoK_SetPackets failed with error code" << errorCode;
                 qDebug() << "n =" << n;
-                return 0;
+                return -4;
             }
 
             success = OvlK_Acquire(&ovlkHandle[k][n], ovlPool);
@@ -186,7 +186,7 @@ unsigned char winUsbDriver::usbIsoInit(void){
                 errorCode = GetLastError();
                 qDebug() << "OvlK_Acquire failed with error code" << errorCode;
                 qDebug() << "n =" << n;
-                return 0;
+                return -5;
             }
 
             //Sending the transfer requests
@@ -202,7 +202,7 @@ unsigned char winUsbDriver::usbIsoInit(void){
     connect(isoTimer, SIGNAL(timeout()), this, SLOT(isoTimerTick()));
 
     qDebug() << "Setup successful!";
-    return 1;
+    return 0;
 }
 
 void winUsbDriver::isoTimerTick(void){

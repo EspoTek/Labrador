@@ -8,6 +8,7 @@
 #include <QThread>
 #include <math.h>
 #include <stdint.h>
+#include <QMessageBox>
 
 #include "functiongencontrol.h"
 #include "xmega.h"
@@ -83,10 +84,10 @@ protected:
     unsigned char variant = 0;
     //Generic Vars
     //bufferControl *bufferPtr = NULL;
-    QTimer *psuTimer;
+    QTimer *psuTimer = nullptr;
     unsigned char pipeID[3];
-    QTimer *isoTimer;
-    QTimer *connectTimer;
+    QTimer *isoTimer = nullptr;
+    QTimer *connectTimer = nullptr;
     QTimer *recoveryTimer;
     unsigned char currentWriteBuffer = 0;
     unsigned long timerCount = 0;
@@ -98,6 +99,7 @@ protected:
     virtual int usbIsoInit(void) = 0;
     virtual int flashFirmware(void) = 0;
     uint8_t numero_uno = 1;
+    QMessageBox *messageBox;
 signals:
     void sendClearBuffer(bool ch3751, bool ch3752, bool ch750);
     void setVisible_CH2(bool visible);

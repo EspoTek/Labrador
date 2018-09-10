@@ -32,7 +32,7 @@ private:
     unsigned char dataBuffer[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
     //Generic Functions
     unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
-    unsigned char usbIsoInit(void);
+    int usbIsoInit(void);
     int flashFirmware(void);
     bool allEndpointsComplete(int n);
 signals:

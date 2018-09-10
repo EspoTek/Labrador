@@ -74,11 +74,11 @@ protected:
     unsigned char *midBuffer_current[NUM_ISO_ENDPOINTS];
     unsigned char *midBuffer_prev[NUM_ISO_ENDPOINTS];
     qint64 midBufferOffsets[NUM_ISO_ENDPOINTS];
-    libusb_transfer *isoCtx[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
+    libusb_transfer *isoCtx[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX] = { };
     tcBlock transferCompleted[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
     unsigned char dataBuffer[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
-    worker *isoHandler;
-    QThread *workerThread;
+    worker *isoHandler = nullptr;
+    QThread *workerThread = nullptr;
     int cumulativeFramePhaseErrors = 0;
     //Generic Functions
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);

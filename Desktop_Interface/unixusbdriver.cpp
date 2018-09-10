@@ -20,19 +20,24 @@ unixUsbDriver::~unixUsbDriver(void){
     qDebug() << "\n\nunixUsbDriver destructor ran!";
     //unixDriverDeleteMutex.lock();
     if(connected){
-        workerThread->deleteLater();
-        while(workerThread->isRunning()){
-            workerThread->quit();
-            qDebug() << "isRunning?" << workerThread->isFinished();
-            QThread::msleep(100);
-        }
-        delete(isoHandler);
+		if (workerThread)
+			{
+			workerThread->deleteLater();
+			while(workerThread->isRunning()){
+				workerThread->quit();
+				qDebug() << "isRunning?" << workerThread->isFinished();
+				QThread::msleep(100);
+			}
+		}	
+		if (isoHandler)
+	        delete(isoHandler);
         //delete(workerThread);
         qDebug() << "THREAD Gone!";
 
         for (int i=0; i<NUM_FUTURE_CTX; i++){
             for (int k=0; k<NUM_ISO_ENDPOINTS; k++){
-                libusb_free_transfer(isoCtx[k][i]);
+				if (isoCtx[k][i])
+	                libusb_free_transfer(isoCtx[k][i]);
             }
         }
         qDebug() << "Transfers freed.";
@@ -120,7 +125,7 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
 
 int unixUsbDriver::usbIsoInit(void){
     int error;
-
+	
     for(int n=0;n<NUM_FUTURE_CTX;n++){
         for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
             isoCtx[k][n] = libusb_alloc_transfer(ISO_PACKETS_PER_CTX);
@@ -311,7 +316,8 @@ void unixUsbDriver::shutdownProcedure(){
 
 //On physical disconnect, isoTimerTick will not assert stopTime.  Hence this duct-tape function.
 void unixUsbDriver::backupCleanup(){
-    isoHandler->stopTime = true;
+	if (isoHandler)
+	    isoHandler->stopTime = true;
 }
 
 int unixUsbDriver::flashFirmware(void){

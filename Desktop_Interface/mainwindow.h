@@ -216,6 +216,7 @@ private:
     int reinitDigitalPinState;
 
     QSettings *settings;
+	bool calibrationCanceled = false;
 
     //Generic Functions
     void initialisePlot();

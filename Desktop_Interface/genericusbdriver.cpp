@@ -28,17 +28,29 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
     connectTimer->start(USB_RECONNECT_PERIOD);
     connect(connectTimer, SIGNAL(timeout()), this, SLOT(checkConnection()));
     qDebug()<< "Generic Usb Driver setup complete";
+	messageBox = new QMessageBox();
 }
 
 genericUsbDriver::~genericUsbDriver(void){
     qDebug() << "genericUsbDriver dectructor entering";
     if(connected){
-        psuTimer->stop();
-        recoveryTimer->stop();
-        isoTimer->stop();
-        delete(psuTimer);
-        delete(recoveryTimer);
-        delete(isoTimer);
+		if (psuTimer)
+		{
+			psuTimer->stop();
+			delete(psuTimer);
+		}
+		
+		if (recoveryTimer)
+		{
+			recoveryTimer->stop();
+			delete(recoveryTimer);
+		}
+
+		if (isoTimer)
+		{
+			isoTimer->stop();
+			delete(isoTimer);
+		}
     }
     qDebug() << "genericUsbDriver dectructor completed";
 }
@@ -402,7 +414,13 @@ void genericUsbDriver::checkConnection(){
 
     setDeviceMode(deviceMode);
     newDig(digitalPinState);
-    usbIsoInit();
+
+    int ret = usbIsoInit();
+	if (ret != 0)
+	{
+        messageBox->setText("A USB connection was established, but isochronous communications could not be initialised.<br>This is usually due to bandwidth limitations on the current USB host and can be fixed by moving to a different port.<br>Please see <a href = 'https://github.com/EspoTek/Labrador/wiki/Troubleshooting-Guide#usb-connection-issues-other-platforms'>https://github.com/EspoTek/Labrador/wiki/Troubleshooting-Guide#usb-connection-issues-other-platforms</a>");
+        messageBox->exec();
+	}
 
     psuTimer = new QTimer();
     psuTimer->setTimerType(Qt::PreciseTimer);
