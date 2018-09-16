@@ -751,8 +751,8 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
         }
     }
 
-    readData375_CH1 = internalBuffer375_CH1->readBuffer(window,GRAPH_SAMPLES,CH1_mode==2, delay + ((triggerEnabled&&!paused_CH1) ? triggerDelay + window/2 : 0));
-    if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(window,GRAPH_SAMPLES,CH2_mode==2, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
+    readData375_CH1 = internalBuffer375_CH1->readBuffer(window,GRAPH_SAMPLES,CH1_mode==2, delay + ((triggerEnabled && !paused_CH1) ? triggerDelay + window/2 : 0));
+    if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(window,GRAPH_SAMPLES,CH2_mode==2, delay + ((triggerEnabled && !paused_CH2) ? triggerDelay + window/2 : 0));
     if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(window,GRAPH_SAMPLES,false, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
     if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(window,GRAPH_SAMPLES,false, delay);
 
