@@ -2,6 +2,7 @@
 
 espoSpinBox::espoSpinBox(QWidget *parent) : QDoubleSpinBox(parent)
 {
+	setKeyboardTracking(false);
     //connect(this, SIGNAL(valueChanged(double)), this, SLOT(changeStepping(double)));
 }
 
@@ -63,6 +64,7 @@ void espoSpinBox::changeStepping(double value){
 
 QValidator::State espoSpinBox::validate(QString& text, int& pos) const
 {
+	qDebug() << pos;
 	prefixLength = pos;
 	return QValidator::State::Acceptable;	
 }
