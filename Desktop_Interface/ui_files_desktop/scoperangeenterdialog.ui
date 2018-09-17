@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>198</width>
+    <width>206</width>
     <height>170</height>
    </rect>
   </property>
@@ -17,9 +17,12 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QFormLayout" name="formLayout">
+      <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0">
-        <widget class="voltageSpinBox" name="vMaxBox">
+        <widget class="espoSpinBox" name="vMaxBox">
+         <property name="suffix">
+          <string>V</string>
+         </property>
          <property name="minimum">
           <double>20.000000000000000</double>
          </property>
@@ -36,7 +39,10 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="voltageSpinBox" name="vMinBox">
+        <widget class="espoSpinBox" name="vMinBox">
+         <property name="suffix">
+          <string>V</string>
+         </property>
          <property name="minimum">
           <double>-20.000000000000000</double>
          </property>
@@ -53,7 +59,10 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="voltageSpinBox" name="timeWindowBox">
+        <widget class="espoSpinBox" name="timeWindowBox">
+         <property name="suffix">
+          <string>s</string>
+         </property>
          <property name="decimals">
           <number>6</number>
          </property>
@@ -73,15 +82,21 @@
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="voltageSpinBox" name="delayBox">
+        <widget class="espoSpinBox" name="delayBox">
+         <property name="suffix">
+          <string>s</string>
+         </property>
          <property name="decimals">
           <number>6</number>
          </property>
          <property name="minimum">
-          <double>0.000001000000000</double>
+          <double>0.000000000000000</double>
          </property>
          <property name="maximum">
           <double>10.000000000000000</double>
+         </property>
+         <property name="value">
+          <double>0.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -110,13 +125,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>voltageSpinBox</class>
+   <class>espoSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header location="global">voltagespinbox.h</header>
-   <slots>
-    <slot>setMin(double)</slot>
-    <slot>setMax(double)</slot>
-   </slots>
+   <header location="global">espospinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
