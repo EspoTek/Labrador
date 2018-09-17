@@ -6,6 +6,9 @@ espoSpinBox::espoSpinBox(QWidget *parent) : QDoubleSpinBox(parent)
 }
 
 QString espoSpinBox::textFromValue(double value) const{
+    if (value < 0)
+        return textFromValue(-value).prepend('-');
+
     QString windowText;
     if (value == 0){
         QTextStream(&windowText) << value;
