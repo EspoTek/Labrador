@@ -15,8 +15,12 @@ class espoSpinBox : public QDoubleSpinBox
     Q_OBJECT
 public:
     explicit espoSpinBox(QWidget *parent = 0);
+	QValidator::State validate(QString& text, int& pos) const override;
 private:
-    QString textFromValue(double value) const;
+    QString textFromValue(double value) const override;
+	double valueFromText(const QString &text) const override;
+	mutable int prefixLength = -1;
+	mutable double lastValidValue = -1;
 signals:
 
 public slots:
