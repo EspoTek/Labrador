@@ -7,36 +7,33 @@ espoSpinBox::espoSpinBox(QWidget *parent) : QDoubleSpinBox(parent)
 }
 
 QString espoSpinBox::textFromValue(double value) const{
-    if (value < 0)
-        return textFromValue(-value).prepend('-');
-
     QString windowText;
     if (value == 0){
         QTextStream(&windowText) << value;
 		lastValidValue = value;
         return windowText;
     }
-    if (value >= 1000000){
+    if (std::abs(value) >= 1000000){
         QTextStream(&windowText) << value/1000000 << "M";
 		lastValidValue = value;
         return windowText;
     }
-    if (value >= 1000){
+    if (std::abs(value) >= 1000){
         QTextStream(&windowText) << value/1000 << "k";
 		lastValidValue = value;
         return windowText;
     }
-    if (value >= 1){
+    if (std::abs(value) >= 1){
         QTextStream(&windowText) << value;
 		lastValidValue = value;
         return windowText;
     }
-    if (value >= 1/1000){
+    if (std::abs(value) >= 1/1000){
         QTextStream(&windowText) << value * 1000 << "m";
 		lastValidValue = value;
         return windowText;
     }
-    if (value >= 1/1000000){
+    if (std::abs(value) >= 1/1000000){
         QTextStream(&windowText) << value * 1000000 << "u";
 		lastValidValue = value;
         return windowText;
