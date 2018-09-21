@@ -54,15 +54,15 @@ void espoSpinBox::setMin(double newMin){
 }
 
 void espoSpinBox::changeStepping(double value){
-    double roundval = pow(10.0, floor(log10(value)));  //http://stackoverflow.com/questions/22491505/how-to-round-down-to-the-nearest-power-of-10
-    roundval = (roundval == 0) ? 0.1 : roundval/10;
-    setSingleStep(roundval);
+    double roundval = pow(10.0, floor(log10(std::abs(value))));  //http://stackoverflow.com/questions/22491505/how-to-round-down-to-the-nearest-power-of-10
+	double minimumStepSize = pow(10, -1 * decimals());
+	qDebug() << "roundval" << roundval;
+	qDebug() << "minimumStepSize" << minimumStepSize;
+    setSingleStep(std::max(minimumStepSize, roundval/10));
 }
 
 QValidator::State espoSpinBox::validate(QString& text, int& pos) const
 {
-	qDebug() << pos;
-	prefixLength = pos;
 	return QValidator::State::Acceptable;	
 }
 
@@ -70,6 +70,8 @@ double espoSpinBox::valueFromText(const QString &text) const
 {
 	double ret;
 	bool isValid;
+
+	uint32_t prefixLength = text.length() - suffix().length();
 
 	qDebug() << text.mid(0, prefixLength - 1) << text.at(prefixLength - 1).toLatin1(); 
 	

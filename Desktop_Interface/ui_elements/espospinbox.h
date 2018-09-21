@@ -19,7 +19,6 @@ public:
 private:
     QString textFromValue(double value) const override;
 	double valueFromText(const QString &text) const override;
-	mutable int prefixLength = -1;
 	mutable double lastValidValue = -1;
 signals:
 
