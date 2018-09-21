@@ -8,9 +8,12 @@ espoSpinBox::espoSpinBox(QWidget *parent) : QDoubleSpinBox(parent)
 
 QString espoSpinBox::textFromValue(double value) const{
     QString windowText;
-    if (value == 0){
-        QTextStream(&windowText) << value;
-		lastValidValue = value;
+	
+	double approximatelyZero = pow(10, -1 * (decimals() + 1));
+
+    if (std::abs(value) <= approximatelyZero){
+        QTextStream(&windowText) << 0;
+		lastValidValue = 0;
         return windowText;
     }
     if (abs(value) >= 1000000){
@@ -56,8 +59,6 @@ void espoSpinBox::setMin(double newMin){
 void espoSpinBox::changeStepping(double value){
     double roundval = pow(10.0, floor(log10(abs(value))));  //http://stackoverflow.com/questions/22491505/how-to-round-down-to-the-nearest-power-of-10
 	double minimumStepSize = pow(10, -1 * decimals());
-	qDebug() << "roundval" << roundval;
-	qDebug() << "minimumStepSize" << minimumStepSize;
     setSingleStep(std::max(minimumStepSize, roundval/10));
 }
 
