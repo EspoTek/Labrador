@@ -13,27 +13,27 @@ QString espoSpinBox::textFromValue(double value) const{
 		lastValidValue = value;
         return windowText;
     }
-    if (std::abs(value) >= 1000000){
+    if (abs(value) >= 1000000){
         QTextStream(&windowText) << value/1000000 << "M";
 		lastValidValue = value;
         return windowText;
     }
-    if (std::abs(value) >= 1000){
+    if (abs(value) >= 1000){
         QTextStream(&windowText) << value/1000 << "k";
 		lastValidValue = value;
         return windowText;
     }
-    if (std::abs(value) >= 1){
+    if (abs(value) >= 1){
         QTextStream(&windowText) << value;
 		lastValidValue = value;
         return windowText;
     }
-    if (std::abs(value) >= 1/1000){
+    if (abs(value) >= 1/1000){
         QTextStream(&windowText) << value * 1000 << "m";
 		lastValidValue = value;
         return windowText;
     }
-    if (std::abs(value) >= 1/1000000){
+    if (abs(value) >= 1/1000000){
         QTextStream(&windowText) << value * 1000000 << "u";
 		lastValidValue = value;
         return windowText;
@@ -54,7 +54,7 @@ void espoSpinBox::setMin(double newMin){
 }
 
 void espoSpinBox::changeStepping(double value){
-    double roundval = pow(10.0, floor(log10(std::abs(value))));  //http://stackoverflow.com/questions/22491505/how-to-round-down-to-the-nearest-power-of-10
+    double roundval = pow(10.0, floor(log10(abs(value))));  //http://stackoverflow.com/questions/22491505/how-to-round-down-to-the-nearest-power-of-10
 	double minimumStepSize = pow(10, -1 * decimals());
 	qDebug() << "roundval" << roundval;
 	qDebug() << "minimumStepSize" << minimumStepSize;
