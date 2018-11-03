@@ -111,6 +111,7 @@ void isoDriver::timerTick(void){
                     twoWire->reset();
                 twoWire->run();
                 invalidateTwoWireState = false;
+                twoWireStateInvalid = false;
             }
             break;
         case 5:

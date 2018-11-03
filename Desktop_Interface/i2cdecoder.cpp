@@ -14,6 +14,7 @@ i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate)
 
 void i2cDecoder::reset()
 {
+    qDebug () << "Resetting I2C";
     serialPtr_bit = sda->back * 8;
 }
 
