@@ -7,7 +7,8 @@ static const uint32_t kClockMultiplier = 10;
 i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate) :
 	QObject(nullptr),
 	sda(sda_in),
-	scl(scl_in)
+    scl(scl_in),
+    serialPtr_bit(sda->back * 8)
 {
 	setStepSize(clockRate, kClockMultiplier);
 }
@@ -15,12 +16,15 @@ i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate)
 void i2cDecoder::run()
 {
     qDebug() << "i2cDecoder::run()";
-	while (serialDistance(sda) > SERIAL_DELAY * sda->sampleRate_bit)
+    while (serialDistance(sda) > SERIAL_DELAY * sda->sampleRate_bit)
 	{
 		updateBitValues();
 		runStateMachine();
 		serialPtr_bit += stepSize;
-        qDebug() << serialPtr_bit;
+        if (serialPtr_bit > (sda->bufferEnd * 8)){
+            serialPtr_bit -= (sda->bufferEnd * 8);
+        }
+//        qDebug () << serialPtr_bit;
         currentStepIndex = (currentStepIndex + 1) % stepsPerBit;
 	}	
 } 
@@ -36,14 +40,15 @@ int i2cDecoder::serialDistance(isoBuffer* buffer)
 }
 
 void i2cDecoder::updateBitValues(){
+    previousSdaValue = currentSdaValue;
+    previousSclValue = currentSclValue;
+
     int coord_byte = serialPtr_bit/8;
     int coord_bit = serialPtr_bit - (8*coord_byte);
     unsigned char dataByteSda = sda->buffer[coord_byte];
     unsigned char dataByteScl = scl->buffer[coord_byte];
     unsigned char mask = (1 << coord_bit);
-    previousSdaValue = currentSdaValue;
-    previousSclValue = currentSclValue;
-	currentSdaValue = dataByteSda & mask;
+    currentSdaValue = dataByteSda & mask;
 	currentSclValue = dataByteScl & mask;
 }
 
@@ -51,7 +56,7 @@ void i2cDecoder::updateBitValues(){
 void i2cDecoder::setStepSize(uint32_t clockRate, uint32_t multiplier)
 {
     stepSize = (double)((sda->sampleRate_bit)/clockRate)/(double)multiplier;
-	stepsPerBit = multiplier;
+    stepsPerBit = multiplier;
 }
 
 void i2cDecoder::runStateMachine()
@@ -64,12 +69,16 @@ void i2cDecoder::runStateMachine()
 //    if (sclEdge == edge::rising || sclEdge == edge::falling)
 //        qDebug() << "sclEdge";
 
-    qDebug() << "sdaEdge" << (uint8_t)sdaEdge << "sclEdge" << (uint8_t)sclEdge;
-		
+//    qDebug() << "sdaEdge" << (uint8_t)sdaEdge << "sclEdge" << (uint8_t)sclEdge;
+
 	if ((sdaEdge == edge::rising) && (sclEdge == edge::falling)) // INVALID STATE TRANSITION
 	{
-		state = transmissionState::unknown;	
-		return;
+        state = transmissionState::unknown;
+        qDebug() << "Dumping I2C state and aborting...";
+        for (uint8_t i=0; i < 32; i++)
+            qDebug("%x\t%x", sda->buffer[serialPtr_bit/8 - i] & 0xFF, scl->buffer[serialPtr_bit/8 - i] & 0xFF);
+        throw std::runtime_error("unknown i2c transmission state");
+        return;
 	}
 
 	if ((sdaEdge == edge::rising) && (sclEdge == edge::held_high)) // START
@@ -114,7 +123,7 @@ edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)
 void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
 {
 	// Sample in the middle of the bits!
-	if (currentStepIndex != (stepsPerBit/2))
+    if (currentStepIndex != (stepsPerBit/2))
 		return;
 
 	// Read in the next bit.
@@ -154,7 +163,7 @@ void i2cDecoder::startCondition()
 {
 	currentBitIndex = 0;
 	currentStepIndex = 0;
-	address = 0x0000;
+    address = 0x0000;
 	state = transmissionState::address;	
     qDebug() << "I2C START";
 }
@@ -167,10 +176,12 @@ void i2cDecoder::stopCondition()
 			currentBitIndex = 0;
 			currentStepIndex = 0;
 			state = transmissionState::data;
-			currentDataByte = 0;
+            currentDataByte = 0;
+            qDebug() << "Address =" << address;
 			break;	
 		case transmissionState::data:		
-			state = transmissionState::idle;
+            state = transmissionState::idle;
+            qDebug() << "Data =" << currentDataByte;
 			break;
 	}
     qDebug() << "I2C STOP";

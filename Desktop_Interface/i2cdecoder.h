@@ -38,7 +38,7 @@ public:
 	uint8_t previousSdaValue = 0;
 	uint8_t currentSclValue = 0;
 	uint8_t previousSclValue = 0;
-    uint64_t serialPtr_bit = 0;
+    uint64_t serialPtr_bit;
 	transmissionState state = transmissionState::unknown;
 
 	// Data Transmission
