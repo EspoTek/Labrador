@@ -38,7 +38,7 @@ public:
 	uint8_t previousSdaValue = 0;
 	uint8_t currentSclValue = 0;
 	uint8_t previousSclValue = 0;
-    uint64_t serialPtr_bit;
+    uint64_t serialPtr_bit = 0;
 	transmissionState state = transmissionState::unknown;
 
 	// Data Transmission
@@ -60,6 +60,7 @@ public:
 	void startCondition();
 	void stopCondition();
 	void dataByteCompleted(uint8_t byte, bool ACKed);	
+    void reset();
 
 signals:
 public slots:

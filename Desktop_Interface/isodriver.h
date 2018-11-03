@@ -117,6 +117,7 @@ private:
     unsigned char serialType = 0;
     i2c::i2cDecoder* twoWire = nullptr;
     uint32_t i2cClockRate = 100000;
+    bool twoWireStateInvalid = true;
     //Generic Vars
     double windowAtPause = 0.01;
     QTimer* isoTimer = NULL, *slowTimer = NULL, *fileTimer = NULL;

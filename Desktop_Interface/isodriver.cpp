@@ -74,6 +74,8 @@ void isoDriver::timerTick(void){
         return;
     }
 
+    // TODO: Do we need to invalidate state when the device is reconnected?
+    bool invalidateTwoWireState = true;
     switch(driver->deviceMode){
         case 0:
             frameActionGeneric(1,0);
@@ -104,7 +106,12 @@ void isoDriver::timerTick(void){
                 internalBuffer375_CH2->serialManage(baudRate_CH2, 0);
             }
             if (serialDecodeEnabled_CH1 && serialType == 1)
+            {
+                if (twoWireStateInvalid)
+                    twoWire->reset();
                 twoWire->run();
+                invalidateTwoWireState = false;
+            }
             break;
         case 5:
             break;
@@ -117,6 +124,8 @@ void isoDriver::timerTick(void){
         default:
             qFatal("Error in isoDriver::timerTick.  Invalid device mode.");
     }
+    if (invalidateTwoWireState)
+        twoWireStateInvalid = true;
     //free(isoTemp);
 }
 

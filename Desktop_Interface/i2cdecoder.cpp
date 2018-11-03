@@ -7,11 +7,16 @@ static const uint32_t kClockMultiplier = 10;
 i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate) :
 	QObject(nullptr),
 	sda(sda_in),
-    scl(scl_in),
-    serialPtr_bit(sda->back * 8)
+    scl(scl_in)
 {
 	setStepSize(clockRate, kClockMultiplier);
 }
+
+void i2cDecoder::reset()
+{
+    serialPtr_bit = sda->back * 8;
+}
+
 
 void i2cDecoder::run()
 {
@@ -75,7 +80,7 @@ void i2cDecoder::runStateMachine()
 	{
         state = transmissionState::unknown;
         qDebug() << "Dumping I2C state and aborting...";
-        for (uint8_t i=0; i < 32; i++)
+        for (int i=32; i>=0; i--)
             qDebug("%x\t%x", sda->buffer[serialPtr_bit/8 - i] & 0xFF, scl->buffer[serialPtr_bit/8 - i] & 0xFF);
         throw std::runtime_error("unknown i2c transmission state");
         return;
