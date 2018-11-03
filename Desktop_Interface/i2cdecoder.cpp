@@ -41,6 +41,8 @@ void i2cDecoder::updateBitValues(){
     unsigned char dataByteSda = sda->buffer[coord_byte];
     unsigned char dataByteScl = scl->buffer[coord_byte];
     unsigned char mask = (1 << coord_bit);
+    previousSdaValue = currentSdaValue;
+    previousSclValue = currentSclValue;
 	currentSdaValue = dataByteSda & mask;
 	currentSclValue = dataByteScl & mask;
 }
@@ -54,13 +56,15 @@ void i2cDecoder::setStepSize(uint32_t clockRate, uint32_t multiplier)
 
 void i2cDecoder::runStateMachine()
 {
-	edge sdaEdge = edgeDetection(currentSdaValue, previousSdaValue);
+    edge sdaEdge = edgeDetection(currentSdaValue, previousSdaValue);
 	edge sclEdge = edgeDetection(currentSclValue, previousSclValue);
 
-    if (sdaEdge == edge::rising || sdaEdge == edge::falling)
-        qDebug() << "sdaEdge";
-    if (sclEdge == edge::rising || sclEdge == edge::falling)
-        qDebug() << "sclEdge";
+//    if (sdaEdge == edge::rising || sdaEdge == edge::falling)
+//        qDebug() << "sdaEdge";
+//    if (sclEdge == edge::rising || sclEdge == edge::falling)
+//        qDebug() << "sclEdge";
+
+    qDebug() << "sdaEdge" << (uint8_t)sdaEdge << "sclEdge" << (uint8_t)sclEdge;
 		
 	if ((sdaEdge == edge::rising) && (sclEdge == edge::falling)) // INVALID STATE TRANSITION
 	{
@@ -152,7 +156,7 @@ void i2cDecoder::startCondition()
 	currentStepIndex = 0;
 	address = 0x0000;
 	state = transmissionState::address;	
-    qDebug() << "START";
+    qDebug() << "I2C START";
 }
 
 void i2cDecoder::stopCondition()
@@ -169,7 +173,7 @@ void i2cDecoder::stopCondition()
 			state = transmissionState::idle;
 			break;
 	}
-    qDebug() << "STOP";
+    qDebug() << "I2C STOP";
 }
 
 void i2cDecoder::dataByteCompleted(uint8_t byte, bool ACKed)

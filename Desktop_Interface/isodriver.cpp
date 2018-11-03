@@ -1512,7 +1512,6 @@ void isoDriver::setSerialType(unsigned char type)
         if (twoWire)
             delete twoWire;
         twoWire = new i2c::i2cDecoder(internalBuffer375_CH1, internalBuffer375_CH2, i2cClockRate);
-        twoWire->setStepSize(1000, 1);
     }
 }
 

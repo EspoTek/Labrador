@@ -147,7 +147,7 @@ unix:!android:!macx{
             unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/x86 -ldfuprog-0.9
             unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
             unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
-             lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x86/libdfuprog-0.9.so
+            lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x86/libdfuprog-0.9.so
             lib_deploy.path = /usr/lib
 
         } else {
