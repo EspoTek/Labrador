@@ -30,7 +30,7 @@ void i2cDecoder::reset()
 
 void i2cDecoder::run()
 {
-    qDebug() << "i2cDecoder::run()";
+//    qDebug() << "i2cDecoder::run()";
     while (serialDistance(sda) > SERIAL_DELAY * sda->sampleRate_bit)
 	{
 		updateBitValues();
@@ -99,13 +99,13 @@ void i2cDecoder::runStateMachine()
 
 	if ((sdaEdge == edge::rising) && (sclEdge == edge::held_high)) // START
 	{
-		startCondition();
+        stopCondition();
 		return;
 	}
 
 	if ((sdaEdge == edge::falling) && (sclEdge == edge::held_high)) // STOP
 	{
-		stopCondition();
+        startCondition();
 		return;
 	}
 
