@@ -163,7 +163,7 @@ short *isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
                 front = bufferEnd;
                 idx = (int) round(((double) front - accumulatedDelay));
             }
-            readData[i] = buffer[idx] & (1<<subIdx);
+            readData[i] = buffer[idx] & (1 << subIdx);
 
             accumulatedDelay += timeBetweenSamples;
         }
@@ -197,11 +197,6 @@ void isoBuffer::clearBuffer()
     }
 
     back = 0;
-    //serialPtr = 0;
-    //serialDecodingSymbol = false;
-    //symbolCurrent = 0;
-    //symbol = 0;
-
     firstTime = true;
 }
 

@@ -15,7 +15,16 @@ i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate)
 void i2cDecoder::reset()
 {
     qDebug () << "Resetting I2C";
+
+    if (sda->back != scl->back)
+    {
+        // Perhaps the data could be saved, but just resetting them seems much safer
+        sda->clearBuffer();
+        scl->clearBuffer();
+    }
+
     serialPtr_bit = sda->back * 8;
+
 }
 
 
@@ -53,7 +62,7 @@ void i2cDecoder::updateBitValues(){
     int coord_bit = serialPtr_bit - (8*coord_byte);
     unsigned char dataByteSda = sda->buffer[coord_byte];
     unsigned char dataByteScl = scl->buffer[coord_byte];
-    unsigned char mask = (1 << coord_bit);
+    unsigned char mask = (0x01 << coord_bit);
     currentSdaValue = dataByteSda & mask;
 	currentSclValue = dataByteScl & mask;
 }
@@ -75,14 +84,15 @@ void i2cDecoder::runStateMachine()
 //    if (sclEdge == edge::rising || sclEdge == edge::falling)
 //        qDebug() << "sclEdge";
 
-//    qDebug() << "sdaEdge" << (uint8_t)sdaEdge << "sclEdge" << (uint8_t)sclEdge;
+//    if (sclEdge != edge::held_low)
+//        qDebug() << "sdaEdge" << (uint8_t)sdaEdge << "sclEdge" << (uint8_t)sclEdge;
 
 	if ((sdaEdge == edge::rising) && (sclEdge == edge::falling)) // INVALID STATE TRANSITION
 	{
         state = transmissionState::unknown;
         qDebug() << "Dumping I2C state and aborting...";
-        for (int i=32; i>=0; i--)
-            qDebug("%x\t%x", sda->buffer[serialPtr_bit/8 - i] & 0xFF, scl->buffer[serialPtr_bit/8 - i] & 0xFF);
+        for (int i=31; i>=0; i--)
+            qDebug("%02x\t%02x", sda->buffer[serialPtr_bit/8 - i] & 0xFF, scl->buffer[serialPtr_bit/8 - i] & 0xFF);
         throw std::runtime_error("unknown i2c transmission state");
         return;
 	}

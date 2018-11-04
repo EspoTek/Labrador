@@ -125,6 +125,7 @@ private:
     unsigned int length;
     QFile *snapshotFile_CH1;
     QFile *snapshotFile_CH2;
+    uint8_t deviceMode_prev;
     //DAQ
     double daqLoad_startTime, daqLoad_endTime;
 

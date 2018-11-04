@@ -110,7 +110,7 @@ unsigned char uartStyleDecoder::getNextUartBit(){
     int coord_byte = serialPtr_bit/8;
     int coord_bit = serialPtr_bit - (8*coord_byte);
     unsigned char dataByte = parent->buffer[coord_byte];
-    unsigned char mask = (1 << coord_bit);
+    unsigned char mask = (0x01 << coord_bit);
     return ((dataByte & mask) ? 1 : 0);
 }
 

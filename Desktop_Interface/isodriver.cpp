@@ -78,9 +78,18 @@ void isoDriver::timerTick(void){
     bool invalidateTwoWireState = true;
     switch(driver->deviceMode){
         case 0:
+            if (deviceMode_prev != 0 && deviceMode_prev != 1 && deviceMode_prev != 2)
+                clearBuffers(true, false, false);
+
             frameActionGeneric(1,0);
             break;
         case 1:
+            if (deviceMode_prev != 0 && deviceMode_prev != 1 && deviceMode_prev != 2)
+                clearBuffers(true, false, false);
+
+            if (deviceMode_prev != 1)
+                clearBuffers(false, true, false);
+
             internalBuffer375_CH2->channel = 1;
             frameActionGeneric(1,2);
             if(serialDecodeEnabled_CH1 && serialType == 0){
@@ -88,15 +97,28 @@ void isoDriver::timerTick(void){
             }
             break;
         case 2:
+            if (deviceMode_prev != 0 && deviceMode_prev != 1 && deviceMode_prev != 2)
+                clearBuffers(true, false, false);
+            if (deviceMode_prev != 2)
+                clearBuffers(false, true, false);
+
             frameActionGeneric(1,1);
             break;
         case 3:
+            if (deviceMode_prev != 3 && deviceMode_prev != 4)
+                clearBuffers(true, false, false);
+
             frameActionGeneric(2,0);
             if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH1->serialManage(baudRate_CH1, 0);
             }
             break;
         case 4:
+            if (deviceMode_prev != 3 && deviceMode_prev != 4)
+                clearBuffers(true, false, false);
+            if (deviceMode_prev != 4)
+                clearBuffers(false, true, false);
+
             internalBuffer375_CH2->channel = 2;
             frameActionGeneric(2,2);
             if(serialDecodeEnabled_CH1 && serialType == 0){
@@ -117,9 +139,13 @@ void isoDriver::timerTick(void){
         case 5:
             break;
         case 6:
+            if (deviceMode_prev != 7)
+                clearBuffers(false, true, true);
             frameActionGeneric(-1,0);
             break;
         case 7:
+            if (deviceMode_prev != 7)
+                clearBuffers(false, true, false);
             multimeterAction();
             break;
         default:
@@ -127,6 +153,8 @@ void isoDriver::timerTick(void){
     }
     if (invalidateTwoWireState)
         twoWireStateInvalid = true;
+
+    deviceMode_prev = driver->deviceMode;
     //free(isoTemp);
 }
 
