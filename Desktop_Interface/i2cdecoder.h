@@ -28,6 +28,7 @@ enum class edge: uint8_t
 };
 
 constexpr uint8_t addressBitStreamLength = 9;
+constexpr uint8_t dataBitStreamLength = 9;
 constexpr uint32_t I2C_BUFFER_LENGTH = 8192;
 
 class i2cDecoder : public QObject
@@ -54,8 +55,7 @@ public:
 
 	// Data Transmission
 	uint8_t currentBitIndex = 0;
-    uint16_t addressBitStream;
-	uint8_t currentDataByte = 0;
+    uint16_t currentBitStream;
 
 	// Member functions
 	void updateBitValues();
@@ -67,7 +67,6 @@ public:
 	void decodeData(edge sdaEdge, edge sclEdge);
 	void startCondition();
 	void stopCondition();
-	void dataByteCompleted(uint8_t byte, bool ACKed);	
     void reset();
 signals:
 public slots:

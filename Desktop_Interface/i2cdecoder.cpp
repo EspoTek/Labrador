@@ -140,90 +140,78 @@ void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
 {
 	// Read in the next bit.
     if (sclEdge == edge::rising && sdaEdge == edge::held_high && currentBitIndex++ < addressBitStreamLength)
-    {
-        qDebug() << "1";
-        addressBitStream = (addressBitStream << 1) | 0x0001;
-        qDebug("%04x\n", addressBitStream);
-    }
+          currentBitStream = (currentBitStream << 1) | 0x0001;
     else if (sclEdge == edge::rising && sdaEdge == edge::held_low && currentBitIndex++ < addressBitStreamLength)
-    {
-        qDebug() << "0";
-        addressBitStream = (addressBitStream << 1) & 0xFFFE;
-        qDebug("%04x\n", addressBitStream);
-    }
+        currentBitStream = (currentBitStream << 1) & 0xFFFE;
     else
         return;
 
     if (currentBitIndex == addressBitStreamLength)
     {
         qDebug() << "Finished Address Decode";
-        if (addressBitStream & 0b0000000000000010)
-            serialBuffer->add("READ  ");
+        if (currentBitStream & 0b0000000000000010)
+            serialBuffer->add("READ:  ");
         else
-            serialBuffer->add("WRITE ");
+            serialBuffer->add("WRITE: ");
 
         char addressStr[8];
-        sprintf(addressStr, "0x%02x ", (addressBitStream & 0b0000000111111100) >> 2);
-
+        sprintf(addressStr, "0x%02x ", (currentBitStream & 0b0000000111111100) >> 2);
         serialBuffer->add(addressStr);
 
-        if (addressBitStream & 0b0000000000000001)
+        if (currentBitStream & 0b0000000000000001)
             serialBuffer->add("(NACK)");
 
         consoleStateInvalid = true;
+
+        // Prepare for next bit
+        currentBitIndex = 0;
+        currentBitStream = 0x0000;
+        state = transmissionState::data;
     }
 }
 
 void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
 {
-	// Read in the next bit.
-	if(currentBitIndex < 8)
-	{	
-		if (sdaEdge == edge::rising && sclEdge == edge::held_high)
-			currentDataByte |= 0x01;
-		else if (sdaEdge == edge::rising && sclEdge == edge::held_low)
-			currentDataByte &= 0xFE;
-	
-		currentDataByte = currentDataByte << 1;
-		currentBitIndex++;
-	}
-	else // Full byte received, check for ACK.
-	{
-		dataByteCompleted(currentDataByte, sclEdge == edge::held_low);	
-		currentBitIndex = 0;
-	}
+    // Read in the next bit.
+    if (sclEdge == edge::rising && sdaEdge == edge::held_high && currentBitIndex++ < dataBitStreamLength)
+          currentBitStream = (currentBitStream << 1) | 0x0001;
+    else if (sclEdge == edge::rising && sdaEdge == edge::held_low && currentBitIndex++ < dataBitStreamLength)
+        currentBitStream = (currentBitStream << 1) & 0xFFFE;
+    else
+        return;
+
+    if (currentBitIndex == dataBitStreamLength)
+    {
+        qDebug() << "Finished Data byte Decode";
+
+        char dataStr[8];
+        sprintf(dataStr, "0x%02x ", (currentBitStream & 0b0000000111111110) >> 1);
+        serialBuffer->add(dataStr);
+
+        if (currentBitStream & 0b0000000000000001)
+            serialBuffer->add("(NACK)");
+
+        consoleStateInvalid = true;
+
+        // Prepare for next bit
+        currentBitIndex = 0;
+        currentBitStream = 0x0000;
+    }
 }
 
 void i2cDecoder::startCondition()
 {
 	currentBitIndex = 0;
-    addressBitStream = 0x0000;
+    currentBitStream = 0x0000;
 	state = transmissionState::address;	
     qDebug() << "I2C START";
 }
 
 void i2cDecoder::stopCondition()
 {
-	switch (state)
-	{
-		case transmissionState::address:		
-			currentBitIndex = 0;
-			state = transmissionState::data;
-            currentDataByte = 0;
-            serialBuffer->add('\n');
-			break;	
-		case transmissionState::data:		
-            state = transmissionState::idle;
-            qDebug() << "Data =" << currentDataByte;
-            serialBuffer->add('\n');
-			break;
-	}
+    state = transmissionState::idle;
+    serialBuffer->add('\n');
     qDebug() << "I2C STOP";
-}
-
-void i2cDecoder::dataByteCompleted(uint8_t byte, bool ACKed)
-{
-
 }
 
 void i2cDecoder::updateConsole(){
