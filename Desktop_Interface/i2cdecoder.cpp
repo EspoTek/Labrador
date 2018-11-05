@@ -154,9 +154,8 @@ void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
         else
             serialBuffer->add("WRITE: ");
 
-        char addressStr[8];
-        sprintf(addressStr, "0x%02x ", (currentBitStream & 0b0000000111111100) >> 2);
-        serialBuffer->add(addressStr);
+        serialBuffer->add((uint8_t)((currentBitStream & 0b0000000111111100) >> 2));
+        serialBuffer->add(' ');
 
         if (currentBitStream & 0b0000000000000001)
             serialBuffer->add("(NACK)");
@@ -184,9 +183,8 @@ void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
     {
         qDebug() << "Finished Data byte Decode";
 
-        char dataStr[8];
-        sprintf(dataStr, "0x%02x ", (currentBitStream & 0b0000000111111110) >> 1);
-        serialBuffer->add(dataStr);
+        serialBuffer->add((uint8_t)((currentBitStream & 0b0000000111111110) >> 1));
+        serialBuffer->add(' ');
 
         if (currentBitStream & 0b0000000000000001)
             serialBuffer->add("(NACK)");

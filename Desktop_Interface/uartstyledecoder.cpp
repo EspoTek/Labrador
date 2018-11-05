@@ -167,7 +167,7 @@ bool uartStyleDecoder::jitterCompensationProcedure(double baudRate, unsigned cha
 
 //Basically scaffoldingto add character maps for other modes (5 bit, for example).
 void uartStyleDecoder::decodeDatabit(int mode){
-    unsigned short tempchar;
+    char tempchar;
     switch(mode){
         case 5:
             tempchar = decode_baudot(currentUartSymbol);

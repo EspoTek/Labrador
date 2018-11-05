@@ -11,6 +11,7 @@ class isoBufferBuffer
 {
 public:
     isoBufferBuffer(uint32_t length);
+    void add(uint8_t newByte);
     void add(char newChar);
     void add(std::string newString);
     char *get(uint32_t length);

@@ -27,6 +27,13 @@ void isoBufferBuffer::add(char newChar){
     numCharsInBuffer = std::min(numCharsInBuffer + 1, mid);
 }
 
+void isoBufferBuffer::add(uint8_t newByte)
+{
+    char newString[5];
+    sprintf(newString, "0x%02hhx", newByte);
+    add(newString);
+}
+
 uint32_t isoBufferBuffer::getNumCharsInBuffer()
 {
     return numCharsInBuffer;
