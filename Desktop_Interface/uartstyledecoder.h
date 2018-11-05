@@ -29,7 +29,6 @@ private:
     bool jitterCompensationProcedure(double baudRate, unsigned char current_bit);
     QPlainTextEdit *console;
     isoBufferBuffer *serialBuffer;
-    int numCharsInBuffer = 0;
     void decodeDatabit(int mode);
     char decode_baudot(short symbol);
 	std::mutex mutex;

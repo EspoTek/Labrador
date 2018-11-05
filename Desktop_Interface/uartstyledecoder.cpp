@@ -12,7 +12,7 @@ uartStyleDecoder::uartStyleDecoder(QObject *parent_in) : QObject(parent_in)
     updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
     connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateConsole()));
 
-    serialBuffer = new isoBufferBuffer(SERIAL_BUFFER_LENGTH*2);
+    serialBuffer = new isoBufferBuffer(SERIAL_BUFFER_LENGTH * 2);
 
     if(parent->channel == 1) console = parent->console1;
     else if(parent->channel == 2) console = parent->console2;
@@ -31,6 +31,7 @@ void uartStyleDecoder::updateConsole(){
 	if(!newUartSymbol) return;
     //qDebug() << numCharsInBuffer;
 
+    uint32_t numCharsInBuffer = serialBuffer->getNumCharsInBuffer();
     console->setPlainText(QString::fromLocal8Bit(serialBuffer->get(numCharsInBuffer), numCharsInBuffer));
     if(parent->serialAutoScroll){
         //http://stackoverflow.com/questions/21059678/how-can-i-set-auto-scroll-for-a-qtgui-qtextedit-in-pyqt4   DANKON
@@ -117,7 +118,6 @@ unsigned char uartStyleDecoder::getNextUartBit(){
 void uartStyleDecoder::decodeNextUartBit(unsigned char bitValue)
 {
     if(dataBit_current == dataBit_max){
-        if(numCharsInBuffer<SERIAL_BUFFER_LENGTH) numCharsInBuffer++;
         decodeDatabit(dataBit_max+1);
         currentUartSymbol = 0;
         dataBit_current = 0;

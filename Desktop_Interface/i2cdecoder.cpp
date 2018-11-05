@@ -7,6 +7,7 @@ i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in) :
 	sda(sda_in),
     scl(scl_in)
 {
+    serialBuffer = new isoBufferBuffer(I2C_BUFFER_LENGTH);
 }
 
 void i2cDecoder::reset()
@@ -22,6 +23,12 @@ void i2cDecoder::reset()
 
     serialPtr_bit = sda->back * 8;
 
+    {
+        std::lock_guard<std::mutex> lock(mutex);
+
+        delete serialBuffer;
+        serialBuffer = new isoBufferBuffer(I2C_BUFFER_LENGTH);
+    }
 }
 
 
@@ -195,4 +202,19 @@ void i2cDecoder::stopCondition()
 void i2cDecoder::dataByteCompleted(uint8_t byte, bool ACKed)
 {
 
+}
+
+void i2cDecoder::updateConsole(){
+    std::lock_guard<std::mutex> lock(mutex);
+    if (!consoleStateInvalid)
+        return;
+
+    uint32_t numCharsInBuffer = serialBuffer->getNumCharsInBuffer();
+    console->setPlainText(QString::fromLocal8Bit(serialBuffer->get(numCharsInBuffer), numCharsInBuffer));
+    if(sda->serialAutoScroll){
+        QTextCursor c =  console->textCursor();
+        c.movePosition(QTextCursor::End);
+        console->setTextCursor(c);
+    }
+    consoleStateInvalid = false;
 }

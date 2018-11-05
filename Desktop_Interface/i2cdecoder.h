@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include "isobuffer.h"
+#include "isobufferbuffer.h"
+#include <mutex>
 
 namespace i2c
 {
@@ -24,6 +26,7 @@ enum class edge: uint8_t
 };
 
 constexpr uint8_t addressBitStreamLength = 9;
+constexpr uint32_t I2C_BUFFER_LENGTH = 8192;
 
 class i2cDecoder : public QObject
 {
@@ -33,6 +36,9 @@ public:
 	// misc
     isoBuffer* sda;
 	isoBuffer* scl;
+    QPlainTextEdit* console;
+    isoBufferBuffer* serialBuffer = nullptr;
+    std::mutex mutex;
 
 	// State vars
 	uint8_t currentSdaValue = 0;
@@ -41,6 +47,7 @@ public:
 	uint8_t previousSclValue = 0;
     uint64_t serialPtr_bit = 0;
 	transmissionState state = transmissionState::unknown;
+    bool consoleStateInvalid;
 
 	// Data Transmission
 	uint8_t currentBitIndex = 0;
@@ -59,10 +66,9 @@ public:
 	void stopCondition();
 	void dataByteCompleted(uint8_t byte, bool ACKed);	
     void reset();
-
 signals:
 public slots:
-
+    void updateConsole();
 };
 
 } // Namespace i2c

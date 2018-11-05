@@ -5,18 +5,22 @@
 
 #include <QDebug>
 #include <stdlib.h>
+#include <string>
 
 class isoBufferBuffer
 {
 public:
-    isoBufferBuffer(int length);
+    isoBufferBuffer(uint32_t length);
     void add(char newChar);
-    char *get(int length);
+    void add(std::string newString);
+    char *get(uint32_t length);
+    uint32_t getNumCharsInBuffer();
 private:
-    int bufferLength;
-    int mid;
-    int ptr;
+    uint32_t bufferLength;
+    uint32_t mid;
+    uint32_t ptr;
     char *buffer;
+    uint32_t numCharsInBuffer = 0;
 };
 
 #endif // ISOBUFFERBUFFER_H
