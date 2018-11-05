@@ -482,6 +482,9 @@ void tiny_dma_set_mode_4(void){
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 	DMA.CH1.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
+
+	// Hack: manually trigger a transfer to ensure zero phase difference.
+	DMA.CH0.CTRLA |= DMA_CH_TRFREQ_bm;
 }
 
 void tiny_dma_loop_mode_4(void){
