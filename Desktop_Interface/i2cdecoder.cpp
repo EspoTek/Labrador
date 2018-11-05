@@ -2,12 +2,18 @@
 
 using namespace i2c;
 
-i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in) :
-	QObject(nullptr),
-	sda(sda_in),
-    scl(scl_in)
+i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, QPlainTextEdit* console_in)
+    : QObject(nullptr)
+    , sda(sda_in)
+    , scl(scl_in)
+    , console(console_in)
 {
     serialBuffer = new isoBufferBuffer(I2C_BUFFER_LENGTH);
+
+    updateTimer = new QTimer();
+    updateTimer->setTimerType(Qt::PreciseTimer);
+    updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
+    connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateConsole()));
 }
 
 void i2cDecoder::reset()
@@ -151,6 +157,20 @@ void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
     if (currentBitIndex == addressBitStreamLength)
     {
         qDebug() << "Finished Address Decode";
+        if (addressBitStream & 0b0000000000000010)
+            serialBuffer->add("READ  ");
+        else
+            serialBuffer->add("WRITE ");
+
+        char addressStr[8];
+        sprintf(addressStr, "0x%02x ", (addressBitStream & 0b0000000111111100) >> 2);
+
+        serialBuffer->add(addressStr);
+
+        if (addressBitStream & 0b0000000000000001)
+            serialBuffer->add("(NACK)");
+
+        consoleStateInvalid = true;
     }
 }
 
@@ -190,10 +210,12 @@ void i2cDecoder::stopCondition()
 			currentBitIndex = 0;
 			state = transmissionState::data;
             currentDataByte = 0;
+            serialBuffer->add('\n');
 			break;	
 		case transmissionState::data:		
             state = transmissionState::idle;
             qDebug() << "Data =" << currentDataByte;
+            serialBuffer->add('\n');
 			break;
 	}
     qDebug() << "I2C STOP";

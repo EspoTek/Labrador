@@ -1,9 +1,11 @@
 #ifndef I2CDECODER_H
 #define I2CDECODER_H
 
-#include <QObject>
 #include "isobuffer.h"
 #include "isobufferbuffer.h"
+
+#include <QObject>
+#include <QTimer>
 #include <mutex>
 
 namespace i2c
@@ -32,13 +34,14 @@ class i2cDecoder : public QObject
 {
     Q_OBJECT
 public:
-    explicit i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in);
+    explicit i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, QPlainTextEdit* console_in);
 	// misc
     isoBuffer* sda;
 	isoBuffer* scl;
     QPlainTextEdit* console;
     isoBufferBuffer* serialBuffer = nullptr;
     std::mutex mutex;
+    QTimer *updateTimer;
 
 	// State vars
 	uint8_t currentSdaValue = 0;
