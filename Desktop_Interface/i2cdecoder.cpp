@@ -2,14 +2,11 @@
 
 using namespace i2c;
 
-static const uint32_t kClockMultiplier = 10;
-
-i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate) :
+i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in) :
 	QObject(nullptr),
 	sda(sda_in),
     scl(scl_in)
 {
-	setStepSize(clockRate, kClockMultiplier);
 }
 
 void i2cDecoder::reset()
@@ -35,12 +32,9 @@ void i2cDecoder::run()
 	{
 		updateBitValues();
 		runStateMachine();
-		serialPtr_bit += stepSize;
-        if (serialPtr_bit > (sda->bufferEnd * 8)){
+		serialPtr_bit ++;
+        if (serialPtr_bit > (sda->bufferEnd * 8))
             serialPtr_bit -= (sda->bufferEnd * 8);
-        }
-//        qDebug () << serialPtr_bit;
-        currentStepIndex = (currentStepIndex + 1) % stepsPerBit;
 	}	
 } 
 
@@ -65,13 +59,6 @@ void i2cDecoder::updateBitValues(){
     unsigned char mask = (0x01 << coord_bit);
     currentSdaValue = dataByteSda & mask;
 	currentSclValue = dataByteScl & mask;
-}
-
-// Step size should be a multiple of the clock rate; we need >1 clock cycle resolution.
-void i2cDecoder::setStepSize(uint32_t clockRate, uint32_t multiplier)
-{
-    stepSize = (double)((sda->sampleRate_bit)/clockRate)/(double)multiplier;
-    stepsPerBit = multiplier;
 }
 
 void i2cDecoder::runStateMachine()
@@ -138,25 +125,30 @@ edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)
 
 void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
 {
-	// Sample in the middle of the bits!
-    if (currentStepIndex != (stepsPerBit/2))
-		return;
-
 	// Read in the next bit.
-	if (sdaEdge == edge::rising && sclEdge == edge::held_high)
-		address |= 0x0001;
-	else if (sdaEdge == edge::rising && sclEdge == edge::held_low)
-		address &= 0xFFFE;
-	
-	address = address << 1;
+    if (sclEdge == edge::rising && sdaEdge == edge::held_high && currentBitIndex++ < addressBitStreamLength)
+    {
+        qDebug() << "1";
+        addressBitStream = (addressBitStream << 1) | 0x0001;
+        qDebug("%04x\n", addressBitStream);
+    }
+    else if (sclEdge == edge::rising && sdaEdge == edge::held_low && currentBitIndex++ < addressBitStreamLength)
+    {
+        qDebug() << "0";
+        addressBitStream = (addressBitStream << 1) & 0xFFFE;
+        qDebug("%04x\n", addressBitStream);
+    }
+    else
+        return;
+
+    if (currentBitIndex == addressBitStreamLength)
+    {
+        qDebug() << "Finished Address Decode";
+    }
 }
 
 void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
 {
-	// Sample in the middle of the bits!
-	if (currentStepIndex != (stepsPerBit/2))
-		return;
-
 	// Read in the next bit.
 	if(currentBitIndex < 8)
 	{	
@@ -178,8 +170,7 @@ void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
 void i2cDecoder::startCondition()
 {
 	currentBitIndex = 0;
-	currentStepIndex = 0;
-    address = 0x0000;
+    addressBitStream = 0x0000;
 	state = transmissionState::address;	
     qDebug() << "I2C START";
 }
@@ -190,10 +181,8 @@ void i2cDecoder::stopCondition()
 	{
 		case transmissionState::address:		
 			currentBitIndex = 0;
-			currentStepIndex = 0;
 			state = transmissionState::data;
             currentDataByte = 0;
-            qDebug() << "Address =" << address;
 			break;	
 		case transmissionState::data:		
             state = transmissionState::idle;

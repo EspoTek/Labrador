@@ -23,15 +23,16 @@ enum class edge: uint8_t
 	held_low
 };
 
+constexpr uint8_t addressBitStreamLength = 9;
+
 class i2cDecoder : public QObject
 {
     Q_OBJECT
 public:
-    explicit i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, uint32_t clockRate);
+    explicit i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in);
 	// misc
     isoBuffer* sda;
 	isoBuffer* scl;
-	uint32_t stepSize;
 
 	// State vars
 	uint8_t currentSdaValue = 0;
@@ -43,14 +44,11 @@ public:
 
 	// Data Transmission
 	uint8_t currentBitIndex = 0;
-	uint16_t address;
+    uint16_t addressBitStream;
 	uint8_t currentDataByte = 0;
-	uint32_t stepsPerBit;
-	uint32_t currentStepIndex = 0;
 
 	// Member functions
 	void updateBitValues();
-    void setStepSize(uint32_t clockRate, uint32_t multiplier);
 	void runStateMachine();
     void run(); 
     int serialDistance(isoBuffer* buffer);
