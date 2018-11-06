@@ -682,12 +682,7 @@ int isoDriver::trigger(void){
             }
         }
     }
-
-    if(singleShotEnabled && (location != -1)) {
-        delay = triggerDelay;
-        delayUpdated(delay);
-        singleShotTriggered(1);
-    }
+    
     return location;
 }
 
@@ -796,6 +791,9 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
             return;
         }
     }
+
+    if(singleShotEnabled && (triggerDelay != 0))
+        singleShotTriggered(1);
 
     readData375_CH1 = internalBuffer375_CH1->readBuffer(window,GRAPH_SAMPLES,CH1_mode==2, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
     if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(window,GRAPH_SAMPLES,CH2_mode==2, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
