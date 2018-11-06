@@ -638,7 +638,7 @@ int isoDriver::trigger(void){
 
             //Check for found
             if(triggerSeeking && (triggerCountSeeking > TRIGGER_COUNT_THRESH)){
-                    if(location == -1) location = i;
+                    if(location == -1) location = i - TRIGGER_COUNT_THRESH;
                     triggerSeeking = false;
             }
 
@@ -672,7 +672,7 @@ int isoDriver::trigger(void){
 
             //Check for found
             if(triggerSeeking && (triggerCountSeeking > TRIGGER_COUNT_THRESH)){
-                    if(location == -1) location = i;
+                    if(location == -1) location = i - TRIGGER_COUNT_THRESH;
                     triggerSeeking = false;
             }
 
