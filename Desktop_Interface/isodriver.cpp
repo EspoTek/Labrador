@@ -778,7 +778,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
         if((!paused_CH1) && triggerEnabled && (triggerWaiting == 0)){
             triggerDelay = backLength - offset;
             triggerDelay /= (CH1_mode == -1) ? (VALID_DATA_PER_750 * 1000) : (VALID_DATA_PER_375*1000);
-            triggerDelay += delay;
+            //triggerDelay += delay;
             triggerWaiting = (triggerDelay<(window/2)) * 2;
         }
 
