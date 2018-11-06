@@ -2,6 +2,11 @@
 #include "uartstyledecoder.h"
 #include "daqform.h"
 
+namespace
+{
+   constexpr uint32_t MAX_CONSOLE_BLOCK_COUNT = 512;
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -47,6 +52,23 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->debugButton2->setVisible(0);
     ui->debugButton3->setVisible(0);
     ui->debugConsole->setVisible(0);
+
+//    // Set the consoles to be resizeable
+//    for (const auto & console : {ui->console1, ui->console2})
+//    {
+//        console->setWindowFlags(Qt::SubWindow);
+//        QSizeGrip* sizeGrip = new QSizeGrip(console);
+//        QGridLayout* layout = new QGridLayout(console);
+//        layout->addWidget(sizeGrip, 0,0,1,1,Qt::AlignBottom | Qt::AlignLeft);
+//    }
+
+    for (const auto & console : {ui->console1, ui->console2})
+    {
+        QFont font("Monospace");
+        font.setStyleHint(QFont::Monospace);
+        console->setFont(font);
+    }
+
 #ifndef PLATFORM_ANDROID
     ui->kickstartIsoButton->setVisible(0);
     ui->console1->setVisible(0);
@@ -130,8 +152,8 @@ MainWindow::MainWindow(QWidget *parent) :
     #endif
 
     connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
-    //ui->console1->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
-    //ui->console2->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
+    ui->console1->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
+    ui->console2->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
     //ui->frequencyValue_CH2->setValue(369);
     //ui->amplitudeValue_CH2->setValue(2);
     ui->controller_iso->doNotTouchGraph = false;

@@ -16,7 +16,7 @@
 //#include "buffercontrol.h"
 #include "unified_debug_structure.h"
 
-#define EXPECTED_FIRMWARE_VERSION 0x0005
+#define EXPECTED_FIRMWARE_VERSION 0x0006
 
 #ifdef WINDOWS_64_BIT
     #define DEFINED_EXPECTED_VARIANT 1
