@@ -131,7 +131,15 @@ void isoDriver::timerTick(void){
             {
                 if (twoWireStateInvalid)
                     twoWire->reset();
-                twoWire->run();
+                try
+                {
+                    twoWire->run();
+                }
+                catch(...)
+                {
+                    qDebug() << "Resetting I2C";
+                    twoWire->reset();
+                }
                 invalidateTwoWireState = false;
                 twoWireStateInvalid = false;
             }
