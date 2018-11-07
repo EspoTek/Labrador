@@ -11,7 +11,7 @@ QString espoSpinBox::textFromValue(double value) const{
 	
 	double approximatelyZero = pow(10, -1 * (decimals() + 1));
 
-    if (std::abs(value) <= approximatelyZero){
+    if (abs(value) <= approximatelyZero){
         QTextStream(&windowText) << 0;
 		lastValidValue = 0;
         return windowText;
