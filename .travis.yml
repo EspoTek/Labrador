@@ -9,8 +9,8 @@ matrix:
       compiler: clang
 
 before_install:
-   # OSX
   - |
+    # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew update
     # Linux
@@ -20,8 +20,8 @@ before_install:
     fi
 
 install:
-   # OSX
   - |
+    # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew install qt5
       brew link qt5 --force
@@ -34,8 +34,8 @@ install:
     fi
 
 script:
-  # OSX
   - |
+    # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       cd Desktop_Interface
       qmake CONFIG+=release PREFIX=/usr
@@ -47,14 +47,14 @@ script:
       cp ../build_scripts/osx/iconfile.icns bin/Labrador.app/Contents/Resources
       cp ../build_scripts/osx/Info.plist bin/Labrador.app/Contents
       macdeployqt bin/Labrador.app -dmg -libpath=build_mac/libdfuprog/lib/
-    #Linux
+      #Linux
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       cd Desktop_Interface
       qmake CONFIG+=release PREFIX=/usr
       make -j$(nproc)
-  # - make INSTALL_ROOT=appdir -j$(nproc) install ; find appdir/
-  #   NOTE: The following 5 lines should not be needed if "make install" would be made work for Labrador; see
-  #   https://github.com/probonopd/linuxdeployqt#using-linuxdeployqt-with-travis-ci
+      # - make INSTALL_ROOT=appdir -j$(nproc) install ; find appdir/
+      #   NOTE: The following 5 lines should not be needed if "make install" would be made work for Labrador; see
+      #   https://github.com/probonopd/linuxdeployqt#using-linuxdeployqt-with-travis-ci
       sudo cp ./build_linux/libdfuprog/lib/x64/libdfuprog-*.so /usr/lib/x86_64-linux-gnu/
       mkdir -p appdir/usr/bin/ ; ldd bin/Labrador ; strip bin/Labrador ; cp bin/Labrador appdir/usr/bin/
       cp -r bin/{waveforms,firmware}  appdir/usr/bin/
@@ -71,15 +71,15 @@ script:
     fi
 
 after_success:
-    # OSX
   - |
+    # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
       bash upload.sh Labrador.dmg
     # Linux
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       find appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
-    # curl --upload-file EspoTek_Labrador*.AppImage https://transfer.sh/EspoTek_Labrador-git.$(git rev-parse --short HEAD)-x86_64.AppImage
+      # curl --upload-file EspoTek_Labrador*.AppImage https://transfer.sh/EspoTek_Labrador-git.$(git rev-parse --short HEAD)-x86_64.AppImage
       wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
       bash upload.sh EspoTek_Labrador*.AppImage*
     fi
