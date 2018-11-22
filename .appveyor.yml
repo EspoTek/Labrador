@@ -4,7 +4,7 @@ platform: amd64
 qt: msvc2013_64
 
 clone_folder: c:\dev\labrador
-clone_depth: 5
+clone_depth: 1
 
 init:
   - set PATH=C:\Qt\5.11\%qt%\bin;%PATH%
