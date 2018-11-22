@@ -1,5 +1,7 @@
 version: build{build}
 
+image: Visual Studio 2017
+
 platform: amd64
 
 clone_folder: c:\dev\labrador
@@ -7,7 +9,6 @@ clone_depth: 1
 
 init:
   - set PATH=C:\Qt\5.11.2\msvc2017_64\bin;%PATH%
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" %platform%
 
 before_build:
   - cd c:\dev\labrador\Desktop_Interface 
