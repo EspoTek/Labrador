@@ -1,0 +1,14 @@
+image: Visual Studio 2017
+
+clone_folder:
+  - c:\dev\labrador
+
+init:
+  - set PATH=C:\Qt\5.5\%qt%\bin;C:\dev\dependencies\vlc-qt\bin;%PATH%
+
+before_build:
+  - cd c:\dev\labrador\Desktop_Interface 
+
+build_script:
+  - qmake
+  - nmake 
