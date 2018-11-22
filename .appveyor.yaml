@@ -1,10 +1,13 @@
-image: Visual Studio 2017
+version: build{build}
 
-clone_folder:
-  - c:\dev\labrador
+platform: amd64
+qt: msvc2013_64
+
+clone_folder: c:\dev\labrador
+clone_depth: 5
 
 init:
-  - set PATH=C:\Qt\5.5\%qt%\bin;C:\dev\dependencies\vlc-qt\bin;%PATH%
+  - set PATH=C:\Qt\5.11\%qt%\bin;%PATH%
 
 before_build:
   - cd c:\dev\labrador\Desktop_Interface 
