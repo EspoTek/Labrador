@@ -2,20 +2,28 @@ version: build{build}
 
 image: Visual Studio 2017
 
-platform: amd64
+matrix:
+ - platform: amd64
+   environment:
+     - VCVARSALL : C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat
+     - QT_PATH : C:\Qt\5.11.2\msvc2017_64\bin
+
+ - platform: x86
+   environment: 
+     - VCVARSALL : C:\Program Files (x86)\Microsoft Visual Studio 13.0\VC\vcvarsall.bat
+     - QT_PATH : C:\Qt\5.11.2\msvc2017_64\bin
 
 clone_folder: c:\dev\labrador
 clone_depth: 1
+configuration: Release
 
 branches:
   only:
     - master
 
-configuration: Release
-
 init:
-  - set PATH=C:\Qt\5.11.2\msvc2017_64\bin;%PATH%
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %platform%
+  - set PATH=%QT_PATH%;%PATH%
+  - call "" %platform%
 
 before_build:
   - cd c:\dev\labrador\Desktop_Interface 
@@ -29,5 +37,5 @@ after_build:
 
 artifacts:
   - path: Desktop_Interface\bin
-    name: Labrador_x64
+    name: Labrador_%platform%
     type: zip
