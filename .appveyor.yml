@@ -7,6 +7,10 @@ platform: amd64
 clone_folder: c:\dev\labrador
 clone_depth: 1
 
+branches:
+  only:
+    - master
+
 init:
   - set PATH=C:\Qt\5.11.2\msvc2017_64\bin;%PATH%
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %platform%
