@@ -22,6 +22,6 @@ after_build:
   - windeployqt bin/Labrador.exe
 
 artifacts:
-  - path: bin
+  - path: c:\dev\labrador\Desktop_Interface\bin
     name: Labrador_x64
     type: zip
