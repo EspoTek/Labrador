@@ -4,11 +4,9 @@ image: Visual Studio 2017
 
 environment:
   matrix:
-    - VCVARSALL : C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat
-      QT_PATH : C:\Qt\5.11.2\msvc2017_64\bin
+    - QT_PATH : C:\Qt\5.11.2\msvc2017_64\bin
       PLATFORM : amd64
-    - VCVARSALL : C:\Program Files (x86)\Microsoft Visual Studio 13.0\VC\vcvarsall.bat
-      QT_PATH : C:\Qt\5.11.2\msvc2015_32\bin
+    - QT_PATH : C:\Qt\5.11.2\msvc2015_32\bin
       PLATFORM : x86
 
 clone_folder: c:\dev\labrador
@@ -21,7 +19,7 @@ branches:
 
 init:
   - set PATH=%QT_PATH%;%PATH%
-  - call "%VCVARSALL%" %PLATFORM%
+  - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %PLATFORM%
 
 before_build:
   - cd c:\dev\labrador\Desktop_Interface 
