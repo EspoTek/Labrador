@@ -11,6 +11,8 @@ branches:
   only:
     - master
 
+configuration: Release
+
 init:
   - set PATH=C:\Qt\5.11.2\msvc2017_64\bin;%PATH%
   - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %platform%
@@ -20,7 +22,7 @@ before_build:
 
 build_script:
   - qmake
-  - nmake release
+  - nmake
 
 after_build:
   - windeployqt bin/Labrador.exe
