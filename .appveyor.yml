@@ -20,7 +20,7 @@ before_build:
 
 build_script:
   - qmake
-  - nmake 
+  - nmake release
 
 after_build:
   - windeployqt bin/Labrador.exe
