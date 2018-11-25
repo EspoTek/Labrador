@@ -1,3 +1,5 @@
+Altium PCB designed by Ele4nor based on the original EspoTek KiCAD design.
+
 This is just a prototype design optimized for homemade pcb fabrication.
 The pcb design and BOM is different from "Tinylab_proto1", but the schematic is mostly Compatible.
 Note that the small designators are NOT ideal and they're there for pdf only reference.
