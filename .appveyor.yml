@@ -6,7 +6,7 @@ environment:
   matrix:
     - QT_PATH : C:\Qt\5.11.2\msvc2017_64\bin
       PLATFORM : amd64
-    - QT_PATH : C:\Qt\5.11.2\msvc2015_32\bin
+    - QT_PATH : C:\Qt\5.11.2\msvc2015\bin
       PLATFORM : x86
 
 clone_folder: c:\dev\labrador
