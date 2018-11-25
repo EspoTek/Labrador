@@ -16,3 +16,8 @@ before_build:
 build_script:
   - qmake
   - nmake 
+
+artifacts:
+  - path: bin
+    name: Labrador_x64
+    type: zip
