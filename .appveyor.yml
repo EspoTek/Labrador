@@ -21,7 +21,7 @@ branches:
 
 init:
   - set PATH=%QT_PATH%;%PATH%
-  - call "" %PLATFORM%
+  - call "VCVARSALL" %PLATFORM%
 
 before_build:
   - cd c:\dev\labrador\Desktop_Interface 
