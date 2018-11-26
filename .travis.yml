@@ -74,10 +74,12 @@ after_success:
   - |
     # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      export UPLOADTOOL_SUFFIX=osx-dmg
       wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
       bash upload.sh bin/Labrador.dmg
     # Linux
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      export UPLOADTOOL_SUFFIX=linux-appimage
       find appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
       # curl --upload-file EspoTek_Labrador*.AppImage https://transfer.sh/EspoTek_Labrador-git.$(git rev-parse --short HEAD)-x86_64.AppImage
       wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
