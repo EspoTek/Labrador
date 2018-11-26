@@ -34,6 +34,7 @@ build_script:
 
 after_build:
   - windeployqt bin\Labrador.exe
+  - copy build_win\libusbk\bin\dll\%PLATFORM%\libusbK.dll bin
   - del bin\vcredist*.exe
   - del bin\*.pdb
 
