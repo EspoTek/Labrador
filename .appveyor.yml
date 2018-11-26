@@ -39,6 +39,8 @@ on_success:
   - cd C:\dev
   - git clone --depth 1 https://github.com/EspoTek/Labrador-win-builder
   - cd Labrador-win-builder
+  - git config --global credential.helper store
+  - ps: Add-Content "$HOME\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git config --global user.email "admin@espotek.com"
   - git config --global user.name "Chris Esposito"
   - git checkout master
