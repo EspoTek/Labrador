@@ -31,9 +31,9 @@ build_script:
   - nmake
 
 after_build:
-  - windeployqt bin/Labrador.exe
-  - del bin/vcredist*.exe
-  - deb bin/*.pdb
+  - windeployqt bin\Labrador.exe
+  - del bin\vcredist*.exe
+  - deb bin\*.pdb
   - cd C:\dev
   - git clone --depth 1 https://github.com/EspoTek/Labrador-win-builder
   - xcopy /i /s /y c:\dev\labrador\Desktop_Interface\bin %OUTPUT_BIN_DIR%
