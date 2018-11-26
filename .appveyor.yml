@@ -42,7 +42,7 @@ artifacts:
     name: Labrador_%PLATFORM%
     type: zip
     
-on_success;
+on_success:
   - cd C:\dev
   - git clone --depth 1 https://github.com/EspoTek/Labrador-win-builder
   - cd Labrador-win-builder
