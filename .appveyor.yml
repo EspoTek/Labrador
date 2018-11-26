@@ -6,8 +6,10 @@ environment:
   matrix:
     - QT_PATH : C:\Qt\5.11.2\msvc2017_64\bin
       PLATFORM : amd64
+      OUTPUT_BIN_DIR : bin64
     - QT_PATH : C:\Qt\5.11.2\msvc2015\bin
       PLATFORM : x86
+      OUTPUT_BIN_DIR : bin32
 
 clone_folder: c:\dev\labrador
 clone_depth: 1
@@ -30,6 +32,14 @@ build_script:
 
 after_build:
   - windeployqt bin/Labrador.exe
+  - del bin/vcredist*.exe
+  - deb bin/*.pdb
+  - cd C:\dev
+  - git clone --depth 1 https://github.com/EspoTek/Labrador-win-builder
+  - xcopy /i /s /y c:\dev\labrador\Desktop_Interface\bin %OUTPUT_BIN_DIR%
+  - git add %OUTPUT_BIN_DIR%
+  - git commit -a -m "Automatic update from main Labrador repository"
+  - git push
 
 artifacts:
   - path: Desktop_Interface\bin
