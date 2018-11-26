@@ -35,10 +35,11 @@ after_build:
   - del bin\vcredist*.exe
   - del bin\*.pdb
   - cd C:\dev
-  - git config --global user.email "admin@espotek.com"
-  - git config --global user.name "Chris Esposito"
   - git clone --depth 1 https://github.com/EspoTek/Labrador-win-builder
   - cd Labrador-win-builder
+  - git config --global user.email "admin@espotek.com"
+  - git config --global user.name "Chris Esposito"
+  - git checkout master
   - xcopy /i /s /y c:\dev\labrador\Desktop_Interface\bin %OUTPUT_BIN_DIR%
   - git add %OUTPUT_BIN_DIR%
   - git commit -a -m "Automatic update from main Labrador repository"
