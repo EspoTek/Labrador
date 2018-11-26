@@ -30,7 +30,7 @@ build_script:
   - qmake
   - nmake
 
-after_build:
+on_success:
   - windeployqt bin\Labrador.exe
   - del bin\vcredist*.exe
   - del bin\*.pdb
