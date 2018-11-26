@@ -32,10 +32,17 @@ build_script:
   - qmake
   - nmake
 
-on_success:
+after_build:
   - windeployqt bin\Labrador.exe
   - del bin\vcredist*.exe
   - del bin\*.pdb
+
+artifacts:
+  - path: Desktop_Interface\bin
+    name: Labrador_%PLATFORM%
+    type: zip
+    
+on_success;
   - cd C:\dev
   - git clone --depth 1 https://github.com/EspoTek/Labrador-win-builder
   - cd Labrador-win-builder
@@ -48,11 +55,6 @@ on_success:
   - git add %OUTPUT_BIN_DIR%
   - git commit -a -m "Automatic update from main Labrador repository"
   - git push
-
-artifacts:
-  - path: Desktop_Interface\bin
-    name: Labrador_%PLATFORM%
-    type: zip
     
 matrix:
   fast_finish: true
