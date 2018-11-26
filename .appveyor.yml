@@ -45,3 +45,6 @@ artifacts:
   - path: Desktop_Interface\bin
     name: Labrador_%PLATFORM%
     type: zip
+    
+matrix:
+  fast_finish: true
