@@ -25,8 +25,8 @@ install:
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew install qt5
       brew link qt5 --force
-      brew install libusb
-      brew install wget
+      #brew install libusb
+      #brew install wget
     # Linux
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo apt-get -y install qt59base libusb-1.0-0-dev
