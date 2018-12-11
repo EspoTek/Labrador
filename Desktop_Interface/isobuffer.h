@@ -15,9 +15,9 @@
 #include "isobufferbuffer.h"
 #include "genericusbdriver.h"
 
-
 class isoDriver;
 class uartStyleDecoder;
+enum class UartParity : uint8_t;
 
 //isoBuffer is a generic class that enables O(1) read times (!!!) on all read/write operations, while maintaining a huge buffer size.
 //Imagine it as a circular buffer, but with access functions specifically designed for isochronous data from an Xmega.
@@ -42,7 +42,7 @@ public:
     int cap_x0fromLast(double seconds, double vbot);
     int cap_x1fromLast(double seconds, int x0, double vbot);
     int cap_x2fromLast(double seconds, int x1, double vtop);
-    void serialManage(double baudRate, int type);
+    void serialManage(double baudRate, int type, UartParity parity);
     //Generic Vars
     QPlainTextEdit *console1, *console2;
     bool serialAutoScroll = true;

@@ -197,6 +197,18 @@ private slots:
 
 	void paused(bool enabled);
 
+    void on_actionNone_triggered();
+
+    void on_actionNone_2_triggered();
+
+    void on_actionEven_triggered();
+
+    void on_actionOdd_triggered();
+
+    void on_actionEven_2_triggered();
+
+    void on_actionOdd_2_triggered();
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
@@ -233,6 +245,8 @@ private:
     QActionGroup *rangeGroupC;
     QActionGroup *uartBaudGroup_CH1;
     QActionGroup *uartBaudGroup_CH2;
+    QActionGroup *uartParityGroup_CH1;
+    QActionGroup *uartParityGroup_CH2;
     QActionGroup *fpsGroup;
     QActionGroup *connectionTypeGroup;
     QActionGroup *serialProtocolGroup;

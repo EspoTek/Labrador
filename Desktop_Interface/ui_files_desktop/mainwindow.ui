@@ -1334,7 +1334,7 @@
      <x>0</x>
      <y>0</y>
      <width>1440</width>
-     <height>30</height>
+     <height>36</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1439,8 +1439,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>147</width>
-       <height>130</height>
+       <width>163</width>
+       <height>150</height>
       </rect>
      </property>
      <property name="title">
@@ -1510,6 +1510,8 @@
        <string>&amp;Parity Bit</string>
       </property>
       <addaction name="actionNone"/>
+      <addaction name="actionEven"/>
+      <addaction name="actionOdd"/>
      </widget>
      <widget class="QMenu" name="menuData_Bits">
       <property name="title">
@@ -1518,8 +1520,8 @@
       <addaction name="action8"/>
      </widget>
      <addaction name="menuBaud_Rate"/>
-     <addaction name="menuParity_Bit"/>
      <addaction name="menuData_Bits"/>
+     <addaction name="menuParity_Bit"/>
     </widget>
     <widget class="QMenu" name="menuUART_2">
      <property name="title">
@@ -1553,6 +1555,8 @@
        <string>&amp;Parity Bit</string>
       </property>
       <addaction name="actionNone_2"/>
+      <addaction name="actionEven_2"/>
+      <addaction name="actionOdd_2"/>
      </widget>
      <addaction name="menuBaud_Rate_2"/>
      <addaction name="menuData_Bits_2"/>
@@ -1938,6 +1942,9 @@
   </action>
   <action name="actionNone">
    <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
     <bool>true</bool>
    </property>
    <property name="text">
@@ -2329,6 +2336,38 @@
    </property>
    <property name="text">
     <string>&amp;Show Range Dialog on Main Page</string>
+   </property>
+  </action>
+  <action name="actionEven">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Even</string>
+   </property>
+  </action>
+  <action name="actionOdd">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Odd</string>
+   </property>
+  </action>
+  <action name="actionEven_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Even</string>
+   </property>
+  </action>
+  <action name="actionOdd_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Odd</string>
    </property>
   </action>
  </widget>

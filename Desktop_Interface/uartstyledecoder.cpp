@@ -1,4 +1,6 @@
 #include "uartstyledecoder.h"
+#include <QDebug>
+#include <cassert>
 
 uartStyleDecoder::uartStyleDecoder(QObject *parent_in) : QObject(parent_in)
 {
@@ -52,24 +54,29 @@ void uartStyleDecoder::serialDecode(double baudRate)
     double dist_seconds = (double)serialDistance()/(parent->sampleRate_bit);
     double bitPeriod_seconds = 1/baudRate;
 
-    //Used to check for wire disconnects.  You should get at least one "1" for a stop bit.
+    // Used to check for wire disconnects.  You should get at least one "1" for a stop bit.
     bool allZeroes = true;
 
     while(dist_seconds > (bitPeriod_seconds + SERIAL_DELAY)){
-        //Read next uart bit
+        // Read next uart bit
         unsigned char uart_bit = getNextUartBit();
-        if(uart_bit) allZeroes = false;
 
-        //Process it
-        if(uartTransmitting){
+        if (uart_bit == 1)
+            allZeroes = false;
+
+        // Process it
+        if (uartTransmitting)
+        {
             decodeNextUartBit(uart_bit);
-        } else{
-            uartTransmitting = (uart_bit == 1) ? false : true;  //Uart starts transmitting after start bit (logic low).
+        }
+        else
+        {
+            uartTransmitting = (uart_bit == 1) ? false : true;  // Uart starts transmitting after start bit (logic low).
             jitterCompensationNeeded = true;
         }
-        //Update the pointer, accounting for jitter
+        // Update the pointer, accounting for jitter
         updateSerialPtr(baudRate, uart_bit);
-        //Calculate stopping condition
+        // Calculate stopping condition
         dist_seconds = (double)serialDistance()/(parent->sampleRate_bit);
     }
 
@@ -117,17 +124,25 @@ unsigned char uartStyleDecoder::getNextUartBit(){
 
 void uartStyleDecoder::decodeNextUartBit(unsigned char bitValue)
 {
-    if(dataBit_current == dataBit_max){
-        decodeDatabit(dataBit_max+1);
+    if (dataBit_current == parityIndex)
+    {
+        assert(parity != UartParity::None);
+        performParityCheck();
+        dataBit_current++;
+    }
+    else if (dataBit_current < dataBit_max)
+    {
+        currentUartSymbol |= (bitValue << dataBit_current);
+        dataBit_current++;
+    }
+    else
+    {
+        decodeDatabit(dataBit_max + 1);
         currentUartSymbol = 0;
         dataBit_current = 0;
         uartTransmitting = false;
         newUartSymbol = true;
-        return;
     }
-    //else
-    currentUartSymbol |= (bitValue << dataBit_current);
-    dataBit_current++;
 }
 
 //This function compensates for jitter by, when the current bit is a "1", and the last bit was a zero, setting the pointer
@@ -165,23 +180,74 @@ bool uartStyleDecoder::jitterCompensationProcedure(double baudRate, unsigned cha
     return true;
 }
 
-//Basically scaffoldingto add character maps for other modes (5 bit, for example).
+//Basically scaffolding to add character maps for other modes (5 bit, for example).
 void uartStyleDecoder::decodeDatabit(int mode){
     char tempchar;
     switch(mode){
         case 5:
             tempchar = decode_baudot(currentUartSymbol);
+            break;
         case 8:  //8-bit ASCII;
             tempchar = currentUartSymbol;
             break;
         default:
             qDebug() << "uartStyleDecoder::decodeDatabit is failing...";
     }
+    if (parityCheckFailed)
+    {
+        serialBuffer->add("\n<ERROR: Following character contains parity error>\n");
+        parityCheckFailed = false;
+    }
     serialBuffer->add(tempchar);
 }
 
 char uartStyleDecoder::decode_baudot(short symbol){
     return 'a';
+}
+
+void uartStyleDecoder::setParityMode(UartParity newParity)
+{
+    switch(newParity)
+    {
+    case UartParity::None:
+        parityIndex = UINT_MAX;
+        break;
+    case UartParity::Even:
+    case UartParity::Odd:
+        parityIndex = dataBit_max;
+    }
+
+    parity = newParity;
+}
+
+void uartStyleDecoder::performParityCheck()
+{
+    auto isEvenParity = [=] () -> bool
+    {
+        uint32_t mask = 0x00000001;
+        uint8_t parity = 0;
+        for (int i = 0; i < dataBit_max; i++)
+        {
+            const uint8_t currentBit = (dataBit_current & mask) ? 1 : 0;
+            parity = parity ^ currentBit;
+            mask = mask << 1;
+        }
+
+        return parity == 0;
+    };
+
+    switch(parity)
+    {
+    case UartParity::None:
+        assert(false);
+        return;
+    case UartParity::Even:
+        parityCheckFailed = ! isEvenParity();
+    case UartParity::Odd:
+        parityCheckFailed = isEvenParity();
+    }
+
+    return;
 }
 
 

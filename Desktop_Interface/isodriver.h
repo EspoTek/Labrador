@@ -10,6 +10,7 @@
 #include "desktop_settings.h"
 #include "siprint.h"
 #include "i2cdecoder.h"
+#include "uartstyledecoder.h"
 
 class isoBuffer;
 class isoBuffer_file;
@@ -34,6 +35,8 @@ public:
     bool doNotTouchGraph = true;
     double ch1_ref = 1.65, ch2_ref = 1.65;
     double frontendGain_CH1 = (R4/(R3+R4)), frontendGain_CH2 = (R4/(R3+R4));
+    UartParity parity_CH1 = UartParity::None;
+    UartParity parity_CH2 = UartParity::None;
     //State Vars
     bool AC_CH1 = false, AC_CH2 = false;
     bool cursorStatsEnabled = true;

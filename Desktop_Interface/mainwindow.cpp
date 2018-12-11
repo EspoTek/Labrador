@@ -319,7 +319,7 @@ void MainWindow::menuSetup(){
     gainGroup->addAction(ui->actionGain16);
     gainGroup->addAction(ui->actionGain32);
     gainGroup->addAction(ui->actionGain64);
-    ui->actionGainAuto->setChecked(1);
+    ui->actionGainAuto->setChecked(true);
 
     rangeGroupV = new QActionGroup(this);
     rangeGroupV->addAction(ui->actionAutoV);
@@ -381,7 +381,7 @@ void MainWindow::menuSetup(){
     uartBaudGroup_CH1->addAction(ui->action38400);
     uartBaudGroup_CH1->addAction(ui->action57600);
     uartBaudGroup_CH1->addAction(ui->action115200);
-    ui->action9600->setChecked(1);
+    ui->action9600->setChecked(true);
 
     uartBaudGroup_CH2 = new QActionGroup(this);
     uartBaudGroup_CH2->addAction(ui->action300_2);
@@ -396,13 +396,25 @@ void MainWindow::menuSetup(){
     uartBaudGroup_CH2->addAction(ui->action38400_2);
     uartBaudGroup_CH2->addAction(ui->action57600_2);
     uartBaudGroup_CH2->addAction(ui->action115200_2);
-    ui->action9600_2->setChecked(1);
+    ui->action9600_2->setChecked(true);
+
+    uartParityGroup_CH1 = new QActionGroup(this);
+    uartParityGroup_CH1->addAction(ui->actionNone);
+    uartParityGroup_CH1->addAction(ui->actionEven);
+    uartParityGroup_CH1->addAction(ui->actionOdd);
+    ui->actionNone->setChecked(true);
+
+    uartParityGroup_CH2 = new QActionGroup(this);
+    uartParityGroup_CH2->addAction(ui->actionNone_2);
+    uartParityGroup_CH2->addAction(ui->actionEven_2);
+    uartParityGroup_CH2->addAction(ui->actionOdd_2);
+    ui->actionNone_2->setChecked(true);
 
     connectionTypeGroup = new QActionGroup(this);
     connectionTypeGroup->addAction(ui->actionLo_bw);
     connectionTypeGroup->addAction(ui->actionSingle_ep_msync);
     connectionTypeGroup->addAction(ui->actionSingle_ep_async);
-    ui->actionLo_bw->setChecked(1);
+    ui->actionLo_bw->setChecked(true);
     expected_variant = 1; //for default Lo_bw mode;
 
     ui->actionLo_bw->setVisible(false);
@@ -690,51 +702,51 @@ void MainWindow::cycleBaudRate_CH1(){
     QAction *currentAction = uartBaudGroup_CH1->checkedAction();
     qDebug() << currentAction;
     if(currentAction==ui->action300){
-        ui->action600->setChecked(1);
+        ui->action600->setChecked(true);
         return;
         }
     if(currentAction==ui->action600){
-        ui->action1200->setChecked(1);
+        ui->action1200->setChecked(true);
         return;
         }
     if(currentAction==ui->action1200){
-        ui->action2400->setChecked(1);
+        ui->action2400->setChecked(true);
         return;
         }
     if(currentAction==ui->action2400){
-        ui->action4800->setChecked(1);
+        ui->action4800->setChecked(true);
         return;
         }
     if(currentAction==ui->action4800){
-        ui->action9600->setChecked(1);
+        ui->action9600->setChecked(true);
         return;
         }
     if(currentAction==ui->action9600){
-        ui->action14400->setChecked(1);
+        ui->action14400->setChecked(true);
         return;
         }
     if(currentAction==ui->action14400){
-        ui->action19200->setChecked(1);
+        ui->action19200->setChecked(true);
         return;
         }
     if(currentAction==ui->action19200){
-        ui->action28800->setChecked(1);
+        ui->action28800->setChecked(true);
         return;
         }
     if(currentAction==ui->action28800){
-        ui->action38400->setChecked(1);
+        ui->action38400->setChecked(true);
         return;
         }
     if(currentAction==ui->action38400){
-        ui->action57600->setChecked(1);
+        ui->action57600->setChecked(true);
         return;
         }
     if(currentAction==ui->action57600){
-        ui->action115200->setChecked(1);
+        ui->action115200->setChecked(true);
         return;
         }
     if(currentAction==ui->action115200){
-        ui->action300->setChecked(1);
+        ui->action300->setChecked(true);
         return;
         }
     qFatal("Invalid state in MainWindow::cycleBaudRate_CH1()");
@@ -744,51 +756,51 @@ void MainWindow::cycleBaudRateBackwards_CH1(){
     QAction *currentAction = uartBaudGroup_CH1->checkedAction();
     qDebug() << currentAction;
     if(currentAction==ui->action1200){
-        ui->action600->setChecked(1);
+        ui->action600->setChecked(true);
         return;
         }
     if(currentAction==ui->action2400){
-        ui->action1200->setChecked(1);
+        ui->action1200->setChecked(true);
         return;
         }
     if(currentAction==ui->action4800){
-        ui->action2400->setChecked(1);
+        ui->action2400->setChecked(true);
         return;
         }
     if(currentAction==ui->action9600){
-        ui->action4800->setChecked(1);
+        ui->action4800->setChecked(true);
         return;
         }
     if(currentAction==ui->action14400){
-        ui->action9600->setChecked(1);
+        ui->action9600->setChecked(true);
         return;
         }
     if(currentAction==ui->action19200){
-        ui->action14400->setChecked(1);
+        ui->action14400->setChecked(true);
         return;
         }
     if(currentAction==ui->action28800){
-        ui->action19200->setChecked(1);
+        ui->action19200->setChecked(true);
         return;
         }
     if(currentAction==ui->action38400){
-        ui->action28800->setChecked(1);
+        ui->action28800->setChecked(true);
         return;
         }
     if(currentAction==ui->action57600){
-        ui->action38400->setChecked(1);
+        ui->action38400->setChecked(true);
         return;
         }
     if(currentAction==ui->action115200){
-        ui->action57600->setChecked(1);
+        ui->action57600->setChecked(true);
         return;
         }
     if(currentAction==ui->action300){
-        ui->action115200->setChecked(1);
+        ui->action115200->setChecked(true);
         return;
         }
     if(currentAction==ui->action600){
-        ui->action300->setChecked(1);
+        ui->action300->setChecked(true);
         return;
         }
     qFatal("Invalid state in MainWindow::cycleBaudRateBackwards_CH1()");
@@ -798,51 +810,51 @@ void MainWindow::cycleBaudRate_CH2(){
     QAction *currentAction = uartBaudGroup_CH2->checkedAction();
     qDebug() << currentAction;
     if(currentAction==ui->action300_2){
-        ui->action600_2->setChecked(1);
+        ui->action600_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action600_2){
-        ui->action1200_2->setChecked(1);
+        ui->action1200_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action1200_2){
-        ui->action2400_2->setChecked(1);
+        ui->action2400_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action2400_2){
-        ui->action4800_2->setChecked(1);
+        ui->action4800_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action4800_2){
-        ui->action9600_2->setChecked(1);
+        ui->action9600_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action9600_2){
-        ui->action14400_2->setChecked(1);
+        ui->action14400_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action14400_2){
-        ui->action19200_2->setChecked(1);
+        ui->action19200_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action19200_2){
-        ui->action28800_2->setChecked(1);
+        ui->action28800_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action28800_2){
-        ui->action38400_2->setChecked(1);
+        ui->action38400_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action38400_2){
-        ui->action57600_2->setChecked(1);
+        ui->action57600_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action57600_2){
-        ui->action115200_2->setChecked(1);
+        ui->action115200_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action115200_2){
-        ui->action300_2->setChecked(1);
+        ui->action300_2->setChecked(true);
         return;
         }
     qFatal("Invalid state in MainWindow::cycleBaudRate_CH2()");
@@ -852,51 +864,51 @@ void MainWindow::cycleBaudRateBackwards_CH2(){
     QAction *currentAction = uartBaudGroup_CH2->checkedAction();
     qDebug() << currentAction;
     if(currentAction==ui->action1200_2){
-        ui->action600_2->setChecked(1);
+        ui->action600_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action2400_2){
-        ui->action1200_2->setChecked(1);
+        ui->action1200_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action4800_2){
-        ui->action2400_2->setChecked(1);
+        ui->action2400_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action9600_2){
-        ui->action4800_2->setChecked(1);
+        ui->action4800_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action14400_2){
-        ui->action9600_2->setChecked(1);
+        ui->action9600_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action19200_2){
-        ui->action14400_2->setChecked(1);
+        ui->action14400_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action28800_2){
-        ui->action19200_2->setChecked(1);
+        ui->action19200_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action38400_2){
-        ui->action28800_2->setChecked(1);
+        ui->action28800_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action57600_2){
-        ui->action38400_2->setChecked(1);
+        ui->action38400_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action115200_2){
-        ui->action57600_2->setChecked(1);
+        ui->action57600_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action300_2){
-        ui->action115200_2->setChecked(1);
+        ui->action115200_2->setChecked(true);
         return;
         }
     if(currentAction==ui->action600_2){
-        ui->action300_2->setChecked(1);
+        ui->action300_2->setChecked(true);
         return;
         }
     qFatal("Invalid state in MainWindow::cycleBaudRateBackwards_CH2()");
@@ -1174,15 +1186,15 @@ void MainWindow::readSettingsFile(){
     //Change connection Type
     switch(connectionType){
     case 0:
-        ui->actionLo_bw->setChecked(1);
+        ui->actionLo_bw->setChecked(true);
         on_actionLo_bw_triggered();
         break;
     case 1:
-        ui->actionSingle_ep_msync->setChecked(1);
+        ui->actionSingle_ep_msync->setChecked(true);
         on_actionSingle_ep_msync_triggered();
         break;
     case 2:
-        ui->actionSingle_ep_async->setChecked(1);
+        ui->actionSingle_ep_async->setChecked(true);
         on_actionSingle_ep_async_triggered();
         break;
     }
@@ -1930,7 +1942,7 @@ void MainWindow::on_actionRecord_CH1_triggered(bool checked)
 
 #ifndef PLATFORM_ANDROID
     if(len==0){
-        ui->actionRecord_CH1->setChecked(0);
+        ui->actionRecord_CH1->setChecked(false);
         return; //User cancelled
     }
 #endif
@@ -1962,7 +1974,7 @@ void MainWindow::on_actionRecord_CH2_triggered(bool checked)
 
 #ifndef PLATFORM_ANDROID
     if(len==0){
-        ui->actionRecord_CH2->setChecked(0);
+        ui->actionRecord_CH2->setChecked(false);
         return; //User cancelled
     }
 #endif
@@ -2030,7 +2042,7 @@ void MainWindow::on_actionDAQ_Settings_triggered()
 }
 
 void MainWindow::fileLimitReached_CH1(void){
-    ui->actionRecord_CH1->setChecked(0);
+    ui->actionRecord_CH1->setChecked(false);
 
     QMessageBox recordingStoppedMessageBox;
     char recordingStoppedMessage[256];
@@ -2040,7 +2052,7 @@ void MainWindow::fileLimitReached_CH1(void){
 }
 
 void MainWindow::fileLimitReached_CH2(void){
-    ui->actionRecord_CH2->setChecked(0);
+    ui->actionRecord_CH2->setChecked(false);
 
     QMessageBox recordingStoppedMessageBox;
     char recordingStoppedMessage[256];
@@ -2274,4 +2286,34 @@ void MainWindow::paused(bool enabled)
 		ui->hideCH1Box->setChecked(false);
 		ui->hideCH2Box->setChecked(false);
 	}
+}
+
+void MainWindow::on_actionNone_triggered()
+{
+    ui->controller_iso->parity_CH1 = UartParity::None;
+}
+
+void MainWindow::on_actionEven_triggered()
+{
+    ui->controller_iso->parity_CH1 = UartParity::Even;
+}
+
+void MainWindow::on_actionOdd_triggered()
+{
+    ui->controller_iso->parity_CH1 = UartParity::Odd;
+}
+
+void MainWindow::on_actionNone_2_triggered()
+{
+    ui->controller_iso->parity_CH2 = UartParity::None;
+}
+
+void MainWindow::on_actionEven_2_triggered()
+{
+    ui->controller_iso->parity_CH2 = UartParity::Even;
+}
+
+void MainWindow::on_actionOdd_2_triggered()
+{
+    ui->controller_iso->parity_CH2 = UartParity::Odd;
 }

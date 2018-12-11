@@ -5,6 +5,15 @@
 #include "isobufferbuffer.h"
 #include "isobuffer.h"
 #include <mutex>
+#include <limits.h>
+#include <stdint.h>
+
+enum class UartParity : uint8_t
+{
+    None,
+    Even,
+    Odd
+};
 
 class uartStyleDecoder : public QObject
 {
@@ -20,7 +29,9 @@ private:
     int serialPtr_bit;
     bool uartTransmitting = false;
     bool newUartSymbol = false;
-    int dataBit_current = 0, dataBit_max = 7;
+    uint32_t dataBit_current = 0;
+    uint32_t parityIndex = UINT_MAX;
+    uint32_t dataBit_max = 7;
     unsigned short currentUartSymbol = 0;
     bool jitterCompensationNeeded = true;
     void updateSerialPtr(double baudRate, unsigned char current_bit);
@@ -32,10 +43,14 @@ private:
     void decodeDatabit(int mode);
     char decode_baudot(short symbol);
 	std::mutex mutex;
+    UartParity parity = UartParity::None;
+    void performParityCheck();
+    bool parityCheckFailed = false;
 signals:
     void wireDisconnected(int);
 public slots:
     void updateConsole();
+    void setParityMode(UartParity newParity);
 };
 
 #endif // UARTSTYLEDECODER_H

@@ -1,6 +1,5 @@
 #include "isobuffer.h"
 #include "isodriver.h"
-
 #include "uartstyledecoder.h"
 
 isoBuffer::isoBuffer(QWidget *parent, int bufferLen, isoDriver *caller, unsigned char channel_value) : QWidget(parent)
@@ -371,7 +370,7 @@ int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop){
     return -1;
 }
 
-void isoBuffer::serialManage(double baudRate, int type){
+void isoBuffer::serialManage(double baudRate, int type, UartParity parity){
     //Types:
     // 0 - standard UART, no parity
     // 1 - standard UART, with parity bit
@@ -384,6 +383,7 @@ void isoBuffer::serialManage(double baudRate, int type){
         decoder->updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
         stopDecoding = false;
     }
+    decoder->setParityMode(parity);
     decoder->serialDecode(baudRate);
 }
 
