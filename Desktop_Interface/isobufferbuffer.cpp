@@ -1,5 +1,29 @@
 #include "isobufferbuffer.h"
 
+/* isoBufferBuffer is implemented as two consecutive, duplicate,
+ * ring buffers. the effect of this is that we are able to hand
+ * out pointers to pieces of contiguous memory representing the
+ * last N inserted elements (for some N <= capacity()) even
+ * when we looped back to the begining of the ring buffer less
+ * than N insertions ago
+ *
+ *     There are some differences with the original implementation
+ * functionality-wise.
+ *     Where the original implementation allowed queries half as
+ * long as the length passed in, and allocated a buffer 1.5 times
+ * the length passed in, this version allows queries of length up
+ * to the length passed into the constructor and allocates a
+ * buffer 2 times the length passed in.
+ *     Overall, this means that in contrast to the original
+ * implementation which only allowed queries up to a third as
+ * long as the allocated buffer, we can now do queries as long as
+ * half of the allocated buffer, which is a notable improvement.
+ */
+
+// TODO: go through the usages of this class and adjust the
+// size of the requested buffer to accomodate the improved memory
+// efficiency of the new algorithm
+
 isoBufferBuffer::isoBufferBuffer(
 	uint32_t length
 ) :
