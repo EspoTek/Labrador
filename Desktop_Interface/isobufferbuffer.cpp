@@ -1,49 +1,68 @@
 #include "isobufferbuffer.h"
 
-isoBufferBuffer::isoBufferBuffer(uint32_t length)
-    : bufferLength(length)
-{
-    mid = bufferLength/2;
-    buffer = (char *) malloc((bufferLength * 3) / 2);
+isoBufferBuffer::isoBufferBuffer(
+	uint32_t length
+) :
+	data_ ( std::make_unique<char[]>(length*2) ),
+	capacity_ (length)
+{}
+
+void isoBufferBuffer::insert (
+	char c
+) {
+	data_[top_] = c;
+	data_[top_+capacity_] = c;
+
+	top_ = (top_+1) % capacity_;
+	size_ = std::min(size_+1, capacity_);
 }
 
+char const * isoBufferBuffer::query (
+	uint32_t length
+) const {
+	uint32_t offset = top_ < length ? capacity_ : 0 ;
+	return data_.get() + top_ - length + offset;
+}
+
+uint32_t isoBufferBuffer::size () const {
+	return size_;
+}
+
+uint32_t isoBufferBuffer::capacity () const {
+	return capacity_;
+}
+
+
+// Legacy Interface Implementation
 void isoBufferBuffer::add(std::string newString)
 {
-    for (char& newChar : newString)
-        add(newChar);
+    for (char newChar : newString)
+        insert(newChar);
 }
 
 
 void isoBufferBuffer::add(char newChar){
-    buffer[ptr] = newChar;
-
-    if(ptr < mid)
-        buffer[ptr + bufferLength] = newChar;
-
-    if (ptr >= bufferLength)
-        ptr = 0;
-    else ptr++;
-
-    numCharsInBuffer = std::min(numCharsInBuffer + 1, mid);
+	insert(newChar);
 }
 
 void isoBufferBuffer::add(uint8_t newByte)
 {
-    char newString[5];
-    sprintf(newString, "0x%02hhx", newByte);
-    add(newString);
+	char newString[3];
+	sprintf(newString, "%02hhx", newByte);
+	
+	insert('0');
+	insert('x');
+	insert(newString[0]);
+	insert(newString[1]);
 }
 
 uint32_t isoBufferBuffer::getNumCharsInBuffer()
 {
-    return numCharsInBuffer;
+    return size();
 }
 
-char *isoBufferBuffer::get(uint32_t length){
-    if (length > mid)
+char const * isoBufferBuffer::get(uint32_t length){
+    if (length > size_)
         qFatal("isoBuffer::get; length requested is too high.");
-    if(ptr < mid)
-        return &buffer[ptr + bufferLength - length];
-    else
-        return &buffer[ptr - length];
+	return query(length);
 }

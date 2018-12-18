@@ -6,22 +6,31 @@
 #include <QDebug>
 #include <stdlib.h>
 #include <string>
+#include <memory>
 
 class isoBufferBuffer
 {
 public:
-    isoBufferBuffer(uint32_t length);
-    void add(uint8_t newByte);
+    isoBufferBuffer ( uint32_t length );
+	~isoBufferBuffer () = default;
+
+	void insert ( char );
+	char const * query ( uint32_t length ) const;
+
+	uint32_t size () const;
+	uint32_t capacity () const;
+	
+	// Legacy Interface
+	void add(uint8_t newByte);
     void add(char newChar);
     void add(std::string newString);
-    char *get(uint32_t length);
+    char const *get(uint32_t length);
     uint32_t getNumCharsInBuffer();
 private:
-    uint32_t bufferLength;
-    uint32_t mid;
-    uint32_t ptr;
-    char *buffer;
-    uint32_t numCharsInBuffer = 0;
+	std::unique_ptr<char[]> data_;
+	uint32_t capacity_;
+	uint32_t size_ = 0;
+	uint32_t top_ = 0;
 };
 
 #endif // ISOBUFFERBUFFER_H
