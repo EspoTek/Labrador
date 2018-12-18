@@ -34,7 +34,7 @@ uint32_t isoBufferBuffer::capacity () const {
 
 
 // Legacy Interface Implementation
-void isoBufferBuffer::add(std::string newString)
+void isoBufferBuffer::add(std::string const & newString)
 {
     for (char newChar : newString)
         insert(newChar);
