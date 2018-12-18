@@ -23,7 +23,7 @@ public:
 	// Legacy Interface
 	void add(uint8_t newByte);
     void add(char newChar);
-    void add(std::string newString);
+    void add(std::string const & newString);
     char const *get(uint32_t length);
     uint32_t getNumCharsInBuffer();
 private:
