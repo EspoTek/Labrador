@@ -20,32 +20,64 @@
  * half of the allocated buffer, which is a notable improvement.
  */
 
-// TODO: go through the usages of this class and adjust the
-// size of the requested buffer to accomodate the improved memory
-// efficiency of the new algorithm
 
-isoBufferBuffer::isoBufferBuffer(
+// TODO: go through the usages of this class and:
+// 1. adapt code to use the new interface and remove the old one
+// 2. adjust the size of the requested buffer to accomodate
+// the improved memory efficiency of the new algorithm
+
+isoBufferBuffer::isoBufferBuffer (
 	uint32_t length
 ) :
-	data_ ( std::make_unique<char[]>(length*2) ),
-	capacity_ (length)
+	data_(std::make_unique<char[]>(length*2)),
+	capacity_(length)
 {}
 
-void isoBufferBuffer::insert (
-	char c
-) {
+// Adds a character to the end of the buffer
+void isoBufferBuffer::insert ( char c ) {
+	// Add character to first half of the buffer
 	data_[top_] = c;
+	// Then to the second
 	data_[top_+capacity_] = c;
 
-	top_ = (top_+1) % capacity_;
-	size_ = std::min(size_+1, capacity_);
+	// Loop the buffer index if necessary and update size accordingly
+	top_ = (top_ + 1) % capacity_;
+	size_ = std::min(size_ + 1, capacity_);
 }
 
-char const * isoBufferBuffer::query (
-	uint32_t length
-) const {
-	uint32_t offset = top_ < length ? capacity_ : 0 ;
-	return data_.get() + top_ - length + offset;
+void isoBufferBuffer::insert ( char const * s ) {
+	while ( *s )
+		insert(*s++);
+}
+
+void isoBufferBuffer::insert ( std::string const & s ) {
+	insert(s.c_str());
+}
+
+char const* isoBufferBuffer::query ( uint32_t count ) const {
+	if ( count > capacity_ )
+		qFatal("isoBufferBuffer::query : you may not request more items than the capacity of the buffer");
+
+	if ( count > size_ )
+		qFatal("isoBufferBuffer::query : you may not request more items than inserted");
+
+	// we offset the returned pointer to point into the second half of the buffer
+	auto offset = capacity_;
+	char const * ptr = data_.get() + top_ - count + offset;
+	return ptr;
+}
+
+void isoBufferBuffer::clear () {
+	top_ = 0;
+	size_ = 0;
+};
+
+char const * isoBufferBuffer::begin () const {
+	return data_.get() + top_ - size_ + capacity_;
+}
+
+char const * isoBufferBuffer::end () const {
+	return data_.get() + top_ + capacity_;
 }
 
 uint32_t isoBufferBuffer::size () const {
@@ -58,35 +90,25 @@ uint32_t isoBufferBuffer::capacity () const {
 
 
 // Legacy Interface Implementation
-void isoBufferBuffer::add(std::string const & newString)
-{
-    for (char newChar : newString)
-        insert(newChar);
+void isoBufferBuffer::add(std::string const & newString) {
+    insert(newString);
 }
 
 
-void isoBufferBuffer::add(char newChar){
+void isoBufferBuffer::add(char newChar) {
 	insert(newChar);
 }
 
-void isoBufferBuffer::add(uint8_t newByte)
-{
-	char newString[3];
-	sprintf(newString, "%02hhx", newByte);
-	
-	insert('0');
-	insert('x');
-	insert(newString[0]);
-	insert(newString[1]);
+void isoBufferBuffer::add( uint8_t newByte ) {
+	char newString[5];
+	sprintf(newString, "0x%02hhx", newByte);
+	insert((char const *)newString);
 }
 
-uint32_t isoBufferBuffer::getNumCharsInBuffer()
-{
+uint32_t isoBufferBuffer::getNumCharsInBuffer() {
     return size();
 }
 
-char const * isoBufferBuffer::get(uint32_t length){
-    if (length > size_)
-        qFatal("isoBuffer::get; length requested is too high.");
+char const * isoBufferBuffer::get(uint32_t length) {
 	return query(length);
 }
