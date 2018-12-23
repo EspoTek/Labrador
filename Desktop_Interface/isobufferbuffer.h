@@ -33,7 +33,6 @@ public:
 
 	uint32_t size () const;
 	uint32_t capacity () const;
-	uint32_t capacity () const;
 
 	// Legacy Interface
 	void add(uint8_t newByte);
