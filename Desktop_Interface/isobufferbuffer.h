@@ -7,12 +7,20 @@
 #include <memory>
 
 /** @file isobufferbuffer.h
- *  @brief This module implements a data structure that allows insertion of single characters and a view of the last N inserted characters in constant time
+ *  @brief This  module  implements  a  data structure that allows
+ *  insertion  of  single  characters  and  a  view  of the last N
+ *  inserted characters in constant time.
  *
- *  To obtain such complexity, a double ring buffer is used. That is, two identical ring buffers are mantained adjacent in memory.
- *  If we always return a pointer into the second buffer, even when the requested length is greater than the current position in the buffer, we will return a valid address(*).
+ *  To  obtain  such  complexity,  a  double  ring buffer is used.
+ *  That  is,  two  identical  ring buffers are mantained adjacent
+ *  in  memory.  If we always return a pointer to the begging of a
+ *  range  that ends in the second buffer, we will always return a
+ *  valid  address(*),  even  when the requested length is greater
+ *  than  the  current position being inserted into in the buffer.
  *
- *  (*)by valid address it is meant that the address is within the allocated buffer.
+ *  (*) By  valid  address  I  mean  that  both the addresses that
+ *  represent  the  begining and end of the requested query result
+ *  are within the allocated buffer.
  */
 class isoBufferBuffer {
 public:
@@ -24,7 +32,8 @@ public:
 	void insert ( std::string const & s );
 
 	char const * query ( uint32_t length ) const;
-	//TODO?: add ability to get a copy of the content (i.e. return std::string or Qstring)
+	// TODO?: add ability to get a copy of the content
+	// (e.g. return std::string or Qstring)
 
 	void clear ();
 
