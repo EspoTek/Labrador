@@ -1,5 +1,7 @@
 #include "isobufferbuffer.h"
 
+#include <QDebug>
+
 /* isoBufferBuffer is implemented as two consecutive, duplicate,
  * ring buffers. the effect of this is that we are able to hand
  * out pointers to pieces of contiguous memory representing the

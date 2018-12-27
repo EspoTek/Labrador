@@ -1,7 +1,6 @@
 #ifndef ISOBUFFERBUFFER_H
 #define ISOBUFFERBUFFER_H
 
-#include <QDebug>
 #include <cstdint>
 #include <string>
 #include <memory>
