@@ -30,7 +30,7 @@ qmake
 make
 sudo make install
 ```
-Then, to launch, just type "labrador" into the terminal.
+Then, to launch, just type `labrador` into the terminal.
 
 To build the AVR software, I use Atmel Studio 7.  Just load up the .atsln and push F7.  You can use avr-gcc if you don't want to install a full IDE.
 
@@ -45,9 +45,9 @@ If you want to make any suggestions, or better yet, submit some code, please do 
 
 Suggestions and feature requests belong on the "Issues" page.
 
-For code submissions, look into Pull Requests.  Or you can open an issue.  I'm not picky.  :)
+For code submissions, look into Pull Requests.
 
-If you just want to say hello and remind me that people are actually using my product, please email admin@espotek.com
+If you just want to say hello and remind me that people are actually using my product (or if you just don't want to make a GitHub account), please email admin@espotek.com
 
 Thanks to all.
 
