@@ -1,49 +1,127 @@
 #include "isobufferbuffer.h"
 
+#include <QDebug>
+
+/* isoBufferBuffer is implemented as two consecutive, duplicate,
+ * ring buffers. the effect of this is that we are able to hand
+ * out pointers to pieces of contiguous memory representing the
+ * last N inserted elements (for some N <= capacity()) even
+ * when we looped back to the begining of the ring buffer less
+ * than N insertions ago
+ *
+ *     There are some differences with the original implementation
+ * functionality-wise.
+ *     Where the original implementation allowed queries half as
+ * long as the length passed in, and allocated a buffer 1.5 times
+ * the length passed in, this version allows queries of length up
+ * to the length passed into the constructor and allocates a
+ * buffer 2 times the length passed in.
+ *     Overall, this means that in contrast to the original
+ * implementation which only allowed queries up to a third as
+ * long as the allocated buffer, we can now do queries as long as
+ * half of the allocated buffer, which is a notable improvement.
+ */
+
+
+// TODO: go through the usages of this class and:
+// 1. adapt code to use the new interface and remove the old one
+// 2. adjust the size of the requested buffer to accomodate
+// the improved memory efficiency of the new algorithm
+
 isoBufferBuffer::isoBufferBuffer(uint32_t length)
-    : bufferLength(length)
+	: m_data(std::make_unique<char[]>(length*2))
+	, m_capacity(length)
 {
-    mid = bufferLength/2;
-    buffer = (char *) malloc((bufferLength * 3) / 2);
 }
 
-void isoBufferBuffer::add(std::string newString)
+// Adds a character to the end of the buffer
+void isoBufferBuffer::insert(char c)
 {
-    for (char& newChar : newString)
-        add(newChar);
+	// Add character to first half of the buffer
+	m_data[m_top] = c;
+	// Then to the second
+	m_data[m_top+m_capacity] = c;
+
+	// Loop the buffer index if necessary and update size accordingly
+	m_top = (m_top + 1) % m_capacity;
+	m_size = std::min(m_size + 1, m_capacity);
+}
+
+void isoBufferBuffer::insert(char const * s)
+{
+	while (*s != '\0')
+		insert(*s++);
+}
+
+void isoBufferBuffer::insert(std::string const & s)
+{
+	for (char c : s)
+		insert(c);
+}
+
+char const* isoBufferBuffer::query(uint32_t count) const
+{
+	if (count > m_capacity)
+		qFatal("isoBufferBuffer::query : you may not request more items than the capacity of the buffer");
+
+	if (count > m_size)
+		qFatal("isoBufferBuffer::query : you may not request more items than inserted");
+
+	return end() - count;
+}
+
+void isoBufferBuffer::clear()
+{
+	m_top = 0;
+	m_size = 0;
+}
+
+char const * isoBufferBuffer::begin() const
+{
+	return m_data.get() + m_top - m_size + m_capacity;
+}
+
+char const * isoBufferBuffer::end() const
+{
+	return m_data.get() + m_top + m_capacity;
+}
+
+uint32_t isoBufferBuffer::size() const
+{
+	return m_size;
+}
+
+uint32_t isoBufferBuffer::capacity() const
+{
+	return m_capacity;
 }
 
 
-void isoBufferBuffer::add(char newChar){
-    buffer[ptr] = newChar;
+// Legacy Interface Implementation
+void isoBufferBuffer::add(std::string const & newString)
+{
+    insert(newString);
+}
 
-    if(ptr < mid)
-        buffer[ptr + bufferLength] = newChar;
 
-    if (ptr >= bufferLength)
-        ptr = 0;
-    else ptr++;
-
-    numCharsInBuffer = std::min(numCharsInBuffer + 1, mid);
+void isoBufferBuffer::add(char newChar)
+{
+	insert(newChar);
 }
 
 void isoBufferBuffer::add(uint8_t newByte)
 {
-    char newString[5];
-    sprintf(newString, "0x%02hhx", newByte);
-    add(newString);
+	char newString[5];
+	sprintf(newString, "0x%02hhx", newByte);
+	insert((char const *)newString);
 }
 
 uint32_t isoBufferBuffer::getNumCharsInBuffer()
 {
-    return numCharsInBuffer;
+    return size();
 }
 
-char *isoBufferBuffer::get(uint32_t length){
-    if (length > mid)
-        qFatal("isoBuffer::get; length requested is too high.");
-    if(ptr < mid)
-        return &buffer[ptr + bufferLength - length];
-    else
-        return &buffer[ptr - length];
+char const * isoBufferBuffer::get(uint32_t length)
+{
+	return query(length);
 }
