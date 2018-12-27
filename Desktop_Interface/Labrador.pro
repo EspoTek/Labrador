@@ -9,7 +9,9 @@
 ######CLEAN->RUN QMAKE->BUILD after changing anything on this page!!!######
 ##########################################################################
 
-QT       += core gui
+QT += core gui
+
+CONFIG += c++14
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
