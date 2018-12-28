@@ -63,7 +63,7 @@ script:
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       cd Desktop_Interface
       qmake CONFIG+=release PREFIX=/usr
-      make -j$(nproc)
+      make -j$(nproc) CXX=${CXX} CC=${CC} LINK=${CXX}
       # - make INSTALL_ROOT=appdir -j$(nproc) install ; find appdir/
       #   NOTE: The following 5 lines should not be needed if "make install" would be made work for Labrador; see
       #   https://github.com/probonopd/linuxdeployqt#using-linuxdeployqt-with-travis-ci
