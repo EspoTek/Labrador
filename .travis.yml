@@ -1,3 +1,5 @@
+language: cpp
+
 matrix:
   include:
     - os: linux
@@ -10,6 +12,7 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
+            - gcc-7
       env:
         - MATRIX_EVAL="alias gcc=gcc-7 && alias g++=g++-7"
     - os: osx
