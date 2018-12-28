@@ -32,7 +32,7 @@ sudo make install
 ```
 Then, to launch, just type `labrador` into the terminal.
 
-To build the AVR software, I use Atmel Studio 7.  Just load up the .atsln and push F7.  You can use avr-gcc if you don't want to install a full IDE.
+To build the AVR software, I use Atmel Studio 7.  Just load up the .atsln and push F7.  You can use `avr-gcc` if you don't want to install a full IDE.
 
 The PCB files can be edited in KiCAD 4.0.
 
