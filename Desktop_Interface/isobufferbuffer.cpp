@@ -98,30 +98,11 @@ uint32_t isoBufferBuffer::capacity() const
 
 
 // Legacy Interface Implementation
-void isoBufferBuffer::add(std::string const & newString)
-{
-    insert(newString);
-}
 
-
-void isoBufferBuffer::add(char newChar)
-{
-	insert(newChar);
-}
-
-void isoBufferBuffer::add(uint8_t newByte)
+void isoBufferBuffer::insert_hex(uint8_t newByte)
 {
 	char newString[5];
 	sprintf(newString, "0x%02hhx", newByte);
 	insert((char const *)newString);
 }
 
-uint32_t isoBufferBuffer::getNumCharsInBuffer()
-{
-    return size();
-}
-
-char const * isoBufferBuffer::get(uint32_t length)
-{
-	return query(length);
-}

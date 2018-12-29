@@ -32,8 +32,7 @@ void i2cDecoder::reset()
     {
         std::lock_guard<std::mutex> lock(mutex);
 
-        delete serialBuffer;
-        serialBuffer = new isoBufferBuffer(I2C_BUFFER_LENGTH);
+        serialBuffer->clear();
     }
 }
 
@@ -150,15 +149,15 @@ void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
     {
         qDebug() << "Finished Address Decode";
         if (currentBitStream & 0b0000000000000010)
-            serialBuffer->add("READ:  ");
+            serialBuffer->insert("READ:  ");
         else
-            serialBuffer->add("WRITE: ");
+            serialBuffer->insert("WRITE: ");
 
-        serialBuffer->add((uint8_t)((currentBitStream & 0b0000000111111100) >> 2));
-        serialBuffer->add(' ');
+        serialBuffer->insert_hex((uint8_t)((currentBitStream & 0b0000000111111100) >> 2));
+        serialBuffer->insert(' ');
 
         if (currentBitStream & 0b0000000000000001)
-            serialBuffer->add("(NACK)");
+            serialBuffer->insert("(NACK)");
 
         consoleStateInvalid = true;
 
@@ -183,11 +182,11 @@ void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
     {
         qDebug() << "Finished Data byte Decode";
 
-        serialBuffer->add((uint8_t)((currentBitStream & 0b0000000111111110) >> 1));
-        serialBuffer->add(' ');
+        serialBuffer->insert_hex((uint8_t)((currentBitStream & 0b0000000111111110) >> 1));
+        serialBuffer->insert(' ');
 
         if (currentBitStream & 0b0000000000000001)
-            serialBuffer->add("(NACK)");
+            serialBuffer->insert("(NACK)");
 
         consoleStateInvalid = true;
 
@@ -208,7 +207,7 @@ void i2cDecoder::startCondition()
 void i2cDecoder::stopCondition()
 {
     state = transmissionState::idle;
-    serialBuffer->add('\n');
+    serialBuffer->insert('\n');
     qDebug() << "I2C STOP";
 }
 
@@ -217,8 +216,7 @@ void i2cDecoder::updateConsole(){
     if (!consoleStateInvalid)
         return;
 
-    uint32_t numCharsInBuffer = serialBuffer->getNumCharsInBuffer();
-    console->setPlainText(QString::fromLocal8Bit(serialBuffer->get(numCharsInBuffer), numCharsInBuffer));
+    console->setPlainText(QString::fromLocal8Bit(serialBuffer->begin(), serialBuffer->size()));
     if(sda->serialAutoScroll){
         QTextCursor c =  console->textCursor();
         c.movePosition(QTextCursor::End);

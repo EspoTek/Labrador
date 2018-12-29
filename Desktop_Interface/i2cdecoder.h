@@ -29,7 +29,7 @@ enum class edge: uint8_t
 
 constexpr uint8_t addressBitStreamLength = 9;
 constexpr uint8_t dataBitStreamLength = 9;
-constexpr uint32_t I2C_BUFFER_LENGTH = 8192;
+constexpr uint32_t I2C_BUFFER_LENGTH = 4096;
 
 class i2cDecoder : public QObject
 {

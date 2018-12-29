@@ -44,11 +44,7 @@ public:
 	uint32_t capacity() const;
 
 	// Legacy Interface
-	void add(uint8_t newByte);
-	void add(char newChar);
-	void add(std::string const & newString);
-	char const *get(uint32_t length);
-	uint32_t getNumCharsInBuffer();
+	void insert_hex(uint8_t newByte);
 private:
 	std::unique_ptr<char[]> m_data;
 	uint32_t m_capacity;
