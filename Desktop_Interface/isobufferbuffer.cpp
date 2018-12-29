@@ -59,6 +59,13 @@ void isoBufferBuffer::insert(std::string const & s)
 		insert(c);
 }
 
+void isoBufferBuffer::insert_hex(uint8_t x)
+{
+	char str[5];
+	sprintf(str, "0x%02hhx", x);
+	insert((char const *)str);
+}
+
 char const* isoBufferBuffer::query(uint32_t count) const
 {
 	if (count > m_capacity)
@@ -96,13 +103,4 @@ uint32_t isoBufferBuffer::capacity() const
 	return m_capacity;
 }
 
-
-// Legacy Interface Implementation
-
-void isoBufferBuffer::insert_hex(uint8_t newByte)
-{
-	char newString[5];
-	sprintf(newString, "0x%02hhx", newByte);
-	insert((char const *)newString);
-}
 

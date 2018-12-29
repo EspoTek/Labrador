@@ -30,6 +30,7 @@ public:
 	void insert(char c);
 	void insert(char const * s);
 	void insert(std::string const & s);
+	void insert_hex(uint8_t x);
 
 	char const * query(uint32_t length) const;
 	// TODO?: add ability to get a copy of the content
@@ -42,9 +43,6 @@ public:
 
 	uint32_t size() const;
 	uint32_t capacity() const;
-
-	// Legacy Interface
-	void insert_hex(uint8_t newByte);
 private:
 	std::unique_ptr<char[]> m_data;
 	uint32_t m_capacity;
