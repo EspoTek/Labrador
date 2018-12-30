@@ -22,12 +22,6 @@
  * half of the allocated buffer, which is a notable improvement.
  */
 
-
-// TODO: go through the usages of this class and:
-// 1. adapt code to use the new interface and remove the old one
-// 2. adjust the size of the requested buffer to accomodate
-// the improved memory efficiency of the new algorithm
-
 isoBufferBuffer::isoBufferBuffer(uint32_t length)
 	: m_data(std::make_unique<char[]>(length*2))
 	, m_capacity(length)
@@ -57,6 +51,13 @@ void isoBufferBuffer::insert(std::string const & s)
 {
 	for (char c : s)
 		insert(c);
+}
+
+void isoBufferBuffer::insert_hex(uint8_t x)
+{
+	char str[5];
+	sprintf(str, "0x%02hhx", x);
+	insert((char const *)str);
 }
 
 char const* isoBufferBuffer::query(uint32_t count) const
@@ -97,31 +98,3 @@ uint32_t isoBufferBuffer::capacity() const
 }
 
 
-// Legacy Interface Implementation
-void isoBufferBuffer::add(std::string const & newString)
-{
-    insert(newString);
-}
-
-
-void isoBufferBuffer::add(char newChar)
-{
-	insert(newChar);
-}
-
-void isoBufferBuffer::add(uint8_t newByte)
-{
-	char newString[5];
-	sprintf(newString, "0x%02hhx", newByte);
-	insert((char const *)newString);
-}
-
-uint32_t isoBufferBuffer::getNumCharsInBuffer()
-{
-    return size();
-}
-
-char const * isoBufferBuffer::get(uint32_t length)
-{
-	return query(length);
-}

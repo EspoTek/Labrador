@@ -12,7 +12,6 @@
 
 #include "xmega.h"
 #include "desktop_settings.h"
-#include "isobufferbuffer.h"
 #include "genericusbdriver.h"
 
 class isoDriver;
