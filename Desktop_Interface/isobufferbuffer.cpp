@@ -22,12 +22,6 @@
  * half of the allocated buffer, which is a notable improvement.
  */
 
-
-// TODO: go through the usages of this class and:
-// 1. adapt code to use the new interface and remove the old one
-// 2. adjust the size of the requested buffer to accomodate
-// the improved memory efficiency of the new algorithm
-
 isoBufferBuffer::isoBufferBuffer(uint32_t length)
 	: m_data(std::make_unique<char[]>(length*2))
 	, m_capacity(length)
