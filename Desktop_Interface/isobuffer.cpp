@@ -132,57 +132,53 @@ void isoBuffer::writeBuffer_short(short* data, int len)
 
 short *isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset)
 {
-    //ignore singleBit for now
-    double timeBetweenSamples = (double) sampleWindow * (double) samplesPerSecond / (double) numSamples;
-    double accumulatedDelay = 0;
-    int delaySamples = (int)((double)delayOffset * (double)samplesPerSecond);
+	/* --| Refactor Note |--
+	 * While refactoring this function, i noticed that it used a mix of floor() and round()
+	 * to calculate indices from floating point values. I assumed that this was a mistake
+	 * and that the intention was to use floor() everywhere.
+	 * Since casting to int has the same effect as floor()ing, i replaced all that by
+	 * implicit conversions to int.
+	 *
+	 * I hope that i managed to capture the intent of the code correctly.
+	 */
 
-    int front = back - 1 - delaySamples;
-    if (front < 0) front = 0;
-    int idx, subIdx;
-    if(readData!=NULL) free(readData);
-    readData = (short *) calloc(numSamples, sizeof(short));
+	const double timeBetweenSamples = (double) sampleWindow * (double) samplesPerSecond / (double) numSamples;
+	const int delaySamples = ((double)delayOffset * (double)samplesPerSecond);
 
-    if(singleBit){
-        for (int i=0; i<numSamples;i++){
-            if (timeBetweenSamples > (double) front){
-                accumulatedDelay -= (double) front;
-                front = bufferEnd;
-            }
+	double accumulatedDelay = 0;
+	int front = back - 1 - delaySamples;
+	if (front < 0) front = 0;
 
-            idx = (int) floor(((double) front - accumulatedDelay));
-            subIdx = (int) floor(8*(((double) front - accumulatedDelay) - floor(((double) front - accumulatedDelay))));
+	if (readData!=NULL) free(readData);
+	readData = (short *) calloc(numSamples, sizeof(short));
 
-            //qDebug() << "subIdx = " << subIdx;
-
-            if (idx < 0){
-                accumulatedDelay--;
-                accumulatedDelay -= (double) front;
-                front = bufferEnd;
-                idx = (int) round(((double) front - accumulatedDelay));
-            }
-            readData[i] = buffer[idx] & (1 << subIdx);
-
-            accumulatedDelay += timeBetweenSamples;
+	for (int i=0; i<numSamples;i++)
+	{
+		if (front < timeBetweenSamples)
+		{
+			accumulatedDelay -= front;
+			front = bufferEnd;
         }
-    }else{
-        for (int i=0; i<numSamples;i++){
-            if (timeBetweenSamples > (double) front){
-                accumulatedDelay -= (double) front;
-                front = bufferEnd;
-            }
 
-            idx = (int) round(((double) front - accumulatedDelay));
-            if (idx < 0){
-                accumulatedDelay--;
-                accumulatedDelay -= (double) front;
-                front = bufferEnd;
-                idx = (int) round(((double) front - accumulatedDelay));
-            }
-            readData[i] = buffer[idx];
+		if (front < accumulatedDelay)
+		{
+			accumulatedDelay -= 1.0 + front;
+			front = bufferEnd;
+		}
 
-            accumulatedDelay += timeBetweenSamples;
-        }
+		int idx = front - accumulatedDelay;
+
+		if (singleBit)
+		{
+			int subIdx = 8*((front - accumulatedDelay) - floor(front - accumulatedDelay)); // 8*frac(-accumulatedDisplay)
+			readData[i] = buffer[idx] & (1 << subIdx);
+		}
+		else
+		{
+			readData[i] = buffer[idx];
+		}
+
+		accumulatedDelay += timeBetweenSamples;
     }
 
     return readData;
