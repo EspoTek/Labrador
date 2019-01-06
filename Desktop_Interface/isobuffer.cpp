@@ -2,7 +2,8 @@
 #include "isodriver.h"
 #include "uartstyledecoder.h"
 
-isoBuffer::isoBuffer(QWidget *parent, int bufferLen, isoDriver *caller, unsigned char channel_value) : QWidget(parent)
+isoBuffer::isoBuffer(QWidget *parent, int bufferLen, isoDriver *caller, unsigned char channel_value)
+	: QWidget(parent)
 {
     buffer = (short *) calloc(bufferLen*2, sizeof(short));
     bufferEnd = bufferLen-1;
@@ -12,6 +13,7 @@ isoBuffer::isoBuffer(QWidget *parent, int bufferLen, isoDriver *caller, unsigned
     virtualParent = caller;
     channel = channel_value;
 }
+
 void isoBuffer::openFile(QString newFile)
 {
     if (fptr != NULL){
@@ -191,7 +193,8 @@ short *isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 
 void isoBuffer::clearBuffer()
 {
-    for (int i=0; i<bufferEnd;i++){
+    for (int i=0; i<bufferEnd;i++)
+	{
         buffer[i] = 0;
     }
 
@@ -208,13 +211,12 @@ void isoBuffer::gainBuffer(int gain_log)
     }
 }
 
-
 void isoBuffer::glitchInsert(short type)
 {
-
 }
 
-void isoBuffer::enableFileIO(QFile *file, int samplesToAverage, qulonglong max_file_size){
+void isoBuffer::enableFileIO(QFile *file, int samplesToAverage, qulonglong max_file_size)
+{
 
     //Open the file
     file->open(QIODevice::WriteOnly);
@@ -235,19 +237,21 @@ void isoBuffer::enableFileIO(QFile *file, int samplesToAverage, qulonglong max_f
     //Enable DAQ
     fileIOEnabled = true;
 
-    qDebug("File IO enabled, averaging %d samples, max file size %uMB", samplesToAverage, max_file_size/1000000);
+    qDebug("File IO enabled, averaging %d samples, max file size %lluMB", samplesToAverage, max_file_size/1000000);
     qDebug() << max_file_size;
     return;
 }
 
-void isoBuffer::disableFileIO(){
+void isoBuffer::disableFileIO()
+{
     fileIOEnabled = false;
     currentColumn = 0;
     currentFile->close();
     return;
 }
 
-double isoBuffer::sampleConvert(short sample, int TOP, bool AC){
+double isoBuffer::sampleConvert(short sample, int TOP, bool AC)
+{
 
     double scope_gain = (double)(virtualParent->driver->scopeGain);
     double voltageLevel;
@@ -264,15 +268,16 @@ double isoBuffer::sampleConvert(short sample, int TOP, bool AC){
     return voltageLevel;
 }
 
-
-
-short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC){
-
+short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC)
+{
     double scope_gain = (double)(virtualParent->driver->scopeGain);
     short sample;
 
-    if(AC){
-        voltageLevel += virtualParent->currentVmean; //This is old (1 frame in past) value and might not be good for signals with large variations in DC level (although the cap should filter that anyway)??
+    if (AC)
+	{
+		// This is old (1 frame in past) value and might not be good for signals with
+		// large variations in DC level (although the cap should filter that anyway)??
+        voltageLevel += virtualParent->currentVmean;
     }
 #ifdef INVERT_MM
     if(virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
@@ -294,32 +299,35 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC){
     #define X1_X2_COMPARISON_CAP >
 #endif
 
-//For capacitance measurement.  x0, x1 and x2 are all various time points used to find the RC coefficient.
-int isoBuffer::cap_x0fromLast(double seconds, double vbot){
-    int samplesInPast = seconds * samplesPerSecond;
-    if(back < samplesInPast){
-        return -1; //too hard, not really important
-    }
-    short vbot_s = inverseSampleConvert(vbot, 2048, 0);
-    qDebug() << "vbot_s (x0) = " << vbot_s;
-
-    int num_found = 0;
-    for(int i=samplesInPast; i; i--){
-        short currentSample = buffer[back - i];
-        if(currentSample X0_COMPARISON_CAP vbot_s){
-            num_found++;
-        } else num_found--;
-        if(num_found < 0){
-            num_found = 0;
-        }
-        if (num_found > NUM_SAMPLES_SEEKING_CAP){
-            return samplesInPast-i;
-        }
-    }
-    return -1;
+//For capacitance measurement. x0, x1 and x2 are all various time points used to find the RC coefficient.
+int isoBuffer::cap_x0fromLast(double seconds, double vbot)
+{
+	int samplesInPast = seconds * samplesPerSecond;
+	if(back < samplesInPast){
+		return -1; //too hard, not really important
+		// NOTE: this case gets handled automatically if we defer the handling of the buffer to an isoBufferBuffer / ringBuffer<short>
+	}
+	short vbot_s = inverseSampleConvert(vbot, 2048, 0);
+	qDebug() << "vbot_s (x0) = " << vbot_s;
+	
+	int num_found = 0;
+	for(int i=samplesInPast; i; i--){
+		short currentSample = bufferAt(i);
+		if(currentSample X0_COMPARISON_CAP vbot_s){
+			num_found++;
+		} else num_found--;
+		if(num_found < 0){
+			num_found = 0;
+		}
+		if (num_found > NUM_SAMPLES_SEEKING_CAP){
+			return samplesInPast-i;
+		}
+	}
+	return -1;
 }
 
-int isoBuffer::cap_x1fromLast(double seconds, int x0, double vbot){
+int isoBuffer::cap_x1fromLast(double seconds, int x0, double vbot)
+{
     int samplesInPast = seconds * samplesPerSecond;
     samplesInPast -= x0;
     if(back < samplesInPast){
@@ -345,7 +353,8 @@ int isoBuffer::cap_x1fromLast(double seconds, int x0, double vbot){
     return -1;
 }
 
-int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop){
+int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop)
+{
     int samplesInPast = seconds * samplesPerSecond;
     samplesInPast -= x1;
     if(back < samplesInPast){
@@ -370,7 +379,8 @@ int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop){
     return -1;
 }
 
-void isoBuffer::serialManage(double baudRate, int type, UartParity parity){
+void isoBuffer::serialManage(double baudRate, int type, UartParity parity)
+{
     //Types:
     // 0 - standard UART, no parity
     // 1 - standard UART, with parity bit
@@ -386,7 +396,4 @@ void isoBuffer::serialManage(double baudRate, int type, UartParity parity){
     decoder->setParityMode(parity);
     decoder->serialDecode(baudRate);
 }
-
-
-
 
