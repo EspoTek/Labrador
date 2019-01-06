@@ -83,104 +83,52 @@ bool isoBuffer::maybeOutputSampleToFile(double convertedSample)
 
 void isoBuffer::writeBuffer_char(char* data, int len)
 {
-    double convertedSample;
-    for (int i=0; i<len;i++){
-        //qDebug() << "i = " << i;
-        buffer[back] = (short) data[i];
-        if (back == bufferEnd){
-            back = 0;
-            firstTime = false;
-        }
-        else back++;
+	for (int i=0; i<len;i++){
+		insertIntoBuffer(data[i]);
+	}
 
-        //Output to CSV
-        if(fileIOEnabled){
-            //Current sample
-            convertedSample = sampleConvert(data[i], 128, channel==1 ? virtualParent->AC_CH1 : virtualParent->AC_CH2);
+    //Output to CSV
+	if(fileIOEnabled)
+	{
+		bool isUsingAC = channel == 1
+			? virtualParent->AC_CH1
+			: virtualParent->AC_CH2;
 
-            //Accumulate
-            average_sample_temp += convertedSample;
-            fileIO_sampleCount++;
-            //Check to see if we can write a new sample to file
-            if(fileIO_sampleCount == fileIO_maxIncrementedSampleValue){
-                char numStr[32];
-                sprintf(numStr,"%7.5f, ", average_sample_temp/((double)fileIO_maxIncrementedSampleValue));
-                currentFile->write(numStr);
-                currentColumn++;
-                if (currentColumn >= COLUMN_BREAK){
-                    currentFile->write("\n");
-                    currentColumn = 0;
-                }
+		for (int i=0; i<len;i++)
+		{
+		    double convertedSample = sampleConvert(data[i], 128, isUsingAC);
 
-                //Reset the average and sample count for next data point
-                fileIO_sampleCount = 0;
-                average_sample_temp = 0;
+			bool keepOutputting = maybeOutputSampleToFile(convertedSample);
 
-                //Check to see if we've reached the max file size.
-                if(fileIO_max_file_size != 0){ //value of 0 means "no limit"
-                    fileIO_numBytesWritten += 9;  //7 chars for the number, 1 for the comma and 1 for the space = 9 bytes per sample.
-                    if(fileIO_numBytesWritten >= fileIO_max_file_size){
-                        fileIOEnabled = false; //Just in case signalling fails.
-                        fileIOinternalDisable();
-                    }
-                }
-            }
-        }
-    }
-    return;
+			if (!keepOutputting) break;
+		}
+	}
 }
 
 void isoBuffer::writeBuffer_short(short* data, int len)
 {
-    //for (int i=(len-1);i>-1;i--){
     for (int i=0; i<len;i++){
         //qDebug() << "i = " << i;
-        buffer[back] = (short) data[i] >> 4; //Because it's a left adjust value!
-        if (back == bufferEnd){
-            back = 0;
-            firstTime = false;
-        }
-        else back++;
+		insertIntoBuffer(data[i] >> 4);
+	}
 
+    //Output to CSV
+	if(fileIOEnabled)
+	{
+		for (int i=0; i<len;i++)
+		{
+			bool isUsingAC = channel == 1
+				? virtualParent->AC_CH1
+				: virtualParent->AC_CH2;
 
-        double convertedSample;
-        //Output to CSV
-        if(fileIOEnabled){
-            //Current sample
-            convertedSample = sampleConvert((data[i] >> 4), 2048, channel==1 ? virtualParent->AC_CH1 : virtualParent->AC_CH2);
+			double convertedSample = sampleConvert((data[i] >> 4), 2048, isUsingAC);
 
-            //Accumulate
-            average_sample_temp += convertedSample;
-            fileIO_sampleCount++;
-            //Check to see if we can write a new sample to file
-            if(fileIO_sampleCount == fileIO_maxIncrementedSampleValue){
-                char numStr[32];
-                sprintf(numStr,"%7.5f, ", average_sample_temp/((double)fileIO_maxIncrementedSampleValue));
-                currentFile->write(numStr);
-                currentColumn++;
-                if (currentColumn >= COLUMN_BREAK){
-                    currentFile->write("\n");
-                    currentColumn = 0;
-                }
+			bool keepOutputting = maybeOutputSampleToFile(convertedSample);
 
-                //Reset the average and sample count for next data point
-                fileIO_sampleCount = 0;
-                average_sample_temp = 0;
-
-                //Check to see if we've reached the max file size.
-                if(fileIO_max_file_size != 0){ //value of 0 means "no limit"
-                    fileIO_numBytesWritten += 9;  //7 chars for the number, 1 for the comma and 1 for the space = 9 bytes per sample.
-                    if(fileIO_numBytesWritten >= fileIO_max_file_size){
-                        fileIOEnabled = false; //Just in case signalling fails.
-                        fileIOinternalDisable();
-                    }
-                }
-            }
-        }
+			if(!keepOutputting) break;
+		}
     }
-    return;
 }
-
 
 short *isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset)
 {
@@ -387,7 +335,7 @@ int isoBuffer::cap_x1fromLast(double seconds, int x0, double vbot)
 
     int num_found = 0;
     for(int i=samplesInPast; i; i--){
-        short currentSample = buffer[back - i];
+        short currentSample = bufferAt(i);
         if(currentSample X1_X2_COMPARISON_CAP vbot_s){
             num_found++;
         } else num_found--;
@@ -414,7 +362,7 @@ int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop)
 
     int num_found = 0;
     for(int i=samplesInPast; i; i--){
-        short currentSample = buffer[back - i];
+        short currentSample = bufferAt(i);
         if(currentSample X1_X2_COMPARISON_CAP vtop_s){
             num_found++;
         } else num_found--;
