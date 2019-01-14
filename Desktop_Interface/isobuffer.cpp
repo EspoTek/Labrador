@@ -206,6 +206,7 @@ void isoBuffer::gainBuffer(int gain_log)
 	}
 }
 
+// NOTE: glitch insert is a no-op
 void isoBuffer::glitchInsert(short type)
 {
 }
@@ -374,6 +375,7 @@ int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop)
 	return -1;
 }
 
+// NOTE: type appears to be unused
 void isoBuffer::serialManage(double baudRate, int type, UartParity parity)
 {
 	//Types:
