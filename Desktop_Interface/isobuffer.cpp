@@ -116,19 +116,18 @@ void isoBuffer::writeBuffer_char(char* data, int len)
 void isoBuffer::writeBuffer_short(short* data, int len)
 {
     for (int i=0; i<len;i++){
-        //qDebug() << "i = " << i;
 		insertIntoBuffer(data[i] >> 4);
 	}
 
     //Output to CSV
 	if(fileIOEnabled)
 	{
+		bool isUsingAC = channel == 1
+			? virtualParent->AC_CH1
+			: virtualParent->AC_CH2;
+
 		for (int i=0; i<len;i++)
 		{
-			bool isUsingAC = channel == 1
-				? virtualParent->AC_CH1
-				: virtualParent->AC_CH2;
-
 			double convertedSample = sampleConvert((data[i] >> 4), 2048, isUsingAC);
 
 			bool keepOutputting = maybeOutputSampleToFile(convertedSample);
