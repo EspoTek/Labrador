@@ -38,7 +38,7 @@ public:
 	void openFile(QString newFile);
 
 //	Basic buffer operations
-	short bufferAt(int idx);
+	short bufferAt(int idx) const;
 	void insertIntoBuffer(short item);
 	void clearBuffer();
 	void gainBuffer(int gain_log);
@@ -52,8 +52,8 @@ public:
 	
 //	file I/O
 	bool maybeOutputSampleToFile(double convertedSample);
-	double sampleConvert(short sample, int TOP, bool AC);
-	short inverseSampleConvert(double voltageLevel, int TOP, bool AC);
+	double sampleConvert(short sample, int TOP, bool AC) const;
+	short inverseSampleConvert(double voltageLevel, int TOP, bool AC) const;
 
 	int cap_x0fromLast(double seconds, double vbot);
 	int cap_x1fromLast(double seconds, int x0, double vbot);

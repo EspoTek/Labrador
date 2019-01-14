@@ -42,7 +42,7 @@ void isoBuffer::insertIntoBuffer(short item)
 	}
 }
 
-short isoBuffer::bufferAt(int idx)
+short isoBuffer::bufferAt(int idx) const
 {
 	return buffer[back - idx];
 }
@@ -245,7 +245,7 @@ void isoBuffer::disableFileIO()
 	return;
 }
 
-double isoBuffer::sampleConvert(short sample, int TOP, bool AC)
+double isoBuffer::sampleConvert(short sample, int TOP, bool AC) const
 {
 
 	double scope_gain = (double)(virtualParent->driver->scopeGain);
@@ -263,7 +263,7 @@ double isoBuffer::sampleConvert(short sample, int TOP, bool AC)
 	return voltageLevel;
 }
 
-short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC)
+short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) const
 {
 	double scope_gain = (double)(virtualParent->driver->scopeGain);
 	short sample;
