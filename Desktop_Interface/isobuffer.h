@@ -29,7 +29,7 @@ enum class UartParity : uint8_t;
 // TODO: Make private what should be private
 class isoBuffer : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
 	isoBuffer(QWidget *parent = 0, int bufferLen = 0, isoDriver *caller = 0, unsigned char channel_value = 0);
 	// TODO?: Add a destructor
