@@ -31,75 +31,76 @@ class isoBuffer : public QWidget
 {
     Q_OBJECT
 public:
-    isoBuffer(QWidget *parent = 0, int bufferLen = 0, isoDriver *caller = 0, unsigned char channel_value = 0);
-    // TODO?: Add a destructor
-	
+	isoBuffer(QWidget *parent = 0, int bufferLen = 0, isoDriver *caller = 0, unsigned char channel_value = 0);
+	// TODO?: Add a destructor
+
 	//Generic Functions
-    void openFile(QString newFile);
+	void openFile(QString newFile);
 
 //	Basic buffer operations
 	short bufferAt(int idx);
 	void insertIntoBuffer(short item);
-    void clearBuffer();
-    void gainBuffer(int gain_log);
-    void glitchInsert(short type); // NO-OP
+	void clearBuffer();
+	void gainBuffer(int gain_log);
+	void glitchInsert(short type); // NO-OP
 	
 // Advanced buffer operations
 	void writeBuffer_char(char *data, int len);
-    void writeBuffer_short(short *data, int len);
+	void writeBuffer_short(short *data, int len);
 
-    short *readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
+	short *readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
 	
 //	file I/O
 	bool maybeOutputSampleToFile(double convertedSample);
-    double sampleConvert(short sample, int TOP, bool AC);
-    short inverseSampleConvert(double voltageLevel, int TOP, bool AC);
+	double sampleConvert(short sample, int TOP, bool AC);
+	short inverseSampleConvert(double voltageLevel, int TOP, bool AC);
 
 	int cap_x0fromLast(double seconds, double vbot);
-    int cap_x1fromLast(double seconds, int x0, double vbot);
-    int cap_x2fromLast(double seconds, int x1, double vtop);
-    void serialManage(double baudRate, int type, UartParity parity);
+	int cap_x1fromLast(double seconds, int x0, double vbot);
+	int cap_x2fromLast(double seconds, int x1, double vtop);
+	void serialManage(double baudRate, int type, UartParity parity);
 
 // ---- MEMBER VARIABLES ----
 
 //	Presentantion?
-    QPlainTextEdit *console1, *console2;
-    bool serialAutoScroll = true;
-    unsigned char channel = 255;
+// NOTE: it seems like these are never initialized but they are used as though they were...
+	QPlainTextEdit *console1, *console2;
+	unsigned char channel = 255;
+	bool serialAutoScroll = true;
 
 // Conversion And Sampling
-    double voltage_ref = 1.65;
-    double frontendGain = (R4 / (R3 + R4));
-    int samplesPerSecond;
-    int sampleRate_bit;
+	double voltage_ref = 1.65;
+	double frontendGain = (R4 / (R3 + R4));
+	int samplesPerSecond;
+	int sampleRate_bit;
 
 //	Internal Storage
-	int bufferEnd, back = 0;
-    short *buffer;
-
+	int back = 0;
+	int bufferEnd;
+	short *buffer;
 	short *readData = NULL;
 
 //	UARTS decoding
 	uartStyleDecoder *decoder = NULL;
 	// TODO: change this to keepDecoding
-    bool stopDecoding = false;
+	bool stopDecoding = false;
 private:
 //	File I/O
-    bool fileIOEnabled = false;
-    FILE* fptr = NULL;
-    QFile *currentFile;
-    int fileIO_maxIncrementedSampleValue;
-    int fileIO_sampleCount;
-    qulonglong fileIO_max_file_size;
-    qulonglong fileIO_numBytesWritten;
-    unsigned int currentColumn = 0;
-    isoDriver *virtualParent;
-    double average_sample_temp;
+	bool fileIOEnabled = false;
+	FILE* fptr = NULL;
+	QFile *currentFile;
+	int fileIO_maxIncrementedSampleValue;
+	int fileIO_sampleCount;
+	qulonglong fileIO_max_file_size;
+	qulonglong fileIO_numBytesWritten;
+	unsigned int currentColumn = 0;
+	isoDriver *virtualParent;
+	double average_sample_temp;
 signals:
-    void fileIOinternalDisable();
+	void fileIOinternalDisable();
 public slots:
-    void enableFileIO(QFile *file, int samplesToAverage, qulonglong max_file_size);
-    void disableFileIO();
+	void enableFileIO(QFile *file, int samplesToAverage, qulonglong max_file_size);
+	void disableFileIO();
 };
 
 #endif // ISOBUFFER_H
