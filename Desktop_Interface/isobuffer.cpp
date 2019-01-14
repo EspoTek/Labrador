@@ -139,45 +139,41 @@ void isoBuffer::writeBuffer_short(short* data, int len)
 
 short *isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset)
 {
-	/* --| Refactor Note |--
-	 * While refactoring this function, i noticed that it used a mix of floor() and round()
-	 * to calculate indices from floating point values. I assumed that this was a mistake
-	 * and that the intention was to use floor() everywhere.
-	 * Since casting to int has the same effect as floor()ing, i replaced all that by
-	 * implicit conversions to int.
+	/* Refactor Note:
 	 *
-	 * I hope that i managed to capture the intent of the code correctly.
+	 * Refactoring this function took a few passes were i made some assumptions:
+	 *  - round() should be replaced by floor() where it was used
+	 *  - int(floor(x)) and int(x) are equivalent (since we are always positive)
+	 *  - free(NULL) is a no-op. This is mandated by the C standard, and virtually all
+	 * implementations comply. A few known exceptions are:
+	 *    - PalmOS
+	 *    - 3BSD
+	 *    - UNIX 7
+	 *   I do not know of any non-compliant somewhat modern implementations.
+	 *
+	 * The expected behavior is to cycle backwards over the buffer with a stride of
+	 * timeBetweenSamples steps, and insert the touched elements into readBuffer.
+	 *
+	 * ~Sebastian Mestre
 	 */
+	const double timeBetweenSamples = sampleWindow * samplesPerSecond / numSamples;
+	const int delaySamples = delayOffset * samplesPerSecond;	
 
-	const double timeBetweenSamples = (double) sampleWindow * (double) samplesPerSecond / (double) numSamples;
-	const int delaySamples = ((double)delayOffset * (double)samplesPerSecond);
-
-	double accumulatedDelay = 0;
-	int front = back - 1 - delaySamples;
-	if (front < 0) front = 0;
-
-	if (readData!=NULL) free(readData);
+	free(readData);
 	readData = (short *) calloc(numSamples, sizeof(short));
 
-	for (int i=0; i<numSamples;i++)
+	// NOTE: this min seems unnecesary.
+	double pos = std::min(0, back - delaySamples - 1);
+	for (int i = 0; i < numSamples; i++)
 	{
-		if (front < timeBetweenSamples)
-		{
-			accumulatedDelay -= front;
-			front = bufferEnd;
-        }
+		while (pos < 0)
+			pos += bufferEnd;
 
-		if (front < accumulatedDelay)
-		{
-			accumulatedDelay -= 1.0 + front;
-			front = bufferEnd;
-		}
-
-		int idx = front - accumulatedDelay;
+		int idx = pos;
 
 		if (singleBit)
 		{
-			int subIdx = 8*((front - accumulatedDelay) - floor(front - accumulatedDelay)); // 8*frac(-accumulatedDisplay)
+			int subIdx = 8*(pos - floor(pos));
 			readData[i] = buffer[idx] & (1 << subIdx);
 		}
 		else
@@ -185,7 +181,7 @@ short *isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 			readData[i] = buffer[idx];
 		}
 
-		accumulatedDelay += timeBetweenSamples;
+		pos -= timeBetweenSamples;
     }
 
     return readData;
