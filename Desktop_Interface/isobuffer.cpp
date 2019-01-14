@@ -49,16 +49,23 @@ short isoBuffer::bufferAt(int idx)
 
 bool isoBuffer::maybeOutputSampleToFile(double convertedSample)
 {
+	/*
+	 * This function adds a sample to an accumulator and bumps the sample count
+	 * after the sample count hits some threshold, that sample is outputted to a
+	 * file. If this 'saturates' the file, then fileIO is disabled.
+	 */
 	average_sample_temp += convertedSample;
 	fileIO_sampleCount++;
 
 	//Check to see if we can write a new sample to file
-	if(fileIO_sampleCount == fileIO_maxIncrementedSampleValue){
+	if(fileIO_sampleCount == fileIO_maxIncrementedSampleValue)
+	{
 		char numStr[32];
 		sprintf(numStr,"%7.5f, ", average_sample_temp/((double)fileIO_maxIncrementedSampleValue));
 		currentFile->write(numStr);
 		currentColumn++;
-		if (currentColumn >= COLUMN_BREAK){
+		if (currentColumn >= COLUMN_BREAK)
+		{
 		    currentFile->write("\n");
 		    currentColumn = 0;
 		}
@@ -68,9 +75,11 @@ bool isoBuffer::maybeOutputSampleToFile(double convertedSample)
 		average_sample_temp = 0;
 
 		//Check to see if we've reached the max file size.
-		if(fileIO_max_file_size != 0){ //value of 0 means "no limit"
+		if(fileIO_max_file_size != 0) //value of 0 means "no limit"
+		{
 		    fileIO_numBytesWritten += 9;  //7 chars for the number, 1 for the comma and 1 for the space = 9 bytes per sample.
-		    if(fileIO_numBytesWritten >= fileIO_max_file_size){
+		    if(fileIO_numBytesWritten >= fileIO_max_file_size)
+			{
 		        fileIOEnabled = false; //Just in case signalling fails.
 		        fileIOinternalDisable();
 				return false;
