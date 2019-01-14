@@ -39,7 +39,6 @@ void isoBuffer::insertIntoBuffer(short item)
 	if (back > bufferEnd)
 	{
 		back = 0;
-		firstTime = false;
 	}
 }
 
@@ -192,7 +191,6 @@ void isoBuffer::clearBuffer()
     }
 
     back = 0;
-    firstTime = true;
 }
 
 void isoBuffer::gainBuffer(int gain_log)

@@ -84,11 +84,6 @@ public:
 	// TODO: change this to keepDecoding
     bool stopDecoding = false;
 private:
-    
-//	Represents wether or not we have already gone around the buffer
-	// NOTE: Appears to be unused: maybe it should be removed?
-	bool firstTime = true;
-
 //	File I/O
     bool fileIOEnabled = false;
     FILE* fptr = NULL;
