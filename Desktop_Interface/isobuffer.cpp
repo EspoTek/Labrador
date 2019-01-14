@@ -288,91 +288,51 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) con
 #define NUM_SAMPLES_SEEKING_CAP (20)
 
 #ifdef INVERT_MM
-	#define X0_COMPARISON_CAP >
-	#define X1_X2_COMPARISON_CAP <
+	constexpr auto X0_COMP_FTOR = std::greater<int>{};
+	constexpr auto X1_X2_COMP_FTOR = std::less<int>{};
 #else
-	#define X0_COMPARISON_CAP <
-	#define X1_X2_COMPARISON_CAP >
+	constexpr auto X0_COMP_FTOR = std::less<int>{};
+	constexpr auto X1_X2_COMP_FTOR = std::greater<int>{};
 #endif
+
+int capSample(isoBuffer const & self, int rbegin, int target, double seconds, double value, auto comp)
+{
+	int samples = seconds * self.samplesPerSecond;
+
+	if (self.back < samples + rbegin) return -1;
+
+	short sample = self.inverseSampleConvert(value, 2048, 0);
+
+	int found = 0;
+	for (int i = samples + rbegin; i--;)
+	{
+		short currentSample = self.bufferAt(i);
+		if (comp(currentSample, sample))
+			found = found + 1;
+		else
+			found = std::max(0, found-1);
+
+		if (found > target)
+			return samples - i;
+	}
+
+	return -1;
+}
 
 //For capacitance measurement. x0, x1 and x2 are all various time points used to find the RC coefficient.
 int isoBuffer::cap_x0fromLast(double seconds, double vbot)
 {
-	int samplesInPast = seconds * samplesPerSecond;
-	if(back < samplesInPast){
-		return -1; //too hard, not really important
-		// NOTE: this case gets handled automatically if we defer the handling of the buffer to an isoBufferBuffer / ringBuffer<short>
-	}
-	short vbot_s = inverseSampleConvert(vbot, 2048, 0);
-	qDebug() << "vbot_s (x0) = " << vbot_s;
-	
-	int num_found = 0;
-	for(int i=samplesInPast; i; i--){
-		short currentSample = bufferAt(i);
-		if(currentSample X0_COMPARISON_CAP vbot_s){
-			num_found++;
-		} else num_found--;
-		if(num_found < 0){
-			num_found = 0;
-		}
-		if (num_found > NUM_SAMPLES_SEEKING_CAP){
-			return samplesInPast-i;
-		}
-	}
-	return -1;
+	return capSample(*this, 0, NUM_SAMPLES_SEEKING_CAP, seconds, vbot, X0_COMP_FTOR);
 }
 
 int isoBuffer::cap_x1fromLast(double seconds, int x0, double vbot)
-{
-	int samplesInPast = seconds * samplesPerSecond;
-	samplesInPast -= x0;
-	if(back < samplesInPast){
-		return -1; //too hard, not really important
-	}
-	short vbot_s = inverseSampleConvert(vbot, 2048, 0);
-	qDebug() << "vbot_s (x1) = " << vbot_s;
-
-	int num_found = 0;
-	for(int i=samplesInPast; i; i--){
-		short currentSample = bufferAt(i);
-		if(currentSample X1_X2_COMPARISON_CAP vbot_s){
-			num_found++;
-		} else num_found--;
-		if(num_found < 0){
-			num_found = 0;
-		}
-		if (num_found > NUM_SAMPLES_SEEKING_CAP){
-			return samplesInPast-i + x0;
-		}
-
-	}
-	return -1;
+{	
+	return capSample(*this, -x0, NUM_SAMPLES_SEEKING_CAP, seconds, vbot, X1_X2_COMP_FTOR);
 }
 
 int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop)
 {
-	int samplesInPast = seconds * samplesPerSecond;
-	samplesInPast -= x1;
-	if(back < samplesInPast){
-		return -1; //too hard, not really important
-	}
-	short vtop_s = inverseSampleConvert(vtop, 2048, 0);
-	qDebug() << "vtop_s (x2) = " << vtop_s;
-
-	int num_found = 0;
-	for(int i=samplesInPast; i; i--){
-		short currentSample = bufferAt(i);
-		if(currentSample X1_X2_COMPARISON_CAP vtop_s){
-			num_found++;
-		} else num_found--;
-		if(num_found < 0){
-			num_found = 0;
-		}
-		if (num_found > NUM_SAMPLES_SEEKING_CAP){
-			return samplesInPast-i + x1;
-		}
-	}
-	return -1;
+	return capSample(*this, -x1, NUM_SAMPLES_SEEKING_CAP, seconds, vtop, X1_X2_COMP_FTOR);
 }
 
 // NOTE: type appears to be unused
