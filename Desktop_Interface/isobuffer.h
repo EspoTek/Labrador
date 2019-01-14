@@ -31,7 +31,7 @@ class isoBuffer : public QWidget
 {
 	Q_OBJECT
 public:
-	isoBuffer(QWidget *parent = 0, int bufferLen = 0, isoDriver *caller = 0, unsigned char channel_value = 0);
+	isoBuffer(QWidget* parent = 0, int bufferLen = 0, isoDriver* caller = 0, unsigned char channel_value = 0);
 	// TODO?: Add a destructor
 
 	//Generic Functions
@@ -43,13 +43,13 @@ public:
 	void clearBuffer();
 	void gainBuffer(int gain_log);
 	void glitchInsert(short type); // NO-OP
-	
-// Advanced buffer operations
-	void writeBuffer_char(char *data, int len);
-	void writeBuffer_short(short *data, int len);
 
-	short *readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
-	
+// Advanced buffer operations
+	void writeBuffer_char(char* data, int len);
+	void writeBuffer_short(short* data, int len);
+
+	short* readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
+
 //	file I/O
 	bool maybeOutputSampleToFile(double convertedSample);
 	double sampleConvert(short sample, int TOP, bool AC) const;
@@ -64,7 +64,8 @@ public:
 
 //	Presentantion?
 // NOTE: it seems like these are never initialized but they are used as though they were...
-	QPlainTextEdit *console1, *console2;
+	QPlainTextEdit* console1;
+	QPlainTextEdit* console2;
 	unsigned char channel = 255;
 	bool serialAutoScroll = true;
 
@@ -77,29 +78,29 @@ public:
 //	Internal Storage
 	int back = 0;
 	int bufferEnd;
-	short *buffer;
-	short *readData = NULL;
+	short* buffer;
+	short* readData = NULL;
 
 //	UARTS decoding
-	uartStyleDecoder *decoder = NULL;
+	uartStyleDecoder* decoder = NULL;
 	// TODO: change this to keepDecoding
 	bool stopDecoding = false;
 private:
 //	File I/O
 	bool fileIOEnabled = false;
 	FILE* fptr = NULL;
-	QFile *currentFile;
+	QFile* currentFile;
 	int fileIO_maxIncrementedSampleValue;
 	int fileIO_sampleCount;
 	qulonglong fileIO_max_file_size;
 	qulonglong fileIO_numBytesWritten;
 	unsigned int currentColumn = 0;
-	isoDriver *virtualParent;
+	isoDriver* virtualParent;
 	double average_sample_temp;
 signals:
 	void fileIOinternalDisable();
 public slots:
-	void enableFileIO(QFile *file, int samplesToAverage, qulonglong max_file_size);
+	void enableFileIO(QFile* file, int samplesToAverage, qulonglong max_file_size);
 	void disableFileIO();
 };
 

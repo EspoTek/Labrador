@@ -2,10 +2,10 @@
 #include "isodriver.h"
 #include "uartstyledecoder.h"
 
-isoBuffer::isoBuffer(QWidget *parent, int bufferLen, isoDriver *caller, unsigned char channel_value)
+isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned char channel_value)
 	: QWidget(parent)
 {
-	buffer = (short *) calloc(bufferLen*2, sizeof(short));
+	buffer = (short*) calloc(bufferLen*2, sizeof(short));
 	bufferEnd = bufferLen-1;
 	samplesPerSecond = (double) bufferLen/(double)21;
 	samplesPerSecond = samplesPerSecond/375*VALID_DATA_PER_375;
@@ -16,15 +16,18 @@ isoBuffer::isoBuffer(QWidget *parent, int bufferLen, isoDriver *caller, unsigned
 
 void isoBuffer::openFile(QString newFile)
 {
-	if (fptr != NULL){
+	if (fptr != NULL)
+	{
 		fclose(fptr);
 	}
-	if (newFile.isEmpty()){
+	if (newFile.isEmpty())
+	{
 		fptr = NULL;
 	}
-	else {
+	else
+	{
 		QByteArray temp = newFile.toLatin1();
-		char *fileName = temp.data();
+		char* fileName = temp.data();
 		fptr = fopen(fileName, "w");
 		if (fptr == NULL) qFatal("Null fptr in isoBuffer::openFile");
 		qDebug() << "opening file" << fileName;
@@ -58,7 +61,7 @@ bool isoBuffer::maybeOutputSampleToFile(double convertedSample)
 	fileIO_sampleCount++;
 
 	//Check to see if we can write a new sample to file
-	if(fileIO_sampleCount == fileIO_maxIncrementedSampleValue)
+	if (fileIO_sampleCount == fileIO_maxIncrementedSampleValue)
 	{
 		char numStr[32];
 		sprintf(numStr,"%7.5f, ", average_sample_temp/((double)fileIO_maxIncrementedSampleValue));
@@ -75,10 +78,10 @@ bool isoBuffer::maybeOutputSampleToFile(double convertedSample)
 		average_sample_temp = 0;
 
 		//Check to see if we've reached the max file size.
-		if(fileIO_max_file_size != 0) //value of 0 means "no limit"
+		if (fileIO_max_file_size != 0) //value of 0 means "no limit"
 		{
 			fileIO_numBytesWritten += 9;  //7 chars for the number, 1 for the comma and 1 for the space = 9 bytes per sample.
-			if(fileIO_numBytesWritten >= fileIO_max_file_size)
+			if (fileIO_numBytesWritten >= fileIO_max_file_size)
 			{
 				fileIOEnabled = false; //Just in case signalling fails.
 				fileIOinternalDisable();
@@ -91,18 +94,19 @@ bool isoBuffer::maybeOutputSampleToFile(double convertedSample)
 
 void isoBuffer::writeBuffer_char(char* data, int len)
 {
-	for (int i=0; i<len;i++){
+	for (int i=0; i<len; i++)
+	{
 		insertIntoBuffer(data[i]);
 	}
 
 	//Output to CSV
-	if(fileIOEnabled)
+	if (fileIOEnabled)
 	{
 		bool isUsingAC = channel == 1
-			? virtualParent->AC_CH1
-			: virtualParent->AC_CH2;
+		                 ? virtualParent->AC_CH1
+		                 : virtualParent->AC_CH2;
 
-		for (int i=0; i<len;i++)
+		for (int i=0; i<len; i++)
 		{
 			double convertedSample = sampleConvert(data[i], 128, isUsingAC);
 
@@ -115,29 +119,30 @@ void isoBuffer::writeBuffer_char(char* data, int len)
 
 void isoBuffer::writeBuffer_short(short* data, int len)
 {
-	for (int i=0; i<len;i++){
+	for (int i=0; i<len; i++)
+	{
 		insertIntoBuffer(data[i] >> 4);
 	}
 
 	//Output to CSV
-	if(fileIOEnabled)
+	if (fileIOEnabled)
 	{
 		bool isUsingAC = channel == 1
-			? virtualParent->AC_CH1
-			: virtualParent->AC_CH2;
+		                 ? virtualParent->AC_CH1
+		                 : virtualParent->AC_CH2;
 
-		for (int i=0; i<len;i++)
+		for (int i=0; i<len; i++)
 		{
 			double convertedSample = sampleConvert((data[i] >> 4), 2048, isUsingAC);
 
 			bool keepOutputting = maybeOutputSampleToFile(convertedSample);
 
-			if(!keepOutputting) break;
+			if (!keepOutputting) break;
 		}
 	}
 }
 
-short *isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset)
+short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset)
 {
 	/* Refactor Note:
 	 *
@@ -157,10 +162,10 @@ short *isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 	 * ~Sebastian Mestre
 	 */
 	const double timeBetweenSamples = sampleWindow * samplesPerSecond / numSamples;
-	const int delaySamples = delayOffset * samplesPerSecond;	
+	const int delaySamples = delayOffset * samplesPerSecond;
 
 	free(readData);
-	readData = (short *) calloc(numSamples, sizeof(short));
+	readData = (short*) calloc(numSamples, sizeof(short));
 
 	// NOTE: this min seems unnecesary.
 	double pos = std::min(0, back - delaySamples - 1);
@@ -189,7 +194,7 @@ short *isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 
 void isoBuffer::clearBuffer()
 {
-	for (int i=0; i<bufferEnd;i++)
+	for (int i=0; i<bufferEnd; i++)
 	{
 		buffer[i] = 0;
 	}
@@ -200,7 +205,8 @@ void isoBuffer::clearBuffer()
 void isoBuffer::gainBuffer(int gain_log)
 {
 	qDebug() << "Buffer shifted by" << gain_log;
-	for (int i=0; i<bufferEnd; i++){
+	for (int i=0; i<bufferEnd; i++)
+	{
 		if (gain_log == -1) buffer[i] *= 2;
 		else buffer[i] /= 2;
 	}
@@ -211,7 +217,7 @@ void isoBuffer::glitchInsert(short type)
 {
 }
 
-void isoBuffer::enableFileIO(QFile *file, int samplesToAverage, qulonglong max_file_size)
+void isoBuffer::enableFileIO(QFile* file, int samplesToAverage, qulonglong max_file_size)
 {
 
 	//Open the file
@@ -254,11 +260,12 @@ double isoBuffer::sampleConvert(short sample, int TOP, bool AC) const
 
 	voltageLevel = (sample * (vcc/2)) / (frontendGain*scope_gain*TOP);
 	if (virtualParent->driver->deviceMode != 7) voltageLevel += voltage_ref;
-	#ifdef INVERT_MM
-		if(virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
-	#endif
+#ifdef INVERT_MM
+	if (virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
+#endif
 
-	if(AC){
+	if (AC)
+	{
 		voltageLevel -= virtualParent->currentVmean; //This is old (1 frame in past) value and might not be good for signals with large variations in DC level (although the cap should filter that anyway)??
 	}
 	return voltageLevel;
@@ -276,7 +283,7 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) con
 		voltageLevel += virtualParent->currentVmean;
 	}
 #ifdef INVERT_MM
-	if(virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
+	if (virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
 #endif
 	if (virtualParent->driver->deviceMode != 7) voltageLevel -= voltage_ref;
 
@@ -288,14 +295,14 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) con
 #define NUM_SAMPLES_SEEKING_CAP (20)
 
 #ifdef INVERT_MM
-	constexpr auto X0_COMP_FTOR = std::greater<int>{};
-	constexpr auto X1_X2_COMP_FTOR = std::less<int>{};
+constexpr auto X0_COMP_FTOR = std::greater<int> {};
+constexpr auto X1_X2_COMP_FTOR = std::less<int> {};
 #else
-	constexpr auto X0_COMP_FTOR = std::less<int>{};
-	constexpr auto X1_X2_COMP_FTOR = std::greater<int>{};
+constexpr auto X0_COMP_FTOR = std::less<int> {};
+constexpr auto X1_X2_COMP_FTOR = std::greater<int> {};
 #endif
 
-int capSample(isoBuffer const & self, int rbegin, int target, double seconds, double value, auto comp)
+int capSample(isoBuffer const& self, int rbegin, int target, double seconds, double value, auto comp)
 {
 	int samples = seconds * self.samplesPerSecond;
 
@@ -326,7 +333,7 @@ int isoBuffer::cap_x0fromLast(double seconds, double vbot)
 }
 
 int isoBuffer::cap_x1fromLast(double seconds, int x0, double vbot)
-{	
+{
 	return capSample(*this, -x0, NUM_SAMPLES_SEEKING_CAP, seconds, vbot, X1_X2_COMP_FTOR);
 }
 
@@ -342,11 +349,13 @@ void isoBuffer::serialManage(double baudRate, int type, UartParity parity)
 	// 0 - standard UART, no parity
 	// 1 - standard UART, with parity bit
 	// 100 - I2C
-	if(decoder == NULL){
+	if (decoder == NULL)
+	{
 		decoder = new uartStyleDecoder(this);
 		connect(decoder, SIGNAL(wireDisconnected(int)), virtualParent, SLOT(serialNeedsDisabling(int)));
 	}
-	if(stopDecoding){
+	if (stopDecoding)
+	{
 		decoder->updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
 		stopDecoding = false;
 	}
