@@ -40,7 +40,8 @@ void isoBuffer::insertIntoBuffer(short item)
 	buffer[back] = item;
 	back++;
 	insertedCount++;
-	if(insertedCount > bufferEnd) {
+	if (insertedCount > bufferEnd)
+	{
 		insertedCount = bufferEnd+1;
 	}
 	if (back > bufferEnd)
@@ -171,26 +172,21 @@ short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 	free(readData);
 	readData = (short*) calloc(numSamples, sizeof(short));
 
-	// NOTE: this min seems unnecesary.
-	double pos = std::min(0, back - delaySamples - 1);
+	double itr = delaySamples + 1;
 	for (int i = 0; i < numSamples; i++)
 	{
-		while (pos < 0)
-			pos += bufferEnd;
+		while (itr > insertedCount)
+			itr -= insertedCount;
 
-		int idx = pos;
+		readData[i] = bufferAt(int(itr));
 
 		if (singleBit)
 		{
-			int subIdx = 8*(pos - floor(pos));
-			readData[i] = buffer[idx] & (1 << subIdx);
-		}
-		else
-		{
-			readData[i] = buffer[idx];
+			int subIdx = 8*(-itr-floor(-itr));
+			readData[i] &= (1 << subIdx);
 		}
 
-		pos -= timeBetweenSamples;
+		itr += timeBetweenSamples;
 	}
 
 	return readData;
