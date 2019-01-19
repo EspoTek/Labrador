@@ -77,6 +77,7 @@ public:
 
 //	Internal Storage
 	int back = 0;
+	int insertedCount = 0;
 	int bufferEnd;
 	short* buffer;
 	short* readData = NULL;
