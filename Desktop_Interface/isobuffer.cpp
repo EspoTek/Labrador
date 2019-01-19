@@ -161,8 +161,9 @@ short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 	 *    - UNIX 7
 	 *   I do not know of any non-compliant somewhat modern implementations.
 	 *
-	 * The expected behavior is to cycle backwards over the buffer with a stride of
-	 * timeBetweenSamples steps, and insert the touched elements into readBuffer.
+	 * The expected behavior is to cycle backwards over the buffer, taking into
+	 * acount only the part of the buffer that has things stored, with a stride
+	 * of timeBetweenSamples steps, and insert the touched elements into readData.
 	 *
 	 * ~Sebastian Mestre
 	 */
