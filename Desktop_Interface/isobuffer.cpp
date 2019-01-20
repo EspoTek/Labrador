@@ -198,11 +198,6 @@ void isoBuffer::gainBuffer(int gain_log)
 	}
 }
 
-// NOTE: glitch insert is a no-op
-void isoBuffer::glitchInsert(short type)
-{
-}
-
 void isoBuffer::enableFileIO(QFile* file, int samplesToAverage, qulonglong max_file_size)
 {
 

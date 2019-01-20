@@ -39,7 +39,6 @@ public:
 	void insertIntoBuffer(short item);
 	void clearBuffer();
 	void gainBuffer(int gain_log);
-	void glitchInsert(short type); // NO-OP
 
 // Advanced buffer operations
 private:
