@@ -87,23 +87,24 @@ bool isoBuffer::maybeOutputSampleToFile(double convertedSample)
 	return true;
 }
 
-void isoBuffer::writeBuffer_char(char* data, int len)
+template<typename T, typename Function>
+void isoBuffer::writeBuffer(T* data, int len, int TOP, Function transform)
 {
-	for (int i=0; i<len; i++)
+	for (int i = 0; i < len; ++i)
 	{
-		insertIntoBuffer(data[i]);
+		insertIntoBuffer(transform(data[i]));
 	}
 
-	//Output to CSV
+	// Output to CSV
 	if (fileIOEnabled)
 	{
 		bool isUsingAC = channel == 1
 		                 ? virtualParent->AC_CH1
-		                 : virtualParent->AC_CH2;
+						 : virtualParent->AC_CH2;
 
-		for (int i=0; i<len; i++)
+		for (int i = 0; i < len; i++)
 		{
-			double convertedSample = sampleConvert(data[i], 128, isUsingAC);
+			double convertedSample = sampleConvert(data[i], TOP, isUsingAC);
 
 			bool keepOutputting = maybeOutputSampleToFile(convertedSample);
 
@@ -112,29 +113,14 @@ void isoBuffer::writeBuffer_char(char* data, int len)
 	}
 }
 
+void isoBuffer::writeBuffer_char(char* data, int len)
+{
+	writeBuffer(data, len, 128, [](char item) -> short {return item;});
+}
+
 void isoBuffer::writeBuffer_short(short* data, int len)
 {
-	for (int i=0; i<len; i++)
-	{
-		insertIntoBuffer(data[i] >> 4);
-	}
-
-	//Output to CSV
-	if (fileIOEnabled)
-	{
-		bool isUsingAC = channel == 1
-		                 ? virtualParent->AC_CH1
-		                 : virtualParent->AC_CH2;
-
-		for (int i=0; i<len; i++)
-		{
-			double convertedSample = sampleConvert((data[i] >> 4), 2048, isUsingAC);
-
-			bool keepOutputting = maybeOutputSampleToFile(convertedSample);
-
-			if (!keepOutputting) break;
-		}
-	}
+	writeBuffer(data, len, 2048, [](short item) -> short {return item >> 4;});
 }
 
 short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset)
