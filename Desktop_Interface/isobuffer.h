@@ -34,9 +34,6 @@ public:
 	isoBuffer(QWidget* parent = 0, int bufferLen = 0, isoDriver* caller = 0, unsigned char channel_value = 0);
 	// TODO?: Add a destructor
 
-	//Generic Functions
-	void openFile(QString newFile);
-
 //	Basic buffer operations
 	short bufferAt(int idx) const;
 	void insertIntoBuffer(short item);
@@ -45,6 +42,10 @@ public:
 	void glitchInsert(short type); // NO-OP
 
 // Advanced buffer operations
+private:
+	template<typename T, typename Function>
+	void writeBuffer(T* data, int len, int TOP, Function transform);
+public:
 	void writeBuffer_char(char* data, int len);
 	void writeBuffer_short(short* data, int len);
 
