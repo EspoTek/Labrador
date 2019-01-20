@@ -28,10 +28,12 @@ void isoBuffer::insertIntoBuffer(short item)
 	buffer[back] = item;
 	back++;
 	insertedCount++;
+
 	if (insertedCount > bufferEnd)
 	{
 		insertedCount = bufferEnd+1;
 	}
+
 	if (back > bufferEnd)
 	{
 		back = 0;
