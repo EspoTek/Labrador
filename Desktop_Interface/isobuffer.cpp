@@ -2,16 +2,6 @@
 #include "isodriver.h"
 #include "uartstyledecoder.h"
 
-isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned char channel_value)
-	: QWidget(parent)
-{
-	buffer = (short*) calloc(bufferLen*2, sizeof(short));
-	bufferEnd = bufferLen-1;
-	samplesPerSecond = (double) bufferLen/(double)21;
-	samplesPerSecond = samplesPerSecond/375*VALID_DATA_PER_375;
-	sampleRate_bit = samplesPerSecond * 8;
-	virtualParent = caller;
-	channel = channel_value;
 namespace {
 	static char const * fileHeaderFormat =
 		"EspoTek Labrador DAQ V1.0 Output File\n"
@@ -21,27 +11,16 @@ namespace {
 	constexpr auto kSamplesSeekingCap = 20;
 	constexpr auto kTopMultimeter = 2048;
 }
-}
 
-void isoBuffer::openFile(QString newFile)
+isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned char channel_value)
+	: QWidget(parent)
+	, buffer((short*)calloc(bufferLen*2, sizeof(short)))
+	, bufferEnd(bufferLen-1)
+	, samplesPerSecond(bufferLen/21.0/375*VALID_DATA_PER_375)
+	, sampleRate_bit(bufferLen/21.0/375*VALID_DATA_PER_375*8)
+	, virtualParent(caller)
+	, channel(channel_value)
 {
-	if (fptr != NULL)
-	{
-		fclose(fptr);
-	}
-	if (newFile.isEmpty())
-	{
-		fptr = NULL;
-	}
-	else
-	{
-		QByteArray temp = newFile.toLatin1();
-		char* fileName = temp.data();
-		fptr = fopen(fileName, "w");
-		if (fptr == NULL) qFatal("Null fptr in isoBuffer::openFile");
-		qDebug() << "opening file" << fileName;
-		qDebug() << "fptr = " << fptr;
-	}
 }
 
 void isoBuffer::insertIntoBuffer(short item)
