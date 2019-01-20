@@ -275,8 +275,6 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) con
 	return sample;
 }
 
-#define NUM_SAMPLES_SEEKING_CAP (20)
-
 #ifdef INVERT_MM
 constexpr auto X0_COMP_FTOR = std::greater<int> {};
 constexpr auto X1_X2_COMP_FTOR = std::less<int> {};
@@ -285,18 +283,19 @@ constexpr auto X0_COMP_FTOR = std::less<int> {};
 constexpr auto X1_X2_COMP_FTOR = std::greater<int> {};
 #endif
 
-int capSample(isoBuffer const& self, int rbegin, int target, double seconds, double value, auto comp)
+template<typename Function>
+int isoBuffer::capSample(int offset, int target, double seconds, double value, Function comp)
 {
-	int samples = seconds * self.samplesPerSecond;
+	int samples = seconds * samplesPerSecond;
 
-	if (self.back < samples + rbegin) return -1;
+	if (back < samples + offset) return -1;
 
-	short sample = self.inverseSampleConvert(value, 2048, 0);
+	short sample = inverseSampleConvert(value, 2048, 0);
 
 	int found = 0;
-	for (int i = samples + rbegin; i--;)
+	for (int i = samples + offset; i--;)
 	{
-		short currentSample = self.bufferAt(i);
+		short currentSample = bufferAt(i);
 		if (comp(currentSample, sample))
 			found = found + 1;
 		else
@@ -312,17 +311,17 @@ int capSample(isoBuffer const& self, int rbegin, int target, double seconds, dou
 // For capacitance measurement. x0, x1 and x2 are all various time points used to find the RC coefficient.
 int isoBuffer::cap_x0fromLast(double seconds, double vbot)
 {
-	return capSample(*this, 0, NUM_SAMPLES_SEEKING_CAP, seconds, vbot, X0_COMP_FTOR);
+	return capSample(0, kSamplesSeekingCap, seconds, vbot, X0_COMP_FTOR);
 }
 
 int isoBuffer::cap_x1fromLast(double seconds, int x0, double vbot)
 {
-	return capSample(*this, -x0, NUM_SAMPLES_SEEKING_CAP, seconds, vbot, X1_X2_COMP_FTOR);
+	return capSample(-x0, kSamplesSeekingCap, seconds, vbot, X1_X2_COMP_FTOR);
 }
 
 int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop)
 {
-	return capSample(*this, -x1, NUM_SAMPLES_SEEKING_CAP, seconds, vtop, X1_X2_COMP_FTOR);
+	return capSample(-x1, kSamplesSeekingCap, seconds, vtop, X1_X2_COMP_FTOR);
 }
 
 // NOTE: type appears to be unused

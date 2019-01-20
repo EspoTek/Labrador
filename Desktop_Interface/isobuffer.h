@@ -56,6 +56,10 @@ public:
 	double sampleConvert(short sample, int TOP, bool AC) const;
 	short inverseSampleConvert(double voltageLevel, int TOP, bool AC) const;
 
+private:
+	template<typename Function>
+	int capSample(int offset, int target, double seconds, double value, Function comp);
+public:
 	int cap_x0fromLast(double seconds, double vbot);
 	int cap_x1fromLast(double seconds, int x0, double vbot);
 	int cap_x2fromLast(double seconds, int x1, double vtop);
