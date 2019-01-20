@@ -326,13 +326,8 @@ int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop)
 	return capSample(-x1, kSamplesSeekingCap, seconds, vtop, X1_X2_COMP_FTOR);
 }
 
-// NOTE: type appears to be unused
-void isoBuffer::serialManage(double baudRate, int type, UartParity parity)
+void isoBuffer::serialManage(double baudRate, UartParity parity)
 {
-	//Types:
-	// 0 - standard UART, no parity
-	// 1 - standard UART, with parity bit
-	// 100 - I2C
 	if (decoder == NULL)
 	{
 		decoder = new uartStyleDecoder(this);

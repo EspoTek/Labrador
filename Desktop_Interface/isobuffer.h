@@ -63,7 +63,7 @@ public:
 	int cap_x0fromLast(double seconds, double vbot);
 	int cap_x1fromLast(double seconds, int x0, double vbot);
 	int cap_x2fromLast(double seconds, int x1, double vtop);
-	void serialManage(double baudRate, int type, UartParity parity);
+	void serialManage(double baudRate, UartParity parity);
 
 // ---- MEMBER VARIABLES ----
 

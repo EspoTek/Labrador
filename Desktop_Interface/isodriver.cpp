@@ -93,7 +93,7 @@ void isoDriver::timerTick(void){
             internalBuffer375_CH2->channel = 1;
             frameActionGeneric(1,2);
             if(serialDecodeEnabled_CH1 && serialType == 0){
-                internalBuffer375_CH2->serialManage(baudRate_CH1, 0, parity_CH1);
+                internalBuffer375_CH2->serialManage(baudRate_CH1, parity_CH1);
             }
             break;
         case 2:
@@ -110,7 +110,7 @@ void isoDriver::timerTick(void){
 
             frameActionGeneric(2,0);
             if(serialDecodeEnabled_CH1 && serialType == 0){
-                internalBuffer375_CH1->serialManage(baudRate_CH1, 0, parity_CH1);
+                internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1);
             }
             break;
         case 4:
@@ -122,10 +122,10 @@ void isoDriver::timerTick(void){
             internalBuffer375_CH2->channel = 2;
             frameActionGeneric(2,2);
             if(serialDecodeEnabled_CH1 && serialType == 0){
-                internalBuffer375_CH1->serialManage(baudRate_CH1, 0, parity_CH1);
+                internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1);
             }
             if(serialDecodeEnabled_CH2 && serialType == 0){
-                internalBuffer375_CH2->serialManage(baudRate_CH2, 0, parity_CH2);
+                internalBuffer375_CH2->serialManage(baudRate_CH2, parity_CH2);
             }
             if (serialDecodeEnabled_CH1 && serialType == 1)
             {
