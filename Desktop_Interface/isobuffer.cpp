@@ -12,6 +12,15 @@ isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned
 	sampleRate_bit = samplesPerSecond * 8;
 	virtualParent = caller;
 	channel = channel_value;
+namespace {
+	static char const * fileHeaderFormat =
+		"EspoTek Labrador DAQ V1.0 Output File\n"
+		"Averaging = %d\n"
+		"Mode = %d\n";
+
+	constexpr auto kSamplesSeekingCap = 20;
+	constexpr auto kTopMultimeter = 2048;
+}
 }
 
 void isoBuffer::openFile(QString newFile)
