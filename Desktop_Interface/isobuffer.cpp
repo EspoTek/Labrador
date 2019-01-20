@@ -147,6 +147,12 @@ short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 	const int delaySamples = delayOffset * samplesPerSecond;
 
 	free(readData);
+
+	if(delaySamples+1 > insertedCount)
+	{
+		return readData = nullptr;
+	}
+
 	readData = (short*) calloc(numSamples, sizeof(short));
 
 	double itr = delaySamples + 1;
