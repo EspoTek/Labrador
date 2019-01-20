@@ -1,6 +1,7 @@
 #ifndef ISOBUFFER_H
 #define ISOBUFFER_H
 
+// TODO: Make object macros constexprs or globals
 // TODO: Move headers used only in implementation to isobuffer.cpp
 #include <QWidget>
 #include <QString>
@@ -27,10 +28,13 @@ enum class UartParity : uint8_t;
 #define CONSOLE_UPDATE_TIMER_PERIOD (ISO_PACKETS_PER_CTX * 4)
 
 // TODO: Make private what should be private
+// TODO: Add m_ prefix to member variables
+// TODO: Change integer types to cstdint types
 class isoBuffer : public QWidget
 {
 	Q_OBJECT
 public:
+	// TODO: Add consoles as constructor arguments
 	isoBuffer(QWidget* parent = 0, int bufferLen = 0, isoDriver* caller = 0, unsigned char channel_value = 0);
 	// TODO?: Add a destructor
 
@@ -48,6 +52,7 @@ public:
 	void writeBuffer_char(char* data, int len);
 	void writeBuffer_short(short* data, int len);
 
+	// TODO: Change return value to unique_ptr
 	short* readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
 
 //	file I/O
@@ -83,6 +88,7 @@ public:
 	int back = 0;
 	int insertedCount = 0;
 	int bufferEnd;
+// TODO: Change buffer to be a unique_ptr
 	short* buffer;
 	short* readData = NULL;
 
