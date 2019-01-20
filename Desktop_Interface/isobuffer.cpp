@@ -177,7 +177,7 @@ short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 
 void isoBuffer::clearBuffer()
 {
-	for (int i=0; i<bufferEnd; i++)
+	for (int i = 0; i < bufferEnd; i++)
 	{
 		buffer[i] = 0;
 	}
@@ -237,11 +237,9 @@ void isoBuffer::disableFileIO()
 
 double isoBuffer::sampleConvert(short sample, int TOP, bool AC) const
 {
-
 	double scope_gain = (double)(virtualParent->driver->scopeGain);
-	double voltageLevel;
 
-	voltageLevel = (sample * (vcc/2)) / (frontendGain*scope_gain*TOP);
+	double voltageLevel = (sample * (vcc/2)) / (frontendGain*scope_gain*TOP);
 	if (virtualParent->driver->deviceMode != 7) voltageLevel += voltage_ref;
 #ifdef INVERT_MM
 	if (virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
@@ -249,15 +247,16 @@ double isoBuffer::sampleConvert(short sample, int TOP, bool AC) const
 
 	if (AC)
 	{
-		voltageLevel -= virtualParent->currentVmean; //This is old (1 frame in past) value and might not be good for signals with large variations in DC level (although the cap should filter that anyway)??
+		// This is old (1 frame in past) value and might not be good for signals with
+		// large variations in DC level (although the cap should filter that anyway)??
+		voltageLevel -= virtualParent->currentVmean;
 	}
 	return voltageLevel;
 }
 
 short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) const
 {
-	double scope_gain = (double)(virtualParent->driver->scopeGain);
-	short sample;
+	double scope_gain = virtualParent->driver->scopeGain;
 
 	if (AC)
 	{
@@ -265,13 +264,14 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) con
 		// large variations in DC level (although the cap should filter that anyway)??
 		voltageLevel += virtualParent->currentVmean;
 	}
+
 #ifdef INVERT_MM
 	if (virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
 #endif
 	if (virtualParent->driver->deviceMode != 7) voltageLevel -= voltage_ref;
 
-	//voltageLevel = (sample * (vcc/2)) / (frontendGain*scope_gain*TOP);
-	sample = (voltageLevel * (frontendGain*scope_gain*TOP))/(vcc/2);
+	// voltageLevel = (sample * (vcc/2)) / (frontendGain*scope_gain*TOP);
+	short sample = (voltageLevel * (frontendGain*scope_gain*TOP))/(vcc/2);
 	return sample;
 }
 
