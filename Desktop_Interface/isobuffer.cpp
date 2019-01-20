@@ -203,23 +203,23 @@ void isoBuffer::glitchInsert(short type)
 void isoBuffer::enableFileIO(QFile* file, int samplesToAverage, qulonglong max_file_size)
 {
 
-	//Open the file
+	// Open the file
 	file->open(QIODevice::WriteOnly);
 	currentFile = file;
 
-	//Add the header
+	// Add the header
 	char headerLine[256];
 	sprintf(headerLine, "EspoTek Labrador DAQ V1.0 Output File\nAveraging = %d\nMode = %d\n", samplesToAverage, virtualParent->driver->deviceMode);
 	currentFile->write(headerLine);
 
-	//Set up the isoBuffer for DAQ
+	// Set up the isoBuffer for DAQ
 	fileIO_maxIncrementedSampleValue = samplesToAverage;
 	fileIO_max_file_size = max_file_size;
 	fileIO_sampleCount = 0;
 	fileIO_numBytesWritten = 0;
 	average_sample_temp = 0;
 
-	//Enable DAQ
+	// Enable DAQ
 	fileIOEnabled = true;
 
 	qDebug("File IO enabled, averaging %d samples, max file size %lluMB", samplesToAverage, max_file_size/1000000);
@@ -309,7 +309,7 @@ int capSample(isoBuffer const& self, int rbegin, int target, double seconds, dou
 	return -1;
 }
 
-//For capacitance measurement. x0, x1 and x2 are all various time points used to find the RC coefficient.
+// For capacitance measurement. x0, x1 and x2 are all various time points used to find the RC coefficient.
 int isoBuffer::cap_x0fromLast(double seconds, double vbot)
 {
 	return capSample(*this, 0, NUM_SAMPLES_SEEKING_CAP, seconds, vbot, X0_COMP_FTOR);
@@ -335,6 +335,9 @@ void isoBuffer::serialManage(double baudRate, int type, UartParity parity)
 	if (decoder == NULL)
 	{
 		decoder = new uartStyleDecoder(this);
+		// TODO: Look into using the type safe version of connect.
+		// NOTE: I believe Qt has a type-safe version of this, without the macros and the
+		// explicit signature and stuff, i think it uses member-function pointers instead.
 		connect(decoder, SIGNAL(wireDisconnected(int)), virtualParent, SLOT(serialNeedsDisabling(int)));
 	}
 	if (stopDecoding)
