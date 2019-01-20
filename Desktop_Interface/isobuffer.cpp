@@ -48,14 +48,14 @@ short isoBuffer::bufferAt(int idx) const
 bool isoBuffer::maybeOutputSampleToFile(double convertedSample)
 {
 	/*
-	 * This function adds a sample to an accumulator and bumps the sample count
-	 * after the sample count hits some threshold, that sample is outputted to a
-	 * file. If this 'saturates' the file, then fileIO is disabled.
+	 * This function adds a sample to an accumulator and bumps the sample count.
+	 * After the sample count hits some threshold, the accumulated sample is
+	 * outputted to a file. If this 'saturates' the file, then fileIO is disabled.
 	 */
 	average_sample_temp += convertedSample;
 	fileIO_sampleCount++;
 
-	//Check to see if we can write a new sample to file
+	// Check to see if we can write a new sample to file
 	if (fileIO_sampleCount == fileIO_maxIncrementedSampleValue)
 	{
 		char numStr[32];
@@ -68,17 +68,17 @@ bool isoBuffer::maybeOutputSampleToFile(double convertedSample)
 			currentColumn = 0;
 		}
 
-		//Reset the average and sample count for next data point
+		// Reset the average and sample count for next data point
 		fileIO_sampleCount = 0;
 		average_sample_temp = 0;
 
-		//Check to see if we've reached the max file size.
-		if (fileIO_max_file_size != 0) //value of 0 means "no limit"
+		// Check to see if we've reached the max file size.
+		if (fileIO_max_file_size != 0) // value of 0 means "no limit"
 		{
-			fileIO_numBytesWritten += 9;  //7 chars for the number, 1 for the comma and 1 for the space = 9 bytes per sample.
+			fileIO_numBytesWritten += 9;  // 7 chars for the number, 1 for the comma and 1 for the space = 9 bytes per sample.
 			if (fileIO_numBytesWritten >= fileIO_max_file_size)
 			{
-				fileIOEnabled = false; //Just in case signalling fails.
+				fileIOEnabled = false; // Just in case signalling fails.
 				fileIOinternalDisable();
 				return false;
 			}
