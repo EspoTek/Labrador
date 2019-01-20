@@ -188,10 +188,12 @@ void isoBuffer::clearBuffer()
 void isoBuffer::gainBuffer(int gain_log)
 {
 	qDebug() << "Buffer shifted by" << gain_log;
-	for (int i=0; i<bufferEnd; i++)
+	for (int i = 0; i < bufferEnd; i++)
 	{
-		if (gain_log == -1) buffer[i] *= 2;
-		else buffer[i] /= 2;
+		if (gain_log < 0)
+			buffer[i] <<= -gain_log;
+		else
+			buffer[i] >>= gain_log;
 	}
 }
 
