@@ -41,11 +41,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->voltageInfoRmsDisplay_CH1->display(6.00);
     connectDisplaySignals();
 
-    ui->controller_iso->internalBuffer375_CH1->console1 = ui->console1;
-    ui->controller_iso->internalBuffer375_CH1->console2 = ui->console2;
+    ui->controller_iso->internalBuffer375_CH1->m_console1 = ui->console1;
+    ui->controller_iso->internalBuffer375_CH1->m_console2 = ui->console2;
 
-    ui->controller_iso->internalBuffer375_CH2->console1 = ui->console1;
-    ui->controller_iso->internalBuffer375_CH2->console2 = ui->console2;
+    ui->controller_iso->internalBuffer375_CH2->m_console1 = ui->console1;
+    ui->controller_iso->internalBuffer375_CH2->m_console2 = ui->console2;
     initShortcuts();
 
     ui->debugButton1->setVisible(0);
@@ -1204,12 +1204,12 @@ void MainWindow::readSettingsFile(){
     ui->controller_iso->ch2_ref = 3.3 - calibrate_vref_ch2;
     ui->controller_iso->frontendGain_CH1 = calibrate_gain_ch1;
     ui->controller_iso->frontendGain_CH2 = calibrate_gain_ch2;
-    ui->controller_iso->internalBuffer375_CH1->voltage_ref = 3.3 - calibrate_vref_ch1;
-    ui->controller_iso->internalBuffer750->voltage_ref = 3.3 - calibrate_vref_ch1;
-    ui->controller_iso->internalBuffer375_CH2->voltage_ref = 3.3 - calibrate_vref_ch2;
-    ui->controller_iso->internalBuffer375_CH1->frontendGain = calibrate_gain_ch1;
-    ui->controller_iso->internalBuffer750->frontendGain = calibrate_gain_ch1;
-    ui->controller_iso->internalBuffer375_CH2->frontendGain = calibrate_gain_ch2;
+    ui->controller_iso->internalBuffer375_CH1->m_voltage_ref = 3.3 - calibrate_vref_ch1;
+    ui->controller_iso->internalBuffer750->m_voltage_ref = 3.3 - calibrate_vref_ch1;
+    ui->controller_iso->internalBuffer375_CH2->m_voltage_ref = 3.3 - calibrate_vref_ch2;
+    ui->controller_iso->internalBuffer375_CH1->m_frontendGain = calibrate_gain_ch1;
+    ui->controller_iso->internalBuffer750->m_frontendGain = calibrate_gain_ch1;
+    ui->controller_iso->internalBuffer375_CH2->m_frontendGain = calibrate_gain_ch2;
 
     if(!dt_AlreadyAskedAboutCalibration && ((calibrate_vref_ch1 == 1.65) || (calibrate_vref_ch2 == 1.65) || (calibrate_gain_ch1 == R4/(R3+R4)) || (calibrate_gain_ch2 == R4/(R3+R4)))){
         //Prompt user to calibrate if no calibration data found.
@@ -1698,12 +1698,12 @@ void MainWindow::on_actionCalibrate_triggered()
     ui->controller_iso->ch2_ref = 1.65;
     ui->controller_iso->frontendGain_CH1 = (R4/(R3+R4));
     ui->controller_iso->frontendGain_CH2 = (R4/(R3+R4));
-    ui->controller_iso->internalBuffer375_CH1->voltage_ref = 1.65;
-    ui->controller_iso->internalBuffer750->voltage_ref = 1.65;
-    ui->controller_iso->internalBuffer375_CH2->voltage_ref = 1.65;
-    ui->controller_iso->internalBuffer375_CH1->frontendGain = R4/(R3+R4);
-    ui->controller_iso->internalBuffer750->frontendGain = R4/(R3+R4);
-    ui->controller_iso->internalBuffer375_CH2->frontendGain = R4/(R3+R4);
+    ui->controller_iso->internalBuffer375_CH1->m_voltage_ref = 1.65;
+    ui->controller_iso->internalBuffer750->m_voltage_ref = 1.65;
+    ui->controller_iso->internalBuffer375_CH2->m_voltage_ref = 1.65;
+    ui->controller_iso->internalBuffer375_CH1->m_frontendGain = R4/(R3+R4);
+    ui->controller_iso->internalBuffer750->m_frontendGain = R4/(R3+R4);
+    ui->controller_iso->internalBuffer375_CH2->m_frontendGain = R4/(R3+R4);
 
     settings->setValue("CalibrateVrefCH1", 1.65);
     settings->setValue("CalibrateVrefCH2", 1.65);
@@ -1733,9 +1733,9 @@ void MainWindow::calibrateStage2(){
     ui->controller_iso->ch1_ref = 3.3 - vref_CH1;
     ui->controller_iso->ch2_ref = 3.3 - vref_CH2;
 
-    ui->controller_iso->internalBuffer375_CH1->voltage_ref = 3.3 - vref_CH1;
-    ui->controller_iso->internalBuffer750->voltage_ref = 3.3 - vref_CH1;
-    ui->controller_iso->internalBuffer375_CH2->voltage_ref = 3.3 - vref_CH2;
+    ui->controller_iso->internalBuffer375_CH1->m_voltage_ref = 3.3 - vref_CH1;
+    ui->controller_iso->internalBuffer750->m_voltage_ref = 3.3 - vref_CH1;
+    ui->controller_iso->internalBuffer375_CH2->m_voltage_ref = 3.3 - vref_CH2;
 
     settings->setValue("CalibrateVrefCH1", vref_CH1);
     settings->setValue("CalibrateVrefCH2", vref_CH2);
@@ -1769,9 +1769,9 @@ void MainWindow::calibrateStage3(){
     ui->controller_iso->frontendGain_CH2 = (vref_CH2 - vMeasured_CH2)*(ui->controller_iso->frontendGain_CH2)/vref_CH2;
     qDebug() << "New gain (CH1) = " << ui->controller_iso->frontendGain_CH1;
 
-    ui->controller_iso->internalBuffer375_CH1->frontendGain = (vref_CH1 - vMeasured_CH1)*(ui->controller_iso->frontendGain_CH1)/vref_CH1;
-    ui->controller_iso->internalBuffer750->frontendGain = (vref_CH1 - vMeasured_CH1)*(ui->controller_iso->frontendGain_CH1)/vref_CH1;
-    ui->controller_iso->internalBuffer375_CH2->frontendGain = (vref_CH2 - vMeasured_CH2)*(ui->controller_iso->frontendGain_CH2)/vref_CH2;
+    ui->controller_iso->internalBuffer375_CH1->m_frontendGain = (vref_CH1 - vMeasured_CH1)*(ui->controller_iso->frontendGain_CH1)/vref_CH1;
+    ui->controller_iso->internalBuffer750->m_frontendGain = (vref_CH1 - vMeasured_CH1)*(ui->controller_iso->frontendGain_CH1)/vref_CH1;
+    ui->controller_iso->internalBuffer375_CH2->m_frontendGain = (vref_CH2 - vMeasured_CH2)*(ui->controller_iso->frontendGain_CH2)/vref_CH2;
     settings->setValue("CalibrateGainCH1", ui->controller_iso->frontendGain_CH1);
     settings->setValue("CalibrateGainCH2", ui->controller_iso->frontendGain_CH2);
     calibrationMessages->setText("Oscilloscope Calibration complete.");

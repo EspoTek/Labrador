@@ -73,41 +73,41 @@ public:
 
 //	Presentantion?
 // NOTE: it seems like these are never initialized but they are used as though they were...
-	QPlainTextEdit* console1;
-	QPlainTextEdit* console2;
-	unsigned char channel = 255;
-	bool serialAutoScroll = true;
+	QPlainTextEdit* m_console1;
+	QPlainTextEdit* m_console2;
+	unsigned char m_channel = 255;
+	bool m_serialAutoScroll = true;
 
 // Conversion And Sampling
-	double voltage_ref = 1.65;
-	double frontendGain = (R4 / (R3 + R4));
-	int samplesPerSecond;
-	int sampleRate_bit;
+	double m_voltage_ref = 1.65;
+	double m_frontendGain = (R4 / (R3 + R4));
+	int m_samplesPerSecond;
+	int m_sampleRate_bit;
 
 //	Internal Storage
-	int back = 0;
-	int insertedCount = 0;
-	int bufferEnd;
+	int m_back = 0;
+	int m_insertedCount = 0;
+	int m_bufferEnd;
 // TODO: Change buffer to be a unique_ptr
-	short* buffer;
-	short* readData = NULL;
+	short* m_buffer;
+	short* m_readData = NULL;
 
 //	UARTS decoding
-	uartStyleDecoder* decoder = NULL;
+	uartStyleDecoder* m_decoder = NULL;
 	// TODO: change this to keepDecoding
-	bool stopDecoding = false;
+	bool m_stopDecoding = false;
 private:
 //	File I/O
-	bool fileIOEnabled = false;
-	FILE* fptr = NULL;
-	QFile* currentFile;
-	int fileIO_maxIncrementedSampleValue;
-	int fileIO_sampleCount;
-	qulonglong fileIO_max_file_size;
-	qulonglong fileIO_numBytesWritten;
-	unsigned int currentColumn = 0;
-	isoDriver* virtualParent;
-	double average_sample_temp;
+	bool m_fileIOEnabled = false;
+	FILE* m_fptr = NULL;
+	QFile* m_currentFile;
+	int m_fileIO_maxIncrementedSampleValue;
+	int m_fileIO_sampleCount;
+	qulonglong m_fileIO_max_file_size;
+	qulonglong m_fileIO_numBytesWritten;
+	unsigned int m_currentColumn = 0;
+	isoDriver* m_virtualParent;
+	double m_average_sample_temp;
 signals:
 	void fileIOinternalDisable();
 public slots:

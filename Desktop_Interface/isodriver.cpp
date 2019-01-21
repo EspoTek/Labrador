@@ -90,7 +90,7 @@ void isoDriver::timerTick(void){
             if (deviceMode_prev != 1)
                 clearBuffers(false, true, false);
 
-            internalBuffer375_CH2->channel = 1;
+            internalBuffer375_CH2->m_channel = 1;
             frameActionGeneric(1,2);
             if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH2->serialManage(baudRate_CH1, parity_CH1);
@@ -119,7 +119,7 @@ void isoDriver::timerTick(void){
             if (deviceMode_prev != 4)
                 clearBuffers(false, true, false);
 
-            internalBuffer375_CH2->channel = 2;
+            internalBuffer375_CH2->m_channel = 2;
             frameActionGeneric(2,2);
             if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1);
@@ -1169,7 +1169,7 @@ void isoDriver::multimeterStats(){
         qDebug() << "x2 = " << cap_x2;
         qDebug() << "dt = " << cap_x2-cap_x1;
 
-        double dt = (double)(cap_x2-cap_x1)/internalBuffer375_CH1->samplesPerSecond;
+        double dt = (double)(cap_x2-cap_x1)/internalBuffer375_CH1->m_samplesPerSecond;
         double Cm = -dt/(seriesResistance * log((vcc-cap_vtop)/(vcc-cap_vbot)));
         qDebug() << "Cm = " << Cm;
 
@@ -1555,7 +1555,7 @@ void isoDriver::setSerialType(unsigned char type)
     {
         if (twoWire)
             delete twoWire;
-        twoWire = new i2c::i2cDecoder(internalBuffer375_CH1, internalBuffer375_CH2, internalBuffer375_CH1->console1);
+        twoWire = new i2c::i2cDecoder(internalBuffer375_CH1, internalBuffer375_CH2, internalBuffer375_CH1->m_console1);
     }
 }
 
