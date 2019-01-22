@@ -25,7 +25,7 @@ enum class UartParity : uint8_t;
 // Imagine it as a circular buffer, but with access functions specifically
 // designed for isochronous data from an Xmega.
 
-#define CONSOLE_UPDATE_TIMER_PERIOD (ISO_PACKETS_PER_CTX * 4)
+constexpr auto CONSOLE_UPDATE_TIMER_PERIOD = ISO_PACKETS_PER_CTX * 4;
 
 // TODO: Make private what should be private
 // TODO: Add m_ prefix to member variables
