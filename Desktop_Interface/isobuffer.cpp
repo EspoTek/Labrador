@@ -9,6 +9,15 @@ namespace {
 		"Mode = %d\n";
 
 	constexpr auto kSamplesSeekingCap = 20;
+
+	#ifdef INVERT_MM
+	constexpr auto fX0Comp = std::greater<int> {};
+	constexpr auto fX1X2Comp = std::less<int> {};
+	#else
+	constexpr auto fX0Comp = std::less<int> {};
+	constexpr auto fX1X2Comp = std::greater<int> {};
+	#endif
+
 	constexpr auto kTopMultimeter = 2048;
 }
 
@@ -273,14 +282,6 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) con
 	return sample;
 }
 
-#ifdef INVERT_MM
-constexpr auto X0_COMP_FTOR = std::greater<int> {};
-constexpr auto X1_X2_COMP_FTOR = std::less<int> {};
-#else
-constexpr auto X0_COMP_FTOR = std::less<int> {};
-constexpr auto X1_X2_COMP_FTOR = std::greater<int> {};
-#endif
-
 template<typename Function>
 int isoBuffer::capSample(int offset, int target, double seconds, double value, Function comp)
 {
@@ -309,17 +310,17 @@ int isoBuffer::capSample(int offset, int target, double seconds, double value, F
 // For capacitance measurement. x0, x1 and x2 are all various time points used to find the RC coefficient.
 int isoBuffer::cap_x0fromLast(double seconds, double vbot)
 {
-	return capSample(0, kSamplesSeekingCap, seconds, vbot, X0_COMP_FTOR);
+	return capSample(0, kSamplesSeekingCap, seconds, vbot, fX0Comp);
 }
 
 int isoBuffer::cap_x1fromLast(double seconds, int x0, double vbot)
 {
-	return capSample(-x0, kSamplesSeekingCap, seconds, vbot, X1_X2_COMP_FTOR);
+	return capSample(-x0, kSamplesSeekingCap, seconds, vbot, fX1X2Comp);
 }
 
 int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop)
 {
-	return capSample(-x1, kSamplesSeekingCap, seconds, vtop, X1_X2_COMP_FTOR);
+	return capSample(-x1, kSamplesSeekingCap, seconds, vtop, fX1X2Comp);
 }
 
 void isoBuffer::serialManage(double baudRate, UartParity parity)
