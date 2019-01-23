@@ -20,14 +20,14 @@ void i2cDecoder::reset()
 {
     qDebug () << "Resetting I2C";
 
-    if (sda->back != scl->back)
+    if (sda->m_back != scl->m_back)
     {
         // Perhaps the data could be saved, but just resetting them seems much safer
         sda->clearBuffer();
         scl->clearBuffer();
     }
 
-    serialPtr_bit = sda->back * 8;
+    serialPtr_bit = sda->m_back * 8;
 
     {
         std::lock_guard<std::mutex> lock(mutex);
@@ -40,20 +40,20 @@ void i2cDecoder::reset()
 void i2cDecoder::run()
 {
 //    qDebug() << "i2cDecoder::run()";
-    while (serialDistance(sda) > SERIAL_DELAY * sda->sampleRate_bit)
+    while (serialDistance(sda) > SERIAL_DELAY * sda->m_sampleRate_bit)
 	{
 		updateBitValues();
 		runStateMachine();
 		serialPtr_bit ++;
-        if (serialPtr_bit > (sda->bufferEnd * 8))
-            serialPtr_bit -= (sda->bufferEnd * 8);
+        if (serialPtr_bit > (sda->m_bufferEnd * 8))
+            serialPtr_bit -= (sda->m_bufferEnd * 8);
 	}	
 } 
 
 int i2cDecoder::serialDistance(isoBuffer* buffer)
 {
-    int back_bit = buffer->back * 8;
-    int bufferEnd_bit = buffer->bufferEnd * 8;
+    int back_bit = buffer->m_back * 8;
+    int bufferEnd_bit = buffer->m_bufferEnd * 8;
     if (back_bit >= serialPtr_bit)
         return back_bit - serialPtr_bit;
     else
@@ -66,8 +66,8 @@ void i2cDecoder::updateBitValues(){
 
     int coord_byte = serialPtr_bit/8;
     int coord_bit = serialPtr_bit - (8*coord_byte);
-    unsigned char dataByteSda = sda->buffer[coord_byte];
-    unsigned char dataByteScl = scl->buffer[coord_byte];
+    unsigned char dataByteSda = sda->m_buffer[coord_byte];
+    unsigned char dataByteScl = scl->m_buffer[coord_byte];
     unsigned char mask = (0x01 << coord_bit);
     currentSdaValue = dataByteSda & mask;
 	currentSclValue = dataByteScl & mask;
@@ -91,7 +91,7 @@ void i2cDecoder::runStateMachine()
         state = transmissionState::unknown;
         qDebug() << "Dumping I2C state and aborting...";
         for (int i=31; i>=0; i--)
-            qDebug("%02x\t%02x", sda->buffer[serialPtr_bit/8 - i] & 0xFF, scl->buffer[serialPtr_bit/8 - i] & 0xFF);
+            qDebug("%02x\t%02x", sda->m_buffer[serialPtr_bit/8 - i] & 0xFF, scl->m_buffer[serialPtr_bit/8 - i] & 0xFF);
         throw std::runtime_error("unknown i2c transmission state");
         return;
 	}
@@ -217,7 +217,7 @@ void i2cDecoder::updateConsole(){
         return;
 
     console->setPlainText(QString::fromLocal8Bit(serialBuffer->begin(), serialBuffer->size()));
-    if(sda->serialAutoScroll){
+    if(sda->m_serialAutoScroll){
         QTextCursor c =  console->textCursor();
         c.movePosition(QTextCursor::End);
         console->setTextCursor(c);
