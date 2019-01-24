@@ -37,7 +37,7 @@ isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned
 void isoBuffer::insertIntoBuffer(short item)
 {
 	m_buffer[m_back] = item;
-	m_buffer[m_back+m_bufferEnd+1];
+	m_buffer[m_back+m_bufferEnd+1] = item;
 	m_back++;
 	m_insertedCount++;
 
