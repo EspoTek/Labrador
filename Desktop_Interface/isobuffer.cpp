@@ -33,9 +33,11 @@ isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned
 {
 }
 
+// NOTE: the length of half of the allocated buffer is m_bufferEnd+1
 void isoBuffer::insertIntoBuffer(short item)
 {
 	m_buffer[m_back] = item;
+	m_buffer[m_back+m_bufferEnd+1];
 	m_back++;
 	m_insertedCount++;
 
@@ -52,7 +54,8 @@ void isoBuffer::insertIntoBuffer(short item)
 
 short isoBuffer::bufferAt(int idx) const
 {
-	return m_buffer[m_back - idx];
+	// NOTE: this is only correct if idx < m_insertedCount
+	return m_buffer[m_back + (m_bufferEnd+1) - idx];
 }
 
 void isoBuffer::outputSampleToFile(double averageSample)
