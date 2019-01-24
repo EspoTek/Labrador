@@ -1,7 +1,6 @@
 #ifndef ISOBUFFER_H
 #define ISOBUFFER_H
 
-// TODO: Make object macros constexprs or globals
 // TODO: Move headers used only in implementation to isobuffer.cpp
 #include <QWidget>
 #include <QString>
@@ -28,7 +27,6 @@ enum class UartParity : uint8_t;
 constexpr uint32_t CONSOLE_UPDATE_TIMER_PERIOD = ISO_PACKETS_PER_CTX * 4;
 
 // TODO: Make private what should be private
-// TODO: Add m_ prefix to member variables
 // TODO: Change integer types to cstdint types
 class isoBuffer : public QWidget
 {
@@ -75,25 +73,25 @@ public:
 // ---- MEMBER VARIABLES ----
 
 //	Presentantion?
-// NOTE: it seems like these are never initialized but they are used as though they were...
+// NOTE: These are initialized in mainwindow.cpp
 	QPlainTextEdit* m_console1;
 	QPlainTextEdit* m_console2;
 	unsigned char m_channel = 255;
 	bool m_serialAutoScroll = true;
+
+//	Internal Storage
+// TODO: Change m_buffer to be a unique_ptr
+	short* m_readData = NULL;
+	short* m_buffer;
+	int m_back = 0;
+	int m_insertedCount = 0;
+	int m_bufferEnd;
 
 // Conversion And Sampling
 	double m_voltage_ref = 1.65;
 	double m_frontendGain = (R4 / (R3 + R4));
 	int m_samplesPerSecond;
 	int m_sampleRate_bit;
-
-//	Internal Storage
-	int m_back = 0;
-	int m_insertedCount = 0;
-	int m_bufferEnd;
-// TODO: Change buffer to be a unique_ptr
-	short* m_buffer;
-	short* m_readData = NULL;
 
 //	UARTS decoding
 	uartStyleDecoder* m_decoder = NULL;
@@ -102,15 +100,15 @@ public:
 private:
 //	File I/O
 	bool m_fileIOEnabled = false;
-	FILE* m_fptr = NULL;
 	QFile* m_currentFile;
-	int m_fileIO_maxIncrementedSampleValue;
+	int m_fileIO_sampleCountPerWrite;
 	int m_fileIO_sampleCount;
-	qulonglong m_fileIO_max_file_size;
+	double m_fileIO_sampleAccumulator;
+	qulonglong m_fileIO_maxFileSize;
 	qulonglong m_fileIO_numBytesWritten;
 	unsigned int m_currentColumn = 0;
+
 	isoDriver* m_virtualParent;
-	double m_average_sample_temp;
 signals:
 	void fileIOinternalDisable();
 public slots:

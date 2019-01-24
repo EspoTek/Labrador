@@ -2,8 +2,9 @@
 #include "isodriver.h"
 #include "uartstyledecoder.h"
 
-namespace {
-	static char const * fileHeaderFormat =
+namespace
+{
+	constexpr char const* fileHeaderFormat =
 		"EspoTek Labrador DAQ V1.0 Output File\n"
 		"Averaging = %d\n"
 		"Mode = %d\n";
@@ -117,15 +118,13 @@ void isoBuffer::writeBuffer(T* data, int len, int TOP, Function transform)
 	{
 		bool isUsingAC = m_channel == 1
 		                 ? m_virtualParent->AC_CH1
-						 : m_virtualParent->AC_CH2;
+		                 : m_virtualParent->AC_CH2;
 
-		for (int i = 0; i < len; i++)
+		for (int i = 0; i < len && m_fileIOEnabled; i++)
 		{
 			double convertedSample = sampleConvert(data[i], TOP, isUsingAC);
 
-			bool keepOutputting = maybeOutputSampleToFile(convertedSample);
-
-			if (!keepOutputting) break;
+			maybeOutputSampleToFile(convertedSample);
 		}
 	}
 }
@@ -142,21 +141,14 @@ void isoBuffer::writeBuffer_short(short* data, int len)
 
 short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset)
 {
-	/* Refactor Note:
-	 *
-	 * Refactoring this function took a few passes were i made some assumptions:
+	/* Refactoring this function took a few passes were i made some assumptions:
 	 *  - round() should be replaced by floor() where it was used
 	 *  - int(floor(x)) and int(x) are equivalent (since we are always positive)
-	 *  - free(NULL) is a no-op. This is mandated by the C standard, and virtually all
-	 * implementations comply. A few known exceptions are:
-	 *    - PalmOS
-	 *    - 3BSD
-	 *    - UNIX 7
-	 *   I do not know of any non-compliant somewhat modern implementations.
+	 *  - free(NULL) is a no-op. This is mandated by the C standard
 	 *
 	 * The expected behavior is to cycle backwards over the buffer, taking into
 	 * acount only the part of the buffer that has things stored, with a stride
-	 * of timeBetweenSamples steps, and insert the touched elements into readData.
+	 * of timeBetweenSamples steps, and push the touched elements into readData.
 	 *
 	 * ~Sebastian Mestre
 	 */
@@ -228,18 +220,17 @@ void isoBuffer::enableFileIO(QFile* file, int samplesToAverage, qulonglong max_f
 	m_currentFile->write(headerLine);
 
 	// Set up the isoBuffer for DAQ
-	m_fileIO_maxIncrementedSampleValue = samplesToAverage;
-	m_fileIO_max_file_size = max_file_size;
+	m_fileIO_maxFileSize = max_file_size;
+	m_fileIO_sampleCountPerWrite = samplesToAverage;
 	m_fileIO_sampleCount = 0;
+	m_fileIO_sampleAccumulator = 0;
 	m_fileIO_numBytesWritten = 0;
-	m_average_sample_temp = 0;
 
 	// Enable DAQ
 	m_fileIOEnabled = true;
 
 	qDebug("File IO enabled, averaging %d samples, max file size %lluMB", samplesToAverage, max_file_size/1000000);
 	qDebug() << max_file_size;
-	return;
 }
 
 void isoBuffer::disableFileIO()
@@ -315,7 +306,8 @@ int isoBuffer::capSample(int offset, int target, double seconds, double value, F
 	return -1;
 }
 
-// For capacitance measurement. x0, x1 and x2 are all various time points used to find the RC coefficient.
+// For capacitance measurement. x0, x1 and x2 are all various time points
+// used to find the RC coefficient.
 int isoBuffer::cap_x0fromLast(double seconds, double vbot)
 {
 	return capSample(0, kSamplesSeekingCap, seconds, vbot, fX0Comp);
