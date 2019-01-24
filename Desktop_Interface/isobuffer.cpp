@@ -54,46 +54,54 @@ short isoBuffer::bufferAt(int idx) const
 	return m_buffer[m_back - idx];
 }
 
-bool isoBuffer::maybeOutputSampleToFile(double convertedSample)
+void isoBuffer::outputSampleToFile(double averageSample)
 {
-	/*
-	 * This function adds a sample to an accumulator and bumps the sample count.
-	 * After the sample count hits some threshold, the accumulated sample is
-	 * outputted to a file. If this 'saturates' the file, then fileIO is disabled.
-	 */
-	m_average_sample_temp += convertedSample;
-	m_fileIO_sampleCount++;
-
-	// Check to see if we can write a new sample to file
-	if (m_fileIO_sampleCount == m_fileIO_maxIncrementedSampleValue)
-	{
 		char numStr[32];
-		sprintf(numStr,"%7.5f, ", m_average_sample_temp/((double)m_fileIO_maxIncrementedSampleValue));
+		sprintf(numStr,"%7.5f, ", averageSample);
+
 		m_currentFile->write(numStr);
 		m_currentColumn++;
+
 		if (m_currentColumn >= COLUMN_BREAK)
 		{
 			m_currentFile->write("\n");
 			m_currentColumn = 0;
 		}
+}
 
-		// Reset the average and sample count for next data point
+void isoBuffer::maybeOutputSampleToFile(double convertedSample)
+{
+	/*
+	 * This function adds a sample to an accumulator and bumps a sample count.
+	 * After the sample count hits some threshold the samples are averaged
+	 * and the average is written to a file.
+	 * If this makes us hit the max. file size, then fileIO is disabled.
+	 */
+
+	m_fileIO_sampleAccumulator += convertedSample;
+	m_fileIO_sampleCount++;
+
+	if (m_fileIO_sampleCount == m_fileIO_sampleCountPerWrite)
+	{
+		double averageSample = m_fileIO_sampleAccumulator / m_fileIO_sampleCount;
+		outputSampleToFile(averageSample);
+
+		// Reset the accumulator and sample count for next data point.
+		m_fileIO_sampleAccumulator = 0;
 		m_fileIO_sampleCount = 0;
-		m_average_sample_temp = 0;
 
-		// Check to see if we've reached the max file size.
-		if (m_fileIO_max_file_size != 0) // value of 0 means "no limit"
+		// value of 0 means "no limit", meaning we must skip the check by returning.
+		if (m_fileIO_maxFileSize == 0)
+			return;
+
+		// 7 chars(number) + 1 char(comma) + 1 char(space) = 9 bytes/sample.
+		m_fileIO_numBytesWritten += 9;
+		if (m_fileIO_numBytesWritten >= m_fileIO_maxFileSize)
 		{
-			m_fileIO_numBytesWritten += 9;  // 7 chars for the number, 1 for the comma and 1 for the space = 9 bytes per sample.
-			if (m_fileIO_numBytesWritten >= m_fileIO_max_file_size)
-			{
-				m_fileIOEnabled = false; // Just in case signalling fails.
-				fileIOinternalDisable();
-				return false;
-			}
+			m_fileIOEnabled = false; // Just in case signalling fails.
+			fileIOinternalDisable();
 		}
 	}
-	return true;
 }
 
 template<typename T, typename Function>

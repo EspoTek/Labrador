@@ -56,7 +56,10 @@ public:
 	short* readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
 
 //	file I/O
-	bool maybeOutputSampleToFile(double convertedSample);
+private:
+	void outputSampleToFile(double averageSample);
+	void maybeOutputSampleToFile(double convertedSample);
+public:
 	double sampleConvert(short sample, int TOP, bool AC) const;
 	short inverseSampleConvert(double voltageLevel, int TOP, bool AC) const;
 
