@@ -149,8 +149,6 @@ short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 	 * The expected behavior is to cycle backwards over the buffer, taking into
 	 * acount only the part of the buffer that has things stored, with a stride
 	 * of timeBetweenSamples steps, and push the touched elements into readData.
-	 *
-	 * ~Sebastian Mestre
 	 */
 	const double timeBetweenSamples = sampleWindow * m_samplesPerSecond / numSamples;
 	const int delaySamples = delayOffset * m_samplesPerSecond;
