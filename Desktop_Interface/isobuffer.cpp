@@ -144,14 +144,12 @@ void isoBuffer::writeBuffer_short(short* data, int len)
 
 short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset)
 {
-	/* Refactoring this function took a few passes were i made some assumptions:
-	 *  - round() should be replaced by floor() where it was used
-	 *  - int(floor(x)) and int(x) are equivalent (since we are always positive)
-	 *  - free(NULL) is a no-op. This is mandated by the C standard
-	 *
-	 * The expected behavior is to cycle backwards over the buffer, taking into
-	 * acount only the part of the buffer that has things stored, with a stride
+	/*
+	 * The expected behavior is to run backwards over the buffer with a stride
 	 * of timeBetweenSamples steps, and push the touched elements into readData.
+	 * If more elements are requested than how many are stored, an empty buffer is returned.
+	 *
+	 * If this is not the intent, please let me know.
 	 */
 	const double timeBetweenSamples = sampleWindow * m_samplesPerSecond / numSamples;
 	const int delaySamples = delayOffset * m_samplesPerSecond;
@@ -160,8 +158,16 @@ short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 
 	m_readData = (short*) calloc(numSamples, sizeof(short));
 
-	// TODO: replace by return nullptr and add error handling upstream
-	if(delaySamples+1 > m_insertedCount)
+	/* The iteration starts at delaySamples+1
+	 * Then, numSamples jumps of timeBetweenSamples need to be done
+	 * This might overrun the amount of elements in the buffer.
+	 * In such a case we just return a 0-filled buffer.
+	 * Maybe populating the buffer only partly would be better? Or returning nullptr?
+	 * Adding `&& itr < m_insertedCount' to the for loop condition and
+	 * removing this check would be enough to do the first. Changing the line
+	 * inside the check fo `return nullptr;' would give the second.
+	 */
+	if (int(delaySamples+1 + numSamples*timeBetweenSamples) > m_insertedCount)
 	{
 		return m_readData;
 	}
@@ -169,9 +175,6 @@ short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 	double itr = delaySamples + 1;
 	for (int i = 0; i < numSamples; i++)
 	{
-		while (itr > m_insertedCount)
-			itr -= m_insertedCount;
-
 		m_readData[i] = bufferAt(int(itr));
 
 		if (singleBit)
