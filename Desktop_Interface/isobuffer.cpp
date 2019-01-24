@@ -63,7 +63,7 @@ void isoBuffer::outputSampleToFile(double averageSample)
 		m_currentFile->write(numStr);
 		m_currentColumn++;
 
-		if (m_currentColumn >= COLUMN_BREAK)
+		if (m_currentColumn == COLUMN_BREAK)
 		{
 			m_currentFile->write("\n");
 			m_currentColumn = 0;
@@ -326,10 +326,9 @@ void isoBuffer::serialManage(double baudRate, UartParity parity)
 	if (m_decoder == NULL)
 	{
 		m_decoder = new uartStyleDecoder(this);
-		// TODO: Look into using the type safe version of connect.
-		// NOTE: I believe Qt has a type-safe version of this, without the macros and the
-		// explicit signature and stuff, i think it uses member-function pointers instead.
-		connect(m_decoder, SIGNAL(wireDisconnected(int)), m_virtualParent, SLOT(serialNeedsDisabling(int)));
+
+		connect(m_decoder, &uartStyleDecoder::wireDisconnected,
+		        m_virtualParent, &isoDriver::serialNeedsDisabling);
 	}
 	if (m_stopDecoding)
 	{

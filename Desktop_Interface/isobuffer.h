@@ -32,7 +32,6 @@ class isoBuffer : public QWidget
 {
 	Q_OBJECT
 public:
-	// TODO: Add consoles as constructor arguments
 	isoBuffer(QWidget* parent = 0, int bufferLen = 0, isoDriver* caller = 0, unsigned char channel_value = 0);
 	// TODO?: Add a destructor
 
@@ -73,6 +72,7 @@ public:
 // ---- MEMBER VARIABLES ----
 
 //	Presentantion?
+// TODO: Add consoles as constructor arguments
 // NOTE: These are initialized in mainwindow.cpp
 	QPlainTextEdit* m_console1;
 	QPlainTextEdit* m_console2;
