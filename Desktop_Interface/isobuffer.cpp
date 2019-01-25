@@ -331,10 +331,10 @@ void isoBuffer::serialManage(double baudRate, UartParity parity)
 		connect(m_decoder, &uartStyleDecoder::wireDisconnected,
 		        m_virtualParent, &isoDriver::serialNeedsDisabling);
 	}
-	if (m_stopDecoding)
+	if (!m_isDecoding)
 	{
 		m_decoder->updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
-		m_stopDecoding = false;
+		m_isDecoding = true;
 	}
 	m_decoder->setParityMode(parity);
 	m_decoder->serialDecode(baudRate);

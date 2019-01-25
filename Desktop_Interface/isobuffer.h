@@ -96,8 +96,7 @@ public:
 
 //	UARTS decoding
 	uartStyleDecoder* m_decoder = NULL;
-	// TODO: change this to keepDecoding
-	bool m_stopDecoding = false;
+	bool m_isDecoding = true;
 private:
 //	File I/O
 	bool m_fileIOEnabled = false;
