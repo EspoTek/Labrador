@@ -25,7 +25,7 @@ namespace
 isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned char channel_value)
 	: QWidget(parent)
 	, m_channel(channel_value)
-	, m_buffer((short*)calloc(bufferLen*2, sizeof(short)))
+	, m_buffer(std::make_unique<short[]>(bufferLen*2))
 	, m_bufferEnd(bufferLen-1)
 	, m_samplesPerSecond(bufferLen/21.0/375*VALID_DATA_PER_375)
 	, m_sampleRate_bit(bufferLen/21.0/375*VALID_DATA_PER_375*8)
@@ -35,7 +35,6 @@ isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned
 
 isoBuffer::~isoBuffer()
 {
-	free(m_buffer);
 	free(m_readData);
 }
 

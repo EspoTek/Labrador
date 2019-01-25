@@ -2,6 +2,8 @@
 #define ISOBUFFER_H
 
 // TODO: Move headers used only in implementation to isobuffer.cpp
+#include <memory>
+
 #include <QWidget>
 #include <QString>
 #include <QByteArray>
@@ -80,9 +82,8 @@ public:
 	bool m_serialAutoScroll = true;
 
 //	Internal Storage
-// TODO: Change m_buffer to be a unique_ptr
 	short* m_readData = NULL;
-	short* m_buffer;
+	std::unique_ptr<short[]> m_buffer;
 	int m_back = 0;
 	int m_insertedCount = 0;
 	int m_bufferEnd;
