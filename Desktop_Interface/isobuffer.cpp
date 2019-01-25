@@ -147,7 +147,11 @@ short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 	/*
 	 * The expected behavior is to run backwards over the buffer with a stride
 	 * of timeBetweenSamples steps, and push the touched elements into readData.
-	 * If more elements are requested than how many are stored, an empty buffer is returned.
+	 * If more elements are requested than how many are stored (1), the buffer
+	 * will be populated only partially. Modifying this function to return null
+	 * or a zero-filled buffer insted should be simple enough.
+	 *
+	 * (1) m_insertedCount < (delayOffset + sampleWindow) * m_samplesPerSecond
 	 *
 	 * If this is not the intent, please let me know.
 	 */
@@ -158,22 +162,8 @@ short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 
 	m_readData = (short*) calloc(numSamples, sizeof(short));
 
-	/* The iteration starts at delaySamples+1
-	 * Then, numSamples jumps of timeBetweenSamples need to be done
-	 * This might overrun the amount of elements in the buffer.
-	 * In such a case we just return a 0-filled buffer.
-	 * Maybe populating the buffer only partly would be better? Or returning nullptr?
-	 * Adding `&& itr < m_insertedCount' to the for loop condition and
-	 * removing this check would be enough to do the first. Changing the line
-	 * inside the check fo `return nullptr;' would give the second.
-	 */
-	if (int(delaySamples+1 + numSamples*timeBetweenSamples) > m_insertedCount)
-	{
-		return m_readData;
-	}
-
-	double itr = delaySamples + 1;
-	for (int i = 0; i < numSamples; i++)
+	double itr = delaySamples;
+	for (int i = 0; i < numSamples && itr < m_insertedCount; i++)
 	{
 		m_readData[i] = bufferAt(int(itr));
 
