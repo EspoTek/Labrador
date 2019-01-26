@@ -35,7 +35,7 @@ class isoBuffer : public QWidget
 	Q_OBJECT
 public:
 	isoBuffer(QWidget* parent = 0, int bufferLen = 0, isoDriver* caller = 0, unsigned char channel_value = 0);
-	~isoBuffer();
+	~isoBuffer() = default;
 
 //	Basic buffer operations
 	short bufferAt(int idx) const;
@@ -82,7 +82,6 @@ public:
 	bool m_serialAutoScroll = true;
 
 //	Internal Storage
-	short* m_readData = NULL;
 	std::unique_ptr<short[]> m_buffer;
 	int m_back = 0;
 	int m_insertedCount = 0;

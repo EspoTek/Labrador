@@ -1,4 +1,7 @@
 #include "isobuffer.h"
+
+#include <algorithm>
+
 #include "isodriver.h"
 #include "uartstyledecoder.h"
 
@@ -31,11 +34,6 @@ isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned
 	, m_sampleRate_bit(bufferLen/21.0/375*VALID_DATA_PER_375*8)
 	, m_virtualParent(caller)
 {
-}
-
-isoBuffer::~isoBuffer()
-{
-	free(m_readData);
 }
 
 // NOTE: the length of half of the allocated buffer is m_bufferEnd+1
@@ -163,25 +161,25 @@ short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit
 	const double timeBetweenSamples = sampleWindow * m_samplesPerSecond / numSamples;
 	const int delaySamples = delayOffset * m_samplesPerSecond;
 
-	free(m_readData);
+	auto readData = std::make_unique<short[]>(numSamples);
 
-	m_readData = (short*) calloc(numSamples, sizeof(short));
+	std::fill (readData.get(), readData.get() + numSamples, short(0));
 
 	double itr = delaySamples;
 	for (int i = 0; i < numSamples && itr < m_insertedCount; i++)
 	{
-		m_readData[i] = bufferAt(int(itr));
+		readData[i] = bufferAt(int(itr));
 
 		if (singleBit)
 		{
 			int subIdx = 8*(-itr-floor(-itr));
-			m_readData[i] &= (1 << subIdx);
+			readData[i] &= (1 << subIdx);
 		}
 
 		itr += timeBetweenSamples;
 	}
 
-	return m_readData;
+	return readData.release();
 }
 
 void isoBuffer::clearBuffer()
