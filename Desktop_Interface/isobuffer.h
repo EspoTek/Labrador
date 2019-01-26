@@ -51,7 +51,6 @@ public:
 	void writeBuffer_char(char* data, int len);
 	void writeBuffer_short(short* data, int len);
 
-	// TODO: Change return value to unique_ptr
 	std::unique_ptr<short[]> readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
 
 //	file I/O
@@ -73,7 +72,7 @@ public:
 
 // ---- MEMBER VARIABLES ----
 
-//	Presentantion?
+//	Presentation?
 // TODO: Add consoles as constructor arguments
 // NOTE: These are initialized in mainwindow.cpp
 	QPlainTextEdit* m_console1;

@@ -278,6 +278,8 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) con
 	return sample;
 }
 
+// For capacitance measurement. x0, x1 and x2 are all various time points
+// used to find the RC coefficient.
 template<typename Function>
 int isoBuffer::capSample(int offset, int target, double seconds, double value, Function comp)
 {
@@ -303,8 +305,6 @@ int isoBuffer::capSample(int offset, int target, double seconds, double value, F
 	return -1;
 }
 
-// For capacitance measurement. x0, x1 and x2 are all various time points
-// used to find the RC coefficient.
 int isoBuffer::cap_x0fromLast(double seconds, double vbot)
 {
 	return capSample(0, kSamplesSeekingCap, seconds, vbot, fX0Comp);
