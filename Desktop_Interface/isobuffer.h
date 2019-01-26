@@ -52,7 +52,7 @@ public:
 	void writeBuffer_short(short* data, int len);
 
 	// TODO: Change return value to unique_ptr
-	short* readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
+	std::unique_ptr<short[]> readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
 
 //	file I/O
 private:
