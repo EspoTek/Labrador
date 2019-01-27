@@ -1337,7 +1337,7 @@ double isoDriver::meanVoltageLast(double seconds, unsigned char channel, int TOP
         break;
     }
 
-	std::unique_ptr<short[]> tempBuffer = currentBuffer->readBuffer(seconds,1024, 0, 0);
+	std::unique_ptr<short[]> tempBuffer = currentBuffer->readBuffer(seconds, 1024, 0, 0);
     double sum = 0;
     double temp;
     for(int i = 0; i<1024; i++){

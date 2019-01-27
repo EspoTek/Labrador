@@ -152,16 +152,14 @@ std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSampl
 	 * of timeBetweenSamples steps, and push the touched elements into readData.
 	 * If more elements are requested than how many are stored (1), the buffer
 	 * will be populated only partially. Modifying this function to return null
-	 * or a zero-filled buffer insted should be simple enough.
+	 * or a zero-filled buffer instead should be simple enough.
 	 *
 	 * (1) m_insertedCount < (delayOffset + sampleWindow) * m_samplesPerSecond
-	 *
-	 * If this is not the intent, please let me know.
 	 */
 	const double timeBetweenSamples = sampleWindow * m_samplesPerSecond / numSamples;
 	const int delaySamples = delayOffset * m_samplesPerSecond;
 
-	auto readData = std::make_unique<short[]>(numSamples);
+	std::unique_ptr<short[]> readData = std::make_unique<short[]>(numSamples);
 
 	std::fill (readData.get(), readData.get() + numSamples, short(0));
 
