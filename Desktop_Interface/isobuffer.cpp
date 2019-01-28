@@ -416,11 +416,11 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
 	// It find_last_if(It begin, It end, Predicate p)
 	auto find_last_if = [](auto begin, auto end, auto p)
 	{
-		using It = decltype(first); // TODO: remove this line once this is a proper function
-		std::reverse_iterator<It> rlast(first), rfirst(last);
+		using It = decltype(begin); // TODO: remove this line once this is a proper function
+		std::reverse_iterator<It> rlast(begin), rfirst(end);
 		auto found = std::find_if(rfirst, rlast, p);
 		return found == rlast
-		       ? last
+		       ? end
 		       : std::prev(found.base());
 	};
 
