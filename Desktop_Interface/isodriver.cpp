@@ -806,23 +806,23 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 
 
     if (CH1_mode == 1){
-        analogConvert(readData375_CH1, &CH1, 128, AC_CH1, 1);
+        analogConvert(readData375_CH1.get(), &CH1, 128, AC_CH1, 1);
         xmin = (currentVmin < xmin) ? currentVmin : xmin;
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
         broadcastStats(0);
     }
-    if (CH1_mode == 2) digitalConvert(readData375_CH1, &CH1);
+    if (CH1_mode == 2) digitalConvert(readData375_CH1.get(), &CH1);
 
     if (CH2_mode == 1){
-        analogConvert(readData375_CH2, &CH2, 128, AC_CH2, 2);
+        analogConvert(readData375_CH2.get(), &CH2, 128, AC_CH2, 2);
         ymin = (currentVmin < ymin) ? currentVmin : ymin;
         ymax = (currentVmax > ymax) ? currentVmax : ymax;
         broadcastStats(1);
     }
-    if (CH2_mode == 2) digitalConvert(readData375_CH2, &CH2);
+    if (CH2_mode == 2) digitalConvert(readData375_CH2.get(), &CH2);
 
     if(CH1_mode == -1) {
-        analogConvert(readData750, &CH1, 128, AC_CH1, 1);
+        analogConvert(readData750.get(), &CH1, 128, AC_CH1, 1);
         xmin = (currentVmin < xmin) ? currentVmin : xmin;
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
         broadcastStats(0);
@@ -947,7 +947,7 @@ void isoDriver::multimeterAction(){
     readData375_CH1 = internalBuffer375_CH1->readBuffer(window,GRAPH_SAMPLES, false, delay + ((triggerEnabled&&!paused_multimeter) ? triggerDelay + window/2 : 0));
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES);
-    analogConvert(readData375_CH1, &CH1, 2048, 0, 1);  //No AC coupling!
+    analogConvert(readData375_CH1.get(), &CH1, 2048, 0, 1);  //No AC coupling!
 
     for (double i=0; i<GRAPH_SAMPLES; i++){
         x[i] = -(window*i)/((double)(GRAPH_SAMPLES-1)) - delay;
@@ -1337,7 +1337,7 @@ double isoDriver::meanVoltageLast(double seconds, unsigned char channel, int TOP
         break;
     }
 
-    short * tempBuffer = currentBuffer->readBuffer(seconds,1024, 0, 0);
+	std::unique_ptr<short[]> tempBuffer = currentBuffer->readBuffer(seconds, 1024, 0, 0);
     double sum = 0;
     double temp;
     for(int i = 0; i<1024; i++){

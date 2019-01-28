@@ -83,7 +83,7 @@ void uartStyleDecoder::serialDecode(double baudRate)
     if(allZeroes){
         qDebug() << "Wire Disconnect detected!";
         wireDisconnected(parent->m_channel);
-        parent->m_stopDecoding = true;
+        parent->m_isDecoding = false;
         updateTimer->stop();
     }
 }

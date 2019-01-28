@@ -96,7 +96,9 @@ private:
     void frameActionGeneric(char CH1_mode, char CH2_mode);
     //Variables that are just pointers to other classes/vars
     QCustomPlot *axes;
-    short *readData375_CH1, *readData375_CH2, *readData750;
+	std::unique_ptr<short[]> readData375_CH1;
+	std::unique_ptr<short[]> readData375_CH2;
+	std::unique_ptr<short[]> readData750;
     float *readDataFile;
     char *isoTemp = NULL;
     short *isoTemp_short = NULL;

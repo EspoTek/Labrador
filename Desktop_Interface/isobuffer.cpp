@@ -1,9 +1,13 @@
 #include "isobuffer.h"
+
+#include <algorithm>
+
 #include "isodriver.h"
 #include "uartstyledecoder.h"
 
-namespace {
-	static char const * fileHeaderFormat =
+namespace
+{
+	constexpr char const* fileHeaderFormat =
 		"EspoTek Labrador DAQ V1.0 Output File\n"
 		"Averaging = %d\n"
 		"Mode = %d\n";
@@ -23,18 +27,20 @@ namespace {
 
 isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned char channel_value)
 	: QWidget(parent)
-	, m_buffer((short*)calloc(bufferLen*2, sizeof(short)))
+	, m_channel(channel_value)
+	, m_buffer(std::make_unique<short[]>(bufferLen*2))
 	, m_bufferEnd(bufferLen-1)
 	, m_samplesPerSecond(bufferLen/21.0/375*VALID_DATA_PER_375)
 	, m_sampleRate_bit(bufferLen/21.0/375*VALID_DATA_PER_375*8)
 	, m_virtualParent(caller)
-	, m_channel(channel_value)
 {
 }
 
+// NOTE: the length of half of the allocated buffer is m_bufferEnd+1
 void isoBuffer::insertIntoBuffer(short item)
 {
 	m_buffer[m_back] = item;
+	m_buffer[m_back+m_bufferEnd+1] = item;
 	m_back++;
 	m_insertedCount++;
 
@@ -51,49 +57,58 @@ void isoBuffer::insertIntoBuffer(short item)
 
 short isoBuffer::bufferAt(int idx) const
 {
-	return m_buffer[m_back - idx];
+	// NOTE: this is only correct if idx < m_insertedCount
+	return m_buffer[m_back + (m_bufferEnd+1) - idx];
 }
 
-bool isoBuffer::maybeOutputSampleToFile(double convertedSample)
+void isoBuffer::outputSampleToFile(double averageSample)
 {
-	/*
-	 * This function adds a sample to an accumulator and bumps the sample count.
-	 * After the sample count hits some threshold, the accumulated sample is
-	 * outputted to a file. If this 'saturates' the file, then fileIO is disabled.
-	 */
-	m_average_sample_temp += convertedSample;
-	m_fileIO_sampleCount++;
-
-	// Check to see if we can write a new sample to file
-	if (m_fileIO_sampleCount == m_fileIO_maxIncrementedSampleValue)
-	{
 		char numStr[32];
-		sprintf(numStr,"%7.5f, ", m_average_sample_temp/((double)m_fileIO_maxIncrementedSampleValue));
+		sprintf(numStr,"%7.5f, ", averageSample);
+
 		m_currentFile->write(numStr);
 		m_currentColumn++;
-		if (m_currentColumn >= COLUMN_BREAK)
+
+		if (m_currentColumn == COLUMN_BREAK)
 		{
 			m_currentFile->write("\n");
 			m_currentColumn = 0;
 		}
+}
 
-		// Reset the average and sample count for next data point
+void isoBuffer::maybeOutputSampleToFile(double convertedSample)
+{
+	/*
+	 * This function adds a sample to an accumulator and bumps a sample count.
+	 * After the sample count hits some threshold the samples are averaged
+	 * and the average is written to a file.
+	 * If this makes us hit the max. file size, then fileIO is disabled.
+	 */
+
+	m_fileIO_sampleAccumulator += convertedSample;
+	m_fileIO_sampleCount++;
+
+	if (m_fileIO_sampleCount == m_fileIO_sampleCountPerWrite)
+	{
+		double averageSample = m_fileIO_sampleAccumulator / m_fileIO_sampleCount;
+		outputSampleToFile(averageSample);
+
+		// Reset the accumulator and sample count for next data point.
+		m_fileIO_sampleAccumulator = 0;
 		m_fileIO_sampleCount = 0;
-		m_average_sample_temp = 0;
 
-		// Check to see if we've reached the max file size.
-		if (m_fileIO_max_file_size != 0) // value of 0 means "no limit"
+		// value of 0 means "no limit", meaning we must skip the check by returning.
+		if (m_fileIO_maxFileSize == 0)
+			return;
+
+		// 7 chars(number) + 1 char(comma) + 1 char(space) = 9 bytes/sample.
+		m_fileIO_numBytesWritten += 9;
+		if (m_fileIO_numBytesWritten >= m_fileIO_maxFileSize)
 		{
-			m_fileIO_numBytesWritten += 9;  // 7 chars for the number, 1 for the comma and 1 for the space = 9 bytes per sample.
-			if (m_fileIO_numBytesWritten >= m_fileIO_max_file_size)
-			{
-				m_fileIOEnabled = false; // Just in case signalling fails.
-				fileIOinternalDisable();
-				return false;
-			}
+			m_fileIOEnabled = false; // Just in case signalling fails.
+			fileIOinternalDisable();
 		}
 	}
-	return true;
 }
 
 template<typename T, typename Function>
@@ -109,15 +124,13 @@ void isoBuffer::writeBuffer(T* data, int len, int TOP, Function transform)
 	{
 		bool isUsingAC = m_channel == 1
 		                 ? m_virtualParent->AC_CH1
-						 : m_virtualParent->AC_CH2;
+		                 : m_virtualParent->AC_CH2;
 
-		for (int i = 0; i < len; i++)
+		for (int i = 0; i < len && m_fileIOEnabled; i++)
 		{
 			double convertedSample = sampleConvert(data[i], TOP, isUsingAC);
 
-			bool keepOutputting = maybeOutputSampleToFile(convertedSample);
-
-			if (!keepOutputting) break;
+			maybeOutputSampleToFile(convertedSample);
 		}
 	}
 }
@@ -132,57 +145,39 @@ void isoBuffer::writeBuffer_short(short* data, int len)
 	writeBuffer(data, len, 2048, [](short item) -> short {return item >> 4;});
 }
 
-short* isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset)
+std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset)
 {
-	/* Refactor Note:
+	/*
+	 * The expected behavior is to run backwards over the buffer with a stride
+	 * of timeBetweenSamples steps, and push the touched elements into readData.
+	 * If more elements are requested than how many are stored (1), the buffer
+	 * will be populated only partially. Modifying this function to return null
+	 * or a zero-filled buffer instead should be simple enough.
 	 *
-	 * Refactoring this function took a few passes were i made some assumptions:
-	 *  - round() should be replaced by floor() where it was used
-	 *  - int(floor(x)) and int(x) are equivalent (since we are always positive)
-	 *  - free(NULL) is a no-op. This is mandated by the C standard, and virtually all
-	 * implementations comply. A few known exceptions are:
-	 *    - PalmOS
-	 *    - 3BSD
-	 *    - UNIX 7
-	 *   I do not know of any non-compliant somewhat modern implementations.
-	 *
-	 * The expected behavior is to cycle backwards over the buffer, taking into
-	 * acount only the part of the buffer that has things stored, with a stride
-	 * of timeBetweenSamples steps, and insert the touched elements into readData.
-	 *
-	 * ~Sebastian Mestre
+	 * (1) m_insertedCount < (delayOffset + sampleWindow) * m_samplesPerSecond
 	 */
 	const double timeBetweenSamples = sampleWindow * m_samplesPerSecond / numSamples;
 	const int delaySamples = delayOffset * m_samplesPerSecond;
 
-	free(m_readData);
+	std::unique_ptr<short[]> readData = std::make_unique<short[]>(numSamples);
 
-	m_readData = (short*) calloc(numSamples, sizeof(short));
+	std::fill (readData.get(), readData.get() + numSamples, short(0));
 
-	// TODO: replace by return nullptr and add error handling upstream
-	if(delaySamples+1 > m_insertedCount)
+	double itr = delaySamples;
+	for (int i = 0; i < numSamples && itr < m_insertedCount; i++)
 	{
-		return m_readData;
-	}
-
-	double itr = delaySamples + 1;
-	for (int i = 0; i < numSamples; i++)
-	{
-		while (itr > m_insertedCount)
-			itr -= m_insertedCount;
-
-		m_readData[i] = bufferAt(int(itr));
+		readData[i] = bufferAt(int(itr));
 
 		if (singleBit)
 		{
 			int subIdx = 8*(-itr-floor(-itr));
-			m_readData[i] &= (1 << subIdx);
+			readData[i] &= (1 << subIdx);
 		}
 
 		itr += timeBetweenSamples;
 	}
 
-	return m_readData;
+	return readData;
 }
 
 void isoBuffer::clearBuffer()
@@ -220,18 +215,17 @@ void isoBuffer::enableFileIO(QFile* file, int samplesToAverage, qulonglong max_f
 	m_currentFile->write(headerLine);
 
 	// Set up the isoBuffer for DAQ
-	m_fileIO_maxIncrementedSampleValue = samplesToAverage;
-	m_fileIO_max_file_size = max_file_size;
+	m_fileIO_maxFileSize = max_file_size;
+	m_fileIO_sampleCountPerWrite = samplesToAverage;
 	m_fileIO_sampleCount = 0;
+	m_fileIO_sampleAccumulator = 0;
 	m_fileIO_numBytesWritten = 0;
-	m_average_sample_temp = 0;
 
 	// Enable DAQ
 	m_fileIOEnabled = true;
 
 	qDebug("File IO enabled, averaging %d samples, max file size %lluMB", samplesToAverage, max_file_size/1000000);
 	qDebug() << max_file_size;
-	return;
 }
 
 void isoBuffer::disableFileIO()
@@ -282,6 +276,8 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) con
 	return sample;
 }
 
+// For capacitance measurement. x0, x1 and x2 are all various time points
+// used to find the RC coefficient.
 template<typename Function>
 int isoBuffer::capSample(int offset, int target, double seconds, double value, Function comp)
 {
@@ -307,7 +303,6 @@ int isoBuffer::capSample(int offset, int target, double seconds, double value, F
 	return -1;
 }
 
-// For capacitance measurement. x0, x1 and x2 are all various time points used to find the RC coefficient.
 int isoBuffer::cap_x0fromLast(double seconds, double vbot)
 {
 	return capSample(0, kSamplesSeekingCap, seconds, vbot, fX0Comp);
@@ -328,15 +323,14 @@ void isoBuffer::serialManage(double baudRate, UartParity parity)
 	if (m_decoder == NULL)
 	{
 		m_decoder = new uartStyleDecoder(this);
-		// TODO: Look into using the type safe version of connect.
-		// NOTE: I believe Qt has a type-safe version of this, without the macros and the
-		// explicit signature and stuff, i think it uses member-function pointers instead.
-		connect(m_decoder, SIGNAL(wireDisconnected(int)), m_virtualParent, SLOT(serialNeedsDisabling(int)));
+
+		connect(m_decoder, &uartStyleDecoder::wireDisconnected,
+		        m_virtualParent, &isoDriver::serialNeedsDisabling);
 	}
-	if (m_stopDecoding)
+	if (!m_isDecoding)
 	{
 		m_decoder->updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
-		m_stopDecoding = false;
+		m_isDecoding = true;
 	}
 	m_decoder->setParityMode(parity);
 	m_decoder->serialDecode(baudRate);
