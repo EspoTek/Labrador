@@ -339,7 +339,6 @@ void isoDriver::setVoltageRange(QWheelEvent *event){
         qDebug() << "WHEEL @ " << pixPct << "%";
         qDebug() << event->delta();
         qDebug() << "upper = " << range.upper << "lower = " << range.lower;
-        qDebug() << "triggerDelay = " << triggerDelay;
         qDebug() << "window = " << window;
         qDebug() << c* ((double)pixPct);
         qDebug() << c* ((double)100 - (double)pixPct) * pixPct/100;
@@ -598,94 +597,6 @@ void isoDriver::udateCursors(void){
     delete cursorStatsString;
 }
 
-int isoDriver::trigger(void){
-    if(driver->deviceMode>2 && driver->deviceMode < 6){  //No scope
-        return -2;
-    }
-    if(triggerType>1 && driver->deviceMode!=2){  //No CH2!
-        return -1;
-    }
-
-    bool AC = (triggerType > 1) ? AC_CH2 : AC_CH1;
-    double offsetMean = AC ? currentVmean : 0;
-
-    short target = (triggerType%2) ? reverseFrontEnd(triggerLevel*1.1 + offsetMean) : reverseFrontEnd(triggerLevel + offsetMean);
-    short lowThresh = (triggerType%2) ? reverseFrontEnd(triggerLevel + offsetMean) : reverseFrontEnd(triggerLevel*0.9 + offsetMean);
-
-    int location = -1;
-
-    if(driver->deviceMode == 7){
-        for (unsigned int i=0;i<length/2;i++){
-            if(i%750 >= VALID_DATA_PER_750) continue; //Not a valid sample
-
-            //A bit of thresholding...
-            //Gives DAT STABILITY
-
-            //qDebug() << isoTemp_short[i+4];
-
-            if(isoTemp_short[i] >= target){
-                triggerCountSeeking = (triggerType % 2) ? 0 : triggerCountSeeking + 1;
-                triggerCountNotSeeking = (triggerType % 2) ? triggerCountNotSeeking + 1 : 0;
-            }
-            else if (isoTemp_short[i] < lowThresh){
-                triggerCountNotSeeking = (triggerType % 2) ? 0 : triggerCountNotSeeking + 1;
-                triggerCountSeeking = (triggerType % 2) ? triggerCountSeeking + 1 : 0;
-            }
-            else{
-                triggerCountSeeking = 0;
-                triggerCountNotSeeking = 0;
-            }
-
-            //Check for found
-            if(triggerSeeking && (triggerCountSeeking > TRIGGER_COUNT_THRESH)){
-                    if(location == -1) location = i - TRIGGER_COUNT_THRESH;
-                    triggerSeeking = false;
-            }
-
-            //Check for lost
-            if((!triggerSeeking) && (triggerCountNotSeeking > TRIGGER_COUNT_THRESH)){
-                    triggerSeeking = true;
-            }
-        }
-    }
-    else{
-        for (unsigned int i=0;i<length;i++){
-            if(driver->deviceMode != 6){
-                if(((i%750 > VALID_DATA_PER_375) && (triggerType<2)) || (((i%750 < 375) || (i%750 == VALID_DATA_PER_750)) && (triggerType>1))) continue; //Not a valid sample
-            }
-
-            //A bit of thresholding...
-            //Gives DAT STABILITY
-
-            if(isoTemp[i] >= target){
-                triggerCountSeeking = (triggerType % 2) ? 0 : triggerCountSeeking + 1;
-                triggerCountNotSeeking = (triggerType % 2) ? triggerCountNotSeeking + 1 : 0;
-            }
-            else if (isoTemp[i] < lowThresh){
-                triggerCountNotSeeking = (triggerType % 2) ? 0 : triggerCountNotSeeking + 1;
-                triggerCountSeeking = (triggerType % 2) ? triggerCountSeeking + 1 : 0;
-            }
-            else{
-                triggerCountSeeking = 0;
-                triggerCountNotSeeking = 0;
-            }
-
-            //Check for found
-            if(triggerSeeking && (triggerCountSeeking > TRIGGER_COUNT_THRESH)){
-                    if(location == -1) location = i - TRIGGER_COUNT_THRESH;
-                    triggerSeeking = false;
-            }
-
-            //Check for lost
-            if((!triggerSeeking) && (triggerCountNotSeeking > TRIGGER_COUNT_THRESH)){
-                    triggerSeeking = true;
-            }
-        }
-    }
-    
-    return location;
-}
-
 short isoDriver::reverseFrontEnd(double voltage){
     //qFatal("reverseFrontEnd driver mode 7");
     #ifdef INVERT_MM
@@ -710,20 +621,23 @@ short isoDriver::reverseFrontEnd(double voltage){
     return ((vx - vn)/vref * (double)driver->scopeGain * (double)TOP + (double)0.5);
 }
 
-void isoDriver::setTriggerEnabled(bool enabled){
+void isoDriver::setTriggerEnabled(bool enabled)
+{
     triggerEnabled = enabled;
 }
 
-void isoDriver::setTriggerLevel(double level){
-    triggerLevel = level;
+void isoDriver::setTriggerLevel(double level)
+{
 }
 
-void isoDriver::setSingleShotEnabled(bool enabled){
+void isoDriver::setSingleShotEnabled(bool enabled)
+{
     singleShotEnabled = enabled;
 }
 
-void isoDriver::setTriggerMode(int newMode){
-    triggerType = (triggerType_enum)newMode;
+void isoDriver::setTriggerMode(int newMode)
+{
+    triggerMode = (TriggerType)newMode;
 }
 
 void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
@@ -747,16 +661,9 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
         }
     }
 
-    if(!paused_CH1){
+    if(!paused_CH1)
+    {
         int offset = -2; //No trigger!
-        if(triggerEnabled && (triggerWaiting == 0) ){
-            offset = trigger();
-        }
-        if(offset == -1){ //Trigger is active but nothing found!
-            return;
-        }
-
-        //qDebug() << "offset =" << offset;
 
         int backLength = length/750;
         backLength *= (CH1_mode == -1) ? VALID_DATA_PER_750 : VALID_DATA_PER_375;
@@ -769,29 +676,9 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
         }
 
         //qDebug() << "Now offset = " << offset;
-
-        if((!paused_CH1) && triggerEnabled && (triggerWaiting == 0)){
-            triggerDelay = backLength - offset;
-            triggerDelay /= (CH1_mode == -1) ? (VALID_DATA_PER_750 * 1000) : (VALID_DATA_PER_375*1000);
-            //triggerDelay += delay;
-            triggerWaiting = (triggerDelay<(window/2)) * 2;
-        }
-
-        //qDebug() << "triggerDelay = " << triggerDelay;
-
-        //qDebug() << "triggerWaiting =" << triggerWaiting;
-
-        if(triggerWaiting == 1) triggerWaiting = 0;
-
-        //qDebug() << "triggerWaiting =" << triggerWaiting;
-
-        if(triggerEnabled && triggerWaiting){
-            triggerDelay += (double)TIMER_PERIOD/(double)1000;
-            triggerWaiting = (triggerDelay<(window/2)) + 1;
-            return;
-        }
     }
 
+    double triggerDelay = 0;
     if(singleShotEnabled && (triggerDelay != 0))
         singleShotTriggered(1);
 
@@ -799,8 +686,6 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
     if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(window,GRAPH_SAMPLES,CH2_mode==2, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
     if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(window,GRAPH_SAMPLES,false, delay + (triggerEnabled ? triggerDelay + window/2 : 0));
     if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(window,GRAPH_SAMPLES,false, delay);
-
-    //qDebug() << "Trigger Delay =" << triggerDelay;
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES);
 
@@ -893,57 +778,7 @@ void isoDriver::multimeterAction(){
         }
     }
 
-    if(!paused_multimeter){
-        int offset = -2; //No trigger!
-        if(triggerEnabled && (triggerWaiting == 0) ){
-            offset = trigger();
-        }
-        if(offset == -1){ //Trigger is active but nothing found!
-            return;
-        }
-
-        //qDebug() << "offset =" << offset;
-
-        int backLength = length/750;
-        backLength *= VALID_DATA_PER_375;
-
-        if(offset>0){
-            int temp_offset = offset % 750;
-            offset /= 750;
-            offset *= VALID_DATA_PER_375;
-            offset += temp_offset;
-        }
-
-        //qDebug() << "Now offset = " << offset;
-
-        if((!paused_CH1) && triggerEnabled && (triggerWaiting == 0)){
-            triggerDelay = backLength - offset;
-            triggerDelay /= (VALID_DATA_PER_375*1000);
-            triggerDelay += delay;
-            triggerWaiting = (triggerDelay<(window/2)) * 2;
-        }
-
-        //qDebug() << "triggerDelay = " << triggerDelay;
-
-        //qDebug() << "triggerWaiting =" << triggerWaiting;
-
-        if(triggerWaiting == 1) triggerWaiting = 0;
-
-        //qDebug() << "triggerWaiting =" << triggerWaiting;
-
-        if(triggerEnabled && triggerWaiting){
-            triggerDelay += (double)TIMER_PERIOD/(double)1000;
-            triggerWaiting = (triggerDelay<(window/2)) + 1;
-            return;
-        }
-    }
-
-    //qDebug() << triggerEnabled;
-    //qDebug() << !paused_multimeter;
-    //qDebug() << (triggerEnabled&&!paused_multimeter);
-
-    //qDebug() << ((triggerEnabled&&!paused_multimeter) ? triggerDelay + window/2 : 0);
-
+    double triggerDelay = 0;
     readData375_CH1 = internalBuffer375_CH1->readBuffer(window,GRAPH_SAMPLES, false, delay + ((triggerEnabled&&!paused_multimeter) ? triggerDelay + window/2 : 0));
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES);

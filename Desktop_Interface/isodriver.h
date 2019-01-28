@@ -56,12 +56,20 @@ public:
     bool fileModeEnabled = false;
     double daq_maxWindowSize;
 private:
+    enum class TriggerType : int
+    {
+        rising_ch1  = 0,
+        falling_ch1 = 1,
+        rising_ch2  = 2,
+        falling_ch2 = 3
+    };
+
     //Those bloody bools that just Enable/Disable a single property
     bool paused_CH1 = false, paused_CH2 = false, paused_multimeter = false;
     bool autoGainEnabled = true;
     bool placingHoriAxes = false, placingVertAxes = false, horiCursorEnabled = false, vertCursorEnabled = false;
-    bool triggerSeeking = true;
     bool triggerEnabled = false;
+    bool singleShotEnabled = false;
     bool multimeterShow = true;
     bool autoMultimeterV = true;
     bool autoMultimeterI = true;
@@ -81,8 +89,6 @@ private:
     bool snapshotEnabled_CH1 = false;
     bool snapshotEnabled_CH2 = false;
     bool firstFrame = true;
-    double triggerDelay;
-    bool singleShotEnabled = false;
     //Generic Functions
     void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC, int channel);
     void digitalConvert(short *shortPtr, QVector<double> *doublePtr);
@@ -90,7 +96,6 @@ private:
     bool properlyPaused();
     void udateCursors(void);
     short reverseFrontEnd(double voltage);
-    int trigger(void);
     void multimeterAction();
     void broadcastStats(bool CH2);
     void frameActionGeneric(char CH1_mode, char CH2_mode);
@@ -105,12 +110,8 @@ private:
     siprint *v0, *v1, *dv, *t0, *t1, *dt, *f;
     //Scope/MM++ related variables
     double currentVmax, currentVmin, currentVRMS;
-    double triggerLevel = 0;
-    enum triggerType_enum {rising_ch1 = 0, falling_ch1 = 1, rising_ch2 = 2, falling_ch2 = 3};
-    triggerType_enum triggerType = rising_ch1;
+    TriggerType triggerMode;
     double multi = 0;
-    int triggerCountSeeking = 0, triggerCountNotSeeking = 0;
-    unsigned char triggerWaiting = 0;
     double xmin = 20, xmax = -20, ymin = 20, ymax = -20;
     double estimated_resistance = 0;
     int multimeterRsource = 0;
