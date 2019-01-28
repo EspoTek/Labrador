@@ -45,15 +45,15 @@ void i2cDecoder::run()
 		updateBitValues();
 		runStateMachine();
 		serialPtr_bit ++;
-        if (serialPtr_bit > (sda->m_bufferEnd * 8))
-            serialPtr_bit -= (sda->m_bufferEnd * 8);
+        if (serialPtr_bit > ((sda->m_bufferLen-1) * 8))
+            serialPtr_bit -= ((sda->m_bufferLen-1) * 8);
 	}	
 } 
 
 int i2cDecoder::serialDistance(isoBuffer* buffer)
 {
     int back_bit = buffer->m_back * 8;
-    int bufferEnd_bit = buffer->m_bufferEnd * 8;
+    int bufferEnd_bit = (buffer->m_bufferLen-1) * 8;
     if (back_bit >= serialPtr_bit)
         return back_bit - serialPtr_bit;
     else

@@ -30,27 +30,26 @@ isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned
 	: QWidget(parent)
 	, m_channel(channel_value)
 	, m_buffer(std::make_unique<short[]>(bufferLen*2))
-	, m_bufferEnd(bufferLen-1)
+	, m_bufferLen(bufferLen)
 	, m_samplesPerSecond(bufferLen/21.0/375*VALID_DATA_PER_375)
 	, m_sampleRate_bit(bufferLen/21.0/375*VALID_DATA_PER_375*8)
 	, m_virtualParent(caller)
 {
 }
 
-// NOTE: the length of half of the allocated buffer is m_bufferEnd+1
 void isoBuffer::insertIntoBuffer(short item)
 {
 	m_buffer[m_back] = item;
-	m_buffer[m_back+m_bufferEnd+1] = item;
+	m_buffer[m_back+m_bufferLen] = item;
     m_back++;
     m_insertedCount++;
 
-	if (m_insertedCount > m_bufferEnd)
+	if (m_insertedCount > m_bufferLen)
 	{
-		m_insertedCount = m_bufferEnd+1;
+		m_insertedCount = m_bufferLen;
 	}
 
-    if (m_back > m_bufferEnd)
+    if (m_back == m_bufferLen)
 	{
 		m_back = 0;
 	}
@@ -58,10 +57,10 @@ void isoBuffer::insertIntoBuffer(short item)
     checkTriggered();
 }
 
-short isoBuffer::bufferAt(int idx) const
+short isoBuffer::bufferAt(uint32_t idx) const
 {
-	// NOTE: this is only correct if idx < m_insertedCount
-    return m_buffer[(m_back-1) + (m_bufferEnd+1) - idx];
+    if(idx > m_insertedCount) qFatal("isoBuffer::bufferAt: invalid query");
+	return m_buffer[(m_back-1) + (m_bufferLen) - idx];
 }
 
 void isoBuffer::outputSampleToFile(double averageSample)
@@ -185,23 +184,30 @@ std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSampl
 
 void isoBuffer::clearBuffer()
 {
-	for (int i = 0; i < m_bufferEnd; i++)
+	for (uint32_t i = 0; i < m_bufferLen; i++)
 	{
 		m_buffer[i] = 0;
+		m_buffer[i + m_bufferLen] = 0;
 	}
 
 	m_back = 0;
+	m_insertedCount = 0;
 }
 
 void isoBuffer::gainBuffer(int gain_log)
 {
 	qDebug() << "Buffer shifted by" << gain_log;
-	for (int i = 0; i < m_bufferEnd; i++)
+	for (uint32_t i = 0; i < m_bufferLen; i++)
 	{
-		if (gain_log < 0)
+		if (gain_log < 0){
 			m_buffer[i] <<= -gain_log;
+			m_buffer[i+m_bufferLen] <<= -gain_log;
+		}
 		else
+		{
 			m_buffer[i] >>= gain_log;
+			m_buffer[i+m_bufferLen] >>= gain_log;
+		}
 	}
 }
 
@@ -279,14 +285,14 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) con
 	return sample;
 }
 
-// For capacitance measurement. x0, x1 and x2 are all various time points
-// used to find the RC coefficient.
+// For capacitance measurement.
+// x0, x1 and x2 are all various time points used to find the RC coefficient.
 template<typename Function>
 int isoBuffer::capSample(int offset, int target, double seconds, double value, Function comp)
 {
 	int samples = seconds * m_samplesPerSecond;
 
-	if (m_back < samples + offset) return -1;
+	if (int32_t(m_back) < samples + offset) return -1;
 
 	short sample = inverseSampleConvert(value, 2048, 0);
 
@@ -383,10 +389,9 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
     auto isValid = [=](uint32_t index)->bool
     {
         if (m_back > delaySamples)
-            return (index < ((uint32_t)m_back - delaySamples)) || (index >= (uint32_t)m_back);
+            return (index < m_back - delaySamples) || (index >= m_back);
         else
-            // Fixme: There's probably an off by one here.
-            return (index < (m_bufferEnd + m_back - delaySamples)) && (index >= m_back);
+            return (index < m_bufferLen + m_back - delaySamples) && (index >= m_back);
     };
 
     auto getDelay = [=](uint32_t index)->double
@@ -394,7 +399,8 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
         if (m_back > index)
             return (m_back - index) / static_cast<double>(m_samplesPerSecond);
         else
-            return (m_bufferEnd + m_back - index) / static_cast<double>(m_samplesPerSecond);
+			// NOTE: Probably an off-by-one but I guess it's not too bad since it's being put into a floating point value?
+            return (m_bufferLen-1 + m_back - index) / static_cast<double>(m_samplesPerSecond);
     };
 
     // Fixme: this won't look at the first element in the list.
