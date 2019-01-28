@@ -1,10 +1,13 @@
 #include "mainwindow.h"
 #include "uartstyledecoder.h"
 #include "daqform.h"
+#include <QDesktopServices>
 
 namespace
 {
    constexpr uint32_t MAX_CONSOLE_BLOCK_COUNT = 512;
+   constexpr char kDocumentationUrl[] = "https://github.com/EspoTek/Labrador/wiki";
+   constexpr char kPinoutUrl[] = "https://github.com/EspoTek/Labrador/wiki/Pinout";
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -2316,4 +2319,14 @@ void MainWindow::on_actionEven_2_triggered()
 void MainWindow::on_actionOdd_2_triggered()
 {
     ui->controller_iso->parity_CH2 = UartParity::Odd;
+}
+
+void MainWindow::on_actionDocumentation_triggered()
+{
+    QDesktopServices::openUrl(QUrl(kDocumentationUrl, QUrl::TolerantMode));
+}
+
+void MainWindow::on_actionPinout_triggered()
+{
+    QDesktopServices::openUrl(QUrl(kPinoutUrl, QUrl::TolerantMode));
 }

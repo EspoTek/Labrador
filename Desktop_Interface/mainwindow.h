@@ -209,6 +209,10 @@ private slots:
 
     void on_actionOdd_2_triggered();
 
+    void on_actionDocumentation_triggered();
+
+    void on_actionPinout_triggered();
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;

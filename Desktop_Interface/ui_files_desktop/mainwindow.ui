@@ -1592,6 +1592,8 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionDocumentation"/>
+    <addaction name="actionPinout"/>
     <addaction name="actionFirmware_Recovery"/>
     <addaction name="actionShow_Debug_Console"/>
     <addaction name="actionAbout"/>
@@ -2368,6 +2370,16 @@
    </property>
    <property name="text">
     <string>&amp;Odd</string>
+   </property>
+  </action>
+  <action name="actionPinout">
+   <property name="text">
+    <string>Pinout</string>
+   </property>
+  </action>
+  <action name="actionDocumentation">
+   <property name="text">
+    <string>Documentation</string>
    </property>
   </action>
  </widget>
