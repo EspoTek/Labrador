@@ -378,7 +378,7 @@ void isoBuffer::checkTriggered()
 
 double isoBuffer::getDelayedTriggerPoint(double delay)
 {
-    if (m_triggerPositionList.size == 0)
+    if (m_triggerPositionList.size() == 0)
         return 0;
 	
     const uint32_t delaySamples = delay * m_samplesPerSecond;
