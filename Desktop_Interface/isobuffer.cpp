@@ -403,17 +403,28 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
             return (m_bufferLen-1 + m_back - index) / static_cast<double>(m_samplesPerSecond);
     };
 
-    // Fixme: this won't look at the first element in the list.
-    for (auto it = std::prev(m_triggerPositionList.end()); it != m_triggerPositionList.begin(); it--)
-    {
-        if (isValid(*it))
-        {
-            uint32_t index = *it;
-            if (it != m_triggerPositionList.begin())
-                m_triggerPositionList.erase(m_triggerPositionList.begin(), std::prev(it));
-            return getDelay(index);
-        }
-    }
+	// TODO: Move this elsewhere (maybe a utils / algorithms file??)
+	// requires first and last to be Bidirectional iters, and form a valid range
+	// requires p to be a valid unaryPredicate
+	// Full signature would be:
+	// template<typename It, typename Predicate>
+	// It find_last_if(It begin, It end, Predicate p)
+	auto find_last_if = [](auto begin, auto end, auto p)
+	{
+		using It = decltype(first); // TODO: remove this line once this is a proper function
+		std::reverse_iterator<It> rlast(first), rfirst(last);
+		auto found = std::find_if(rfirst, rlast, p);
+		return found == rlast
+		       ? last
+		       : std::prev(found.base());
+	};
+
+	auto it = find_last_if(m_triggerPositionList.begin(), m_triggerPositionList.end(), isValid);
+	if (it != m_triggerPositionList.end())
+	{
+	    m_triggerPositionList.erase(m_triggerPositionList.begin(), it);
+	    return getDelay(m_triggerPositionList[0]);
+	}
 
     return 0;
 }
