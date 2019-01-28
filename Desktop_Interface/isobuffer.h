@@ -85,6 +85,7 @@ public:
 	void serialManage(double baudRate, UartParity parity);
     void setTriggerType(TriggerType newType);
     void setTriggerLevel(double voltageLevel, uint16_t top, bool acCoupled);
+    double getDelayedTriggerPoint(double delay);
 
 // ---- MEMBER VARIABLES ----
 

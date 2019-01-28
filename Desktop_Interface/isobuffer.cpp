@@ -364,10 +364,50 @@ void isoBuffer::checkTriggered()
     {
         // Rising Edge
         m_triggerSeekState = TriggerSeekState::AboveTriggerLevel;
+        if (m_triggerType == TriggerType::Rising)
+            m_triggerPositionList.push_back(m_back - 1);
     }
     else if ((bufferAt(0) < (m_triggerLevel - m_triggerSensitivity)) && (m_triggerSeekState == TriggerSeekState::AboveTriggerLevel))
     {
         // Falling Edge
         m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
+        if (m_triggerType == TriggerType::Falling)
+            m_triggerPositionList.push_back(m_back - 1);
     }
+}
+
+double isoBuffer::getDelayedTriggerPoint(double delay)
+{
+    const uint32_t delaySamples = delay * m_samplesPerSecond;
+
+    auto isValid = [=](uint32_t index)->bool
+    {
+        if (m_back > delaySamples)
+            return (index < ((uint32_t)m_back - delaySamples)) || (index >= (uint32_t)m_back);
+        else
+            // Fixme: There's probably an off by one here.
+            return (index < (m_bufferEnd + m_back - delaySamples)) && (index >= m_back);
+    };
+
+    auto getDelay = [=](uint32_t index)->double
+    {
+        if (m_back > index)
+            return (m_back - index) / static_cast<double>(m_samplesPerSecond);
+        else
+            return (m_bufferEnd + m_back - index) / static_cast<double>(m_samplesPerSecond);
+    };
+
+    // Fixme: this won't look at the first element in the list.
+    for (auto it = std::prev(m_triggerPositionList.end()); it != m_triggerPositionList.begin(); it--)
+    {
+        if (isValid(*it))
+        {
+            uint32_t index = *it;
+            if (it != m_triggerPositionList.begin())
+                m_triggerPositionList.erase(m_triggerPositionList.begin(), std::prev(it));
+            return getDelay(index);
+        }
+    }
+
+    return 0;
 }
