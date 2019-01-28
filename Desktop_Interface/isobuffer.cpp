@@ -199,7 +199,8 @@ void isoBuffer::gainBuffer(int gain_log)
 	qDebug() << "Buffer shifted by" << gain_log;
 	for (uint32_t i = 0; i < m_bufferLen; i++)
 	{
-		if (gain_log < 0){
+		if (gain_log < 0)
+		{
 			m_buffer[i] <<= -gain_log;
 			m_buffer[i+m_bufferLen] <<= -gain_log;
 		}
@@ -403,6 +404,7 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
             return (m_bufferLen-1 + m_back - index) / static_cast<double>(m_samplesPerSecond);
     };
 
+	// Like std::find_if but returns the last element matching the predicate instead of the first one
 	// TODO: Move this elsewhere (maybe a utils / algorithms file??)
 	// requires first and last to be Bidirectional iters, and form a valid range
 	// requires p to be a valid unaryPredicate
@@ -422,6 +424,7 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
 	auto it = find_last_if(m_triggerPositionList.begin(), m_triggerPositionList.end(), isValid);
 	if (it != m_triggerPositionList.end())
 	{
+		// NOTE: vector::erase does not remove the element pointed to by the second iterator.
 	    m_triggerPositionList.erase(m_triggerPositionList.begin(), it);
 	    return getDelay(m_triggerPositionList[0]);
 	}
