@@ -37,6 +37,7 @@ isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned
 {
 }
 
+
 void isoBuffer::insertIntoBuffer(short item)
 {
 	m_buffer[m_back] = item;
@@ -61,56 +62,6 @@ short isoBuffer::bufferAt(uint32_t idx) const
 {
     if(idx > m_insertedCount) qFatal("isoBuffer::bufferAt: invalid query");
 	return m_buffer[(m_back-1) + (m_bufferLen) - idx];
-}
-
-void isoBuffer::outputSampleToFile(double averageSample)
-{
-		char numStr[32];
-		sprintf(numStr,"%7.5f, ", averageSample);
-
-		m_currentFile->write(numStr);
-		m_currentColumn++;
-
-		if (m_currentColumn == COLUMN_BREAK)
-		{
-			m_currentFile->write("\n");
-			m_currentColumn = 0;
-		}
-}
-
-void isoBuffer::maybeOutputSampleToFile(double convertedSample)
-{
-	/*
-	 * This function adds a sample to an accumulator and bumps a sample count.
-	 * After the sample count hits some threshold the samples are averaged
-	 * and the average is written to a file.
-	 * If this makes us hit the max. file size, then fileIO is disabled.
-	 */
-
-	m_fileIO_sampleAccumulator += convertedSample;
-	m_fileIO_sampleCount++;
-
-	if (m_fileIO_sampleCount == m_fileIO_sampleCountPerWrite)
-	{
-		double averageSample = m_fileIO_sampleAccumulator / m_fileIO_sampleCount;
-		outputSampleToFile(averageSample);
-
-		// Reset the accumulator and sample count for next data point.
-		m_fileIO_sampleAccumulator = 0;
-		m_fileIO_sampleCount = 0;
-
-		// value of 0 means "no limit", meaning we must skip the check by returning.
-		if (m_fileIO_maxFileSize == 0)
-			return;
-
-		// 7 chars(number) + 1 char(comma) + 1 char(space) = 9 bytes/sample.
-		m_fileIO_numBytesWritten += 9;
-		if (m_fileIO_numBytesWritten >= m_fileIO_maxFileSize)
-		{
-			m_fileIOEnabled = false; // Just in case signalling fails.
-			fileIOinternalDisable();
-		}
-	}
 }
 
 template<typename T, typename Function>
@@ -212,6 +163,57 @@ void isoBuffer::gainBuffer(int gain_log)
 	}
 }
 
+
+void isoBuffer::outputSampleToFile(double averageSample)
+{
+		char numStr[32];
+		sprintf(numStr,"%7.5f, ", averageSample);
+
+		m_currentFile->write(numStr);
+		m_currentColumn++;
+
+		if (m_currentColumn == COLUMN_BREAK)
+		{
+			m_currentFile->write("\n");
+			m_currentColumn = 0;
+		}
+}
+
+void isoBuffer::maybeOutputSampleToFile(double convertedSample)
+{
+	/*
+	 * This function adds a sample to an accumulator and bumps a sample count.
+	 * After the sample count hits some threshold the samples are averaged
+	 * and the average is written to a file.
+	 * If this makes us hit the max. file size, then fileIO is disabled.
+	 */
+
+	m_fileIO_sampleAccumulator += convertedSample;
+	m_fileIO_sampleCount++;
+
+	if (m_fileIO_sampleCount == m_fileIO_sampleCountPerWrite)
+	{
+		double averageSample = m_fileIO_sampleAccumulator / m_fileIO_sampleCount;
+		outputSampleToFile(averageSample);
+
+		// Reset the accumulator and sample count for next data point.
+		m_fileIO_sampleAccumulator = 0;
+		m_fileIO_sampleCount = 0;
+
+		// value of 0 means "no limit", meaning we must skip the check by returning.
+		if (m_fileIO_maxFileSize == 0)
+			return;
+
+		// 7 chars(number) + 1 char(comma) + 1 char(space) = 9 bytes/sample.
+		m_fileIO_numBytesWritten += 9;
+		if (m_fileIO_numBytesWritten >= m_fileIO_maxFileSize)
+		{
+			m_fileIOEnabled = false; // Just in case signalling fails.
+			fileIOinternalDisable();
+		}
+	}
+}
+
 void isoBuffer::enableFileIO(QFile* file, int samplesToAverage, qulonglong max_file_size)
 {
 
@@ -245,6 +247,7 @@ void isoBuffer::disableFileIO()
 	m_currentFile->close();
 	return;
 }
+
 
 double isoBuffer::sampleConvert(short sample, int TOP, bool AC) const
 {
