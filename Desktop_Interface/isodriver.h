@@ -56,14 +56,6 @@ public:
     bool fileModeEnabled = false;
     double daq_maxWindowSize;
 private:
-    enum class TriggerType : int
-    {
-        rising_ch1  = 0,
-        falling_ch1 = 1,
-        rising_ch2  = 2,
-        falling_ch2 = 3
-    };
-
     //Those bloody bools that just Enable/Disable a single property
     bool paused_CH1 = false, paused_CH2 = false, paused_multimeter = false;
     bool autoGainEnabled = true;
@@ -99,6 +91,7 @@ private:
     void multimeterAction();
     void broadcastStats(bool CH2);
     void frameActionGeneric(char CH1_mode, char CH2_mode);
+    void triggerStateChanged();
     //Variables that are just pointers to other classes/vars
     QCustomPlot *axes;
 	std::unique_ptr<short[]> readData375_CH1;
@@ -110,11 +103,11 @@ private:
     siprint *v0, *v1, *dv, *t0, *t1, *dt, *f;
     //Scope/MM++ related variables
     double currentVmax, currentVmin, currentVRMS;
-    TriggerType triggerMode;
     double multi = 0;
     double xmin = 20, xmax = -20, ymin = 20, ymax = -20;
     double estimated_resistance = 0;
     int multimeterRsource = 0;
+    int triggerMode = 0;
     //Pure MM++ related variables
     enum multimeterType_enum {V = 0, I = 1, R = 2, C = 3};
     multimeterType_enum multimeterType = V;

@@ -23,6 +23,7 @@ namespace
 	#endif
 
 	constexpr auto kTopMultimeter = 2048;
+    constexpr double kTriggerSensitivityMultiplier = 4;
 }
 
 isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned char channel_value)
@@ -41,24 +42,26 @@ void isoBuffer::insertIntoBuffer(short item)
 {
 	m_buffer[m_back] = item;
 	m_buffer[m_back+m_bufferEnd+1] = item;
-	m_back++;
-	m_insertedCount++;
+    m_back++;
+    m_insertedCount++;
 
 	if (m_insertedCount > m_bufferEnd)
 	{
 		m_insertedCount = m_bufferEnd+1;
 	}
 
-	if (m_back > m_bufferEnd)
+    if (m_back > m_bufferEnd)
 	{
 		m_back = 0;
 	}
+
+    checkTriggered();
 }
 
 short isoBuffer::bufferAt(int idx) const
 {
 	// NOTE: this is only correct if idx < m_insertedCount
-	return m_buffer[m_back + (m_bufferEnd+1) - idx];
+    return m_buffer[(m_back-1) + (m_bufferEnd+1) - idx];
 }
 
 void isoBuffer::outputSampleToFile(double averageSample)
@@ -336,3 +339,35 @@ void isoBuffer::serialManage(double baudRate, UartParity parity)
 	m_decoder->serialDecode(baudRate);
 }
 
+void isoBuffer::setTriggerType(TriggerType newType)
+{
+    qDebug() << "Trigger Type: " << (uint8_t)newType;
+    m_triggerType = newType;
+}
+
+void isoBuffer::setTriggerLevel(double voltageLevel, uint16_t top, bool acCoupled)
+{
+    m_triggerLevel = inverseSampleConvert(voltageLevel, top, acCoupled);
+    m_triggerSensitivity = static_cast<short>(1 + abs(voltageLevel * kTriggerSensitivityMultiplier * static_cast<double>(top) / 128.));
+    qDebug() << "Trigger Level: " << m_triggerLevel;
+    qDebug() << "Trigger sensitivity:" << m_triggerSensitivity;
+}
+
+// TODO: Clear trigger
+// FIXME: AC changes will not be reflected here
+void isoBuffer::checkTriggered()
+{
+    if (m_triggerType == TriggerType::Disabled)
+        return;
+
+    if ((bufferAt(0) >= (m_triggerLevel + m_triggerSensitivity)) && (m_triggerSeekState == TriggerSeekState::BelowTriggerLevel))
+    {
+        // Rising Edge
+        m_triggerSeekState = TriggerSeekState::AboveTriggerLevel;
+    }
+    else if ((bufferAt(0) < (m_triggerLevel - m_triggerSensitivity)) && (m_triggerSeekState == TriggerSeekState::AboveTriggerLevel))
+    {
+        // Falling Edge
+        m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
+    }
+}

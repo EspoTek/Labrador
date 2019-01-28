@@ -624,20 +624,27 @@ short isoDriver::reverseFrontEnd(double voltage){
 void isoDriver::setTriggerEnabled(bool enabled)
 {
     triggerEnabled = enabled;
+    triggerStateChanged();
 }
 
 void isoDriver::setTriggerLevel(double level)
 {
+    internalBuffer375_CH1->setTriggerLevel(level, 128, AC_CH1);
+    internalBuffer375_CH2->setTriggerLevel(level, 128, AC_CH2);
+    internalBuffer750->setTriggerLevel(level, 2048, AC_CH1);
+    triggerStateChanged();
 }
 
 void isoDriver::setSingleShotEnabled(bool enabled)
 {
     singleShotEnabled = enabled;
+    triggerStateChanged();
 }
 
 void isoDriver::setTriggerMode(int newMode)
 {
-    triggerMode = (TriggerType)newMode;
+    triggerMode = newMode;
+    triggerStateChanged();
 }
 
 void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
@@ -1403,3 +1410,42 @@ void isoDriver::hideCH2(bool enable)
 {
 	axes->graph(1)->setVisible(!enable);
 }
+
+void isoDriver::triggerStateChanged()
+{
+    qDebug() << "triggerStateChanged()";
+    switch(triggerMode)
+    {
+        case 0:
+        {
+            internalBuffer375_CH1->setTriggerType(TriggerType::Rising);
+            internalBuffer375_CH2->setTriggerType(TriggerType::Disabled);
+            internalBuffer750->setTriggerType(TriggerType::Rising);
+            break;
+        }
+        case 1:
+        {
+            internalBuffer375_CH1->setTriggerType(TriggerType::Falling);
+            internalBuffer375_CH2->setTriggerType(TriggerType::Disabled);
+            internalBuffer750->setTriggerType(TriggerType::Falling);
+            break;
+        }
+        case 2:
+        {
+            internalBuffer375_CH1->setTriggerType(TriggerType::Disabled);
+            internalBuffer375_CH2->setTriggerType(TriggerType::Rising);
+            internalBuffer750->setTriggerType(TriggerType::Disabled);
+            break;
+
+        }
+        case 3:
+        {
+            internalBuffer375_CH1->setTriggerType(TriggerType::Disabled);
+            internalBuffer375_CH2->setTriggerType(TriggerType::Falling);
+            internalBuffer750->setTriggerType(TriggerType::Disabled);
+            break;
+        }
+    }
+
+}
+

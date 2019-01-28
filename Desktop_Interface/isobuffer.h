@@ -21,6 +21,19 @@ class isoDriver;
 class uartStyleDecoder;
 enum class UartParity : uint8_t;
 
+enum class TriggerType : uint8_t
+{
+    Disabled,
+    Rising,
+    Falling
+};
+
+enum class TriggerSeekState : uint8_t
+{
+    BelowTriggerLevel,
+    AboveTriggerLevel
+};
+
 // isoBuffer is a generic class that enables O(1) read times (!!!) on all
 // read/write operations, while maintaining a huge buffer size.
 // Imagine it as a circular buffer, but with access functions specifically
@@ -64,11 +77,14 @@ public:
 private:
 	template<typename Function>
 	int capSample(int offset, int target, double seconds, double value, Function comp);
+    void checkTriggered();
 public:
 	int cap_x0fromLast(double seconds, double vbot);
 	int cap_x1fromLast(double seconds, int x0, double vbot);
 	int cap_x2fromLast(double seconds, int x1, double vtop);
 	void serialManage(double baudRate, UartParity parity);
+    void setTriggerType(TriggerType newType);
+    void setTriggerLevel(double voltageLevel, uint16_t top, bool acCoupled);
 
 // ---- MEMBER VARIABLES ----
 
@@ -91,7 +107,11 @@ public:
 	double m_frontendGain = (R4 / (R3 + R4));
 	int m_samplesPerSecond;
 	int m_sampleRate_bit;
-
+    TriggerType m_triggerType = TriggerType::Disabled;
+    TriggerSeekState m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
+    short m_triggerLevel = 0;
+    short m_triggerSensitivity = 0;
+    std::vector<uint32_t> m_triggerPositionList = {};
 //	UARTS decoding
 	uartStyleDecoder* m_decoder = NULL;
 	bool m_isDecoding = true;
