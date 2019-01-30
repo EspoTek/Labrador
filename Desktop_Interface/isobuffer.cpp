@@ -60,8 +60,9 @@ void isoBuffer::insertIntoBuffer(short item)
 
 short isoBuffer::bufferAt(uint32_t idx) const
 {
-    if(idx > m_insertedCount) qFatal("isoBuffer::bufferAt: invalid query");
-	return m_buffer[(m_back-1) + (m_bufferLen) - idx];
+    if(idx > m_insertedCount)
+		qFatal("isoBuffer::bufferAt: invalid query");
+	return m_buffer[(m_back-1) + m_bufferLen - idx];
 }
 
 template<typename T, typename Function>
