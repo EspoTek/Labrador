@@ -60,3 +60,20 @@ unix:!android:!macx {
     DEFINES += \
         PLATFORM_LINUX \
 }
+
+macx {
+    #libusb include
+    LIBS += -L../../../Desktop_Interface/build_mac/libusb/lib -lusb-1.0  ##I suspect the -L here does nothing!
+    INCLUDEPATH += ../../../Desktop_Interface/build_mac/libusb/include/libusb-1.0
+    DEPENDPATH += ../../../Desktop_Interface/build_mac/libusb/include/libusb-1.0
+
+    #libdfuprog include
+    LIBS += -L../../../Desktop_Interface/build_mac/libdfuprog/lib -ldfuprog-0.9
+    INCLUDEPATH += ../../../Desktop_Interface/build_mac/libdfuprog/include
+    DEPENDPATH += ../../../Desktop_Interface/build_mac/libdfuprog/include
+
+    #linux defines
+    DEFINES += \
+        PLATFORM_MAC \
+}
+
