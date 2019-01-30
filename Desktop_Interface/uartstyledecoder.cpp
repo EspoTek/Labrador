@@ -7,7 +7,7 @@ uartStyleDecoder::uartStyleDecoder(QObject *parent_in) : QObject(parent_in)
     parent = (isoBuffer *) parent_in;
 
 	// Begin decoding SAMPLE_DELAY seconds in the past.
-	serialPtr_bit = (int)(parent->m_back * 8 - SERIAL_DELAY * parent->m_sampleRate_bit + (parent->m_bufferLen-1) * 8) % ((parent->m_bufferLen-1)*8);
+	serialPtr_bit = (int)(parent->m_back * 8 - SERIAL_DELAY * parent->m_sampleRate_bit + parent->m_bufferLen * 8) % (parent->m_bufferLen*8);
 
     updateTimer = new QTimer();
     updateTimer->setTimerType(Qt::PreciseTimer);
@@ -108,8 +108,8 @@ void uartStyleDecoder::updateSerialPtr(double baudRate, unsigned char current_bi
         serialPtr_bit += distance_between_bits;
     } else serialPtr_bit += (distance_between_bits - 1);  //Less than one baud period so that it will always see that start bit.
 
-    if (serialPtr_bit > ((parent->m_bufferLen-1) * 8)){
-        serialPtr_bit -= ((parent->m_bufferLen-1) * 8);
+    if (serialPtr_bit >= (parent->m_bufferLen * 8)){
+        serialPtr_bit -= (parent->m_bufferLen * 8);
     }
 }
 
