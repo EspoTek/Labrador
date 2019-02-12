@@ -51,7 +51,7 @@ public:
 	~isoBuffer() = default;
 
 //	Basic buffer operations
-	short bufferAt(int idx) const;
+	short bufferAt(uint32_t idx) const;
 	void insertIntoBuffer(short item);
 	void clearBuffer();
 	void gainBuffer(int gain_log);
@@ -99,9 +99,9 @@ public:
 
 //	Internal Storage
 	std::unique_ptr<short[]> m_buffer;
-	int m_back = 0;
-	int m_insertedCount = 0;
-	int m_bufferEnd;
+	uint32_t m_back = 0;
+	uint32_t m_insertedCount = 0;
+	uint32_t m_bufferLen;
 
 // Conversion And Sampling
 	double m_voltage_ref = 1.65;
