@@ -685,10 +685,9 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
         //qDebug() << "Now offset = " << offset;
     }
 
-    // Fixme: Won't work with CH2
     double triggerDelay = 0;
     if (triggerEnabled)
-        triggerDelay = internalBuffer375_CH1->getDelayedTriggerPoint(window) - window;
+        triggerDelay = (triggerMode < 2) ? internalBuffer375_CH1->getDelayedTriggerPoint(window) - window : internalBuffer375_CH2->getDelayedTriggerPoint(window) - window;
     if(singleShotEnabled && (triggerDelay != 0))
         singleShotTriggered(1);
 
