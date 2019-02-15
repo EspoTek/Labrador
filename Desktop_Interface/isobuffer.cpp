@@ -29,14 +29,14 @@ constexpr double kTriggerSensitivityMultiplier = 4;
 isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned char channel_value)
     : QWidget(parent)
     , m_channel(channel_value)
-    , m_buffer(std::make_unique<short[]>(bufferLen*2))
+    , m_bufferPtr(std::make_unique<short[]>(bufferLen*2))
     , m_bufferLen(bufferLen)
     , m_samplesPerSecond(bufferLen/21.0/375*VALID_DATA_PER_375)
     , m_sampleRate_bit(bufferLen/21.0/375*VALID_DATA_PER_375*8)
     , m_virtualParent(caller)
 {
+    m_buffer = m_bufferPtr.get();
 }
-
 
 void isoBuffer::insertIntoBuffer(short item)
 {

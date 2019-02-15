@@ -98,7 +98,8 @@ public:
 	bool m_serialAutoScroll = true;
 
 //	Internal Storage
-	std::unique_ptr<short[]> m_buffer;
+    std::unique_ptr<short[]> m_bufferPtr;
+    short* m_buffer;
 	uint32_t m_back = 0;
 	uint32_t m_insertedCount = 0;
 	uint32_t m_bufferLen;
