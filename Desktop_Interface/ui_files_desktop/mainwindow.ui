@@ -266,7 +266,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="attenuationComboBox_CH2">
+                  <widget class="QComboBox" name="attenuationComboBox_CH1">
                    <item>
                     <property name="text">
                      <string>1x</string>
@@ -471,7 +471,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="attenuationComboBox_CH2_2">
+                  <widget class="QComboBox" name="attenuationComboBox_CH2">
                    <item>
                     <property name="text">
                      <string>1x</string>

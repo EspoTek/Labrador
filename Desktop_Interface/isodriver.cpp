@@ -1458,6 +1458,50 @@ void isoDriver::triggerStateChanged()
             break;
         }
     }
-
 }
 
+void isoDriver::offsetChanged_CH1(double newOffset)
+{
+    m_offset_CH1 = newOffset;
+}
+
+void isoDriver::offsetChanged_CH2(double newOffset)
+{
+    m_offset_CH2 = newOffset;
+}
+
+void isoDriver::attenuationChanged_CH1(int attenuationIndex)
+{
+    switch(attenuationIndex)
+    {
+        case 0:
+            m_attenuation_CH1 = 1;
+            break;
+        case 1:
+            m_attenuation_CH1 = 5;
+            break;
+        case 2:
+            m_attenuation_CH1 = 10;
+            break;
+        default:
+            throw std::runtime_error("Unknown attenuation index for CH1");
+    }
+}
+
+void isoDriver::attenuationChanged_CH2(int attenuationIndex)
+{
+    switch(attenuationIndex)
+    {
+        case 0:
+            m_attenuation_CH2 = 1;
+            break;
+        case 1:
+            m_attenuation_CH2 = 5;
+            break;
+        case 2:
+            m_attenuation_CH2 = 10;
+            break;
+        default:
+            throw std::runtime_error("Unknown attenuation index for CH2");
+    }
+}

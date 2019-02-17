@@ -2,6 +2,7 @@
 #include "uartstyledecoder.h"
 #include "daqform.h"
 #include <QDesktopServices>
+#include "espospinbox.h"
 
 namespace
 {
@@ -210,6 +211,11 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         this->setGeometry(64, 64, 1440, 880);
     }
+
+    connect(ui->offsetSpinBox_CH1, SIGNAL(valueChanged(double)), ui->controller_iso, SLOT(offsetChanged_CH1(double)));
+    connect(ui->offsetSpinBox_CH2, SIGNAL(valueChanged(double)), ui->controller_iso, SLOT(offsetChanged_CH2(double)));
+    connect(ui->attenuationComboBox_CH1, SIGNAL(currentIndexChanged(int)), ui->controller_iso, SLOT(attenuationChanged_CH1(int)));
+    connect(ui->attenuationComboBox_CH2, SIGNAL(currentIndexChanged(int)), ui->controller_iso, SLOT(attenuationChanged_CH2(int)));
 }
 
 MainWindow::~MainWindow()

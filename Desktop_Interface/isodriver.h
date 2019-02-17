@@ -221,6 +221,10 @@ public slots:
     void disableFileMode();
 	void hideCH1(bool enable);
 	void hideCH2(bool enable);
+    void offsetChanged_CH1(double newOffset);
+    void offsetChanged_CH2(double newOffset);
+    void attenuationChanged_CH1(int attenuationIndex);
+    void attenuationChanged_CH2(int attenuationIndex);
 };
 
 #endif // ISODRIVER_H
