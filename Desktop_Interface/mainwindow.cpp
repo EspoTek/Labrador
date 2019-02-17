@@ -197,14 +197,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->realTimeButton->setVisible(false);
 
-    if ((QApplication::desktop()->availableGeometry().width() < 1440) || (QApplication::desktop()->availableGeometry().height() < 900))
+    if ((QApplication::desktop()->availableGeometry().width() >= 1920) || (QApplication::desktop()->availableGeometry().height() >= 1080))
+    {
+        this->setGeometry(64, 64, 1920, 1080);
+    }
+    else if ((QApplication::desktop()->availableGeometry().width() < 1440) || (QApplication::desktop()->availableGeometry().height() < 900))
     {
         qDebug() << "Low resolution detected:" << QApplication::desktop()->availableGeometry().width() << "x" << QApplication::desktop()->availableGeometry().height();
         this->setGeometry(64, 64, 800, 600);
     }
     else
     {
-        this->setGeometry(64, 64, 1440, 900);
+        this->setGeometry(64, 64, 1440, 880);
     }
 }
 
@@ -302,7 +306,8 @@ void MainWindow::resizeEvent(QResizeEvent *event){
     //ui->scopeAxes->resize(ui->scopeAxes->height(), ui->scopeAxes->height());
     //qDebug() << ui->scopeAxes->yAxis->autoTickCount() << ui->scopeAxes->xAxis->autoTickCount();
 
-    if(forceSquare){
+    if(forceSquare)
+    {
         int tempHeight = ui->scopeAxes->height();
         int tempWidth = ui->scopeAxes->width();
         int newDims = (tempHeight > tempWidth) ? tempWidth : tempHeight;
@@ -313,6 +318,13 @@ void MainWindow::resizeEvent(QResizeEvent *event){
             ui->scopeAxes->move(ui->scopeAxes->x(), ui->scopeAxes->y() + (tempHeight - tempWidth) / 2);
         }
     }
+
+    // This prevents the multimeter LCD labels from being differently-sized
+    QRect mmGeometry = ui->gridLayout->geometry();
+    int spacing = ui->gridLayout->spacing();
+    int mmHeight = mmGeometry.height();
+    mmGeometry.setHeight(mmHeight - ((mmHeight - (3 * spacing)) % 4));
+    ui->gridLayout->setGeometry(mmGeometry);
 }
 
 void MainWindow::menuSetup(){
