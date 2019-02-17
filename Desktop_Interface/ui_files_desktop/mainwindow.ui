@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1440</width>
-    <height>900</height>
+    <width>1493</width>
+    <height>1346</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -193,32 +193,93 @@
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
-              <widget class="QCheckBox" name="pausedLabeL_CH1">
-               <property name="text">
-                <string>Paused</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="acCoupledLabel_CH1">
-               <property name="text">
-                <string>AC Coupled</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="filterLabel_CH1">
-               <property name="text">
-                <string>Filter</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="doubleSampleLabel">
-               <property name="text">
-                <string>Double Sample Rate</string>
-               </property>
-              </widget>
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_20">
+                 <item>
+                  <widget class="QCheckBox" name="pausedLabeL_CH1">
+                   <property name="text">
+                    <string>Paused</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="acCoupledLabel_CH1">
+                   <property name="text">
+                    <string>AC Coupled</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="filterLabel_CH1">
+                   <property name="text">
+                    <string>Filter</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="doubleSampleLabel">
+                   <property name="text">
+                    <string>Double Sample Rate</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_22">
+                 <item>
+                  <widget class="QLabel" name="label">
+                   <property name="text">
+                    <string>Offset</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="espoSpinBox" name="offsetSpinBox_CH1">
+                   <property name="suffix">
+                    <string>V</string>
+                   </property>
+                   <property name="decimals">
+                    <number>2</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-20.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>20.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_2">
+                   <property name="text">
+                    <string>Attenuation</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="attenuationComboBox_CH2">
+                   <item>
+                    <property name="text">
+                     <string>1x</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>5x</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>10x</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
              </item>
              <item>
               <layout class="QGridLayout" name="gridLayout_2">
@@ -308,49 +369,6 @@
               </layout>
              </item>
             </layout>
-            <zorder>acCoupledLabel_CH1</zorder>
-            <zorder>filterLabel_CH1</zorder>
-            <zorder>pausedLabeL_CH1</zorder>
-            <zorder>doubleSampleLabel</zorder>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="cursorGroup">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="title">
-             <string>Cursor</string>
-            </property>
-            <property name="checkable">
-             <bool>false</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_8">
-             <item>
-              <widget class="QCheckBox" name="cursorHoriCheck">
-               <property name="text">
-                <string>Horizontal</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="cursorVertCheck">
-               <property name="text">
-                <string>Vertical</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="cursorEnabler" name="makeCursorsNicer">
-               <property name="text">
-                <string>CURSOR ENABLER</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
            </widget>
           </item>
          </layout>
@@ -376,32 +394,90 @@
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_11">
              <item>
-              <widget class="QCheckBox" name="pausedLabel_CH2">
-               <property name="text">
-                <string>Paused</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="acCoupledLabel_CH2">
-               <property name="text">
-                <string>AC Coupled</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="filterLabel_CH2">
-               <property name="text">
-                <string>Filter</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="xyDisplayLabel">
-               <property name="text">
-                <string>X-Y Display</string>
-               </property>
-              </widget>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_23">
+                 <item>
+                  <widget class="QCheckBox" name="pausedLabel_CH2">
+                   <property name="text">
+                    <string>Paused</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="acCoupledLabel_CH2">
+                   <property name="text">
+                    <string>AC Coupled</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="filterLabel_CH2">
+                   <property name="text">
+                    <string>Filter</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="xyDisplayLabel">
+                   <property name="text">
+                    <string>X-Y Display</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_24">
+                 <item>
+                  <widget class="QLabel" name="label_3">
+                   <property name="text">
+                    <string>Offset</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="espoSpinBox" name="offsetSpinBox_CH2">
+                   <property name="suffix">
+                    <string>V</string>
+                   </property>
+                   <property name="minimum">
+                    <double>-20.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>20.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
+                    <string>Attenuation</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="attenuationComboBox_CH2_2">
+                   <item>
+                    <property name="text">
+                     <string>1x</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>5x</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>10x</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
              </item>
              <item>
               <layout class="QGridLayout" name="gridLayout_3">
@@ -493,6 +569,53 @@
             </layout>
            </widget>
           </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_25">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <item>
+           <widget class="QGroupBox" name="cursorGroup">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="title">
+             <string>Cursor</string>
+            </property>
+            <property name="checkable">
+             <bool>false</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_8">
+             <item>
+              <widget class="QCheckBox" name="cursorHoriCheck">
+               <property name="text">
+                <string>Horizontal</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="cursorVertCheck">
+               <property name="text">
+                <string>Vertical</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="cursorEnabler" name="makeCursorsNicer">
+               <property name="text">
+                <string>CURSOR ENABLER</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
           <item>
            <widget class="QGroupBox" name="triggerGroup">
             <property name="enabled">
@@ -509,41 +632,67 @@
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_14">
              <item>
-              <widget class="QComboBox" name="triggerChannelSelect">
+              <layout class="QHBoxLayout" name="horizontalLayout_11">
                <item>
-                <property name="text">
-                 <string>CH1 (Rising)</string>
-                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_27">
+                 <item>
+                  <widget class="QLabel" name="label_5">
+                   <property name="text">
+                    <string>Source</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="triggerChannelSelect">
+                   <item>
+                    <property name="text">
+                     <string>CH1 (Rising)</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>CH1 (Falling)</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>CH2 (Rising)</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>CH2 (Falling)</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
                </item>
                <item>
-                <property name="text">
-                 <string>CH1 (Falling)</string>
-                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_26">
+                 <item>
+                  <widget class="QLabel" name="label_6">
+                   <property name="text">
+                    <string>Level</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDoubleSpinBox" name="triggerLevelValue">
+                   <property name="minimum">
+                    <double>-20.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>20.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
-               <item>
-                <property name="text">
-                 <string>CH2 (Rising)</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>CH2 (Falling)</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item>
-              <widget class="QDoubleSpinBox" name="triggerLevelValue">
-               <property name="minimum">
-                <double>-20.000000000000000</double>
-               </property>
-               <property name="maximum">
-                <double>20.000000000000000</double>
-               </property>
-               <property name="singleStep">
-                <double>0.100000000000000</double>
-               </property>
-              </widget>
+              </layout>
              </item>
              <item>
               <widget class="QCheckBox" name="singleShotCheckBox">
@@ -560,19 +709,6 @@
        </layout>
       </item>
       <item>
-       <spacer name="verticalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <widget class="QCheckBox" name="hideCH1Box">
         <property name="text">
          <string>Hide CH1</string>
@@ -585,6 +721,19 @@
          <string>Hide CH2</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
        <widget class="QGroupBox" name="multimeterGroup">
@@ -600,187 +749,193 @@
         <property name="checked">
          <bool>false</bool>
         </property>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="1" column="0">
-          <widget class="QComboBox" name="multimeterModeSelect">
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_28">
            <item>
-            <property name="text">
-             <string>V</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>I</string>
-            </property>
+            <widget class="QCheckBox" name="multimeterPauseCheckBox">
+             <property name="text">
+              <string>Paused</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <property name="text">
-             <string>R</string>
-            </property>
+            <widget class="QLabel" name="multimeterModeLabel">
+             <property name="text">
+              <string>Mode</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <property name="text">
-             <string>C</string>
-            </property>
+            <widget class="QComboBox" name="multimeterModeSelect">
+             <item>
+              <property name="text">
+               <string>V</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>I</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>R</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>C</string>
+              </property>
+             </item>
+            </widget>
            </item>
-          </widget>
-         </item>
-         <item row="0" column="1" rowspan="8">
-          <layout class="QFormLayout" name="formLayout">
-           <property name="horizontalSpacing">
-            <number>0</number>
-           </property>
-           <property name="verticalSpacing">
-            <number>0</number>
-           </property>
-           <item row="0" column="0">
-            <widget class="QLabel" name="multimeterMaxLabel">
+           <item>
+            <widget class="QLabel" name="multimeterResistanceLabel">
              <property name="text">
-              <string> Max</string>
+              <string>Series Resistance</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLCDNumber" name="multimeterMaxDisplay">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>24</height>
-              </size>
+           <item>
+            <widget class="espoSpinBox" name="multimeterResistanceSelect">
+             <property name="suffix">
+              <string>Ω</string>
              </property>
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
+             <property name="decimals">
+              <number>0</number>
              </property>
-             <property name="digitCount">
-              <number>4</number>
+             <property name="maximum">
+              <double>1000000.000000000000000</double>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="multimeterMinLabel">
+           <item>
+            <widget class="QLabel" name="multimeterRLabel">
              <property name="text">
-              <string> Min</string>
+              <string>Source</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLCDNumber" name="multimeterMinDisplay">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
-             </property>
-             <property name="digitCount">
-              <number>4</number>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="multimeterMeanLabel">
-             <property name="text">
-              <string> Mean</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLCDNumber" name="multimeterMeanDisplay">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
-             </property>
-             <property name="digitCount">
-              <number>4</number>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="multimeterRmsLabel">
-             <property name="text">
-              <string> RMS</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLCDNumber" name="multimeterRmsDisplay">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
-             </property>
-             <property name="digitCount">
-              <number>4</number>
-             </property>
+           <item>
+            <widget class="QComboBox" name="multimeterRComboBox">
+             <item>
+              <property name="text">
+               <string>Signal Gen CH2</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Power Supply</string>
+              </property>
+             </item>
             </widget>
            </item>
           </layout>
          </item>
-         <item row="7" column="0">
-          <widget class="QCheckBox" name="multimeterPauseCheckBox">
-           <property name="text">
-            <string>Paused</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="multimeterResistanceLabel">
-           <property name="text">
-            <string>Series Resistance</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="multimeterModeLabel">
-           <property name="text">
-            <string>Mode</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="espoSpinBox" name="multimeterResistanceSelect">
-           <property name="suffix">
-            <string>Ω</string>
-           </property>
-           <property name="decimals">
-            <number>0</number>
-           </property>
-           <property name="maximum">
-            <double>1000000.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QComboBox" name="multimeterRComboBox">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
            <item>
-            <property name="text">
-             <string>Signal Gen CH2</string>
-            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_29">
+             <item>
+              <widget class="QLabel" name="multimeterMaxLabel">
+               <property name="text">
+                <string> Max</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="multimeterMinLabel">
+               <property name="text">
+                <string> Min</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="multimeterMeanLabel">
+               <property name="text">
+                <string> Mean</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="multimeterRmsLabel">
+               <property name="text">
+                <string> RMS</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
-            <property name="text">
-             <string>Power Supply</string>
-            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_30">
+             <item>
+              <widget class="QLCDNumber" name="multimeterMaxDisplay">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLCDNumber" name="multimeterMinDisplay">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLCDNumber" name="multimeterMeanDisplay">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLCDNumber" name="multimeterRmsDisplay">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="digitCount">
+                <number>4</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="multimeterRLabel">
-           <property name="text">
-            <string>Source</string>
-           </property>
-          </widget>
+          </layout>
          </item>
         </layout>
        </widget>
@@ -1019,9 +1174,6 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_7"/>
-      </item>
-      <item>
        <spacer name="verticalSpacer_4">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -1186,7 +1338,7 @@
            <bool>false</bool>
           </property>
           <property name="title">
-           <string>Logic Analyzer CH2</string>
+           <string>Logic Analyzer CH&amp;2</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -1333,7 +1485,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1440</width>
+     <width>1493</width>
      <height>36</height>
     </rect>
    </property>
@@ -2374,12 +2526,12 @@
   </action>
   <action name="actionPinout">
    <property name="text">
-    <string>Pinout</string>
+    <string>&amp;Pinout</string>
    </property>
   </action>
   <action name="actionDocumentation">
    <property name="text">
-    <string>Documentation</string>
+    <string>&amp;Documentation</string>
    </property>
   </action>
  </widget>
@@ -3450,54 +3602,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>controller_iso</sender>
-   <signal>multimeterMax(double)</signal>
-   <receiver>multimeterMaxDisplay</receiver>
-   <slot>display(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1251</x>
-     <y>892</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1179</x>
-     <y>427</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>multimeterMin(double)</signal>
-   <receiver>multimeterMinDisplay</receiver>
-   <slot>display(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1251</x>
-     <y>892</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1179</x>
-     <y>451</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>multimeterMean(double)</signal>
-   <receiver>multimeterMeanDisplay</receiver>
-   <slot>display(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1251</x>
-     <y>892</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1179</x>
-     <y>475</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>multimeterResistanceSelect</sender>
    <signal>valueChanged(double)</signal>
    <receiver>controller_iso</receiver>
@@ -3510,54 +3614,6 @@
     <hint type="destinationlabel">
      <x>1251</x>
      <y>892</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>sendMultimeterLabel1(QString)</signal>
-   <receiver>multimeterMaxLabel</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1251</x>
-     <y>892</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1124</x>
-     <y>427</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>sendMultimeterLabel2(QString)</signal>
-   <receiver>multimeterMinLabel</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1251</x>
-     <y>892</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1124</x>
-     <y>451</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>sendMultimeterLabel3(QString)</signal>
-   <receiver>multimeterMeanLabel</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1251</x>
-     <y>892</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1124</x>
-     <y>475</y>
     </hint>
    </hints>
   </connection>
@@ -4154,38 +4210,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>controller_iso</sender>
-   <signal>multimeterRMS(double)</signal>
-   <receiver>multimeterRmsDisplay</receiver>
-   <slot>display(double)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1189</x>
-     <y>877</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1179</x>
-     <y>499</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>controller_iso</sender>
-   <signal>sendMultimeterLabel4(QString)</signal>
-   <receiver>multimeterRmsLabel</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1117</x>
-     <y>882</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1124</x>
-     <y>499</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>multimeterRComboBox</sender>
    <signal>currentIndexChanged(int)</signal>
    <receiver>controller_iso</receiver>
@@ -4214,6 +4238,134 @@
     <hint type="destinationlabel">
      <x>1034</x>
      <y>388</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterRMS(double)</signal>
+   <receiver>multimeterRmsDisplay</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1189</x>
+     <y>877</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1179</x>
+     <y>499</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendMultimeterLabel1(QString)</signal>
+   <receiver>multimeterMaxLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1251</x>
+     <y>892</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1124</x>
+     <y>427</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendMultimeterLabel3(QString)</signal>
+   <receiver>multimeterMeanLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1251</x>
+     <y>892</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1124</x>
+     <y>475</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterMax(double)</signal>
+   <receiver>multimeterMaxDisplay</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1251</x>
+     <y>892</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1179</x>
+     <y>427</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterMean(double)</signal>
+   <receiver>multimeterMeanDisplay</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1251</x>
+     <y>892</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1179</x>
+     <y>475</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendMultimeterLabel2(QString)</signal>
+   <receiver>multimeterMinLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1251</x>
+     <y>892</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1124</x>
+     <y>451</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>sendMultimeterLabel4(QString)</signal>
+   <receiver>multimeterRmsLabel</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1117</x>
+     <y>882</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1124</x>
+     <y>499</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>controller_iso</sender>
+   <signal>multimeterMin(double)</signal>
+   <receiver>multimeterMinDisplay</receiver>
+   <slot>display(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1251</x>
+     <y>892</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1179</x>
+     <y>451</y>
     </hint>
    </hints>
   </connection>
