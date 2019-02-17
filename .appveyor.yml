@@ -6,10 +6,10 @@ environment:
   access_token:
     secure: DXAumCpZjJ3erz0OmBJybIJTwux9uSrdtqKtezd4wI9b2ELz3NELPwZfp+WfYKtb
   matrix:
-    - QT_PATH : C:\Qt\5.11.2\msvc2015_64\bin
+    - QT_PATH : C:\Qt\5.11\msvc2015_64\bin
       PLATFORM : amd64
       OUTPUT_BIN_DIR : bin64
-    - QT_PATH : C:\Qt\5.11.2\msvc2015\bin
+    - QT_PATH : C:\Qt\5.11\msvc2015\bin
       PLATFORM : x86
       OUTPUT_BIN_DIR : bin32
 
