@@ -108,6 +108,10 @@ private:
     double estimated_resistance = 0;
     int multimeterRsource = 0;
     int triggerMode = 0;
+    double m_offset_CH1 = 0;
+    double m_offset_CH2 = 0;
+    double m_attenuation_CH1 = 1;
+    double m_attenuation_CH2 = 1;
     //Pure MM++ related variables
     enum multimeterType_enum {V = 0, I = 1, R = 2, C = 3};
     multimeterType_enum multimeterType = V;

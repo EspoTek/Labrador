@@ -701,6 +701,11 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 
     if (CH1_mode == 1){
         analogConvert(readData375_CH1.get(), &CH1, 128, AC_CH1, 1);
+        for (int i=0; i < GRAPH_SAMPLES; i++)
+        {
+            CH1[i] /= m_attenuation_CH1;
+            CH1[i] += m_offset_CH1;
+        }
         xmin = (currentVmin < xmin) ? currentVmin : xmin;
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
         broadcastStats(0);
@@ -709,6 +714,11 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 
     if (CH2_mode == 1){
         analogConvert(readData375_CH2.get(), &CH2, 128, AC_CH2, 2);
+        for (int i=0; i < GRAPH_SAMPLES; i++)
+        {
+            CH2[i] /= m_attenuation_CH2;
+            CH2[i] += m_offset_CH2;
+        }
         ymin = (currentVmin < ymin) ? currentVmin : ymin;
         ymax = (currentVmax > ymax) ? currentVmax : ymax;
         broadcastStats(1);

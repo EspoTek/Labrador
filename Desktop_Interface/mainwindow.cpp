@@ -202,6 +202,10 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug() << "Low resolution detected:" << QApplication::desktop()->availableGeometry().width() << "x" << QApplication::desktop()->availableGeometry().height();
         this->setGeometry(64, 64, 800, 600);
     }
+    else
+    {
+        this->setGeometry(64, 64, 1440, 900);
+    }
 }
 
 MainWindow::~MainWindow()
