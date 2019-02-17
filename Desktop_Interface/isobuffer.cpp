@@ -298,7 +298,8 @@ int isoBuffer::capSample(int offset, int target, double seconds, double value, F
 {
     int samples = seconds * m_samplesPerSecond;
 
-    if (int32_t(m_back) < samples + offset) return -1;
+    if (static_cast<int32_t>(m_back) < (samples + offset))
+        return -1;
 
     short sample = inverseSampleConvert(value, 2048, 0);
 
