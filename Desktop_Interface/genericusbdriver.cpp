@@ -91,22 +91,22 @@ void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenContr
 
     //Reading in data
     if (channel == 0){
-        length = fGenControl->length_CH1;
-        freq = fGenControl->freq_CH1;
-        amplitude = fGenControl->amplitude_CH1;
-        offset = fGenControl->offset_CH1;
+        length = fGenControl->CH1.length;
+        freq = fGenControl->CH1.freq;
+        amplitude = fGenControl->CH1.amplitude;
+        offset = fGenControl->CH1.offset;
         samples = (unsigned char *) malloc(length);
-        memcpy(samples, fGenControl->samples_CH1, (unsigned int) length);
-        numDivides = fGenControl->divisibility_CH1;
+        memcpy(samples, fGenControl->CH1.samples, (unsigned int) length);
+        numDivides = fGenControl->CH1.divisibility;
     }
     else if(channel == 1){
-        length = fGenControl->length_CH2;
-        freq = fGenControl->freq_CH2;
-        amplitude = fGenControl->amplitude_CH2;
-        offset = fGenControl->offset_CH2;
+        length = fGenControl->CH2.length;
+        freq = fGenControl->CH2.freq;
+        amplitude = fGenControl->CH2.amplitude;
+        offset = fGenControl->CH2.offset;
         samples = (unsigned char *) malloc(length);
-        memcpy(samples, fGenControl->samples_CH2, (unsigned int) length);
-        numDivides = fGenControl->divisibility_CH2;
+        memcpy(samples, fGenControl->CH2.samples, (unsigned int) length);
+        numDivides = fGenControl->CH2.divisibility;
     }
 
     //Triple mode

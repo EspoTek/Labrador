@@ -5,8 +5,8 @@
 functionGenControl::functionGenControl(QWidget *parent) : QLabel(parent)
 {
     this->hide();
-    samples_CH1 = (unsigned char *) malloc(0);
-    samples_CH2 = (unsigned char *) malloc(0);
+    CH1.samples = (unsigned char *) malloc(0);
+    CH2.samples = (unsigned char *) malloc(0);
 
 }
 
@@ -31,29 +31,29 @@ void functionGenControl::waveformName_CH1(QString newName)
 
     line = fptr.readLine();
     strcpy(lengthString, line.data());
-    sscanf(lengthString, "%d", &length_CH1);
+    sscanf(lengthString, "%d", &CH1.length);
     qDebug() << "lengthString" << lengthString;
 
     line = fptr.readLine();
     strcpy(divisibilityString, line.data());
-    sscanf(divisibilityString, "%d", &divisibility_CH1);
+    sscanf(divisibilityString, "%d", &CH1.divisibility);
     qDebug() << "divisibilityString" << divisibilityString;
 
-    qDebug() << "Length = " << length_CH1;
-    qDebug() << "Divisibility = " << divisibility_CH1;
+    qDebug() << "Length = " << CH1.length;
+    qDebug() << "Divisibility = " << CH1.divisibility;
 
     QByteArray remainingData = fptr.readAll();
     char *dataString = remainingData.data();
 
-    free(samples_CH1);
-    samples_CH1 = (unsigned char *) malloc(length_CH1);
+    free(CH1.samples);
+    CH1.samples = (unsigned char *) malloc(CH1.length);
 
     int dummy;
     char *dataStringCurrent = dataString;
-    for (int i=0;i<length_CH1;i++){
+    for (int i=0;i<CH1.length;i++){
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        samples_CH1[i] = (unsigned char) dummy;
+        CH1.samples[i] = (unsigned char) dummy;
     }
 
 #else
@@ -73,54 +73,55 @@ void functionGenControl::waveformName_CH1(QString newName)
     char lengthString[6];
     fgets(lengthString, 5, fptr);
     qDebug() << lengthString;
-    sscanf(lengthString, "%d", &length_CH1);
+    sscanf(lengthString, "%d", &CH1.length);
 
     char divisibilityString[6];
     //Bit of bullshit to deal with CRLF line endings on Mac.
     do fgets(divisibilityString, 5, fptr);
     while ((divisibilityString[0] == '\r') || (divisibilityString[0] == '\n'));
-    sscanf(divisibilityString, "%d", &divisibility_CH1);
+    sscanf(divisibilityString, "%d", &CH1.divisibility);
 
-    qDebug() << "Length = " << length_CH1;
-    qDebug() << "Divisibility = " << divisibility_CH1;
+    qDebug() << "Length = " << CH1.length;
+    qDebug() << "Divisibility = " << CH1.divisibility;
 
-    free(samples_CH1);
-    samples_CH1 = (unsigned char *) malloc(length_CH1);
+    free(CH1.samples);
+    CH1.samples = (unsigned char *) malloc(CH1.length);
 
-    char *dataString = (char *) malloc(length_CH1*5+1);
-    fgets(dataString, length_CH1*5+1, fptr);
+    char *dataString = (char *) malloc(CH1.length*5+1);
+    fgets(dataString, CH1.length*5+1, fptr);
 
     int dummy;
     char *dataStringCurrent = dataString;
-    for (int i=0;i<length_CH1;i++){
+    for (int i=0;i<CH1.length;i++){
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        samples_CH1[i] = (unsigned char) dummy;
+        CH1.samples[i] = (unsigned char) dummy;
     }
 
     free(dataString);
     fclose(fptr);
 #endif
-    setMaxFreq_CH1(DAC_SPS/(length_CH1>>(divisibility_CH1-1)));
-    setMinFreq_CH1((double) CLOCK_FREQ/1024/65535/length_CH1);
+
+    setMaxFreq_CH1(DAC_SPS/(CH1.length>>(CH1.divisibility-1)));
+    setMinFreq_CH1((double) CLOCK_FREQ/1024/65535/CH1.length);
     functionGenToUpdate(0, this);
 }
 
 void functionGenControl::freqUpdate_CH1(double newFreq){
     qDebug() << "newFreq = " << newFreq;
-    freq_CH1 = newFreq;
+	CH1.freq = newFreq;
     functionGenToUpdate(0, this);
 }
 
 void functionGenControl::amplitudeUpdate_CH1(double newAmplitude){
     qDebug() << "newAmplitude = " << newAmplitude;
-    amplitude_CH1 = newAmplitude;
+	CH1.amplitude = newAmplitude;
     functionGenToUpdate(0, this);
 }
 
 void functionGenControl::offsetUpdate_CH1(double newOffset){
     qDebug() << "newOffset = " << newOffset;
-    offset_CH1 = newOffset;
+	CH1.offset = newOffset;
     functionGenToUpdate(0, this);
 }
 
@@ -142,29 +143,29 @@ void functionGenControl::waveformName_CH2(QString newName)
 
     line = fptr.readLine();
     strcpy(lengthString, line.data());
-    sscanf(lengthString, "%d", &length_CH2);
+    sscanf(lengthString, "%d", &CH2.length);
     qDebug() << "lengthString" << lengthString;
 
     line = fptr.readLine();
     strcpy(divisibilityString, line.data());
-    sscanf(divisibilityString, "%d", &divisibility_CH2);
+    sscanf(divisibilityString, "%d", &CH2.divisibility);
     qDebug() << "divisibilityString" << divisibilityString;
 
-    qDebug() << "Length = " << length_CH2;
-    qDebug() << "Divisibility = " << divisibility_CH2;
+    qDebug() << "Length = " << CH2.length;
+    qDebug() << "Divisibility = " << CH2.divisibility;
 
     QByteArray remainingData = fptr.readAll();
     char *dataString = remainingData.data();
 
-    free(samples_CH2);
-    samples_CH2 = (unsigned char *) malloc(length_CH2);
+    free(CH2.samples);
+    CH2.samples = (unsigned char *) malloc(CH2.length);
 
     int dummy;
     char *dataStringCurrent = dataString;
-    for (int i=0;i<length_CH2;i++){
+    for (int i=0;i<CH2.length;i++){
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        samples_CH2[i] = (unsigned char) dummy;
+        CH2.samples[i] = (unsigned char) dummy;
     }
 #else
     QString directory = QCoreApplication::applicationDirPath();
@@ -182,53 +183,55 @@ void functionGenControl::waveformName_CH2(QString newName)
 
     char lengthString[5];
     fgets(lengthString, 5, fptr);
-    sscanf(lengthString, "%d", &length_CH2);
+    sscanf(lengthString, "%d", &CH2.length);
 
     char divisibilityString[5];
     //Bit of bullshit to deal with CRLF line endings on Mac.
     do fgets(divisibilityString, 5, fptr);
     while ((divisibilityString[0] == '\r') || (divisibilityString[0] == '\n'));
-    sscanf(divisibilityString, "%d", &divisibility_CH2);
+    sscanf(divisibilityString, "%d", &CH2.divisibility);
 
-    qDebug() << "Length = " << length_CH2;
-    qDebug() << "Divisibility = " << divisibility_CH2;
+    qDebug() << "Length = " << CH2.length;
+    qDebug() << "Divisibility = " << CH2.divisibility;
 
-    free(samples_CH2);
-    samples_CH2 = (unsigned char *) malloc(length_CH2);
+    free(CH2.samples);
+    CH2.samples = (unsigned char *) malloc(CH2.length);
 
-    char *dataString = (char *) malloc(length_CH2*5+1);
-    fgets(dataString, length_CH2*5+1, fptr);
+    char *dataString = (char *) malloc(CH2.length*5+1);
+    fgets(dataString, CH2.length*5+1, fptr);
 
     int dummy;
     char *dataStringCurrent = dataString;
-    for (int i=0;i<length_CH2;i++){
+    for (int i=0;i<CH2.length;i++){
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        samples_CH2[i] = (unsigned char) dummy;
+        CH2.samples[i] = (unsigned char) dummy;
     }
 
     free(dataString);
     fclose(fptr);
 #endif
-    setMaxFreq_CH2(DAC_SPS/(length_CH2>>(divisibility_CH2-1)));
-    setMinFreq_CH2((double) CLOCK_FREQ/1024/65535/length_CH2);
+
+    setMaxFreq_CH2(DAC_SPS/(CH2.length>>(CH2.divisibility-1)));
+    setMinFreq_CH2((double) CLOCK_FREQ/1024/65535/CH2.length);
     functionGenToUpdate(1, this);
 }
 
 void functionGenControl::freqUpdate_CH2(double newFreq){
     qDebug() << "newFreq2 = " << newFreq;
-    freq_CH2 = newFreq;
+	CH2.freq = newFreq;
     functionGenToUpdate(1, this);
 }
 
 void functionGenControl::amplitudeUpdate_CH2(double newAmplitude){
     qDebug() << "newAmplitude2 = " << newAmplitude;
-    amplitude_CH2 = newAmplitude;
+	CH2.amplitude = newAmplitude;
     functionGenToUpdate(1, this);
 }
 
 void functionGenControl::offsetUpdate_CH2(double newOffset){
     qDebug() << "newOffset2 = " << newOffset;
-    offset_CH2 = newOffset;
+	CH2.offset = newOffset;
     functionGenToUpdate(1, this);
 }
+
