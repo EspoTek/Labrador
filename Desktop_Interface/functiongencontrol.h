@@ -19,7 +19,7 @@ public:
 	{
 		unsigned char* samples;
 		int length;
-		int divisiblity;
+		int divisibility;
 		double freq = 1000.0;
 		double amplitude = 0.0;
 		double offset = 0.0;
