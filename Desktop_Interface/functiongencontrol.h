@@ -15,6 +15,16 @@ class functionGenControl : public QLabel
 {
     Q_OBJECT
 public:
+	struct ChannelData
+	{
+		unsigned char* samples;
+		int length;
+		int divisiblity;
+		double freq = 1000.0;
+		double amplitude = 0.0;
+		double offset = 0.0;
+	};
+public:
     explicit functionGenControl(QWidget *parent = 0);
     unsigned char *samples_CH1, *samples_CH2;
     int length_CH1, divisibility_CH1, length_CH2, divisibility_CH2;
