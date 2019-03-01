@@ -15,6 +15,7 @@ class functionGenControl : public QLabel
 {
     Q_OBJECT
 public:
+
 	struct ChannelData
 	{
 		unsigned char* samples = NULL;
@@ -24,10 +25,16 @@ public:
 		double amplitude = 0.0;
 		double offset = 0.0;
 	};
+
     explicit functionGenControl(QWidget *parent = 0);
 
 	ChannelData CH1;
 	ChannelData CH2;
+
+private:
+
+template<int LengthStringSize, typename Lambda>
+void waveformName(QString newName, ChannelData& channel, int channelID, Lambda encode);
 
 signals:
     void functionGenToUpdate(int channel, functionGenControl *fGenControl);
