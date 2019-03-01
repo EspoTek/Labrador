@@ -26,9 +26,22 @@ public:
 	};
 public:
     explicit functionGenControl(QWidget *parent = 0);
-    unsigned char *samples_CH1, *samples_CH2;
-    int length_CH1, divisibility_CH1, length_CH2, divisibility_CH2;
-    double freq_CH1 = 1000, amplitude_CH1 = 0, offset_CH1 = 0, freq_CH2 = 1000, amplitude_CH2 = 0, offset_CH2 = 0;
+
+	ChannelData CH1;
+	ChannelData CH2;
+
+	__attribute__ ((deprecated)) unsigned char *samples_CH1;
+	__attribute__ ((deprecated)) unsigned char *samples_CH2;
+	__attribute__ ((deprecated)) int length_CH1;
+	__attribute__ ((deprecated)) int divisibility_CH1;
+	__attribute__ ((deprecated)) int length_CH2;
+	__attribute__ ((deprecated)) int divisibility_CH2;
+	__attribute__ ((deprecated)) double freq_CH1 = 1000;
+	__attribute__ ((deprecated)) double amplitude_CH1 = 0;
+	__attribute__ ((deprecated)) double offset_CH1 = 0;
+	__attribute__ ((deprecated)) double freq_CH2 = 1000;
+	__attribute__ ((deprecated)) double amplitude_CH2 = 0;
+	__attribute__ ((deprecated)) double offset_CH2 = 0;
 signals:
     void functionGenToUpdate(int channel, functionGenControl *fGenControl);
     void setMaxFreq_CH1(double maxFreq);
