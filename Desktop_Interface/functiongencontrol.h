@@ -17,7 +17,7 @@ class functionGenControl : public QLabel
 public:
 	struct ChannelData
 	{
-		unsigned char* samples;
+		unsigned char* samples = NULL;
 		int length;
 		int divisibility;
 		double freq = 1000.0;

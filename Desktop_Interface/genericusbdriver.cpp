@@ -148,7 +148,6 @@ void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenContr
         channelData.samples[i] = (unsigned char) tempDouble;
     }
 
-
     //Need to increase size of wave if its freq too high, or too low!
     maxDivides = channelData.divisibility;
     bool loop_entered = false;

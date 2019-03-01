@@ -5,9 +5,6 @@
 functionGenControl::functionGenControl(QWidget *parent) : QLabel(parent)
 {
     this->hide();
-    CH1.samples = (unsigned char *) malloc(0);
-    CH2.samples = (unsigned char *) malloc(0);
-
 }
 
 void functionGenControl::waveformName_CH1(QString newName)
