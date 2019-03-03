@@ -36,8 +36,7 @@ public:
 
 private:
 
-template<int LengthStringSize, typename Lambda>
-void waveformName(QString newName, ChannelData& channel, int channelID, Lambda encode);
+void waveformName(QString newName, ChannelData& channel, int channelID);
 
 signals:
     void functionGenToUpdate(int channel, functionGenControl *fGenControl);

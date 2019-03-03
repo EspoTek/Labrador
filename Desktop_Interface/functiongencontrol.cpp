@@ -9,7 +9,7 @@ functionGenControl::functionGenControl(QWidget *parent) : QLabel(parent)
 
 void functionGenControl::waveformName_CH1(QString newName)
 {
-	waveformName<6>(newName, CH1, 0, [](QString const& str){return str.toLocal8Bit(); });
+	waveformName(newName, CH1, 0);
 }
 
 void functionGenControl::freqUpdate_CH1(double newFreq){
@@ -32,7 +32,7 @@ void functionGenControl::offsetUpdate_CH1(double newOffset){
 
 void functionGenControl::waveformName_CH2(QString newName)
 {
-	waveformName<5>(newName, CH2, 1, [](QString const& str){ return str.toLatin1(); });
+	waveformName(newName, CH2, 1);
 }
 
 void functionGenControl::freqUpdate_CH2(double newFreq){
@@ -53,8 +53,7 @@ void functionGenControl::offsetUpdate_CH2(double newOffset){
     functionGenToUpdate(1, this);
 }
 
-template<int LengthStringSize, typename Lambda>
-void functionGenControl::waveformName(QString newName, ChannelData& channel, int channelID, Lambda encode)
+void functionGenControl::waveformName(QString newName, ChannelData& channel, int channelID)
 {
     qDebug() << "newName = " << newName;
     newName.append(".tlw");
@@ -101,7 +100,7 @@ void functionGenControl::waveformName(QString newName, ChannelData& channel, int
 
     directory.append("/waveforms/");
     directory.append(newName);
-    QByteArray temp = encode(directory);
+    QByteArray temp = directory.toUtf8();
     char *fileName = temp.data();
 
     qDebug() << "opening" << fileName;
@@ -110,11 +109,11 @@ void functionGenControl::waveformName(QString newName, ChannelData& channel, int
             qFatal("%s could not be opened!", fileName);
         }
 
-    char lengthString[LengthStringSize];
+    char lengthString[16];
     fgets(lengthString, 5, fptr);
     sscanf(lengthString, "%d", &channel.length);
 
-    char divisibilityString[LengthStringSize];
+    char divisibilityString[16];
     //Bit of bullshit to deal with CRLF line endings on Mac.
     do fgets(divisibilityString, 5, fptr);
     while ((divisibilityString[0] == '\r') || (divisibilityString[0] == '\n'));
