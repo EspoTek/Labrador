@@ -154,6 +154,7 @@ void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenContr
 				channelData.samples[i] = channelData.samples[i << shift];
 
 			channelData.samples.resize(channelData.length);
+			channelData.samples.shrink_to_fit();
 
 			if (channelData.divisibility <= 0)
 				qDebug("genericUsbDriver::setFunctionGen: channel divisibility <= 0 after T-stretching");
