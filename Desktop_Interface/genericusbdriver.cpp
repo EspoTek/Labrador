@@ -75,7 +75,8 @@ void genericUsbDriver::setPsu(double voltage){
     qDebug() << "Going to send value " << dutyPsu;
 }
 
-void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenControl){
+void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenControl)
+{
         ////////////////////////////
        ////NO RESIZING (YET)!!!////
       ////////////////////////////
@@ -96,26 +97,23 @@ void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenContr
 		: fGenControl->CH2;
 
     //Triple mode
-    if ((channelData.amplitude+channelData.offset) > FGEN_LIMIT){
-        channelData.amplitude = channelData.amplitude / 3;
-        channelData.offset = channelData.offset / 3;
-        fGenTriple |= ((unsigned char) !channel + 1);
+    if ((channelData.amplitude + channelData.offset) > FGEN_LIMIT)
+	{
+        channelData.amplitude /= 3.0;
+        channelData.offset /= 3.0;
+        fGenTriple |= uint8_t(!channel + 1);
     }
-    else fGenTriple &= ((unsigned char) (254 - !channel));
-
-    // qDebug() << "fGenTriple = " << fGenTriple
-	//          << "fGenControl = " << fGenControl
-	//          << "length = " << channelData.length
-	//          << "freq = " << channelData.freq
-	//          << "amplitude = " << channelData.amplitude
-	//          << "offset = " << channelData.offset
-	//          << "samples = " << channelData.samples;
+    else
+	{
+		fGenTriple &= uint8_t(254 - !channel);
+	}
 
     //Waveform scaling in V
     channelData.amplitude = (channelData.amplitude * 255) / FGEN_LIMIT;
     channelData.offset = (channelData.offset * 255) / FGEN_LIMIT;
-    if (channelData.offset<FGEN_OFFSET){
-        if (channelData.amplitude>5)
+    if (channelData.offset < FGEN_OFFSET)
+	{
+        if (channelData.amplitude > 5)
             channelData.amplitude -= FGEN_OFFSET;
         else
             channelData.amplitude = 0;
@@ -162,10 +160,7 @@ void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenContr
 		}
 	}
 
-    //Scaling in t here:
-    // Something something maxLength something
-
-    //Timer Setup
+    // Timer Setup
     int validClockDivs[7] = {1, 2, 4, 8, 64, 256, 1024};
 	auto period = [=](int division) -> int
 	{
