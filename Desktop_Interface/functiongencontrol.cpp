@@ -96,18 +96,15 @@ void functionGenControl::waveformName(QString newName, ChannelData& channel, int
     }
 
 #else
-    QString directory = QCoreApplication::applicationDirPath();
 
-    directory.append("/waveforms/");
-    directory.append(newName);
-    QByteArray temp = directory.toUtf8();
-    char *fileName = temp.data();
+    QByteArray filePath = QCoreApplication::applicationDirPath()
+		.append("/waveforms/").append(newName).toUtf8();
 
-    qDebug() << "opening" << fileName;
-    FILE *fptr = fopen(fileName, "r");
-        if (fptr==NULL){
-            qFatal("%s could not be opened!", fileName);
-        }
+    qDebug() << "opening" << filePath;
+
+    FILE *fptr = fopen(filePath.constData(), "r");
+    if (fptr == NULL)
+        qFatal("%s could not be opened!", filePath.constData());
 
     char lengthString[16];
     fgets(lengthString, 5, fptr);
@@ -115,8 +112,12 @@ void functionGenControl::waveformName(QString newName, ChannelData& channel, int
 
     char divisibilityString[16];
     //Bit of bullshit to deal with CRLF line endings on Mac.
-    do fgets(divisibilityString, 5, fptr);
-    while ((divisibilityString[0] == '\r') || (divisibilityString[0] == '\n'));
+    do
+	{
+		fgets(divisibilityString, 5, fptr);
+	}
+	while ((divisibilityString[0] == '\r') || (divisibilityString[0] == '\n'));
+
     sscanf(divisibilityString, "%d", &channel.divisibility);
 
     qDebug() << "Length = " << channel.length;
@@ -143,5 +144,4 @@ void functionGenControl::waveformName(QString newName, ChannelData& channel, int
     setMinFreq_CH1((double) CLOCK_FREQ/1024/65535/channel.length);
     functionGenToUpdate(channelID, this);
 }
-
 
