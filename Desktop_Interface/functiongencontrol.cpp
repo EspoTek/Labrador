@@ -86,15 +86,14 @@ void functionGenControl::waveformName(QString newName, ChannelData& channel, int
     QByteArray remainingData = fptr.readAll();
     char *dataString = remainingData.data();
 
-    free(channel.samples);
-    channel.samples = (unsigned char *) malloc(channel.length);
+	channel.samples.resize(channel.length);
 
     int dummy;
     char *dataStringCurrent = dataString;
     for (int i=0;i<channel.length;i++){
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        channel.samples[i] = (unsigned char) dummy;
+        channel.samples[i] = uint8_t(dummy);
     }
 
 #else
@@ -124,8 +123,7 @@ void functionGenControl::waveformName(QString newName, ChannelData& channel, int
     qDebug() << "Length = " << channel.length;
     qDebug() << "Divisibility = " << channel.divisibility;
 
-    free(channel.samples);
-    channel.samples = (unsigned char *) malloc(channel.length);
+	channel.samples.resize(channel.length);
 
     char *dataString = (char *) malloc(channel.length*5+1);
     fgets(dataString, channel.length*5+1, fptr);
@@ -135,7 +133,7 @@ void functionGenControl::waveformName(QString newName, ChannelData& channel, int
     for (int i=0;i<channel.length;i++){
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        channel.samples[i] = (unsigned char) dummy;
+        channel.samples[i] = uint8_t(dummy);
     }
 
     free(dataString);

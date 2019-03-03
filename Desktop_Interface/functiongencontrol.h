@@ -1,6 +1,8 @@
 #ifndef FUNCTIONGENCONTROL_H
 #define FUNCTIONGENCONTROL_H
 
+#include <vector>
+
 #include <QWidget>
 #include <QLabel>
 #include <QDebug>
@@ -18,7 +20,8 @@ public:
 
 	struct ChannelData
 	{
-		unsigned char* samples = NULL;
+		std::vector<uint8_t> samples;
+		// TODO: get rid of length member. samples:std::vector already has this information
 		int length;
 		int divisibility;
 		double freq = 1000.0;
