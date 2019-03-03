@@ -179,7 +179,7 @@ void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenContr
         qDebug("DEVICE IS IN MODE 5");
 
     if (channel)
-		sbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.length, channelData.samples.data());
+		usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.length, channelData.samples.data());
     else
 		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.length, channelData.samples.data());
 
