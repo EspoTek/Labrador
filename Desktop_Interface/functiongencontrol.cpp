@@ -111,11 +111,11 @@ void functionGenControl::waveformName(QString newName, ChannelData& channel, int
             qFatal("%s could not be opened!", fileName);
         }
 
-    char lengthString[LengthStringSize]; // LENGTH 6
+    char lengthString[LengthStringSize];
     fgets(lengthString, 5, fptr);
     sscanf(lengthString, "%d", &channel.length);
 
-    char divisibilityString[LengthStringSize]; // LENGTH 6
+    char divisibilityString[LengthStringSize];
     //Bit of bullshit to deal with CRLF line endings on Mac.
     do fgets(divisibilityString, 5, fptr);
     while ((divisibilityString[0] == '\r') || (divisibilityString[0] == '\n'));
@@ -144,7 +144,7 @@ void functionGenControl::waveformName(QString newName, ChannelData& channel, int
 
     setMaxFreq_CH1(DAC_SPS/(channel.length>>(channel.divisibility-1)));
     setMinFreq_CH1((double) CLOCK_FREQ/1024/65535/channel.length);
-    functionGenToUpdate(channelID, this); // 1ST ARG = 0
+    functionGenToUpdate(channelID, this);
 }
 
 
