@@ -75,7 +75,7 @@ void genericUsbDriver::setPsu(double voltage){
     qDebug() << "Going to send value " << dutyPsu;
 }
 
-void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenControl)
+void genericUsbDriver::setFunctionGen(int channelID, functionGenControl *fGenControl)
 {
         ////////////////////////////
        ////NO RESIZING (YET)!!!////
@@ -86,26 +86,24 @@ void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenContr
       //////////////////////////////////////
 
     //For recalling on crash.
-    if (channel == 0)
+    if (channelID == 0)
 		fGenPtr_CH1 = fGenControl;
     else
 		fGenPtr_CH2 = fGenControl;
 
     //Reading in data
-	functionGenControl::ChannelData channelData = channel == 0
-		? fGenControl->CH1
-		: fGenControl->CH2;
+	functionGenControl::ChannelData channelData = fGenControl->channels[channelID];
 
     //Triple mode
     if ((channelData.amplitude + channelData.offset) > FGEN_LIMIT)
 	{
         channelData.amplitude /= 3.0;
         channelData.offset /= 3.0;
-        fGenTriple |= uint8_t(!channel + 1);
+        fGenTriple |= uint8_t(!channelID + 1);
     }
     else
 	{
-		fGenTriple &= uint8_t(254 - !channel);
+		fGenTriple &= uint8_t(254 - !channelID);
 	}
 
     //Waveform scaling in V
@@ -179,7 +177,9 @@ void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenContr
     if(deviceMode == 5)
         qDebug("DEVICE IS IN MODE 5");
 
-    if (channel)
+	
+
+    if (channelID)
 		usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.length, channelData.samples.data());
     else
 		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.length, channelData.samples.data());

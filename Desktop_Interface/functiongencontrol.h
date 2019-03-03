@@ -31,12 +31,15 @@ public:
 
     explicit functionGenControl(QWidget *parent = 0);
 
-	ChannelData CH1;
-	ChannelData CH2;
+	ChannelData channels[2];
 
 private:
 
-void waveformName(QString newName, ChannelData& channel, int channelID);
+	// NOTE: An enum instead of a plain int would probably be better here
+    void waveformName(QString newName, int channelID);
+    void freqUpdate(double newFreq, int channelID);
+    void amplitudeUpdate(double newAmplitude, int channelID);
+    void offsetUpdate(double newOffset, int channelID);
 
 signals:
     void functionGenToUpdate(int channel, functionGenControl *fGenControl);
