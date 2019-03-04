@@ -1,5 +1,8 @@
 #include "genericusbdriver.h"
 
+#include <vector>
+#include <algorithm>
+
 #ifndef LIBRADOR_LIBRARY
     #include "platformspecific.h"
 #endif
@@ -72,7 +75,8 @@ void genericUsbDriver::setPsu(double voltage){
     qDebug() << "Going to send value " << dutyPsu;
 }
 
-void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenControl){
+void genericUsbDriver::setFunctionGen(int channelID, functionGenControl *fGenControl)
+{
         ////////////////////////////
        ////NO RESIZING (YET)!!!////
       ////////////////////////////
@@ -81,54 +85,37 @@ void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenContr
        //// CH1 is AUX!!  CH2 is "MAIN"!!////
       //////////////////////////////////////
 
-    int length, maxLength, numDivides, maxDivides;
-    double freq, amplitude, offset;
-    unsigned char *samples;
-
     //For recalling on crash.
-    if (channel == 0) fGenPtr_CH1 = fGenControl;
-    else fGenPtr_CH2 = fGenControl;
+    if (channelID == 0)
+		fGenPtr_CH1 = fGenControl;
+    else
+		fGenPtr_CH2 = fGenControl;
 
     //Reading in data
-    if (channel == 0){
-        length = fGenControl->length_CH1;
-        freq = fGenControl->freq_CH1;
-        amplitude = fGenControl->amplitude_CH1;
-        offset = fGenControl->offset_CH1;
-        samples = (unsigned char *) malloc(length);
-        memcpy(samples, fGenControl->samples_CH1, (unsigned int) length);
-        numDivides = fGenControl->divisibility_CH1;
-    }
-    else if(channel == 1){
-        length = fGenControl->length_CH2;
-        freq = fGenControl->freq_CH2;
-        amplitude = fGenControl->amplitude_CH2;
-        offset = fGenControl->offset_CH2;
-        samples = (unsigned char *) malloc(length);
-        memcpy(samples, fGenControl->samples_CH2, (unsigned int) length);
-        numDivides = fGenControl->divisibility_CH2;
-    }
+	functionGenControl::ChannelData channelData = fGenControl->channels[channelID];
 
     //Triple mode
-    if ((amplitude+offset) > FGEN_LIMIT){
-        amplitude = amplitude / 3;
-        offset = offset / 3;
-        fGenTriple |= ((unsigned char) !channel + 1);
+    if ((channelData.amplitude + channelData.offset) > FGEN_LIMIT)
+	{
+        channelData.amplitude /= 3.0;
+        channelData.offset /= 3.0;
+        fGenTriple |= uint8_t(!channelID + 1);
     }
-    else fGenTriple &= ((unsigned char) (254 - !channel));
-
-    //qDebug() << "fGenTriple = " << fGenTriple << "fGenControl = " << fGenControl << "length = " << length << "freq = " << freq << "amplitude = " << amplitude << "offset = " << offset << "samples = " << samples;
+    else
+	{
+		fGenTriple &= uint8_t(254 - !channelID);
+	}
 
     //Waveform scaling in V
-    double tempDouble;
-    amplitude = (amplitude * 255) / FGEN_LIMIT;
-    offset = (offset * 255) / FGEN_LIMIT;
-    if (offset<FGEN_OFFSET){
-        if (amplitude>5)
-            amplitude -= FGEN_OFFSET;
+    channelData.amplitude = (channelData.amplitude * 255) / FGEN_LIMIT;
+    channelData.offset = (channelData.offset * 255) / FGEN_LIMIT;
+    if (channelData.offset < FGEN_OFFSET)
+	{
+        if (channelData.amplitude > 5)
+            channelData.amplitude -= FGEN_OFFSET;
         else
-            amplitude = 0;
-        offset = FGEN_OFFSET;
+            channelData.amplitude = 0;
+        channelData.offset = FGEN_OFFSET;
     }
 
 #ifdef INVERT_TRIPLE
@@ -140,67 +127,63 @@ void genericUsbDriver::setFunctionGen(int channel, functionGenControl *fGenContr
     usbSendControl(0x40, 0xa4, fGenTriple, 0, 0, NULL);
 #endif
 
-    //Applying amplitude and offset to all samples.
-    for (int i=0;i<length;i++){
-        tempDouble = (double) samples[i];
-        tempDouble *= amplitude;
-        tempDouble /= 255;
-        tempDouble += offset;
-        samples[i] = (unsigned char) tempDouble;
-    }
+	auto applyAmplitudeAndOffset = [=](unsigned char sample) -> unsigned char
+	{
+		return sample / 255.0 * channelData.amplitude + channelData.offset;
+	};
 
+	std::transform(channelData.samples.begin(), channelData.samples.end(),
+	               channelData.samples.begin(), // transform in place
+	               applyAmplitudeAndOffset);
 
     //Need to increase size of wave if its freq too high, or too low!
-    maxDivides = numDivides;
-    bool loop_entered = false;
-    unsigned char *tempSamples = (unsigned char *) malloc(0);
+	{
+		int shift = 0;
 
-    while(length * freq > DAC_SPS){
-        loop_entered = true;
-        numDivides--;
-        if (numDivides==0){
-            qDebug("numDivides = 0 - in T-stretching of genericUsbDriver:: setFunctionGen");
-        }
+		while ((channelData.length >> shift) * channelData.freq > DAC_SPS)
+			shift++;
 
-        int shiftTemp = (maxDivides - numDivides);
-        length = length >> 1;
+		if (shift != 0)
+		{
+			channelData.divisibility -= shift;
+			channelData.length >>= shift;
 
-        free(tempSamples);
-        tempSamples = (unsigned char *) malloc(length);
-        for (int i=0; i<length;i++){
-            tempSamples[i] = samples[i<<shiftTemp];
-        }
-    }
-    if(loop_entered){
-        samples = tempSamples;
-    }
+			for (int i = 0; i < channelData.length; ++i)
+				channelData.samples[i] = channelData.samples[i << shift];
 
-    //Scaling in t here:
-    // Something something maxLength something
+			channelData.samples.resize(channelData.length);
+			channelData.samples.shrink_to_fit();
 
-    //Timer Setup
+			if (channelData.divisibility <= 0)
+				qDebug("genericUsbDriver::setFunctionGen: channel divisibility <= 0 after T-stretching");
+		}
+	}
+
+    // Timer Setup
     int validClockDivs[7] = {1, 2, 4, 8, 64, 256, 1024};
+	auto period = [=](int division) -> int
+	{
+		return CLOCK_FREQ / (division * channelData.length * channelData.freq);
+	};
 
-    int clkSetting;
-    for(clkSetting = 0; clkSetting<7; clkSetting++){
-        if ( (CLOCK_FREQ / (length * validClockDivs[clkSetting] * freq)) < 65535 )
-             break;
-    }
-    int timerPeriod = CLOCK_FREQ / (length * freq * validClockDivs[clkSetting]);
+	int* clkSettingIt = std::find_if(std::begin(validClockDivs), std::end(validClockDivs),
+	                                 [&](int division) -> bool { return period(division) < 65535; });
 
-    clkSetting++;  // Change from [0:n] to [1:n]
+    int timerPeriod = period(*clkSettingIt);
 
-    if(deviceMode == 5){
+	// +1 to change from [0:n) to [1:n]
+    int clkSetting = std::distance(std::begin(validClockDivs), clkSettingIt) + 1;
+
+    if(deviceMode == 5)
         qDebug("DEVICE IS IN MODE 5");
-    }
 
-    //qDebug() << "First three samples:" << samples[0] << samples[1] << samples[2];
+	
 
-    if(channel){
-    usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, length, samples);
-    }
-    else usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, length, samples);
-    free(tempSamples);
+    if (channelID)
+		usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.length, channelData.samples.data());
+    else
+		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.length, channelData.samples.data());
+
     return;
 }
 

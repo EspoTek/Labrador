@@ -1,6 +1,8 @@
 #ifndef FUNCTIONGENCONTROL_H
 #define FUNCTIONGENCONTROL_H
 
+#include <vector>
+
 #include <QWidget>
 #include <QLabel>
 #include <QDebug>
@@ -15,10 +17,30 @@ class functionGenControl : public QLabel
 {
     Q_OBJECT
 public:
+
+	struct ChannelData
+	{
+		std::vector<uint8_t> samples;
+		// TODO: get rid of length member. samples:std::vector already has this information
+		int length;
+		int divisibility;
+		double freq = 1000.0;
+		double amplitude = 0.0;
+		double offset = 0.0;
+	};
+
     explicit functionGenControl(QWidget *parent = 0);
-    unsigned char *samples_CH1, *samples_CH2;
-    int length_CH1, divisibility_CH1, length_CH2, divisibility_CH2;
-    double freq_CH1 = 1000, amplitude_CH1 = 0, offset_CH1 = 0, freq_CH2 = 1000, amplitude_CH2 = 0, offset_CH2 = 0;
+
+	ChannelData channels[2];
+
+private:
+
+	// NOTE: An enum instead of a plain int would probably be better here
+    void waveformName(QString newName, int channelID);
+    void freqUpdate(double newFreq, int channelID);
+    void amplitudeUpdate(double newAmplitude, int channelID);
+    void offsetUpdate(double newOffset, int channelID);
+
 signals:
     void functionGenToUpdate(int channel, functionGenControl *fGenControl);
     void setMaxFreq_CH1(double maxFreq);
