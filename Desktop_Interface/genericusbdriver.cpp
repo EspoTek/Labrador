@@ -100,11 +100,11 @@ void genericUsbDriver::setFunctionGen(functionGenControl::ChannelID channelID, f
 	{
         channelData.amplitude /= 3.0;
         channelData.offset /= 3.0;
-        fGenTriple |= uint8_t(!static_cast<uint8_t>(channelID) + 1);
+        fGenTriple |= static_cast<uint8_t>(!static_cast<uint8_t>(channelID) + 1);
     }
     else
 	{
-		fGenTriple &= uint8_t(254 - !static_cast<uint8_t>(channelID));
+		fGenTriple &= static_cast<uint8_t>(254 - !static_cast<uint8_t>(channelID));
 	}
 
     //Waveform scaling in V

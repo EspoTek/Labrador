@@ -96,7 +96,7 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 	{
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        channel.samples[i] = uint8_t(dummy);
+        channel.samples[i] = static_cast<uint8_t>(dummy);
     }
 
 #else
@@ -138,7 +138,7 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 	{
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        channel.samples[i] = uint8_t(dummy);
+        channel.samples[i] = static_cast<uint8_t>(dummy);
     }
 
     free(dataString);
