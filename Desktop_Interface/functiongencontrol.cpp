@@ -9,49 +9,54 @@ functionGenControl::functionGenControl(QWidget *parent) : QLabel(parent)
 
 void functionGenControl::waveformName_CH1(QString newName)
 {
-	waveformName(newName, 0);
+	waveformName(ChannelID::CH1, newName);
 }
 
 void functionGenControl::freqUpdate_CH1(double newFreq)
 {
-	freqUpdate(newFreq, 0);
+	freqUpdate(ChannelID::CH1, newFreq);
 }
 
 void functionGenControl::amplitudeUpdate_CH1(double newAmplitude)
 {
-	amplitudeUpdate(newAmplitude, 0);
+	amplitudeUpdate(ChannelID::CH1, newAmplitude);
 }
 
 void functionGenControl::offsetUpdate_CH1(double newOffset)
 {
-	offsetUpdate(newOffset, 0);
+	offsetUpdate(ChannelID::CH1, newOffset);
 }
 
 
 void functionGenControl::waveformName_CH2(QString newName)
 {
-	waveformName(newName, 1);
+	waveformName(ChannelID::CH2, newName);
 }
 
 void functionGenControl::freqUpdate_CH2(double newFreq)
 {
-	freqUpdate(newFreq, 1);
+	freqUpdate(ChannelID::CH2, newFreq);
 }
 
 void functionGenControl::amplitudeUpdate_CH2(double newAmplitude)
 {
-	amplitudeUpdate(newAmplitude, 1);
+	amplitudeUpdate(ChannelID::CH2, newAmplitude);
 }
 
 void functionGenControl::offsetUpdate_CH2(double newOffset)
 {
-	offsetUpdate(newOffset, 1);
+	offsetUpdate(ChannelID::CH2, newOffset);
 }
 
 
-void functionGenControl::waveformName(QString newName, int channelID)
+functionGenControl::ChannelData& functionGenControl::getChannelData(ChannelID channelID)
 {
-	ChannelData& channel = channels[channelID];
+	return channels[static_cast<int>(channelID)];
+}
+
+void functionGenControl::waveformName(ChannelID channelID, QString newName)
+{
+	ChannelData& channel = getChannelData(channelID);
 
     qDebug() << "newName = " << newName;
     newName.append(".tlw");
@@ -148,38 +153,39 @@ void functionGenControl::waveformName(QString newName, int channelID)
 	// own signals and slots, or have a single setMaxFreq signal with channelID as
 	// an argument. Either solution would require changes in other places in the
 	// codebase so this will have to do for now.
-	if (channelID == 0)
+	switch (channelID)
 	{
-	    setMaxFreq_CH1(newMaxFreq);
-	    setMinFreq_CH1(newMinFreq);
-	}
-	else
-	{
-	    setMaxFreq_CH2(newMaxFreq);
-	    setMinFreq_CH2(newMinFreq);
+	case ChannelID::CH1:
+		setMaxFreq_CH1(newMaxFreq);
+		setMinFreq_CH1(newMinFreq);
+		break;
+	case ChannelID::CH2:
+		setMaxFreq_CH2(newMaxFreq);
+		setMinFreq_CH2(newMinFreq);
+		break;
 	}
 
     functionGenToUpdate(channelID, this);
 }
 
-void functionGenControl::freqUpdate(double newFreq, int channelID)
+void functionGenControl::freqUpdate(ChannelID channelID, double newFreq)
 {
-	qDebug() << "newFreq" << channelID << " = " << newFreq;
-	channels[channelID].freq = newFreq;
+	qDebug() << "newFreq" << int(channelID) << " = " << newFreq;
+	getChannelData(channelID).freq = newFreq;
 	functionGenToUpdate(channelID, this);
 }
 
-void functionGenControl::amplitudeUpdate(double newAmplitude, int channelID)
+void functionGenControl::amplitudeUpdate(ChannelID channelID, double newAmplitude)
 {
-	qDebug() << "newAmplitude" << channelID << " = " << newAmplitude;
-	channels[channelID].amplitude = newAmplitude;
+	qDebug() << "newAmplitude" << int(channelID) << " = " << newAmplitude;
+	getChannelData(channelID).amplitude = newAmplitude;
 	functionGenToUpdate(channelID, this);
 }
 
-void functionGenControl::offsetUpdate(double newOffset, int channelID)
+void functionGenControl::offsetUpdate(ChannelID channelID, double newOffset)
 {
-	qDebug() << "newOffset" << channelID << " = " << newOffset;
-	channels[channelID].offset = newOffset;
+	qDebug() << "newOffset" << int(channelID) << " = " << newOffset;
+	getChannelData(channelID).offset = newOffset;
 	functionGenToUpdate(channelID, this);
 }
 

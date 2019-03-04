@@ -127,7 +127,7 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
         connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
         connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
-        connect(ui->controller_fg, SIGNAL(functionGenToUpdate(int,functionGenControl*)), ui->controller_iso->driver, SLOT(setFunctionGen(int,functionGenControl*)));
+        connect(ui->controller_fg, &functionGenControl::functionGenToUpdate, ui->controller_iso->driver, &genericUsbDriver::setFunctionGen);
         connect(ui->bufferDisplay, SIGNAL(modeChange(int)), ui->controller_iso->driver, SLOT(setDeviceMode(int)));
         connect(ui->bufferDisplay, SIGNAL(updateDig(int)), ui->controller_iso->driver, SLOT(newDig(int)));
 
@@ -1334,7 +1334,7 @@ void MainWindow::reinitUsbStage2(void){
     connect(ui->debugButton3, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(bootloaderJump()));
     connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
     connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
-    connect(ui->controller_fg, SIGNAL(functionGenToUpdate(int,functionGenControl*)), ui->controller_iso->driver, SLOT(setFunctionGen(int,functionGenControl*)));
+    connect(ui->controller_fg, &functionGenControl::functionGenToUpdate, ui->controller_iso->driver, &genericUsbDriver::setFunctionGen);
     connect(ui->bufferDisplay, SIGNAL(modeChange(int)), ui->controller_iso->driver, SLOT(setDeviceMode(int)));
     connect(ui->bufferDisplay, SIGNAL(updateDig(int)), ui->controller_iso->driver, SLOT(newDig(int)));
 
@@ -1368,8 +1368,8 @@ void MainWindow::resetUsbState(void){
     ui->psuSlider->poke();
     //ui->controller_iso->driver->newDig(digitalPinState);
     ui->bufferDisplay->poke();
-    ui->controller_iso->driver->setFunctionGen(0,ui->controller_fg);
-    ui->controller_iso->driver->setFunctionGen(1,ui->controller_fg);
+    ui->controller_iso->driver->setFunctionGen(functionGenControl::ChannelID::CH1, ui->controller_fg);
+    ui->controller_iso->driver->setFunctionGen(functionGenControl::ChannelID::CH2, ui->controller_fg);
 
     ui->controller_iso->clearBuffers(1,1,1);
     ui->controller_iso->doNotTouchGraph = false;
