@@ -102,7 +102,7 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 #else
 
     QByteArray filePath = QCoreApplication::applicationDirPath()
-		.append("/waveforms/").append(newName).toUtf8();
+		.append("/waveforms/").append(newName).toLocal8Bit();
 
     qDebug() << "opening" << filePath;
 
