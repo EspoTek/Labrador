@@ -61,6 +61,8 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
     qDebug() << "newName = " << newName;
     newName.append(".tlw");
 
+	int length;
+
 #ifdef PLATFORM_ANDROID
     QString waveformFilePath("assets:/waveforms/");
     waveformFilePath.append(newName);
@@ -74,7 +76,7 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 
     line = fptr.readLine();
     strcpy(lengthString, line.data());
-    sscanf(lengthString, "%d", &channel.length);
+    sscanf(lengthString, "%d", &length);
     qDebug() << "lengthString" << lengthString;
 
     line = fptr.readLine();
@@ -82,17 +84,17 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
     sscanf(divisibilityString, "%d", &channel.divisibility);
     qDebug() << "divisibilityString" << divisibilityString;
 
-    qDebug() << "Length = " << channel.length;
+    qDebug() << "Length = " << length;
     qDebug() << "Divisibility = " << channel.divisibility;
 
     QByteArray remainingData = fptr.readAll();
     char *dataString = remainingData.data();
 
-	channel.samples.resize(channel.length);
+	channel.samples.resize(length);
 
     int dummy;
     char *dataStringCurrent = dataString;
-    for (int i = 0; i < channel.length; i++)
+    for (int i = 0; i < length; i++)
 	{
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
@@ -112,7 +114,7 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 
     char lengthString[16];
     fgets(lengthString, 5, fptr);
-    sscanf(lengthString, "%d", &channel.length);
+    sscanf(lengthString, "%d", &length);
 
     char divisibilityString[16];
     //Bit of bullshit to deal with CRLF line endings on Mac.
@@ -124,17 +126,17 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 
     sscanf(divisibilityString, "%d", &channel.divisibility);
 
-    qDebug() << "Length = " << channel.length;
+    qDebug() << "Length = " << length;
     qDebug() << "Divisibility = " << channel.divisibility;
 
-	channel.samples.resize(channel.length);
+	channel.samples.resize(length);
 
-    char *dataString = (char *) malloc(channel.length*5+1);
-    fgets(dataString, channel.length*5+1, fptr);
+    char *dataString = (char *) malloc(length*5+1);
+    fgets(dataString, length*5+1, fptr);
 
     int dummy;
     char *dataStringCurrent = dataString;
-    for (int i = 0; i < channel.length; i++)
+    for (int i = 0; i < length; i++)
 	{
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
@@ -145,8 +147,8 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
     fclose(fptr);
 #endif
 
-	double newMaxFreq = DAC_SPS / (channel.length >> (channel.divisibility - 1));
-	double newMinFreq = double(CLOCK_FREQ) / 1024.0 / 65535.0 / channel.length;
+	double newMaxFreq = DAC_SPS / (length >> (channel.divisibility - 1));
+	double newMinFreq = double(CLOCK_FREQ) / 1024.0 / 65535.0 / length;
 
 	// NOTE: Not very clean... Not sure what to do about it.
 	// I guess the "right thing" would be to have a Channel QObject class with its

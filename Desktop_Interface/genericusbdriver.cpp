@@ -128,7 +128,7 @@ void genericUsbDriver::setFunctionGen(functionGenControl::ChannelID channelID, f
     usbSendControl(0x40, 0xa4, fGenTriple, 0, 0, NULL);
 #endif
 
-	auto applyAmplitudeAndOffset = [=](unsigned char sample) -> unsigned char
+	auto applyAmplitudeAndOffset = [&](unsigned char sample) -> unsigned char
 	{
 		return sample / 255.0 * channelData.amplitude + channelData.offset;
 	};
@@ -140,19 +140,20 @@ void genericUsbDriver::setFunctionGen(functionGenControl::ChannelID channelID, f
     //Need to increase size of wave if its freq too high, or too low!
 	{
 		int shift = 0;
+		int newLength = channelData.samples.size();
 
-		while ((channelData.length >> shift) * channelData.freq > DAC_SPS)
+		while ((newLength >> shift) * channelData.freq > DAC_SPS)
 			shift++;
 
 		if (shift != 0)
 		{
 			channelData.divisibility -= shift;
-			channelData.length >>= shift;
+			newLength >>= shift;
 
-			for (int i = 0; i < channelData.length; ++i)
+			for (int i = 0; i < newLength; ++i)
 				channelData.samples[i] = channelData.samples[i << shift];
 
-			channelData.samples.resize(channelData.length);
+			channelData.samples.resize(newLength);
 			channelData.samples.shrink_to_fit();
 
 			if (channelData.divisibility <= 0)
@@ -162,9 +163,9 @@ void genericUsbDriver::setFunctionGen(functionGenControl::ChannelID channelID, f
 
     // Timer Setup
     int validClockDivs[7] = {1, 2, 4, 8, 64, 256, 1024};
-	auto period = [=](int division) -> int
+	auto period = [&](int division) -> int
 	{
-		return CLOCK_FREQ / (division * channelData.length * channelData.freq);
+		return CLOCK_FREQ / (division * channelData.samples.size() * channelData.freq);
 	};
 
 	int* clkSettingIt = std::find_if(std::begin(validClockDivs), std::end(validClockDivs),
@@ -180,9 +181,9 @@ void genericUsbDriver::setFunctionGen(functionGenControl::ChannelID channelID, f
 
 	
     if (channelID == ChannelID::CH2)
-		usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.length, channelData.samples.data());
+		usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
     else
-		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.length, channelData.samples.data());
+		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
 
     return;
 }
