@@ -148,7 +148,7 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 #endif
 
 	double newMaxFreq = DAC_SPS / (length >> (channel.divisibility - 1));
-	double newMinFreq = double(CLOCK_FREQ) / 1024.0 / 65535.0 / length;
+	double newMinFreq = double(CLOCK_FREQ) / 1024.0 / 65535.0 / static_cast<double>(length);
 
 	// NOTE: Not very clean... Not sure what to do about it.
 	// I guess the "right thing" would be to have a Channel QObject class with its
