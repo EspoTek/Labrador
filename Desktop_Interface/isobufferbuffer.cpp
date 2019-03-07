@@ -31,10 +31,12 @@ isoBufferBuffer::isoBufferBuffer(uint32_t length)
 // Adds a character to the end of the buffer
 void isoBufferBuffer::insert(char c)
 {
+	char* dataPtr = m_data.get();
+
 	// Add character to first half of the buffer
-	m_data[m_top] = c;
+	dataPtr[m_top] = c;
 	// Then to the second
-	m_data[m_top+m_capacity] = c;
+	dataPtr[m_top+m_capacity] = c;
 
 	// Loop the buffer index if necessary and update size accordingly
 	m_top = (m_top + 1) % m_capacity;
