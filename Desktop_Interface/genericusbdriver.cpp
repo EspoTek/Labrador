@@ -75,8 +75,9 @@ void genericUsbDriver::setPsu(double voltage){
     qDebug() << "Going to send value " << dutyPsu;
 }
 
-void genericUsbDriver::setFunctionGen(int channelID, functionGenControl *fGenControl)
+void genericUsbDriver::setFunctionGen(functionGenControl::ChannelID channelID, functionGenControl *fGenControl)
 {
+	using ChannelID = functionGenControl::ChannelID;
         ////////////////////////////
        ////NO RESIZING (YET)!!!////
       ////////////////////////////
@@ -86,24 +87,24 @@ void genericUsbDriver::setFunctionGen(int channelID, functionGenControl *fGenCon
       //////////////////////////////////////
 
     //For recalling on crash.
-    if (channelID == 0)
+    if (channelID == ChannelID::CH1)
 		fGenPtr_CH1 = fGenControl;
     else
 		fGenPtr_CH2 = fGenControl;
 
     //Reading in data
-	functionGenControl::ChannelData channelData = fGenControl->channels[channelID];
+	functionGenControl::ChannelData channelData = fGenControl->getChannelData(channelID);
 
     //Triple mode
     if ((channelData.amplitude + channelData.offset) > FGEN_LIMIT)
 	{
         channelData.amplitude /= 3.0;
         channelData.offset /= 3.0;
-        fGenTriple |= uint8_t(!channelID + 1);
+        fGenTriple |= static_cast<uint8_t>(!static_cast<uint8_t>(channelID) + 1);
     }
     else
 	{
-		fGenTriple &= uint8_t(254 - !channelID);
+		fGenTriple &= static_cast<uint8_t>(254 - !static_cast<uint8_t>(channelID));
 	}
 
     //Waveform scaling in V
@@ -127,7 +128,7 @@ void genericUsbDriver::setFunctionGen(int channelID, functionGenControl *fGenCon
     usbSendControl(0x40, 0xa4, fGenTriple, 0, 0, NULL);
 #endif
 
-	auto applyAmplitudeAndOffset = [=](unsigned char sample) -> unsigned char
+	auto applyAmplitudeAndOffset = [&](unsigned char sample) -> unsigned char
 	{
 		return sample / 255.0 * channelData.amplitude + channelData.offset;
 	};
@@ -139,19 +140,20 @@ void genericUsbDriver::setFunctionGen(int channelID, functionGenControl *fGenCon
     //Need to increase size of wave if its freq too high, or too low!
 	{
 		int shift = 0;
+		int newLength = channelData.samples.size();
 
-		while ((channelData.length >> shift) * channelData.freq > DAC_SPS)
+		while ((newLength >> shift) * channelData.freq > DAC_SPS)
 			shift++;
 
 		if (shift != 0)
 		{
 			channelData.divisibility -= shift;
-			channelData.length >>= shift;
+			newLength >>= shift;
 
-			for (int i = 0; i < channelData.length; ++i)
+			for (int i = 0; i < newLength; ++i)
 				channelData.samples[i] = channelData.samples[i << shift];
 
-			channelData.samples.resize(channelData.length);
+			channelData.samples.resize(newLength);
 			channelData.samples.shrink_to_fit();
 
 			if (channelData.divisibility <= 0)
@@ -161,9 +163,9 @@ void genericUsbDriver::setFunctionGen(int channelID, functionGenControl *fGenCon
 
     // Timer Setup
     int validClockDivs[7] = {1, 2, 4, 8, 64, 256, 1024};
-	auto period = [=](int division) -> int
+	auto period = [&](int division) -> int
 	{
-		return CLOCK_FREQ / (division * channelData.length * channelData.freq);
+		return CLOCK_FREQ / (division * channelData.samples.size() * channelData.freq);
 	};
 
 	int* clkSettingIt = std::find_if(std::begin(validClockDivs), std::end(validClockDivs),
@@ -178,11 +180,10 @@ void genericUsbDriver::setFunctionGen(int channelID, functionGenControl *fGenCon
         qDebug("DEVICE IS IN MODE 5");
 
 	
-
-    if (channelID)
-		usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.length, channelData.samples.data());
+    if (channelID == ChannelID::CH2)
+		usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
     else
-		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.length, channelData.samples.data());
+		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
 
     return;
 }
@@ -204,8 +205,8 @@ void genericUsbDriver::setDeviceMode(int mode){
     deviceMode = mode;
     usbSendControl(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
 
-    if (fGenPtr_CH1!=NULL) setFunctionGen(0, fGenPtr_CH1);
-    if (fGenPtr_CH2!=NULL) setFunctionGen(1, fGenPtr_CH2);
+    if (fGenPtr_CH1 != NULL) setFunctionGen(functionGenControl::ChannelID::CH1, fGenPtr_CH1);
+    if (fGenPtr_CH2 != NULL) setFunctionGen(functionGenControl::ChannelID::CH2, fGenPtr_CH2);
 
     //switch on new deviceMode!!
     switch(deviceMode){
