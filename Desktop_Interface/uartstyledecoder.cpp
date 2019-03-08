@@ -2,7 +2,8 @@
 #include <QDebug>
 #include <cassert>
 
-uartStyleDecoder::uartStyleDecoder(QObject *parent_in) : QObject(parent_in)
+uartStyleDecoder::uartStyleDecoder(QObject *parent_in)
+	: QObject(parent_in)
 {
     parent = (isoBuffer *) parent_in;
 
@@ -16,9 +17,12 @@ uartStyleDecoder::uartStyleDecoder(QObject *parent_in) : QObject(parent_in)
 
     serialBuffer = new isoBufferBuffer(SERIAL_BUFFER_LENGTH);
 
-    if(parent->m_channel == 1) console = parent->m_console1;
-    else if(parent->m_channel == 2) console = parent->m_console2;
-    else qFatal("Nonexistant console requested in uartStyleDecoder::serialDecode");
+    if (parent->m_channel == 1)
+		console = parent->m_console1;
+    else if (parent->m_channel == 2)
+		console = parent->m_console2;
+    else
+		qFatal("Nonexistant console requested in uartStyleDecoder::serialDecode");
 }
 
 uartStyleDecoder::~uartStyleDecoder()
@@ -28,13 +32,16 @@ uartStyleDecoder::~uartStyleDecoder()
 	delete serialBuffer;
 }
 
-void uartStyleDecoder::updateConsole(){
+void uartStyleDecoder::updateConsole()
+{
     std::lock_guard<std::mutex> lock(mutex);
-	if(!newUartSymbol) return;
+	if (!newUartSymbol)
+		return;
     //qDebug() << serialBuffer->size();
 
     console->setPlainText(QString::fromLocal8Bit(serialBuffer->begin(), serialBuffer->size()));
-    if(parent->m_serialAutoScroll){
+    if (parent->m_serialAutoScroll)
+	{
         //http://stackoverflow.com/questions/21059678/how-can-i-set-auto-scroll-for-a-qtgui-qtextedit-in-pyqt4   DANKON
         QTextCursor c =  console->textCursor();
         c.movePosition(QTextCursor::End);
@@ -56,7 +63,8 @@ void uartStyleDecoder::serialDecode(double baudRate)
     // Used to check for wire disconnects.  You should get at least one "1" for a stop bit.
     bool allZeroes = true;
 
-    while(dist_seconds > (bitPeriod_seconds + SERIAL_DELAY)){
+    while(dist_seconds > (bitPeriod_seconds + SERIAL_DELAY))
+	{
         // Read next uart bit
         unsigned char uart_bit = getNextUartBit();
 
@@ -80,7 +88,8 @@ void uartStyleDecoder::serialDecode(double baudRate)
     }
 
     //Not a single stop bit, or idle bit, in the whole stream.  Wire must be disconnected.
-    if(allZeroes){
+    if (allZeroes)
+	{
         qDebug() << "Wire Disconnect detected!";
         wireDisconnected(parent->m_channel);
         parent->m_isDecoding = false;
@@ -92,28 +101,29 @@ int uartStyleDecoder::serialDistance()
 {
     int back_bit = parent->m_back * 8;
     int bufferEnd_bit = (parent->m_bufferLen-1) * 8;
-    if(back_bit >= serialPtr_bit){
+    if (back_bit >= serialPtr_bit)
         return back_bit - serialPtr_bit;
-    }else return bufferEnd_bit - serialPtr_bit + back_bit;
+    else
+		return bufferEnd_bit - serialPtr_bit + back_bit;
 }
 
 void uartStyleDecoder::updateSerialPtr(double baudRate, unsigned char current_bit)
 {
-    if(jitterCompensationNeeded && uartTransmitting){
+    if (jitterCompensationNeeded && uartTransmitting)
         jitterCompensationNeeded = jitterCompensationProcedure(baudRate, current_bit);
-    }
 
     int distance_between_bits = (parent->m_sampleRate_bit)/baudRate;
-    if(uartTransmitting){
+    if (uartTransmitting)
         serialPtr_bit += distance_between_bits;
-    } else serialPtr_bit += (distance_between_bits - 1);  //Less than one baud period so that it will always see that start bit.
+	else
+		serialPtr_bit += (distance_between_bits - 1);  //Less than one baud period so that it will always see that start bit.
 
-    if (serialPtr_bit >= (parent->m_bufferLen * 8)){
+    if (serialPtr_bit >= (parent->m_bufferLen * 8))
         serialPtr_bit -= (parent->m_bufferLen * 8);
-    }
 }
 
-unsigned char uartStyleDecoder::getNextUartBit(){
+unsigned char uartStyleDecoder::getNextUartBit()
+{
     int coord_byte = serialPtr_bit/8;
     int coord_bit = serialPtr_bit - (8*coord_byte);
     unsigned char dataByte = parent->m_buffer[coord_byte];
@@ -146,28 +156,29 @@ void uartStyleDecoder::decodeNextUartBit(unsigned char bitValue)
 
 //This function compensates for jitter by, when the current bit is a "1", and the last bit was a zero, setting the pointer
 //to the sample at the midpoint between this bit and the last.
-bool uartStyleDecoder::jitterCompensationProcedure(double baudRate, unsigned char current_bit){
+bool uartStyleDecoder::jitterCompensationProcedure(double baudRate, unsigned char current_bit)
+{
 
     //We only run when the current bit is a "1", to prevent slowdown when there are long breaks between transmissions.
-    if(current_bit == 0){
+    if (current_bit == 0)
         return true;
-    }
 
     //Can't be bothered dealing with the corner case where the serial pointer is at the very start of the buffer.
     //Just return and try again next time.
     int left_coord = serialPtr_bit - (parent->m_sampleRate_bit)/baudRate;
     //qDebug() << "left_coord =" << left_coord;
-    if (left_coord < 0){
+    if (left_coord < 0)
         return true; //Don't want to read out of bounds!!
-    }
 
     //The usual case, when transmitting anyway.
     unsigned char left_byte = (parent->m_buffer[left_coord/8] & 0xff);
     //Only run when a zero is detected in the leftmost symbol.
-    if(left_byte != 255){
+    if (left_byte != 255)
+	{
         //Step back, one sample at a time, to the 0->1 transition point
         unsigned char temp_bit = 1;
-        while(temp_bit){
+        while(temp_bit)
+		{
             temp_bit = getNextUartBit();
             serialPtr_bit--;
         }
@@ -180,9 +191,11 @@ bool uartStyleDecoder::jitterCompensationProcedure(double baudRate, unsigned cha
 }
 
 //Basically scaffolding to add character maps for other modes (5 bit, for example).
-void uartStyleDecoder::decodeDatabit(int mode){
+void uartStyleDecoder::decodeDatabit(int mode)
+{
     char tempchar;
-    switch(mode){
+    switch(mode)
+	{
         case 5:
             tempchar = decode_baudot(currentUartSymbol);
             break;
@@ -200,7 +213,8 @@ void uartStyleDecoder::decodeDatabit(int mode){
     serialBuffer->insert(tempchar);
 }
 
-char uartStyleDecoder::decode_baudot(short symbol){
+char uartStyleDecoder::decode_baudot(short symbol)
+{
     return 'a';
 }
 
@@ -248,6 +262,4 @@ void uartStyleDecoder::performParityCheck()
 
     return;
 }
-
-
 
