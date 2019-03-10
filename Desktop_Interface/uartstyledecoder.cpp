@@ -209,7 +209,7 @@ void uartStyleDecoder::decodeDatabit(int mode)
     m_serialBuffer.insert(tempchar);
 }
 
-char uartStyleDecoder::decode_baudot(short symbol)
+char uartStyleDecoder::decode_baudot([[maybe_unused]] short symbol)
 {
     return 'a';
 }
@@ -231,12 +231,12 @@ void uartStyleDecoder::setParityMode(UartParity newParity)
 
 void uartStyleDecoder::performParityCheck()
 {
-    auto isEvenParity = [=] () -> bool
+    auto isEvenParity = [=] (uint32_t bitField) -> bool
     {
 		bool result = false;
 
 		for (uint32_t mask = 1 << (dataBit_max-1); mask != 0; mask >>= 1)
-			result ^= static_cast<bool>(dataBit_current & mask);
+			result ^= static_cast<bool>(bitField & mask);
 
 		return not result;
     };
@@ -247,10 +247,10 @@ void uartStyleDecoder::performParityCheck()
 		std::terminate();
         break;
     case UartParity::Even:
-        parityCheckFailed = !isEvenParity();
-		// NOTE: Missing a break?
+        parityCheckFailed = not isEvenParity(dataBit_current);
+		break; // NOTE: There used to be a fallthrough here but it seemed like a bug
     case UartParity::Odd:
-        parityCheckFailed = isEvenParity();
+        parityCheckFailed = isEvenParity(dataBit_current);
 		break;
     }
 
