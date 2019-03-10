@@ -19,20 +19,20 @@ enum class ChannelID
 	CH2 = 1
 };
 
+
+struct ChannelData
+{
+	std::vector<uint8_t> samples;
+	int divisibility;
+	double freq = 1000.0;
+	double amplitude = 0.0;
+	double offset = 0.0;
+};
+
 class functionGenControl : public QLabel
 {
     Q_OBJECT
 public:
-	struct ChannelData
-	{
-		std::vector<uint8_t> samples;
-		int divisibility;
-		double freq = 1000.0;
-		double amplitude = 0.0;
-		double offset = 0.0;
-	};
-
-
     explicit functionGenControl(QWidget *parent = 0);
 
 	ChannelData channels[2];

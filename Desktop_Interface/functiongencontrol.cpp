@@ -49,7 +49,7 @@ void functionGenControl::offsetUpdate_CH2(double newOffset)
 }
 
 
-functionGenControl::ChannelData& functionGenControl::getChannelData(ChannelID channelID)
+ChannelData& functionGenControl::getChannelData(ChannelID channelID)
 {
 	return channels[static_cast<int>(channelID)];
 }

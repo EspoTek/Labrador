@@ -92,7 +92,7 @@ void genericUsbDriver::setFunctionGen(ChannelID channelID, functionGenControl *f
 		fGenPtr_CH2 = fGenControl;
 
     //Reading in data
-	functionGenControl::ChannelData channelData = fGenControl->getChannelData(channelID);
+	ChannelData channelData = fGenControl->getChannelData(channelID);
 
     //Triple mode
     if ((channelData.amplitude + channelData.offset) > FGEN_LIMIT)
