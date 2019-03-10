@@ -36,7 +36,7 @@ private:
     bool jitterCompensationNeeded = true;
 
     void updateSerialPtr(double baudRate, unsigned char current_bit);
-    unsigned char getNextUartBit() const;
+    unsigned char getUartBit(int bitIndex) const;
     void decodeNextUartBit(unsigned char bitValue);
     bool jitterCompensationProcedure(double baudRate, unsigned char current_bit);
 
@@ -46,7 +46,7 @@ public:
     QTimer m_updateTimer; // IMPORTANT: must be after m_serialBuffer. construction / destruction order matters
 
 private:
-    void decodeDatabit(int mode);
+    char decodeDatabit(int mode, short symbol) const;
     char decodeBaudot(short symbol) const;
 
 	std::mutex mutex;

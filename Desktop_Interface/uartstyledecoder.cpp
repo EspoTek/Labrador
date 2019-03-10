@@ -49,9 +49,6 @@ void uartStyleDecoder::updateConsole()
 
 void uartStyleDecoder::serialDecode(double baudRate)
 {
-    /*if(stopDecoding){
-        return;
-    }*/
     double dist_seconds = (double)serialDistance()/(parent->m_sampleRate_bit);
     double bitPeriod_seconds = 1/baudRate;
 
@@ -61,7 +58,7 @@ void uartStyleDecoder::serialDecode(double baudRate)
     while(dist_seconds > (bitPeriod_seconds + SERIAL_DELAY))
 	{
         // Read next uart bit
-        unsigned char uart_bit = getNextUartBit();
+        unsigned char uart_bit = getUartBit(serialPtr_bit);
 
         if (uart_bit == 1)
             allZeroes = false;
@@ -118,10 +115,10 @@ void uartStyleDecoder::updateSerialPtr(double baudRate, unsigned char current_bi
         serialPtr_bit -= (parent->m_bufferLen * 8);
 }
 
-unsigned char uartStyleDecoder::getNextUartBit() const
+unsigned char uartStyleDecoder::getUartBit(int bitIndex) const
 {
-    int coord_byte = serialPtr_bit/8;
-    int coord_bit = serialPtr_bit - (8*coord_byte);
+    int coord_byte = bitIndex/8;
+    int coord_bit = bitIndex - (8*coord_byte);
     unsigned char dataByte = parent->m_buffer[coord_byte];
     unsigned char mask = (0x01 << coord_bit);
     return ((dataByte & mask) ? 1 : 0);
@@ -142,7 +139,16 @@ void uartStyleDecoder::decodeNextUartBit(unsigned char bitValue)
     }
     else
     {
-        decodeDatabit(dataBit_max + 1);
+        char decodedDatabit = decodeDatabit(dataBit_max + 1, currentUartSymbol);
+
+		if (parityCheckFailed)
+		{
+			m_serialBuffer.insert("\n<ERROR: Following character contains parity error>\n");
+			parityCheckFailed = false;
+		}
+
+		m_serialBuffer.insert(decodedDatabit);
+
         currentUartSymbol = 0;
         dataBit_current = 0;
         uartTransmitting = false;
@@ -175,7 +181,7 @@ bool uartStyleDecoder::jitterCompensationProcedure(double baudRate, unsigned cha
         unsigned char temp_bit = 1;
         while(temp_bit)
 		{
-            temp_bit = getNextUartBit();
+            temp_bit = getUartBit(serialPtr_bit);
             serialPtr_bit--;
         }
         //Jump the pointer forward by half a uart bit period, and return "done!".
@@ -187,27 +193,20 @@ bool uartStyleDecoder::jitterCompensationProcedure(double baudRate, unsigned cha
 }
 
 //Basically scaffolding to add character maps for other modes (5 bit, for example).
-void uartStyleDecoder::decodeDatabit(int mode)
+char uartStyleDecoder::decodeDatabit(int mode, short symbol) const
 {
-    char tempchar;
     switch(mode)
 	{
         case 5:
-            tempchar = decodeBaudot(currentUartSymbol);
+            return decodeBaudot(symbol);
             break;
         case 8:  //8-bit ASCII;
-            tempchar = currentUartSymbol;
+            return symbol;
             break;
         default:
             qDebug() << "uartStyleDecoder::decodeDatabit is failing...";
+			return -1; // Garbage
     }
-
-    if (parityCheckFailed)
-    {
-        m_serialBuffer.insert("\n<ERROR: Following character contains parity error>\n");
-        parityCheckFailed = false;
-    }
-    m_serialBuffer.insert(tempchar);
 }
 
 char uartStyleDecoder::decodeBaudot([[maybe_unused]] short symbol) const
