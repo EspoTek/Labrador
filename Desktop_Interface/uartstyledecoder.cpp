@@ -128,7 +128,6 @@ void uartStyleDecoder::decodeNextUartBit(unsigned char bitValue)
 {
     if (dataBit_current == parityIndex)
     {
-        assert(parity != UartParity::None);
         parityCheckFailed = not isParityCorrect(dataBit_current);
         dataBit_current++;
     }
