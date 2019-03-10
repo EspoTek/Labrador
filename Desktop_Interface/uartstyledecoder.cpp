@@ -233,16 +233,12 @@ void uartStyleDecoder::performParityCheck()
 {
     auto isEvenParity = [=] () -> bool
     {
-        uint32_t mask = 0x00000001;
-        uint8_t parity = 0;
-        for (int i = 0; i < dataBit_max; i++)
-        {
-            const uint8_t currentBit = (dataBit_current & mask) ? 1 : 0;
-            parity = parity ^ currentBit;
-            mask = mask << 1;
-        }
+		bool result = false;
 
-        return parity == 0;
+		for (uint32_t mask = 1 << (dataBit_max-1); mask != 0; mask >>= 1)
+			result ^= static_cast<bool>(dataBit_current & mask);
+
+		return not result;
     };
 
     switch(parity)
