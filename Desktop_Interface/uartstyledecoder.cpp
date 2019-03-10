@@ -11,10 +11,9 @@ uartStyleDecoder::uartStyleDecoder(QObject *parent_in)
 	// Begin decoding SAMPLE_DELAY seconds in the past.
 	serialPtr_bit = (int)(parent->m_back * 8 - SERIAL_DELAY * parent->m_sampleRate_bit + parent->m_bufferLen * 8) % (parent->m_bufferLen*8);
 
-    updateTimer = new QTimer();
-    updateTimer->setTimerType(Qt::PreciseTimer);
-    updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
-    connect(updateTimer, &QTimer::timeout, this, &uartStyleDecoder::updateConsole);
+    m_updateTimer.setTimerType(Qt::PreciseTimer);
+    m_updateTimer.start(CONSOLE_UPDATE_TIMER_PERIOD);
+    connect(&m_updateTimer, &QTimer::timeout, this, &uartStyleDecoder::updateConsole);
 
     if (parent->m_channel == 1)
 		console = parent->m_console1;
@@ -26,8 +25,6 @@ uartStyleDecoder::uartStyleDecoder(QObject *parent_in)
 
 uartStyleDecoder::~uartStyleDecoder()
 {
-    std::lock_guard<std::mutex> lock(mutex);
-	delete updateTimer;
 }
 
 void uartStyleDecoder::updateConsole()
@@ -92,7 +89,7 @@ void uartStyleDecoder::serialDecode(double baudRate)
         qDebug() << "Wire Disconnect detected!";
         wireDisconnected(parent->m_channel);
         parent->m_isDecoding = false;
-        updateTimer->stop();
+        m_updateTimer.stop();
     }
 }
 
@@ -251,12 +248,14 @@ void uartStyleDecoder::performParityCheck()
     switch(parity)
     {
     case UartParity::None:
-        assert(false);
-        return;
+		std::terminate();
+        break;
     case UartParity::Even:
-        parityCheckFailed = ! isEvenParity();
+        parityCheckFailed = !isEvenParity();
+		// NOTE: Missing a break?
     case UartParity::Odd:
         parityCheckFailed = isEvenParity();
+		break;
     }
 
     return;

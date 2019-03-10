@@ -23,7 +23,7 @@ public:
 	~uartStyleDecoder();
     void serialDecode(double baudRate);
     int serialDistance();
-    QTimer *updateTimer;
+
 private:
     isoBuffer *parent;
     int serialPtr_bit;
@@ -34,17 +34,26 @@ private:
     uint32_t dataBit_max = 7;
     unsigned short currentUartSymbol = 0;
     bool jitterCompensationNeeded = true;
+
     void updateSerialPtr(double baudRate, unsigned char current_bit);
     unsigned char getNextUartBit();
     void decodeNextUartBit(unsigned char bitValue);
     bool jitterCompensationProcedure(double baudRate, unsigned char current_bit);
+
     QPlainTextEdit *console;
     isoBufferBuffer m_serialBuffer;
+public:
+    QTimer m_updateTimer; // IMPORTANT: must be after m_serialBuffer. construction / destruction order matters
+
+private:
     void decodeDatabit(int mode);
     char decode_baudot(short symbol);
+
 	std::mutex mutex;
     UartParity parity = UartParity::None;
+
     void performParityCheck();
+
     bool parityCheckFailed = false;
 signals:
     void wireDisconnected(int);

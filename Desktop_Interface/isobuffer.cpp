@@ -345,7 +345,7 @@ void isoBuffer::serialManage(double baudRate, UartParity parity)
     }
     if (!m_isDecoding)
     {
-        m_decoder->updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
+        m_decoder->m_updateTimer.start(CONSOLE_UPDATE_TIMER_PERIOD);
         m_isDecoding = true;
     }
     m_decoder->setParityMode(parity);
