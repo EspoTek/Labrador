@@ -52,7 +52,8 @@ private:
 	std::mutex mutex;
     UartParity parity = UartParity::None;
 
-    void performParityCheck();
+    bool isParityCorrect(uint32_t bitField) const;
+	UartParity parityOf(uint32_t bitField) const;
 
     bool parityCheckFailed = false;
 signals:

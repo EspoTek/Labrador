@@ -132,7 +132,7 @@ void uartStyleDecoder::decodeNextUartBit(unsigned char bitValue)
     if (dataBit_current == parityIndex)
     {
         assert(parity != UartParity::None);
-        performParityCheck();
+        parityCheckFailed = not isParityCorrect(dataBit_current);
         dataBit_current++;
     }
     else if (dataBit_current < dataBit_max)
@@ -230,31 +230,21 @@ void uartStyleDecoder::setParityMode(UartParity newParity)
     parity = newParity;
 }
 
-void uartStyleDecoder::performParityCheck()
+bool uartStyleDecoder::isParityCorrect(uint32_t bitField) const
 {
-    auto isEvenParity = [=] (uint32_t bitField) -> bool
-    {
-		bool result = false;
-
-		for (uint32_t mask = 1 << (dataBit_max-1); mask != 0; mask >>= 1)
-			result ^= static_cast<bool>(bitField & mask);
-
-		return not result;
-    };
-
-    switch(parity)
-    {
-    case UartParity::None:
+	if (parity == UartParity::None)
 		std::terminate();
-        break;
-    case UartParity::Even:
-        parityCheckFailed = not isEvenParity(dataBit_current);
-		break; // NOTE: There used to be a fallthrough here but it seemed like a bug
-    case UartParity::Odd:
-        parityCheckFailed = isEvenParity(dataBit_current);
-		break;
-    }
 
-    return;
+	return parityOf(bitField) == parity;
+}
+
+UartParity uartStyleDecoder::parityOf(uint32_t bitField) const
+{
+	bool result = false;
+
+	for (uint32_t mask = 1 << (dataBit_max-1); mask != 0; mask >>= 1)
+		result ^= static_cast<bool>(bitField & mask);
+
+	return result ? UartParity::Odd : UartParity::Even;
 }
 
