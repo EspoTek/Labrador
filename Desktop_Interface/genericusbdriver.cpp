@@ -75,7 +75,7 @@ void genericUsbDriver::setPsu(double voltage){
     qDebug() << "Going to send value " << dutyPsu;
 }
 
-void genericUsbDriver::setFunctionGen(ChannelID channelID, functionGenControl *fGenControl)
+void genericUsbDriver::setFunctionGen(ChannelID channelID, ChannelData* fGenControlData)
 {
         ////////////////////////////
        ////NO RESIZING (YET)!!!////
@@ -86,10 +86,10 @@ void genericUsbDriver::setFunctionGen(ChannelID channelID, functionGenControl *f
       //////////////////////////////////////
 
     //For recalling on crash.
-	fGenPtr[(int)channelID] = fGenControl;
+	fGenPtrData[(int)channelID] = fGenControlData;
 
     //Reading in data
-	ChannelData channelData = fGenControl->getChannelData(channelID);
+	ChannelData channelData = *fGenControlData;
 
     //Triple mode
     if ((channelData.amplitude + channelData.offset) > FGEN_LIMIT)
@@ -201,11 +201,11 @@ void genericUsbDriver::setDeviceMode(int mode){
     deviceMode = mode;
     usbSendControl(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
 
-    if (fGenPtr[(int)ChannelID::CH1] != NULL)
-		setFunctionGen(ChannelID::CH1, fGenPtr[(int)ChannelID::CH1]);
+    if (fGenPtrData[(int)ChannelID::CH1] != NULL)
+		setFunctionGen(ChannelID::CH1, fGenPtrData[(int)ChannelID::CH1]);
 
-	if (fGenPtr[(int)ChannelID::CH2] != NULL)
-		setFunctionGen(ChannelID::CH2, fGenPtr[(int)ChannelID::CH2]);
+	if (fGenPtrData[(int)ChannelID::CH2] != NULL)
+		setFunctionGen(ChannelID::CH2, fGenPtrData[(int)ChannelID::CH2]);
 
     //switch on new deviceMode!!
     switch(deviceMode){

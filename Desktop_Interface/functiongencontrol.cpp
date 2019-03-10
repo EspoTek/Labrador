@@ -167,27 +167,30 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 		break;
 	}
 
-    functionGenToUpdate(channelID, this);
+    functionGenToUpdate(channelID, &channel);
 }
 
 void functionGenControl::freqUpdate(ChannelID channelID, double newFreq)
 {
 	qDebug() << "newFreq" << int(channelID) << " = " << newFreq;
-	getChannelData(channelID).freq = newFreq;
-	functionGenToUpdate(channelID, this);
+	ChannelData& channel = getChannelData(channelID);
+	channel.freq = newFreq;
+	functionGenToUpdate(channelID, &channel);
 }
 
 void functionGenControl::amplitudeUpdate(ChannelID channelID, double newAmplitude)
 {
 	qDebug() << "newAmplitude" << int(channelID) << " = " << newAmplitude;
-	getChannelData(channelID).amplitude = newAmplitude;
-	functionGenToUpdate(channelID, this);
+	ChannelData& channel = getChannelData(channelID);
+	channel.amplitude = newAmplitude;
+	functionGenToUpdate(channelID, &channel);
 }
 
 void functionGenControl::offsetUpdate(ChannelID channelID, double newOffset)
 {
 	qDebug() << "newOffset" << int(channelID) << " = " << newOffset;
-	getChannelData(channelID).offset = newOffset;
-	functionGenToUpdate(channelID, this);
+	ChannelData& channel = getChannelData(channelID);
+	channel.offset = newOffset;
+	functionGenToUpdate(channelID, &channel);
 }
 

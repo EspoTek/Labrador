@@ -42,7 +42,7 @@ public:
 	ChannelData& getChannelData(ChannelID channelID);
 
 signals:
-    void functionGenToUpdate(ChannelID channel, functionGenControl *fGenControl);
+    void functionGenToUpdate(ChannelID channel, ChannelData *fGenControlData);
     void setMaxFreq_CH1(double maxFreq);
     void setMinFreq_CH1(double minFreq);
     void setMaxFreq_CH2(double maxFreq);
