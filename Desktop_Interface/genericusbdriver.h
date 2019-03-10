@@ -76,7 +76,7 @@ protected:
     //State Vars
     unsigned char fGenTriple=0;
     unsigned short gainMask = 2056;
-    functionGenControl *fGenPtr_CH1 = NULL, *fGenPtr_CH2 = NULL;
+    functionGenControl* fGenPtr[2] = {NULL, NULL};
     int dutyPsu = 0;
     double currentPsuVoltage;
     int digitalPinState = 0;

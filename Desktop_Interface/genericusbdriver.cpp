@@ -86,10 +86,7 @@ void genericUsbDriver::setFunctionGen(ChannelID channelID, functionGenControl *f
       //////////////////////////////////////
 
     //For recalling on crash.
-    if (channelID == ChannelID::CH1)
-		fGenPtr_CH1 = fGenControl;
-    else
-		fGenPtr_CH2 = fGenControl;
+	fGenPtr[(int)channelID] = fGenControl;
 
     //Reading in data
 	ChannelData channelData = fGenControl->getChannelData(channelID);
@@ -204,8 +201,11 @@ void genericUsbDriver::setDeviceMode(int mode){
     deviceMode = mode;
     usbSendControl(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
 
-    if (fGenPtr_CH1 != NULL) setFunctionGen(ChannelID::CH1, fGenPtr_CH1);
-    if (fGenPtr_CH2 != NULL) setFunctionGen(ChannelID::CH2, fGenPtr_CH2);
+    if (fGenPtr[(int)ChannelID::CH1] != NULL)
+		setFunctionGen(ChannelID::CH1, fGenPtr[(int)ChannelID::CH1]);
+
+	if (fGenPtr[(int)ChannelID::CH2] != NULL)
+		setFunctionGen(ChannelID::CH2, fGenPtr[(int)ChannelID::CH2]);
 
     //switch on new deviceMode!!
     switch(deviceMode){
