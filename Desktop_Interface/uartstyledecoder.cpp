@@ -4,8 +4,9 @@
 
 uartStyleDecoder::uartStyleDecoder(QObject *parent_in)
 	: QObject(parent_in)
+	, parent{static_cast<isoBuffer*>(parent_in)}
+	, m_serialBuffer{SERIAL_BUFFER_LENGTH}
 {
-    parent = (isoBuffer *) parent_in;
 
 	// Begin decoding SAMPLE_DELAY seconds in the past.
 	serialPtr_bit = (int)(parent->m_back * 8 - SERIAL_DELAY * parent->m_sampleRate_bit + parent->m_bufferLen * 8) % (parent->m_bufferLen*8);
@@ -13,9 +14,7 @@ uartStyleDecoder::uartStyleDecoder(QObject *parent_in)
     updateTimer = new QTimer();
     updateTimer->setTimerType(Qt::PreciseTimer);
     updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
-    connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateConsole()));
-
-    serialBuffer = new isoBufferBuffer(SERIAL_BUFFER_LENGTH);
+    connect(updateTimer, &QTimer::timeout, this, &uartStyleDecoder::updateConsole);
 
     if (parent->m_channel == 1)
 		console = parent->m_console1;
@@ -29,21 +28,20 @@ uartStyleDecoder::~uartStyleDecoder()
 {
     std::lock_guard<std::mutex> lock(mutex);
 	delete updateTimer;
-	delete serialBuffer;
 }
 
 void uartStyleDecoder::updateConsole()
 {
-    std::lock_guard<std::mutex> lock(mutex);
 	if (!newUartSymbol)
 		return;
-    //qDebug() << serialBuffer->size();
 
-    console->setPlainText(QString::fromLocal8Bit(serialBuffer->begin(), serialBuffer->size()));
+    std::lock_guard<std::mutex> lock(mutex);
+
+    console->setPlainText(QString::fromLocal8Bit(m_serialBuffer.begin(), m_serialBuffer.size()));
     if (parent->m_serialAutoScroll)
 	{
         //http://stackoverflow.com/questions/21059678/how-can-i-set-auto-scroll-for-a-qtgui-qtextedit-in-pyqt4   DANKON
-        QTextCursor c =  console->textCursor();
+        QTextCursor c = console->textCursor();
         c.movePosition(QTextCursor::End);
         console->setTextCursor(c);
         // txtedit.ensureCursorVisible(); // you might need this also
@@ -78,9 +76,10 @@ void uartStyleDecoder::serialDecode(double baudRate)
         }
         else
         {
-            uartTransmitting = (uart_bit == 1) ? false : true;  // Uart starts transmitting after start bit (logic low).
+            uartTransmitting = uart_bit != 1;  // Uart starts transmitting after start bit (logic low).
             jitterCompensationNeeded = true;
         }
+
         // Update the pointer, accounting for jitter
         updateSerialPtr(baudRate, uart_bit);
         // Calculate stopping condition
@@ -207,10 +206,10 @@ void uartStyleDecoder::decodeDatabit(int mode)
     }
     if (parityCheckFailed)
     {
-        serialBuffer->insert("\n<ERROR: Following character contains parity error>\n");
+        m_serialBuffer.insert("\n<ERROR: Following character contains parity error>\n");
         parityCheckFailed = false;
     }
-    serialBuffer->insert(tempchar);
+    m_serialBuffer.insert(tempchar);
 }
 
 char uartStyleDecoder::decode_baudot(short symbol)

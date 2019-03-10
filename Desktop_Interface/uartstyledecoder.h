@@ -39,7 +39,7 @@ private:
     void decodeNextUartBit(unsigned char bitValue);
     bool jitterCompensationProcedure(double baudRate, unsigned char current_bit);
     QPlainTextEdit *console;
-    isoBufferBuffer *serialBuffer;
+    isoBufferBuffer m_serialBuffer;
     void decodeDatabit(int mode);
     char decode_baudot(short symbol);
 	std::mutex mutex;
