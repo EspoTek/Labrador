@@ -1368,8 +1368,8 @@ void MainWindow::resetUsbState(void){
     ui->psuSlider->poke();
     //ui->controller_iso->driver->newDig(digitalPinState);
     ui->bufferDisplay->poke();
-    ui->controller_iso->driver->setFunctionGen(functionGenControl::ChannelID::CH1, ui->controller_fg);
-    ui->controller_iso->driver->setFunctionGen(functionGenControl::ChannelID::CH2, ui->controller_fg);
+    ui->controller_iso->driver->setFunctionGen(ChannelID::CH1, ui->controller_fg);
+    ui->controller_iso->driver->setFunctionGen(ChannelID::CH2, ui->controller_fg);
 
     ui->controller_iso->clearBuffers(1,1,1);
     ui->controller_iso->doNotTouchGraph = false;

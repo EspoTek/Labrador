@@ -13,6 +13,12 @@
 
 //functionGenControl is a centralised object to control all of the high-level function gen commands for both channels.
 
+enum class ChannelID
+{
+	CH1 = 0,
+	CH2 = 1
+};
+
 class functionGenControl : public QLabel
 {
     Q_OBJECT
@@ -26,11 +32,6 @@ public:
 		double offset = 0.0;
 	};
 
-	enum class ChannelID
-	{
-		CH1 = 0,
-		CH2 = 1
-	};
 
     explicit functionGenControl(QWidget *parent = 0);
 

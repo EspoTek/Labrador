@@ -75,9 +75,8 @@ void genericUsbDriver::setPsu(double voltage){
     qDebug() << "Going to send value " << dutyPsu;
 }
 
-void genericUsbDriver::setFunctionGen(functionGenControl::ChannelID channelID, functionGenControl *fGenControl)
+void genericUsbDriver::setFunctionGen(ChannelID channelID, functionGenControl *fGenControl)
 {
-	using ChannelID = functionGenControl::ChannelID;
         ////////////////////////////
        ////NO RESIZING (YET)!!!////
       ////////////////////////////
@@ -205,8 +204,8 @@ void genericUsbDriver::setDeviceMode(int mode){
     deviceMode = mode;
     usbSendControl(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
 
-    if (fGenPtr_CH1 != NULL) setFunctionGen(functionGenControl::ChannelID::CH1, fGenPtr_CH1);
-    if (fGenPtr_CH2 != NULL) setFunctionGen(functionGenControl::ChannelID::CH2, fGenPtr_CH2);
+    if (fGenPtr_CH1 != NULL) setFunctionGen(ChannelID::CH1, fGenPtr_CH1);
+    if (fGenPtr_CH2 != NULL) setFunctionGen(ChannelID::CH2, fGenPtr_CH2);
 
     //switch on new deviceMode!!
     switch(deviceMode){
