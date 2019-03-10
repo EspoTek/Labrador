@@ -93,7 +93,7 @@ void uartStyleDecoder::serialDecode(double baudRate)
     }
 }
 
-int uartStyleDecoder::serialDistance()
+int uartStyleDecoder::serialDistance() const
 {
     int back_bit = parent->m_back * 8;
     int bufferEnd_bit = (parent->m_bufferLen-1) * 8;
@@ -118,7 +118,7 @@ void uartStyleDecoder::updateSerialPtr(double baudRate, unsigned char current_bi
         serialPtr_bit -= (parent->m_bufferLen * 8);
 }
 
-unsigned char uartStyleDecoder::getNextUartBit()
+unsigned char uartStyleDecoder::getNextUartBit() const
 {
     int coord_byte = serialPtr_bit/8;
     int coord_bit = serialPtr_bit - (8*coord_byte);
@@ -193,7 +193,7 @@ void uartStyleDecoder::decodeDatabit(int mode)
     switch(mode)
 	{
         case 5:
-            tempchar = decode_baudot(currentUartSymbol);
+            tempchar = decodeBaudot(currentUartSymbol);
             break;
         case 8:  //8-bit ASCII;
             tempchar = currentUartSymbol;
@@ -201,6 +201,7 @@ void uartStyleDecoder::decodeDatabit(int mode)
         default:
             qDebug() << "uartStyleDecoder::decodeDatabit is failing...";
     }
+
     if (parityCheckFailed)
     {
         m_serialBuffer.insert("\n<ERROR: Following character contains parity error>\n");
@@ -209,7 +210,7 @@ void uartStyleDecoder::decodeDatabit(int mode)
     m_serialBuffer.insert(tempchar);
 }
 
-char uartStyleDecoder::decode_baudot([[maybe_unused]] short symbol)
+char uartStyleDecoder::decodeBaudot([[maybe_unused]] short symbol) const
 {
     return 'a';
 }

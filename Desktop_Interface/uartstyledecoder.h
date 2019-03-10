@@ -22,7 +22,7 @@ public:
     explicit uartStyleDecoder(QObject *parent_in = NULL);
 	~uartStyleDecoder();
     void serialDecode(double baudRate);
-    int serialDistance();
+    int serialDistance() const;
 
 private:
     isoBuffer *parent;
@@ -36,7 +36,7 @@ private:
     bool jitterCompensationNeeded = true;
 
     void updateSerialPtr(double baudRate, unsigned char current_bit);
-    unsigned char getNextUartBit();
+    unsigned char getNextUartBit() const;
     void decodeNextUartBit(unsigned char bitValue);
     bool jitterCompensationProcedure(double baudRate, unsigned char current_bit);
 
@@ -47,7 +47,7 @@ public:
 
 private:
     void decodeDatabit(int mode);
-    char decode_baudot(short symbol);
+    char decodeBaudot(short symbol) const;
 
 	std::mutex mutex;
     UartParity parity = UartParity::None;
