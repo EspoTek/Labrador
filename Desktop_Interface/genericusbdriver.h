@@ -115,7 +115,8 @@ signals:
     void calibrateMe(void);
 public slots:
     void setPsu(double voltage);
-    void setFunctionGen(ChannelID channel, ChannelData *fGenControlData);
+    void setFunctionGen(ChannelID channelID, ChannelData *fGenControlData);
+	void useFunctionGenData(ChannelID channelID);
     void setDeviceMode(int mode);
     void newDig(int digState);
     void psuTick(void);

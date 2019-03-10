@@ -88,8 +88,13 @@ void genericUsbDriver::setFunctionGen(ChannelID channelID, ChannelData* fGenCont
     //For recalling on crash.
 	fGenPtrData[(int)channelID] = fGenControlData;
 
+	useFunctionGenData(channelID);
+}
+
+void genericUsbDriver::useFunctionGenData(ChannelID channelID)
+{
     //Reading in data
-	ChannelData channelData = *fGenControlData;
+	ChannelData channelData = *fGenPtrData[(int)channelID];
 
     //Triple mode
     if ((channelData.amplitude + channelData.offset) > FGEN_LIMIT)
@@ -182,6 +187,7 @@ void genericUsbDriver::setFunctionGen(ChannelID channelID, ChannelData* fGenCont
 		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
 
     return;
+
 }
 
 void genericUsbDriver::newDig(int digState){
@@ -202,10 +208,10 @@ void genericUsbDriver::setDeviceMode(int mode){
     usbSendControl(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
 
     if (fGenPtrData[(int)ChannelID::CH1] != NULL)
-		setFunctionGen(ChannelID::CH1, fGenPtrData[(int)ChannelID::CH1]);
+		useFunctionGenData(ChannelID::CH1);
 
 	if (fGenPtrData[(int)ChannelID::CH2] != NULL)
-		setFunctionGen(ChannelID::CH2, fGenPtrData[(int)ChannelID::CH2]);
+		useFunctionGenData(ChannelID::CH2);
 
     //switch on new deviceMode!!
     switch(deviceMode){
