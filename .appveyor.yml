@@ -23,7 +23,7 @@ branches:
 
 init:
   - set PATH=%QT_PATH%;%PATH%
-  - call "C:\Program Files (x86)\Microsoft Visual Studio 15.0\VC\vcvarsall.bat" %PLATFORM%
+  - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %PLATFORM%
 
 before_build:
   - cd c:\dev\labrador\Desktop_Interface 
