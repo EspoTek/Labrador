@@ -338,7 +338,7 @@ void isoBuffer::serialManage(double baudRate, UartParity parity)
 {
     if (m_decoder == NULL)
     {
-        m_decoder = new uartStyleDecoder(this);
+        m_decoder = new uartStyleDecoder(baudRate, this);
 
         connect(m_decoder, &uartStyleDecoder::wireDisconnected,
                 m_virtualParent, &isoDriver::serialNeedsDisabling);
@@ -348,8 +348,10 @@ void isoBuffer::serialManage(double baudRate, UartParity parity)
         m_decoder->m_updateTimer.start(CONSOLE_UPDATE_TIMER_PERIOD);
         m_isDecoding = true;
     }
+
+	m_decoder->m_baudRate = baudRate;
     m_decoder->setParityMode(parity);
-    m_decoder->serialDecode(baudRate);
+    m_decoder->serialDecode();
 }
 
 void isoBuffer::setTriggerType(TriggerType newType)

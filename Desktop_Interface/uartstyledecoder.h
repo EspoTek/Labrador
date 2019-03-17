@@ -19,14 +19,16 @@ class uartStyleDecoder : public QObject
 {
     Q_OBJECT
 public:
-    explicit uartStyleDecoder(QObject *parent_in = NULL);
-	~uartStyleDecoder();
-    void serialDecode(double baudRate);
-    int serialDistance() const;
+    explicit uartStyleDecoder(double baudRate, QObject *parent = NULL);
+	~uartStyleDecoder() = default;
+
 
 private:
-    isoBuffer *parent;
+    isoBuffer *m_parent;
+
+	// Indicates the current bit being decoded.
     int serialPtr_bit;
+
     bool uartTransmitting = false;
     bool newUartSymbol = false;
     uint32_t dataBit_current = 0;
@@ -35,16 +37,20 @@ private:
     unsigned short currentUartSymbol = 0;
     bool jitterCompensationNeeded = true;
 
-    void updateSerialPtr(double baudRate, unsigned char current_bit);
-    unsigned char getUartBit(int bitIndex) const;
-    void decodeNextUartBit(unsigned char bitValue);
-    bool jitterCompensationProcedure(double baudRate, unsigned char current_bit);
+    void updateSerialPtr(bool current_bit);
+    bool getNextUartBit() const;
+    void decodeNextUartBit(bool bitValue);
+    bool jitterCompensationProcedure(bool current_bit);
 
     QPlainTextEdit *console;
     isoBufferBuffer m_serialBuffer;
 public:
+	double m_baudRate;
     QTimer m_updateTimer; // IMPORTANT: must be after m_serialBuffer. construction / destruction order matters
 
+public:
+    void serialDecode();
+    int serialDistance() const;
 private:
     char decodeDatabit(int mode, short symbol) const;
     char decodeBaudot(short symbol) const;
