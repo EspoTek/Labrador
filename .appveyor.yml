@@ -12,6 +12,9 @@ environment:
     - QT_PATH : C:\Qt\5.12\msvc2017\bin
       PLATFORM : x86
       OUTPUT_BIN_DIR : bin32
+    - QT_PATH : C:\Qt\5.6.3\msvc2017\bin
+      PLATFORM : x86
+      OUTPUT_BIN_DIR : bin32_xp
 
 clone_folder: c:\dev\labrador
 clone_depth: 1
