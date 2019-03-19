@@ -230,9 +230,8 @@ void uartStyleDecoder::setParityMode(UartParity newParity)
 
 bool uartStyleDecoder::isParityCorrect(uint32_t bitField) const
 {
-	if (parity == UartParity::None)
-		std::terminate();
-
+	assert(parity != UartParity::None);
+	
 	return parityOf(bitField) == parity;
 }
 
