@@ -1363,13 +1363,14 @@ void MainWindow::reinitUsbStage2(void){
 }
 
 void MainWindow::resetUsbState(void){
+	using functionGen::ChannelID;
     //ui->controller_iso->driver->setDeviceMode(deviceMode);
     //ui->controller_iso->driver->setPsu(currentPsuVoltage);
     ui->psuSlider->poke();
     //ui->controller_iso->driver->newDig(digitalPinState);
     ui->bufferDisplay->poke();
-    ui->controller_iso->driver->setFunctionGen(ChannelID::CH1, &ui->controller_fg->getChannelData(ChannelID::CH1));
-    ui->controller_iso->driver->setFunctionGen(ChannelID::CH2, &ui->controller_fg->getChannelData(ChannelID::CH2));
+    ui->controller_iso->driver->setFunctionGen(ChannelID::CH1, ui->controller_fg->getChannelController(ChannelID::CH1));
+    ui->controller_iso->driver->setFunctionGen(ChannelID::CH2, ui->controller_fg->getChannelController(ChannelID::CH2));
 
     ui->controller_iso->clearBuffers(1,1,1);
     ui->controller_iso->doNotTouchGraph = false;
