@@ -76,7 +76,7 @@ protected:
     //State Vars
     unsigned char fGenTriple=0;
     unsigned short gainMask = 2056;
-    functionGenControl *fGenPtr_CH1 = NULL, *fGenPtr_CH2 = NULL;
+	functionGen::SingleChannelController* fGenPtrData[2] = {NULL, NULL};
     int dutyPsu = 0;
     double currentPsuVoltage;
     int digitalPinState = 0;
@@ -115,7 +115,8 @@ signals:
     void calibrateMe(void);
 public slots:
     void setPsu(double voltage);
-    void setFunctionGen(functionGenControl::ChannelID channel, functionGenControl *fGenControl);
+    void setFunctionGen(functionGen::ChannelID channelID, functionGen::SingleChannelController *fGenControl);
+	void sendFunctionGenData(functionGen::ChannelID channelID);
     void setDeviceMode(int mode);
     void newDig(int digState);
     void psuTick(void);

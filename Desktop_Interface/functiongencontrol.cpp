@@ -1,63 +1,14 @@
 #include "functiongencontrol.h"
 #include "platformspecific.h"
 
+namespace functionGen {
 
-functionGenControl::functionGenControl(QWidget *parent) : QLabel(parent)
-{
-    this->hide();
+ChannelData const& SingleChannelController::getData() const {
+	return m_data;
 }
 
-void functionGenControl::waveformName_CH1(QString newName)
+void SingleChannelController::waveformName(QString newName)
 {
-	waveformName(ChannelID::CH1, newName);
-}
-
-void functionGenControl::freqUpdate_CH1(double newFreq)
-{
-	freqUpdate(ChannelID::CH1, newFreq);
-}
-
-void functionGenControl::amplitudeUpdate_CH1(double newAmplitude)
-{
-	amplitudeUpdate(ChannelID::CH1, newAmplitude);
-}
-
-void functionGenControl::offsetUpdate_CH1(double newOffset)
-{
-	offsetUpdate(ChannelID::CH1, newOffset);
-}
-
-
-void functionGenControl::waveformName_CH2(QString newName)
-{
-	waveformName(ChannelID::CH2, newName);
-}
-
-void functionGenControl::freqUpdate_CH2(double newFreq)
-{
-	freqUpdate(ChannelID::CH2, newFreq);
-}
-
-void functionGenControl::amplitudeUpdate_CH2(double newAmplitude)
-{
-	amplitudeUpdate(ChannelID::CH2, newAmplitude);
-}
-
-void functionGenControl::offsetUpdate_CH2(double newOffset)
-{
-	offsetUpdate(ChannelID::CH2, newOffset);
-}
-
-
-functionGenControl::ChannelData& functionGenControl::getChannelData(ChannelID channelID)
-{
-	return channels[static_cast<int>(channelID)];
-}
-
-void functionGenControl::waveformName(ChannelID channelID, QString newName)
-{
-	ChannelData& channel = getChannelData(channelID);
-
     qDebug() << "newName = " << newName;
     newName.append(".tlw");
 
@@ -81,16 +32,16 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 
     line = fptr.readLine();
     strcpy(divisibilityString, line.data());
-    sscanf(divisibilityString, "%d", &channel.divisibility);
+    sscanf(divisibilityString, "%d", &m_data.divisibility);
     qDebug() << "divisibilityString" << divisibilityString;
 
     qDebug() << "Length = " << length;
-    qDebug() << "Divisibility = " << channel.divisibility;
+    qDebug() << "Divisibility = " << m_data.divisibility;
 
     QByteArray remainingData = fptr.readAll();
     char *dataString = remainingData.data();
 
-	channel.samples.resize(length);
+	m_data.samples.resize(length);
 
     int dummy;
     char *dataStringCurrent = dataString;
@@ -98,7 +49,7 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 	{
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        channel.samples[i] = static_cast<uint8_t>(dummy);
+        m_data.samples[i] = static_cast<uint8_t>(dummy);
     }
 
 #else
@@ -124,12 +75,12 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 	}
 	while ((divisibilityString[0] == '\r') || (divisibilityString[0] == '\n'));
 
-    sscanf(divisibilityString, "%d", &channel.divisibility);
+    sscanf(divisibilityString, "%d", &m_data.divisibility);
 
     qDebug() << "Length = " << length;
-    qDebug() << "Divisibility = " << channel.divisibility;
+    qDebug() << "Divisibility = " << m_data.divisibility;
 
-	channel.samples.resize(length);
+	m_data.samples.resize(length);
 
     char *dataString = (char *) malloc(length*5+1);
     fgets(dataString, length*5+1, fptr);
@@ -140,54 +91,142 @@ void functionGenControl::waveformName(ChannelID channelID, QString newName)
 	{
         sscanf(dataStringCurrent, "%d", &dummy);
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        channel.samples[i] = static_cast<uint8_t>(dummy);
+        m_data.samples[i] = static_cast<uint8_t>(dummy);
     }
 
     free(dataString);
     fclose(fptr);
 #endif
 
-	double newMaxFreq = DAC_SPS / (length >> (channel.divisibility - 1));
+	double newMaxFreq = DAC_SPS / (length >> (m_data.divisibility - 1));
 	double newMinFreq = double(CLOCK_FREQ) / 1024.0 / 65535.0 / static_cast<double>(length);
 
-	// NOTE: Not very clean... Not sure what to do about it.
-	// I guess the "right thing" would be to have a Channel QObject class with its
-	// own signals and slots, or have a single setMaxFreq signal with channelID as
-	// an argument. Either solution would require changes in other places in the
-	// codebase so this will have to do for now.
-	switch (channelID)
-	{
-	case ChannelID::CH1:
-		setMaxFreq_CH1(newMaxFreq);
-		setMinFreq_CH1(newMinFreq);
-		break;
-	case ChannelID::CH2:
-		setMaxFreq_CH2(newMaxFreq);
-		setMinFreq_CH2(newMinFreq);
-		break;
-	}
+	setMaxFreq(newMaxFreq);
+	setMinFreq(newMinFreq);
 
-    functionGenToUpdate(channelID, this);
+    notifyUpdate(this);
 }
 
-void functionGenControl::freqUpdate(ChannelID channelID, double newFreq)
+void SingleChannelController::freqUpdate(double newFreq)
 {
-	qDebug() << "newFreq" << int(channelID) << " = " << newFreq;
-	getChannelData(channelID).freq = newFreq;
-	functionGenToUpdate(channelID, this);
+	qDebug() << "newFreq = " << newFreq;
+	m_data.freq = newFreq;
+	notifyUpdate(this);
 }
 
-void functionGenControl::amplitudeUpdate(ChannelID channelID, double newAmplitude)
+void SingleChannelController::amplitudeUpdate(double newAmplitude)
 {
-	qDebug() << "newAmplitude" << int(channelID) << " = " << newAmplitude;
-	getChannelData(channelID).amplitude = newAmplitude;
-	functionGenToUpdate(channelID, this);
+	qDebug() << "newAmplitude = " << newAmplitude;
+	m_data.amplitude = newAmplitude;
+	notifyUpdate(this);
 }
 
-void functionGenControl::offsetUpdate(ChannelID channelID, double newOffset)
+void SingleChannelController::offsetUpdate(double newOffset)
 {
-	qDebug() << "newOffset" << int(channelID) << " = " << newOffset;
-	getChannelData(channelID).offset = newOffset;
-	functionGenToUpdate(channelID, this);
+	qDebug() << "newOffset = " << newOffset;
+	m_data.offset = newOffset;
+	notifyUpdate(this);
+}
+
+
+DualChannelController::DualChannelController(QWidget *parent) : QLabel(parent)
+{
+	// A bunch of plumbing to forward the SingleChannelController's signals
+
+	SingleChannelController* controller1 = getChannelController(ChannelID::CH1);
+	SingleChannelController* controller2 = getChannelController(ChannelID::CH2);
+
+	connect(controller1, &SingleChannelController::notifyUpdate,
+	        this, [=](SingleChannelController* ptr){ this->functionGenToUpdate(ChannelID::CH1, ptr); });
+
+	connect(controller1, &SingleChannelController::setMaxFreq,
+	        this, &DualChannelController::setMaxFreq_CH1);
+
+	connect(controller1, &SingleChannelController::setMinFreq,
+	        this, &DualChannelController::setMinFreq_CH1);
+
+
+	connect(controller2, &SingleChannelController::notifyUpdate,
+	        this, [=](SingleChannelController* ptr){ this->functionGenToUpdate(ChannelID::CH2, ptr); });
+
+	connect(controller1, &SingleChannelController::setMaxFreq,
+	        this, &DualChannelController::setMaxFreq_CH2);
+
+	connect(controller1, &SingleChannelController::setMinFreq,
+	        this, &DualChannelController::setMinFreq_CH2);
+
+    this->hide();
+}
+
+
+SingleChannelController* DualChannelController::getChannelController(ChannelID channelID)
+{
+	return &m_channels[(int)channelID];
+}
+
+// The rest of this file is just plumbing to forward slot calls to SingleChannelController's
+// Hopefuly it can be mostly removed eventually
+void DualChannelController::waveformName(ChannelID channelID, QString newName)
+{
+	getChannelController(channelID)->waveformName(newName);
+}
+
+void DualChannelController::freqUpdate(ChannelID channelID, double newFreq)
+{
+	getChannelController(channelID)->freqUpdate(newFreq);
+}
+
+void DualChannelController::amplitudeUpdate(ChannelID channelID, double newAmplitude)
+{
+	getChannelController(channelID)->amplitudeUpdate(newAmplitude);
+}
+
+void DualChannelController::offsetUpdate(ChannelID channelID, double newOffset)
+{
+	getChannelController(channelID)->offsetUpdate(newOffset);
+}
+
+
+void DualChannelController::waveformName_CH1(QString newName)
+{
+	waveformName(ChannelID::CH1, newName);
+}
+
+void DualChannelController::freqUpdate_CH1(double newFreq)
+{
+	freqUpdate(ChannelID::CH1, newFreq);
+}
+
+void DualChannelController::amplitudeUpdate_CH1(double newAmplitude)
+{
+	amplitudeUpdate(ChannelID::CH1, newAmplitude);
+}
+
+void DualChannelController::offsetUpdate_CH1(double newOffset)
+{
+	offsetUpdate(ChannelID::CH1, newOffset);
+}
+
+
+void DualChannelController::waveformName_CH2(QString newName)
+{
+	waveformName(ChannelID::CH2, newName);
+}
+
+void DualChannelController::freqUpdate_CH2(double newFreq)
+{
+	freqUpdate(ChannelID::CH2, newFreq);
+}
+
+void DualChannelController::amplitudeUpdate_CH2(double newAmplitude)
+{
+	amplitudeUpdate(ChannelID::CH2, newAmplitude);
+}
+
+void DualChannelController::offsetUpdate_CH2(double newOffset)
+{
+	offsetUpdate(ChannelID::CH2, newOffset);
+}
+
 }
 
