@@ -17,6 +17,13 @@ i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, QPlainTextEdit* con
             this, &i2cDecoder::updateConsole);
 }
 
+i2cDecoder::~i2cDecoder()
+{
+    // TODO: Is a lock needed here? Destructors should never be called more than once but...
+    delete updateTimer;
+    delete serialBuffer;
+}
+
 void i2cDecoder::reset()
 {
     qDebug () << "Resetting I2C";
