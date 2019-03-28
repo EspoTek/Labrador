@@ -86,14 +86,6 @@ void i2cDecoder::runStateMachine()
     edge sdaEdge = edgeDetection(currentSdaValue, previousSdaValue);
 	edge sclEdge = edgeDetection(currentSclValue, previousSclValue);
 
-//    if (sdaEdge == edge::rising || sdaEdge == edge::falling)
-//        qDebug() << "sdaEdge";
-//    if (sclEdge == edge::rising || sclEdge == edge::falling)
-//        qDebug() << "sclEdge";
-
-//    if (sclEdge != edge::held_low)
-//        qDebug() << "sdaEdge" << (uint8_t)sdaEdge << "sclEdge" << (uint8_t)sclEdge;
-
 	if ((sdaEdge == edge::rising) && (sclEdge == edge::falling)) // INVALID STATE TRANSITION
 	{
         state = transmissionState::unknown;
