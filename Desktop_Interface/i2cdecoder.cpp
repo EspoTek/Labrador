@@ -13,8 +13,7 @@ i2cDecoder::i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, QPlainTextEdit* con
     updateTimer = new QTimer();
     updateTimer->setTimerType(Qt::PreciseTimer);
     updateTimer->start(CONSOLE_UPDATE_TIMER_PERIOD);
-    connect(updateTimer, &QTimer::timeout,
-            this, &i2cDecoder::updateConsole);
+    connect(updateTimer, &QTimer::timeout, this, &i2cDecoder::updateConsole);
 }
 
 i2cDecoder::~i2cDecoder()
