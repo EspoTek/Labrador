@@ -36,6 +36,7 @@ class i2cDecoder : public QObject
     Q_OBJECT
 public:
     explicit i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, QPlainTextEdit* console_in);
+    ~i2cDecoder();
 	// misc
     isoBuffer* sda;
 	isoBuffer* scl;
