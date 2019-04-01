@@ -29,7 +29,7 @@ before_build:
   - cd c:\dev\labrador\Desktop_Interface 
 
 build_script:
-  - qmake CONFIG+=release DEFINES+="GIT_HASH_SHORT=`"$(git rev-parse --short HEAD)`""
+  - ps: qmake CONFIG+=release DEFINES+="GIT_HASH_SHORT=`"$(git rev-parse --short HEAD)`""
   - nmake
 
 after_build:
