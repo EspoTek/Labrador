@@ -30,7 +30,7 @@ before_build:
 
 build_script:
   - ps: $env:GIT_HASH_SHORT=$(git rev-parse --short HEAD)
-  - qmake CONFIG+=release 'DEFINES+=GIT_HASH_SHORT=\\\"%GIT_HASH_SHORT%\\\"'
+  - qmake CONFIG+=release 'DEFINES+=GIT_HASH_SHORT=%GIT_HASH_SHORT%
   - nmake
 
 after_build:
