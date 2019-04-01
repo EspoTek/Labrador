@@ -4,11 +4,20 @@
 #include <QDesktopServices>
 #include "espospinbox.h"
 
+#ifndef GIT_HASH_SHORT
+#define GIT_HASH_SHORT "0000000"
+#endif
+
 namespace
 {
    constexpr uint32_t MAX_CONSOLE_BLOCK_COUNT = 512;
    constexpr char kDocumentationUrl[] = "https://github.com/EspoTek/Labrador/wiki";
    constexpr char kPinoutUrl[] = "https://github.com/EspoTek/Labrador/wiki/Pinout";
+   constexpr char kAboutString[] = "<h4>EspoTek Labrador</h4>"
+                                   "Continuous Release<br>"\
+                                   "Git hash: <a href='https://github.com/EspoTek/Labrador/commits/" GIT_HASH_SHORT "'>" GIT_HASH_SHORT "</a><br>"\
+                                   "Website: <a href='http://espotek.com'>https://espotek.com</a><br>"\
+                                   "Contact email: <a href='mailto:admin@espotek.com'>admin@espotek.com</a>";
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -2105,7 +2114,11 @@ void MainWindow::daq_saveButtonPressed(){
 
 void MainWindow::on_actionAbout_triggered()
 {
-    QMessageBox::about(this, "About EspoTek Labrador", "EspoTek Labrador, Christmas Edition 2017.\nWebsite: http://espotek.com\nContact Email: admin@espotek.com");
+    QMessageBox aboutDialog(this);
+    aboutDialog.setWindowTitle("About EspoTek Labrador");
+    aboutDialog.setTextFormat(Qt::RichText);
+    aboutDialog.setText(kAboutString);
+    aboutDialog.exec();
 }
 
 void MainWindow::on_actionOpen_DAQ_File_triggered()
