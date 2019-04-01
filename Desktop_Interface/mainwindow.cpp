@@ -4,8 +4,11 @@
 #include <QDesktopServices>
 #include "espospinbox.h"
 
+#define DO_QUOTE(X) #X
+#define QUOTE(X) DO_QUOTE(X)
+
 #ifndef GIT_HASH_SHORT
-#define GIT_HASH_SHORT "0000000"
+#define GIT_HASH_SHORT 0000000
 #endif
 
 namespace
@@ -15,7 +18,7 @@ namespace
    constexpr char kPinoutUrl[] = "https://github.com/EspoTek/Labrador/wiki/Pinout";
    constexpr char kAboutString[] = "<h4>EspoTek Labrador</h4>"
                                    "Continuous Release<br>"\
-                                   "Git hash: <a href='https://github.com/EspoTek/Labrador/commits/" GIT_HASH_SHORT "'>" GIT_HASH_SHORT "</a><br>"\
+                                   "Git hash: <a href='https://github.com/EspoTek/Labrador/commits/" QUOTE(GIT_HASH_SHORT) "'>" QUOTE(GIT_HASH_SHORT) "</a><br>"\
                                    "Website: <a href='http://espotek.com'>https://espotek.com</a><br>"\
                                    "Contact email: <a href='mailto:admin@espotek.com'>admin@espotek.com</a>";
    constexpr char kOrganisationName[] = "EspoTek";
