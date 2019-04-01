@@ -18,12 +18,17 @@ namespace
                                    "Git hash: <a href='https://github.com/EspoTek/Labrador/commits/" GIT_HASH_SHORT "'>" GIT_HASH_SHORT "</a><br>"\
                                    "Website: <a href='http://espotek.com'>https://espotek.com</a><br>"\
                                    "Contact email: <a href='mailto:admin@espotek.com'>admin@espotek.com</a>";
+   constexpr char kOrganisationName[] = "EspoTek";
+   constexpr char kApplicationName[] = "Labrador";
 }
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    QCoreApplication::setOrganizationName(kOrganisationName);
+    QCoreApplication::setApplicationName(kApplicationName);
+
     ui->setupUi(this);
 
     calibrationMessages = new QMessageBox();
@@ -1206,7 +1211,7 @@ void MainWindow::helloWorld(){
 
 #define QSETTINGS_DEFAULT_RETURN 42069
 void MainWindow::readSettingsFile(){
-    settings = new QSettings("settings.ini", QSettings::IniFormat);
+    settings = new QSettings();
     int connectionType = settings->value("ConnectionType", QSETTINGS_DEFAULT_RETURN).toInt();
     double calibrate_vref_ch1 = settings->value("CalibrateVrefCH1", 1.65).toDouble();
     double calibrate_vref_ch2 = settings->value("CalibrateVrefCH2", 1.65).toDouble();
