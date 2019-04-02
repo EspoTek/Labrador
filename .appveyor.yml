@@ -17,6 +17,8 @@ clone_folder: c:\dev\labrador
 clone_depth: 1
 configuration: Release
 
+skip_tags: true
+
 branches:
   only:
     - master
