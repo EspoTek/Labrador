@@ -7,12 +7,12 @@ http://espotek.com/labrador
 This repo hosts all of the software and hardware that makes Labrador possible.
 
 # Documentation and Software
-To download binary (executable) versions of the software, go to:
-
+To download binary (executable) versions of the software, go to:  
 https://github.com/espotek/labrador/releases
 
-For the documentation, please visit:
+The software is re-built automatically each time I make a change to the source code.  I recommend always downloading the latest win32, osx-dmg or linux-appimage version, depending on whether you're on Windows, macOS or Linux.  Raspberry Pi downloads are not currently automatically built, but an older version is provided at the link above.
 
+For the documentation, please visit:  
 https://github.com/espotek/labrador/wiki
 
 # Licence
