@@ -21,23 +21,24 @@ All software files are licenced under GNU GPL v3.  https://www.gnu.org/licenses/
 All hardware files (schematics, PCB) are licenced under Creative Commons 4.0 (CC BY-NC-SA).  https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 # Building from Source
-I use Qt Creator to build the software interface.
-https://www.qt.io/download-open-source/
-Open Desktop_Interface/Labrador.pro, then Clean All -> Run qmake -> Build All.
-If you're on Linux (including Raspberry Pi), then you can also build the software from source by cloning the repo, cd'ing to the Desktop_Interface directory then running:
+I use Qt Creator to build the software interface.  
+https://www.qt.io/download-open-source/  
+Open Desktop_Interface/Labrador.pro, then Clean All -> Run qmake -> Build All.  
+
+If you're on Linux (including Raspberry Pi), then you can also build the software from source by cloning the repo, cd'ing to the Desktop_Interface directory then running:  
 ```
 qmake
 make
 sudo make install
 ```
-Then, to launch, just type `labrador` into the terminal.
+Then, to launch, just type `labrador` into the terminal.  
 
 To build the AVR software, I use Atmel Studio 7.  Just load up the .atsln and push F7.  You can use `avr-gcc` if you don't want to install a full IDE.
 
 The PCB files can be edited in KiCAD 4.0.
 
 # Known bugs.
-Most of the main bugs have now been fixed, including all synchronisation issues.
+Most of the main bugs from the pre-launch period have now been fixed, including synchronisation issues.  
 Please open an issue if you're aware of any in particular.
 
 # Collaboration
@@ -49,6 +50,5 @@ For code submissions, look into Pull Requests.
 
 If you just want to say hello and remind me that people are actually using my product (or if you just don't want to make a GitHub account), please email admin@espotek.com
 
-Thanks to all.
-
+Thanks to all.  
 ~Chris
