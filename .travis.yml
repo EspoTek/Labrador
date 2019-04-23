@@ -64,7 +64,11 @@ script:
       cd Desktop_Interface
       qmake "PORTABLE=1" CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
       make -j$(nproc) CXX=${CXX} CC=${CC} LINK=${CXX}
-      make INSTALL_ROOT=appdir -j$(nproc) install ; find appdir/
+      sudo cp ./build_linux/libdfuprog/lib/x64/libdfuprog-*.so /usr/lib/x86_64-linux-gnu/
+      mkdir -p appdir/usr/bin/ ; ldd bin/Labrador ; strip bin/Labrador ; cp bin/Labrador appdir/usr/bin/
+      cp -r bin/{waveforms,firmware}  appdir/usr/bin/
+      mkdir -p appdir/usr/share/applications ; cp resources/espotek-labrador.desktop appdir/usr/share/applications
+      mkdir -p appdir/usr/share/icons/hicolor/256x256/apps/ ; cp 'resources/labradeb/usr/share/app-install/icons/espotek-labrador.png' appdir/usr/share/icons/hicolor/256x256/apps/
       wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
       chmod a+x linuxdeployqt-continuous-x86_64.AppImage
       unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
