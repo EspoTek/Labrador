@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=EspoTek Labrador
+Comment=Software Interface for Labrador Board
+Exec=/usr/local/bin/EspoTek-Labrador/Labrador 
+Terminal=false
+Type=Application
+Categories=Electronics
+Icon=/usr/share/icons/hicolor/256x256/apps/espotek-labrador.png
+
+

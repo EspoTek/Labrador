@@ -1,7 +1,0 @@
-#!/bin/bash
-
-sudo dpkg -i labradeb.deb
-sudo udevadm control --reload-rules
-sudo udevadm trigger
-
-exec /usr/share/espotek/labrador/Labrador
