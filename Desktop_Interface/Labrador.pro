@@ -135,7 +135,7 @@ unix:!android:!macx{
             QMAKE_CXXFLAGS += -fsigned-char
             DEFINES += "PLATFORM_RASPBERRY_PI"
             #All ARM-Linux GCC treats char as unsigned by default???
-            lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/arnm/libdfuprog-0.9.so
+            lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/arm/libdfuprog-0.9.so
             lib_deploy.path = /usr/lib
 
     } else {
