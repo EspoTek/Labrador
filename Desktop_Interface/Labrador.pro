@@ -180,9 +180,11 @@ unix:!android:!macx{
     INSTALLS += target
     INSTALLS += lib_deploy
     INSTALLS += other
-    INSTALLS += symlink
     INSTALLS += udev
-    INSTALLS += udevextra
+    !equals(PORTABLE, 1){
+        INSTALLS += symlink
+        INSTALLS += udevextra
+    }
 }
 
 

@@ -62,24 +62,22 @@ script:
       #Linux
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       cd Desktop_Interface
-      qmake CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
+      qmake "PORTABLE=1" CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
       make -j$(nproc) CXX=${CXX} CC=${CC} LINK=${CXX}
-      # - make INSTALL_ROOT=appdir -j$(nproc) install ; find appdir/
-      #   NOTE: The following 5 lines should not be needed if "make install" would be made work for Labrador; see
-      #   https://github.com/probonopd/linuxdeployqt#using-linuxdeployqt-with-travis-ci
-      sudo cp ./build_linux/libdfuprog/lib/x64/libdfuprog-*.so /usr/lib/x86_64-linux-gnu/
-      mkdir -p appdir/usr/bin/ ; ldd bin/Labrador ; strip bin/Labrador ; cp bin/Labrador appdir/usr/bin/
-      cp -r bin/{waveforms,firmware}  appdir/usr/bin/
-      mkdir -p appdir/usr/share/applications ; cp build_linux/labrador.desktop appdir/usr/share/applications
-      mkdir -p appdir/usr/share/icons/hicolor/256x256/apps/ ; cp '../build_scripts/linux_deploy_labra_64-bit/labradeb/usr/share/app-install/icons/espotek-labrador.png' appdir/usr/share/icons/hicolor/256x256/apps/
+      make INSTALL_ROOT=appdir -j$(nproc) install ; find appdir/
       wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
       chmod a+x linuxdeployqt-continuous-x86_64.AppImage
       unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
       export VERSION=$(git rev-parse --short HEAD)
       ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -bundle-non-qt-libs -verbose=2
+      # Workaround to increase compatibility with older systems; see https://github.com/darealshinji/AppImageKit-checkrt for details
+      mkdir -p appdir/usr/optional/ ; wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/exec-x86_64.so -O ./appdir/usr/optional/exec.so
+      mkdir -p appdir/usr/optional/libstdc++/ ; cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./appdir/usr/optional/libstdc++/
+      ( cd appdir ; rm AppRun ; wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun ; chmod a+x AppRun)
+      # Manually invoke appimagetool so that libstdc++ gets bundled and the modified AppRun stays intact
       ./linuxdeployqt*.AppImage --appimage-extract
-      rm ./appdir/AppRun ; cp ./build_linux/AppRun appdir/ ; chmod a+x ./appdir/AppRun
-      PATH=./squashfs-root/usr/bin:$PATH ./squashfs-root/usr/bin/appimagetool -g ./appdir/
+      export PATH=$(readlink -f ./squashfs-root/usr/bin):$PATH
+      ./squashfs-root/usr/bin/appimagetool -g ./appdir/ $NAME-$VERSION-x86_64.AppImage
     fi
 
 after_success:
