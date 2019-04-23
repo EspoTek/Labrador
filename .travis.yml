@@ -73,11 +73,10 @@ script:
       # Workaround to increase compatibility with older systems; see https://github.com/darealshinji/AppImageKit-checkrt for details
       mkdir -p appdir/usr/optional/ ; wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/exec-x86_64.so -O ./appdir/usr/optional/exec.so
       mkdir -p appdir/usr/optional/libstdc++/ ; cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./appdir/usr/optional/libstdc++/
-      ( cd appdir ; rm AppRun ; wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun ; chmod a+x AppRun)
       # Manually invoke appimagetool so that libstdc++ gets bundled and the modified AppRun stays intact
       ./linuxdeployqt*.AppImage --appimage-extract
-      export PATH=$(readlink -f ./squashfs-root/usr/bin):$PATH
-      ./squashfs-root/usr/bin/appimagetool -g ./appdir/
+      rm ./appdir/AppRun ; cp ./resources/AppRun appdir/ ; chmod a+x ./appdir/AppRun
+      PATH=./squashfs-root/usr/bin:$PATH ./squashfs-root/usr/bin/appimagetool -g ./appdir/
     fi
 
 after_success:
