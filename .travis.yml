@@ -77,7 +77,7 @@ script:
       # Manually invoke appimagetool so that libstdc++ gets bundled and the modified AppRun stays intact
       ./linuxdeployqt*.AppImage --appimage-extract
       export PATH=$(readlink -f ./squashfs-root/usr/bin):$PATH
-      ./squashfs-root/usr/bin/appimagetool -g ./appdir/ $NAME-$VERSION-x86_64.AppImage
+      ./squashfs-root/usr/bin/appimagetool -g ./appdir/
     fi
 
 after_success:
