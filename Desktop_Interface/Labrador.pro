@@ -171,26 +171,18 @@ unix:!android:!macx{
     other.files += bin/waveforms
     other.path = /usr/local/bin/EspoTek-Labrador
     target.path = /usr/local/bin/EspoTek-Labrador
-    udev.path = /etc/udev/rules.d
-    udev.files = rules.d/69-labrador.rules
-    icon.files += resources/espotek-labrador.png
-    icon.path = /usr/share/icons/hicolor/256x256/apps/
-    desktop.files += resources/espotek-labrador.desktop
-    desktop.path = /usr/share/applications
     symlink.path = /usr/local/bin
     symlink.extra = ln -sf /usr/local/bin/EspoTek-Labrador/Labrador /usr/local/bin/labrador
+    udev.path = /etc/udev/rules.d
+    udev.files = rules.d/69-labrador.rules
     udevextra.path = /etc/udev/rules.d
-    udevextra.extra = udevadm control --reload-rules && udevadm trigger
+    udevextra.extra = udevadm control --reload-rules && udevadm trigger 
     INSTALLS += target
     INSTALLS += lib_deploy
     INSTALLS += other
+    INSTALLS += symlink
     INSTALLS += udev
-    INSTALLS += icon
-    INSTALLS += desktop
-    !equals(PORTABLE, 1){
-        INSTALLS += symlink
-        INSTALLS += udevextra
-    }
+    INSTALLS += udevextra
 }
 
 
