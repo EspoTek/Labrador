@@ -1,6 +1,7 @@
 #include "isobuffer.h"
 
 #include <algorithm>
+#include <cassert>
 
 #include "isodriver.h"
 #include "uartstyledecoder.h"
@@ -121,6 +122,7 @@ std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSampl
     double itr = delaySamples;
     for (int i = 0; i < numSamples && itr < m_insertedCount; i++)
     {
+        assert(int(itr) >= 0);
         readData[i] = bufferAt(int(itr));
 
         if (singleBit)

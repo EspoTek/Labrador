@@ -687,7 +687,13 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 
     double triggerDelay = 0;
     if (triggerEnabled)
+    {
         triggerDelay = (triggerMode < 2) ? internalBuffer375_CH1->getDelayedTriggerPoint(window) - window : internalBuffer375_CH2->getDelayedTriggerPoint(window) - window;
+
+        if (triggerDelay < 0)
+            triggerDelay = 0;
+    }
+
     if(singleShotEnabled && (triggerDelay != 0))
         singleShotTriggered(1);
 
