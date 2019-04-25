@@ -182,8 +182,8 @@ unix:!android:!macx{
     
     equals(APPIMAGE, 1){
         desktop.files += resources/appimage/espotek-labrador.desktop
-    } else
-    {
+    }
+    !equals(APPIMAGE, 1){
         desktop.files += resources/espotek-labrador.desktop
     }
     desktop.path = /usr/share/applications
