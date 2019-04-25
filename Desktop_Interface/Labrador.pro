@@ -180,7 +180,12 @@ unix:!android:!macx{
     icon.files += resources/espotek-labrador.png
     icon.path = /usr/share/icons/hicolor/256x256/apps/
     
-    desktop.files += resources/espotek-labrador.desktop
+    equals(APPIMAGE, 1){
+        desktop.files += resources/appimage/espotek-labrador.desktop
+    } else
+    {
+        desktop.files += resources/espotek-labrador.desktop
+    }
     desktop.path = /usr/share/applications
     
     symlink.path = /usr/bin

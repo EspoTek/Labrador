@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -e
+
+# Install prerequisites
+sudo apt-get update
+sudo apt-get install qt5-default
+sudo apt-get install libusb-1.0-0-dev
+
+# Here, we're installing gcc-8.10
+# see https://solarianprogrammer.com/2017/12/08/raspberry-pi-raspbian-install-gcc-compile-cpp-17-programs/
+cd /tmp
+rm -rf raspberry-pi-gcc-binary
+git clone --depth 1 https://bitbucket.org/sol_prog/raspberry-pi-gcc-binary.git
+cd ./raspberry-pi-gcc-binary
+tar xf gcc-8.1.0.tar.bz2
+sudo mv -f gcc-8.1.0 /usr/local/gcc-8.1.0-labrador
+
+# Temporarily set PATH to prioritise gcc-8.10 above the other versions
+export PATH=/usr/local/gcc-8.1.0-labrador/bin:$PATH
+# Clone the latest version of Labrador
+cd /tmp
+rm -rf labrador
+git clone --depth 1 https://github.com/espotek/labrador
+
+# Build labrador
+cd labrador/Desktop_Interface
+qmake
+make -j$(nproc)
+sudo make install
+
+# Cleanup
+rm -rf raspberry-pi-gcc-binary
+rm -rf labrador
+rm -rf /usr/local/gcc-8.1.0-labrador
