@@ -217,7 +217,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->realTimeButton->setVisible(false);
 
-    if ((QApplication::desktop()->availableGeometry().width() < 1360) || (QApplication::desktop()->geometry().height() < 800))
+    if ((QApplication::desktop()->availableGeometry().width() < 1520) || (QApplication::desktop()->geometry().height() < 800))
     {
         qDebug() << "Low resolution detected:" << QApplication::desktop()->availableGeometry().width() << "x" << QApplication::desktop()->availableGeometry().height();
         this->setMinimumSize(800, 600);
@@ -225,8 +225,8 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     else
     {
-        this->setMinimumSize(1360, 800);
-        this->setGeometry(64, 64, 1360, 800);
+        this->setMinimumSize(1520, 800);
+        this->setGeometry(64, 64, 1520, 800);
     }
 
     connect(ui->offsetSpinBox_CH1, SIGNAL(valueChanged(double)), ui->controller_iso, SLOT(offsetChanged_CH1(double)));
