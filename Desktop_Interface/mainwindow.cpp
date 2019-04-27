@@ -220,13 +220,13 @@ MainWindow::MainWindow(QWidget *parent) :
     if ((QApplication::desktop()->availableGeometry().width() < 1520) || (QApplication::desktop()->geometry().height() < 800))
     {
         qDebug() << "Low resolution detected:" << QApplication::desktop()->availableGeometry().width() << "x" << QApplication::desktop()->availableGeometry().height();
-        this->setMinimumSize(800, 600);
-        this->setGeometry(64, 64, 800, 600);
+        this->setMinimumSize(1280, 700);
+        this->resize(1280, 700);
     }
     else
     {
         this->setMinimumSize(1520, 800);
-        this->setGeometry(64, 64, 1520, 800);
+        this->resize(1520, 800);
     }
 
     connect(ui->offsetSpinBox_CH1, SIGNAL(valueChanged(double)), ui->controller_iso, SLOT(offsetChanged_CH1(double)));
