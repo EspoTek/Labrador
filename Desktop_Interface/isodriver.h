@@ -25,8 +25,11 @@ class isoBuffer_file;
 // That is one of the things I plan on fixing, and in fact
 // the reason why I began the commenting!
 
-struct DisplayControl
+class DisplayControl : public QObject
 {
+    Q_OBJECT
+public:
+
     double delay = 0;
     double window = 0.01;
     double y0 = 0;
@@ -35,6 +38,14 @@ struct DisplayControl
     double x1 = 0;
     double topRange = 2.5;
     double botRange = -0.5;
+
+    void setVoltageRange (QWheelEvent* event, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes);
+
+signals:
+    void topRangeUpdated(double);
+    void botRangeUpdated(double);
+    void timeWindowUpdated(double);
+    void delayUpdated(double);
 };
 
 class isoDriver : public QLabel
@@ -83,10 +94,10 @@ private:
     bool paused_CH2 = false;
     bool paused_multimeter = false;
     bool autoGainEnabled = true;
-    bool placingHoriAxes = false;
-    bool placingVertAxes = false;
-    bool horiCursorEnabled = false;
-    bool vertCursorEnabled = false;
+    bool placingHoriAxes = false; // TODO: move into DisplayControl
+    bool placingVertAxes = false; // TODO: move into DisplayControl
+    bool horiCursorEnabled = false; // TODO: move into DisplayControl
+    bool vertCursorEnabled = false; // TODO: move into DisplayControl
     bool triggerEnabled = false;
     bool singleShotEnabled = false;
     bool multimeterShow = true;
@@ -122,7 +133,7 @@ private:
     void frameActionGeneric(char CH1_mode, char CH2_mode);
     void triggerStateChanged();
     //Variables that are just pointers to other classes/vars
-    QCustomPlot *axes;
+    QCustomPlot *axes; // TODO: move into DisplayControl
 	std::unique_ptr<short[]> readData375_CH1;
 	std::unique_ptr<short[]> readData375_CH2;
 	std::unique_ptr<short[]> readData750;

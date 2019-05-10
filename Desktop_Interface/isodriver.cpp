@@ -252,47 +252,53 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
 {
     if(doNotTouchGraph && !fileModeEnabled) return;
 
+    bool isProperlyPaused = properlyPaused();
+    double maxWindowSize = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
+
+    display.setVoltageRange(event, isProperlyPaused, maxWindowSize, axes);
+
+    if (!(event->modifiers() == Qt::ControlModifier))
+        if (autoGainEnabled && !isProperlyPaused)
+            autoGain();
+}
+
+void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes)
+{
     if (!(event->modifiers() == Qt::ControlModifier)){
-        double c = (display.topRange - display.botRange) / (double)400;
+        double c = (topRange - botRange) / (double)400;
 
         QCPRange range = axes->yAxis->range();
 
-        double pixPct = (double)100 - ((double)100 * (((double)axes->yAxis->pixelToCoord(event->y())-range.lower) / (double)(range.upper - range.lower)));
-        if (pixPct<0) pixPct = 0;
-        if (pixPct>100) pixPct = 100;
-
+        double pixPct = (double)100 - ((double)100 * (((double)axes->yAxis->pixelToCoord(event->y())-range.lower) / range.size()));
+        if (pixPct < 0) pixPct = 0; 
+        if (pixPct > 100) pixPct = 100;
 
         qDebug() << "WHEEL @ " << pixPct << "%";
         qDebug() << range.upper;
-        //qDebug() << event->delta();
 
         if (event->delta()==120){
-            display.topRange -= c * ((double)pixPct);
-            display.botRange += c * ((double)100 - (double)pixPct);
+            topRange -= c * ((double)pixPct);
+            botRange += c * ((double)100 - (double)pixPct);
         }
         else{
-            display.topRange += c * ((double)pixPct);
-            display.botRange -= c * ((double)100 - (double)pixPct);
+            topRange += c * ((double)pixPct);
+            botRange -= c * ((double)100 - (double)pixPct);
         }
 
-        if (display.topRange > (double)20) display.topRange = (double)20;
-        if (display.botRange <- (double)20) display.botRange = (double)-20;
-        if (autoGainEnabled && !properlyPaused()) autoGain();
-        topRangeUpdated(display.topRange);
-        botRangeUpdated(display.botRange);
+        if (topRange > (double)20) topRange = (double)20;
+        if (botRange < -(double)20) botRange = (double)-20;
+        topRangeUpdated(topRange);
+        botRangeUpdated(botRange);
     }
     else
     {
-        // Not sure if the following code changes the outcome of this call
-        const bool isProperlyPaused = properlyPaused();
-
-        double c = (display.window) / (double)200;
+        double c = (window) / (double)200;
         QCPRange range = axes->xAxis->range();
 
         double pixPct = (double)100 * ((double)axes->xAxis->pixelToCoord(event->x()) - range.lower);
 
         pixPct /= isProperlyPaused ? (double)(range.upper - range.lower)
-                                   : (double)(display.window);
+                                   : (double)(window);
 
         if (pixPct < 0)
             pixPct = 0;
@@ -307,53 +313,48 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
         {
             qDebug() << "TIGGERED";
             qDebug() << "upper = " << range.upper << "lower = " << range.lower;
-            qDebug() << "window = " << display.window;
-            qDebug() << c* ((double)pixPct);
-            qDebug() << c* ((double)100 - (double)pixPct) * pixPct/100;
+            qDebug() << "window = " << window;
+            qDebug() << c * ((double)pixPct);
+            qDebug() << c * ((double)100 - (double)pixPct) * pixPct / 100;
         }
 
         if (event->delta() == 120)
         {
-            display.window -= c* ((double)pixPct);
-            display.delay += c* ((double)100 - (double)pixPct) * pixPct/100;
+            window -= c * ((double)pixPct);
+            delay += c * ((double)100 - (double)pixPct) * pixPct / 100;
         }
         else
         {
-            display.window += c* ((double)pixPct);
-            display.delay -= c* ((double)100 - (double)pixPct) * pixPct/100;
+            window += c * ((double)pixPct);
+            delay -= c * ((double)100 - (double)pixPct) * pixPct / 100;
         }
 
         // NOTE: delayUpdated and timeWindowUpdated are called more than once beyond here,
         // maybe they should only be called once at the end?
 
-        delayUpdated(display.delay);
-        timeWindowUpdated(display.window);
+        delayUpdated(delay);
+        timeWindowUpdated(window);
 
-        qDebug() << display.window << display.delay;
-        double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
+        qDebug() << window << delay;
 
-        if (display.window > mws)
+        if (window > maxWindowSize)
         {
-            display.window = mws;
-            timeWindowUpdated(display.window);
+            window = maxWindowSize;
+            timeWindowUpdated(window);
         }
-        if ((display.window + display.delay) > mws)
+        if ((window + delay) > maxWindowSize)
         {
-            // NOTE: equivalent to
-            // display.delay = mws - display.window;
-            display.delay -= display.window + display.delay - mws;
-            delayUpdated(display.delay);
+            delay = maxWindowSize - window;
+            delayUpdated(delay);
         }
-        if (display.delay < 0)
+        if (delay < 0)
         {
-            display.delay = 0;
-            delayUpdated(display.delay);
+            delay = 0;
+            delayUpdated(delay);
         }
 
     }
 
-    //changeTimeAxis(event->delta()==-120);
-    //qDebug() << display.window;
 }
 
 bool isoDriver::properlyPaused(){
@@ -624,7 +625,8 @@ void isoDriver::setTriggerMode(int newMode)
     triggerStateChanged();
 }
 
-void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
+//0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
+void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  
 {
     //qDebug() << "made it to frameActionGeneric";
     if(!paused_CH1 && CH1_mode == - 1){
@@ -1125,12 +1127,16 @@ void isoDriver::slowTimerTick(){
     update_CH2 = true;
 }
 
-void isoDriver::setTopRange(double newTop){
+void isoDriver::setTopRange(double newTop)
+{
+    // NOTE: Should this be clamped to 20?
     display.topRange = newTop;
     topRangeUpdated(display.topRange);
 }
 
-void isoDriver::setBotRange(double newBot){
+void isoDriver::setBotRange(double newBot)
+{
+    // NOTE: Should this be clamped to 20?
     display.botRange = newBot;
     botRangeUpdated(display.botRange);
 }
