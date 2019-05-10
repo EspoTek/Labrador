@@ -28,6 +28,7 @@ class isoBuffer_file;
 struct DisplayControl
 {
     double delay = 0;
+    double window = 0.01;
 };
 
 class isoDriver : public QLabel
@@ -61,7 +62,6 @@ public:
     double currentVmean;
     //Display Control Vars (Variables that control how the buffers are displayed)
     DisplayControl display;
-    double window = 0.01;
     double y0=0;
     double y1=0;
     double x0=0;
@@ -161,7 +161,6 @@ private:
     i2c::i2cDecoder* twoWire = nullptr;
     bool twoWireStateInvalid = true;
     //Generic Vars
-    double windowAtPause = 0.01;
     QTimer* isoTimer = NULL;
     QTimer *slowTimer = NULL;
     QTimer *fileTimer = NULL;
@@ -205,7 +204,6 @@ signals:
     void timeWindowUpdated(double);
     void delayUpdated(double);
 public slots:
-    void setWindow(int newWindow);
     void setVoltageRange(QWheelEvent *event);
     void timerTick(void);
     void pauseEnable_CH1(bool enabled);
