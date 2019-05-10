@@ -15,9 +15,15 @@
 class isoBuffer;
 class isoBuffer_file;
 
-//isoDriver is a huge class.  It handles everything related to the isochronous IN stream - and perhaps that constraint was applied a bit too loosely (spot the C programmer...).
-//Too much stuff is handled in this class, and it's too heavily entangled with the (generic/win/unix)UsbDriver classes.
-//That is one of the things I plan on fixing, and in fact the reason why I began the commenting!
+// isoDriver is a huge class.  It handles everything related to the
+// isochronous IN stream - and perhaps that constraint was applied
+// a bit too loosely (spot the C programmer...).
+
+// Too much stuff is handled in this class, and it's too heavily
+// entangled with the (generic/win/unix)UsbDriver classes.
+
+// That is one of the things I plan on fixing, and in fact
+// the reason why I began the commenting!
 
 class isoDriver : public QLabel
 {
@@ -26,26 +32,37 @@ public:
     explicit isoDriver(QWidget *parent = 0);
     void autoGain(void);
     //Generic Vars
-    isoBuffer *internalBuffer375_CH1, *internalBuffer375_CH2, *internalBuffer750;
+    isoBuffer *internalBuffer375_CH1;
+    isoBuffer *internalBuffer375_CH2;
+    isoBuffer *internalBuffer750;
     isoBuffer_file *internalBufferFile = NULL;
 #if QCP_VER == 1
     QCPItemText *cursorTextPtr;
 #endif
     genericUsbDriver *driver;
     bool doNotTouchGraph = true;
-    double ch1_ref = 1.65, ch2_ref = 1.65;
-    double frontendGain_CH1 = (R4/(R3+R4)), frontendGain_CH2 = (R4/(R3+R4));
+    double ch1_ref = 1.65;
+    double ch2_ref = 1.65;
+    double frontendGain_CH1 = (R4/(R3+R4));
+    double frontendGain_CH2 = (R4/(R3+R4));
     UartParity parity_CH1 = UartParity::None;
     UartParity parity_CH2 = UartParity::None;
     //State Vars
-    bool AC_CH1 = false, AC_CH2 = false;
+    bool AC_CH1 = false;
+    bool AC_CH2 = false;
     bool cursorStatsEnabled = true;
-    int baudRate_CH1 = 9600, baudRate_CH2 = 9600;
+    int baudRate_CH1 = 9600;
+    int baudRate_CH2 = 9600;
     double currentVmean;
     //Display Control Vars     (Variables that control how the buffers are displayed)
-    double delay = 0, window = 0.01;
-    double y0=0, y1=0, x0=0, x1=0;
-    double topRange=2.5, botRange=-0.5;
+    double delay = 0;
+    double window = 0.01;
+    double y0=0;
+    double y1=0;
+    double x0=0;
+    double x1=0;
+    double topRange=2.5;
+    double botRange=-0.5;
     //Generic Functions
     void setDriver(genericUsbDriver *newDriver);
     void setAxes(QCustomPlot *newAxes);
@@ -57,9 +74,14 @@ public:
     double daq_maxWindowSize;
 private:
     //Those bloody bools that just Enable/Disable a single property
-    bool paused_CH1 = false, paused_CH2 = false, paused_multimeter = false;
+    bool paused_CH1 = false;
+    bool paused_CH2 = false;
+    bool paused_multimeter = false;
     bool autoGainEnabled = true;
-    bool placingHoriAxes = false, placingVertAxes = false, horiCursorEnabled = false, vertCursorEnabled = false;
+    bool placingHoriAxes = false;
+    bool placingVertAxes = false;
+    bool horiCursorEnabled = false;
+    bool vertCursorEnabled = false;
     bool triggerEnabled = false;
     bool singleShotEnabled = false;
     bool multimeterShow = true;
@@ -75,9 +97,11 @@ private:
     bool forceAmps = false;
     bool forceOhms = false;
     bool forceNFarads = false;
-    bool serialDecodeEnabled_CH1 = false, serialDecodeEnabled_CH2 = false;
+    bool serialDecodeEnabled_CH1 = false;
+    bool serialDecodeEnabled_CH2 = false;
     bool XYmode = false;
-    bool update_CH1 = true, update_CH2 = true;
+    bool update_CH1 = true;
+    bool update_CH2 = true;
     bool snapshotEnabled_CH1 = false;
     bool snapshotEnabled_CH2 = false;
     bool firstFrame = true;
@@ -100,11 +124,22 @@ private:
     float *readDataFile;
     char *isoTemp = NULL;
     short *isoTemp_short = NULL;
-    siprint *v0, *v1, *dv, *t0, *t1, *dt, *f;
+    siprint *v0;
+    siprint *v1;
+    siprint *dv;
+    siprint *t0;
+    siprint *t1;
+    siprint *dt;
+    siprint *f;
     //Scope/MM++ related variables
-    double currentVmax, currentVmin, currentVRMS;
+    double currentVmax;
+    double currentVmin;
+    double currentVRMS;
     double multi = 0;
-    double xmin = 20, xmax = -20, ymin = 20, ymax = -20;
+    double xmin = 20;
+    double xmax = -20;
+    double ymin = 20;
+    double ymax = -20;
     double estimated_resistance = 0;
     int multimeterRsource = 0;
     int triggerMode = 0;
@@ -122,7 +157,9 @@ private:
     bool twoWireStateInvalid = true;
     //Generic Vars
     double windowAtPause = 0.01;
-    QTimer* isoTimer = NULL, *slowTimer = NULL, *fileTimer = NULL;
+    QTimer* isoTimer = NULL;
+    QTimer *slowTimer = NULL;
+    QTimer *fileTimer = NULL;
     long total_read = 0;
     unsigned int length;
     QFile *snapshotFile_CH1;
