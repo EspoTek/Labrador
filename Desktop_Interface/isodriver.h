@@ -33,6 +33,8 @@ struct DisplayControl
     double y1 = 0;
     double x0 = 0;
     double x1 = 0;
+    double topRange = 2.5;
+    double botRange = -0.5;
 };
 
 class isoDriver : public QLabel
@@ -66,8 +68,6 @@ public:
     double currentVmean;
     //Display Control Vars (Variables that control how the buffers are displayed)
     DisplayControl display;
-    double topRange=2.5;
-    double botRange=-0.5;
     //Generic Functions
     void setDriver(genericUsbDriver *newDriver);
     void setAxes(QCustomPlot *newAxes);

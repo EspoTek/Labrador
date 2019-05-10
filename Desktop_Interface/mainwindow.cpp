@@ -4,6 +4,8 @@
 #include <QDesktopServices>
 #include "espospinbox.h"
 
+#include <algorithm>
+
 #define DO_QUOTE(X) #X
 #define QUOTE(X) DO_QUOTE(X)
 
@@ -1184,8 +1186,8 @@ void MainWindow::on_actionSnap_to_Cursors_triggered()
     xLeft = std::min(ui->controller_iso->display.x1, ui->controller_iso->display.x0);
 
     if((yBot-yTop) != 0){
-        ui->controller_iso->topRange = yTop;
-        ui->controller_iso->botRange = yBot;
+        ui->controller_iso->display.topRange = yTop;
+        ui->controller_iso->display.botRange = yBot;
     }
 
     if((xLeft - xRight) != 0){
@@ -1197,7 +1199,7 @@ void MainWindow::on_actionSnap_to_Cursors_triggered()
 void MainWindow::on_actionEnter_Manually_triggered()
 {
     ui->controller_iso->display.delay = 0;
-    scopeRangeEnterDialog dialog(this, ui->controller_iso->topRange, ui->controller_iso->botRange, ui->controller_iso->display.window, ui->controller_iso->display.delay);
+    scopeRangeEnterDialog dialog(this, ui->controller_iso->display.topRange, ui->controller_iso->display.botRange, ui->controller_iso->display.window, ui->controller_iso->display.delay);
     dialog.setModal(true);
     connect(&dialog, SIGNAL(yTopUpdated(double)), ui->controller_iso, SLOT(setTopRange(double)));
     connect(&dialog, SIGNAL(yBotUpdated(double)), ui->controller_iso, SLOT(setBotRange(double)));
@@ -2300,7 +2302,7 @@ void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
     qDebug() << "on_actionShow_Range_Dialog_on_Main_Page_triggered" << checked;
     if (checked)
     {
-        scopeRangeSwitch = new scopeRangeEnterDialog(nullptr, false, ui->controller_iso->topRange, ui->controller_iso->botRange, ui->controller_iso->display.window, ui->controller_iso->display.delay);
+        scopeRangeSwitch = new scopeRangeEnterDialog(nullptr, false, ui->controller_iso->display.topRange, ui->controller_iso->display.botRange, ui->controller_iso->display.window, ui->controller_iso->display.delay);
         scopeRangeSwitch->setWindowFlags(Qt::Widget);
         ui->verticalLayout_5->insertWidget(2, scopeRangeSwitch);
         connect(scopeRangeSwitch, SIGNAL(yTopUpdated(double)), ui->controller_iso, SLOT(setTopRange(double)));

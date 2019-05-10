@@ -210,8 +210,8 @@ void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int T
 void isoDriver::digitalConvert(short *shortPtr, QVector<double> *doublePtr){
 
     double *data = doublePtr->data();
-    double top = topRange - (topRange - botRange)/10;
-    double bot = botRange + (topRange - botRange)/10;
+    double top = display.topRange - (display.topRange - display.botRange) / 10;
+    double bot = display.botRange + (display.topRange - display.botRange) / 10;
     for (int i=0;i<GRAPH_SAMPLES;i++){
         data[i] = shortPtr[i] ? top : bot;
     }
@@ -253,7 +253,7 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
     if(doNotTouchGraph && !fileModeEnabled) return;
 
     if (!(event->modifiers() == Qt::ControlModifier)){
-        double c = (topRange - botRange) / (double)400;
+        double c = (display.topRange - display.botRange) / (double)400;
 
         QCPRange range = axes->yAxis->range();
 
@@ -267,19 +267,19 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
         //qDebug() << event->delta();
 
         if (event->delta()==120){
-            topRange -= c* ((double)pixPct);
-            botRange += c* ((double)100 - (double)pixPct);
+            display.topRange -= c * ((double)pixPct);
+            display.botRange += c * ((double)100 - (double)pixPct);
         }
         else{
-            topRange += c* ((double)pixPct);
-            botRange -= c* ((double)100 - (double)pixPct);
+            display.topRange += c * ((double)pixPct);
+            display.botRange -= c * ((double)100 - (double)pixPct);
         }
 
-        if (topRange > (double)20) topRange = (double)20;
-        if (botRange <- (double)20) botRange = (double)-20;
+        if (display.topRange > (double)20) display.topRange = (double)20;
+        if (display.botRange <- (double)20) display.botRange = (double)-20;
         if (autoGainEnabled && !properlyPaused()) autoGain();
-        topRangeUpdated(topRange);
-        botRangeUpdated(botRange);
+        topRangeUpdated(display.topRange);
+        botRangeUpdated(display.botRange);
     }
     else
     {
@@ -413,8 +413,8 @@ void isoDriver::pauseEnable_multimeter(bool enabled){
 
 
 void isoDriver::autoGain(){
-    double maxgain = vcc / (2 * ((double)topRange - vref) * R4/(R3+R4));
-    double mingain = vcc / (2 * ((double)botRange - vref) * R4/(R3+R4));
+    double maxgain = vcc / (2 * ((double)display.topRange - vref) * R4/(R3+R4));
+    double mingain = vcc / (2 * ((double)display.botRange - vref) * R4/(R3+R4));
     maxgain = fmin(fabs(mingain) * 0.98, fabs(maxgain) * 0.98);
 
     double snap[8] = {64, 32, 16, 8, 4, 2, 1, 0.5};
@@ -515,13 +515,13 @@ void isoDriver::udateCursors(void){
 
     vert0x[0] = display.x0;
     vert0x[1] = display.x0;
-    vert0y[0] = botRange;
-    vert0y[1] = topRange;
+    vert0y[0] = display.botRange;
+    vert0y[1] = display.topRange;
 
     vert1x[0] = display.x1;
     vert1x[1] = display.x1;
-    vert1y[0] = botRange;
-    vert1y[1] = topRange;
+    vert1y[0] = display.botRange;
+    vert1y[1] = display.topRange;
 
     hori0x[0] = -display.window - display.delay;
     hori0x[1] = -display.delay;
@@ -737,8 +737,8 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
     }else{
         axes->graph(0)->setData(x,CH1);
         if(CH2_mode) axes->graph(1)->setData(x,CH2);
-        axes->xAxis->setRange(-display.window-display.delay,-display.delay);
-        axes->yAxis->setRange(topRange, botRange);
+        axes->xAxis->setRange(-display.window - display.delay, -display.delay);
+        axes->yAxis->setRange(display.topRange, display.botRange);
     }
 
     if(snapshotEnabled_CH1){
@@ -796,8 +796,8 @@ void isoDriver::multimeterAction(){
 
     udateCursors();
 
-    axes->xAxis->setRange(-display.window-display.delay,-display.delay);
-    axes->yAxis->setRange(topRange, botRange);
+    axes->xAxis->setRange(-display.window - display.delay, -display.delay);
+    axes->yAxis->setRange(display.topRange, display.botRange);
 
     axes->replot();
     multimeterStats();
@@ -1126,13 +1126,13 @@ void isoDriver::slowTimerTick(){
 }
 
 void isoDriver::setTopRange(double newTop){
-    topRange = newTop;
-    topRangeUpdated(topRange);
+    display.topRange = newTop;
+    topRangeUpdated(display.topRange);
 }
 
 void isoDriver::setBotRange(double newBot){
-    botRange = newBot;
-    botRangeUpdated(botRange);
+    display.botRange = newBot;
+    botRangeUpdated(display.botRange);
 }
 
 void isoDriver::setTimeWindow(double newWindow){
