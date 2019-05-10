@@ -1177,11 +1177,11 @@ void MainWindow::on_actionSnap_to_Cursors_triggered()
 {
     double xLeft, xRight, yBot, yTop;
 
-    yTop = ui->controller_iso->y1 > ui->controller_iso->y0 ? ui->controller_iso->y1 : ui->controller_iso->y0;
-    yBot = ui->controller_iso->y1 > ui->controller_iso->y0 ? ui->controller_iso->y0 : ui->controller_iso->y1;
+    yTop = std::max(ui->controller_iso->display.y1, ui->controller_iso->display.y0);
+    yBot = std::min(ui->controller_iso->display.y1, ui->controller_iso->display.y0);
 
-    xRight = ui->controller_iso->x1 > ui->controller_iso->x0 ? ui->controller_iso->x1 : ui->controller_iso->x0;
-    xLeft = ui->controller_iso->x1 > ui->controller_iso->x0 ? ui->controller_iso->x0 : ui->controller_iso->x1;
+    xRight = std::max(ui->controller_iso->display.x1, ui->controller_iso->display.x0);
+    xLeft = std::min(ui->controller_iso->display.x1, ui->controller_iso->display.x0);
 
     if((yBot-yTop) != 0){
         ui->controller_iso->topRange = yTop;

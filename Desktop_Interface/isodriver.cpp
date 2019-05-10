@@ -283,7 +283,7 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
     }
     else
     {
-        // Not sure if the following code changes this so I'm storing it here, it will be used again shortly
+        // Not sure if the following code changes the outcome of this call
         const bool isProperlyPaused = properlyPaused();
 
         double c = (display.window) / (double)200;
@@ -293,11 +293,6 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
 
         pixPct /= isProperlyPaused ? (double)(range.upper - range.lower)
                                    : (double)(display.window);
-
-        if(not isProperlyPaused)
-        {
-            qDebug() << "TIGGERED";
-        }
 
         if (pixPct < 0)
             pixPct = 0;
@@ -310,6 +305,7 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
 
         if (not isProperlyPaused)
         {
+            qDebug() << "TIGGERED";
             qDebug() << "upper = " << range.upper << "lower = " << range.lower;
             qDebug() << "window = " << display.window;
             qDebug() << c* ((double)pixPct);
@@ -327,12 +323,11 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
             display.delay -= c* ((double)100 - (double)pixPct) * pixPct/100;
         }
 
-        delayUpdated(display.delay);
+        // NOTE: delayUpdated and timeWindowUpdated are called more than once beyond here,
+        // maybe they should only be called once at the end?
 
-        if(not isProperlyPaused)
-        {
-            timeWindowUpdated(display.window);
-        }
+        delayUpdated(display.delay);
+        timeWindowUpdated(display.window);
 
         qDebug() << display.window << display.delay;
         double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
@@ -344,6 +339,8 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
         }
         if ((display.window + display.delay) > mws)
         {
+            // NOTE: equivalent to
+            // display.delay = mws - display.window;
             display.delay -= display.window + display.delay - mws;
             delayUpdated(display.delay);
         }
@@ -354,7 +351,6 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
         }
 
     }
-
 
     //changeTimeAxis(event->delta()==-120);
     //qDebug() << display.window;
@@ -458,16 +454,16 @@ void isoDriver::graphMousePress(QMouseEvent *event){
     qDebug() << event->button();
     if (horiCursorEnabled && (event->button() == Qt::LeftButton)){
         placingHoriAxes = true;
-        y0 = axes->yAxis->pixelToCoord(event->y());
+        display.y0 = axes->yAxis->pixelToCoord(event->y());
 #ifndef PLATFORM_ANDROID
     }else if(vertCursorEnabled && (event->button() == Qt::RightButton)){
 #else
     }if(vertCursorEnabled){
 #endif
         placingVertAxes = true;
-        x0 = axes->xAxis->pixelToCoord(event->x());
+        display.x0 = axes->xAxis->pixelToCoord(event->x());
     }
-    qDebug() << "x0 =" << x0 << "x1 =" << x1 << "y0 =" << y0 << "y1 =" << y1;
+    qDebug() << "x0 =" << display.x0 << "x1 =" << display.x1 << "y0 =" << display.y0 << "y1 =" << display.y1;
 }
 
 void isoDriver::graphMouseRelease(QMouseEvent *event){
@@ -480,18 +476,18 @@ void isoDriver::graphMouseRelease(QMouseEvent *event){
 #endif
         placingVertAxes = false;
     }
-    qDebug() << "x0 =" << x0 << "x1 =" << x1 << "y0 =" << y0 << "y1 =" << y1;
+    qDebug() << "x0 =" << display.x0 << "x1 =" << display.x1 << "y0 =" << display.y0 << "y1 =" << display.y1;
 }
 
 void isoDriver::graphMouseMove(QMouseEvent *event){
     if(horiCursorEnabled && placingHoriAxes){
-        y1 = axes->yAxis->pixelToCoord(event->y());
+        display.y1 = axes->yAxis->pixelToCoord(event->y());
 #ifndef PLATFORM_ANDROID
     } else if(vertCursorEnabled && placingVertAxes){
 #else
     } if(vertCursorEnabled && placingVertAxes){
 #endif
-        x1 = axes->xAxis->pixelToCoord(event->x());
+        display.x1 = axes->xAxis->pixelToCoord(event->x());
     }
 }
 
@@ -517,25 +513,25 @@ void isoDriver::udateCursors(void){
 
     QVector<double> vert0x(2), vert1x(2), hori0x(2), hori1x(2), vert0y(2), vert1y(2), hori0y(2), hori1y(2);
 
-    vert0x[0] = x0;
-    vert0x[1] = x0;
+    vert0x[0] = display.x0;
+    vert0x[1] = display.x0;
     vert0y[0] = botRange;
     vert0y[1] = topRange;
 
-    vert1x[0] = x1;
-    vert1x[1] = x1;
+    vert1x[0] = display.x1;
+    vert1x[1] = display.x1;
     vert1y[0] = botRange;
     vert1y[1] = topRange;
 
     hori0x[0] = -display.window - display.delay;
     hori0x[1] = -display.delay;
-    hori0y[0] = y0;
-    hori0y[1] = y0;
+    hori0y[0] = display.y0;
+    hori0y[1] = display.y0;
 
     hori1x[0] = -display.window - display.delay;
     hori1x[1] = -display.delay;
-    hori1y[0] = y1;
-    hori1y[1] = y1;
+    hori1y[0] = display.y1;
+    hori1y[1] = display.y1;
 
     if(vertCursorEnabled){
         axes->graph(2)->setData(vert0x, vert0y);
@@ -552,13 +548,13 @@ void isoDriver::udateCursors(void){
 
     QString *cursorStatsString = new QString();
 
-    v0->value = y0;
-    v1->value = y1;
-    dv->value = y0-y1;
-    t0->value = x0;
-    t1->value = x1;
-    dt->value = fabs(x0-x1);
-    f->value = 1/(x1-x0);
+    v0->value = display.y0;
+    v1->value = display.y1;
+    dv->value = display.y0-display.y1;
+    t0->value = display.x0;
+    t1->value = display.x1;
+    dt->value = fabs(display.x0 - display.x1);
+    f->value = 1 / (display.x1 - display.x0);
 
     char temp_hori[64];
     char temp_vert[64];

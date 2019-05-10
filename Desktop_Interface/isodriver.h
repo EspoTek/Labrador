@@ -29,6 +29,10 @@ struct DisplayControl
 {
     double delay = 0;
     double window = 0.01;
+    double y0 = 0;
+    double y1 = 0;
+    double x0 = 0;
+    double x1 = 0;
 };
 
 class isoDriver : public QLabel
@@ -62,10 +66,6 @@ public:
     double currentVmean;
     //Display Control Vars (Variables that control how the buffers are displayed)
     DisplayControl display;
-    double y0=0;
-    double y1=0;
-    double x0=0;
-    double x1=0;
     double topRange=2.5;
     double botRange=-0.5;
     //Generic Functions
