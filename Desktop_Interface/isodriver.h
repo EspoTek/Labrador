@@ -25,6 +25,11 @@ class isoBuffer_file;
 // That is one of the things I plan on fixing, and in fact
 // the reason why I began the commenting!
 
+struct DisplayControl
+{
+    double delay = 0;
+};
+
 class isoDriver : public QLabel
 {
     Q_OBJECT
@@ -54,8 +59,8 @@ public:
     int baudRate_CH1 = 9600;
     int baudRate_CH2 = 9600;
     double currentVmean;
-    //Display Control Vars     (Variables that control how the buffers are displayed)
-    double delay = 0;
+    //Display Control Vars (Variables that control how the buffers are displayed)
+    DisplayControl display;
     double window = 0.01;
     double y0=0;
     double y1=0;

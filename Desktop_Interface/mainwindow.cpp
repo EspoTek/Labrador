@@ -1072,32 +1072,32 @@ void MainWindow::ctrlArrowDownTriggered(){
 
 void MainWindow::cycleDelayRight(){
     qDebug() << "RIGHT";
-    ui->controller_iso->delay -= ui->controller_iso->window/10;
-    if(ui->controller_iso->delay < 0) ui->controller_iso->delay = 0;
-    ui->controller_iso->delayUpdated(ui->controller_iso->delay);
+    ui->controller_iso->display.delay -= ui->controller_iso->window/10;
+    if(ui->controller_iso->display.delay < 0) ui->controller_iso->display.delay = 0;
+    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::cycleDelayLeft(){
     qDebug() << "LEFT";
     double mws = ui->controller_iso->fileModeEnabled ? ui->controller_iso->daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
-    ui->controller_iso->delay += ui->controller_iso->window/10;
-    if(ui->controller_iso->delay > (mws - ui->controller_iso->window)) ui->controller_iso->delay = (mws - ui->controller_iso->window);
-    ui->controller_iso->delayUpdated(ui->controller_iso->delay);
+    ui->controller_iso->display.delay += ui->controller_iso->window/10;
+    if(ui->controller_iso->display.delay > (mws - ui->controller_iso->window)) ui->controller_iso->display.delay = (mws - ui->controller_iso->window);
+    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::cycleDelayRight_large(){
     qDebug() << "RIGHT";
-    ui->controller_iso->delay -= ui->controller_iso->window/2;
-    if(ui->controller_iso->delay < 0) ui->controller_iso->delay = 0;
-    ui->controller_iso->delayUpdated(ui->controller_iso->delay);
+    ui->controller_iso->display.delay -= ui->controller_iso->window/2;
+    if(ui->controller_iso->display.delay < 0) ui->controller_iso->display.delay = 0;
+    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::cycleDelayLeft_large(){
     qDebug() << "LEFT";
     double mws = ui->controller_iso->fileModeEnabled ? ui->controller_iso->daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
-    ui->controller_iso->delay += ui->controller_iso->window/2;
-    if(ui->controller_iso->delay > (mws - ui->controller_iso->window)) ui->controller_iso->delay = (mws - ui->controller_iso->window);
-    ui->controller_iso->delayUpdated(ui->controller_iso->delay);
+    ui->controller_iso->display.delay += ui->controller_iso->window/2;
+    if(ui->controller_iso->display.delay > (mws - ui->controller_iso->window)) ui->controller_iso->display.delay = (mws - ui->controller_iso->window);
+    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::enableLabradorDebugging(){
@@ -1189,15 +1189,15 @@ void MainWindow::on_actionSnap_to_Cursors_triggered()
     }
 
     if((xLeft - xRight) != 0){
-        ui->controller_iso->delay = - xRight;
+        ui->controller_iso->display.delay = - xRight;
         ui->controller_iso->window = xRight - xLeft;
     }
 }
 
 void MainWindow::on_actionEnter_Manually_triggered()
 {
-    ui->controller_iso->delay = 0;
-    scopeRangeEnterDialog dialog(this, ui->controller_iso->topRange, ui->controller_iso->botRange, ui->controller_iso->window, ui->controller_iso->delay);
+    ui->controller_iso->display.delay = 0;
+    scopeRangeEnterDialog dialog(this, ui->controller_iso->topRange, ui->controller_iso->botRange, ui->controller_iso->window, ui->controller_iso->display.delay);
     dialog.setModal(true);
     connect(&dialog, SIGNAL(yTopUpdated(double)), ui->controller_iso, SLOT(setTopRange(double)));
     connect(&dialog, SIGNAL(yBotUpdated(double)), ui->controller_iso, SLOT(setBotRange(double)));
@@ -2300,7 +2300,7 @@ void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
     qDebug() << "on_actionShow_Range_Dialog_on_Main_Page_triggered" << checked;
     if (checked)
     {
-        scopeRangeSwitch = new scopeRangeEnterDialog(nullptr, false, ui->controller_iso->topRange, ui->controller_iso->botRange, ui->controller_iso->window, ui->controller_iso->delay);
+        scopeRangeSwitch = new scopeRangeEnterDialog(nullptr, false, ui->controller_iso->topRange, ui->controller_iso->botRange, ui->controller_iso->window, ui->controller_iso->display.delay);
         scopeRangeSwitch->setWindowFlags(Qt::Widget);
         ui->verticalLayout_5->insertWidget(2, scopeRangeSwitch);
         connect(scopeRangeSwitch, SIGNAL(yTopUpdated(double)), ui->controller_iso, SLOT(setTopRange(double)));
