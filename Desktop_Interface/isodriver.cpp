@@ -45,12 +45,6 @@ void isoDriver::setAxes(QCustomPlot *newAxes){
     qDebug() << "axes = " << axes;
 }
 
-void isoDriver::setWindow(int newWindow){
-    window = pow( (double)10, ( (double)newWindow / 10) );
-    windowAtPause = window;
-    qDebug() << "window = " << window;
-}
-
 void isoDriver::timerTick(void){
     //qDebug() << "isoDriver SEZ Tick!";
     if(firstFrame){
@@ -216,8 +210,8 @@ void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int T
 void isoDriver::digitalConvert(short *shortPtr, QVector<double> *doublePtr){
 
     double *data = doublePtr->data();
-    double top = topRange - (topRange - botRange)/10;
-    double bot = botRange + (topRange - botRange)/10;
+    double top = display.topRange - (display.topRange - display.botRange) / 10;
+    double bot = display.botRange + (display.topRange - display.botRange) / 10;
     for (int i=0;i<GRAPH_SAMPLES;i++){
         data[i] = shortPtr[i] ? top : bot;
     }
@@ -230,7 +224,6 @@ void isoDriver::fileStreamConvert(float *floatPtr, QVector<double> *doublePtr){
         data[i] = floatPtr[i];
     }
 }
-
 
 
 void isoDriver::startTimer(){
@@ -255,70 +248,103 @@ void isoDriver::setVisible_CH2(bool visible){
     axes->graph(1)->setVisible(visible);
 }
 
-void isoDriver::setVoltageRange(QWheelEvent *event){
+void isoDriver::setVoltageRange(QWheelEvent* event)
+{
     if(doNotTouchGraph && !fileModeEnabled) return;
 
+    bool isProperlyPaused = properlyPaused();
+    double maxWindowSize = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
+
+    display.setVoltageRange(event, isProperlyPaused, maxWindowSize, axes);
+
+    if (!(event->modifiers() == Qt::ControlModifier))
+        if (autoGainEnabled && !isProperlyPaused)
+            autoGain();
+}
+
+void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes)
+{
     if (!(event->modifiers() == Qt::ControlModifier)){
         double c = (topRange - botRange) / (double)400;
 
         QCPRange range = axes->yAxis->range();
 
-        double pixPct = (double)100 - ((double)100 * (((double)axes->yAxis->pixelToCoord(event->y())-range.lower) / (double)(range.upper - range.lower)));
-        if (pixPct<0) pixPct = 0;
-        if (pixPct>100) pixPct = 100;
-
+        double pixPct = (double)100 - ((double)100 * (((double)axes->yAxis->pixelToCoord(event->y())-range.lower) / range.size()));
+        if (pixPct < 0) pixPct = 0; 
+        if (pixPct > 100) pixPct = 100;
 
         qDebug() << "WHEEL @ " << pixPct << "%";
         qDebug() << range.upper;
-        //qDebug() << event->delta();
 
         if (event->delta()==120){
-            topRange -= c* ((double)pixPct);
-            botRange += c* ((double)100 - (double)pixPct);
+            topRange -= c * ((double)pixPct);
+            botRange += c * ((double)100 - (double)pixPct);
         }
         else{
-            topRange += c* ((double)pixPct);
-            botRange -= c* ((double)100 - (double)pixPct);
+            topRange += c * ((double)pixPct);
+            botRange -= c * ((double)100 - (double)pixPct);
         }
 
         if (topRange > (double)20) topRange = (double)20;
-        if (botRange <- (double)20) botRange = (double)-20;
-        if (autoGainEnabled && !properlyPaused()) autoGain();
+        if (botRange < -(double)20) botRange = (double)-20;
         topRangeUpdated(topRange);
         botRangeUpdated(botRange);
     }
-    else if(properlyPaused()){
+    else
+    {
         double c = (window) / (double)200;
         QCPRange range = axes->xAxis->range();
 
-        double pixPct = (double)100 * (((double)axes->xAxis->pixelToCoord(event->x())-range.lower) / (double)(range.upper - range.lower));
-        if (pixPct<0) pixPct = 0;
-        if (pixPct>100) pixPct = 100;
+        double pixPct = (double)100 * ((double)axes->xAxis->pixelToCoord(event->x()) - range.lower);
+
+        pixPct /= isProperlyPaused ? (double)(range.upper - range.lower)
+                                   : (double)(window);
+
+        if (pixPct < 0)
+            pixPct = 0;
+
+        if (pixPct > 100)
+            pixPct = 100;
 
         qDebug() << "WHEEL @ " << pixPct << "%";
         qDebug() << event->delta();
 
-        if (event->delta()==120){
-            window -= c* ((double)pixPct);
-            delay += c* ((double)100 - (double)pixPct) * pixPct/100;
-            delayUpdated(delay);
-        }
-        else{
-            window += c* ((double)pixPct);
-            delay -= c* ((double)100 - (double)pixPct) * pixPct/100;
-            delayUpdated(delay);
-        }
-
-        double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
-
-        if (window > mws)
+        if (not isProperlyPaused)
         {
-            window = mws;
+            qDebug() << "TIGGERED";
+            qDebug() << "upper = " << range.upper << "lower = " << range.lower;
+            qDebug() << "window = " << window;
+            qDebug() << c * ((double)pixPct);
+            qDebug() << c * ((double)100 - (double)pixPct) * pixPct / 100;
+        }
+
+        if (event->delta() == 120)
+        {
+            window -= c * ((double)pixPct);
+            delay += c * ((double)100 - (double)pixPct) * pixPct / 100;
+        }
+        else
+        {
+            window += c * ((double)pixPct);
+            delay -= c * ((double)100 - (double)pixPct) * pixPct / 100;
+        }
+
+        // NOTE: delayUpdated and timeWindowUpdated are called more than once beyond here,
+        // maybe they should only be called once at the end?
+
+        delayUpdated(delay);
+        timeWindowUpdated(window);
+
+        qDebug() << window << delay;
+
+        if (window > maxWindowSize)
+        {
+            window = maxWindowSize;
             timeWindowUpdated(window);
         }
-        if ((window + delay) > mws)
+        if ((window + delay) > maxWindowSize)
         {
-            delay -= window + delay - mws;
+            delay = maxWindowSize - window;
             delayUpdated(delay);
         }
         if (delay < 0)
@@ -326,54 +352,9 @@ void isoDriver::setVoltageRange(QWheelEvent *event){
             delay = 0;
             delayUpdated(delay);
         }
-        qDebug() << window << delay;
-    } else {
-        qDebug() << "TIGGERED";
-        double c = (window) / (double)200;
-        QCPRange range = axes->xAxis->range();
 
-        double pixPct = (double)100 * (((double)axes->xAxis->pixelToCoord(event->x())-range.lower) / (double)(window));
-        if (pixPct<0) pixPct = 0;
-        if (pixPct>100) pixPct = 100;
-
-        qDebug() << "WHEEL @ " << pixPct << "%";
-        qDebug() << event->delta();
-        qDebug() << "upper = " << range.upper << "lower = " << range.lower;
-        qDebug() << "window = " << window;
-        qDebug() << c* ((double)pixPct);
-        qDebug() << c* ((double)100 - (double)pixPct) * pixPct/100;
-
-        if (event->delta()==120){
-            window -= c* ((double)pixPct);
-            delay += c* ((double)100 - (double)pixPct) * pixPct/100;
-            delayUpdated(delay);
-            timeWindowUpdated(window);
-        }
-        else{
-            window += c* ((double)pixPct);
-            delay -= c* ((double)100 - (double)pixPct) * pixPct/100;
-            delayUpdated(delay);
-            timeWindowUpdated(window);
-        }
-
-        double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
-
-        if (window > mws) window = mws;
-        if ((window + delay) > mws)
-        {
-            delay -= window + delay - mws;
-            delayUpdated(delay);
-        }
-        if (delay < 0)
-        {
-            delay = 0;
-            delayUpdated(delay);
-        }
-        windowAtPause = window;
-        qDebug() << window << delay;
     }
-    //changeTimeAxis(event->delta()==-120);
-    //qDebug() << window;
+
 }
 
 bool isoDriver::properlyPaused(){
@@ -397,10 +378,9 @@ void isoDriver::pauseEnable_CH1(bool enabled){
     paused_CH1 = enabled;
 
     if(!properlyPaused()) {
-        delay = 0;
-        delayUpdated(delay);
+        display.delay = 0;
+        delayUpdated(display.delay);
         if (autoGainEnabled) autoGain();
-        //window = windowAtPause;
     }
 
     if(!enabled) clearBuffers(1,0,1);
@@ -412,10 +392,9 @@ void isoDriver::pauseEnable_CH2(bool enabled){
     paused_CH2 = enabled;
 
     if(!properlyPaused()){
-        delay = 0;
-        delayUpdated(delay);
+        display.delay = 0;
+        delayUpdated(display.delay);
         if (autoGainEnabled) autoGain();
-        //window = windowAtPause;
     }
 
     if(!enabled) clearBuffers(0,1,0);
@@ -425,9 +404,8 @@ void isoDriver::pauseEnable_multimeter(bool enabled){
     paused_multimeter = enabled;
 
     if(!properlyPaused()) {
-        delay = 0;
-        delayUpdated(delay);
-        //window = windowAtPause;
+        display.delay = 0;
+        delayUpdated(display.delay);
     }
 
     if(!enabled) clearBuffers(1,0,0);
@@ -436,8 +414,8 @@ void isoDriver::pauseEnable_multimeter(bool enabled){
 
 
 void isoDriver::autoGain(){
-    double maxgain = vcc / (2 * ((double)topRange - vref) * R4/(R3+R4));
-    double mingain = vcc / (2 * ((double)botRange - vref) * R4/(R3+R4));
+    double maxgain = vcc / (2 * ((double)display.topRange - vref) * R4/(R3+R4));
+    double mingain = vcc / (2 * ((double)display.botRange - vref) * R4/(R3+R4));
     maxgain = fmin(fabs(mingain) * 0.98, fabs(maxgain) * 0.98);
 
     double snap[8] = {64, 32, 16, 8, 4, 2, 1, 0.5};
@@ -477,16 +455,16 @@ void isoDriver::graphMousePress(QMouseEvent *event){
     qDebug() << event->button();
     if (horiCursorEnabled && (event->button() == Qt::LeftButton)){
         placingHoriAxes = true;
-        y0 = axes->yAxis->pixelToCoord(event->y());
+        display.y0 = axes->yAxis->pixelToCoord(event->y());
 #ifndef PLATFORM_ANDROID
     }else if(vertCursorEnabled && (event->button() == Qt::RightButton)){
 #else
     }if(vertCursorEnabled){
 #endif
         placingVertAxes = true;
-        x0 = axes->xAxis->pixelToCoord(event->x());
+        display.x0 = axes->xAxis->pixelToCoord(event->x());
     }
-    qDebug() << "x0 =" << x0 << "x1 =" << x1 << "y0 =" << y0 << "y1 =" << y1;
+    qDebug() << "x0 =" << display.x0 << "x1 =" << display.x1 << "y0 =" << display.y0 << "y1 =" << display.y1;
 }
 
 void isoDriver::graphMouseRelease(QMouseEvent *event){
@@ -499,18 +477,18 @@ void isoDriver::graphMouseRelease(QMouseEvent *event){
 #endif
         placingVertAxes = false;
     }
-    qDebug() << "x0 =" << x0 << "x1 =" << x1 << "y0 =" << y0 << "y1 =" << y1;
+    qDebug() << "x0 =" << display.x0 << "x1 =" << display.x1 << "y0 =" << display.y0 << "y1 =" << display.y1;
 }
 
 void isoDriver::graphMouseMove(QMouseEvent *event){
     if(horiCursorEnabled && placingHoriAxes){
-        y1 = axes->yAxis->pixelToCoord(event->y());
+        display.y1 = axes->yAxis->pixelToCoord(event->y());
 #ifndef PLATFORM_ANDROID
     } else if(vertCursorEnabled && placingVertAxes){
 #else
     } if(vertCursorEnabled && placingVertAxes){
 #endif
-        x1 = axes->xAxis->pixelToCoord(event->x());
+        display.x1 = axes->xAxis->pixelToCoord(event->x());
     }
 }
 
@@ -536,25 +514,25 @@ void isoDriver::udateCursors(void){
 
     QVector<double> vert0x(2), vert1x(2), hori0x(2), hori1x(2), vert0y(2), vert1y(2), hori0y(2), hori1y(2);
 
-    vert0x[0] = x0;
-    vert0x[1] = x0;
-    vert0y[0] = botRange;
-    vert0y[1] = topRange;
+    vert0x[0] = display.x0;
+    vert0x[1] = display.x0;
+    vert0y[0] = display.botRange;
+    vert0y[1] = display.topRange;
 
-    vert1x[0] = x1;
-    vert1x[1] = x1;
-    vert1y[0] = botRange;
-    vert1y[1] = topRange;
+    vert1x[0] = display.x1;
+    vert1x[1] = display.x1;
+    vert1y[0] = display.botRange;
+    vert1y[1] = display.topRange;
 
-    hori0x[0] = -window - delay;
-    hori0x[1] = -delay;
-    hori0y[0] = y0;
-    hori0y[1] = y0;
+    hori0x[0] = -display.window - display.delay;
+    hori0x[1] = -display.delay;
+    hori0y[0] = display.y0;
+    hori0y[1] = display.y0;
 
-    hori1x[0] = -window - delay;
-    hori1x[1] = -delay;
-    hori1y[0] = y1;
-    hori1y[1] = y1;
+    hori1x[0] = -display.window - display.delay;
+    hori1x[1] = -display.delay;
+    hori1y[0] = display.y1;
+    hori1y[1] = display.y1;
 
     if(vertCursorEnabled){
         axes->graph(2)->setData(vert0x, vert0y);
@@ -571,13 +549,13 @@ void isoDriver::udateCursors(void){
 
     QString *cursorStatsString = new QString();
 
-    v0->value = y0;
-    v1->value = y1;
-    dv->value = y0-y1;
-    t0->value = x0;
-    t1->value = x1;
-    dt->value = fabs(x0-x1);
-    f->value = 1/(x1-x0);
+    v0->value = display.y0;
+    v1->value = display.y1;
+    dv->value = display.y0-display.y1;
+    t0->value = display.x0;
+    t1->value = display.x1;
+    dt->value = fabs(display.x0 - display.x1);
+    f->value = 1 / (display.x1 - display.x0);
 
     char temp_hori[64];
     char temp_vert[64];
@@ -647,7 +625,8 @@ void isoDriver::setTriggerMode(int newMode)
     triggerStateChanged();
 }
 
-void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
+//0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
+void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  
 {
     //qDebug() << "made it to frameActionGeneric";
     if(!paused_CH1 && CH1_mode == - 1){
@@ -688,7 +667,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
     double triggerDelay = 0;
     if (triggerEnabled)
     {
-        triggerDelay = (triggerMode < 2) ? internalBuffer375_CH1->getDelayedTriggerPoint(window) - window : internalBuffer375_CH2->getDelayedTriggerPoint(window) - window;
+        triggerDelay = (triggerMode < 2) ? internalBuffer375_CH1->getDelayedTriggerPoint(display.window) - display.window : internalBuffer375_CH2->getDelayedTriggerPoint(display.window) - display.window;
 
         if (triggerDelay < 0)
             triggerDelay = 0;
@@ -697,10 +676,10 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
     if(singleShotEnabled && (triggerDelay != 0))
         singleShotTriggered(1);
 
-    readData375_CH1 = internalBuffer375_CH1->readBuffer(window,GRAPH_SAMPLES,CH1_mode==2, delay + triggerDelay);
-    if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(window,GRAPH_SAMPLES,CH2_mode==2, delay + triggerDelay);
-    if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(window,GRAPH_SAMPLES,false, delay + triggerDelay);
-    if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(window,GRAPH_SAMPLES,false, delay);
+    readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==2, display.delay + triggerDelay);
+    if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES,CH2_mode==2, display.delay + triggerDelay);
+    if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay + triggerDelay);
+    if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES);
 
@@ -744,7 +723,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
 
 
     for (double i=0; i<GRAPH_SAMPLES; i++){
-        x[i] = -(window*i)/((double)(GRAPH_SAMPLES-1)) - delay;
+        x[i] = -(display.window*i)/((double)(GRAPH_SAMPLES-1)) - display.delay;
         if (x[i]>0) {
             CH1[i] = 0;
             CH2[i] = 0;
@@ -760,8 +739,8 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  //0 for off, 1
     }else{
         axes->graph(0)->setData(x,CH1);
         if(CH2_mode) axes->graph(1)->setData(x,CH2);
-        axes->xAxis->setRange(-window-delay,-delay);
-        axes->yAxis->setRange(topRange, botRange);
+        axes->xAxis->setRange(-display.window - display.delay, -display.delay);
+        axes->yAxis->setRange(display.topRange, display.botRange);
     }
 
     if(snapshotEnabled_CH1){
@@ -804,13 +783,13 @@ void isoDriver::multimeterAction(){
     }
 
     double triggerDelay = 0;
-    readData375_CH1 = internalBuffer375_CH1->readBuffer(window,GRAPH_SAMPLES, false, delay + ((triggerEnabled&&!paused_multimeter) ? triggerDelay + window/2 : 0));
+    readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES, false, display.delay + ((triggerEnabled&&!paused_multimeter) ? triggerDelay + display.window/2 : 0));
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES);
     analogConvert(readData375_CH1.get(), &CH1, 2048, 0, 1);  //No AC coupling!
 
     for (double i=0; i<GRAPH_SAMPLES; i++){
-        x[i] = -(window*i)/((double)(GRAPH_SAMPLES-1)) - delay;
+        x[i] = -(display.window*i)/((double)(GRAPH_SAMPLES-1)) - display.delay;
         if (x[i]>0) {
             CH1[i] = 0;
         }
@@ -819,8 +798,8 @@ void isoDriver::multimeterAction(){
 
     udateCursors();
 
-    axes->xAxis->setRange(-window-delay,-delay);
-    axes->yAxis->setRange(topRange, botRange);
+    axes->xAxis->setRange(-display.window - display.delay, -display.delay);
+    axes->yAxis->setRange(display.topRange, display.botRange);
 
     axes->replot();
     multimeterStats();
@@ -1148,25 +1127,28 @@ void isoDriver::slowTimerTick(){
     update_CH2 = true;
 }
 
-void isoDriver::setTopRange(double newTop){
-    topRange = newTop;
-    topRangeUpdated(topRange);
+void isoDriver::setTopRange(double newTop)
+{
+    // NOTE: Should this be clamped to 20?
+    display.topRange = newTop;
+    topRangeUpdated(display.topRange);
 }
 
-void isoDriver::setBotRange(double newBot){
-    botRange = newBot;
-    botRangeUpdated(botRange);
+void isoDriver::setBotRange(double newBot)
+{
+    // NOTE: Should this be clamped to 20?
+    display.botRange = newBot;
+    botRangeUpdated(display.botRange);
 }
 
 void isoDriver::setTimeWindow(double newWindow){
-    window = newWindow;
-    windowAtPause = window;
-    timeWindowUpdated(window);
+    display.window = newWindow;
+    timeWindowUpdated(display.window);
 }
 
 void isoDriver::setDelay(double newDelay){
-    delay = newDelay;
-    delayUpdated(delay);
+    display.delay = newDelay;
+    delayUpdated(display.delay);
 }
 
 void isoDriver::takeSnapshot(QString *fileName, unsigned char channel){
@@ -1389,20 +1371,20 @@ void isoDriver::disableFileMode(){
 
     //Shrink screen back, if necessary.
     double mws = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
-    if (window > mws)
+    if (display.window > mws)
     {
-        window = mws;
-        timeWindowUpdated(window);
+        display.window = mws;
+        timeWindowUpdated(display.window);
     }
-    if ((window + delay) > mws)
+    if ((display.window + display.delay) > mws)
     {
-        delay -= window + delay - mws;
-        delayUpdated(delay);
+        display.delay -= display.window + display.delay - mws;
+        delayUpdated(display.delay);
     }
-    if (delay < 0)
+    if (display.delay < 0)
     {
-        delay = 0;
-        delayUpdated(delay);
+        display.delay = 0;
+        delayUpdated(display.delay);
     }
 }
 
