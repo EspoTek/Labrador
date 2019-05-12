@@ -1,8 +1,8 @@
 BasedOnStyle: WebKit
 
-IndentWidth: 4
 UseTab: ForIndentation
-
+IndentWidth: 4
+TabWidth: 4
 BreakBeforeBraces: Allman
 
 ColumnLimit: 90
@@ -12,4 +12,4 @@ ReflowComments: true
 PenaltyBreakComment: 50 
 
 AllowShortFunctionsOnASingleLine: None
-AllowShortIfStatementsOnASingleLine: Never
+AllowShortIfStatementsOnASingleLine: false
