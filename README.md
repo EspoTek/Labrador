@@ -15,6 +15,10 @@ The software is re-built automatically each time I make a change to the source c
 For the documentation, please visit:  
 https://github.com/espotek/labrador/wiki
 
+# Additional Extras
+There is also a 3D printable case available at Thingiverse, courtesy of SpaceBex:
+https://www.thingiverse.com/thing:3188243
+
 # Licence
 All software files are licenced under GNU GPL v3.  https://www.gnu.org/licenses/gpl.html
 
