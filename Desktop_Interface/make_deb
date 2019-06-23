@@ -1,0 +1,9 @@
+#!/bin/bash
+
+qmake DEB=1 CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
+make -j$(nproc) CXX=${CXX} CC=${CC} LINK=${CXX}
+rm -R deb
+make INSTALL_ROOT=deb install; find deb/
+cp -r resources/debian deb/DEBIAN
+dpkg-deb --build deb
+mv deb.deb Espotek_Labrador-$(git rev-parse --short HEAD)-x64.deb

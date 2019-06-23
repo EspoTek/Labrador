@@ -189,10 +189,12 @@ unix:!android:!macx{
     desktop.path = /usr/share/applications
     
     symlink.path = /usr/bin
-    symlink.extra = ln -sf /usr/bin/EspoTek-Labrador/Labrador /usr/bin/labrador
+    symlink.extra = ln -sf ${INSTALL_ROOT}/usr/bin/EspoTek-Labrador/Labrador ${INSTALL_ROOT}/usr/bin/labrador
     
     udevextra.path = /etc/udev/rules.d
-    udevextra.extra = udevadm control --reload-rules && udevadm trigger
+    !equals(DEB, 1){
+        udevextra.extra = udevadm control --reload-rules && udevadm trigger
+    }
 
     equals(APPIMAGE, 1){
         other.path = /usr/bin

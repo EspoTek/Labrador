@@ -1,0 +1,15 @@
+#!/bin/bash
+
+qmake APPIMAGE=1 CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
+make -j$(nproc) CXX=${CXX} CC=${CC} LINK=${CXX}
+make INSTALL_ROOT=appdir install ; find appdir/
+wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+chmod a+x linuxdeployqt-continuous-x86_64.AppImage
+unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
+export VERSION=$(git rev-parse --short HEAD)
+./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -bundle-non-qt-libs -verbose=2
+mkdir -p appdir/usr/optional/ ; wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/exec-x86_64.so -O ./appdir/usr/optional/exec.so
+mkdir -p appdir/usr/optional/libstdc++/ ; cp /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./appdir/usr/optional/libstdc++/
+./linuxdeployqt*.AppImage --appimage-extract
+rm ./appdir/AppRun ; cp ./resources/AppRun appdir/ ; chmod a+x ./appdir/AppRun
+PATH=./squashfs-root/usr/bin:$PATH ./squashfs-root/usr/bin/appimagetool -g ./appdir/
