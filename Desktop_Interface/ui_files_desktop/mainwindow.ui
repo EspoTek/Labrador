@@ -1695,6 +1695,7 @@
      <addaction name="menuBaud_Rate"/>
      <addaction name="menuData_Bits"/>
      <addaction name="menuParity_Bit"/>
+     <addaction name="actionHexDisplay"/>
     </widget>
     <widget class="QMenu" name="menuUART_2">
      <property name="title">
@@ -1734,6 +1735,7 @@
      <addaction name="menuBaud_Rate_2"/>
      <addaction name="menuData_Bits_2"/>
      <addaction name="menuParity_Bit_2"/>
+     <addaction name="actionHexDisplay_2"/>
     </widget>
     <widget class="QMenu" name="menuProtocol">
      <property name="title">
@@ -2553,6 +2555,22 @@
   <action name="actionDocumentation">
    <property name="text">
     <string>&amp;Documentation</string>
+   </property>
+  </action>
+  <action name="actionHexDisplay">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hex Display</string>
+   </property>
+  </action>
+  <action name="actionHexDisplay_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hex Display</string>
    </property>
   </action>
  </widget>

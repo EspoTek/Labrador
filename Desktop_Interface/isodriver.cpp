@@ -87,7 +87,7 @@ void isoDriver::timerTick(void){
             internalBuffer375_CH2->m_channel = 1;
             frameActionGeneric(1,2);
             if(serialDecodeEnabled_CH1 && serialType == 0){
-                internalBuffer375_CH2->serialManage(baudRate_CH1, parity_CH1);
+                internalBuffer375_CH2->serialManage(baudRate_CH1, parity_CH1, hexDisplay_CH1);
             }
             break;
         case 2:
@@ -104,7 +104,7 @@ void isoDriver::timerTick(void){
 
             frameActionGeneric(2,0);
             if(serialDecodeEnabled_CH1 && serialType == 0){
-                internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1);
+                internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1, hexDisplay_CH1);
             }
             break;
         case 4:
@@ -116,10 +116,10 @@ void isoDriver::timerTick(void){
             internalBuffer375_CH2->m_channel = 2;
             frameActionGeneric(2,2);
             if(serialDecodeEnabled_CH1 && serialType == 0){
-                internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1);
+                internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1, hexDisplay_CH1);
             }
             if(serialDecodeEnabled_CH2 && serialType == 0){
-                internalBuffer375_CH2->serialManage(baudRate_CH2, parity_CH2);
+                internalBuffer375_CH2->serialManage(baudRate_CH2, parity_CH2, hexDisplay_CH2);
             }
             if (serialDecodeEnabled_CH1 && serialType == 1)
             {
@@ -1492,4 +1492,14 @@ void isoDriver::attenuationChanged_CH2(int attenuationIndex)
         default:
             throw std::runtime_error("Unknown attenuation index for CH2");
     }
+}
+
+void isoDriver::setHexDisplay_CH1(bool enabled)
+{
+    hexDisplay_CH1 = enabled;
+}
+
+void isoDriver::setHexDisplay_CH2(bool enabled)
+{
+    hexDisplay_CH2 = enabled;
 }

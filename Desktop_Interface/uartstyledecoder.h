@@ -42,15 +42,24 @@ private:
     void decodeNextUartBit(bool bitValue);
     bool jitterCompensationProcedure(bool current_bit);
 
+    bool m_hexDisplay = false;
+
     QPlainTextEdit *console;
     isoBufferBuffer m_serialBuffer;
 public:
 	double m_baudRate;
     QTimer m_updateTimer; // IMPORTANT: must be after m_serialBuffer. construction / destruction order matters
-
-public:
     void serialDecode();
     int serialDistance() const;
+
+signals:
+    void wireDisconnected(int);
+
+public slots:
+    void updateConsole();
+    void setParityMode(UartParity newParity);
+    void setHexDisplay(bool enabled);
+
 private:
     char decodeDatabit(int mode, short symbol) const;
     char decodeBaudot(short symbol) const;
@@ -62,11 +71,7 @@ private:
 	UartParity parityOf(uint32_t bitField) const;
 
     bool parityCheckFailed = false;
-signals:
-    void wireDisconnected(int);
-public slots:
-    void updateConsole();
-    void setParityMode(UartParity newParity);
+
 };
 
 #endif // UARTSTYLEDECODER_H

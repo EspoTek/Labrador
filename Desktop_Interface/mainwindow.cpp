@@ -212,6 +212,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->hideCH1Box, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(hideCH1(bool)));
     connect(ui->hideCH2Box, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(hideCH2(bool)));
 
+    connect(ui->actionHexDisplay, &QAction::toggled, ui->controller_iso, &isoDriver::setHexDisplay_CH1);
+    connect(ui->actionHexDisplay_2, &QAction::toggled, ui->controller_iso, &isoDriver::setHexDisplay_CH2);
+
 	ui->hideCH1Box->setVisible(false);
 	ui->hideCH2Box->setVisible(false);
 

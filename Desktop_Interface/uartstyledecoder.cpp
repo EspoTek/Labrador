@@ -146,7 +146,15 @@ void uartStyleDecoder::decodeNextUartBit(bool bitValue)
 			parityCheckFailed = false;
 		}
 
-		m_serialBuffer.insert(decodedDatabit);
+        if (m_hexDisplay)
+        {
+            m_serialBuffer.insert_hex(decodedDatabit);
+            m_serialBuffer.insert(" ");
+        }
+        else
+        {
+            m_serialBuffer.insert(decodedDatabit);
+        }
 
         currentUartSymbol = 0;
         dataBit_current = 0;
@@ -226,6 +234,11 @@ void uartStyleDecoder::setParityMode(UartParity newParity)
     }
 
     parity = newParity;
+}
+
+void uartStyleDecoder::setHexDisplay(bool enabled)
+{
+    m_hexDisplay = enabled;
 }
 
 bool uartStyleDecoder::isParityCorrect(uint32_t bitField) const

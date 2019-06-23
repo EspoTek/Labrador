@@ -82,7 +82,7 @@ public:
 	int cap_x0fromLast(double seconds, double vbot);
 	int cap_x1fromLast(double seconds, int x0, double vbot);
 	int cap_x2fromLast(double seconds, int x1, double vtop);
-	void serialManage(double baudRate, UartParity parity);
+	void serialManage(double baudRate, UartParity parity, bool hexDisplay);
     void setTriggerType(TriggerType newType);
     void setTriggerLevel(double voltageLevel, uint16_t top, bool acCoupled);
     double getDelayedTriggerPoint(double delay);

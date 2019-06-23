@@ -336,14 +336,11 @@ int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop)
     return capSample(-x1, kSamplesSeekingCap, seconds, vtop, fX1X2Comp);
 }
 
-void isoBuffer::serialManage(double baudRate, UartParity parity)
+void isoBuffer::serialManage(double baudRate, UartParity parity, bool hexDisplay)
 {
     if (m_decoder == NULL)
     {
         m_decoder = new uartStyleDecoder(baudRate, this);
-
-        connect(m_decoder, &uartStyleDecoder::wireDisconnected,
-                m_virtualParent, &isoDriver::serialNeedsDisabling);
     }
     if (!m_isDecoding)
     {
@@ -353,6 +350,7 @@ void isoBuffer::serialManage(double baudRate, UartParity parity)
 
 	m_decoder->m_baudRate = baudRate;
     m_decoder->setParityMode(parity);
+    m_decoder->setHexDisplay(hexDisplay);
     m_decoder->serialDecode();
 }
 

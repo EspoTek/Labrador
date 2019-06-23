@@ -121,6 +121,8 @@ private:
     bool snapshotEnabled_CH1 = false;
     bool snapshotEnabled_CH2 = false;
     bool firstFrame = true;
+    bool hexDisplay_CH1 = false;
+    bool hexDisplay_CH2 = false;
     //Generic Functions
     void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC, int channel);
     void digitalConvert(short *shortPtr, QVector<double> *doublePtr);
@@ -276,6 +278,8 @@ public slots:
     void offsetChanged_CH2(double newOffset);
     void attenuationChanged_CH1(int attenuationIndex);
     void attenuationChanged_CH2(int attenuationIndex);
+    void setHexDisplay_CH1(bool enabled);
+    void setHexDisplay_CH2(bool enabled);
 };
 
 #endif // ISODRIVER_H
