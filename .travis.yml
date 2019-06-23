@@ -79,8 +79,8 @@ after_success:
       find appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
       # curl --upload-file EspoTek_Labrador*.AppImage https://transfer.sh/EspoTek_Labrador-git.$(git rev-parse --short HEAD)-x86_64.AppImage
       wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-      bash upload.sh EspoTek_Labrador*.AppImage*
-      bash upload.sh EspoTek_Labrador*.deb*
+      bash upload.sh EspoTek_Labrador*.AppImage
+      bash upload.sh EspoTek_Labrador*.deb
     fi
   
 branches:
