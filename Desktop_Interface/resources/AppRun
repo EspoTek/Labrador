@@ -41,19 +41,21 @@ if [ -n "$cxxpath" ] || [ -n "$gccpath" ]; then
   export LD_LIBRARY_PATH="${cxxpath}${gccpath}${LD_LIBRARY_PATH}"
 fi
 
-cat > /tmp/roothelper <<\EOoF
-#!/bin/bash
-cat > /etc/udev/rules.d/69-labrador.rules <<\EOF
-ENV{ID_VENDOR_ID}=="03eb", ENV{ID_MODEL_ID}=="ba94", SYMLINK="EspoTek_Labrador", MODE="0666"
-ENV{ID_VENDOR_ID}=="03eb", ENV{ID_MODEL_ID}=="2fe4", SYMLINK="ATXMEGA32A4U DFU Bootloader", MODE="0666"
-EOF
-udevadm trigger
-EOoF
-chmod a+x /tmp/roothelper
+if [ ! -f /etc/udev/rules.d/69-labrador.rules ]; then
+  cat > /tmp/roothelper <<\EOoF
+  #!/bin/bash
+  cat > /etc/udev/rules.d/69-labrador.rules <<\EOF
+  ENV{ID_VENDOR_ID}=="03eb", ENV{ID_MODEL_ID}=="ba94", SYMLINK="EspoTek_Labrador", MODE="0666"
+  ENV{ID_VENDOR_ID}=="03eb", ENV{ID_MODEL_ID}=="2fe4", SYMLINK="ATXMEGA32A4U DFU Bootloader", MODE="0666"
+  EOF
+  udevadm trigger
+  EOoF
+  chmod a+x /tmp/roothelper
 
-sudo true && sudo /tmp/roothelper
-sudo true || pkexec --disable-internal-agent /tmp/roothelper || true
+  sudo true && sudo /tmp/roothelper
+  sudo true || pkexec --disable-internal-agent /tmp/roothelper || true
 
-rm /tmp/roothelper
+  rm /tmp/roothelper
+fi
 
 exec "$HERE/usr/bin/Labrador" "$@"
