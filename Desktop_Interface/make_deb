@@ -6,4 +6,4 @@ rm -R deb
 make INSTALL_ROOT=deb install; find deb/
 cp -r resources/debian deb/DEBIAN
 dpkg-deb --build deb
-mv deb.deb Espotek_Labrador-$(git rev-parse --short HEAD)-x64.deb
+mv deb.deb EspoTek_Labrador-$(git rev-parse --short HEAD)-x64.deb
