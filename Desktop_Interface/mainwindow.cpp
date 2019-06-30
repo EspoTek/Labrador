@@ -236,6 +236,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->offsetSpinBox_CH2, SIGNAL(valueChanged(double)), ui->controller_iso, SLOT(offsetChanged_CH2(double)));
     connect(ui->attenuationComboBox_CH1, SIGNAL(currentIndexChanged(int)), ui->controller_iso, SLOT(attenuationChanged_CH1(int)));
     connect(ui->attenuationComboBox_CH2, SIGNAL(currentIndexChanged(int)), ui->controller_iso, SLOT(attenuationChanged_CH2(int)));
+    connect(ui->controller_iso, &isoDriver::enableCursorGroup, this, &MainWindow::cursorGroupEnabled);
 }
 
 MainWindow::~MainWindow()
@@ -245,6 +246,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::initialisePlot()
 {
+    QCPCurve *xyCurve = new QCPCurve(ui->scopeAxes->xAxis, ui->scopeAxes->yAxis);
+    xyCurve->setPen(QPen(Qt::yellow, 1));
+    ui->scopeAxes->addPlottable(xyCurve);
     ui->scopeAxes->addGraph();
     ui->scopeAxes->addGraph();
     ui->scopeAxes->addGraph();
@@ -307,7 +311,6 @@ void MainWindow::initialisePlot()
     ui->scopeAxes->yAxis->setTickLabelColor(Qt::white);
 
     ui->scopeAxes->setBackground(Qt::black);
-
 
     ui->scopeAxes->replot();
 }
@@ -2376,4 +2379,26 @@ void MainWindow::on_actionDocumentation_triggered()
 void MainWindow::on_actionPinout_triggered()
 {
     QDesktopServices::openUrl(QUrl(kPinoutUrl, QUrl::TolerantMode));
+}
+
+void MainWindow::cursorGroupEnabled(bool enabled)
+{
+    static bool cursorStatsEnabledState;
+    static bool makeCursorsNicerState;
+
+    if (enabled)
+    {
+        ui->controller_iso->cursorStatsEnabled = cursorStatsEnabledState;
+        ui->makeCursorsNicer->setTurnedOn(makeCursorsNicerState);
+        ui->cursorGroup->setEnabled(true);
+    }
+    else
+    {
+        cursorStatsEnabledState = ui->controller_iso->cursorStatsEnabled;
+        makeCursorsNicerState = ui->makeCursorsNicer->turnedOn();
+        ui->controller_iso->cursorStatsEnabled = false;
+        ui->makeCursorsNicer->setTurnedOn(false);
+        ui->cursorGroup->setEnabled(false);
+    }
+    
 }

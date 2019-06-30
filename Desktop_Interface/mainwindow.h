@@ -213,6 +213,8 @@ private slots:
 
     void on_actionPinout_triggered();
 
+    void cursorGroupEnabled(bool enabled);
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;

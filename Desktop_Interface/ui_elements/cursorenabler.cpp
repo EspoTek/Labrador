@@ -5,23 +5,25 @@ cursorEnabler::cursorEnabler(QWidget *parent) : QLabel(parent)
 {
     this->setVisible(0);
 #ifdef PLATFORM_ANDROID
-    this->turnedOn = false;
+    this->m_turnedOn = false;
 #endif
 }
 
 void cursorEnabler::setTurnedOn(bool enabled){
-    turnedOn = enabled;
+    m_turnedOn = enabled;
     #ifdef PLATFORM_ANDROID
-        this->turnedOn = false;
+        this->m_turnedOn = false;
     #endif
 }
 
 void cursorEnabler::clickDetected(QMouseEvent* event){
-    if(turnedOn){
-        if (event->button() == Qt::LeftButton){
+    if(m_turnedOn){
+        if (event->button() == Qt::LeftButton)
+        {
             tickHori(1);
         }
-        if (event->button() == Qt::RightButton){
+        else if (event->button() == Qt::RightButton)
+        {
             tickVert(1);
         }
     }

@@ -12,8 +12,9 @@ class cursorEnabler : public QLabel
     Q_OBJECT
 public:
     explicit cursorEnabler(QWidget *parent = 0);
+    bool turnedOn() {return m_turnedOn;}
 private:
-    bool turnedOn = true;
+    bool m_turnedOn = true;
 signals:
     void tickHori(bool);
     void tickVert(bool);

@@ -733,7 +733,8 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
     udateCursors();
 
     if(XYmode){
-        axes->graph(0)->setData(CH1,CH2);
+        QCPCurve* curve = reinterpret_cast<QCPCurve*>(axes->plottable(0));
+        curve->setData(CH1, CH2);
         axes->xAxis->setRange(xmin, xmax);
         axes->yAxis->setRange(ymin, ymax);
     }else{
@@ -1090,14 +1091,35 @@ void isoDriver::setSerialDecodeEnabled_CH2(bool enabled){
 }
 
 void isoDriver::setXYmode(bool enabled){
-    XYmode = enabled;
-    if(!enabled){
+    int graphCount = axes->graphCount();
+    static QVector<bool> graphState;
+    graphState.resize(graphCount);
+
+    if(enabled)  // Hide graphs - we only want the X-Y plot to appear
+    {
         xmin = 20;
         xmax = -20;
         ymin = 20;
         ymax = -20;
+
+        for (int i=0; i < graphCount; i++)
+        {
+            qDebug() << "isVisible" << axes->graph(i)->visible();
+            graphState[i] = axes->graph(i)->visible();
+            axes->graph(i)->setVisible(false);
+        }
     }
-    axes->graph(1)->setVisible(!enabled);
+    else  // Restore State
+    {
+        for (int i=0; i < graphCount; i++)
+        {
+            qDebug() << "graphState" << graphState[i];
+            axes->graph(i)->setVisible(graphState[i]);
+        }
+    }
+    
+    emit enableCursorGroup(!enabled);
+    XYmode = enabled;
 }
 
 void isoDriver::triggerGroupStateChange(bool enabled){

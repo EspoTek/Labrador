@@ -216,6 +216,7 @@ signals:
     void botRangeUpdated(double);
     void timeWindowUpdated(double);
     void delayUpdated(double);
+    void enableCursorGroup(bool);
 public slots:
     void setVoltageRange(QWheelEvent *event);
     void timerTick(void);
