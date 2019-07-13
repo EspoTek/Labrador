@@ -177,8 +177,11 @@ unix:!android:!macx{
     udev.path = /etc/udev/rules.d
     udev.files = rules.d/69-labrador.rules
     
-    icon.files += resources/espotek-labrador.png
-    icon.path = /usr/share/icons/hicolor/256x256/apps/
+    icon48.files += resources/icon48/espotek-labrador.png
+    icon48.path = /usr/share/icons/hicolor/48x48/apps/
+
+    icon256.files += resources/icon256/espotek-labrador.png
+    icon256.path = /usr/share/icons/hicolor/256x256/apps/
     
     equals(APPIMAGE, 1){
         desktop.files += resources/appimage/espotek-labrador.desktop
@@ -205,7 +208,8 @@ unix:!android:!macx{
     INSTALLS += lib_deploy
     INSTALLS += other
     INSTALLS += udev
-    INSTALLS += icon
+    INSTALLS += icon48
+    INSTALLS += icon256
     INSTALLS += desktop
 
     !equals(APPIMAGE, 1){

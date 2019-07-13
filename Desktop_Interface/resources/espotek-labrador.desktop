@@ -5,4 +5,4 @@ Exec=/usr/bin/EspoTek-Labrador/Labrador
 Terminal=false
 Type=Application
 Categories=Education;Electronics;
-Icon=/usr/share/icons/hicolor/256x256/apps/espotek-labrador.png
+Icon=espotek-labrador

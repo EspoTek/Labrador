@@ -3,7 +3,7 @@ Version: 2.0
 Section: base
 Priority: optional
 Architecture: amd64
-Depends: libusb-1.0-0 (>= 1.0.19), qt5-qmake
+Depends: libusb-1.0-0 (>= 1.0.19), qt5-default
 Maintainer: Chris Esposito <admin@espotek.com>
 Homepage: https://espotek.com
 Description: EspoTek Labrador
