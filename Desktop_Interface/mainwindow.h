@@ -221,7 +221,6 @@ private:
     QWheelEvent *wheelEmu;
     bool forceSquare = false;
     QCPItemText *textLabel;
-    QDir *outputDir;
     QFile *output375_CH1, *output375_CH2, *output750;
     unsigned char caibrateStage;
     QMessageBox *calibrationMessages;

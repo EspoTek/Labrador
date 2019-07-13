@@ -2027,7 +2027,7 @@ void MainWindow::on_actionRecord_CH2_triggered(bool checked)
         return; //User cancelled
     }
 #endif
-    output375_CH2 = new QFile(outputDir->filePath("375_CH2.csv"));
+    output375_CH2 = new QFile(fileName);
     ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2, daq_num_to_average, daq_max_file_size);
     return;
 }
