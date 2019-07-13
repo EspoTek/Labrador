@@ -2004,7 +2004,6 @@ void MainWindow::on_actionRecord_CH1_triggered(bool checked)
     }
     ui->bufferDisplay->scopeDsrDisableOverride = true;
     ui->bufferDisplay->poke();
-    return;
 }
 
 void MainWindow::on_actionRecord_CH2_triggered(bool checked)
@@ -2029,7 +2028,9 @@ void MainWindow::on_actionRecord_CH2_triggered(bool checked)
 #endif
     output375_CH2 = new QFile(fileName);
     ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2, daq_num_to_average, daq_max_file_size);
-    return;
+
+    if((checked) && (ui->controller_iso->driver->deviceMode != 4))
+        QMessageBox::warning(nullptr, "Warning", "CH2 is disabled.  The DAQ will NOT RECORD any data from from CH2 until it has been enabled!");
 }
 
 //Disable the serial, without wiping everything!
