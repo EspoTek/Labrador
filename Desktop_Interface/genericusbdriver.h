@@ -29,15 +29,20 @@
 #endif
 
 #ifdef PLATFORM_WINDOWS
-#define ISO_PACKETS_PER_CTX 17
-#define NUM_FUTURE_CTX 40
+    #define ISO_PACKETS_PER_CTX 17
+    #define NUM_FUTURE_CTX 40
 #elif defined PLATFORM_RASPBERRY_PI
-#define ISO_PACKETS_PER_CTX 66 //15fps...
-#define NUM_FUTURE_CTX 4
+    #define ISO_PACKETS_PER_CTX 66 // 15fps...
+    #define NUM_FUTURE_CTX 4
+#elif defined PLATFORM_LINUX
+    #define ISO_PACKETS_PER_CTX 17
+    #define NUM_FUTURE_CTX 20
 #else
-#define ISO_PACKETS_PER_CTX 33
-#define NUM_FUTURE_CTX 4
+    // A real Mac may be capable of higher refresh rates and more parallel contexts, but these settings work on a hackintosh too.
+    #define ISO_PACKETS_PER_CTX 33
+    #define NUM_FUTURE_CTX 4
 #endif
+
 #define ISO_TIMER_PERIOD 1
 #define MAX_OVERLAP (NUM_FUTURE_CTX*NUM_ISO_ENDPOINTS + 1)
 
