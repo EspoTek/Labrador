@@ -309,7 +309,7 @@ void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused,
         qDebug() << "WHEEL @ " << pixPct << "%";
         qDebug() << event->delta();
 
-        if (not isProperlyPaused)
+        if (! isProperlyPaused)
         {
             qDebug() << "TIGGERED";
             qDebug() << "upper = " << range.upper << "lower = " << range.lower;
