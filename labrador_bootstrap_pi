@@ -26,7 +26,8 @@ git clone --depth 1 https://github.com/espotek/labrador
 # Build labrador
 cd labrador/Desktop_Interface
 qmake
-make -j$(nproc)
+# Some people have reported issues with multi-job make (I suspect this is a power issue), so I've set it to single-threaded for now
+make CXX=g++-8.1.0 CC=gcc-8.1.0 
 sudo make install
 
 # Cleanup
