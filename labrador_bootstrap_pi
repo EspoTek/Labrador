@@ -11,7 +11,7 @@ if [ $QT5_NOT_INSTALLED ] || [ $LIBUSB_NOT_INSTALLED ]; then
     sudo apt-get install qt5-default
     sudo apt-get install libusb-1.0-0-dev
 else
-    "Prerequesites are already installed.  Skipping step."
+    echo "Prerequesites are already installed.  Skipping step."
 fi
 
 # Move to /tmp so we don't leave junk in the user's folders
