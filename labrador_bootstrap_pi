@@ -3,8 +3,8 @@
 set -e
 
 # Install prerequisites
-QT5_NOT_INSTALLED = dpkg -s qt5-default
-LIBUSB_NOT_INSTALLED = dpkg -s libusb-1.0-0-dev
+QT5_NOT_INSTALLED=$(dpkg -s qt5-default)
+LIBUSB_NOT_INSTALLED=$(dpkg -s libusb-1.0-0-dev)
 
 if [ $QT5_NOT_INSTALLED ] || [ $LIBUSB_NOT_INSTALLED ]; then
     sudo apt-get update
