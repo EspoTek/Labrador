@@ -47,3 +47,6 @@ sudo make install
 # Cleanup
 rm -rf raspberry-pi-gcc-binary
 rm -rf labrador
+
+echo "Labrador installation success!"
+echo "To run the software, enter \"labrador\" into the terminal or open the app from the \"Education\" menu."
