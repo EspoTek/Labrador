@@ -1118,6 +1118,8 @@ void isoDriver::setXYmode(bool enabled){
         }
     }
     
+    QCPCurve* curve = reinterpret_cast<QCPCurve*>(axes->plottable(0));
+    curve->setVisible(enabled);
     emit enableCursorGroup(!enabled);
     XYmode = enabled;
 }
