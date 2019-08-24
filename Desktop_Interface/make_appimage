@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 qmake APPIMAGE=1 CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
 make -j$(nproc) CXX=${CXX} CC=${CC} LINK=${CXX}
 make INSTALL_ROOT=appdir install ; find appdir/

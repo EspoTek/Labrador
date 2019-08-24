@@ -1,8 +1,10 @@
 #!/bin/bash
 
+set -e
+
 qmake DEB=1 CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
 make -j$(nproc) CXX=${CXX} CC=${CC} LINK=${CXX}
-rm -R deb
+rm -rf deb
 make INSTALL_ROOT=deb install; find deb/
 cp -r resources/debian deb/DEBIAN
 dpkg-deb --build deb
