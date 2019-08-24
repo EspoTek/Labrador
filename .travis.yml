@@ -63,7 +63,7 @@ script:
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       cd Desktop_Interface
       ./make_appimage
-      ./make_deb
+      sudo ./make_deb
     fi
 
 after_success:
