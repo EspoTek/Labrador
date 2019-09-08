@@ -1,12 +1,13 @@
 #!/bin/bash
 
-set -e
-
 # Install prerequisites
 dpkg -s qt5-default
 QT5_NOT_INSTALLED=$?
 dpkg -s libusb-1.0-0-dev
 LIBUSB_NOT_INSTALLED=$?
+
+# We don't want to bail if one of the first 4 lines returns error.  That's what they're meant to do!
+set -e
 
 if [ $QT5_NOT_INSTALLED != 0 ] || [ $LIBUSB_NOT_INSTALLED != 0 ]; then
     sudo apt-get update
