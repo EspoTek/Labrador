@@ -141,13 +141,13 @@ void isoDriver::timerTick(void){
         case 5:
             break;
         case 6:
-            if (deviceMode_prev != 7)
-                clearBuffers(false, true, true);
+            if (deviceMode_prev != 6)
+                clearBuffers(false, false, true);
             frameActionGeneric(-1,0);
             break;
         case 7:
             if (deviceMode_prev != 7)
-                clearBuffers(false, true, false);
+                clearBuffers(true, false, false);
             multimeterAction();
             break;
         default:
