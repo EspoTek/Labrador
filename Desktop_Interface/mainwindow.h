@@ -215,6 +215,16 @@ private slots:
 
     void cursorGroupEnabled(bool enabled);
 
+    void on_actionHide_Widget_Oscilloscope_triggered(bool checked);
+
+    void on_actionHide_Widget_SignalGen_triggered(bool checked);
+
+    void on_actionHide_Widget_Multimeter_triggered(bool checked);
+
+    void on_actionHide_Widget_PowerSupply_triggered(bool checked);
+
+    void on_actionHide_Widget_LogicAnalyzer_triggered(bool checked);
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;

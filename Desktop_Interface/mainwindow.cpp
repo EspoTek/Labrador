@@ -2403,3 +2403,34 @@ void MainWindow::cursorGroupEnabled(bool enabled)
     }
     
 }
+
+void MainWindow::on_actionHide_Widget_Oscilloscope_triggered(bool checked)
+{
+    ui->scopeGroup_CH1->setVisible(!checked);
+    ui->scopeGroup_CH2->setVisible(!checked);
+    ui->cursorGroup->setVisible(!checked);
+    ui->triggerGroup->setVisible(!checked);
+}
+
+void MainWindow::on_actionHide_Widget_SignalGen_triggered(bool checked)
+{
+    ui->signalGenGroup_CH1->setVisible(!checked);
+    ui->signalGenGroup_CH2->setVisible(!checked);
+}
+
+void MainWindow::on_actionHide_Widget_Multimeter_triggered(bool checked)
+{
+    ui->multimeterGroup->setVisible(!checked);
+}
+
+void MainWindow::on_actionHide_Widget_PowerSupply_triggered(bool checked)
+{
+    ui->psuGroup->setVisible(!checked);
+}
+
+void MainWindow::on_actionHide_Widget_LogicAnalyzer_triggered(bool checked)
+{
+    ui->busSifferGroup_CH1->setVisible(!checked);
+    ui->busSnifferGroup_CH2->setVisible(!checked);
+    ui->digitalOutputGroup->setVisible(!checked);
+}

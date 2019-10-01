@@ -1507,7 +1507,7 @@
      <x>0</x>
      <y>0</y>
      <width>1493</width>
-     <height>36</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1602,6 +1602,8 @@
     <addaction name="actionForce_Square"/>
     <addaction name="actionAutomatically_Enable_Cursors"/>
     <addaction name="actionShow_Range_Dialog_on_Main_Page"/>
+    <addaction name="separator"/>
+    <addaction name="actionHide_Widget_Oscilloscope"/>
    </widget>
    <widget class="QMenu" name="menuMultimeter_2">
     <property name="title">
@@ -1612,8 +1614,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>173</width>
-       <height>150</height>
+       <width>170</width>
+       <height>115</height>
       </rect>
      </property>
      <property name="title">
@@ -1652,6 +1654,8 @@
     <addaction name="menuI_2"/>
     <addaction name="menuRange_R"/>
     <addaction name="menuRange_C"/>
+    <addaction name="separator"/>
+    <addaction name="actionHide_Widget_Multimeter"/>
    </widget>
    <widget class="QMenu" name="menuBus_Sniffer">
     <property name="title">
@@ -1747,6 +1751,8 @@
     <addaction name="menuProtocol"/>
     <addaction name="menuUART_1"/>
     <addaction name="menuUART_2"/>
+    <addaction name="separator"/>
+    <addaction name="actionHide_Widget_LogicAnalyzer"/>
    </widget>
    <widget class="QMenu" name="menuPower_Supply">
     <property name="title">
@@ -1754,6 +1760,8 @@
     </property>
     <addaction name="actionAuto_Lock"/>
     <addaction name="actionCalibrate_2"/>
+    <addaction name="separator"/>
+    <addaction name="actionHide_Widget_PowerSupply"/>
    </widget>
    <widget class="QMenu" name="menuConnection_Type">
     <property name="title">
@@ -1785,6 +1793,8 @@
      <addaction name="actionMean_Point_from_GND"/>
     </widget>
     <addaction name="menuOffset_Type"/>
+    <addaction name="separator"/>
+    <addaction name="actionHide_Widget_SignalGen"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOscilloscope_2"/>
@@ -2571,6 +2581,46 @@
    </property>
    <property name="text">
     <string>Hex Display</string>
+   </property>
+  </action>
+  <action name="actionHide_Widget_Oscilloscope">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide Widget</string>
+   </property>
+  </action>
+  <action name="actionHide_Widget_SignalGen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide Widget</string>
+   </property>
+  </action>
+  <action name="actionHide_Widget_Multimeter">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide Widget</string>
+   </property>
+  </action>
+  <action name="actionHide_Widget_PowerSupply">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide Widget</string>
+   </property>
+  </action>
+  <action name="actionHide_Widget_LogicAnalyzer">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide Widget</string>
    </property>
   </action>
  </widget>
