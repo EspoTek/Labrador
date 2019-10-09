@@ -264,7 +264,7 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
 
 void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes)
 {
-    if (!(event->modifiers() == Qt::ControlModifier)){
+    if (!(event->modifiers() == Qt::ControlModifier) && event->orientation() == Qt::Orientation::Vertical) {
         double c = (topRange - botRange) / (double)400;
 
         QCPRange range = axes->yAxis->range();
@@ -276,14 +276,8 @@ void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused,
         qDebug() << "WHEEL @ " << pixPct << "%";
         qDebug() << range.upper;
 
-        if (event->delta()==120){
-            topRange -= c * ((double)pixPct);
-            botRange += c * ((double)100 - (double)pixPct);
-        }
-        else{
-            topRange += c * ((double)pixPct);
-            botRange -= c * ((double)100 - (double)pixPct);
-        }
+        topRange -= event->delta() / 120.0 * c * pixPct;
+        botRange += event->delta() / 120.0 * c * (100.0 - pixPct);
 
         if (topRange > (double)20) topRange = (double)20;
         if (botRange < -(double)20) botRange = (double)-20;
@@ -318,16 +312,8 @@ void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused,
             qDebug() << c * ((double)100 - (double)pixPct) * pixPct / 100;
         }
 
-        if (event->delta() == 120)
-        {
-            window -= c * ((double)pixPct);
-            delay += c * ((double)100 - (double)pixPct) * pixPct / 100;
-        }
-        else
-        {
-            window += c * ((double)pixPct);
-            delay -= c * ((double)100 - (double)pixPct) * pixPct / 100;
-        }
+        window -= event->delta() / 120.0 * c * pixPct;
+        delay += event->delta() / 120.0 * c * (100.0 - pixPct) * pixPct / 100.0;
 
         // NOTE: delayUpdated and timeWindowUpdated are called more than once beyond here,
         // maybe they should only be called once at the end?
