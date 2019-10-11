@@ -595,7 +595,7 @@ void isoDriver::setTriggerLevel(double level)
 {
     internalBuffer375_CH1->setTriggerLevel(level, 128, AC_CH1);
     internalBuffer375_CH2->setTriggerLevel(level, 128, AC_CH2);
-    internalBuffer750->setTriggerLevel(level, 2048, AC_CH1);
+    internalBuffer750->setTriggerLevel(level, 128, AC_CH1);
     triggerStateChanged();
 }
 
@@ -653,7 +653,8 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
     double triggerDelay = 0;
     if (triggerEnabled)
     {
-        triggerDelay = (triggerMode < 2) ? internalBuffer375_CH1->getDelayedTriggerPoint(display.window) - display.window : internalBuffer375_CH2->getDelayedTriggerPoint(display.window) - display.window;
+		isoBuffer* internalBuffer_CH1 = (CH1_mode == -1) ? internalBuffer750 : internalBuffer375_CH1;
+        triggerDelay = (triggerMode < 2) ? internalBuffer_CH1->getDelayedTriggerPoint(display.window) - display.window : internalBuffer375_CH2->getDelayedTriggerPoint(display.window) - display.window;
 
         if (triggerDelay < 0)
             triggerDelay = 0;
@@ -668,7 +669,6 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
     if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES);
-
 
     if (CH1_mode == 1){
         analogConvert(readData375_CH1.get(), &CH1, 128, AC_CH1, 1);
