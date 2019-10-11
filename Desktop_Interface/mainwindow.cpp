@@ -148,6 +148,10 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
         connect(ui->controller_fg, &functionGenControl::functionGenToUpdate, ui->controller_iso->driver, &genericUsbDriver::setFunctionGen);
         connect(ui->bufferDisplay, SIGNAL(modeChange(int)), ui->controller_iso->driver, SLOT(setDeviceMode(int)));
+		connect(ui->bufferDisplay, &bufferControl::modeChange, this, [this](){
+			// Force a trigger refresh
+			ui->controller_iso->setTriggerLevel(ui->triggerLevelValue->value());	
+		});
         connect(ui->bufferDisplay, SIGNAL(updateDig(int)), ui->controller_iso->driver, SLOT(newDig(int)));
 
         //Set the settings again!
@@ -1359,6 +1363,10 @@ void MainWindow::reinitUsbStage2(void){
     connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
     connect(ui->controller_fg, &functionGenControl::functionGenToUpdate, ui->controller_iso->driver, &genericUsbDriver::setFunctionGen);
     connect(ui->bufferDisplay, SIGNAL(modeChange(int)), ui->controller_iso->driver, SLOT(setDeviceMode(int)));
+	connect(ui->bufferDisplay, &bufferControl::modeChange, this, [this](){
+		// Force a trigger refresh
+		ui->controller_iso->setTriggerLevel(ui->triggerLevelValue->value());	
+	});
     connect(ui->bufferDisplay, SIGNAL(updateDig(int)), ui->controller_iso->driver, SLOT(newDig(int)));
 
     //Set the settings again!

@@ -593,7 +593,7 @@ void isoDriver::setTriggerEnabled(bool enabled)
 
 void isoDriver::setTriggerLevel(double level)
 {
-    internalBuffer375_CH1->setTriggerLevel(level, 128, AC_CH1);
+    internalBuffer375_CH1->setTriggerLevel(level, (driver->deviceMode == 7 ? 2048 : 128), AC_CH1);
     internalBuffer375_CH2->setTriggerLevel(level, 128, AC_CH2);
     internalBuffer750->setTriggerLevel(level, 128, AC_CH1);
     triggerStateChanged();
@@ -770,7 +770,18 @@ void isoDriver::multimeterAction(){
     }
 
     double triggerDelay = 0;
-    readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES, false, display.delay + ((triggerEnabled&&!paused_multimeter) ? triggerDelay + display.window/2 : 0));
+    if (triggerEnabled)
+    {
+        triggerDelay = internalBuffer375_CH1->getDelayedTriggerPoint(display.window) - display.window;
+
+        if (triggerDelay < 0)
+            triggerDelay = 0;
+    }
+
+    if(singleShotEnabled && (triggerDelay != 0))
+        singleShotTriggered(1);
+    
+	readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES, false, display.delay + triggerDelay);
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES);
     analogConvert(readData375_CH1.get(), &CH1, 2048, 0, 1);  //No AC coupling!
