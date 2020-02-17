@@ -2222,7 +2222,7 @@ void MainWindow::on_actionCalibrate_2_triggered()
     calibrationMessages->setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
     calibrationMessages->setText("Power Supply calibration requires me to control your power supply temporarily.  \n\nTO PREVENT BLUE SMOKE DAMAGE, DISCONNECT ANY CIRCUIT ATTACHED TO YOUR POWER SUPPLY NOW.");
     if (calibrationMessages->exec() == QMessageBox::Cancel) {
-	return;
+        return;
     }
 
     qDebug() << "Beginning PSU calibration!";
