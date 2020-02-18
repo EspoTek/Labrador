@@ -2203,6 +2203,13 @@ void MainWindow::on_actionCalibrate_2_triggered()
 {
     qDebug() << "Calibrating PSU!";
 
+    if (!ui->controller_iso->driver->connected) {
+        calibrationMessages->setStandardButtons(QMessageBox::Ok);
+        calibrationMessages->setText("You need to connect the board before calibrating it!");
+        calibrationMessages->exec();
+        return;
+    }
+
     //Abort if Scope is uncalibrated
     if ((ui->controller_iso->ch1_ref == 1.65) && (ui->controller_iso->ch2_ref == 1.65) && (ui->controller_iso->frontendGain_CH1 ==  R4/(R3+R4)) && (ui->controller_iso->frontendGain_CH2 == R4/(R3+R4)))\
     {
@@ -2212,9 +2219,11 @@ void MainWindow::on_actionCalibrate_2_triggered()
         return;
     }
 
-    calibrationMessages->setStandardButtons(QMessageBox::Ok);
+    calibrationMessages->setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
     calibrationMessages->setText("Power Supply calibration requires me to control your power supply temporarily.  \n\nTO PREVENT BLUE SMOKE DAMAGE, DISCONNECT ANY CIRCUIT ATTACHED TO YOUR POWER SUPPLY NOW.");
-    calibrationMessages->exec();
+    if (calibrationMessages->exec() == QMessageBox::Cancel) {
+        return;
+    }
 
     qDebug() << "Beginning PSU calibration!";
 
