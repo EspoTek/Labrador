@@ -1,3 +1,11 @@
+## IMPORTANT NOTICE
+
+The batch of Labrador boards produced in February 2020 were configured incorrectly at the factory and **will not be detected** by older releases of the Labrador software interface.
+
+There is a fix in the latest version of the software (July 2020 Continuous release) that will automatically reconfigure the board upon connection.
+
+Please update your software if you are having any issues!
+
 # What is it?
 The EspoTek Labrador is an open-source board that converts your PC, Raspberry Pi or Android Smartphone and into a full-featured electronics lab bench, complete with oscilloscope, signal generator and more.
 
