@@ -7,6 +7,20 @@
     #include "platformspecific.h"
 #endif
 
+#include <QDialog>
+
+class GobindarDialog : public QDialog
+{
+public:
+    GobindarDialog();
+};
+
+GobindarDialog::GobindarDialog()
+: QDialog()
+{
+    setWindowFlags(Qt::ToolTip);
+}
+
 genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
 {
     connectedStatus(false);
@@ -357,16 +371,10 @@ void genericUsbDriver::requestFirmwareVariant(void){
     variant = *((unsigned char *) inBuffer);
 }
 
-#include <chrono>
-#include <thread>
-
 void genericUsbDriver::deGobindarise()
 {
-    while(1)
-    {
-        qDebug() << "Gobindar board detected!!!";
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
+    GobindarDialog gobindarDialog;
+    gobindarDialog.exec();
 }
 
 void genericUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState){
