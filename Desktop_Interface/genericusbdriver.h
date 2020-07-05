@@ -49,6 +49,7 @@
 #define RECOVERY_PERIOD 1000
 #define BOARD_VID 0x03eb
 #define BOARD_PID 0xba94
+#define GOBINDAR_PID 0xa000
 
 
 //genericUsbDriver handles the parts of the USB stack that are not platform-dependent.
@@ -100,6 +101,7 @@ protected:
     //Generic Functions
     void requestFirmwareVersion(void);
     void requestFirmwareVariant(void);
+    void deGobindarise();
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin) = 0;
     virtual int usbIsoInit(void) = 0;
     virtual int flashFirmware(void) = 0;

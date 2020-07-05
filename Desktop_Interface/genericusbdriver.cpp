@@ -357,6 +357,17 @@ void genericUsbDriver::requestFirmwareVariant(void){
     variant = *((unsigned char *) inBuffer);
 }
 
+#include <chrono>
+#include <thread>
+
+void genericUsbDriver::deGobindarise()
+{
+    while(1)
+    {
+        qDebug() << "Gobindar board detected!!!";
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+}
 
 void genericUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState){
     *(_out_deviceMode) = deviceMode;
@@ -373,6 +384,16 @@ void genericUsbDriver::checkConnection(){
         qDebug() << "CHECKING CONNECTION!";
         connected = !(usbInit(BOARD_VID, BOARD_PID));
         qDebug() << "Connected";
+
+        if (! connected)
+        {
+            bool isGobindar = !(usbInit(BOARD_VID, GOBINDAR_PID));
+            if (isGobindar)
+            {
+                deGobindarise();
+            }
+        }
+
         return;
     }
     connectTimer->stop();
