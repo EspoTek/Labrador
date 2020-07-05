@@ -25,6 +25,8 @@ private:
 GobindarDialog::GobindarDialog()
 : QWidget()
 {
+    setWindowFlags(Qt::Window);
+
     QPalette palette;
     palette.setColor(QPalette::Background, Qt::white);
     setPalette(palette);
@@ -45,7 +47,7 @@ GobindarDialog::GobindarDialog()
 
     QPixmap pixmap(":/bitmap/diagram.png");
     m_image.setPixmap(pixmap);
-    m_image.setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    m_image.setAlignment(Qt::AlignTop);
 
     m_layout.addWidget(&m_largeText);
     m_layout.addWidget(&m_smallText);
@@ -409,10 +411,9 @@ void genericUsbDriver::deGobindarise()
 {
     GobindarDialog gobindarDialog;
     gobindarDialog.show();
-    while(1)
-    {
-        QApplication::processEvents();
-    }
+    QApplication::processEvents();
+    flashFirmware();
+    gobindarDialog.close();
 }
 
 void genericUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState){
