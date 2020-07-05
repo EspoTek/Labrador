@@ -1,5 +1,9 @@
 #include "genericusbdriver.h"
 
+#include <QApplication>
+#include <QVBoxLayout>
+#include <QPalette>
+
 #include <vector>
 #include <algorithm>
 
@@ -7,18 +11,48 @@
     #include "platformspecific.h"
 #endif
 
-#include <QDialog>
-
-class GobindarDialog : public QDialog
+class GobindarDialog : public QWidget
 {
 public:
     GobindarDialog();
+private:
+    QVBoxLayout m_layout;
+    QLabel m_largeText;
+    QLabel m_smallText;
+    QLabel m_image;
 };
 
 GobindarDialog::GobindarDialog()
-: QDialog()
+: QWidget()
 {
-    setWindowFlags(Qt::ToolTip);
+    QPalette palette;
+    palette.setColor(QPalette::Background, Qt::white);
+    setPalette(palette);
+
+    QFont largeFont;
+    largeFont.setPointSize(18);
+    
+    QFont smallFont;
+    smallFont.setPointSize(12);
+
+    m_largeText.setText("Sorry to Interrupt!");
+    m_largeText.setFont(largeFont);
+    m_largeText.setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+
+    m_smallText.setText("\nYour board is misconfigured!\nPlease enable Bootloader mode to repair the issue.\n\nTo do this, connect Digital Out 1 to GND (as shown below), then reconnect the board to your computer.\n");
+    m_smallText.setFont(smallFont);
+    m_smallText.setAlignment(Qt::AlignTop);
+
+    QPixmap pixmap(":/bitmap/diagram.png");
+    m_image.setPixmap(pixmap);
+    m_image.setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+
+    m_layout.addWidget(&m_largeText);
+    m_layout.addWidget(&m_smallText);
+    m_layout.addWidget(&m_image);
+    setLayout(&m_layout);
+
+    setGeometry(0, 0, 800, 600);
 }
 
 genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
@@ -374,7 +408,11 @@ void genericUsbDriver::requestFirmwareVariant(void){
 void genericUsbDriver::deGobindarise()
 {
     GobindarDialog gobindarDialog;
-    gobindarDialog.exec();
+    gobindarDialog.show();
+    while(1)
+    {
+        QApplication::processEvents();
+    }
 }
 
 void genericUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState){
