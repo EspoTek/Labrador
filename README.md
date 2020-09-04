@@ -49,7 +49,7 @@ To build the AVR software, I use Atmel Studio 7.  Just load up the .atsln and pu
 
 The PCB files can be edited in KiCAD 4.0.
 
-# Known bugs.
+# Known bugs
 Most of the main bugs from the pre-launch period have now been fixed, including synchronisation issues.  
 Please open an issue if you're aware of any in particular.
 
