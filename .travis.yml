@@ -35,10 +35,8 @@ install:
   - |
     # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      brew uninstall --ignore-dependencies  qt # Remove Qt 5.13
-      brew tap uncovertruth/qt
-      brew install qt
-      brew link qt --force
+      brew install qt5
+      brew link qt5 --force
       #brew install libusb
       #brew install wget
     # Linux
@@ -52,8 +50,6 @@ script:
     # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       cd Desktop_Interface
-      echo "QMAKE_VERSION"
-      qmake --version
       qmake CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
       make -j$(sysctl -n hw.ncpu)
       mkdir -p bin/Labrador.app/Contents/MacOS/Resources
