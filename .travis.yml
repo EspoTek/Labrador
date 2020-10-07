@@ -50,6 +50,8 @@ script:
     # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       cd Desktop_Interface
+      echo "QMAKE_VERSION"
+      qmake --version
       qmake CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
       make -j$(sysctl -n hw.ncpu)
       mkdir -p bin/Labrador.app/Contents/MacOS/Resources
