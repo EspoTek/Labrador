@@ -35,7 +35,9 @@ install:
   - |
     # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      brew install qt@5.9
+      brew uninstall --force qt # Remove Qt 5.13
+      curl -O https://raw.githubusercontent.com/Homebrew/homebrew-core/13d52537d1e0e5f913de46390123436d220035f6/Formula/qt.rb
+      brew install ./qt.rb # Install Qt 5.9
       brew link qt --force
       #brew install libusb
       #brew install wget
