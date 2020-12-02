@@ -843,16 +843,16 @@ void isoDriver::multimeterStats(){
     bool mvMax, mvMin, mvMean, mvRMS, maMax, maMin, maMean, maRMS, kOhms, uFarads;  //We'll let the compiler work out this one.
 
     if(autoMultimeterV){
-        mvMax = currentVmax < 1;
-        mvMin = currentVmin < 1;
-        mvMean = currentVmean < 1;
-        mvRMS = currentVRMS < 1;
+        mvMax = abs(currentVmax) < 1.;
+        mvMin = abs(currentVmin) < 1.;
+        mvMean = abs(currentVmean) < 1.;
+        mvRMS = abs(currentVRMS) < 1.;
     }
     if(autoMultimeterI){
-        maMax = (currentVmax / seriesResistance) < 1;
-        maMin = (currentVmin / seriesResistance) < 1;
-        maMean = (currentVmean / seriesResistance) < 1;
-        maRMS = (currentVRMS / seriesResistance) < 1;
+        maMax = abs(currentVmax / seriesResistance) < 1.;
+        maMin = abs(currentVmin / seriesResistance) < 1.;
+        maMean = abs(currentVmean / seriesResistance) < 1.;
+        maRMS = abs(currentVRMS / seriesResistance) < 1.;
     }
 
     if(forceMillivolts){
