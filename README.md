@@ -24,8 +24,9 @@ For the documentation, please visit:
 https://github.com/espotek/labrador/wiki
 
 # Additional Extras
-There is also a 3D printable case available at Thingiverse, courtesy of SpaceBex:
-https://www.thingiverse.com/thing:3188243
+There are community contributed 3D printable cases available at Thingiverse, courtesy of SpaceBex and Bostwickenator:
+* https://www.thingiverse.com/thing:3188243
+* https://www.thingiverse.com/thing:4705392
 
 # Licence
 All software files are licenced under GNU GPL v3.  https://www.gnu.org/licenses/gpl.html
