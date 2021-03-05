@@ -78,7 +78,7 @@ after_success:
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       export UPLOADTOOL_SUFFIX="Linux"
       find appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
-      export UPLOADTOOL_BODY="EspoTek Labrador software for Linux.  For Debian-based distros (including the Ubuntu family), you can use the .deb.  For other distros, you will need to use the .AppImage or build from source (instructions available in main page)."
+      export UPLOADTOOL_BODY="EspoTek Labrador software for Linux. Please note that the .deb is unsupported - it's recommended you install the AppImage or build from source (instructions available in main page)."
       wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
       bash upload.sh EspoTek_Labrador*.AppImage EspoTek_Labrador*.deb
     fi
