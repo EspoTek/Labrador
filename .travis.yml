@@ -71,7 +71,7 @@ after_success:
     # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       export UPLOADTOOL_SUFFIX="macOS"
-      export UPLOADTOOL_BODY="EspoTek Labrador software for macOS 10.10 and later."
+      export UPLOADTOOL_BODY="EspoTek Labrador software for macOS 10.13 and later."
       wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
       bash upload.sh bin/Labrador.dmg
     # Linux
