@@ -282,6 +282,12 @@ android:{
     QMAKE_CXXFLAGS += -fsigned-char
     #Android treats char as unsigned by default (why???)
 
+    # Building .so files fails with -Wl,--no-undefined
+    QMAKE_LFLAGS_APP     -= -Wl,--no-undefined
+    QMAKE_LFLAGS_SHLIB   -= -Wl,--no-undefined
+    QMAKE_LFLAGS_PLUGIN  -= -Wl,--no-undefined
+    QMAKE_LFLAGS_NOUNDEF -= -Wl,--no-undefined
+
     QT += androidextras
     CONFIG += mobility
     MOBILITY =
@@ -322,16 +328,10 @@ android:{
         build_android/package_source/build.gradle \
         build_android/package_source/src/androidInterface.java
 
-    equals(ANDROID_TARGET_ARCH, armeabi-v7a){
-        message("qmake building for Android (ARM) platform")
-        LIBS += -L$${PWD}/build_android/libusb-242/android/armeabi-v7a -lusb1.0
-        ANDROID_EXTRA_LIBS += $${PWD}/build_android/libusb-242/android/armeabi-v7a/libusb1.0.so
-        }
-    equals(ANDROID_TARGET_ARCH, x86){
-        message("qmake building for Android (x86) platform")
-        LIBS += -L$$PWD/build_android/libusb-242/android/x86 -lusb1.0
-        ANDROID_EXTRA_LIBS += $$PWD/build_android/libusb-242/android/x86/libusb1.0.so
-        }
+    # Doing the following inside one equals() failed. qmake bug?  https://forum.qt.io/topic/113836/dynamic-libs-on-android-with-qt5-14-2/4
+    for(abi, ANDROID_ABIS): message("qmake building for Android ($${abi}) platform")
+    for(abi, ANDROID_ABIS): LIBS += -L$${PWD}/build_android/libusb-242/android/$${abi} -lusb1.0
+    for(abi, ANDROID_ABIS): ANDROID_EXTRA_LIBS += $${PWD}/build_android/libusb-242/android/$${abi}/libusb1.0.so
 }
 
 DISTFILES += \

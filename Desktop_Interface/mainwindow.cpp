@@ -213,6 +213,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pause_LA, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
     connect(ui->multimeterPauseCheckBox, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
 
+#ifndef PLATFORM_ANDROID
     connect(ui->hideCH1Box, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(hideCH1(bool)));
     connect(ui->hideCH2Box, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(hideCH2(bool)));
 
@@ -221,7 +222,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	ui->hideCH1Box->setVisible(false);
 	ui->hideCH2Box->setVisible(false);
-
+#endif
     ui->realTimeButton->setVisible(false);
 
     if ((QApplication::desktop()->availableGeometry().width() < 1520) || (QApplication::desktop()->geometry().height() < 800))
@@ -236,10 +237,12 @@ MainWindow::MainWindow(QWidget *parent) :
         this->resize(1520, 800);
     }
 
+#ifndef PLATFORM_ANDROID
     connect(ui->offsetSpinBox_CH1, SIGNAL(valueChanged(double)), ui->controller_iso, SLOT(offsetChanged_CH1(double)));
     connect(ui->offsetSpinBox_CH2, SIGNAL(valueChanged(double)), ui->controller_iso, SLOT(offsetChanged_CH2(double)));
     connect(ui->attenuationComboBox_CH1, SIGNAL(currentIndexChanged(int)), ui->controller_iso, SLOT(attenuationChanged_CH1(int)));
     connect(ui->attenuationComboBox_CH2, SIGNAL(currentIndexChanged(int)), ui->controller_iso, SLOT(attenuationChanged_CH2(int)));
+#endif
     connect(ui->controller_iso, &isoDriver::enableCursorGroup, this, &MainWindow::cursorGroupEnabled);
 }
 
@@ -402,8 +405,10 @@ void MainWindow::menuSetup(){
     fpsGroup->addAction(ui->action5FPS);
 
     serialProtocolGroup = new QActionGroup(this);
+#ifndef PLATFORM_ANDROID
     serialProtocolGroup->addAction(ui->actionSerial);
     serialProtocolGroup->addAction(ui->actionI2C);
+#endif
 
 
     connect(ui->actionAutoV, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setAutoMultimeterV(bool)));
@@ -452,15 +457,19 @@ void MainWindow::menuSetup(){
 
     uartParityGroup_CH1 = new QActionGroup(this);
     uartParityGroup_CH1->addAction(ui->actionNone);
+#ifndef PLATFORM_ANDROID
     uartParityGroup_CH1->addAction(ui->actionEven);
     uartParityGroup_CH1->addAction(ui->actionOdd);
+#endif
     ui->actionNone->setChecked(true);
 
     uartParityGroup_CH2 = new QActionGroup(this);
     uartParityGroup_CH2->addAction(ui->actionNone_2);
+#ifndef PLATFORM_ANDROID
     uartParityGroup_CH2->addAction(ui->actionEven_2);
     uartParityGroup_CH2->addAction(ui->actionOdd_2);
     ui->actionNone_2->setChecked(true);
+#endif
 
     connectionTypeGroup = new QActionGroup(this);
     connectionTypeGroup->addAction(ui->actionLo_bw);
@@ -2328,7 +2337,9 @@ void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
     {
         scopeRangeSwitch = new scopeRangeEnterDialog(nullptr, false, ui->controller_iso->display.topRange, ui->controller_iso->display.botRange, ui->controller_iso->display.window, ui->controller_iso->display.delay);
         scopeRangeSwitch->setWindowFlags(Qt::Widget);
+#ifndef PLATFORM_ANDROID
         ui->verticalLayout_5->insertWidget(2, scopeRangeSwitch);
+#endif
         connect(scopeRangeSwitch, SIGNAL(yTopUpdated(double)), ui->controller_iso, SLOT(setTopRange(double)));
         connect(scopeRangeSwitch, SIGNAL(yBotUpdated(double)), ui->controller_iso, SLOT(setBotRange(double)));
         connect(scopeRangeSwitch, SIGNAL(windowUpdated(double)), ui->controller_iso, SLOT(setTimeWindow(double)));
@@ -2348,6 +2359,7 @@ void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
 
 void MainWindow::paused(bool enabled)
 {
+#ifndef PLATFORM_ANDROID
 	qDebug() << "MainWindow::paused(" << enabled << ")";
 	ui->hideCH1Box->setVisible(enabled);
 	ui->hideCH2Box->setVisible(enabled);
@@ -2357,6 +2369,7 @@ void MainWindow::paused(bool enabled)
 		ui->hideCH1Box->setChecked(false);
 		ui->hideCH2Box->setChecked(false);
 	}
+#endif
 }
 
 void MainWindow::on_actionNone_triggered()
