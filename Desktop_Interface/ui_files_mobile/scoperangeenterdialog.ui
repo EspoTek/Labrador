@@ -19,7 +19,7 @@
      <item>
       <layout class="QFormLayout" name="formLayout">
        <item row="0" column="0">
-        <widget class="voltageSpinBox" name="vMaxBox">
+        <widget class="espoSpinBox" name="vMaxBox">
          <property name="minimum">
           <double>20.000000000000000</double>
          </property>
@@ -36,7 +36,7 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="voltageSpinBox" name="vMinBox">
+        <widget class="espoSpinBox" name="vMinBox">
          <property name="minimum">
           <double>-20.000000000000000</double>
          </property>
@@ -53,7 +53,7 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="voltageSpinBox" name="timeWindowBox">
+        <widget class="espoSpinBox" name="timeWindowBox">
          <property name="decimals">
           <number>6</number>
          </property>
@@ -73,7 +73,7 @@
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="voltageSpinBox" name="delayBox">
+        <widget class="espoSpinBox" name="delayBox">
          <property name="decimals">
           <number>6</number>
          </property>
@@ -110,9 +110,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>voltageSpinBox</class>
+   <class>espoSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header location="global">voltagespinbox.h</header>
+   <header location="global">espospinbox.h</header>
    <slots>
     <slot>setMin(double)</slot>
     <slot>setMax(double)</slot>

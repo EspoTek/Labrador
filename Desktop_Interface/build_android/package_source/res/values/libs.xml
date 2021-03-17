@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
     <array name="qt_sources">
-        <item>https://download.qt.io/ministro/android/qt5/qt-5.7</item>
+        <item>https://download.qt.io/ministro/android/qt5/qt-5.15.2</item>
     </array>
 
     <!-- The following is handled automatically by the deployment tool. It should
@@ -20,6 +20,10 @@
     </array>
     <array name="bundled_in_assets">
         <!-- %%INSERT_BUNDLED_IN_ASSETS%% -->
+    </array>
+
+    <array name="load_local_libs">
+      <!-- %%INSERT_LOCAL_LIBS%% -->
     </array>
 
 </resources>
