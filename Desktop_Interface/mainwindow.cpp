@@ -1966,6 +1966,47 @@ void MainWindow::openFileDialog(QString *fileName){
     *(fileName) = temp;
 }
 
+void MainWindow::on_actionExportImage_triggered()
+{
+    qDebug() << "on_actionExportImage_triggered()";
+
+    QFileDialog dialog;
+
+    dialog.setDefaultSuffix("pdf");
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setDirectory(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setNameFilter("PDF files (*.pdf);;JPEG files (*.jpg);;PNG files (*.png);;BMP files (*.bmp)");
+
+    int retVal = dialog.exec();
+
+    if(!retVal){
+        return; //User did not select a file!
+    }
+
+    QStringList tempList = dialog.selectedFiles();
+    qDebug() << tempList.first();
+
+    // Avoiding an if () cascade
+    switch (dialog.nameFilters().indexOf( dialog.selectedNameFilter() ) )
+    {
+        case 0:
+            ui->scopeAxes->savePdf(tempList.first());
+            break;
+        case 1:
+            ui->scopeAxes->saveJpg(tempList.first());
+            break;
+        case 2:
+            ui->scopeAxes->savePng(tempList.first());
+            break;
+        case 3:
+            ui->scopeAxes->saveBmp(tempList.first());
+            break;
+        default:
+            qDebug() << "Wrong file type for exporting image to";
+    }
+}
+
 void MainWindow::on_actionSnapshot_CH1_triggered()
 {
   qDebug() << "on_actionSnapshot_CH1_triggered()";

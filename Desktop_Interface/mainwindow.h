@@ -150,6 +150,8 @@ private slots:
 
     void on_actionSingle_ep_async_triggered();
 
+    void on_actionExportImage_triggered();
+
     void on_actionSnapshot_CH1_triggered();
 
     void on_actionSnapshot_CH2_triggered();

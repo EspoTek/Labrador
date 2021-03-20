@@ -1532,6 +1532,7 @@
     <addaction name="menuRecord"/>
     <addaction name="actionOpen_DAQ_File"/>
     <addaction name="menuTake_Snapshot"/>
+    <addaction name="actionExportImage"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
@@ -2420,6 +2421,11 @@
    </property>
    <property name="text">
     <string>single-&amp;ep-async</string>
+   </property>
+  </action>
+  <action name="actionExportImage">
+   <property name="text">
+    <string>&amp;Export current view</string>
    </property>
   </action>
   <action name="actionSnapshot_CH1">
