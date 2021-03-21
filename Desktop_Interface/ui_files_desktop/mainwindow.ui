@@ -1310,7 +1310,7 @@
            <item>
             <widget class="QCheckBox" name="pause_LA">
              <property name="enabled">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <property name="text">
               <string>Pause</string>
@@ -1507,7 +1507,7 @@
      <x>0</x>
      <y>0</y>
      <width>1493</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1532,6 +1532,7 @@
     <addaction name="menuRecord"/>
     <addaction name="actionOpen_DAQ_File"/>
     <addaction name="menuTake_Snapshot"/>
+    <addaction name="actionExportImage"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
@@ -1614,8 +1615,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>170</width>
-       <height>115</height>
+       <width>160</width>
+       <height>120</height>
       </rect>
      </property>
      <property name="title">
@@ -2420,6 +2421,11 @@
    </property>
    <property name="text">
     <string>single-&amp;ep-async</string>
+   </property>
+  </action>
+  <action name="actionExportImage">
+   <property name="text">
+    <string>&amp;Export Current View</string>
    </property>
   </action>
   <action name="actionSnapshot_CH1">
