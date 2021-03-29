@@ -41,6 +41,9 @@ unsigned char androidUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin
     if(file_descriptor == -69){
         qDebug() << "DEVICE NOT DETECTED";
         return -69;
+    } else if(file_descriptor == -65) {
+        qDebug() << "DEVICE DETECTED IN BOOTLOADER MODE";
+        return E_BOARD_IN_BOOTLOADER;
     }
 
     int error = libusb_init(&ctx);
@@ -147,7 +150,7 @@ int androidUsbDriver::flashFirmware(void){
 
     //File name
     char fname[128];
-    qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
+    qDebug() << "\n\n\n\n\n\n\n\nFLASHING FIRMWARE....\n\n\n\n\n\n\n";
     sprintf(fname, "assets:/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
     qDebug() << "FLASHING " << fname;
 
@@ -177,16 +180,18 @@ int androidUsbDriver::flashFirmware(void){
 
      qDebug() << "File path is" << filePath_cstring;
 
-     //Switch modes
-    bootloaderJump();
-    mainActivity.callMethod<void>("closeDevice");
-    libusb_release_interface(handle, 0);
-    libusb_close(handle);
-    libusb_exit(ctx);
+    if(connected) {
+        //Switch from application mode to bootloader mode.  Otherwise assume we are in bootloader.
+        bootloaderJump();
+        mainActivity.callMethod<void>("closeDevice");
+        libusb_release_interface(handle, 0);
+        libusb_close(handle);
+        libusb_exit(ctx);
 
-    qDebug() << "BA94 closed";
+        qDebug() << "BA94 closed";
 
-    QThread::msleep(2000);
+        QThread::msleep(2000);
+}
 
     //Initialise libusb-martin-kuldeep
     libusb_context *ctx;
