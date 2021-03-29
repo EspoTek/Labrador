@@ -1240,12 +1240,14 @@ void MainWindow::readSettingsFile(){
     double calibrate_gain_ch1 = settings->value("CalibrateGainCH1", R4/(R3+R4)).toDouble();
     double calibrate_gain_ch2 = settings->value("CalibrateGainCH2", R4/(R3+R4)).toDouble();
     psu_voltage_calibration_offset = settings->value("CalibratePsu", 0).toDouble();
+#ifndef PLATFORM_ANDROID
     if (settings->value("ShowRangeDialog").toBool())
     {
         qDebug() << "ShowRangeDialog setting true";
         ui->actionShow_Range_Dialog_on_Main_Page->setChecked(true);
         on_actionShow_Range_Dialog_on_Main_Page_triggered(true);
     }
+#endif
 
     daq_num_to_average = settings->value("daq_defaultAverage", 1).toInt();
     daq_max_file_size = settings->value("daq_defaultFileSize", 2048000000).toULongLong();
@@ -2382,7 +2384,9 @@ void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
     qDebug() << "on_actionShow_Range_Dialog_on_Main_Page_triggered" << checked;
     if (checked)
     {
+#ifndef PLATFORM_ANDROID
         settings->setValue("ShowRangeDialog", true);
+#endif
         scopeRangeSwitch = new scopeRangeEnterDialog(nullptr, false, ui->controller_iso->display.topRange, ui->controller_iso->display.botRange, ui->controller_iso->display.window, ui->controller_iso->display.delay);
         scopeRangeSwitch->setWindowFlags(Qt::Widget);
 #ifndef PLATFORM_ANDROID
@@ -2400,7 +2404,9 @@ void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
     }
     else
     {
+#ifndef PLATFORM_ANDROID
         settings->setValue("ShowRangeDialog", false);
+#endif
         delete scopeRangeSwitch;
         scopeRangeSwitch = nullptr;
     }
