@@ -1512,7 +1512,7 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>&amp;File</string>
     </property>
     <widget class="QMenu" name="menuTake_Snapshot">
      <property name="title">
@@ -1537,7 +1537,7 @@
    </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
     <property name="title">
-     <string>Oscilloscope</string>
+     <string>&amp;Oscilloscope</string>
     </property>
     <widget class="QMenu" name="menuGain_2">
      <property name="title">
@@ -1774,7 +1774,7 @@
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help</string>
+     <string>&amp;Help</string>
     </property>
     <addaction name="actionDocumentation"/>
     <addaction name="actionPinout"/>
