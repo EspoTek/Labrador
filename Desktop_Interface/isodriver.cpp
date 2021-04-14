@@ -840,7 +840,16 @@ void isoDriver::multimeterStats(){
     QTimer::singleShot(MULTIMETER_PERIOD, this, SLOT(enableMM()));
 
     multimeterShow = false;
-    bool mvMax, mvMin, mvMean, mvRMS, maMax, maMin, maMean, maRMS, kOhms, uFarads;  //We'll let the compiler work out this one.
+    bool mvMax = false;
+    bool mvMin = false;
+    bool mvMean = false;
+    bool mvRMS = false;
+    bool maMax = false;
+    bool maMin = false;
+    bool maMean = false;
+    bool maRMS = false;
+    bool kOhms = false;
+    bool uFarads = false;  //We'll let the compiler work out this one.
 
     if(autoMultimeterV){
         mvMax = abs(currentVmax) < 1.;
