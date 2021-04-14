@@ -213,19 +213,21 @@ void genericUsbDriver::sendFunctionGenData(functionGen::ChannelID channelID)
 	}
 
     // Timer Setup
-    int validClockDivs[7] = {1, 2, 4, 8, 64, 256, 1024};
-	auto period = [&](int division) -> int
-	{
-		return CLOCK_FREQ / (division * channelData.samples.size() * channelData.freq);
-	};
+    static const int validClockDivs[7] = {1, 2, 4, 8, 64, 256, 1024};
 
-	int* clkSettingIt = std::find_if(std::begin(validClockDivs), std::end(validClockDivs),
-	                                 [&](int division) -> bool { return period(division) < 65535; });
+    int timerPeriod = 0;
+    int clkSetting = 0;
+    for (size_t i=0; i<sizeof validClockDivs; i++) {
+        const int period = CLOCK_FREQ / (validClockDivs[i] * channelData.samples.size() * channelData.freq);
+        if (period > 0xFFFF && i == 0 /* ensure we always have a valid value */) {
+            continue;
+        }
 
-    int timerPeriod = period(*clkSettingIt);
-
-	// +1 to change from [0:n) to [1:n]
-    int clkSetting = std::distance(std::begin(validClockDivs), clkSettingIt) + 1;
+        // +1 to change from [0:n) to [1:n]
+        clkSetting = i + 1;
+        timerPeriod = period;
+        break;
+    }
 
     if(deviceMode == 5)
         qDebug("DEVICE IS IN MODE 5");
