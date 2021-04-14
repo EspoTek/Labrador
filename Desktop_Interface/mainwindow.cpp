@@ -36,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
+    ui->actionQuit->setShortcut(Qt::CTRL + Qt::Key_Q); // on macOS CTRL is automaticall translated to the command key
+
     calibrationMessages = new QMessageBox();
     ui->psuDisplay->display("4.00");
     ui->bufferDisplay->refreshImage();
