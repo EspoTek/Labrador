@@ -15,7 +15,7 @@ class espoSlider : public QSlider
     Q_OBJECT
 public:
     explicit espoSlider(QWidget *parent = 0);
-    bool setTickLabel(QString label, int position);
+    bool setTickLabel(const QString& label, int position);
     void resizeEvent(QResizeEvent *event);
     void moveEvent(QMoveEvent *event);
     void setTickInterval(int ti);

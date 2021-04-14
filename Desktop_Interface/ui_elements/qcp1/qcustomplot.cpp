@@ -74,8 +74,7 @@ QCPPainter::QCPPainter(QPaintDevice *device) :
 }
 
 QCPPainter::~QCPPainter()
-{
-}
+= default;
 
 /*!
   Sets the pen of the painter and applies certain fixes to it, depending on the mode of this
@@ -919,7 +918,7 @@ void QCPLayer::removeChild(QCPLayerable *layerable)
   plot does. It is not uncommon to set the QObject-parent to something else in the constructors of
   QCPLayerable subclasses, to guarantee a working destruction hierarchy.
 */
-QCPLayerable::QCPLayerable(QCustomPlot *plot, QString targetLayer, QCPLayerable *parentLayerable) :
+QCPLayerable::QCPLayerable(QCustomPlot *plot, const QString& targetLayer, QCPLayerable *parentLayerable) :
   QObject(plot),
   mVisible(true),
   mParentPlot(plot),
@@ -2116,8 +2115,7 @@ int QCPLayoutElement::calculateAutoMargin(QCP::MarginSide side)
   is an abstract base class, it can't be instantiated directly.
 */
 QCPLayout::QCPLayout()
-{
-}
+= default;
 
 /*!
   First calls the QCPLayoutElement::update base class implementation to update the margins on this
@@ -2343,7 +2341,7 @@ void QCPLayout::releaseElement(QCPLayoutElement *el)
   
   The return value is a QVector containing the section sizes.
 */
-QVector<int> QCPLayout::getSectionSizes(QVector<int> maxSizes, QVector<int> minSizes, QVector<double> stretchFactors, int totalSize) const
+QVector<int> QCPLayout::getSectionSizes(const QVector<int>& maxSizes, QVector<int> minSizes, QVector<double> stretchFactors, int totalSize) const
 {
   if (maxSizes.size() != minSizes.size() || minSizes.size() != stretchFactors.size())
   {
@@ -3078,8 +3076,7 @@ void QCPLayoutGrid::getMaximumRowColSizes(QVector<int> *maxColWidths, QVector<in
   Creates an instance of QCPLayoutInset and sets default values.
 */
 QCPLayoutInset::QCPLayoutInset()
-{
-}
+= default;
 
 QCPLayoutInset::~QCPLayoutInset()
 {
@@ -6086,8 +6083,7 @@ QCPAxisPainterPrivate::QCPAxisPainterPrivate(QCustomPlot *parentPlot) :
 }
 
 QCPAxisPainterPrivate::~QCPAxisPainterPrivate()
-{
-}
+= default;
 
 /*! \internal
   
@@ -7450,7 +7446,7 @@ void QCPAbstractPlottable::deselectEvent(bool *selectionStateChanged)
   you want to make a new item subclass. Use \ref QCPAbstractItem::createAnchor instead, as
   explained in the subclassing section of the QCPAbstractItem documentation.
 */
-QCPItemAnchor::QCPItemAnchor(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString name, int anchorId) :
+QCPItemAnchor::QCPItemAnchor(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString& name, int anchorId) :
   mName(name),
   mParentPlot(parentPlot),
   mParentItem(parentItem),
@@ -7623,7 +7619,7 @@ void QCPItemAnchor::removeChildY(QCPItemPosition *pos)
   you want to make a new item subclass. Use \ref QCPAbstractItem::createPosition instead, as
   explained in the subclassing section of the QCPAbstractItem documentation.
 */
-QCPItemPosition::QCPItemPosition(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString name) :
+QCPItemPosition::QCPItemPosition(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString& name) :
   QCPItemAnchor(parentPlot, parentItem, name),
   mPositionTypeX(ptAbsolute),
   mPositionTypeY(ptAbsolute),
@@ -21484,8 +21480,7 @@ QCPItemStraightLine::QCPItemStraightLine(QCustomPlot *parentPlot) :
 }
 
 QCPItemStraightLine::~QCPItemStraightLine()
-{
-}
+= default;
 
 /*!
   Sets the pen that will be used to draw the line
@@ -21674,8 +21669,7 @@ QCPItemLine::QCPItemLine(QCustomPlot *parentPlot) :
 }
 
 QCPItemLine::~QCPItemLine()
-{
-}
+= default;
 
 /*!
   Sets the pen that will be used to draw the line
@@ -21911,8 +21905,7 @@ QCPItemCurve::QCPItemCurve(QCustomPlot *parentPlot) :
 }
 
 QCPItemCurve::~QCPItemCurve()
-{
-}
+= default;
 
 /*!
   Sets the pen that will be used to draw the line
@@ -22065,8 +22058,7 @@ QCPItemRect::QCPItemRect(QCustomPlot *parentPlot) :
 }
 
 QCPItemRect::~QCPItemRect()
-{
-}
+= default;
 
 /*!
   Sets the pen that will be used to draw the line of the rectangle
@@ -22230,8 +22222,7 @@ QCPItemText::QCPItemText(QCustomPlot *parentPlot) :
 }
 
 QCPItemText::~QCPItemText()
-{
-}
+= default;
 
 /*!
   Sets the color of the text.
@@ -22564,8 +22555,7 @@ QCPItemEllipse::QCPItemEllipse(QCustomPlot *parentPlot) :
 }
 
 QCPItemEllipse::~QCPItemEllipse()
-{
-}
+= default;
 
 /*!
   Sets the pen that will be used to draw the line of the ellipse
@@ -22751,8 +22741,7 @@ QCPItemPixmap::QCPItemPixmap(QCustomPlot *parentPlot) :
 }
 
 QCPItemPixmap::~QCPItemPixmap()
-{
-}
+= default;
 
 /*!
   Sets the pixmap that will be displayed.
@@ -23010,8 +22999,7 @@ QCPItemTracer::QCPItemTracer(QCustomPlot *parentPlot) :
 }
 
 QCPItemTracer::~QCPItemTracer()
-{
-}
+= default;
 
 /*!
   Sets the pen that will be used to draw the line of the tracer
@@ -23361,8 +23349,7 @@ QCPItemBracket::QCPItemBracket(QCustomPlot *parentPlot) :
 }
 
 QCPItemBracket::~QCPItemBracket()
-{
-}
+= default;
 
 /*!
   Sets the pen that will be used to draw the bracket.

@@ -416,7 +416,7 @@ class QCP_LIB_DECL QCPLayerable : public QObject
   Q_PROPERTY(bool antialiased READ antialiased WRITE setAntialiased)
   /// \endcond
 public:
-  QCPLayerable(QCustomPlot *plot, QString targetLayer=QString(), QCPLayerable *parentLayerable=0);
+  QCPLayerable(QCustomPlot *plot, const QString& targetLayer=QString(), QCPLayerable *parentLayerable=0);
   ~QCPLayerable();
   
   // getters:
@@ -746,7 +746,7 @@ protected:
   void sizeConstraintsChanged() const;
   void adoptElement(QCPLayoutElement *el);
   void releaseElement(QCPLayoutElement *el);
-  QVector<int> getSectionSizes(QVector<int> maxSizes, QVector<int> minSizes, QVector<double> stretchFactors, int totalSize) const;
+  QVector<int> getSectionSizes(const QVector<int>& maxSizes, QVector<int> minSizes, QVector<double> stretchFactors, int totalSize) const;
   
 private:
   Q_DISABLE_COPY(QCPLayout)
@@ -1503,7 +1503,7 @@ private:
 class QCP_LIB_DECL QCPItemAnchor
 {
 public:
-  QCPItemAnchor(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString name, int anchorId=-1);
+  QCPItemAnchor(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString& name, int anchorId=-1);
   virtual ~QCPItemAnchor();
   
   // getters:
@@ -1556,7 +1556,7 @@ public:
                       ,ptPlotCoords     ///< Dynamic positioning at a plot coordinate defined by two axes (see \ref setAxes).
                     };
   
-  QCPItemPosition(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString name);
+  QCPItemPosition(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString& name);
   virtual ~QCPItemPosition();
   
   // getters:

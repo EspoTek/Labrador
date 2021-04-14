@@ -13,7 +13,7 @@ espoSlider::espoSlider(QWidget *parent) : QSlider(parent)
     labelMargin = 3;
 }
 
-bool espoSlider::setTickLabel(QString label, int position)
+bool espoSlider::setTickLabel(const QString& label, int position)
 {
     if (position > maxTick()){
             //qDebug() << "Tried to label tick at position " << position << "but ticks range from 0 to " << maxTick();

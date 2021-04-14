@@ -1,4 +1,6 @@
 #include "functiongencontrol.h"
+
+#include <utility>
 #include "platformspecific.h"
 
 namespace functionGen {
@@ -168,7 +170,7 @@ SingleChannelController* DualChannelController::getChannelController(ChannelID c
 // Hopefuly it can be mostly removed eventually
 void DualChannelController::waveformName(ChannelID channelID, QString newName)
 {
-	getChannelController(channelID)->waveformName(newName);
+	getChannelController(channelID)->waveformName(std::move(newName));
 }
 
 void DualChannelController::freqUpdate(ChannelID channelID, double newFreq)
@@ -189,7 +191,7 @@ void DualChannelController::offsetUpdate(ChannelID channelID, double newOffset)
 
 void DualChannelController::waveformName_CH1(QString newName)
 {
-	waveformName(ChannelID::CH1, newName);
+	waveformName(ChannelID::CH1, std::move(newName));
 }
 
 void DualChannelController::freqUpdate_CH1(double newFreq)
@@ -210,7 +212,7 @@ void DualChannelController::offsetUpdate_CH1(double newOffset)
 
 void DualChannelController::waveformName_CH2(QString newName)
 {
-	waveformName(ChannelID::CH2, newName);
+	waveformName(ChannelID::CH2, std::move(newName));
 }
 
 void DualChannelController::freqUpdate_CH2(double newFreq)
