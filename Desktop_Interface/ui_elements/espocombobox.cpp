@@ -42,13 +42,14 @@ void espoComboBox::readWaveformList(void)
     qDebug() << "Attempting to open" << dirString;
 
     FILE *listPtr = fopen(buffer, "r");
-    QStringList *newNames = new QStringList();
-    char nameBuffer[255];
 
     if(listPtr == NULL){
         qWarning("Could not load _list.wfl");
         return;
     }
+
+    QStringList *newNames = new QStringList();
+    char nameBuffer[255];
 
     while (fgets(nameBuffer,256,listPtr) !=NULL){
         qDebug() << "nameBuffer = " << nameBuffer;
