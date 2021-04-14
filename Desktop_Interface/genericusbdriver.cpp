@@ -468,7 +468,9 @@ void genericUsbDriver::checkConnection(){
     if((firmver != EXPECTED_FIRMWARE_VERSION) || (variant != DEFINED_EXPECTED_VARIANT)){
         qDebug() << "Unexpected Firmware!!";
         int flashRet = flashFirmware();
-        qDebug("flashRet: %d", flashRet);
+        if (flashRet != 0) {
+            QMessageBox::warning(window(), tr("Flashing firmware failed"), tr("Flashing firmware failed with error code %1").arg(flashRet));
+        }
         connected = false;
         connectTimer->start();
         return;
