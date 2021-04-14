@@ -23,7 +23,6 @@ private:
 };
 
 GobindarDialog::GobindarDialog()
-: QWidget()
 {
     setWindowFlags(Qt::Window);
 
@@ -174,9 +173,9 @@ void genericUsbDriver::sendFunctionGenData(functionGen::ChannelID channelID)
     unsigned char fGenTemp = 0;
     fGenTemp |= (fGenTriple & 0x01)<<1;
     fGenTemp |= (fGenTriple & 0x02)>>1;
-    usbSendControl(0x40, 0xa4, fGenTemp, 0, 0, NULL);
+    usbSendControl(0x40, 0xa4, fGenTemp, 0, 0, nullptr);
 #else
-    usbSendControl(0x40, 0xa4, fGenTriple, 0, 0, NULL);
+    usbSendControl(0x40, 0xa4, fGenTriple, 0, 0, nullptr);
 #endif
 
 	auto applyAmplitudeAndOffset = [&](unsigned char sample) -> unsigned char
@@ -237,15 +236,12 @@ void genericUsbDriver::sendFunctionGenData(functionGen::ChannelID channelID)
 		usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
     else
 		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
-
-    return;
-
 }
 
 void genericUsbDriver::newDig(int digState){
     qDebug() << "newDig";
     digitalPinState = digState;
-    usbSendControl(0x40, 0xa6, digState, 0, 0, NULL);
+    usbSendControl(0x40, 0xa6, digState, 0, 0, nullptr);
 }
 
 /*
@@ -257,12 +253,12 @@ void genericUsbDriver::setBufferPtr(bufferControl *newPtr){
 void genericUsbDriver::setDeviceMode(int mode){
     int oldMode = deviceMode;
     deviceMode = mode;
-    usbSendControl(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
+    usbSendControl(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, nullptr);
 
-    if (fGenPtrData[(int)functionGen::ChannelID::CH1] != NULL)
+    if (fGenPtrData[(int)functionGen::ChannelID::CH1] != nullptr)
 		sendFunctionGenData(functionGen::ChannelID::CH1);
 
-	if (fGenPtrData[(int)functionGen::ChannelID::CH2] != NULL)
+    if (fGenPtrData[(int)functionGen::ChannelID::CH2] != nullptr)
 		sendFunctionGenData(functionGen::ChannelID::CH2);
 
     //switch on new deviceMode!!
@@ -333,7 +329,7 @@ void genericUsbDriver::psuTick(){
     if ((dutyTemp>106) || (dutyTemp<21)){
         qDebug("PSU DUTY CYCLE of dutyTemp = %d OUT OF RANGE (could underflow on SOF)!!!  ABORTING!!!", dutyTemp);
     }
-    usbSendControl(0x40, 0xa3, dutyTemp, 0, 0, NULL);
+    usbSendControl(0x40, 0xa3, dutyTemp, 0, 0, nullptr);
 }
 
 void genericUsbDriver::setGain(double newGain){
@@ -361,11 +357,11 @@ void genericUsbDriver::setGain(double newGain){
     */
     qDebug("newGain = %f", newGain);
     qDebug("gainMask = %x", gainMask);
-    usbSendControl(0x40, 0xa5, deviceMode, gainMask, 0, NULL);
+    usbSendControl(0x40, 0xa5, deviceMode, gainMask, 0, nullptr);
 }
 
 void genericUsbDriver::avrDebug(void){
-    usbSendControl(0xc0, 0xa0, 0, 0, sizeof(unified_debug), NULL);
+    usbSendControl(0xc0, 0xa0, 0, 0, sizeof(unified_debug), nullptr);
 
     qDebug() << "unified debug is of size" << sizeof(unified_debug);
     /*
@@ -396,16 +392,16 @@ void genericUsbDriver::avrDebug(void){
 
 void genericUsbDriver::kickstartIso(void){
     qDebug() << "Attempting to kickstart iso...";
-    usbSendControl(0x40, 0xaa, 0, 0, 0, NULL);
+    usbSendControl(0x40, 0xaa, 0, 0, 0, nullptr);
 }
 
 void genericUsbDriver::requestFirmwareVersion(void){
-    usbSendControl(0xc0, 0xa8, 0, 0, 2, NULL);
+    usbSendControl(0xc0, 0xa8, 0, 0, 2, nullptr);
     firmver = *((unsigned short *) inBuffer);
 }
 
 void genericUsbDriver::requestFirmwareVariant(void){
-    usbSendControl(0xc0, 0xa9, 0, 0, 1, NULL);
+    usbSendControl(0xc0, 0xa9, 0, 0, 1, nullptr);
     variant = *((unsigned char *) inBuffer);
 }
 
@@ -423,7 +419,6 @@ void genericUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, d
     *(_out_scopeGain) = scopeGain;
     *(_out_currentPsuVoltage) = currentPsuVoltage;
     *(_out_digitalPinState) = digitalPinState;
-    return;
 }
 
 void genericUsbDriver::checkConnection(){
@@ -461,11 +456,11 @@ void genericUsbDriver::checkConnection(){
     connectTimer->stop();
 
     requestFirmwareVersion();
-    qDebug("BOARD IS RUNNING FIRMWARE VERSION 0x%04hx", firmver);
-    qDebug("EXPECTING FIRMWARE VERSION 0x%04hx", EXPECTED_FIRMWARE_VERSION);
+    qDebug("BOARD IS RUNNING FIRMWARE VERSION 0x%04hhx", firmver);
+    qDebug("EXPECTING FIRMWARE VERSION 0x%04x", EXPECTED_FIRMWARE_VERSION);
     requestFirmwareVariant();
-    qDebug("FIRMWARE VARIANT = 0x%02hx", variant);
-    qDebug("EXPECTED VARIANT = 0x%02hx", DEFINED_EXPECTED_VARIANT);
+    qDebug("FIRMWARE VARIANT = 0x%02hhx", variant);
+    qDebug("EXPECTED VARIANT = 0x%02x", DEFINED_EXPECTED_VARIANT);
 
     if((firmver != EXPECTED_FIRMWARE_VERSION) || (variant != DEFINED_EXPECTED_VARIANT)){
         qDebug() << "Unexpected Firmware!!";
@@ -502,7 +497,7 @@ void genericUsbDriver::checkConnection(){
     psuTimer->start(PSU_PERIOD);
     connect(psuTimer, SIGNAL(timeout()), this, SLOT(psuTick()));
 
-    if(killOnConnect) usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
+    if(killOnConnect) usbSendControl(0x40, 0xa7, 0, 0, 0, nullptr);
 
     recoveryTimer = new QTimer();
     recoveryTimer->setTimerType(Qt::PreciseTimer);
@@ -516,6 +511,6 @@ void genericUsbDriver::checkConnection(){
 }
 
 void genericUsbDriver::bootloaderJump(){
-    usbSendControl(0x40, 0xa7, 1, 0, 0, NULL);
+    usbSendControl(0x40, 0xa7, 1, 0, 0, nullptr);
 }
 
