@@ -64,7 +64,9 @@ void espoSpinBox::changeStepping(double value){
 
 QValidator::State espoSpinBox::validate(QString& text, int& pos) const
 {
-	return QValidator::State::Acceptable;	
+    Q_UNUSED(text);
+    Q_UNUSED(pos);
+    return QValidator::State::Acceptable;
 }
 
 double espoSpinBox::valueFromText(const QString &text) const
