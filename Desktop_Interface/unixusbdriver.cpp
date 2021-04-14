@@ -196,7 +196,8 @@ void unixUsbDriver::isoTimerTick(void){
     int n, error, earliest = MAX_OVERLAP;
     qint64 minFrame = 9223372036854775807; //max value for 64 bit signed
 
-    unsigned int i, packetLength = 0;
+    int i;
+    unsigned packetLength = 0;
     unsigned char* packetPointer;
 
     tcBlockMutex.lock();

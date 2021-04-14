@@ -2166,7 +2166,7 @@ void MainWindow::fileLimitReached_CH1(void){
 
     QMessageBox recordingStoppedMessageBox;
     char recordingStoppedMessage[256];
-    sprintf(recordingStoppedMessage, "Maximum file size limit of %uMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
+    sprintf(recordingStoppedMessage, "Maximum file size limit of %lluMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
     recordingStoppedMessageBox.setText(recordingStoppedMessage);
     recordingStoppedMessageBox.exec();
 }
@@ -2176,7 +2176,7 @@ void MainWindow::fileLimitReached_CH2(void){
 
     QMessageBox recordingStoppedMessageBox;
     char recordingStoppedMessage[256];
-    sprintf(recordingStoppedMessage, "Maximum file size limit of %uMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
+    sprintf(recordingStoppedMessage, "Maximum file size limit of %lluMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
     recordingStoppedMessageBox.setText(recordingStoppedMessage);
     recordingStoppedMessageBox.exec();
 }
