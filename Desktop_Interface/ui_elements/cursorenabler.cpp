@@ -3,7 +3,7 @@
 
 cursorEnabler::cursorEnabler(QWidget *parent) : QLabel(parent)
 {
-    this->setVisible(0);
+    this->setVisible(false);
 #ifdef PLATFORM_ANDROID
     this->m_turnedOn = false;
 #endif
@@ -20,11 +20,11 @@ void cursorEnabler::clickDetected(QMouseEvent* event){
     if(m_turnedOn){
         if (event->button() == Qt::LeftButton)
         {
-            tickHori(1);
+            tickHori(true);
         }
         else if (event->button() == Qt::RightButton)
         {
-            tickVert(1);
+            tickVert(true);
         }
     }
     passOnSignal(event);

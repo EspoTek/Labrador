@@ -185,7 +185,7 @@ bool uartStyleDecoder::jitterCompensationProcedure(bool current_bit)
     if (left_byte != 0xff)
 	{
         //Step back, one sample at a time, to the 0->1 transition point
-        bool temp_bit = 1;
+        bool temp_bit = true;
         while(temp_bit)
 		{
             temp_bit = getNextUartBit();

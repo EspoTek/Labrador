@@ -34,12 +34,12 @@ void bufferControl::scopeIn_CH1(bool state){  //What about DSR!?
     if (scopeState_CH2){ //Implicitly state is false
         scopeState_CH2 = false;
         //updateBuffer(0);  -  Causes issues because the uncheck below called scopeIn_CH2 (but only when toggle)!!!
-        scopeUncheck(0);
+        scopeUncheck(false);
     }
 
     //Turn off the DSR when CH1 is disabled.
     if(!state && !scopeDsrDisableOverride){
-        scopeDsrUncheck(0);
+        scopeDsrUncheck(false);
     }
 
     scopeDsrOut(state);
@@ -80,7 +80,7 @@ void bufferControl::busSnifferIn_CH1(bool state){
     if (busSnifferState_CH2){ //Implicitly state is false
         busSnifferState_CH2 = false;
         //updateBuffer(0);  -  Causes issues because the uncheck below called scopeIn_CH2 (but only when toggle)!!!
-        busSnifferUncheck(0);
+        busSnifferUncheck(false);
     }
 
     //Signal Gen CH2 doesn't work with bus sniffer.
@@ -123,44 +123,44 @@ void bufferControl::updateBuffer(bool decrement, int amount){
     //Write new state
     switch(numBuffers){
         case 0:
-            if(scopeState_CH1 == false) scopeOut_CH1(0);
-            if(scopeState_CH2 == false) scopeOut_CH2(0);
-            if(scopeDsrState == false) scopeDsrOut(0);
+            if(scopeState_CH1 == false) scopeOut_CH1(false);
+            if(scopeState_CH2 == false) scopeOut_CH2(false);
+            if(scopeDsrState == false) scopeDsrOut(false);
             //if(signalGenState == false) signalGenOut(0);
-            if(busSnifferState_CH1 == false) busSnifferOut_CH1(0);
-            if(busSnifferState_CH2 == false) busSnifferOut_CH2(0);
-            if(multimeterState == false) multimeterOut(0);
+            if(busSnifferState_CH1 == false) busSnifferOut_CH1(false);
+            if(busSnifferState_CH2 == false) busSnifferOut_CH2(false);
+            if(multimeterState == false) multimeterOut(false);
             break;
         case 1:
-            scopeOut_CH1(1);
+            scopeOut_CH1(true);
             if(scopeState_CH1 == true){
-                scopeDsrOut(1);
-                scopeOut_CH2(1);
+                scopeDsrOut(true);
+                scopeOut_CH2(true);
             }
             //signalGenOut(1);
-            busSnifferOut_CH1(1);
+            busSnifferOut_CH1(true);
             if(busSnifferState_CH1 == true){
-                busSnifferOut_CH2(1);
+                busSnifferOut_CH2(true);
             }
 
             //busSnifferOut_CH2(1);
-            multimeterOut(0);
+            multimeterOut(false);
         break;
         case 2:
-            scopeOut_CH1(1);
+            scopeOut_CH1(true);
             //scopeOut_CH2(1);
-            if(scopeState_CH1 == true) scopeDsrOut(1);
+            if(scopeState_CH1 == true) scopeDsrOut(true);
             //signalGenOut(1);
-            busSnifferOut_CH1(1);
+            busSnifferOut_CH1(true);
             //busSnifferOut_CH2(1);
-            multimeterOut(1);
+            multimeterOut(true);
             break;
     default:
         qFatal("numBuffers is not equal to 0, 1 or 2");
     }
 
     if(scopeDsrDisableOverride){
-        scopeDsrOut(0);
+        scopeDsrOut(false);
     }
 }
 
@@ -252,6 +252,6 @@ void bufferControl::updateMode(void){
 void bufferControl::poke(void){
     updateDig(digState);
     updateMode();
-    updateBuffer(0,0);
+    updateBuffer(false,0);
 }
 

@@ -75,10 +75,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->controller_iso->internalBuffer375_CH2->m_console2 = ui->console2;
     initShortcuts();
 
-    ui->debugButton1->setVisible(0);
-    ui->debugButton2->setVisible(0);
-    ui->debugButton3->setVisible(0);
-    ui->debugConsole->setVisible(0);
+    ui->debugButton1->setVisible(false);
+    ui->debugButton2->setVisible(false);
+    ui->debugButton3->setVisible(false);
+    ui->debugConsole->setVisible(false);
 
 //    // Set the consoles to be resizeable
 //    for (const auto & console : {ui->console1, ui->console2})
@@ -97,15 +97,15 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 #ifndef PLATFORM_ANDROID
-    ui->kickstartIsoButton->setVisible(0);
-    ui->console1->setVisible(0);
-    ui->console2->setVisible(0);
+    ui->kickstartIsoButton->setVisible(false);
+    ui->console1->setVisible(false);
+    ui->console2->setVisible(false);
 #endif
-    ui->timeBaseSlider->setVisible(0);
+    ui->timeBaseSlider->setVisible(false);
 
     //ui->pausedLabel_CH2->setVisible(0);
-    ui->filterLabel_CH1->setVisible(0);
-    ui->filterLabel_CH2->setVisible(0);
+    ui->filterLabel_CH1->setVisible(false);
+    ui->filterLabel_CH2->setVisible(false);
 
     //Reset the device to ensure Labrador_libusbk gets handle!!
     #ifdef PLATFORM_WINDOWS
@@ -279,7 +279,7 @@ void MainWindow::initialisePlot()
     textLabel->setPen(QPen(Qt::white));
     textLabel->setBrush(QBrush(Qt::black));
 
-    textLabel->setVisible(0);
+    textLabel->setVisible(false);
     ui->controller_iso->cursorTextPtr = textLabel;
 
     ui->scopeAxes->yAxis->setAutoTickCount(9);
@@ -495,53 +495,53 @@ void MainWindow::menuSetup(){
 void MainWindow::on_actionGain0_5_triggered()
 {
     ui->controller_iso->driver->setGain(0.5);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain1_triggered()
 {
     ui->controller_iso->driver->setGain(1);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain2_triggered()
 {
     ui->controller_iso->driver->setGain(2);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain4_triggered()
 {
     ui->controller_iso->driver->setGain(4);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain8_triggered()
 {
     ui->controller_iso->driver->setGain(8);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain16_triggered()
 {
     ui->controller_iso->driver->setGain(16);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain32_triggered()
 {
     ui->controller_iso->driver->setGain(32);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain64_triggered()
 {
     ui->controller_iso->driver->setGain(64);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 void MainWindow::on_actionGainAuto_triggered()
 {
-    ui->controller_iso->setAutoGain(1);
+    ui->controller_iso->setAutoGain(true);
 }
 
 void MainWindow::on_actionCursor_Stats_triggered(bool checked)
@@ -562,14 +562,14 @@ void MainWindow::connectDisplaySignals(){
     connect(ui->actionRMS, SIGNAL(toggled(bool)), ui->voltageInfoRmsLabel_CH1, SLOT(setVisible(bool)));
     connect(ui->actionRMS, SIGNAL(toggled(bool)), ui->voltageInfoRmsDisplay_CH1, SLOT(setVisible(bool)));
 
-    ui->voltageInfoMaxLabel_CH1->setVisible(0);
-    ui->voltageInfoMaxDisplay_CH1->setVisible(0);
-    ui->voltageInfoMinLabel_CH1->setVisible(0);
-    ui->voltageInfoMinDisplay_CH1->setVisible(0);
-    ui->VoltageInfoMeanLabel_CH1->setVisible(0);
-    ui->voltageInfoMeanDisplay_CH1->setVisible(0);
-    ui->voltageInfoRmsLabel_CH1->setVisible(0);
-    ui->voltageInfoRmsDisplay_CH1->setVisible(0);
+    ui->voltageInfoMaxLabel_CH1->setVisible(false);
+    ui->voltageInfoMaxDisplay_CH1->setVisible(false);
+    ui->voltageInfoMinLabel_CH1->setVisible(false);
+    ui->voltageInfoMinDisplay_CH1->setVisible(false);
+    ui->VoltageInfoMeanLabel_CH1->setVisible(false);
+    ui->voltageInfoMeanDisplay_CH1->setVisible(false);
+    ui->voltageInfoRmsLabel_CH1->setVisible(false);
+    ui->voltageInfoRmsDisplay_CH1->setVisible(false);
 
     connect(ui->actionMax_2, SIGNAL(toggled(bool)), ui->voltageInfoMaxLabel_CH2, SLOT(setVisible(bool)));
     connect(ui->actionMax_2, SIGNAL(toggled(bool)), ui->voltageInfoMaxDisplay_CH2, SLOT(setVisible(bool)));
@@ -583,14 +583,14 @@ void MainWindow::connectDisplaySignals(){
     connect(ui->actionRMS_2, SIGNAL(toggled(bool)), ui->voltageInfoRmsLabel_CH2, SLOT(setVisible(bool)));
     connect(ui->actionRMS_2, SIGNAL(toggled(bool)), ui->voltageInfoRmsDisplay_CH2, SLOT(setVisible(bool)));
 
-    ui->voltageInfoMaxLabel_CH2->setVisible(0);
-    ui->voltageInfoMaxDisplay_CH2->setVisible(0);
-    ui->voltageInfoMinLabel_CH2->setVisible(0);
-    ui->voltageInfoMinDisplay_CH2->setVisible(0);
-    ui->VoltageInfoMeanLabel_CH2->setVisible(0);
-    ui->voltageInfoMeanDisplay_CH2->setVisible(0);
-    ui->voltageInfoRmsLabel_CH2->setVisible(0);
-    ui->voltageInfoRmsDisplay_CH2->setVisible(0);
+    ui->voltageInfoMaxLabel_CH2->setVisible(false);
+    ui->voltageInfoMaxDisplay_CH2->setVisible(false);
+    ui->voltageInfoMinLabel_CH2->setVisible(false);
+    ui->voltageInfoMinDisplay_CH2->setVisible(false);
+    ui->VoltageInfoMeanLabel_CH2->setVisible(false);
+    ui->voltageInfoMeanDisplay_CH2->setVisible(false);
+    ui->voltageInfoRmsLabel_CH2->setVisible(false);
+    ui->voltageInfoRmsDisplay_CH2->setVisible(false);
 }
 
 
@@ -1128,13 +1128,13 @@ void MainWindow::cycleDelayLeft_large(){
 void MainWindow::enableLabradorDebugging(){
     qDebug() << "DEBUG MODE ACTIVE";
 
-    ui->debugButton1->setVisible(1);
-    ui->debugButton2->setVisible(1);
-    ui->debugButton3->setVisible(1);
+    ui->debugButton1->setVisible(true);
+    ui->debugButton2->setVisible(true);
+    ui->debugButton3->setVisible(true);
 #ifndef PLATFORM_ANDROID
-    ui->kickstartIsoButton->setVisible(1);
+    ui->kickstartIsoButton->setVisible(true);
 #endif
-    ui->debugConsole->setVisible(1);
+    ui->debugConsole->setVisible(true);
 
     new Q_DebugStream(std::cout, ui->debugConsole); //Redirect Console output to QTextEdit
     Q_DebugStream::registerQDebugMessageHandler(); //Redirect qDebug() output to QTextEdit
@@ -1424,7 +1424,7 @@ void MainWindow::resetUsbState(void){
     ui->controller_iso->driver->setFunctionGen(ChannelID::CH1, ui->controller_fg->getChannelController(ChannelID::CH1));
     ui->controller_iso->driver->setFunctionGen(ChannelID::CH2, ui->controller_fg->getChannelController(ChannelID::CH2));
 
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(true,true,true);
     ui->controller_iso->doNotTouchGraph = false;
 }
 
@@ -1792,7 +1792,7 @@ void MainWindow::on_actionCalibrate_triggered()
     calibrationMessages->setText("Please disconnect all wires from your Labrador board then press OK to continue.");
     calibrationMessages->exec();
 
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(true,true,true);
     QTimer::singleShot(1200, this, SLOT(calibrateStage2()));
 }
 
@@ -1821,7 +1821,7 @@ void MainWindow::calibrateStage2(){
     calibrationMessages->setText("Please connect both oscilloscope channels to the outer shield of the USB connector then press OK to continue.");
     calibrationMessages->exec();
 
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(true,true,true);
     QTimer::singleShot(1200, this, SLOT(calibrateStage3()));
 }
 
@@ -2321,7 +2321,7 @@ void MainWindow::on_actionCalibrate_2_triggered()
     calibrationMessages->exec();
 
     ui->controller_iso->driver->setPsu(5);
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(true,true,true);
     QTimer::singleShot(1800, this, SLOT(calibrate_psu_stage2()));
 }
 
@@ -2332,7 +2332,7 @@ void MainWindow::calibrate_psu_stage2()
     if((PSU5 > 6) | (PSU5 < 4) ){
         ui->controller_iso->driver->setPsu(4.5);
         ui->psuSlider->setValue(0);
-        ui->controller_iso->clearBuffers(1,1,1);
+        ui->controller_iso->clearBuffers(true,true,true);
         ui->controller_iso->setAutoGain(true);
         ui->controller_iso->autoGain();
         calibrationMessages->setText("Calibration has been abandoned due to out-of-range values.  The oscilloscope should show approximately 5V.  Please check all wires on your Labrador board and try again.");
@@ -2341,7 +2341,7 @@ void MainWindow::calibrate_psu_stage2()
     }
     ui->controller_iso->setGain(1);
     ui->controller_iso->driver->setPsu(10);
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(true,true,true);
     QTimer::singleShot(1800, this, SLOT(calibrate_psu_stage3()));
 }
 
@@ -2351,7 +2351,7 @@ void MainWindow::calibrate_psu_stage3()
     qDebug() << "PSU10 =" << PSU10;
     ui->controller_iso->driver->setPsu(4.5);
     ui->psuSlider->setValue(0);
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(true,true,true);
     ui->controller_iso->setAutoGain(true);
     ui->controller_iso->autoGain();
 

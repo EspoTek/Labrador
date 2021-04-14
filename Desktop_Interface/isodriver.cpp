@@ -369,7 +369,7 @@ void isoDriver::pauseEnable_CH1(bool enabled){
         if (autoGainEnabled) autoGain();
     }
 
-    if(!enabled) clearBuffers(1,0,1);
+    if(!enabled) clearBuffers(true,false,true);
     qDebug() << "pauseEnable_CH1" << enabled;
 }
 
@@ -383,7 +383,7 @@ void isoDriver::pauseEnable_CH2(bool enabled){
         if (autoGainEnabled) autoGain();
     }
 
-    if(!enabled) clearBuffers(0,1,0);
+    if(!enabled) clearBuffers(false,true,false);
 }
 
 void isoDriver::pauseEnable_multimeter(bool enabled){
@@ -394,7 +394,7 @@ void isoDriver::pauseEnable_multimeter(bool enabled){
         delayUpdated(display.delay);
     }
 
-    if(!enabled) clearBuffers(1,0,0);
+    if(!enabled) clearBuffers(true,false,false);
     qDebug() << "pauseEnable_multimeter" << enabled;
 }
 
@@ -493,7 +493,7 @@ void isoDriver::cursorEnableVert(bool enabled){
 void isoDriver::udateCursors(void){
     if(!(vertCursorEnabled || horiCursorEnabled)){
 #if QCP_VER == 1
-        cursorTextPtr->setVisible(0);
+        cursorTextPtr->setVisible(false);
 #endif
         return;
     }
@@ -661,7 +661,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
     }
 
     if(singleShotEnabled && (triggerDelay != 0))
-        singleShotTriggered(1);
+        singleShotTriggered(true);
 
     readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==2, display.delay + triggerDelay);
     if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES,CH2_mode==2, display.delay + triggerDelay);
@@ -679,7 +679,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         }
         xmin = (currentVmin < xmin) ? currentVmin : xmin;
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
-        broadcastStats(0);
+        broadcastStats(false);
     }
     if (CH1_mode == 2) digitalConvert(readData375_CH1.get(), &CH1);
 
@@ -692,7 +692,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         }
         ymin = (currentVmin < ymin) ? currentVmin : ymin;
         ymax = (currentVmax > ymax) ? currentVmax : ymax;
-        broadcastStats(1);
+        broadcastStats(true);
     }
     if (CH2_mode == 2) digitalConvert(readData375_CH2.get(), &CH2);
 
@@ -700,7 +700,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         analogConvert(readData750.get(), &CH1, 128, AC_CH1, 1);
         xmin = (currentVmin < xmin) ? currentVmin : xmin;
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
-        broadcastStats(0);
+        broadcastStats(false);
     }
 
     if(CH1_mode == -2) {
@@ -779,12 +779,12 @@ void isoDriver::multimeterAction(){
     }
 
     if(singleShotEnabled && (triggerDelay != 0))
-        singleShotTriggered(1);
+        singleShotTriggered(true);
     
 	readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES, false, display.delay + triggerDelay);
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES);
-    analogConvert(readData375_CH1.get(), &CH1, 2048, 0, 1);  //No AC coupling!
+    analogConvert(readData375_CH1.get(), &CH1, 2048, false, 1);  //No AC coupling!
 
     for (double i=0; i<GRAPH_SAMPLES; i++){
         x[i] = -(display.window*i)/((double)(GRAPH_SAMPLES-1)) - display.delay;
@@ -1200,11 +1200,11 @@ double isoDriver::meanVoltageLast(double seconds, unsigned char channel, int TOP
         break;
     }
 
-	std::unique_ptr<short[]> tempBuffer = currentBuffer->readBuffer(seconds, 1024, 0, 0);
+	std::unique_ptr<short[]> tempBuffer = currentBuffer->readBuffer(seconds, 1024, false, 0);
     double sum = 0;
     double temp;
     for(int i = 0; i<1024; i++){
-        temp = currentBuffer->sampleConvert(tempBuffer[i], TOP, 0);
+        temp = currentBuffer->sampleConvert(tempBuffer[i], TOP, false);
         sum += temp;
     }
     return sum / 1024;
