@@ -136,6 +136,7 @@ int unixUsbDriver::usbIsoInit(void){
         }
     }
 
+    qint64 t0 = QDateTime::currentMSecsSinceEpoch();
     for(int n=0;n<NUM_FUTURE_CTX;n++){
         for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
             error = libusb_submit_transfer(isoCtx[k][n]);
@@ -145,7 +146,6 @@ int unixUsbDriver::usbIsoInit(void){
 				return -1;
             } else {
                 if(n == 0){
-                    qint64 t0;
                     qint64 t = QDateTime::currentMSecsSinceEpoch();
                     if(k==0){
                         t0 = t;
