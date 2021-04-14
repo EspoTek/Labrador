@@ -266,46 +266,46 @@ void genericUsbDriver::setDeviceMode(int mode){
     //switch on new deviceMode!!
     switch(deviceMode){
         case 0:
-            if(oldMode > 2) sendClearBuffer(1,0,0);
-            setVisible_CH2(0);
-            checkXY(0);
+            if(oldMode > 2) sendClearBuffer(true,false,false);
+            setVisible_CH2(false);
+            checkXY(false);
             break;
         case 1:
-            if(oldMode > 2) sendClearBuffer(1,0,0);
-            sendClearBuffer(0,1,0);
-            setVisible_CH2(1);
-            checkXY(0);
+            if(oldMode > 2) sendClearBuffer(true,false,false);
+            sendClearBuffer(false,true,false);
+            setVisible_CH2(true);
+            checkXY(false);
             break;
         case 2:
-            if(oldMode > 2) sendClearBuffer(1,0,0);
-            sendClearBuffer(0,1,0);
-            setVisible_CH2(1);
+            if(oldMode > 2) sendClearBuffer(true,false,false);
+            sendClearBuffer(false,true,false);
+            setVisible_CH2(true);
             break;
         case 3:
-            if(oldMode != 4) sendClearBuffer(1,0,0);
-            sendClearBuffer(0,1,0);
-            setVisible_CH2(0);
-            checkXY(0);
+            if(oldMode != 4) sendClearBuffer(true,false,false);
+            sendClearBuffer(false,true,false);
+            setVisible_CH2(true);
+            checkXY(false);
             break;
         case 4:
-            if(oldMode != 3) sendClearBuffer(1,0,0);
-            sendClearBuffer(0,1,0);
-            setVisible_CH2(1);
-            checkXY(0);
+            if(oldMode != 3) sendClearBuffer(true,false,false);
+            sendClearBuffer(false,true,false);
+            setVisible_CH2(true);
+            checkXY(false);
             break;
         case 5:
-            setVisible_CH2(0);
-            checkXY(0);
+            setVisible_CH2(false);
+            checkXY(false);
             break;
         case 6:
-            sendClearBuffer(0,0,1);
-            setVisible_CH2(0);
-            checkXY(0);
+            sendClearBuffer(false,false,true);
+            setVisible_CH2(false);
+            checkXY(false);
             break;
         case 7:
-            sendClearBuffer(1,0,0);
+            sendClearBuffer(true,false,false);
             enableMMTimer();
-            checkXY(0);
+            checkXY(false);
             break;
         default:
             qFatal("Error in genericUsbDriver::setDeviceMode.  Invalid device mode.");
