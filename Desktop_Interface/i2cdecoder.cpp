@@ -117,7 +117,12 @@ void i2cDecoder::runStateMachine()
 		case transmissionState::data:
 			decodeData(sdaEdge, sclEdge);
 			break;		
-	}
+        case transmissionState::unknown:
+        default:
+            throw std::runtime_error("State machine is in an invalid state!");
+            return;
+
+    }
 }
 
 edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)
