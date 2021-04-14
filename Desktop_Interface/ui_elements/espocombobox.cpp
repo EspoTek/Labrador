@@ -46,7 +46,8 @@ void espoComboBox::readWaveformList(void)
     char nameBuffer[255];
 
     if(listPtr == NULL){
-        qFatal("Could not load _list.wfl");
+        qWarning("Could not load _list.wfl");
+        return;
     }
 
     while (fgets(nameBuffer,256,listPtr) !=NULL){
