@@ -96,7 +96,7 @@ public slots:
 };
 
 //Callback on iso transfer complete.
-static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
+inline void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
     tcBlockMutex.lock();
     //int number = ((tcBlock *)transfer->user_data)->number;
     //bool completed = ((tcBlock *)transfer->user_data)->completed;
