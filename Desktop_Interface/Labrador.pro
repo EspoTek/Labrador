@@ -36,6 +36,7 @@ SOURCES += main.cpp\
     isodriver.cpp \
     isobuffer.cpp \
     desktop_settings.cpp \
+    pinoutDialog.cpp \
     scoperangeenterdialog.cpp \
     genericusbdriver.cpp \
     isobufferbuffer.cpp \
@@ -47,6 +48,7 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     functiongencontrol.h \
+    pinoutDialog.h \
     xmega.h \
     isodriver.h \
     isobuffer.h \

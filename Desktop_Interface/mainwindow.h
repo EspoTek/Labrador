@@ -29,7 +29,7 @@
 
 //The Main Window object.  This has a lot of control information too (keyboard shortcuts etc.)!
 
-
+class pinoutDialog;
 
 namespace Ui {
 class MainWindow;
@@ -299,6 +299,8 @@ private:
     qulonglong daq_max_file_size;
 
     scopeRangeEnterDialog* scopeRangeSwitch = nullptr;
+
+    QPointer<pinoutDialog> m_pinoutDialog; // QPointer automatically resets when object is deleted
 
 #ifdef PLATFORM_ANDROID
     //Android Special

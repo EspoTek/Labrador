@@ -5,4 +5,8 @@
         <file>buffer_2.bmp</file>
         <file>diagram.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>resources/pinout.html</file>
+        <file>resources/pinout.png</file>
+    </qresource>
 </RCC>

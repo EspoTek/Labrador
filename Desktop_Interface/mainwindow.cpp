@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "uartstyledecoder.h"
 #include "daqform.h"
+#include "pinoutDialog.h"
 #include <QDesktopServices>
 #include "espospinbox.h"
+
 
 #include <algorithm>
 
@@ -17,7 +19,6 @@ namespace
 {
    constexpr uint32_t MAX_CONSOLE_BLOCK_COUNT = 512;
    constexpr char kDocumentationUrl[] = "https://github.com/EspoTek/Labrador/wiki";
-   constexpr char kPinoutUrl[] = "https://github.com/EspoTek/Labrador/wiki/Pinout";
    constexpr char kAboutString[] = "<h4>EspoTek Labrador</h4>"
                                    "Continuous Release<br>"\
                                    "Git hash: <a href='https://github.com/EspoTek/Labrador/commits/" QUOTE(GIT_HASH_SHORT) "'>" QUOTE(GIT_HASH_SHORT) "</a><br>"\
@@ -37,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->actionQuit->setShortcut(Qt::CTRL + Qt::Key_Q); // on macOS CTRL is automaticall translated to the command key
+    ui->actionPinout->setShortcut(Qt::Key_F1);
 
     calibrationMessages = new QMessageBox();
     ui->psuDisplay->display("4.00");
@@ -2458,7 +2460,11 @@ void MainWindow::on_actionDocumentation_triggered()
 
 void MainWindow::on_actionPinout_triggered()
 {
-    QDesktopServices::openUrl(QUrl(kPinoutUrl, QUrl::TolerantMode));
+    if (m_pinoutDialog) { // only allow one to exist
+        return;
+    }
+    m_pinoutDialog = new pinoutDialog;
+    m_pinoutDialog->show(); // don't exec, allows
 }
 
 void MainWindow::cursorGroupEnabled(bool enabled)
