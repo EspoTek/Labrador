@@ -1280,7 +1280,7 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
         tempList.clear();
     }
 
-    qDebug("There are %d elements!", numel);
+    qDebug("There are %llu elements!", numel);
 
     //Prompt user for start and end times
     double defaultSampleRate = 375000;
