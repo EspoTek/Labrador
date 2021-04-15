@@ -9,4 +9,12 @@
         <file>resources/pinout.html</file>
         <file>resources/pinout.png</file>
     </qresource>
+    <qresource prefix="/waveforms">
+        <file alias="_list.wfl">bin/waveforms/_list.wfl</file>
+        <file alias="DC.tlw">bin/waveforms/DC.tlw</file>
+        <file alias="Sawtooth.tlw">bin/waveforms/Sawtooth.tlw</file>
+        <file alias="Sin.tlw">bin/waveforms/Sin.tlw</file>
+        <file alias="Square.tlw">bin/waveforms/Square.tlw</file>
+        <file alias="Triangle.tlw">bin/waveforms/Triangle.tlw</file>
+    </qresource>
 </RCC>

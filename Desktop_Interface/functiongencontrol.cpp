@@ -16,12 +16,31 @@ void SingleChannelController::waveformName(QString newName)
 
 	int length;
 
+    const QStringList potentialDirs = {
 #ifdef PLATFORM_ANDROID
-    QString waveformFilePath("assets:/waveforms/");
-    waveformFilePath.append(newName);
+        "assets:",
+#else
+       QCoreApplication::applicationDirPath(),
+#endif
+       ":", // fall back to builtin
+    };
+
+    QString filename;
+    for (const QString &dir : potentialDirs) {
+        const QString potential = dir + "/waveforms/" + newName;
+        if (QFileInfo::exists(potential)) {
+            filename = potential;
+            break;
+        }
+    }
+
+    QString waveformFilePath(filename);
 
     QFile fptr(waveformFilePath);
-    bool success = fptr.open(QIODevice::ReadOnly);
+    if (!fptr.open(QIODevice::ReadOnly)) {
+        qWarning() << "Failed to open" << newName;
+        return;
+    }
 
     QByteArray line;
     char lengthString[16];
@@ -54,51 +73,6 @@ void SingleChannelController::waveformName(QString newName)
         m_data.samples[i] = static_cast<uint8_t>(dummy);
     }
 
-#else
-
-    QByteArray filePath = QCoreApplication::applicationDirPath()
-		.append("/waveforms/").append(newName).toLocal8Bit();
-
-    qDebug() << "opening" << filePath;
-
-    FILE *fptr = fopen(filePath.constData(), "r");
-    if (fptr == NULL)
-        qFatal("%s could not be opened!", filePath.constData());
-
-    char lengthString[16];
-    fgets(lengthString, 5, fptr);
-    sscanf(lengthString, "%d", &length);
-
-    char divisibilityString[16];
-    //Bit of bullshit to deal with CRLF line endings on Mac.
-    do
-	{
-		fgets(divisibilityString, 5, fptr);
-	}
-	while ((divisibilityString[0] == '\r') || (divisibilityString[0] == '\n'));
-
-    sscanf(divisibilityString, "%d", &m_data.divisibility);
-
-    qDebug() << "Length = " << length;
-    qDebug() << "Divisibility = " << m_data.divisibility;
-
-	m_data.samples.resize(length);
-
-    char *dataString = (char *) malloc(length*5+1);
-    fgets(dataString, length*5+1, fptr);
-
-    int dummy;
-    char *dataStringCurrent = dataString;
-    for (int i = 0; i < length; i++)
-	{
-        sscanf(dataStringCurrent, "%d", &dummy);
-        dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        m_data.samples[i] = static_cast<uint8_t>(dummy);
-    }
-
-    free(dataString);
-    fclose(fptr);
-#endif
 
 	double newMaxFreq = DAC_SPS / (length >> (m_data.divisibility - 1));
 	double newMinFreq = double(CLOCK_FREQ) / 1024.0 / 65535.0 / static_cast<double>(length);
