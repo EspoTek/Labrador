@@ -991,10 +991,6 @@ void MainWindow::initShortcuts(){
     shortcut_snapshot_CH1 = new QShortcut(QKeySequence("c"), this);
     shortcut_snapshot_CH2 = new QShortcut(QKeySequence("v"), this);
 
-    shortcut_ArrowUp = new QShortcut(QKeySequence("Up"), ui->menuBar);
-    shortcut_ArrowDown = new QShortcut(QKeySequence("Down"), ui->menuBar);
-    shortcut_CtrlArrowUp = new QShortcut(QKeySequence("Ctrl+Up"), ui->menuBar);
-    shortcut_CtrlArrowDown = new QShortcut(QKeySequence("Ctrl+Down"), ui->menuBar);
     shortcut_w = new QShortcut(QKeySequence("w"), ui->menuBar);
     shortcut_s = new QShortcut(QKeySequence("s"), ui->menuBar);
     shortcut_ctrlW = new QShortcut(QKeySequence("Ctrl+w"), ui->menuBar);
@@ -1020,10 +1016,6 @@ void MainWindow::initShortcuts(){
     connect(shortcut_snapshot_CH1, SIGNAL(activated()), this, SLOT(on_actionSnapshot_CH1_triggered()));
     connect(shortcut_snapshot_CH2, SIGNAL(activated()), this, SLOT(on_actionSnapshot_CH2_triggered()));
 
-    connect(shortcut_ArrowUp, SIGNAL(activated()), this, SLOT(arrowUpTriggered()));
-    connect(shortcut_ArrowDown, SIGNAL(activated()), this, SLOT(arrowDownTriggered()));
-    connect(shortcut_CtrlArrowUp, SIGNAL(activated()), this, SLOT(ctrlArrowUpTriggered()));
-    connect(shortcut_CtrlArrowDown, SIGNAL(activated()), this, SLOT(ctrlArrowDownTriggered()));
     connect(shortcut_w, SIGNAL(activated()), this, SLOT(arrowUpTriggered()));
     connect(shortcut_s, SIGNAL(activated()), this, SLOT(arrowDownTriggered()));
     connect(shortcut_ctrlW, SIGNAL(activated()), this, SLOT(ctrlArrowUpTriggered()));
@@ -2523,4 +2515,34 @@ void MainWindow::on_actionHide_Widget_LogicAnalyzer_triggered(bool checked)
     ui->busSifferGroup_CH1->setVisible(!checked);
     ui->busSnifferGroup_CH2->setVisible(!checked);
     ui->digitalOutputGroup->setVisible(!checked);
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(!(ui->scopeAxes->underMouse())) {
+        QMainWindow::keyPressEvent(event);
+        return;
+    }
+    switch(event->key()) {
+    case Qt::Key_Down:
+        if (event->modifiers() & Qt::ControlModifier) {
+            ctrlArrowDownTriggered();
+        } else {
+            arrowDownTriggered();
+        }
+        break;
+    case Qt::Key_Up:
+        if (event->modifiers() & Qt::ControlModifier) {
+            ctrlArrowUpTriggered();
+        } else {
+            arrowUpTriggered();
+        }
+        break;
+    default:
+        QMainWindow::keyPressEvent(event);
+        return;
+    }
+
+    event->setAccepted(true);
+
 }

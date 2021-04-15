@@ -227,6 +227,9 @@ private slots:
 
     void on_actionHide_Widget_LogicAnalyzer_triggered(bool checked);
 
+protected:
+    void keyPressEvent(QKeyEvent *event);
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
@@ -271,10 +274,6 @@ private:
     QShortcut *shortcut_cycleBaudRateBackwards_CH1;
     QShortcut *shortcut_cycleBaudRate_CH2;
     QShortcut *shortcut_cycleBaudRateBackwards_CH2;
-    QShortcut *shortcut_ArrowUp;
-    QShortcut *shortcut_ArrowDown;
-    QShortcut *shortcut_CtrlArrowUp;
-    QShortcut *shortcut_CtrlArrowDown;
     QShortcut *shortcut_w;
     QShortcut *shortcut_ctrlW;
     QShortcut *shortcut_s;
