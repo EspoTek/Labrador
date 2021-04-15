@@ -88,6 +88,11 @@ public:
     //DAQ
     bool fileModeEnabled = false;
     double daq_maxWindowSize;
+
+    double vMax() const { return currentVmax; }
+    double vMin() const { return currentVmin; }
+    long numSamples() const { return total_read; }
+
 private:
     //Those bloody bools that just Enable/Disable a single property
     bool paused_CH1 = false;

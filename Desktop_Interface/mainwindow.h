@@ -227,6 +227,8 @@ private slots:
 
     void on_actionHide_Widget_LogicAnalyzer_triggered(bool checked);
 
+    void on_setAutoScopeRange();
+
 protected:
     void keyPressEvent(QKeyEvent *event);
 

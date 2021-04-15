@@ -32,6 +32,8 @@ signals:
     void yBotUpdated(double val);
     void windowUpdated(double val);
     void delayUpdated(double val);
+    void autoClicked();
+
 private slots:
     void toUpdateYTop(double val);
     void toUpdateYBot(double val);

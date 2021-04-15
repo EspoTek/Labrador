@@ -1,5 +1,6 @@
 #include "scoperangeenterdialog.h"
 #include "ui_scoperangeenterdialog.h"
+#include <QPushButton>
 
 scopeRangeEnterDialog::scopeRangeEnterDialog(QWidget *parent, bool buttonVisible, double yTop, double yBot, double window, double delay) :
     QDialog(parent),
@@ -14,6 +15,13 @@ scopeRangeEnterDialog::scopeRangeEnterDialog(QWidget *parent, bool buttonVisible
     ui->vMinBox->setValue(yBot);
     ui->timeWindowBox->setValue(window);
     ui->buttonBox->setVisible(buttonVisible);
+
+    if (!buttonVisible) {
+        QPushButton *autoButton = new QPushButton(tr("&Auto"));
+        ui->verticalLayout->addWidget(autoButton);
+
+        connect(autoButton, &QPushButton::clicked, this, &scopeRangeEnterDialog::autoClicked);
+    }
 
     for (espoSpinBox* spinBox : {ui->vMaxBox, ui->vMinBox, ui->timeWindowBox, ui->delayBox})
 	{

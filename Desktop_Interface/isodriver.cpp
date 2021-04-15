@@ -242,6 +242,7 @@ void isoDriver::clearBuffers(bool ch3751, bool ch3752, bool ch750){
     if(ch3751) internalBuffer375_CH1->clearBuffer();
     if(ch3752) internalBuffer375_CH2->clearBuffer();
     if(ch750) internalBuffer750->clearBuffer();
+    total_read = 0;
 }
 
 void isoDriver::setVisible_CH2(bool visible){

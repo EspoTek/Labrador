@@ -2410,6 +2410,7 @@ void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
         connect(scopeRangeSwitch, SIGNAL(yBotUpdated(double)), ui->controller_iso, SLOT(setBotRange(double)));
         connect(scopeRangeSwitch, SIGNAL(windowUpdated(double)), ui->controller_iso, SLOT(setTimeWindow(double)));
         connect(scopeRangeSwitch, SIGNAL(delayUpdated(double)), ui->controller_iso, SLOT(setDelay(double)));
+        connect(scopeRangeSwitch, &scopeRangeEnterDialog::autoClicked, this, &MainWindow::on_setAutoScopeRange);
 
         connect(ui->controller_iso, SIGNAL(topRangeUpdated(double)), scopeRangeSwitch, SLOT(yTopChanged(double)));
         connect(ui->controller_iso, SIGNAL(botRangeUpdated(double)), scopeRangeSwitch, SLOT(yBotChanged(double)));
@@ -2533,6 +2534,20 @@ void MainWindow::on_actionHide_Widget_LogicAnalyzer_triggered(bool checked)
     ui->busSifferGroup_CH1->setVisible(!checked);
     ui->busSnifferGroup_CH2->setVisible(!checked);
     ui->digitalOutputGroup->setVisible(!checked);
+}
+
+void MainWindow::on_setAutoScopeRange()
+{
+    if (ui->controller_iso->numSamples() <= 0) {
+        return;
+    }
+
+    const double max = ui->controller_iso->vMax();
+    const double min = ui->controller_iso->vMin();
+    ui->controller_iso->setTopRange(max + max * 0.1); // 10% extra above
+    ui->controller_iso->setBotRange(min - min * 0.1); // 10% extra below
+
+
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
