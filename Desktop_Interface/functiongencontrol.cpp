@@ -43,18 +43,22 @@ void SingleChannelController::waveformName(QString newName)
     }
 
     QByteArray line;
-    char lengthString[16];
-    char divisibilityString[16];
 
-    line = fptr.readLine();
-    strcpy(lengthString, line.data());
-    sscanf(lengthString, "%d", &length);
-    qDebug() << "lengthString" << lengthString;
+    line = fptr.readLine().trimmed();
+    bool ok;
+    length = line.toInt(&ok);
+    if (!ok) {
+        qWarning() << "Invalid length line" << line << "in" << filename;
+        return;
+    }
 
-    line = fptr.readLine();
-    strcpy(divisibilityString, line.data());
-    sscanf(divisibilityString, "%d", &m_data.divisibility);
-    qDebug() << "divisibilityString" << divisibilityString;
+    line = fptr.readLine().trimmed();
+    m_data.divisibility = line.toInt(&ok);
+    if (!ok) {
+        qWarning() << "Invalid divisibility line" << line << "in" << filename;
+        return;
+    }
+
 
     qDebug() << "Length = " << length;
     qDebug() << "Divisibility = " << m_data.divisibility;
