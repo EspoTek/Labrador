@@ -778,8 +778,9 @@ void isoDriver::multimeterAction(){
             triggerDelay = 0;
     }
 
-    if(singleShotEnabled && (triggerDelay != 0))
+    if(singleShotEnabled && (triggerDelay != 0)) {
         singleShotTriggered(true);
+    }
     
 	readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES, false, display.delay + triggerDelay);
 

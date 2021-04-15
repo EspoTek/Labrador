@@ -2482,7 +2482,7 @@ Q_DECLARE_TYPEINFO(QCPData, Q_MOVABLE_TYPE);
   This is the container in which QCPGraph holds its data.
   \see QCPData, QCPGraph::setData
 */
-typedef QMap<double, QCPData> QCPDataMap;
+typedef QMultiMap<double, QCPData> QCPDataMap;
 typedef QMapIterator<double, QCPData> QCPDataMapIterator;
 typedef QMutableMapIterator<double, QCPData> QCPDataMutableMapIterator;
 
@@ -3137,7 +3137,7 @@ Q_DECLARE_TYPEINFO(QCPFinancialData, Q_MOVABLE_TYPE);
   This is the container in which QCPFinancial holds its data.
   \see QCPFinancial, QCPFinancial::setData
 */
-typedef QMap<double, QCPFinancialData> QCPFinancialDataMap;
+typedef QMultiMap<double, QCPFinancialData> QCPFinancialDataMap;
 typedef QMapIterator<double, QCPFinancialData> QCPFinancialDataMapIterator;
 typedef QMutableMapIterator<double, QCPFinancialData> QCPFinancialDataMutableMapIterator;
 

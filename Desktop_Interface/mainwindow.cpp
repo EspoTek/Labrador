@@ -229,9 +229,9 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
     ui->realTimeButton->setVisible(false);
 
-    if ((QApplication::desktop()->availableGeometry().width() < 1520) || (QApplication::desktop()->geometry().height() < 800))
+    if ((screen()->availableGeometry().width() < 1520) || (screen()->availableGeometry().height() < 800))
     {
-        qDebug() << "Low resolution detected:" << QApplication::desktop()->availableGeometry().width() << "x" << QApplication::desktop()->availableGeometry().height();
+        qDebug() << "Low resolution detected:" << screen()->availableGeometry().width() << "x" << screen()->availableGeometry().height();
         this->setMinimumSize(1280, 700);
         this->resize(1280, 700);
     }
@@ -340,6 +340,8 @@ void MainWindow::labelPsu(){
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event){
+    Q_UNUSED(event);
+
     //ui->scopeAxes->yAxis->setAutoTickCount((ui->scopeAxes->height() + TICK_SEPARATION / 2) / TICK_SEPARATION);
     //ui->scopeAxes->xAxis->setAutoTickCount((ui->scopeAxes->width() + TICK_SEPARATION / 2) / TICK_SEPARATION);
 
@@ -1297,6 +1299,7 @@ void MainWindow::readSettingsFile(){
 
 void MainWindow::on_actionRecord_triggered(bool checked)
 {
+    Q_UNUSED(checked);
     /*
     if(!checked){
         ui->controller_iso->internalBuffer375_CH1->disableFileIO();
@@ -2375,11 +2378,13 @@ void MainWindow::calibrate_psu_stage3()
 
 void MainWindow::on_actionSerial_triggered(bool checked)
 {
+    Q_UNUSED(checked);
     ui->controller_iso->setSerialType(0);
 }
 
 void MainWindow::on_actionI2C_triggered(bool checked)
 {
+    Q_UNUSED(checked);
     ui->controller_iso->setSerialType(1);
 }
 
