@@ -3,6 +3,8 @@
 #include <utility>
 #include "platformspecific.h"
 
+#include <QRegularExpression>
+
 namespace functionGen {
 
 ChannelData const& SingleChannelController::getData() const {
@@ -51,6 +53,10 @@ void SingleChannelController::waveformName(QString newName)
         qWarning() << "Invalid length line" << line << "in" << filename;
         return;
     }
+    if (length == 0) {
+        qWarning() << "No samples in" << filename;
+        return;
+    }
 
     line = fptr.readLine().trimmed();
     m_data.divisibility = line.toInt(&ok);
@@ -63,22 +69,31 @@ void SingleChannelController::waveformName(QString newName)
     qDebug() << "Length = " << length;
     qDebug() << "Divisibility = " << m_data.divisibility;
 
-    QByteArray remainingData = fptr.readAll();
-    char *dataString = remainingData.data();
+    QString remainingData = QString::fromLatin1(fptr.readAll().simplified());
 
 	m_data.samples.resize(length);
 
-    int dummy;
-    char *dataStringCurrent = dataString;
-    for (int i = 0; i < length; i++)
-	{
-        sscanf(dataStringCurrent, "%d", &dummy);
-        dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        m_data.samples[i] = static_cast<uint8_t>(dummy);
+    // Should use tabs for separating, but we support any kind of whitespace
+    const QStringList values = remainingData.split(QRegularExpression("\\s+"), Qt::SkipEmptyParts);
+    if (values.count() != length) {
+        qWarning() << "Invalid amount of values" << values.count() << "in" << filename << "expected" << length;
+        m_data.samples.resize(values.count());
+    }
+    for (int i=0; i<values.count(); i++) {
+        ushort sample = values[i].toUShort(&ok);
+        if (!ok || sample > 255) {
+            qWarning() << "Invalid sample value" << values[i];
+        }
+        m_data.samples[i] = uint8_t(sample);
     }
 
 
-	double newMaxFreq = DAC_SPS / (length >> (m_data.divisibility - 1));
+    const unsigned divisor = length >> (m_data.divisibility - 1);
+    if (divisor == 0) {
+        qWarning() << "Invalid divisor" << divisor;
+        return;
+    }
+    double newMaxFreq = DAC_SPS / divisor;
 	double newMinFreq = double(CLOCK_FREQ) / 1024.0 / 65535.0 / static_cast<double>(length);
 
 	setMaxFreq(newMaxFreq);
