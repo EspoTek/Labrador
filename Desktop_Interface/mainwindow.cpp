@@ -1053,22 +1053,40 @@ void MainWindow::on_actionForce_Square_triggered(bool checked)
     this->resize(tempWidth, tempHeight);
 }
 
+// In Qt 6 they have gone insane
+static QWheelEvent createWheelEvent(const bool negative, const QPoint &point, const Qt::KeyboardModifier modifier = Qt::NoModifier)
+{
+    return QWheelEvent(point, // pos
+                           QCursor::pos(), // globalpos
+                           QPoint(0, negative ? -120 : 120), // pixelDelta
+                           QPoint(0, negative ? -10 : 10), // angleDelta
+                           Qt::NoButton, // buttons
+                           modifier, // keyboard modifiers
+                           Qt::NoScrollPhase, // scroll phase
+                           false // inverted
+        );
+}
+
 void MainWindow::arrowUpTriggered(){
     qDebug() << "Boy UP!";
     if(!(ui->scopeAxes->underMouse())) return;
 
     QPoint point = ui->scopeAxes->mapFromGlobal(QCursor::pos());
-    wheelEmu = new QWheelEvent(point, 120, 0, 0, Qt::Vertical);
-    ui->controller_iso->setVoltageRange(wheelEmu);
+
+    QWheelEvent wheelEmu = createWheelEvent(false, point);
+    qApp->sendEvent(ui->scopeAxes, &wheelEmu);
 }
 
 void MainWindow::arrowDownTriggered(){
     qDebug() << "Boy DOWN!";
-    if(!(ui->scopeAxes->underMouse())) return;
+    if(!(ui->scopeAxes->underMouse())){
+        qDebug() << "Not under mouse";
+        return;
+    }
 
     QPoint point = ui->scopeAxes->mapFromGlobal(QCursor::pos());
-    wheelEmu = new QWheelEvent(point, -120, 0, 0, Qt::Vertical);
-    ui->controller_iso->setVoltageRange(wheelEmu);
+    QWheelEvent wheelEmu = createWheelEvent(true, point);
+    qApp->sendEvent(ui->scopeAxes, &wheelEmu);
 }
 
 void MainWindow::ctrlArrowUpTriggered(){
@@ -1076,8 +1094,8 @@ void MainWindow::ctrlArrowUpTriggered(){
     if(!(ui->scopeAxes->underMouse())) return;
 
     QPoint point = ui->scopeAxes->mapFromGlobal(QCursor::pos());
-    wheelEmu = new QWheelEvent(point, 120, 0, Qt::ControlModifier, Qt::Vertical);
-    ui->controller_iso->setVoltageRange(wheelEmu);
+    QWheelEvent wheelEmu = createWheelEvent(false, point, Qt::ControlModifier);
+    qApp->sendEvent(ui->scopeAxes, &wheelEmu);
 }
 
 void MainWindow::ctrlArrowDownTriggered(){
@@ -1085,8 +1103,8 @@ void MainWindow::ctrlArrowDownTriggered(){
     if(!(ui->scopeAxes->underMouse())) return;
 
     QPoint point = ui->scopeAxes->mapFromGlobal(QCursor::pos());
-    wheelEmu = new QWheelEvent(point, -120, 0, Qt::ControlModifier, Qt::Vertical);
-    ui->controller_iso->setVoltageRange(wheelEmu);
+    QWheelEvent wheelEmu = createWheelEvent(true, point, Qt::ControlModifier);
+    qApp->sendEvent(ui->scopeAxes, &wheelEmu);
 }
 
 void MainWindow::cycleDelayRight(){

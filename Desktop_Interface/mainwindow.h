@@ -233,7 +233,6 @@ protected:
 private:
     //Generic Vars
     Ui::MainWindow *ui;
-    QWheelEvent *wheelEmu;
     bool forceSquare = false;
     QCPItemText *textLabel;
     QFile *output375_CH1, *output375_CH2, *output750;
