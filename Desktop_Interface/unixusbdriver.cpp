@@ -22,13 +22,14 @@ unixUsbDriver::~unixUsbDriver(void){
     if(connected){
 		if (workerThread)
 			{
-			workerThread->deleteLater();
+            workerThread->requestInterruption();
+            workerThread->quit();
 			while(workerThread->isRunning()){
-				workerThread->quit();
 				qDebug() << "isRunning?" << workerThread->isFinished();
 				QThread::msleep(100);
 			}
-		}	
+            workerThread->deleteLater();
+        }
 		if (isoHandler)
 	        delete(isoHandler);
         //delete(workerThread);

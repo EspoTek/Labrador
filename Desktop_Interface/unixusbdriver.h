@@ -37,7 +37,7 @@ public:
 public slots:
     void handle(){
         qDebug() << "SUB THREAD ID" << QThread::currentThreadId();
-        while(cleanupRemaining){
+        while(cleanupRemaining && !QThread::currentThread()->isInterruptionRequested()){
             //qDebug() << cleanupRemaining;
             if(libusb_event_handling_ok(ctx)){
                 libusb_handle_events_timeout(ctx, &tv);
