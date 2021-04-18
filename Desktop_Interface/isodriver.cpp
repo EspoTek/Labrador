@@ -634,23 +634,6 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         }
     }
 
-    if(!paused_CH1)
-    {
-        int offset = -2; //No trigger!
-
-        int backLength = length/750;
-        backLength *= (CH1_mode == -1) ? VALID_DATA_PER_750 : VALID_DATA_PER_375;
-
-        if(offset>0){
-            int temp_offset = offset % 750;
-            offset /= 750;
-            offset *= (CH1_mode == -1) ? VALID_DATA_PER_750 : VALID_DATA_PER_375;
-            offset += temp_offset;
-        }
-
-        //qDebug() << "Now offset = " << offset;
-    }
-
     double triggerDelay = 0;
     if (triggerEnabled)
     {

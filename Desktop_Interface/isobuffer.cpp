@@ -23,7 +23,6 @@ constexpr auto fX0Comp = std::less<int> {};
 constexpr auto fX1X2Comp = std::greater<int> {};
 #endif
 
-constexpr auto kTopMultimeter = 2048;
 constexpr double kTriggerSensitivityMultiplier = 4;
 }
 
@@ -249,7 +248,6 @@ void isoBuffer::disableFileIO()
     m_fileIOEnabled = false;
     m_currentColumn = 0;
     m_currentFile->close();
-    return;
 }
 
 
