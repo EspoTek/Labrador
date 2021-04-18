@@ -156,8 +156,9 @@ private:
 	std::unique_ptr<short[]> readData375_CH2;
 	std::unique_ptr<short[]> readData750;
     float *readDataFile;
-    char *isoTemp = NULL;
-    short *isoTemp_short = NULL;
+    char *myIsoTemp = nullptr;
+    char *isoTemp = nullptr;
+    short *isoTemp_short = nullptr;
     siprint *v0;
     siprint *v1;
     siprint *dv;

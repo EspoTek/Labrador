@@ -13,7 +13,8 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     internalBuffer375_CH2 = new isoBuffer(this, MAX_WINDOW_SIZE*ADC_SPS/20*21, this, 2);
     internalBuffer750 = new isoBuffer(this, MAX_WINDOW_SIZE*ADC_SPS/10*21, this, 1);
 
-    isoTemp = (char *) malloc(TIMER_PERIOD*ADC_SPF + 8); //8-byte header contains (unsigned long) length
+    myIsoTemp = (char *) malloc(TIMER_PERIOD*ADC_SPF + 8); //8-byte header contains (unsigned long) length
+    isoTemp = myIsoTemp;
 
     char volts[2] = "V";
     char seconds[2] = "s";
@@ -37,7 +38,7 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 
 isoDriver::~isoDriver()
 {
-    free(isoTemp);
+    free(myIsoTemp);
 
     delete v0;
     delete v1;
