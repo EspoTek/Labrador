@@ -105,6 +105,8 @@ genericUsbDriver::~genericUsbDriver(void){
 		}
     }
     qDebug() << "genericUsbDriver dectructor completed";
+    free(outBuffers[0]);
+    free(outBuffers[1]);
 }
 
 

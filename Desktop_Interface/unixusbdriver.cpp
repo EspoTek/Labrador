@@ -55,6 +55,10 @@ unixUsbDriver::~unixUsbDriver(void){
     }
     //unixDriverDeleteMutex.unlock();
     qDebug() << "unixUsbDriver destructor completed!\n\n";
+    for (unsigned char k=0; k<NUM_ISO_ENDPOINTS; k++){
+        free(midBuffer_current[k]);
+        free(midBuffer_prev[k]);
+    }
 }
 
 unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){

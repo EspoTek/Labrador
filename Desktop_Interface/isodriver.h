@@ -62,6 +62,8 @@ public:
     Q_ENUM(ChannelMode);
 
     explicit isoDriver(QWidget *parent = 0);
+    ~isoDriver();
+
     void autoGain(void);
     //Generic Vars
     isoBuffer *internalBuffer375_CH1;

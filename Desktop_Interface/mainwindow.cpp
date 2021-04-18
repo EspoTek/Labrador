@@ -297,15 +297,15 @@ void MainWindow::initialisePlot()
     ui->scopeAxes->yAxis->setTicker(yTicker);
 #endif
 
-    QPen *dashPen = new QPen(Qt::white, 2);
-    dashPen->setStyle(Qt::DashLine);
+    QPen dashPen(Qt::white, 2);
+    dashPen.setStyle(Qt::DashLine);
 
     ui->scopeAxes->graph(0)->setPen(QPen(Qt::yellow, 1));
     ui->scopeAxes->graph(1)->setPen(QPen(Qt::cyan, 1));
     ui->scopeAxes->graph(2)->setPen(QPen(Qt::white, 2));
-    ui->scopeAxes->graph(3)->setPen(*(dashPen));
+    ui->scopeAxes->graph(3)->setPen(dashPen);
     ui->scopeAxes->graph(4)->setPen(QPen(Qt::white, 2));
-    ui->scopeAxes->graph(5)->setPen(*(dashPen));
+    ui->scopeAxes->graph(5)->setPen(dashPen);
 
 
     ui->scopeAxes->xAxis->setBasePen(QPen(Qt::white, 1));
