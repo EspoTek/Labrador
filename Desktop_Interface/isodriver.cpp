@@ -692,7 +692,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
     }
 
 
-    for (double i=0; i<GRAPH_SAMPLES; i++){
+    for (int i=0; i<GRAPH_SAMPLES; i++){
         x[i] = -(display.window*i)/((double)(GRAPH_SAMPLES-1)) - display.delay;
         if (x[i]>0) {
             CH1[i] = 0;
@@ -771,7 +771,7 @@ void isoDriver::multimeterAction(){
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES);
     analogConvert(readData375_CH1.get(), &CH1, 2048, false, 1);  //No AC coupling!
 
-    for (double i=0; i<GRAPH_SAMPLES; i++){
+    for (int i=0; i<GRAPH_SAMPLES; i++){
         x[i] = -(display.window*i)/((double)(GRAPH_SAMPLES-1)) - display.delay;
         if (x[i]>0) {
             CH1[i] = 0;

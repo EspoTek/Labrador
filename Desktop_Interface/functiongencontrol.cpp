@@ -223,5 +223,5 @@ void DualChannelController::offsetUpdate_CH2(double newOffset)
 	offsetUpdate(ChannelID::CH2, newOffset);
 }
 
-}
+} // namespace functionGen
 

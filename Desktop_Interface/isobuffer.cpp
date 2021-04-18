@@ -16,11 +16,11 @@ constexpr char const* fileHeaderFormat =
 constexpr auto kSamplesSeekingCap = 20;
 
 #ifdef INVERT_MM
-constexpr auto fX0Comp = std::greater<int> {};
-constexpr auto fX1X2Comp = std::less<int> {};
+constexpr auto fX0Comp = std::greater<> {};
+constexpr auto fX1X2Comp = std::less<> {};
 #else
-constexpr auto fX0Comp = std::less<int> {};
-constexpr auto fX1X2Comp = std::greater<int> {};
+constexpr auto fX0Comp = std::less<> {};
+constexpr auto fX1X2Comp = std::greater<> {};
 #endif
 
 constexpr double kTriggerSensitivityMultiplier = 4;
