@@ -75,7 +75,7 @@ void isoDriver::timerTick(void){
             if (deviceMode_prev != 0 && deviceMode_prev != 1 && deviceMode_prev != 2)
                 clearBuffers(true, false, false);
 
-            frameActionGeneric(1,0);
+            frameActionGeneric(ChannelMode::Analog, ChannelMode::Off);
             break;
         case 1:
             if (deviceMode_prev != 0 && deviceMode_prev != 1 && deviceMode_prev != 2)
@@ -85,7 +85,7 @@ void isoDriver::timerTick(void){
                 clearBuffers(false, true, false);
 
             internalBuffer375_CH2->m_channel = 1;
-            frameActionGeneric(1,2);
+            frameActionGeneric(ChannelMode::Analog, ChannelMode::Digital);
             if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH2->serialManage(baudRate_CH1, parity_CH1, hexDisplay_CH1);
             }
@@ -96,13 +96,13 @@ void isoDriver::timerTick(void){
             if (deviceMode_prev != 2)
                 clearBuffers(false, true, false);
 
-            frameActionGeneric(1,1);
+            frameActionGeneric(ChannelMode::Analog, ChannelMode::Analog);
             break;
         case 3:
             if (deviceMode_prev != 3 && deviceMode_prev != 4)
                 clearBuffers(true, false, false);
 
-            frameActionGeneric(2,0);
+            frameActionGeneric(ChannelMode::Digital, ChannelMode::Off);
             if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1, hexDisplay_CH1);
             }
@@ -114,7 +114,7 @@ void isoDriver::timerTick(void){
                 clearBuffers(false, true, false);
 
             internalBuffer375_CH2->m_channel = 2;
-            frameActionGeneric(2,2);
+            frameActionGeneric(ChannelMode::Digital, ChannelMode::Digital);
             if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1, hexDisplay_CH1);
             }
@@ -143,7 +143,7 @@ void isoDriver::timerTick(void){
         case 6:
             if (deviceMode_prev != 6)
                 clearBuffers(false, false, true);
-            frameActionGeneric(-1,0);
+            frameActionGeneric(ChannelMode::Analog750, ChannelMode::Off);
             break;
         case 7:
             if (deviceMode_prev != 7)
@@ -613,22 +613,22 @@ void isoDriver::setTriggerMode(int newMode)
 }
 
 //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
-void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  
+void isoDriver::frameActionGeneric(const ChannelMode CH1_mode, const ChannelMode CH2_mode)
 {
     //qDebug() << "made it to frameActionGeneric";
-    if(!paused_CH1 && CH1_mode == - 1){
+    if(!paused_CH1 && CH1_mode == ChannelMode::Analog750) {
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer750->writeBuffer_char(&isoTemp[ADC_SPF*i], VALID_DATA_PER_750);
         }
     }
 
-    if(!paused_CH1 && CH1_mode > 0){
+    if(!paused_CH1 && (CH1_mode == ChannelMode::Analog || CH1_mode == ChannelMode::Digital)){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer375_CH1->writeBuffer_char(&isoTemp[ADC_SPF*i], VALID_DATA_PER_375);
         }
     }
 
-    if(!paused_CH2 && CH2_mode > 0){
+    if(!paused_CH2 && (CH2_mode == ChannelMode::Analog || CH2_mode == ChannelMode::Digital)){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer375_CH2->writeBuffer_char(&isoTemp[ADC_SPF*i+ADC_SPF/2], VALID_DATA_PER_375);  //+375 to get the second half of the packet
         }
@@ -637,7 +637,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
     double triggerDelay = 0;
     if (triggerEnabled)
     {
-		isoBuffer* internalBuffer_CH1 = (CH1_mode == -1) ? internalBuffer750 : internalBuffer375_CH1;
+        isoBuffer* internalBuffer_CH1 = (CH1_mode == ChannelMode::Analog750) ? internalBuffer750 : internalBuffer375_CH1;
         triggerDelay = (triggerMode < 2) ? internalBuffer_CH1->getDelayedTriggerPoint(display.window) - display.window : internalBuffer375_CH2->getDelayedTriggerPoint(display.window) - display.window;
 
         if (triggerDelay < 0)
@@ -647,14 +647,14 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
     if(singleShotEnabled && (triggerDelay != 0))
         singleShotTriggered(true);
 
-    readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==2, display.delay + triggerDelay);
-    if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES,CH2_mode==2, display.delay + triggerDelay);
-    if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay + triggerDelay);
-    if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
+    readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==ChannelMode::Digital, display.delay + triggerDelay);
+    if(CH2_mode != ChannelMode::Off) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES, CH2_mode==ChannelMode::Digital, display.delay + triggerDelay);
+    if(CH1_mode == ChannelMode::Analog750) readData750 = internalBuffer750->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay + triggerDelay);
+    if(CH1_mode == ChannelMode::File) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES);
 
-    if (CH1_mode == 1){
+    if (CH1_mode == ChannelMode::Analog){
         analogConvert(readData375_CH1.get(), &CH1, 128, AC_CH1, 1);
         for (int i=0; i < GRAPH_SAMPLES; i++)
         {
@@ -665,9 +665,9 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
         broadcastStats(false);
     }
-    if (CH1_mode == 2) digitalConvert(readData375_CH1.get(), &CH1);
+    if (CH1_mode == ChannelMode::Digital) digitalConvert(readData375_CH1.get(), &CH1);
 
-    if (CH2_mode == 1){
+    if (CH2_mode == ChannelMode::Analog){
         analogConvert(readData375_CH2.get(), &CH2, 128, AC_CH2, 2);
         for (int i=0; i < GRAPH_SAMPLES; i++)
         {
@@ -678,16 +678,16 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         ymax = (currentVmax > ymax) ? currentVmax : ymax;
         broadcastStats(true);
     }
-    if (CH2_mode == 2) digitalConvert(readData375_CH2.get(), &CH2);
+    if (CH2_mode == ChannelMode::Digital) digitalConvert(readData375_CH2.get(), &CH2);
 
-    if(CH1_mode == -1) {
+    if(CH1_mode == ChannelMode::Analog750) {
         analogConvert(readData750.get(), &CH1, 128, AC_CH1, 1);
         xmin = (currentVmin < xmin) ? currentVmin : xmin;
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
         broadcastStats(false);
     }
 
-    if(CH1_mode == -2) {
+    if(CH1_mode == ChannelMode::File) {
         fileStreamConvert(readDataFile, &CH1);
     }
 
@@ -709,7 +709,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         axes->yAxis->setRange(ymin, ymax);
     }else{
         axes->graph(0)->setData(x,CH1);
-        if(CH2_mode) axes->graph(1)->setData(x,CH2);
+        if(CH2_mode != ChannelMode::Off) axes->graph(1)->setData(x,CH2);
         axes->xAxis->setRange(-display.window - display.delay, -display.delay);
         axes->yAxis->setRange(display.topRange, display.botRange);
     }
@@ -1368,7 +1368,7 @@ void isoDriver::daqLoad_endChanged(double newEnd){
 
 void isoDriver::fileTimerTick(){
     //qDebug() << "isoDriver::fileTimerTick()";
-    frameActionGeneric(-2,0);
+    frameActionGeneric(ChannelMode::File, ChannelMode::Off);
 }
 
 void isoDriver::enableFileMode(){

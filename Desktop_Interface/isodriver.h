@@ -52,6 +52,15 @@ class isoDriver : public QLabel
 {
     Q_OBJECT
 public:
+    enum class ChannelMode {
+        Off = 0,
+        Analog = 1,
+        Digital = 2,
+        Analog750 = -1,
+        File = -2
+    };
+    Q_ENUM(ChannelMode);
+
     explicit isoDriver(QWidget *parent = 0);
     void autoGain(void);
     //Generic Vars
@@ -137,7 +146,7 @@ private:
     short reverseFrontEnd(double voltage);
     void multimeterAction();
     void broadcastStats(bool CH2);
-    void frameActionGeneric(char CH1_mode, char CH2_mode);
+    void frameActionGeneric(const ChannelMode CH1_mode, const ChannelMode CH2_mode);
     void triggerStateChanged();
     //Variables that are just pointers to other classes/vars
     QCustomPlot *axes; // TODO: move into DisplayControl
