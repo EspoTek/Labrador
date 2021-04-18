@@ -89,8 +89,8 @@ public:
     bool fileModeEnabled = false;
     double daq_maxWindowSize;
 
-    double vMax() const { return currentVmax; }
-    double vMin() const { return currentVmin; }
+    double vMax() const { return qMax(xmax, ymax); }
+    double vMin() const { return qMin(xmin, ymin); }
     long numSamples() const { return total_read; }
 
 private:
