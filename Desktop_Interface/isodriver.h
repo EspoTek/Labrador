@@ -73,7 +73,7 @@ public:
 #if QCP_VER == 1
     QCPItemText *cursorTextPtr;
 #endif
-    genericUsbDriver *driver;
+    QPointer<genericUsbDriver> driver;
     bool doNotTouchGraph = true;
     double ch1_ref = 1.65;
     double ch2_ref = 1.65;

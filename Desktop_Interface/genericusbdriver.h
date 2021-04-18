@@ -71,7 +71,7 @@ public:
     bool connected = false;
     bool calibrateOnConnect = false;
     //Generic Functions
-    explicit genericUsbDriver(QWidget *parent = 0);
+    explicit genericUsbDriver(QWidget *parent);
     ~genericUsbDriver();
     virtual char *isoRead(unsigned int *newLength) = 0;
     //void setBufferPtr(bufferControl *newPtr);

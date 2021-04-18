@@ -61,7 +61,7 @@ class unixUsbDriver : public genericUsbDriver
 {
     Q_OBJECT
 public:
-    explicit unixUsbDriver(QWidget *parent = 0);
+    explicit unixUsbDriver(QWidget *parent);
     ~unixUsbDriver();
     void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA);
     char *isoRead(unsigned int *newLength);

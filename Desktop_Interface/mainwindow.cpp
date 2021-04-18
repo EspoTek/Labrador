@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->psuDisplay->display("4.50");
 
-    ui->controller_iso->setDriver(new _PLATFORM_DEPENDENT_USB_OBJECT());
+    ui->controller_iso->setDriver(new _PLATFORM_DEPENDENT_USB_OBJECT(this));
     ui->controller_iso->setAxes(ui->scopeAxes);
 
     ui->timeBaseSlider->setMaximum(10*log10(MAX_WINDOW_SIZE));
@@ -1387,7 +1387,7 @@ void MainWindow::reinitUsbStage2(void){
     qDebug() << "ReinitUsb entering stage 2";
     delete(ui->controller_iso->driver);
     qDebug() << "Reinitialising USB driver!";
-    ui->controller_iso->driver = new _PLATFORM_DEPENDENT_USB_OBJECT();
+    ui->controller_iso->setDriver(new _PLATFORM_DEPENDENT_USB_OBJECT(this));
 
     //Reconnect the other objects.
     //ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);

@@ -29,7 +29,7 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 
     startTimer();
 
-    slowTimer = new QTimer;
+    slowTimer = new QTimer(this);
     slowTimer->setTimerType(Qt::PreciseTimer);
     slowTimer->start(MULTIMETER_PERIOD);
     connect(slowTimer, SIGNAL(timeout()), this, SLOT(slowTimerTick()));
@@ -51,6 +51,9 @@ isoDriver::~isoDriver()
 }
 
 void isoDriver::setDriver(genericUsbDriver *newDriver){
+    if (driver) {
+        driver->deleteLater();
+    }
     driver = newDriver;
     qDebug() << "driver = " << driver;
 }

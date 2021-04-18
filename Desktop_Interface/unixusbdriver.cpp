@@ -164,7 +164,7 @@ int unixUsbDriver::usbIsoInit(void){
         }
     }
 
-    isoTimer = new QTimer();
+    isoTimer = new QTimer(this);
     isoTimer->setTimerType(Qt::PreciseTimer);
     isoTimer->start(ISO_TIMER_PERIOD);
     connect(isoTimer, SIGNAL(timeout()), this, SLOT(isoTimerTick()));
@@ -172,7 +172,7 @@ int unixUsbDriver::usbIsoInit(void){
     qDebug() << "Setup successful!";
 
     isoHandler = new worker();
-    workerThread = new QThread();
+    workerThread = new QThread(this);
 
     isoHandler->ctx = ctx;
     isoHandler->moveToThread(workerThread);

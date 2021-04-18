@@ -75,7 +75,7 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
         qDebug() << "pipeID" << k << "=" << pipeID[k];
     }
 
-    connectTimer = new QTimer();
+    connectTimer = new QTimer(this);
     connectTimer->setTimerType(Qt::PreciseTimer);
     connectTimer->start(USB_RECONNECT_PERIOD);
     connect(connectTimer, SIGNAL(timeout()), this, SLOT(checkConnection()));
