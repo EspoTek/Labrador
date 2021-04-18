@@ -24,10 +24,7 @@ unixUsbDriver::~unixUsbDriver(void){
 			{
             workerThread->requestInterruption();
             workerThread->quit();
-			while(workerThread->isRunning()){
-				qDebug() << "isRunning?" << workerThread->isFinished();
-				QThread::msleep(100);
-			}
+            workerThread->wait();
             workerThread->deleteLater();
         }
 		if (isoHandler)
