@@ -13,8 +13,8 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     internalBuffer375_CH2 = new isoBuffer(this, MAX_WINDOW_SIZE*ADC_SPS/20*21, this, 2);
     internalBuffer750 = new isoBuffer(this, MAX_WINDOW_SIZE*ADC_SPS/10*21, this, 1);
 
-    myIsoTemp = (char *) malloc(TIMER_PERIOD*ADC_SPF + 8); //8-byte header contains (unsigned long) length
-    isoTemp = myIsoTemp;
+    // use malloc, it gives us aligned data
+    isoTemp.reset((char *) malloc(TIMER_PERIOD*ADC_SPF + 8), free); //8-byte header contains (unsigned long) length
 
     char volts[2] = "V";
     char seconds[2] = "s";
@@ -38,8 +38,6 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 
 isoDriver::~isoDriver()
 {
-    free(myIsoTemp);
-
     delete v0;
     delete v1;
     delete dv;
@@ -765,7 +763,7 @@ void isoDriver::frameActionGeneric(const ChannelMode CH1_mode, const ChannelMode
 }
 
 void isoDriver::multimeterAction(){
-    isoTemp_short = (short *)isoTemp;
+    isoTemp_short = (short *)isoTemp.get();
     if(!paused_multimeter){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer375_CH1->writeBuffer_short(&isoTemp_short[ADC_SPF/2*i], ADC_SPF/2-1);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!

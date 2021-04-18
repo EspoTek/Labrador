@@ -25,8 +25,6 @@ winUsbDriver::~winUsbDriver(void){
         UsbK_AbortPipe(handle, pipeID[k]);
     }
     OvlK_Free(ovlPool);
-    free(outBuffers[0]);
-    free(outBuffers[1]);
     UsbK_Free(handle);
 }
 
@@ -247,7 +245,7 @@ void winUsbDriver::isoTimerTick(void){
     for(int i=0;i<isoCtx[0][earliest]->NumberOfPackets;i++){
         for(unsigned char k=0; k<NUM_ISO_ENDPOINTS;k++){
             dataBufferOffset = isoCtx[k][earliest]->IsoPackets[i].Offset;
-            memcpy(&(outBuffers[currentWriteBuffer][packetLength]), &dataBuffer[k][earliest][dataBufferOffset], isoCtx[k][earliest]->IsoPackets[i].Length);
+            memcpy(&(outBuffers[currentWriteBuffer].get()[packetLength]), &dataBuffer[k][earliest][dataBufferOffset], isoCtx[k][earliest]->IsoPackets[i].Length);
             packetLength += isoCtx[k][earliest]->IsoPackets[i].Length;
         }
     }
@@ -300,10 +298,10 @@ void winUsbDriver::isoTimerTick(void){
     return;
 }
 
-char *winUsbDriver::isoRead(unsigned int *newLength){
+std::shared_ptr<char[]> winUsbDriver::isoRead(unsigned int *newLength){
     //This will be called almost immediately after the upTick() signal is sent.  Make sure bufferLengths[] abd outBuffers[] are ready!
     *(newLength) = bufferLengths[!currentWriteBuffer];
-    return (char*) outBuffers[(unsigned char) !currentWriteBuffer];
+    return outBuffers[(unsigned char) !currentWriteBuffer];
 }
 
 bool winUsbDriver::allEndpointsComplete(int n){

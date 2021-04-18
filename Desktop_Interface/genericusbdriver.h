@@ -67,14 +67,14 @@ public:
     int dutyTemp = 21;
     bool killOnConnect = false;
     //Generic Vars
-    unsigned char *outBuffers[2];
+    std::shared_ptr<char[]> outBuffers[2];
     unsigned int bufferLengths[2];
     bool connected = false;
     bool calibrateOnConnect = false;
     //Generic Functions
     explicit genericUsbDriver(QWidget *parent);
     ~genericUsbDriver();
-    virtual char *isoRead(unsigned int *newLength) = 0;
+    virtual std::shared_ptr<char[]> isoRead(unsigned int *newLength) = 0;
     //void setBufferPtr(bufferControl *newPtr);
     void saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState);
     virtual void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA) = 0;

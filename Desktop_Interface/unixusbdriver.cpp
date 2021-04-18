@@ -251,7 +251,7 @@ void unixUsbDriver::isoTimerTick(void){
             }else{
                 srcPtr = &midBuffer_prev[k][ISO_PACKET_SIZE * (ISO_PACKETS_PER_CTX + current_offset)];
             }
-            memcpy(&(outBuffers[currentWriteBuffer][packetLength]), srcPtr, ISO_PACKET_SIZE);
+            memcpy(&outBuffers[currentWriteBuffer].get()[packetLength], srcPtr, ISO_PACKET_SIZE);
             packetLength += ISO_PACKET_SIZE;
         }
     }
@@ -288,12 +288,12 @@ void unixUsbDriver::isoTimerTick(void){
    return;
 }
 
-char *unixUsbDriver::isoRead(unsigned int *newLength){
+std::shared_ptr<char[]> unixUsbDriver::isoRead(unsigned int *newLength){
     //*(newLength) = 0;
     //return (char*) NULL;
     //qDebug() << "unixUsbDriver::isoRead";
     *(newLength) = bufferLengths[!currentWriteBuffer];
-    return (char*) outBuffers[(unsigned char) !currentWriteBuffer];
+    return outBuffers[(unsigned char) !currentWriteBuffer];
 }
 
 void unixUsbDriver::recoveryTick(void){

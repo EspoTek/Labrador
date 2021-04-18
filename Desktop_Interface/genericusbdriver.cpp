@@ -63,8 +63,8 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
     this->hide();
 
     //Double buffers are used to send the transfers to isoDriver.  outBuffers and bufferLengths store the actual data from each transfer as well as length.  They are read by isoDriver when it calls isoRead().
-    outBuffers[0] = (unsigned char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX*NUM_ISO_ENDPOINTS + 8, 1);
-    outBuffers[1] = (unsigned char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX*NUM_ISO_ENDPOINTS + 8, 1);
+    outBuffers[0].reset((char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX*NUM_ISO_ENDPOINTS + 8, 1), free);
+    outBuffers[1].reset((char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX*NUM_ISO_ENDPOINTS + 8, 1), free);
     bufferLengths[0] = 0;
     bufferLengths[1] = 0;
 
@@ -105,8 +105,6 @@ genericUsbDriver::~genericUsbDriver(void){
 		}
     }
     qDebug() << "genericUsbDriver dectructor completed";
-    free(outBuffers[0]);
-    free(outBuffers[1]);
 }
 
 
