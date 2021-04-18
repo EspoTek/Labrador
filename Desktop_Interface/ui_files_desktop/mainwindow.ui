@@ -4052,7 +4052,7 @@
    <sender>lockPsuCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>lockPsuCheckBox</receiver>
-   <slot>resetTimer(bool)</slot>
+   <slot>resetTimer()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1424</x>
