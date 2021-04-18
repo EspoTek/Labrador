@@ -54,8 +54,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->controller_iso->setDriver(new _PLATFORM_DEPENDENT_USB_OBJECT(this));
     ui->controller_iso->setAxes(ui->scopeAxes);
 
-    ui->timeBaseSlider->setMaximum(10*log10(MAX_WINDOW_SIZE));
-
     //ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
     ui->cursorStatsLabel->hide();
     initialisePlot();
@@ -101,7 +99,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->console1->setVisible(false);
     ui->console2->setVisible(false);
 #endif
-    ui->timeBaseSlider->setVisible(false);
 
     //ui->pausedLabel_CH2->setVisible(0);
     ui->filterLabel_CH1->setVisible(false);
@@ -1035,12 +1032,6 @@ void MainWindow::initShortcuts(){
     connect(shortcut_Debug, SIGNAL(activated()), this, SLOT(enableLabradorDebugging()));
     connect(shortcut_Esc, SIGNAL(activated()), this, SLOT(reinitUsb()));
 
-}
-
-void MainWindow::timeBaseNeedsChanging(bool positive){
-    int tempVal = ui->timeBaseSlider->value();
-    tempVal += positive ? 1 : -1;
-    ui->timeBaseSlider->setValue(tempVal);
 }
 
 void MainWindow::on_actionForce_Square_triggered(bool checked)

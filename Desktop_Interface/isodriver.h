@@ -215,7 +215,6 @@ signals:
     void sendMultimeterLabel2(QString);
     void sendMultimeterLabel3(QString);
     void sendMultimeterLabel4(QString);
-    void changeTimeAxis(bool positive);
     void sendTriggerValue(double);
     void sendVmax_CH1(double);
     void sendVmin_CH1(double);

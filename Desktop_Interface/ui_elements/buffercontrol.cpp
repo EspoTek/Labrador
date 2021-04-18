@@ -66,14 +66,6 @@ void bufferControl::scopeDsrIn(bool state){
     updateMode();
 }
 
-/*void bufferControl::signalGenIn(bool state){
-    signalGenState = state;
-
-    updateBuffer(state,1);
-    qDebug() << "signalGenIn" << state;
-    updateMode();
-}*/
-
 void bufferControl::busSnifferIn_CH1(bool state){
     busSnifferState_CH1 = state;
 
