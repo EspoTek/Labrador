@@ -19,6 +19,7 @@ unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 unixUsbDriver::~unixUsbDriver(void){
     qDebug() << "\n\nunixUsbDriver destructor ran!";
     //unixDriverDeleteMutex.lock();
+    shutdownMode = true;
     if(connected){
 		if (workerThread)
 			{
