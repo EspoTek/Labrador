@@ -9,6 +9,7 @@
 #include <math.h>
 #include <stdint.h>
 #include <QMessageBox>
+#include <QPointer>
 
 #include "functiongencontrol.h"
 #include "xmega.h"
@@ -93,9 +94,9 @@ protected:
     //bufferControl *bufferPtr = NULL;
     QTimer *psuTimer = nullptr;
     unsigned char pipeID[3];
-    QTimer *isoTimer = nullptr;
-    QTimer *connectTimer = nullptr;
-    QTimer *recoveryTimer;
+    QPointer<QTimer> isoTimer;
+    QPointer<QTimer> connectTimer;
+    QPointer<QTimer> recoveryTimer;
     unsigned char currentWriteBuffer = 0;
     unsigned long timerCount = 0;
     unsigned char inBuffer[256];
