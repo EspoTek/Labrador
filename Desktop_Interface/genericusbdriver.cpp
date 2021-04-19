@@ -426,14 +426,27 @@ void genericUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, d
 
 void genericUsbDriver::checkConnection(){
     //This will connect to the board, then wait one more period before actually starting the stack.
+
+    unsigned char initReturnValue;
+
     if(!connected){
         connectedStatus(false);
         qDebug() << "CHECKING CONNECTION!";
-        connected = !(usbInit(BOARD_VID, BOARD_PID));
+        initReturnValue = usbInit(BOARD_VID, BOARD_PID);
+        connected = !(initReturnValue);
         qDebug() << "Connected";
 
-        if (! connected)
-        {
+        if(E_BOARD_IN_BOOTLOADER == initReturnValue) {
+            qDebug() << "Board found in bootloader mode!!";
+            int flashRet = flashFirmware();
+            qDebug("flashRet: %d", flashRet);
+            connected = false;
+            connectTimer->start();
+            return;
+        }
+
+        if (! connected) {
+
             bool isGobindar = !(usbInit(BOARD_VID, GOBINDAR_PID));
             if (isGobindar)
             {
@@ -455,6 +468,7 @@ void genericUsbDriver::checkConnection(){
     if((firmver != EXPECTED_FIRMWARE_VERSION) || (variant != DEFINED_EXPECTED_VARIANT)){
         qDebug() << "Unexpected Firmware!!";
         int flashRet = flashFirmware();
+        qDebug("flashRet: %d", flashRet);
         connected = false;
         connectTimer->start();
         return;

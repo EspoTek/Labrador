@@ -2401,6 +2401,7 @@ void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
     settings->setValue("ShowRangeDialog", checked);
     scopeRangeSwitch->setVisible(checked);
 #endif
+
 }
 
 void MainWindow::paused(bool enabled)

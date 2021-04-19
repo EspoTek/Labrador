@@ -73,7 +73,7 @@ public class androidInterface extends QtActivity
                 if(!manager.hasPermission(device)){
                     Log.d(QtApplication.QtTAG, "permission was not granted to the USB device!!!");
                     return;
-                    }
+                }
                 Log.d(QtApplication.QtTAG, "MATCH FOUND!");
                 usbfs_path = device.getDeviceName();
                 Log.d(QtApplication.QtTAG, "usbfs_path = " + usbfs_path);
@@ -82,7 +82,11 @@ public class androidInterface extends QtActivity
                 Log.d(QtApplication.QtTAG, "fd = " + file_descriptor);
                 Log.d(QtApplication.QtTAG, "Returning...");
                 return;
-                }
+            } else if ((VID==0x03eb) && (PID==0x2fe4)) {
+                Log.d(QtApplication.QtTAG, "Device found but it is in bootloader mode!");
+                file_descriptor = -65;
+                return;
+            }
         }
     }
     public void findDevice_bootloader()
