@@ -28,7 +28,7 @@ before_install:
     # Linux
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo add-apt-repository ppa:beineri/opt-qt593-trusty -y
-      sudo apt-get update -qq
+      sudo apt-get update -qq || true
     fi
 
 install:
