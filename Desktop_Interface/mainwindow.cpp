@@ -256,7 +256,11 @@ void MainWindow::initialisePlot()
 {
     QCPCurve *xyCurve = new QCPCurve(ui->scopeAxes->xAxis, ui->scopeAxes->yAxis);
     xyCurve->setPen(QPen(Qt::yellow, 1));
+
+#if QCP_VER == 1
     ui->scopeAxes->addPlottable(xyCurve);
+#endif
+
     ui->scopeAxes->addGraph();
     ui->scopeAxes->addGraph();
     ui->scopeAxes->addGraph();
