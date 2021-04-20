@@ -41,7 +41,7 @@ void scopeRangeEnterDialog::toUpdateYTop(double val){
     if (yTop != val)
     {
         yTop = val;
-        yTopUpdated(val);
+        emit yTopUpdated(val);
     }
 }
 
@@ -51,7 +51,7 @@ void scopeRangeEnterDialog::toUpdateYBot(double val){
     if (yBot != val)
     {
         yBot = val;
-        yBotUpdated(val);
+        emit yBotUpdated(val);
     }
 }
 
@@ -63,7 +63,7 @@ void scopeRangeEnterDialog::toUpdateWindow(double val){
         ui->delayBox->setMax(((double)MAX_WINDOW_SIZE) - ui->timeWindowBox->value());
         qDebug() << "delayBox updating to" << ui->delayBox->maximum();
         timeWindow = val;
-        windowUpdated(val);
+        emit windowUpdated(val);
     }
 }
 
@@ -75,7 +75,7 @@ void scopeRangeEnterDialog::toUpdateDelay(double val){
         ui->timeWindowBox->setMax(((double)MAX_WINDOW_SIZE) - ui->delayBox->value());
         qDebug() << "timeWindowBox updating max to" << ui->timeWindowBox->maximum();
         delay = val;
-        delayUpdated(val);
+        emit delayUpdated(val);
     }
 }
 
