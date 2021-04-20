@@ -29,12 +29,14 @@ bool espoSlider::setTickLabel(const QString& label, int position)
 }
 
 void espoSlider::resizeEvent(QResizeEvent *event){
+    Q_UNUSED(event);
     this->debug_var++;
     //qDebug() << "move/resize event" << debug_var;
     rearrange();
 }
 
 void espoSlider::moveEvent(QMoveEvent *event){
+    Q_UNUSED(event);
     this->debug_var++;
     //qDebug() << "move/resize event" << debug_var;
     rearrange();
@@ -71,6 +73,8 @@ void espoSlider::rearrange(){
     int c = 5;
 
     int left = this->geometry().left();
+    Q_UNUSED(left);
+
     int right = this->geometry().right();
     int top = this->geometry().top();
     int bottom = this->geometry().bottom();

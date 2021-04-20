@@ -11,6 +11,7 @@ scopeRangeEnterDialog::scopeRangeEnterDialog(QWidget *parent, bool buttonVisible
     ui->vMaxBox->setMinimum(yBot);
     ui->vMinBox->setMaximum(yTop);
 
+    ui->delayBox->setValue(delay);
     ui->vMaxBox->setValue(yTop);
     ui->vMinBox->setValue(yBot);
     ui->timeWindowBox->setValue(window);
