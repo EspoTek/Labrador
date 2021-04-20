@@ -18,12 +18,20 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 TARGET = Labrador
 TEMPLATE = app
 
+BUILTIN_QCP = true
 QCP_VER = 1
+
 DEFINES += "QCP_VER=$${QCP_VER}"
 equals(QCP_VER,"2"){
     DEFINES += QCUSTOMPLOT_USE_OPENGL
-    LIBS += -lOpenGL32
+    win32: LIBS += -lOpenGL32
     message("Using QCP2 with OpenGL support")
+}
+equals(BUILTIN_QCP,"true"){
+    message("Using bundled version of qcustomplot")
+} else {
+    message("Using system version of qcustomplot")
+    LIBS += -lqcustomplot
 }
 
 include(ui_elements.pri)
