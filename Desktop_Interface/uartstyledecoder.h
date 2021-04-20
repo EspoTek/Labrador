@@ -27,7 +27,7 @@ private:
     isoBuffer *m_parent;
 
 	// Indicates the current bit being decoded.
-    int serialPtr_bit;
+    unsigned serialPtr_bit;
 
     bool uartTransmitting = false;
     bool newUartSymbol = false;

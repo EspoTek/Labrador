@@ -90,7 +90,7 @@ void uartStyleDecoder::serialDecode()
 
 int uartStyleDecoder::serialDistance() const
 {
-    int back_bit = m_parent->m_back * 8;
+    unsigned back_bit = m_parent->m_back * 8;
     int bufferEnd_bit = (m_parent->m_bufferLen-1) * 8;
     if (back_bit >= serialPtr_bit)
         return back_bit - serialPtr_bit;
