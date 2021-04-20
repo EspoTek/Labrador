@@ -61,8 +61,8 @@ public slots:
     void setHexDisplay(bool enabled);
 
 private:
-    char decodeDatabit(int mode, short symbol) const;
-    char decodeBaudot(short symbol) const;
+    char decodeDatabit(int mode, short symbol);
+    char decodeBaudot(short symbol);
 
 	std::mutex mutex;
     UartParity parity = UartParity::None;
@@ -71,6 +71,7 @@ private:
 	UartParity parityOf(uint32_t bitField) const;
 
     bool parityCheckFailed = false;
+    bool m_baudotFigures = false;
 
 };
 

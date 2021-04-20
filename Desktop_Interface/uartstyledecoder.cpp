@@ -200,7 +200,7 @@ bool uartStyleDecoder::jitterCompensationProcedure(bool current_bit)
 }
 
 //Basically scaffolding to add character maps for other modes (5 bit, for example).
-char uartStyleDecoder::decodeDatabit(int mode, short symbol) const
+char uartStyleDecoder::decodeDatabit(int mode, short symbol)
 {
     switch(mode)
 	{
@@ -216,9 +216,87 @@ char uartStyleDecoder::decodeDatabit(int mode, short symbol) const
     }
 }
 
-char uartStyleDecoder::decodeBaudot(short symbol) const
+char uartStyleDecoder::decodeBaudot(short symbol)
 {
-    return 'a';
+    // Baudot-Murray code, ITA2 variant
+
+    if (m_baudotFigures) {
+        switch(symbol) {
+        case 1: return '3';
+        case 3: return '-';
+        case 5: return '\'';
+        case 6: return '8';
+        case 7: return '7';
+        case 9: return 0x5; // Enquiry
+        case 11: return '\a'; // Bell
+        case 12: return ',';
+        case 13: return '!';
+        case 14: return ':';
+        case 15: return '(';
+        case 16: return '5';
+        case 17: return '+';
+        case 18: return ')';
+        case 19: return '2';
+        case 20: return '$'; // or £
+        case 21: return '6';
+        case 22: return '0';
+        case 23: return '1';
+        case 24: return '9';
+        case 25: return '?';
+        case 26: return '&'; // or @
+        case 28: return '.';
+        case 29: return '/';
+        case 30: return ';';
+
+        case 27: return ' '; // Switch to figures in letter mode
+        case 31: m_baudotFigures = false; return -1; // Switch to letters
+
+        default:
+            // Either a common one, or unknown
+            break;
+        }
+    }
+
+    // Letter mode:
+    switch(symbol) {
+    case 0: return '\0';
+    case 2:  return '\n';
+    case 8:  return '\r';
+
+    case 1: return 'E';
+    case 3: return 'A';
+    case 4: return ' ';
+    case 5: return 'S';
+    case 6: return 'I';
+    case 7: return 'U';
+    case 9: return 'D';
+    case 10: return 'R';
+    case 11: return 'J';
+    case 12: return 'N';
+    case 13: return 'F';
+    case 14: return 'C';
+    case 15: return 'K';
+    case 16: return 'T';
+    case 17: return 'Z';
+    case 18: return 'L';
+    case 19: return 'W';
+    case 20: return 'H';
+    case 21: return 'Y';
+    case 22: return 'P';
+    case 23: return 'Q';
+    case 24: return 'O';
+    case 25: return 'B';
+    case 26: return 'G';
+    case 28: return 'M';
+    case 29: return 'X';
+    case 30: return 'V';
+
+    case 27: m_baudotFigures = true; return ' ';
+    case 31: return 0x8; // Delete/erase, we return backspace
+    default:
+        qWarning() << "Invalid baudot:" << symbol;
+        return -1;
+    }
 }
 
 void uartStyleDecoder::setParityMode(UartParity newParity)
