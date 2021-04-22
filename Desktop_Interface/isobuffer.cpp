@@ -121,6 +121,10 @@ std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSampl
     double itr = delaySamples;
     for (int i = 0; i < numSamples && itr < m_insertedCount; i++)
     {
+        if (int(itr) < 0 || ((m_back-1) + m_bufferLen - itr) >= m_bufferLen * 2) {
+            qWarning() << "itr out of range" << itr << numSamples << m_insertedCount << i << timeBetweenSamples;
+            break;
+        }
         assert(int(itr) >= 0);
         readData[i] = bufferAt(int(itr));
 

@@ -130,54 +130,55 @@ win32{
 
 unix:!android:!macx{
     INCLUDEPATH += $$PWD/build_linux
+    LIBS += -lusb-1.0 ##make sure you have the libusb-1.0-0-dev package!
+    LIBS += -ldfuprog-0.9
+
     contains(QT_ARCH, arm) {
             message("Building for Raspberry Pi")
-            #libusb include
-            unix:!android:!macx:LIBS += -lusb-1.0  ##make sure you have the libusb-1.0-0-dev package!
-            unix:!android:!macx:INCLUDEPATH += build_linux/libusb
-            unix:!android:!macx:DEPENDPATH += build_linux/libusb
 
-            #libdfuprog include
-            unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/arm -ldfuprog-0.9
-            unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
-            unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
+            #All ARM-Linux GCC treats char as unsigned by default???
             QMAKE_CFLAGS += -fsigned-char
             QMAKE_CXXFLAGS += -fsigned-char
             DEFINES += "PLATFORM_RASPBERRY_PI"
-            #All ARM-Linux GCC treats char as unsigned by default???
-            lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/arm/libdfuprog-0.9.so
-            lib_deploy.path = /usr/lib
+
+            !contains(CONFIG, "USE_SYSTEM_LIBS") {
+                LIBS += -L$$PWD/build_linux/libdfuprog/lib/arm
+                lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/arm/libdfuprog-0.9.so
+            }
 
     } else {
         contains(QT_ARCH, i386) {
             message("Building for Linux (x86)")
-            unix:!android:!macx:LIBS += -lusb-1.0  ##make sure you have the libusb-1.0-0-dev package!
-            unix:!android:!macx:INCLUDEPATH += build_linux/libusb
-            unix:!android:!macx:DEPENDPATH += build_linux/libusb
 
-            #libdfuprog include
-            unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/x86 -ldfuprog-0.9
-            unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
-            unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
-            lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x86/libdfuprog-0.9.so
-            lib_deploy.path = /usr/lib
-
+            !contains(CONFIG, "USE_SYSTEM_LIBS") {
+                LIBS += -L$$PWD/build_linux/libdfuprog/lib/x86
+                lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x86/libdfuprog-0.9.so
+            }
         } else {
             message("Building for Linux (x64)")
-            #libusb include
-            unix:!android:!macx:LIBS += -Lbuild_linux/libusb -lusb-1.0  ##I suspect the -L here does nothing!
-            unix:!android:!macx:INCLUDEPATH += build_linux/libusb
-            unix:!android:!macx:DEPENDPATH += build_linux/libusb
-
-            #libdfuprog include
-            unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9
-            unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
-            unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
-    	    lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x64/libdfuprog-0.9.so
-            lib_deploy.path = /usr/lib
+            !contains(CONFIG, "USE_SYSTEM_LIBS") {
+                LIBS += -Lbuild_linux/libusb  ##I suspect the -L here does nothing!
+                #libdfuprog include
+                LIBS += -L$$PWD/build_linux/libdfuprog/lib/x64
+                lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x64/libdfuprog-0.9.so
+            }
         }
     }
-    
+
+    contains(CONFIG, "USE_SYSTEM_LIBS") {
+        INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/libusb-1.0
+    } else {
+        INCLUDEPATH += build_linux/libusb
+        DEPENDPATH += build_linux/libusb
+
+        #libdfuprog include
+        INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
+        DEPENDPATH += $$PWD/build_linux/libdfuprog/include
+
+        lib_deploy.path = /usr/lib
+        INSTALLS += lib_deploy
+    }
+
     other.files += bin/firmware
     other.files += bin/waveforms
     other.path = /usr/bin/EspoTek-Labrador
@@ -215,7 +216,6 @@ unix:!android:!macx{
     }
 
     INSTALLS += target
-    INSTALLS += lib_deploy
     INSTALLS += other
     INSTALLS += udev
     INSTALLS += icon48

@@ -151,7 +151,7 @@ private:
     void frameActionGeneric(const ChannelMode CH1_mode, const ChannelMode CH2_mode);
     void triggerStateChanged();
     //Variables that are just pointers to other classes/vars
-    QCustomPlot *axes; // TODO: move into DisplayControl
+    QPointer<QCustomPlot> axes; // TODO: move into DisplayControl
 	std::unique_ptr<short[]> readData375_CH1;
 	std::unique_ptr<short[]> readData375_CH2;
 	std::unique_ptr<short[]> readData750;
