@@ -138,6 +138,8 @@ unix:!android:!macx{
     LIBS += -lusb-1.0 ##make sure you have the libusb-1.0-0-dev package!
     LIBS += -ldfuprog-0.9
 
+    QMAKE_CXXFLAGS+=-O2
+
     contains(QT_ARCH, arm) {
             message("Building for Raspberry Pi")
 

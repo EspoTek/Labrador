@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <limits>
 
 #include "isodriver.h"
 #include "uartstyledecoder.h"
@@ -119,19 +120,62 @@ std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSampl
     std::fill (readData.get(), readData.get() + numSamples, short(0));
 
     double itr = delaySamples;
-    for (int i = 0; i < numSamples && itr < m_insertedCount; i++)
+    short *data = &m_buffer[(m_back-1) + m_bufferLen];
+    for (int pos = 0; pos < numSamples && itr < m_insertedCount; pos++)
     {
         if (int(itr) < 0 || ((m_back-1) + m_bufferLen - itr) >= m_bufferLen * 2) {
-            qWarning() << "itr out of range" << itr << numSamples << m_insertedCount << i << timeBetweenSamples;
+            qWarning() << "itr out of range" << itr << numSamples << m_insertedCount << pos << timeBetweenSamples;
             break;
         }
         assert(int(itr) >= 0);
-        readData[i] = bufferAt(int(itr));
+
+        // What we do: We loop over the bytes we would skip, and count the number of negative and positive values.
+        // If there are more negative than positive we select the lowest we found, otherwise we pick the highest.
+        // It's not perfect, but eliminates some of the worst artifacts.
+        // An average would be easier, but you miss the peaks, which are the interesting parts of the data.
+
+        // TODO: to optimize:
+        // - reverse the loop (I thought the prefetching would be smart enough, but maybe not)
+        // - Split loop into blocks with constant length, to avoid the pshuflw and whatnot
+        if (timeBetweenSamples > 1) {
+            int numPositive = 0;
+            int numNegative = 0;
+            short minimum = std::numeric_limits<short>::max();
+            short maximum = std::numeric_limits<short>::min();
+            const int end = qMin<int>(m_insertedCount, itr + timeBetweenSamples);
+            for (int i=itr; i<end; i++) {
+                // 29,94 │       movq      (%rdx,%rdi,2),%xmm4
+                //  7,46 │       pshuflw   $0x1b,%xmm4,%xmm4
+                const short val = data[-i];
+
+                // 8,65 │       pminsw    %xmm4,%xmm1
+                minimum = (val < minimum) ? val : minimum;
+
+                // 4,00 │       pmaxsw    %xmm4,%xmm0
+                maximum = (maximum < val) ? val : maximum;
+
+                // 8,13 │       psrlw     $0xf,%xmm4
+                // 4,12 │       movdqa    %xmm4,%xmm5
+                // 4,43 │       punpcklwd %xmm6,%xmm5
+                // 7,56 │       paddd     %xmm5,%xmm2
+                numNegative += val < 0;
+
+                // 4,78 │       pxor      %xmm11,%xmm4
+                // 4,34 │       punpcklwd %xmm6,%xmm4
+                // 5,98 │       paddd     %xmm4,%xmm3
+                numPositive += val >= 0;
+            }
+            readData[pos] = maximum;
+//            readData[pos] = (minimum < 0 && qAbs(minimum)) > qAbs(maximum) ? minimum: maximum;// numPositive > numNegative ? maximum: minimum;
+//            readData[pos] = numPositive > numNegative ? maximum: minimum;
+        } else {
+            readData[pos] = bufferAt(int(itr));
+        }
 
         if (singleBit)
         {
             int subIdx = 8*(-itr-floor(-itr));
-            readData[i] &= (1 << subIdx);
+            readData[pos] &= (1 << subIdx);
         }
 
         itr += timeBetweenSamples;
