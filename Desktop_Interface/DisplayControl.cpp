@@ -18,6 +18,10 @@ void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused,
 
 void DisplayControl::zoomVertically(const double delta, const double y, QCustomPlot *axes)
 {
+    if (qFuzzyIsNull(delta)) {
+        return;
+    }
+
     double c;
     if (qFuzzyIsNull(topRange) || qFuzzyIsNull(botRange) || qFuzzyCompare(topRange, botRange)) {
         c = 1. / 400.;
@@ -52,19 +56,29 @@ void DisplayControl::zoomVertically(const double delta, const double y, QCustomP
 
 void DisplayControl::zoomHorizontally(const double delta, const double x, bool isProperlyPaused, double maxWindowSize, QCustomPlot *axes)
 {
-    double c = (window) / 200.;
+    if (qFuzzyIsNull(delta)) {
+        return;
+    }
+
+    double c;
+    if (qFuzzyIsNull(window)) {
+        c = 1. / 200.;
+    } else {
+        c = window / 200.;
+    }
+
     QCPRange range = axes->xAxis->range();
 
     double pixPct = 100. * (double(axes->xAxis->pixelToCoord(x)) - range.lower);
 
-    pixPct /= isProperlyPaused ? double(range.upper - range.lower)
-                               : double(window);
+    if (qFuzzyIsNull(window) || qFuzzyCompare(range.upper, range.lower)) {
+        pixPct = 1;
+    } else {
+        pixPct /= isProperlyPaused ? double(range.upper - range.lower)
+                                   : double(window);
+    }
 
-    if (pixPct < 0)
-        pixPct = 0;
-
-    if (pixPct > 100)
-        pixPct = 100;
+    pixPct = qBound(0., pixPct, 100.);
 
     qDebug() << "WHEEL @ " << pixPct << "%";
     qDebug() << delta;
@@ -88,9 +102,6 @@ void DisplayControl::zoomHorizontally(const double delta, const double x, bool i
     } else if (window > maxWindowSize) {
         window = maxWindowSize;
     }
-
-    // NOTE: delayUpdated and timeWindowUpdated are called more than once beyond here,
-    // maybe they should only be called once at the end?
 
     qDebug() << window << delay;
 
