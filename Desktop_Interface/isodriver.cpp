@@ -34,6 +34,11 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     slowTimer->setTimerType(Qt::PreciseTimer);
     slowTimer->start(MULTIMETER_PERIOD);
     connect(slowTimer, &QTimer::timeout, this, &isoDriver::slowTimerTick);
+
+    connect(&display, &DisplayControl::delayUpdated, this, &isoDriver::delayUpdated);
+    connect(&display, &DisplayControl::timeWindowUpdated, this, &isoDriver::timeWindowUpdated);
+    connect(&display, &DisplayControl::topRangeUpdated, this, &isoDriver::topRangeUpdated);
+    connect(&display, &DisplayControl::botRangeUpdated, this, &isoDriver::botRangeUpdated);
 }
 
 isoDriver::~isoDriver()
