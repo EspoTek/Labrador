@@ -1652,7 +1652,7 @@ bool MainWindow::gestureFilter(QGestureEvent *event){
         } else{
             wheelEmu = new QWheelEvent(point, (embiggen ? 120 : -120), 0, 0, Qt::Vertical);
         }
-        ui->controller_iso->setVoltageRange(wheelEmu);
+        ui->controller_iso->onWheelEvent(wheelEmu);
 
         return true;
     } else {

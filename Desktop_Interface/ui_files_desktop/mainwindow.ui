@@ -2716,7 +2716,7 @@
     <signal>multimeterREnabled(int)</signal>
     <signal>multimeterRMS(double)</signal>
     <signal>sendMultimeterLabel4(QString)</signal>
-    <slot>setVoltageRange(QWheelEvent*)</slot>
+    <slot>onWheelEvent(QWheelEvent*)</slot>
     <slot>pauseEnable_CH1(bool)</slot>
     <slot>pauseEnable_CH2(bool)</slot>
     <slot>startTimer()</slot>
@@ -3283,7 +3283,7 @@
    <sender>scopeAxes</sender>
    <signal>mouseWheel(QWheelEvent*)</signal>
    <receiver>controller_iso</receiver>
-   <slot>setVoltageRange(QWheelEvent*)</slot>
+   <slot>onWheelEvent(QWheelEvent*)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>499</x>

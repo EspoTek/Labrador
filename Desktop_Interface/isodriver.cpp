@@ -291,7 +291,7 @@ void isoDriver::setVisible_CH2(bool visible){
     axes->graph(1)->setVisible(visible);
 }
 
-void isoDriver::setVoltageRange(QWheelEvent* event)
+void isoDriver::onWheelEvent(QWheelEvent* event)
 {
     if(doNotTouchGraph && !fileModeEnabled) return;
 

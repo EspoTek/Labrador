@@ -219,7 +219,7 @@ signals:
     void delayUpdated(double);
     void enableCursorGroup(bool);
 public slots:
-    void setVoltageRange(QWheelEvent *event);
+    void onWheelEvent(QWheelEvent *event);
     void timerTick(void);
     void pauseEnable_CH1(bool enabled);
     void pauseEnable_CH2(bool enabled);
