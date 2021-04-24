@@ -327,7 +327,7 @@ void isoDriver::pauseEnable_CH1(bool enabled){
 
     if(!properlyPaused()) {
         display.delay = 0;
-        delayUpdated(display.delay);
+        emit delayUpdated(display.delay);
         if (autoGainEnabled) autoGain();
     }
 
@@ -343,7 +343,7 @@ void isoDriver::pauseEnable_CH2(bool enabled){
 
     if(!properlyPaused()){
         display.delay = 0;
-        delayUpdated(display.delay);
+        emit delayUpdated(display.delay);
         if (autoGainEnabled) autoGain();
     }
 
@@ -358,7 +358,7 @@ void isoDriver::pauseEnable_multimeter(bool enabled){
 
     if(!properlyPaused()) {
         display.delay = 0;
-        delayUpdated(display.delay);
+        emit delayUpdated(display.delay);
     }
 
     if (!enabled) {
@@ -1123,24 +1123,24 @@ void isoDriver::setTopRange(double newTop)
 {
     // NOTE: Should this be clamped to 20?
     display.topRange = newTop;
-    topRangeUpdated(display.topRange);
+    emit topRangeUpdated(display.topRange);
 }
 
 void isoDriver::setBotRange(double newBot)
 {
     // NOTE: Should this be clamped to 20?
     display.botRange = newBot;
-    botRangeUpdated(display.botRange);
+    emit botRangeUpdated(display.botRange);
 }
 
 void isoDriver::setTimeWindow(double newWindow){
     display.window = newWindow;
-    timeWindowUpdated(display.window);
+    emit timeWindowUpdated(display.window);
 }
 
 void isoDriver::setDelay(double newDelay){
     display.delay = newDelay;
-    delayUpdated(display.delay);
+    emit delayUpdated(display.delay);
 }
 
 void isoDriver::takeSnapshot(QString *fileName, unsigned char channel){
@@ -1347,12 +1347,12 @@ void isoDriver::fileTimerTick(){
 void isoDriver::enableFileMode(){
     fileModeEnabled = true;
     daq_maxWindowSize = daqLoad_endTime - daqLoad_startTime;
-    showRealtimeButton(true);
+    emit showRealtimeButton(true);
 }
 
 void isoDriver::disableFileMode(){
     fileModeEnabled = false;
-    showRealtimeButton(false);
+    emit showRealtimeButton(false);
     if(fileTimer != NULL){
         fileTimer->stop();
     }
@@ -1362,17 +1362,17 @@ void isoDriver::disableFileMode(){
     if (display.window > mws)
     {
         display.window = mws;
-        timeWindowUpdated(display.window);
+        emit timeWindowUpdated(display.window);
     }
     if ((display.window + display.delay) > mws)
     {
         display.delay -= display.window + display.delay - mws;
-        delayUpdated(display.delay);
+        emit delayUpdated(display.delay);
     }
     if (display.delay < 0)
     {
         display.delay = 0;
-        delayUpdated(display.delay);
+        emit delayUpdated(display.delay);
     }
 }
 

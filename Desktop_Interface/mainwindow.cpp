@@ -1106,7 +1106,7 @@ void MainWindow::cycleDelayRight(){
     qDebug() << "RIGHT";
     ui->controller_iso->display.delay -= ui->controller_iso->display.window/10;
     if(ui->controller_iso->display.delay < 0) ui->controller_iso->display.delay = 0;
-    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
+    emit ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::cycleDelayLeft(){
@@ -1114,14 +1114,14 @@ void MainWindow::cycleDelayLeft(){
     double mws = ui->controller_iso->fileModeEnabled ? ui->controller_iso->daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
     ui->controller_iso->display.delay += ui->controller_iso->display.window/10;
     if(ui->controller_iso->display.delay > (mws - ui->controller_iso->display.window)) ui->controller_iso->display.delay = (mws - ui->controller_iso->display.window);
-    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
+    emit ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::cycleDelayRight_large(){
     qDebug() << "RIGHT";
     ui->controller_iso->display.delay -= ui->controller_iso->display.window/2;
     if(ui->controller_iso->display.delay < 0) ui->controller_iso->display.delay = 0;
-    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
+    emit ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::cycleDelayLeft_large(){
@@ -1129,7 +1129,7 @@ void MainWindow::cycleDelayLeft_large(){
     double mws = ui->controller_iso->fileModeEnabled ? ui->controller_iso->daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
     ui->controller_iso->display.delay += ui->controller_iso->display.window/2;
     if(ui->controller_iso->display.delay > (mws - ui->controller_iso->display.window)) ui->controller_iso->display.delay = (mws - ui->controller_iso->display.window);
-    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
+    emit ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::enableLabradorDebugging(){

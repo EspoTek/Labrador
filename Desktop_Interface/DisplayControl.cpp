@@ -48,8 +48,8 @@ void DisplayControl::zoomVertically(const double delta, const double y, QCustomP
         botRange -= 0.01;
     }
 
-    topRangeUpdated(topRange);
-    botRangeUpdated(botRange);
+    emit topRangeUpdated(topRange);
+    emit botRangeUpdated(botRange);
 }
 
 void DisplayControl::zoomHorizontally(const double delta, const double x, bool isProperlyPaused, double maxWindowSize, QCustomPlot *axes)
@@ -103,6 +103,6 @@ void DisplayControl::zoomHorizontally(const double delta, const double x, bool i
 
     qDebug() << window << delay;
 
-    delayUpdated(delay);
-    timeWindowUpdated(window);
+    emit delayUpdated(delay);
+    emit timeWindowUpdated(window);
 }
