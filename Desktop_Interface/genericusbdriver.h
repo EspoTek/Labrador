@@ -29,19 +29,23 @@
     #define NUM_ISO_ENDPOINTS (1)
 #endif
 
-#ifdef PLATFORM_WINDOWS
+#ifdef Q_OS_WINDOWS
     #define ISO_PACKETS_PER_CTX 17
     #define NUM_FUTURE_CTX 40
 #elif defined PLATFORM_RASPBERRY_PI
     #define ISO_PACKETS_PER_CTX 66 // 15fps...
     #define NUM_FUTURE_CTX 4
-#elif defined PLATFORM_LINUX
+#elif defined Q_OS_LINUX
     #define ISO_PACKETS_PER_CTX 17
     #define NUM_FUTURE_CTX 20
-#else
+#elif defined Q_OS_MACOS
     // A real Mac may be capable of higher refresh rates and more parallel contexts, but these settings work on a hackintosh too.
     #define ISO_PACKETS_PER_CTX 33
     #define NUM_FUTURE_CTX 4
+#else
+    #warning "Unknown OS"
+    #define ISO_PACKETS_PER_CTX 17
+    #define NUM_FUTURE_CTX 20
 #endif
 
 #define ISO_TIMER_PERIOD 1
