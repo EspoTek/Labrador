@@ -173,6 +173,7 @@ private slots:
     void daq_updatedMaxFileSize(qulonglong newVal);
     void daq_saveButtonPressed();
 
+    void onChannel2Toggled();
 
 
 public slots:
@@ -236,6 +237,7 @@ private:
     Ui::MainWindow *ui;
     bool forceSquare = false;
     QCPItemText *textLabel;
+    QCPItemText *ch2Label = nullptr;
     QFile *output375_CH1, *output375_CH2, *output750;
     unsigned char caibrateStage;
     QMessageBox *calibrationMessages;

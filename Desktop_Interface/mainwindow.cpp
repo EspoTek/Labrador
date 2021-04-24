@@ -242,6 +242,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->attenuationComboBox_CH2, qOverload<int>(&QComboBox::currentIndexChanged), ui->controller_iso, &isoDriver::attenuationChanged_CH2);
 #endif
     connect(ui->controller_iso, &isoDriver::enableCursorGroup, this, &MainWindow::cursorGroupEnabled);
+
+    connect(ui->scopeGroup_CH2, &QGroupBox::toggled, this, &MainWindow::onChannel2Toggled);
 }
 
 MainWindow::~MainWindow()
@@ -281,6 +283,21 @@ void MainWindow::initialisePlot()
 
     textLabel->setVisible(false);
     ui->controller_iso->cursorTextPtr = textLabel;
+
+    QCPItemText *ch1Label = new QCPItemText(ui->scopeAxes);
+    ch1Label->setText("Channel 1");
+    ch1Label->setPositionAlignment(Qt::AlignLeft|Qt::AlignTop); // holy fuck qcustomplot is a clusterfuck
+    ch1Label->position->setType(QCPItemPosition::ptAxisRectRatio);
+    ch1Label->position->setCoords(0.01, 0);
+    ch1Label->setColor(Qt::yellow);
+
+    ch2Label = new QCPItemText(ui->scopeAxes);
+    ch2Label->setPositionAlignment(Qt::AlignLeft|Qt::AlignTop);
+    ch2Label->setText("Channel 2");
+    ch2Label->position->setParentAnchorY(ch1Label->bottom); // this API is horribly confusing
+    ch2Label->position->setParentAnchorX(ch1Label->left);
+    ch2Label->setColor(Qt::cyan);
+    ch2Label->setVisible(false);
 
 #if QCP_VER == 1
     ui->scopeAxes->yAxis->setAutoTickCount(9);
@@ -2129,6 +2146,12 @@ void MainWindow::daq_saveButtonPressed(){
     qDebug() << "MainWindow::daq_saveButtonPressed";
     settings->setValue("daq_defaultAverage", daq_num_to_average);
     settings->setValue("daq_defaultFileSize", daq_max_file_size);
+}
+
+void MainWindow::onChannel2Toggled()
+{
+    ch2Label->setVisible(ui->scopeGroup_CH2->isChecked());
+    ui->scopeAxes->replot(); // what the fuck qcustomplot
 }
 
 void MainWindow::on_actionAbout_triggered()

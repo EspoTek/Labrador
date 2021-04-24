@@ -34,7 +34,7 @@ void bufferControl::scopeIn_CH1(bool state){  //What about DSR!?
     if (scopeState_CH2){ //Implicitly state is false
         scopeState_CH2 = false;
         //updateBuffer(0);  -  Causes issues because the uncheck below called scopeIn_CH2 (but only when toggle)!!!
-        scopeUncheck(false);
+        emit scopeUncheck(false);
     }
 
     //Turn off the DSR when CH1 is disabled.
@@ -42,8 +42,8 @@ void bufferControl::scopeIn_CH1(bool state){  //What about DSR!?
         scopeDsrUncheck(false);
     }
 
-    scopeDsrOut(state);
-    scopeOut_CH2(state);
+    emit scopeDsrOut(state);
+    emit scopeOut_CH2(state);
 
     updateBuffer(state,1); // Do this last to ensure anything accidentally enabled is immediately switched off
     qDebug() << "scopeIn_CH1" << state;
