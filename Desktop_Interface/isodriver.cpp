@@ -582,7 +582,8 @@ void isoDriver::udateCursors(void){
 #endif
     if (!cursorStatsEnabled) return;
 
-    QString *cursorStatsString = new QString();
+    // shouldn't this be moved into the QCP_VER == 1?
+    QString cursorStatsString;
 
     v0->value = display.y0;
     v1->value = display.y1;
@@ -592,22 +593,15 @@ void isoDriver::udateCursors(void){
     dt->value = fabs(display.x0 - display.x1);
     f->value = 1 / (display.x1 - display.x0);
 
-    char temp_hori[64];
-    char temp_vert[64];
-    char temp_separator[2];
-    sprintf(temp_hori, "V0=%s,  V1=%s,  ΔV=%s", v0->printVal(), v1->printVal(), dv->printVal());
-    sprintf(temp_vert, "t0=%s, t1=%s,  Δt=%s,  f=%s", t0->printVal(), t1->printVal(), dt->printVal(), f->printVal());
-    sprintf(temp_separator, "\n");
+    const QString temp_hori = QString::asprintf("V0=%s,  V1=%s,  ΔV=%s", v0->printVal(), v1->printVal(), dv->printVal());
+    const QString temp_vert = QString::asprintf("t0=%s, t1=%s,  Δt=%s,  f=%s", t0->printVal(), t1->printVal(), dt->printVal(), f->printVal());
 
-    //sprintf(temp, "hello!");
-    if(horiCursorEnabled) cursorStatsString->append(temp_hori);
-    if(horiCursorEnabled && vertCursorEnabled) cursorStatsString->append(temp_separator);
-    if(vertCursorEnabled) cursorStatsString->append(temp_vert);
-    //qDebug() << temp;
+    if(horiCursorEnabled) cursorStatsString.append(temp_hori);
+    if(horiCursorEnabled && vertCursorEnabled) cursorStatsString.append("\n");
+    if(vertCursorEnabled) cursorStatsString.append(temp_vert);
 #if QCP_VER == 1
-    cursorTextPtr->setText(*(cursorStatsString));
+    cursorTextPtr->setText(cursorStatsString);
 #endif
-    delete cursorStatsString;
 }
 
 short isoDriver::reverseFrontEnd(double voltage){
