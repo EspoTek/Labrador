@@ -298,7 +298,7 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
     bool isProperlyPaused = properlyPaused();
     double maxWindowSize = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
 
-    display.setVoltageRange(event, isProperlyPaused, maxWindowSize, axes);
+    display.setVoltageRange(event->position(), event->angleDelta(), event->modifiers(), isProperlyPaused, maxWindowSize, axes);
 
     if (!(event->modifiers() == Qt::ControlModifier))
         if (autoGainEnabled && !isProperlyPaused)

@@ -1,19 +1,17 @@
 #include "DisplayControl.h"
 
-#include <QWheelEvent>
 #include <qcustomplot.h>
 #include <QDebug>
 
-void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes)
+void DisplayControl::setVoltageRange (const QPointF &position, const QPoint zoomDelta, const Qt::KeyboardModifiers modifiers, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes)
 {
-    if (!(event->modifiers() == Qt::ControlModifier) && qAbs(event->angleDelta().y()) > qAbs(event->angleDelta().x())) {
-        zoomVertically(event->angleDelta().y(), event->position().y(), axes);
+    const bool isVertical = qAbs(zoomDelta.y()) > qAbs(zoomDelta.x());
+    const bool isHorizontal = qAbs(zoomDelta.x()) > qAbs(zoomDelta.y());
+    if (!(modifiers == Qt::ControlModifier) && isVertical) {
+        zoomVertically(zoomDelta.y(), position.y(), axes);
+    } else if (isHorizontal) {
+        zoomHorizontally(zoomDelta.x(), position.x(), isProperlyPaused, maxWindowSize, axes);
     }
-    else
-    {
-        zoomHorizontally(event->angleDelta().x(), event->position().x(), isProperlyPaused, maxWindowSize, axes);
-    }
-
 }
 
 void DisplayControl::zoomVertically(const double delta, const double y, QCustomPlot *axes)
