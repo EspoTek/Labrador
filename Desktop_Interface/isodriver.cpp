@@ -88,18 +88,21 @@ void isoDriver::timerTick(void){
     // TODO: Do we need to invalidate state when the device is reconnected?
     bool invalidateTwoWireState = true;
     switch(driver->deviceMode){
-        case 0:
-            if (deviceMode_prev != 0 && deviceMode_prev != 1 && deviceMode_prev != 2)
-                clearBuffers(true, false, false);
+        case DeviceCH1Analog:
+            if (deviceMode_prev != DeviceCH1Analog && deviceMode_prev != DeviceCH1AnalogCH2Digital && deviceMode_prev != DeviceCH1AnalogCH2Analog) {
+                clearBuffers(Channel3751);
+            }
 
             frameActionGeneric(ChannelMode::Analog, ChannelMode::Off);
             break;
-        case 1:
-            if (deviceMode_prev != 0 && deviceMode_prev != 1 && deviceMode_prev != 2)
-                clearBuffers(true, false, false);
+        case DeviceCH1AnalogCH2Digital:
+            if (deviceMode_prev != DeviceCH1Analog && deviceMode_prev != 1 && deviceMode_prev != DeviceCH1AnalogCH2Analog) {
+                clearBuffers(Channel3751);
+            }
 
-            if (deviceMode_prev != 1)
-                clearBuffers(false, true, false);
+            if (deviceMode_prev != DeviceCH1AnalogCH2Digital) {
+                clearBuffers(Channel3752);
+            }
 
             internalBuffer375_CH2->m_channel = 1;
             frameActionGeneric(ChannelMode::Analog, ChannelMode::Digital);
@@ -107,28 +110,33 @@ void isoDriver::timerTick(void){
                 internalBuffer375_CH2->serialManage(baudRate_CH1, parity_CH1, hexDisplay_CH1);
             }
             break;
-        case 2:
-            if (deviceMode_prev != 0 && deviceMode_prev != 1 && deviceMode_prev != 2)
-                clearBuffers(true, false, false);
-            if (deviceMode_prev != 2)
-                clearBuffers(false, true, false);
+        case DeviceCH1AnalogCH2Analog:
+            if (deviceMode_prev != DeviceCH1Analog  && deviceMode_prev != DeviceCH1AnalogCH2Digital  && deviceMode_prev != DeviceCH1AnalogCH2Analog) {
+                clearBuffers(Channel3751);
+            }
+            if (deviceMode_prev != DeviceCH1AnalogCH2Analog) {
+                clearBuffers(Channel3752);
+            }
 
             frameActionGeneric(ChannelMode::Analog, ChannelMode::Analog);
             break;
-        case 3:
-            if (deviceMode_prev != 3 && deviceMode_prev != 4)
-                clearBuffers(true, false, false);
+        case DeviceCH1Digital:
+            if (deviceMode_prev != DeviceCH1Digital  && deviceMode_prev != DeviceCH1DigitalCH2Digital) {
+                clearBuffers(Channel3751);
+            }
 
             frameActionGeneric(ChannelMode::Digital, ChannelMode::Off);
             if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1, hexDisplay_CH1);
             }
             break;
-        case 4:
-            if (deviceMode_prev != 3 && deviceMode_prev != 4)
-                clearBuffers(true, false, false);
-            if (deviceMode_prev != 4)
-                clearBuffers(false, true, false);
+        case DeviceCH1DigitalCH2Digital:
+            if (deviceMode_prev != DeviceCH1Digital && deviceMode_prev != DeviceCH1DigitalCH2Digital) {
+                clearBuffers(Channel3751);
+            }
+            if (deviceMode_prev != DeviceCH1DigitalCH2Digital) {
+                clearBuffers(Channel3752);
+            }
 
             internalBuffer375_CH2->m_channel = 2;
             frameActionGeneric(ChannelMode::Digital, ChannelMode::Digital);
@@ -157,14 +165,16 @@ void isoDriver::timerTick(void){
             break;
         case 5:
             break;
-        case 6:
-            if (deviceMode_prev != 6)
-                clearBuffers(false, false, true);
+        case DeviceCH1Analog750:
+            if (deviceMode_prev != DeviceCH1Analog750) {
+                clearBuffers(Channel750);
+            }
             frameActionGeneric(ChannelMode::Analog750, ChannelMode::Off);
             break;
-        case 7:
-            if (deviceMode_prev != 7)
-                clearBuffers(true, false, false);
+        case DeviceMultimeter:
+            if (deviceMode_prev != DeviceMultimeter) {
+                clearBuffers(Channel3751);
+            }
             multimeterAction();
             break;
         default:
@@ -255,10 +265,18 @@ void isoDriver::startTimer(){
     //qFatal("ISO TIMER STARTED");*/
 }
 
-void isoDriver::clearBuffers(bool ch3751, bool ch3752, bool ch750){
-    if(ch3751) internalBuffer375_CH1->clearBuffer();
-    if(ch3752) internalBuffer375_CH2->clearBuffer();
-    if(ch750) internalBuffer750->clearBuffer();
+void isoDriver::clearBuffers(const Channels channels)
+{
+    if (channels & Channel3751) {
+        internalBuffer375_CH1->clearBuffer();
+    }
+    if (channels & Channel3752) {
+        internalBuffer375_CH2->clearBuffer();
+    }
+    if (channels & Channel750) {
+        internalBuffer750->clearBuffer();
+    }
+
     total_read = 0;
 }
 
@@ -387,7 +405,9 @@ void isoDriver::pauseEnable_CH1(bool enabled){
         if (autoGainEnabled) autoGain();
     }
 
-    if(!enabled) clearBuffers(true,false,true);
+    if (!enabled) {
+        clearBuffers(Channel3751 | Channel750);
+    }
     qDebug() << "pauseEnable_CH1" << enabled;
 }
 
@@ -401,7 +421,10 @@ void isoDriver::pauseEnable_CH2(bool enabled){
         if (autoGainEnabled) autoGain();
     }
 
-    if(!enabled) clearBuffers(false,true,false);
+    if (!enabled) {
+        clearBuffers(Channel3752);
+    }
+    qDebug() << "pauseEnable_CH2" << enabled;
 }
 
 void isoDriver::pauseEnable_multimeter(bool enabled){
@@ -412,7 +435,9 @@ void isoDriver::pauseEnable_multimeter(bool enabled){
         delayUpdated(display.delay);
     }
 
-    if(!enabled) clearBuffers(true,false,false);
+    if (!enabled) {
+        clearBuffers(Channel3751);
+    }
     qDebug() << "pauseEnable_multimeter" << enabled;
 }
 

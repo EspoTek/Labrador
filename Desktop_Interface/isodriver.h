@@ -52,6 +52,14 @@ class isoDriver : public QLabel
 {
     Q_OBJECT
 public:
+    enum Channel {
+        Channel3751 = 1 << 0,
+        Channel3752 = 1 << 1,
+        Channel750 =  1 << 2,
+    };
+    Q_DECLARE_FLAGS(Channels, Channel);
+    Q_FLAG(Channel);
+
     enum class ChannelMode {
         Off = 0,
         Analog = 1,
@@ -60,6 +68,17 @@ public:
         File = -2
     };
     Q_ENUM(ChannelMode);
+
+    enum DeviceMode {
+        DeviceCH1Analog = 0,
+        DeviceCH1AnalogCH2Digital = 1,
+        DeviceCH1AnalogCH2Analog = 2,
+        DeviceCH1Digital = 3,
+        DeviceCH1DigitalCH2Digital = 4,
+        DeviceCH1Analog750 = 6,
+        DeviceMultimeter = 7
+    };
+    Q_ENUM(DeviceMode);
 
     explicit isoDriver(QWidget *parent = 0);
     ~isoDriver();
@@ -239,7 +258,7 @@ public slots:
     void pauseEnable_CH2(bool enabled);
     void pauseEnable_multimeter(bool enabled);
     void startTimer();
-    void clearBuffers(bool ch3751, bool ch3752, bool ch750);
+    void clearBuffers(const isoDriver::Channels channels);
     void setVisible_CH2(bool visible);
     void gainBuffers(double multiplier);
     void gainTick(void);
@@ -297,5 +316,7 @@ public slots:
     void setHexDisplay_CH1(bool enabled);
     void setHexDisplay_CH2(bool enabled);
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(isoDriver::Channels);
 
 #endif // ISODRIVER_H
