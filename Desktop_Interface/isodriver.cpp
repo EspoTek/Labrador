@@ -528,7 +528,7 @@ void isoDriver::udateCursors(void){
     t0->value = display.x0;
     t1->value = display.x1;
     dt->value = fabs(display.x0 - display.x1);
-    f->value = 1 / (display.x1 - display.x0);
+    f->value = display.x1 != display.x0 ? 1 / (display.x1 - display.x0) : 0.;
 
     const QString temp_hori = QString::asprintf("V0=%s,  V1=%s,  ΔV=%s", v0->printVal(), v1->printVal(), dv->printVal());
     const QString temp_vert = QString::asprintf("t0=%s, t1=%s,  Δt=%s,  f=%s", t0->printVal(), t1->printVal(), dt->printVal(), f->printVal());
