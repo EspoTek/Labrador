@@ -258,6 +258,7 @@ public slots:
     void pauseEnable_CH2(bool enabled);
     void pauseEnable_multimeter(bool enabled);
     void startTimer();
+    void clearBuffers(bool ch3751, bool ch3752, bool ch750);
     void clearBuffers(const isoDriver::Channels channels);
     void setVisible_CH2(bool visible);
     void gainBuffers(double multiplier);
