@@ -268,9 +268,11 @@ void MainWindow::initialisePlot()
     ui->scopeAxes->addGraph();
     ui->scopeAxes->addGraph();
 
-#if QCP_VER == 1
     textLabel = new QCPItemText(ui->scopeAxes);
+#if QCP_VER == 1
     ui->scopeAxes->addItem(textLabel);
+#endif
+
     textLabel->setPositionAlignment(Qt::AlignTop|Qt::AlignRight);
     textLabel->position->setType(QCPItemPosition::ptAxisRectRatio);
     textLabel->position->setCoords(0.99, 0); // place position at center/top of axis rect
@@ -283,6 +285,7 @@ void MainWindow::initialisePlot()
     textLabel->setVisible(false);
     ui->controller_iso->cursorTextPtr = textLabel;
 
+#if QCP_VER == 1
     ui->scopeAxes->yAxis->setAutoTickCount(9);
     ui->scopeAxes->xAxis->setAutoTickCount(9);
 #endif

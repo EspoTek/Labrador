@@ -476,9 +476,7 @@ void isoDriver::cursorEnableVert(bool enabled){
 
 void isoDriver::udateCursors(void){
     if(!(vertCursorEnabled || horiCursorEnabled)){
-#if QCP_VER == 1
         cursorTextPtr->setVisible(false);
-#endif
         return;
     }
 
@@ -512,12 +510,11 @@ void isoDriver::udateCursors(void){
         axes->graph(4)->setData(hori0x, hori0y);
         axes->graph(5)->setData(hori1x, hori1y);
     }
-#if QCP_VER == 1
+
     cursorTextPtr->setVisible(cursorStatsEnabled);
-#endif
+
     if (!cursorStatsEnabled) return;
 
-    // shouldn't this be moved into the QCP_VER == 1?
     QString cursorStatsString;
 
     v0->value = display.y0;
@@ -534,9 +531,7 @@ void isoDriver::udateCursors(void){
     if(horiCursorEnabled) cursorStatsString.append(temp_hori);
     if(horiCursorEnabled && vertCursorEnabled) cursorStatsString.append("\n");
     if(vertCursorEnabled) cursorStatsString.append(temp_vert);
-#if QCP_VER == 1
     cursorTextPtr->setText(cursorStatsString);
-#endif
 }
 
 short isoDriver::reverseFrontEnd(double voltage){

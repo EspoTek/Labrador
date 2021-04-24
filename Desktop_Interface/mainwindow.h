@@ -16,7 +16,7 @@
 #include <QGridLayout>
 
 #include <math.h>
-#include "qcustomplot.h"
+#include <qcustomplot.h>
 
 #include "platformspecific.h"
 #include "qcustomplot.h"
