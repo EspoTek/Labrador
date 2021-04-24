@@ -164,6 +164,7 @@ private slots:
     void on_actionShow_Debug_Console_triggered();
 
     void on_actionDAQ_Settings_triggered();
+    void on_actionResetDisplay();
 
     void fileLimitReached_CH1(void);
     void fileLimitReached_CH2(void);

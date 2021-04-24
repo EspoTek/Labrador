@@ -987,7 +987,8 @@ void MainWindow::initShortcuts(){
     new QShortcut(QKeySequence("Ctrl+Shift+B"), this, SLOT(cycleBaudRateBackwards_CH1()));
     new QShortcut(QKeySequence("Ctrl+Alt+B"), this, SLOT(cycleBaudRate_CH2()));
     new QShortcut(QKeySequence("Ctrl+Shift+Alt+B"), this, SLOT(cycleBaudRateBackwards_CH2()));
-    new QShortcut(QKeySequence("Z"), this, SLOT(on_actionSnap_to_Cursors_triggered()));
+    new QShortcut(QKeySequence("z"), this, SLOT(on_actionSnap_to_Cursors_triggered()));
+    new QShortcut(QKeySequence("Shift+Z"), this, SLOT(on_actionResetDisplay()));
     new QShortcut(QKeySequence("M"), this, SLOT(on_actionEnter_Manually_triggered()));
     new QShortcut(QKeySequence("c"), this, SLOT(on_actionSnapshot_CH1_triggered()));
     new QShortcut(QKeySequence("v"), this, SLOT(on_actionSnapshot_CH2_triggered()));
@@ -2083,6 +2084,15 @@ void MainWindow::on_actionDAQ_Settings_triggered()
     connect(&df, &daqForm::saveButtonPressed, this, &MainWindow::daq_saveButtonPressed);
 
     df.exec();
+}
+
+void MainWindow::on_actionResetDisplay()
+{
+    ui->controller_iso->setBotRange(-0.5);
+    ui->controller_iso->setTopRange(2.5);
+    ui->controller_iso->setDelay(0.);
+    ui->controller_iso->setTimeWindow(MAX_WINDOW_SIZE);
+
 }
 
 void MainWindow::fileLimitReached_CH1(void){
