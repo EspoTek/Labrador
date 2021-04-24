@@ -406,10 +406,11 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
 
     QVector<uint32_t>::reverse_iterator it = std::find_if(m_triggerPositionList.rbegin(), m_triggerPositionList.rend(), [=](uint32_t index)
     {
-        if (m_back > delaySamples)
+        if (m_back > delaySamples) {
             return (index < m_back - delaySamples) || (index >= m_back);
-        else
-            return (index < m_bufferLen + m_back - delaySamples) && (index >= m_back);
+        }
+
+        return (index < m_bufferLen + m_back - delaySamples) && (index >= m_back);
     });
 
     if (it != m_triggerPositionList.rend())
@@ -417,10 +418,12 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
         // NOTE: vector::erase does not remove the element pointed to by the second iterator.
         m_triggerPositionList.erase(m_triggerPositionList.begin(), std::prev(it.base()));
         const uint32_t index = m_triggerPositionList[0];
-        if (m_back > index)
+
+        if (m_back > index) {
             return (m_back - index) / double(m_samplesPerSecond);
-        else
-            return (m_bufferLen + (m_back-1) - index) / double(m_samplesPerSecond);
+        }
+
+        return (m_bufferLen + (m_back-1) - index) / double(m_samplesPerSecond);
     }
 
     return 0;
