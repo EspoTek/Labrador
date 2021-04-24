@@ -395,50 +395,32 @@ void isoBuffer::checkTriggered()
 
 double isoBuffer::getDelayedTriggerPoint(double delay)
 {
-    if (m_triggerPositionList.size() == 0)
+    if (m_triggerPositionList.isEmpty()) {
         return 0;
+    }
 	
+    // Holy fuck the STL APIs suck,
+    // TODO: port to something sane that is readable
+
     const uint32_t delaySamples = delay * m_samplesPerSecond;
 
-    auto isValid = [=](uint32_t index)->bool
+    QVector<uint32_t>::reverse_iterator it = std::find_if(m_triggerPositionList.rbegin(), m_triggerPositionList.rend(), [=](uint32_t index)
     {
         if (m_back > delaySamples)
             return (index < m_back - delaySamples) || (index >= m_back);
         else
             return (index < m_bufferLen + m_back - delaySamples) && (index >= m_back);
-    };
+    });
 
-    auto getDelay = [=](uint32_t index)->double
-    {
-        if (m_back > index)
-            return (m_back - index) / static_cast<double>(m_samplesPerSecond);
-        else
-            return (m_bufferLen + (m_back-1) - index) / static_cast<double>(m_samplesPerSecond);
-    };
-
-    // Like std::find_if but returns the last element matching the predicate instead of the first one
-    // TODO: Move this elsewhere (maybe a utils / algorithms file??)
-    // requires first and last to be Bidirectional iters, and form a valid range
-    // requires p to be a valid unaryPredicate
-    // Full signature would be:
-    // template<typename It, typename Predicate>
-    // It find_last_if(It begin, It end, Predicate p)
-    auto find_last_if = [](auto begin, auto end, auto p)
-    {
-        using It = decltype(begin); // TODO: remove this line once this is a proper function
-        std::reverse_iterator<It> rlast(begin), rfirst(end);
-        auto found = std::find_if(rfirst, rlast, p);
-        return found == rlast
-               ? end
-               : std::prev(found.base());
-    };
-
-    auto it = find_last_if(m_triggerPositionList.begin(), m_triggerPositionList.end(), isValid);
-    if (it != m_triggerPositionList.end())
+    if (it != m_triggerPositionList.rend())
     {
         // NOTE: vector::erase does not remove the element pointed to by the second iterator.
-        m_triggerPositionList.erase(m_triggerPositionList.begin(), it);
-        return getDelay(m_triggerPositionList[0]);
+        m_triggerPositionList.erase(m_triggerPositionList.begin(), std::prev(it.base()));
+        const uint32_t index = m_triggerPositionList[0];
+        if (m_back > index)
+            return (m_back - index) / double(m_samplesPerSecond);
+        else
+            return (m_bufferLen + (m_back-1) - index) / double(m_samplesPerSecond);
     }
 
     return 0;

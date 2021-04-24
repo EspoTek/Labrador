@@ -113,7 +113,7 @@ public:
     TriggerSeekState m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
     short m_triggerLevel = 0;
     short m_triggerSensitivity = 0;
-    std::vector<uint32_t> m_triggerPositionList = {};
+    QVector<uint32_t> m_triggerPositionList = {};
 //	UARTS decoding
 	uartStyleDecoder* m_decoder = NULL;
 	bool m_isDecoding = true;
