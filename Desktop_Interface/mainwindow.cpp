@@ -158,7 +158,7 @@ MainWindow::MainWindow(QWidget *parent) :
         //Set the settings again!
         connect(ui->controller_iso->driver, SIGNAL(gainBuffers(double)), ui->controller_iso, SLOT(gainBuffers(double)));
         connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), this, SLOT(setEnabled(bool)));
-        connect(ui->controller_iso->driver, SIGNAL(sendClearBuffer(bool,bool,bool)), ui->controller_iso, SLOT(clearBuffers(bool,bool,bool)));
+        connect(ui->controller_iso->driver, SIGNAL(sendClearBuffer(bool,bool,bool)), ui->controller_iso, SLOT(clearChannelBuffers(bool,bool,bool)));
         //connect(ui->controller_iso->driver, SIGNAL(startIsoTimer()), ui->controller_iso, SLOT(startTimer()));
         connect(ui->controller_iso->driver, SIGNAL(setVisible_CH2(bool)), ui->controller_iso, SLOT(setVisible_CH2(bool)));
         //connect(ui->controller_iso->driver, SIGNAL(enableMMTimer()), ui->controller_iso, SLOT(enableMM()));
@@ -1342,7 +1342,7 @@ void MainWindow::reinitUsbStage2(void){
     //Set the settings again!
     connect(ui->controller_iso->driver, SIGNAL(gainBuffers(double)), ui->controller_iso, SLOT(gainBuffers(double)));
     connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), this, SLOT(setEnabled(bool)));
-    connect(ui->controller_iso->driver, SIGNAL(sendClearBuffer(bool,bool,bool)), ui->controller_iso, SLOT(clearBuffers(bool,bool,bool)));
+    connect(ui->controller_iso->driver, SIGNAL(sendClearBuffer(bool,bool,bool)), ui->controller_iso, SLOT(clearChannelBuffers(bool,bool,bool)));
     //connect(ui->controller_iso->driver, SIGNAL(startIsoTimer()), ui->controller_iso, SLOT(startTimer()));
     connect(ui->controller_iso->driver, SIGNAL(setVisible_CH2(bool)), ui->controller_iso, SLOT(setVisible_CH2(bool)));
     //connect(ui->controller_iso->driver, SIGNAL(enableMMTimer()), ui->controller_iso, SLOT(enableMM()));
@@ -1373,7 +1373,7 @@ void MainWindow::resetUsbState(void){
     ui->controller_iso->driver->setFunctionGen(ChannelID::CH1, ui->controller_fg->getChannelController(ChannelID::CH1));
     ui->controller_iso->driver->setFunctionGen(ChannelID::CH2, ui->controller_fg->getChannelController(ChannelID::CH2));
 
-    ui->controller_iso->clearBuffers(true,true,true);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     ui->controller_iso->doNotTouchGraph = false;
 }
 
@@ -1741,7 +1741,7 @@ void MainWindow::on_actionCalibrate_triggered()
     calibrationMessages->setText("Please disconnect all wires from your Labrador board then press OK to continue.");
     calibrationMessages->exec();
 
-    ui->controller_iso->clearBuffers(true,true,true);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     QTimer::singleShot(1200, this, SLOT(calibrateStage2()));
 }
 
@@ -1770,7 +1770,7 @@ void MainWindow::calibrateStage2(){
     calibrationMessages->setText("Please connect both oscilloscope channels to the outer shield of the USB connector then press OK to continue.");
     calibrationMessages->exec();
 
-    ui->controller_iso->clearBuffers(true,true,true);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     QTimer::singleShot(1200, this, SLOT(calibrateStage3()));
 }
 
@@ -2270,7 +2270,7 @@ void MainWindow::on_actionCalibrate_2_triggered()
     calibrationMessages->exec();
 
     ui->controller_iso->driver->setPsu(5);
-    ui->controller_iso->clearBuffers(true,true,true);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     QTimer::singleShot(1800, this, SLOT(calibrate_psu_stage2()));
 }
 
@@ -2281,7 +2281,7 @@ void MainWindow::calibrate_psu_stage2()
     if((PSU5 > 6) | (PSU5 < 4) ){
         ui->controller_iso->driver->setPsu(4.5);
         ui->psuSlider->setValue(0);
-        ui->controller_iso->clearBuffers(true,true,true);
+        ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
         ui->controller_iso->setAutoGain(true);
         ui->controller_iso->autoGain();
         calibrationMessages->setText("Calibration has been abandoned due to out-of-range values.  The oscilloscope should show approximately 5V.  Please check all wires on your Labrador board and try again.");
@@ -2290,7 +2290,7 @@ void MainWindow::calibrate_psu_stage2()
     }
     ui->controller_iso->setGain(1);
     ui->controller_iso->driver->setPsu(10);
-    ui->controller_iso->clearBuffers(true,true,true);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     QTimer::singleShot(1800, this, SLOT(calibrate_psu_stage3()));
 }
 
@@ -2300,7 +2300,7 @@ void MainWindow::calibrate_psu_stage3()
     qDebug() << "PSU10 =" << PSU10;
     ui->controller_iso->driver->setPsu(4.5);
     ui->psuSlider->setValue(0);
-    ui->controller_iso->clearBuffers(true,true,true);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     ui->controller_iso->setAutoGain(true);
     ui->controller_iso->autoGain();
 

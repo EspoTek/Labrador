@@ -2780,7 +2780,7 @@
     <slot>pauseEnable_CH1(bool)</slot>
     <slot>pauseEnable_CH2(bool)</slot>
     <slot>startTimer()</slot>
-    <slot>clearBuffers(bool,bool,bool)</slot>
+    <slot>clearChannelBuffers(bool,bool,bool)</slot>
     <slot>setVisible_CH2(bool)</slot>
     <slot>gainBuffers(double)</slot>
     <slot>setAutoGain(bool)</slot>
