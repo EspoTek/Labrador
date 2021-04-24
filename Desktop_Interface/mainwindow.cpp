@@ -1244,7 +1244,7 @@ void MainWindow::helloWorld(){
 
 #define QSETTINGS_DEFAULT_RETURN 42069
 void MainWindow::readSettingsFile(){
-    settings = new QSettings();
+    settings = new QSettings(this);
     int connectionType = settings->value("ConnectionType", QSETTINGS_DEFAULT_RETURN).toInt();
     double calibrate_vref_ch1 = settings->value("CalibrateVrefCH1", 1.65).toDouble();
     double calibrate_vref_ch2 = settings->value("CalibrateVrefCH2", 1.65).toDouble();
