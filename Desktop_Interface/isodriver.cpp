@@ -201,9 +201,9 @@ void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int T
     double *data = doublePtr->data();
     for (int i=0;i<GRAPH_SAMPLES;i++){
         data[i] = (shortPtr[i] * (vcc/2)) / (frontendGain*scope_gain*TOP);
-        if (driver->deviceMode != 7) data[i] += ref;
+        if (driver->deviceMode != DeviceMultimeter) data[i] += ref;
         #ifdef INVERT_MM
-            if(driver->deviceMode == 7) data[i] *= -1;
+            if(driver->deviceMode == DeviceMultimeter) data[i] *= -1;
         #endif
 
         accumulated += data[i];
@@ -390,7 +390,7 @@ bool isoDriver::properlyPaused(){
         qDebug() << "Properly paused";
         return true;
     }
-    if ((driver->deviceMode == 0) || (driver->deviceMode == 3) || (driver->deviceMode == 6)){
+    if ((driver->deviceMode == DeviceCH1Analog) || (driver->deviceMode == DeviceCH1Digital) || (driver->deviceMode == DeviceCH1Analog750)){
         if(paused_CH1) qDebug() << "Properly paused"; else qDebug() << "Not properly paused";
         return paused_CH1;
     }
@@ -473,9 +473,24 @@ void isoDriver::gainTick(void){
 #warning: "gainTick does nothing on Android!!"
 #else
     qDebug() << "Multiplying by " << multi;
-    if (driver->deviceMode <5) internalBuffer375_CH1->gainBuffer(log2(multi));
-    if ((driver->deviceMode == 1) | (driver->deviceMode == 2) | (driver->deviceMode == 4)) internalBuffer375_CH2->gainBuffer(log2(multi));
-    if ((driver->deviceMode == 6) | (driver->deviceMode == 7)) internalBuffer750->gainBuffer(log2(multi));
+    if (driver->deviceMode <= DeviceCH1DigitalCH2Digital) {
+        internalBuffer375_CH1->gainBuffer(log2(multi));
+    }
+
+    switch(driver->deviceMode) {
+    case DeviceCH1AnalogCH2Digital:
+    case DeviceCH1AnalogCH2Analog:
+    case DeviceCH1DigitalCH2Digital:
+        internalBuffer375_CH2->gainBuffer(log2(multi));
+        break;
+    case DeviceCH1Analog750:
+    case DeviceMultimeter:
+        internalBuffer750->gainBuffer(log2(multi));
+        break;
+    default:
+        qWarning() << "Invalid device mode" << driver->deviceMode;
+        break;
+    }
 #endif
 }
 
@@ -607,15 +622,15 @@ void isoDriver::udateCursors(void){
 short isoDriver::reverseFrontEnd(double voltage){
     //qFatal("reverseFrontEnd driver mode 7");
     #ifdef INVERT_MM
-        if(driver->deviceMode == 7) voltage *= -1;
+        if(driver->deviceMode == DeviceMultimeter) voltage *= -1;
     #endif
 
 
     double vn = vcc * (R2/(R1+R2));
     double vx = vn + (voltage - vn) * (R4 / (R3+R4));
-    double TOP = (driver->deviceMode == 7) ? 2048 : 128;
+    double TOP = (driver->deviceMode == DeviceMultimeter) ? 2048 : 128;
 
-    if (driver->deviceMode == 7){
+    if (driver->deviceMode == DeviceMultimeter){
         qDebug() << "SEEEKING";
         qDebug() <<  ((vx - vn)/vref * (double)driver->scopeGain * (double)TOP + (double)0.5);
         qDebug() << "SEEEKING";
@@ -636,7 +651,7 @@ void isoDriver::setTriggerEnabled(bool enabled)
 
 void isoDriver::setTriggerLevel(double level)
 {
-    internalBuffer375_CH1->setTriggerLevel(level, (driver->deviceMode == 7 ? 2048 : 128), AC_CH1);
+    internalBuffer375_CH1->setTriggerLevel(level, (driver->deviceMode == DeviceMultimeter ? 2048 : 128), AC_CH1);
     internalBuffer375_CH2->setTriggerLevel(level, 128, AC_CH2);
     internalBuffer750->setTriggerLevel(level, 128, AC_CH1);
     triggerStateChanged();

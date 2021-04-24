@@ -263,29 +263,29 @@ void genericUsbDriver::setDeviceMode(int mode){
 
     //switch on new deviceMode!!
     switch(deviceMode){
-        case 0:
-            if(oldMode > 2) sendClearBuffer(true,false,false);
+        case DeviceCH1Analog:
+            if(oldMode > DeviceCH1AnalogCH2Analog) sendClearBuffer(true,false,false);
             setVisible_CH2(false);
             checkXY(false);
             break;
-        case 1:
+        case DeviceCH1AnalogCH2Digital:
             if(oldMode > 2) sendClearBuffer(true,false,false);
             sendClearBuffer(false,true,false);
             setVisible_CH2(true);
             checkXY(false);
             break;
-        case 2:
+        case DeviceCH1AnalogCH2Analog:
             if(oldMode > 2) sendClearBuffer(true,false,false);
             sendClearBuffer(false,true,false);
             setVisible_CH2(true);
             break;
-        case 3:
+        case DeviceCH1Digital:
             if(oldMode != 4) sendClearBuffer(true,false,false);
             sendClearBuffer(false,true,false);
             setVisible_CH2(true);
             checkXY(false);
             break;
-        case 4:
+        case DeviceCH1DigitalCH2Digital :
             if(oldMode != 3) sendClearBuffer(true,false,false);
             sendClearBuffer(false,true,false);
             setVisible_CH2(true);
@@ -295,12 +295,12 @@ void genericUsbDriver::setDeviceMode(int mode){
             setVisible_CH2(false);
             checkXY(false);
             break;
-        case 6:
+        case DeviceCH1Analog750 :
             sendClearBuffer(false,false,true);
             setVisible_CH2(false);
             checkXY(false);
             break;
-        case 7:
+        case DeviceMultimeter:
             sendClearBuffer(true,false,false);
             enableMMTimer();
             checkXY(false);

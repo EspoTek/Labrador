@@ -260,9 +260,9 @@ double isoBuffer::sampleConvert(short sample, int TOP, bool AC) const
     double scope_gain = (double)(m_virtualParent->driver->scopeGain);
 
     double voltageLevel = (sample * (vcc/2)) / (m_frontendGain*scope_gain*TOP);
-    if (m_virtualParent->driver->deviceMode != 7) voltageLevel += m_voltage_ref;
+    if (m_virtualParent->driver->deviceMode != DeviceMultimeter) voltageLevel += m_voltage_ref;
 #ifdef INVERT_MM
-    if (m_virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
+    if (m_virtualParent->driver->deviceMode == DeviceMultimeter) voltageLevel *= -1;
 #endif
 
     if (AC)
@@ -286,9 +286,9 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) con
     }
 
 #ifdef INVERT_MM
-    if (m_virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
+    if (m_virtualParent->driver->deviceMode == DeviceMultimeter) voltageLevel *= -1;
 #endif
-    if (m_virtualParent->driver->deviceMode != 7) voltageLevel -= m_voltage_ref;
+    if (m_virtualParent->driver->deviceMode != DeviceMultimeter) voltageLevel -= m_voltage_ref;
 
     // voltageLevel = (sample * (vcc/2)) / (frontendGain*scope_gain*TOP);
     short sample = (voltageLevel * (m_frontendGain*scope_gain*TOP))/(vcc/2);

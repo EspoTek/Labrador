@@ -1693,7 +1693,7 @@ void MainWindow::on_actionCalibrate_triggered()
         calibrationMessages->exec();
         return;
     }
-    if(ui->controller_iso->driver->deviceMode!=4){
+    if(ui->controller_iso->driver->deviceMode != DeviceCH1DigitalCH2Digital){
         calibrationMessages->setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
         calibrationMessages->setText("The calibration sequence requires all devices to be turned off, except for the oscilloscope CH1 and CH2.  Is it OK for me to change your workspace?");
         int choice = calibrationMessages->exec();
@@ -1992,7 +1992,7 @@ void MainWindow::on_actionRecord_CH1_triggered(bool checked)
     qDebug() << "on_actionRecord_CH1_triggered(bool checked)";
     qDebug() << daq_max_file_size;
     if(!checked){
-        if(ui->controller_iso->driver->deviceMode!=6){
+        if(ui->controller_iso->driver->deviceMode != DeviceCH1Analog750) {
             ui->controller_iso->internalBuffer375_CH1->disableFileIO();
             delete(output375_CH1);
         } else {
@@ -2014,7 +2014,7 @@ void MainWindow::on_actionRecord_CH1_triggered(bool checked)
         return; //User cancelled
     }
 #endif
-    if(ui->controller_iso->driver->deviceMode!=6){
+    if(ui->controller_iso->driver->deviceMode != DeviceCH1Analog750) {
         output375_CH1 = new QFile(fileName);
         ui->controller_iso->internalBuffer375_CH1->enableFileIO(output375_CH1, daq_num_to_average, daq_max_file_size);
     } else {
@@ -2048,7 +2048,7 @@ void MainWindow::on_actionRecord_CH2_triggered(bool checked)
     output375_CH2 = new QFile(fileName);
     ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2, daq_num_to_average, daq_max_file_size);
 
-    if((checked) && (ui->controller_iso->driver->deviceMode != 4))
+    if((checked) && (ui->controller_iso->driver->deviceMode != DeviceCH1DigitalCH2Digital))
         QMessageBox::warning(nullptr, "Warning", "CH2 is disabled.  The DAQ will NOT RECORD any data from from CH2 until it has been enabled!");
 }
 

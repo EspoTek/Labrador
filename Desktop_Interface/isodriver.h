@@ -69,17 +69,6 @@ public:
     };
     Q_ENUM(ChannelMode);
 
-    enum DeviceMode {
-        DeviceCH1Analog = 0,
-        DeviceCH1AnalogCH2Digital = 1,
-        DeviceCH1AnalogCH2Analog = 2,
-        DeviceCH1Digital = 3,
-        DeviceCH1DigitalCH2Digital = 4,
-        DeviceCH1Analog750 = 6,
-        DeviceMultimeter = 7
-    };
-    Q_ENUM(DeviceMode);
-
     explicit isoDriver(QWidget *parent = 0);
     ~isoDriver();
 

@@ -17,13 +17,26 @@
 #define R2 (double)1000
 #define R1 (double)1000
 
-#define INIT_DEVICE_MODE 0
-
 #define PSU_STEP 5
 #define PSU_PERIOD 100
 #define PSU_ADC_TOP 128
 
 #define INVERT_TRIPLE
 #define INVERT_MM
+
+enum DeviceMode {
+    DeviceCH1Analog = 0,
+    DeviceCH1AnalogCH2Digital = 1,
+    DeviceCH1AnalogCH2Analog = 2,
+
+    DeviceCH1Digital = 3,
+    DeviceCH1DigitalCH2Digital = 4,
+
+    DeviceCH1Analog750 = 6,
+
+    DeviceMultimeter = 7
+};
+
+#define INIT_DEVICE_MODE DeviceCH1Analog
 
 #endif // XMEGA_H
