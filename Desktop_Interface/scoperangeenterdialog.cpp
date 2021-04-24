@@ -27,7 +27,7 @@ scopeRangeEnterDialog::scopeRangeEnterDialog(QWidget *parent, bool buttonVisible
     for (espoSpinBox* spinBox : {ui->vMaxBox, ui->vMinBox, ui->timeWindowBox, ui->delayBox})
 	{
 		spinBox->changeStepping(spinBox->value());
-        connect(spinBox, SIGNAL(valueChanged(double)), spinBox, SLOT(changeStepping(double)));
+        connect(spinBox, qOverload<double>(&QDoubleSpinBox::valueChanged), spinBox, &espoSpinBox::changeStepping);
 	}
 }
 

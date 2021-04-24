@@ -197,7 +197,7 @@ int  winUsbDriver::usbIsoInit(void){
     isoTimer = new QTimer();
     isoTimer->setTimerType(Qt::PreciseTimer);
     isoTimer->start(ISO_TIMER_PERIOD);
-    connect(isoTimer, SIGNAL(timeout()), this, SLOT(isoTimerTick()));
+    connect(isoTimer.data(), &QTimer::timeout, this, &winUsbDriver::isoTimerTick);
 
     qDebug() << "Setup successful!";
     return 0;

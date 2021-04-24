@@ -78,7 +78,7 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
     connectTimer = new QTimer(this);
     connectTimer->setTimerType(Qt::PreciseTimer);
     connectTimer->start(USB_RECONNECT_PERIOD);
-    connect(connectTimer, SIGNAL(timeout()), this, SLOT(checkConnection()));
+    connect(connectTimer.data(), &QTimer::timeout, this, &genericUsbDriver::checkConnection);
     qDebug()<< "Generic Usb Driver setup complete";
 	messageBox = new QMessageBox();
 }
@@ -495,14 +495,14 @@ void genericUsbDriver::checkConnection(){
     psuTimer = new QTimer();
     psuTimer->setTimerType(Qt::PreciseTimer);
     psuTimer->start(PSU_PERIOD);
-    connect(psuTimer, SIGNAL(timeout()), this, SLOT(psuTick()));
+    connect(psuTimer, &QTimer::timeout, this, &genericUsbDriver::psuTick);
 
     if(killOnConnect) usbSendControl(0x40, 0xa7, 0, 0, 0, nullptr);
 
     recoveryTimer = new QTimer();
     recoveryTimer->setTimerType(Qt::PreciseTimer);
     recoveryTimer->start(RECOVERY_PERIOD);
-    connect(recoveryTimer, SIGNAL(timeout()), this, SLOT(recoveryTick()));
+    connect(recoveryTimer.data(), &QTimer::timeout, this, &genericUsbDriver::recoveryTick);
     initialConnectComplete();
 
     if(!killOnConnect && calibrateOnConnect){

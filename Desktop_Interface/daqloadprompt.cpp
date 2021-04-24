@@ -18,8 +18,8 @@ daqLoadPrompt::daqLoadPrompt(QWidget *parent, double minTime, double maxTime) :
     ui->endTimeDoubleSpinBox->setValue(maxTime);
 
     //Internal signals
-    connect(ui->startTimeDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(valueChange()));
-    connect(ui->endTimeDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(valueChange()));
+    connect(ui->startTimeDoubleSpinBox, &QDoubleSpinBox::textChanged, this, &daqLoadPrompt::valueChange);
+    connect(ui->endTimeDoubleSpinBox, &QDoubleSpinBox::textChanged, this, &daqLoadPrompt::valueChange);
 
     valueChange();
 }

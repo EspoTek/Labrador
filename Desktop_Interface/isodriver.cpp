@@ -33,7 +33,7 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     slowTimer = new QTimer(this);
     slowTimer->setTimerType(Qt::PreciseTimer);
     slowTimer->start(MULTIMETER_PERIOD);
-    connect(slowTimer, SIGNAL(timeout()), this, SLOT(slowTimerTick()));
+    connect(slowTimer, &QTimer::timeout, this, &isoDriver::slowTimerTick);
 }
 
 isoDriver::~isoDriver()
@@ -1252,8 +1252,8 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
     qDebug() << "maxTime =" << maxTime;
 
     daqLoadPrompt dlp(this, minTime, maxTime);
-    connect(&dlp, SIGNAL(startTime(double)), this, SLOT(daqLoad_startChanged(double)));
-    connect(&dlp, SIGNAL(endTime(double)), this, SLOT(daqLoad_endChanged(double)));
+    connect(&dlp, &daqLoadPrompt::startTime, this, &isoDriver::daqLoad_startChanged);
+    connect(&dlp, &daqLoadPrompt::endTime, this, &isoDriver::daqLoad_endChanged);
 
     //Defaults
     daqLoad_startTime = minTime;
@@ -1323,7 +1323,7 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
     fileTimer = new QTimer();
     fileTimer->setTimerType(Qt::PreciseTimer);
     fileTimer->start(TIMER_PERIOD);
-    connect(fileTimer, SIGNAL(timeout()), this, SLOT(fileTimerTick()));
+    connect(fileTimer, &QTimer::timeout, this, &isoDriver::fileTimerTick);
     qDebug() << "File Buffer loaded!";
     enableFileMode();
     qDebug() << "File Mode Enabled";
