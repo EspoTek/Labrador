@@ -11,6 +11,7 @@
 #include "siprint.h"
 #include "i2cdecoder.h"
 #include "uartstyledecoder.h"
+#include "DisplayControl.h"
 
 class isoBuffer;
 class isoBuffer_file;
@@ -24,29 +25,6 @@ class isoBuffer_file;
 
 // That is one of the things I plan on fixing, and in fact
 // the reason why I began the commenting!
-
-class DisplayControl : public QObject
-{
-    Q_OBJECT
-public:
-
-    double delay = 0;
-    double window = 0.01;
-    double y0 = 0;
-    double y1 = 0;
-    double x0 = 0;
-    double x1 = 0;
-    double topRange = 2.5;
-    double botRange = -0.5;
-
-    void setVoltageRange (QWheelEvent* event, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes);
-
-signals:
-    void topRangeUpdated(double);
-    void botRangeUpdated(double);
-    void timeWindowUpdated(double);
-    void delayUpdated(double);
-};
 
 class isoDriver : public QLabel
 {

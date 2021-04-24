@@ -39,6 +39,7 @@ include(ui_elements.pri)
 MOC_DIR = $$PWD/moc
 
 SOURCES += main.cpp\
+    DisplayControl.cpp \
         mainwindow.cpp \
     functiongencontrol.cpp \
     isodriver.cpp \
@@ -55,6 +56,7 @@ SOURCES += main.cpp\
 	i2cdecoder.cpp
 
 HEADERS  += mainwindow.h \
+    DisplayControl.h \
     functiongencontrol.h \
     pinoutDialog.h \
     xmega.h \

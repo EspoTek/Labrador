@@ -211,7 +211,7 @@ char uartStyleDecoder::decodeDatabit(int mode, short symbol)
             return symbol;
             break;
         default:
-            qDebug() << "uartStyleDecoder::decodeDatabit is failing...";
+            qDebug() << "uartStyleDecoder::decodeDatabit: invalid mode" << mode;
 			return -1; // Garbage
     }
 }
