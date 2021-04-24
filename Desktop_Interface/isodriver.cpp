@@ -1267,9 +1267,7 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
 
     disableFileMode();
 
-    if(internalBufferFile != NULL){
-        delete internalBufferFile;
-    }
+    delete internalBufferFile;
 
     //Load the file
     if (!fileToLoad->open(QIODevice::ReadOnly)) {
@@ -1392,9 +1390,7 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
 
     qDebug() << "Initialising timer";
     //Initialise the file timer.
-    if (fileTimer != NULL){
-        delete fileTimer;
-    }
+    delete fileTimer;
     fileTimer = new QTimer();
     fileTimer->setTimerType(Qt::PreciseTimer);
     fileTimer->start(TIMER_PERIOD);
