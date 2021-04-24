@@ -391,37 +391,28 @@ int unixUsbDriver::flashFirmware(void){
     libusb_exit(ctx);
     qDebug() << "Libusb exited";
     connected = false;
-    handle = NULL;
-    ctx = NULL;
+    handle = nullptr;
+    ctx = nullptr;
 
     return 0;
 #endif
 }
 
 
+// TODO: port to QWizard, less annoying than an endless list of popup dialogs
 void unixUsbDriver::manualFirmwareRecovery(void){
 #ifndef PLATFORM_ANDROID
     //Get location of firmware file
-    char fname[128];
-    sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
-
-    QString dirString = QCoreApplication::applicationDirPath();
-    dirString.append(fname);
-    QByteArray array = dirString.toLocal8Bit();
-    char* buffer = array.data();
+    const QString fname = QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
+    const QString dirString = QCoreApplication::applicationDirPath() + fname;
 
     //Vars
     QMessageBox manualFirmwareMessages;
-    int messageBoxReturn;
 
-
-    char leaveBootloaderCommand[256];
-    sprintf(leaveBootloaderCommand, "dfu-programmer atxmega32a4u launch");
+    QByteArray leaveBootloaderCommand = "dfu-programmer atxmega32a4u launch";
     int exit_code;
-    char eraseCommand[256];
-    sprintf(eraseCommand, "dfu-programmer atxmega32a4u erase --force");
-    char flashCommand[256];
-    sprintf(flashCommand, "dfu-programmer atxmega32a4u flash %s", buffer);
+    QByteArray eraseCommand = "dfu-programmer atxmega32a4u erase --force";
+    QByteArray flashCommand = "dfu-programmer atxmega32a4u flash " + dirString.toLocal8Bit();
 
 
 
@@ -436,13 +427,12 @@ void unixUsbDriver::manualFirmwareRecovery(void){
     manualFirmwareMessages.exec();
     manualFirmwareMessages.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
     manualFirmwareMessages.setText("Did that fix things?");
-    messageBoxReturn = manualFirmwareMessages.exec();
-    manualFirmwareMessages.setStandardButtons(QMessageBox::Ok);
-    if(messageBoxReturn == 16384){ //"Yes" is 16384, no is 65536
-        manualFirmwareMessages.setText("Awesome!  Have fun!");
-        messageBoxReturn = manualFirmwareMessages.exec();
+    if(manualFirmwareMessages.exec() == QMessageBox::Yes){
+        QMessageBox::information(this, tr("Success"), tr("Awesome!  Have fun!"));
         return;
     }
+
+    manualFirmwareMessages.setStandardButtons(QMessageBox::Ok);
 
     //Real troubleshooting begins here.....
 
@@ -461,34 +451,36 @@ void unixUsbDriver::manualFirmwareRecovery(void){
         manualFirmwareMessages.setText("If that doesn't fix it, please open an issue on github.com/espotek/labrador, or contact me at admin@espotek.com.");
         manualFirmwareMessages.exec();
         return;
-    } else {
-        exit_code = dfuprog_virtual_cmd(leaveBootloaderCommand);
-        manualFirmwareMessages.setText("No Labrador board could be detected.\n\nIt's possible that you're stuck in booloader mode.\n\nI've attempted to launch the firmware manually.");
+    }
+    exit_code = dfuprog_virtual_cmd(leaveBootloaderCommand.data());
+    manualFirmwareMessages.setText("No Labrador board could be detected.\n\nIt's possible that you're stuck in booloader mode.\n\nI've attempted to launch the firmware manually.");
+    manualFirmwareMessages.exec();
+    if(exit_code){
+        manualFirmwareMessages.setText("Command failed.  This usually means that no device is detected.\n\nPlease Ensure that the cable you're using can carry data (for example, by using it to transfer data to your phone).\n\nSome cables are for charging only, and not physically contain data lines.\n\nAlso note that the red light on the Labrador board is a power indicator for the PSU output pins.\nIt will turn on even if no data lines are present.");
         manualFirmwareMessages.exec();
-        if(exit_code){
-            manualFirmwareMessages.setText("Command failed.  This usually means that no device is detected.\n\nPlease Ensure that the cable you're using can carry data (for example, by using it to transfer data to your phone).\n\nSome cables are for charging only, and not physically contain data lines.\n\nAlso note that the red light on the Labrador board is a power indicator for the PSU output pins.\nIt will turn on even if no data lines are present.");
-            manualFirmwareMessages.exec();
-            return;
-        }
-        //Firmware launch failed, but bootloader preset
-        if(!connected){
-            exit_code = dfuprog_virtual_cmd(eraseCommand);
-            exit_code += dfuprog_virtual_cmd(flashCommand);
-            manualFirmwareMessages.setText("The bootloader is present, but firmware launch failed.  I've attempted to reprogram it.");
-            manualFirmwareMessages.exec();
-
-            if(!exit_code){            //Reprogramming was successful, but board is still in bootloader mode.
-                exit_code = dfuprog_virtual_cmd(leaveBootloaderCommand);
-                manualFirmwareMessages.setText("Reprogramming was successful!  Attempting to launch the board.\n\nIf it does not start working immediately, please wait 10 seconds and then reconnect the board.");
-                manualFirmwareMessages.exec();
-            } else { //Programming failed.
-                manualFirmwareMessages.setText("Automatic Reprogramming failed.\n\nPlease contact me at admin@espotek.com for further support.");
-                manualFirmwareMessages.exec();
-            }
-
-            return;
-        }
+        return;
     }
 
+    //Firmware launch failed, but bootloader preset
+    if(!connected){
+        exit_code = dfuprog_virtual_cmd(eraseCommand.data());
+        exit_code += dfuprog_virtual_cmd(flashCommand.data());
+        manualFirmwareMessages.setText("The bootloader is present, but firmware launch failed.  I've attempted to reprogram it.");
+        manualFirmwareMessages.exec();
+
+        if(!exit_code){            //Reprogramming was successful, but board is still in bootloader mode.
+            exit_code = dfuprog_virtual_cmd(leaveBootloaderCommand.data());
+            Q_UNUSED(exit_code);
+            manualFirmwareMessages.setText("Reprogramming was successful!  Attempting to launch the board.\n\nIf it does not start working immediately, please wait 10 seconds and then reconnect the board.");
+            manualFirmwareMessages.exec();
+        } else { //Programming failed.
+            manualFirmwareMessages.setText("Automatic Reprogramming failed.\n\nPlease contact me at admin@espotek.com for further support.");
+            manualFirmwareMessages.exec();
+        }
+
+        return;
+    }
+
+    // ???
 #endif
 }
