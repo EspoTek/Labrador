@@ -267,6 +267,18 @@ void MainWindow::initialisePlot()
     ui->scopeAxes->addGraph();
     ui->scopeAxes->addGraph();
 
+    // TODO: port to QWT to get rid of the horrible flickering issues etc.
+//    ui->scopeAxes->graph(0)->setAntialiased(true);
+//    ui->scopeAxes->graph(1)->setAntialiased(true);
+//    ui->scopeAxes->graph(2)->setAntialiased(true);
+//    ui->scopeAxes->graph(3)->setAntialiased(true);
+//    ui->scopeAxes->graph(4)->setAntialiased(true);
+//    ui->scopeAxes->graph(5)->setAntialiased(true);
+
+//    ui->scopeAxes->graph(0)->setAdaptiveSampling(false);
+//    ui->scopeAxes->graph(1)->setAdaptiveSampling(false);
+//    ui->scopeAxes->graph(2)->setAdaptiveSampling(false);
+
     textLabel = new QCPItemText(ui->scopeAxes);
 #if QCP_VER == 1
     ui->scopeAxes->addItem(textLabel);
@@ -305,7 +317,7 @@ void MainWindow::initialisePlot()
 #endif
 
 #if QCP_VER == 2
-    ui->scopeAxes->setOpenGl(true);
+//    ui->scopeAxes->setOpenGl(true);
     QSharedPointer<QCPAxisTicker> xTicker(new QCPAxisTicker);
     xTicker->setTickCount(9);
     ui->scopeAxes->xAxis->setTicker(xTicker);
