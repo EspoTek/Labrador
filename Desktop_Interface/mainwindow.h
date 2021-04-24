@@ -174,6 +174,7 @@ private slots:
 
 
 
+public slots:
     void on_actionAbout_triggered();
 
     void on_actionOpen_DAQ_File_triggered();
@@ -268,26 +269,6 @@ private:
     QActionGroup *fpsGroup;
     QActionGroup *connectionTypeGroup;
     QActionGroup *serialProtocolGroup;
-    QShortcut *shortcut_cycleBaudRate_CH1;
-    QShortcut *shortcut_cycleBaudRateBackwards_CH1;
-    QShortcut *shortcut_cycleBaudRate_CH2;
-    QShortcut *shortcut_cycleBaudRateBackwards_CH2;
-    QShortcut *shortcut_w;
-    QShortcut *shortcut_ctrlW;
-    QShortcut *shortcut_s;
-    QShortcut *shortcut_ctrlS;
-    QShortcut *shortcut_a;
-    QShortcut *shortcut_d;
-    QShortcut *shortcut_ArrowLeft;
-    QShortcut *shortcut_ArrowRight;
-    QShortcut *shortcut_CtrlArrowLeft;
-    QShortcut *shortcut_CtrlArrowRight;
-    QShortcut *shortcut_snapScopeToCursors;\
-    QShortcut *shortcut_manualRange;
-    QShortcut *shortcut_snapshot_CH1;
-    QShortcut *shortcut_snapshot_CH2;
-    QShortcut *shortcut_Debug;
-    QShortcut *shortcut_Esc;
 
     //Duct Tape
     bool dt_AlreadyAskedAboutCalibration = false;

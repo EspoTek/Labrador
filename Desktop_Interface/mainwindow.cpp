@@ -37,9 +37,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
-    ui->actionQuit->setShortcut(Qt::CTRL + Qt::Key_Q); // on macOS CTRL is automaticall translated to the command key
-    ui->actionPinout->setShortcut(Qt::Key_F1);
-
     calibrationMessages = new QMessageBox();
     ui->psuDisplay->display("4.00");
     ui->bufferDisplay->refreshImage();
@@ -986,58 +983,33 @@ void MainWindow::cycleBaudRateBackwards_CH2(){
 }
 
 void MainWindow::initShortcuts(){
-    shortcut_cycleBaudRate_CH1 = new QShortcut(QKeySequence("Ctrl+B"), ui->menuBar);
-    shortcut_cycleBaudRateBackwards_CH1 = new QShortcut(QKeySequence("Ctrl+Shift+B"), ui->menuBar);
-    shortcut_cycleBaudRate_CH2 = new QShortcut(QKeySequence("Ctrl+Alt+B"), ui->menuBar);
-    shortcut_cycleBaudRateBackwards_CH2 = new QShortcut(QKeySequence("Ctrl+Shift+Alt+B"), ui->menuBar);
-    shortcut_snapScopeToCursors = new QShortcut(QKeySequence("Z"), ui->menuBar);
-    shortcut_manualRange = new QShortcut(QKeySequence("M"), ui->menuBar);
-    shortcut_snapshot_CH1 = new QShortcut(QKeySequence("c"), this);
-    shortcut_snapshot_CH2 = new QShortcut(QKeySequence("v"), this);
+    new QShortcut(QKeySequence("Ctrl+B"), this, SLOT(cycleBaudRate_CH1()));
+    new QShortcut(QKeySequence("Ctrl+Shift+B"), this, SLOT(cycleBaudRateBackwards_CH1()));
+    new QShortcut(QKeySequence("Ctrl+Alt+B"), this, SLOT(cycleBaudRate_CH2()));
+    new QShortcut(QKeySequence("Ctrl+Shift+Alt+B"), this, SLOT(cycleBaudRateBackwards_CH2()));
+    new QShortcut(QKeySequence("Z"), this, SLOT(on_actionSnap_to_Cursors_triggered()));
+    new QShortcut(QKeySequence("M"), this, SLOT(on_actionEnter_Manually_triggered()));
+    new QShortcut(QKeySequence("c"), this, SLOT(on_actionSnapshot_CH1_triggered()));
+    new QShortcut(QKeySequence("v"), this, SLOT(on_actionSnapshot_CH2_triggered()));
 
-    shortcut_w = new QShortcut(QKeySequence("w"), ui->menuBar);
-    shortcut_s = new QShortcut(QKeySequence("s"), ui->menuBar);
-    shortcut_ctrlW = new QShortcut(QKeySequence("Ctrl+w"), ui->menuBar);
-    shortcut_ctrlS = new QShortcut(QKeySequence("Ctrl+s"), ui->menuBar);
+    new QShortcut(QKeySequence("w"), this, SLOT(arrowUpTriggered()));
+    new QShortcut(QKeySequence("s"), this, SLOT(arrowDownTriggered()));
+    new QShortcut(QKeySequence("Ctrl+w"), this, SLOT(ctrlArrowUpTriggered()));
+    new QShortcut(QKeySequence("Ctrl+s"), this, SLOT(ctrlArrowDownTriggered()));
 
-    shortcut_a = new QShortcut(QKeySequence("a"), this);
-    shortcut_d = new QShortcut(QKeySequence("d"), this);
-    shortcut_ArrowLeft = new QShortcut(QKeySequence("Left"), this);
-    shortcut_ArrowRight = new QShortcut(QKeySequence("Right"), this);
-    shortcut_CtrlArrowLeft = new QShortcut(QKeySequence("Ctrl+Left"), this);
-    shortcut_CtrlArrowRight = new QShortcut(QKeySequence("Ctrl+Right"), this);
+    new QShortcut(QKeySequence("a"), this, SLOT(cycleDelayLeft()));
+    new QShortcut(QKeySequence("d"), this, SLOT(cycleDelayRight()));
+    new QShortcut(QKeySequence("Left"), this, SLOT(cycleDelayLeft()));
+    new QShortcut(QKeySequence("Right"), this, SLOT(cycleDelayRight()));
 
+    new QShortcut(QKeySequence("Ctrl+Left"), this, SLOT(cycleDelayLeft_large()));
+    new QShortcut(QKeySequence("Ctrl+Right"), this, SLOT(cycleDelayRight_large()));
 
+    new QShortcut(QKeySequence("Home"), this, SLOT(enableLabradorDebugging()));
+    new QShortcut(QKeySequence("Esc"), this, SLOT(reinitUsb()));
 
-    shortcut_Debug = new QShortcut(QKeySequence("Home"), this);
-    shortcut_Esc = new QShortcut(QKeySequence("Esc"), this);
-
-
-    connect(shortcut_cycleBaudRate_CH1, &QShortcut::activated, this, &MainWindow::cycleBaudRate_CH1);
-    connect(shortcut_cycleBaudRateBackwards_CH1, &QShortcut::activated, this, &MainWindow::cycleBaudRateBackwards_CH1);
-    connect(shortcut_cycleBaudRate_CH2, &QShortcut::activated, this, &MainWindow::cycleBaudRate_CH2);
-    connect(shortcut_cycleBaudRateBackwards_CH2, &QShortcut::activated, this, &MainWindow::cycleBaudRateBackwards_CH2);
-    connect(shortcut_snapshot_CH1, &QShortcut::activated, this, &MainWindow::on_actionSnapshot_CH1_triggered);
-    connect(shortcut_snapshot_CH2, &QShortcut::activated, this, &MainWindow::on_actionSnapshot_CH2_triggered);
-
-    connect(shortcut_w, &QShortcut::activated, this, &MainWindow::arrowUpTriggered);
-    connect(shortcut_s, &QShortcut::activated, this, &MainWindow::arrowDownTriggered);
-    connect(shortcut_ctrlW, &QShortcut::activated, this, &MainWindow::ctrlArrowUpTriggered);
-    connect(shortcut_ctrlS, &QShortcut::activated, this, &MainWindow::ctrlArrowDownTriggered);
-
-    connect(shortcut_a, &QShortcut::activated, this, &MainWindow::cycleDelayLeft);
-    connect(shortcut_d, &QShortcut::activated, this, &MainWindow::cycleDelayRight);
-
-    connect(shortcut_ArrowLeft, &QShortcut::activated, this, &MainWindow::cycleDelayLeft);
-    connect(shortcut_ArrowRight, &QShortcut::activated, this, &MainWindow::cycleDelayRight);
-    connect(shortcut_CtrlArrowLeft, &QShortcut::activated, this, &MainWindow::cycleDelayLeft_large);
-    connect(shortcut_CtrlArrowRight, &QShortcut::activated, this, &MainWindow::cycleDelayRight_large);
-
-    connect(shortcut_snapScopeToCursors, &QShortcut::activated, this, &MainWindow::on_actionSnap_to_Cursors_triggered);
-    connect(shortcut_manualRange, &QShortcut::activated, this, &MainWindow::on_actionEnter_Manually_triggered);
-
-    connect(shortcut_Debug, &QShortcut::activated, this, &MainWindow::enableLabradorDebugging);
-    connect(shortcut_Esc, &QShortcut::activated, this, &MainWindow::reinitUsb);
+    ui->actionQuit->setShortcut(Qt::CTRL + Qt::Key_Q); // on macOS CTRL is automaticall translated to the command key
+    ui->actionPinout->setShortcut(Qt::Key_F1);
 
 }
 
