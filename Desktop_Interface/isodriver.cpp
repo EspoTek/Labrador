@@ -301,7 +301,8 @@ void isoDriver::setVoltageRange(QWheelEvent* event)
 void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes)
 {
     if (!(event->modifiers() == Qt::ControlModifier) && qAbs(event->angleDelta().y()) > qAbs(event->angleDelta().x())) {
-        double c = (topRange - botRange) / (double)400;
+
+        double c = (qFuzzyCompare(topRange, botRange) ? 1. : (topRange - botRange)) / double(400);
 
         QCPRange range = axes->yAxis->range();
 
@@ -315,20 +316,27 @@ void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused,
         topRange -= event->angleDelta().y() / 120.0 * c * pixPct;
         botRange += event->angleDelta().y() / 120.0 * c * (100.0 - pixPct);
 
-        if (topRange > (double)20) topRange = (double)20;
-        if (botRange < -(double)20) botRange = (double)-20;
+        topRange = qMin(topRange, 20.);
+        botRange = qMin(botRange, 20.);
+
+        // Never allow 0 delta between top and bottom
+        if (qFuzzyCompare(topRange, botRange)) {
+            topRange += 0.01;
+            botRange -= 0.01;
+        }
+
         topRangeUpdated(topRange);
         botRangeUpdated(botRange);
     }
     else
     {
-        double c = (window) / (double)200;
+        double c = (window) / 200.;
         QCPRange range = axes->xAxis->range();
 
-        double pixPct = (double)100 * ((double)axes->xAxis->pixelToCoord(event->position().x()) - range.lower);
+        double pixPct = 100. * (double(axes->xAxis->pixelToCoord(event->position().x())) - range.lower);
 
-        pixPct /= isProperlyPaused ? (double)(range.upper - range.lower)
-                                   : (double)(window);
+        pixPct /= isProperlyPaused ? double(range.upper - range.lower)
+                                   : double(window);
 
         if (pixPct < 0)
             pixPct = 0;
@@ -349,32 +357,23 @@ void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused,
         }
 
         window -= event->angleDelta().x() / 120.0 * c * pixPct;
+
         delay += event->angleDelta().x() / 120.0 * c * (100.0 - pixPct) * pixPct / 100.0;
+        delay = qBound(0., delay, maxWindowSize - window);
+
+        if (window <= 0.) {
+            window = 0.01;
+        } else if (window > maxWindowSize) {
+            window = maxWindowSize;
+        }
 
         // NOTE: delayUpdated and timeWindowUpdated are called more than once beyond here,
         // maybe they should only be called once at the end?
 
-        delayUpdated(delay);
-        timeWindowUpdated(window);
-
         qDebug() << window << delay;
 
-        if (window > maxWindowSize)
-        {
-            window = maxWindowSize;
-            timeWindowUpdated(window);
-        }
-        if ((window + delay) > maxWindowSize)
-        {
-            delay = maxWindowSize - window;
-            delayUpdated(delay);
-        }
-        if (delay < 0)
-        {
-            delay = 0;
-            delayUpdated(delay);
-        }
-
+        delayUpdated(delay);
+        timeWindowUpdated(window);
     }
 
 }
