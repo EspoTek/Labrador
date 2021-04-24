@@ -1053,8 +1053,8 @@ static QWheelEvent createWheelEvent(const bool negative, const QPoint &point, co
 {
     return QWheelEvent(point, // pos
                            QCursor::pos(), // globalpos
-                           QPoint(0, negative ? -120 : 120), // pixelDelta
-                           QPoint(0, negative ? -10 : 10), // angleDelta
+                           QPoint(0, negative ? -0 : 0), // pixelDelta
+                           QPoint(0, negative ? -120 : 120), // angleDelta
                            Qt::NoButton, // buttons
                            modifier, // keyboard modifiers
                            Qt::NoScrollPhase, // scroll phase
