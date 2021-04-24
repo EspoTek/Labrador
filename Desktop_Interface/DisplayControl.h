@@ -21,6 +21,9 @@ public:
 
     void setVoltageRange (QWheelEvent* event, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes);
 
+    void zoomVertically(const double delta, const double y, QCustomPlot *axes);
+    void zoomHorizontally(const double delta, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes);
+
 signals:
     void topRangeUpdated(double);
     void botRangeUpdated(double);
