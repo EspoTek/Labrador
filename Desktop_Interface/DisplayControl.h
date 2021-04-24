@@ -2,6 +2,8 @@
 
 #include <QObject>
 
+#include "desktop_settings.h"
+
 class QCustomPlot;
 
 class DisplayControl : public QObject
@@ -10,7 +12,7 @@ class DisplayControl : public QObject
 public:
 
     double delay = 0;
-    double window = 0.01;
+    double window = MAX_WINDOW_SIZE;
     double y0 = 0;
     double y1 = 0;
     double x0 = 0;
