@@ -33,7 +33,7 @@ public:
     ~worker(){};
     libusb_context *ctx;
     bool stopTime = false;
-    unsigned char cleanupRemaining = 4;
+    unsigned char cleanupRemaining = NUM_FUTURE_CTX ;
 public slots:
     void handle(){
         qDebug() << "SUB THREAD ID" << QThread::currentThreadId();
