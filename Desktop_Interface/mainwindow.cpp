@@ -2118,7 +2118,7 @@ void MainWindow::on_actionDAQ_Settings_triggered()
 void MainWindow::on_actionResetDisplay()
 {
     ui->controller_iso->setBotRange(-0.5);
-    ui->controller_iso->setTopRange(2.5);
+    ui->controller_iso->setTopRange(5.1);
     ui->controller_iso->setDelay(0.);
     ui->controller_iso->setTimeWindow(MAX_WINDOW_SIZE);
 
