@@ -68,7 +68,7 @@ public:
     void manualFirmwareRecovery(void);
 protected:
     //USB Vars
-    libusb_context *ctx = NULL;
+    libusb_context *ctx = nullptr;
     libusb_device_handle *handle = NULL;
     //USBIso Vars
     unsigned char *midBuffer_current[NUM_ISO_ENDPOINTS];
@@ -78,7 +78,7 @@ protected:
     tcBlock transferCompleted[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
     unsigned char dataBuffer[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
     worker *isoHandler = nullptr;
-    QThread *workerThread = nullptr;
+    QPointer<QThread> workerThread;
     int cumulativeFramePhaseErrors = 0;
     //Generic Functions
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
