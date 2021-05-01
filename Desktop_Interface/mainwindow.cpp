@@ -357,12 +357,10 @@ void MainWindow::initialisePlot()
 }
 
 void MainWindow::labelPsu(){
-    char tempString[4];
     int tempInt = ui->psuSlider->maximum();
     int tempCounter = 0;
     while(tempInt>90){
-        sprintf(tempString, "%dV", tempInt/20);
-        ui->psuSlider->setTickLabel(tempString, tempCounter);
+        ui->psuSlider->setTickLabel(QString::asprintf("%dV", tempInt/20), tempCounter);
         tempInt -= 20;
         tempCounter++;
     }
