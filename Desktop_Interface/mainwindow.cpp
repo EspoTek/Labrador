@@ -236,6 +236,11 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 #ifndef PLATFORM_ANDROID
+    // So sue me
+    for (QWidget *child : findChildren<QWidget*>()) {
+        child->installEventFilter(this);
+    }
+
     connect(ui->offsetSpinBox_CH1, qOverload<double>(&QDoubleSpinBox::valueChanged), ui->controller_iso, &isoDriver::offsetChanged_CH1);
     connect(ui->offsetSpinBox_CH2, qOverload<double>(&QDoubleSpinBox::valueChanged), ui->controller_iso, &isoDriver::offsetChanged_CH2);
     connect(ui->attenuationComboBox_CH1, qOverload<int>(&QComboBox::currentIndexChanged), ui->controller_iso, &isoDriver::attenuationChanged_CH1);
@@ -1056,8 +1061,8 @@ static QWheelEvent createWheelEvent(const bool negative, const QPoint &point, co
 {
     return QWheelEvent(point, // pos
                            QCursor::pos(), // globalpos
-                           QPoint(negative ? -0 : 0, 0), // pixelDelta
-                           QPoint(negative ? -120 : 120, 0), // angleDelta
+                           QPoint(0, negative ? -0 : 0), // pixelDelta
+                           QPoint(0, negative ? -120 : 120), // angleDelta
                            Qt::NoButton, // buttons
                            modifier, // keyboard modifiers
                            Qt::NoScrollPhase, // scroll phase
@@ -2506,9 +2511,34 @@ void MainWindow::on_setAutoScopeRange()
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if(!(ui->scopeAxes->underMouse())) {
-        QMainWindow::keyPressEvent(event);
+    if (maybeHandleKeypress(event)) {
+        event->setAccepted(true);
         return;
+    }
+
+    QMainWindow::keyPressEvent(event);
+}
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        if (maybeHandleKeypress(static_cast<QKeyEvent*>(event))) {
+            QWidget *original = qobject_cast<QWidget*>(obj);
+            if (original) {
+                original->clearFocus();
+            }
+            event->setAccepted(true);
+            return true;
+        }
+    }
+
+    return QObject::eventFilter(obj, event);
+}
+
+bool MainWindow::maybeHandleKeypress(QKeyEvent *event)
+{
+    if (!(ui->scopeAxes->underMouse())) {
+        return false;
     }
     switch(event->key()) {
     case Qt::Key_Down:
@@ -2526,10 +2556,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         }
         break;
     default:
-        QMainWindow::keyPressEvent(event);
-        return;
+        return false;
     }
 
-    event->setAccepted(true);
-
+    return true;
 }

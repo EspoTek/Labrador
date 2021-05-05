@@ -42,7 +42,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
     void showFileDialog(QString *fileName);
     void openFileDialog(QString *fileName);
 private slots:
@@ -230,7 +230,9 @@ public slots:
     void on_setAutoScopeRange();
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
+    bool eventFilter(QObject *obj, QEvent *event) override;
+    bool maybeHandleKeypress(QKeyEvent *event);
 
 private:
     //Generic Vars
