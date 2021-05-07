@@ -228,6 +228,7 @@ private slots:
     void on_actionDark_Mode_triggered(bool checked);
 
     void on_actionShow_Debug_Console_triggered(bool checked);
+    void on_actionFrequency_Spectrum_triggered(bool checked);
 
 private:
     //Generic Vars
@@ -297,6 +298,10 @@ private:
     QShortcut *shortcut_snapshot_CH2;
     QShortcut *shortcut_Debug;
     QShortcut *shortcut_Esc;
+
+    QWidget* spectrumLayoutWidget = nullptr;
+    QSpinBox* spectrumMinXSpinbox = nullptr;
+    QSpinBox* spectrumMaxXSpinbox = nullptr;
 
     //Duct Tape
     bool dt_AlreadyAskedAboutCalibration = false;

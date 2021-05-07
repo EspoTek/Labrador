@@ -247,6 +247,38 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->attenuationComboBox_CH2, SIGNAL(currentIndexChanged(int)), ui->controller_iso, SLOT(attenuationChanged_CH2(int)));
 #endif
     connect(ui->controller_iso, &isoDriver::enableCursorGroup, this, &MainWindow::cursorGroupEnabled);
+
+    spectrumMinXSpinbox = new QSpinBox();
+    spectrumMaxXSpinbox = new QSpinBox();
+    spectrumLayoutWidget = new QWidget();
+    QHBoxLayout* spectrumLayout = new QHBoxLayout();
+    QLabel* spectrumMinFreqLabel = new QLabel("Min Frequency (Hz)");
+    QLabel* spectrumMaxFreqLabel = new QLabel("Max Frequency (Hz)");
+    QSpacerItem* spacer = new QSpacerItem(20, 40, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    spectrumLayoutWidget->setLayout(spectrumLayout);
+    spectrumMinXSpinbox->setMinimum(0);
+    spectrumMinXSpinbox->setMaximum(187500);
+    spectrumMaxXSpinbox->setMinimum(0);
+    spectrumMaxXSpinbox->setMaximum(187500);
+    spectrumMaxXSpinbox->setValue(187500);
+
+    spectrumLayout->addItem(spacer);
+    spectrumLayout->addWidget(spectrumMinFreqLabel);
+    spectrumLayout->addWidget(spectrumMinXSpinbox);
+    spectrumLayout->addItem(spacer);
+    spectrumLayout->addWidget(spectrumMaxFreqLabel);
+    spectrumLayout->addWidget(spectrumMaxXSpinbox);
+    spectrumLayout->addItem(spacer);
+
+    connect(spectrumMinXSpinbox, QOverload<int>::of(&QSpinBox::valueChanged), ui->controller_iso, &isoDriver::setMinSpectrum);
+    connect(spectrumMaxXSpinbox, QOverload<int>::of(&QSpinBox::valueChanged), ui->controller_iso, &isoDriver::setMaxSpectrum);
+
+    connect(spectrumMinXSpinbox, QOverload<int>::of(&QSpinBox::valueChanged), spectrumMaxXSpinbox, &QSpinBox::setMinimum);
+    connect(spectrumMaxXSpinbox, QOverload<int>::of(&QSpinBox::valueChanged), spectrumMinXSpinbox, &QSpinBox::setMaximum);
+
+    ui->verticalLayout->addWidget(spectrumLayoutWidget);
+    spectrumLayoutWidget->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -2586,4 +2618,13 @@ void MainWindow::on_actionDark_Mode_triggered(bool checked)
 void MainWindow::on_actionShow_Debug_Console_triggered(bool checked)
 {
     enableLabradorDebugging(checked);
+void MainWindow::on_actionFrequency_Spectrum_triggered(bool checked)
+{
+    ui->controller_iso->spectrum = checked;
+    spectrumLayoutWidget->setVisible(checked);
+
+    if (checked == true)
+        MAX_WINDOW_SIZE = 1<<17;
+    else
+        MAX_WINDOW_SIZE = 10;
 }

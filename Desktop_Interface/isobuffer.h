@@ -16,6 +16,7 @@
 #include "xmega.h"
 #include "desktop_settings.h"
 #include "genericusbdriver.h"
+#include "asyncdft.h"
 
 class isoDriver;
 class uartStyleDecoder;
@@ -58,14 +59,13 @@ public:
 
 // Advanced buffer operations
 private:
-	template<typename T, typename Function>
-	void writeBuffer(T* data, int len, int TOP, Function transform);
+    template<typename T, typename Function>
+    void writeBuffer(T* data, int len, int TOP, Function transform);
 public:
 	void writeBuffer_char(char* data, int len);
 	void writeBuffer_short(short* data, int len);
 
 	std::unique_ptr<short[]> readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
-
 //	file I/O
 private:
 	void outputSampleToFile(double averageSample);
@@ -118,6 +118,8 @@ public:
 //	UARTS decoding
 	uartStyleDecoder* m_decoder = NULL;
 	bool m_isDecoding = true;
+//DFT
+    AsyncDFT async_dft;
 private:
 //	File I/O
 	bool m_fileIOEnabled = false;

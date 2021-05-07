@@ -42,6 +42,8 @@ install:
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew install qt5
       brew link qt5 --force
+      brew instal libomp
+      brew install fftw
       #brew install libusb
       #brew install wget
     # Linux

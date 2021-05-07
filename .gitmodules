@@ -1,0 +1,3 @@
+[submodule "SlidingDFT"]
+	path = SlidingDFT
+	url = https://github.com/bronsonp/SlidingDFT.git

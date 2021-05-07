@@ -89,6 +89,7 @@ public:
     //DAQ
     bool fileModeEnabled = false;
     double daq_maxWindowSize;
+    bool spectrum = false;
 private:
     //Those bloody bools that just Enable/Disable a single property
     bool paused_CH1 = false;
@@ -124,6 +125,8 @@ private:
     bool firstFrame = true;
     bool hexDisplay_CH1 = false;
     bool hexDisplay_CH2 = false;
+
+
     //Generic Functions
     void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC, int channel);
     void digitalConvert(short *shortPtr, QVector<double> *doublePtr);
@@ -185,6 +188,9 @@ private:
     uint8_t deviceMode_prev;
     //DAQ
     double daqLoad_startTime, daqLoad_endTime;
+    //Spectrum
+    double m_spectrumMinX = 0;
+    double m_spectrumMaxX = 187500;
 
 signals:
     void setGain(double newGain);
@@ -282,6 +288,8 @@ public slots:
     void attenuationChanged_CH2(int attenuationIndex);
     void setHexDisplay_CH1(bool enabled);
     void setHexDisplay_CH2(bool enabled);
+    void setMinSpectrum(int minSpectrum);
+    void setMaxSpectrum(int maxSpectrum);
 };
 
 #endif // ISODRIVER_H

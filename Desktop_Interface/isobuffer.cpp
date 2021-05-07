@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 
 #include "isodriver.h"
 #include "uartstyledecoder.h"
@@ -55,6 +56,7 @@ void isoBuffer::insertIntoBuffer(short item)
     {
         m_back = 0;
     }
+    async_dft.addSample(item);
 
     checkTriggered();
 }
