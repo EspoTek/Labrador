@@ -718,12 +718,25 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
 
     udateCursors();
 
-    if(XYmode){
+    /* After having gathered all infos in CH1, CH2 if spectrum is true
+     * we calculate the FFT, and subsitute FFT values to CH1,CH2 vectors.
+     * It is also needed to change the graph indications.
+    */
+    if (spectrum) {
+        if (CH2_mode) {
+            /*Then size of buffer is doubled 750ks*/
+        } else {
+            /*Size of input buffer is 375ks*/
+        }
+        /*Compute FFT*/
+        /*Write output to new arrays, and plot them*/
+    } else if(XYmode){
         QCPCurve* curve = reinterpret_cast<QCPCurve*>(axes->plottable(0));
         curve->setData(CH1, CH2);
         axes->xAxis->setRange(xmin, xmax);
         axes->yAxis->setRange(ymin, ymax);
-    }else{
+    } else{
+        /*@HINT here plotting graph*/
         axes->graph(0)->setData(x,CH1);
         if(CH2_mode) axes->graph(1)->setData(x,CH2);
         axes->xAxis->setRange(-display.window - display.delay, -display.delay);

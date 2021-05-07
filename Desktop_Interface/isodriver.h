@@ -88,6 +88,7 @@ public:
     //DAQ
     bool fileModeEnabled = false;
     double daq_maxWindowSize;
+    bool spectrum = false;
 private:
     //Those bloody bools that just Enable/Disable a single property
     bool paused_CH1 = false;
