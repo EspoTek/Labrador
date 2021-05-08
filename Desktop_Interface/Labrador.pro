@@ -350,3 +350,7 @@ DISTFILES += \
     build_android/package_source/gradle/wrapper/gradle-wrapper.properties \
     build_android/package_source/gradlew.bat \
     build_android/package_source/res/xml/device_filter.xml
+
+unix|win32: LIBS += -ldrfftw
+
+unix|win32: LIBS += -ldfftw

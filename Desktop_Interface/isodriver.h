@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QDebug>
 #include <QVector>
+#include <drfftw.h>
+
 #include "qcustomplot.h"
 #include "genericusbdriver.h"
 #include "desktop_settings.h"
@@ -124,6 +126,14 @@ private:
     bool firstFrame = true;
     bool hexDisplay_CH1 = false;
     bool hexDisplay_CH2 = false;
+    //DFT
+    rfftw_plan plan;
+    fftw_real *in_buffer;
+    fftw_real *out_buffer;
+    fftw_real *power_spectrum;
+    int N;
+
+
     //Generic Functions
     void analogConvert(short *shortPtr, QVector<double> *doublePtr, int TOP, bool AC, int channel);
     void digitalConvert(short *shortPtr, QVector<double> *doublePtr);

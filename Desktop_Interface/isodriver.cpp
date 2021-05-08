@@ -5,7 +5,6 @@
 #include <math.h>
 #include "daqloadprompt.h"
 
-
 isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 {
     this->hide();
@@ -33,6 +32,15 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     slowTimer->setTimerType(Qt::PreciseTimer);
     slowTimer->start(MULTIMETER_PERIOD);
     connect(slowTimer, SIGNAL(timeout()), this, SLOT(slowTimerTick()));
+
+    /*Creating DFT plan*/
+    /*Create more plans, for larger input sizes*/
+    this->N = MAX_WINDOW_SIZE*ADC_SPS/20*21;
+    this->plan = rfftw_create_plan(N, FFTW_REAL_TO_COMPLEX, FFTW_ESTIMATE);
+    this->in_buffer = (fftw_real *) malloc(sizeof(fftw_real)*N);
+    this->out_buffer = (fftw_real *) malloc(sizeof(fftw_real)*N);
+    this->power_spectrum = (fftw_real *) malloc(sizeof(fftw_real)*N);
+
 }
 
 void isoDriver::setDriver(genericUsbDriver *newDriver){
@@ -728,8 +736,23 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         } else {
             /*Size of input buffer is 375ks*/
         }
-        /*Compute FFT*/
+        /*Compute FFT, real to complex*/
+        rfftw_one(this->plan, CH1.data(), this->out_buffer);
+        power_spectrum[0] = out_buffer[0]*out_buffer[0];  /* DC component */
+        for (int k = 1; k < (N+1)/2; ++k)  /* (k < N/2 rounded up) */
+             power_spectrum[k] = out_buffer[k]*out_buffer[k] + out_buffer[N-k]*out_buffer[N-k];
+        if (N % 2 == 0) /* N is even */
+             power_spectrum[N/2] = out_buffer[N/2]*out_buffer[N/2];  /* Nyquist freq. */
         /*Write output to new arrays, and plot them*/
+        QVector<double> pow_spec_vect;
+        pow_spec_vect.reserve(N/2);
+        std::copy(power_spectrum, power_spectrum + N/2, std::back_inserter(pow_spec_vect));
+        /*Power spectrum is on power_spectrum N/2 array, it represents positive frequencies*/
+        QCPCurve* curve = reinterpret_cast<QCPCurve*>(axes->plottable(0));
+        curve->setData(pow_spec_vect, CH2);
+        /*Should only print half of the total screen output*/
+        axes->xAxis->setRange(xmin, xmax);
+        axes->yAxis->setRange(ymin, ymax);
     } else if(XYmode){
         QCPCurve* curve = reinterpret_cast<QCPCurve*>(axes->plottable(0));
         curve->setData(CH1, CH2);
