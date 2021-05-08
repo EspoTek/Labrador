@@ -1,5 +1,26 @@
 #!/bin/bash
 
+if [ ! -d fftw-2.1.5 ]
+then
+	wget http://fftw.org/fftw-2.1.5.tar.gz
+	tar xvf fftw-2.1.5.tar.gz
+	rm fftw-2.1.5.tar.gz
+fi
+cd fftw-2.1.5
+./configure \
+                 F77=gfortran \
+                 --with-gcc \
+                 --prefix=/usr \
+                 --infodir=/usr/share/info \
+                 --enable-type-prefix \
+                 --enable-shared \
+                 --enable-threads \
+                 --enable-openmp \
+                 --enable-mpi
+make -j8
+sudo make install
+cd ..
+
 set -e
 
 qmake APPIMAGE=1 CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
