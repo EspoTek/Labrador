@@ -129,45 +129,22 @@ std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSampl
         }
         assert(int(itr) >= 0);
 
-        // What we do: We loop over the bytes we would skip, and count the number of negative and positive values.
-        // If there are more negative than positive we select the lowest we found, otherwise we pick the highest.
-        // It's not perfect, but eliminates some of the worst artifacts.
-        // An average would be easier, but you miss the peaks, which are the interesting parts of the data.
-
         // TODO: to optimize:
         // - reverse the loop (I thought the prefetching would be smart enough, but maybe not)
         // - Split loop into blocks with constant length, to avoid the pshuflw and whatnot
         if (timeBetweenSamples > 1) {
-            int numPositive = 0;
-            int numNegative = 0;
             short minimum = std::numeric_limits<short>::max();
             short maximum = std::numeric_limits<short>::min();
             const int end = qMin<int>(m_insertedCount, itr + timeBetweenSamples);
+            double average = 0.;
             for (int i=itr; i<end; i++) {
-                // 29,94 │       movq      (%rdx,%rdi,2),%xmm4
-                //  7,46 │       pshuflw   $0x1b,%xmm4,%xmm4
                 const short val = data[-i];
-
-                // 8,65 │       pminsw    %xmm4,%xmm1
                 minimum = (val < minimum) ? val : minimum;
-
-                // 4,00 │       pmaxsw    %xmm4,%xmm0
                 maximum = (maximum < val) ? val : maximum;
-
-                // 8,13 │       psrlw     $0xf,%xmm4
-                // 4,12 │       movdqa    %xmm4,%xmm5
-                // 4,43 │       punpcklwd %xmm6,%xmm5
-                // 7,56 │       paddd     %xmm5,%xmm2
-                numNegative += val < 0;
-
-                // 4,78 │       pxor      %xmm11,%xmm4
-                // 4,34 │       punpcklwd %xmm6,%xmm4
-                // 5,98 │       paddd     %xmm4,%xmm3
-                numPositive += val >= 0;
+                average += val;
             }
-            readData[pos] = maximum;
-//            readData[pos] = (minimum < 0 && qAbs(minimum)) > qAbs(maximum) ? minimum: maximum;// numPositive > numNegative ? maximum: minimum;
-//            readData[pos] = numPositive > numNegative ? maximum: minimum;
+            average /= end - itr;
+            readData[pos] = qAbs(maximum - average) > qAbs(average - minimum) ? maximum : minimum;
         } else {
             readData[pos] = bufferAt(int(itr));
         }
