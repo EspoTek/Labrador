@@ -42,13 +42,13 @@ unixUsbDriver::~unixUsbDriver(void){
         qDebug() << "Transfers freed.";
     }
 
-    if(handle != NULL){
+    if(handle != nullptr){
     libusb_release_interface(handle, 0);
         qDebug() << "Interface released";
         libusb_close(handle);
         qDebug() << "Device Closed";
     }
-    if(ctx != NULL){
+    if(ctx != nullptr){
         libusb_exit(ctx);
         qDebug() << "Libusb exited";
     }
@@ -65,7 +65,7 @@ unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
 
     int error;
     //Should only run once.
-    if(ctx == NULL){
+    if(ctx == nullptr){
         error = libusb_init(&ctx);
         if(error){
             qDebug() << "libusb_init FAILED";
@@ -79,9 +79,9 @@ unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
 #endif
     }
 
-    if(handle == NULL){
+    if(handle == nullptr){
         handle = libusb_open_device_with_vid_pid(ctx, VIDin, PIDin);
-        if(handle==NULL){
+        if(handle==nullptr){
             qDebug() << "DEVICE NOT FOUND";
             return 1;
         }
@@ -96,7 +96,7 @@ unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     if(error){
         qDebug() << "libusb_claim_interface FAILED";
         qDebug() << "ERROR" << error << libusb_error_name(error);
-        handle = NULL;
+        handle = nullptr;
         return 1;
     } else qDebug() << "Interface claimed!";
 
@@ -112,7 +112,7 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
         return;
     }
 
-    if (LDATA==NULL){
+    if (LDATA==nullptr){
         controlBuffer = inBuffer;
     }
     else controlBuffer = LDATA;

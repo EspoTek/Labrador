@@ -11,7 +11,7 @@ class cursorEnabler : public QLabel
 {
     Q_OBJECT
 public:
-    explicit cursorEnabler(QWidget *parent = 0);
+    explicit cursorEnabler(QWidget *parent = nullptr);
     bool turnedOn() {return m_turnedOn;}
 private:
     bool m_turnedOn = true;

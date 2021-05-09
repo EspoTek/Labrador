@@ -392,7 +392,7 @@ int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop)
 
 void isoBuffer::serialManage(double baudRate, UartParity parity, bool hexDisplay)
 {
-    if (m_decoder == NULL)
+    if (m_decoder == nullptr)
     {
         m_decoder = new uartStyleDecoder(baudRate, this);
     }

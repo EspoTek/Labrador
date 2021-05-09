@@ -69,7 +69,7 @@ public:
 protected:
     //USB Vars
     libusb_context *ctx = nullptr;
-    libusb_device_handle *handle = NULL;
+    libusb_device_handle *handle = nullptr;
     //USBIso Vars
     unsigned char *midBuffer_current[NUM_ISO_ENDPOINTS];
     unsigned char *midBuffer_prev[NUM_ISO_ENDPOINTS];

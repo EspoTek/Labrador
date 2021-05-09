@@ -19,7 +19,7 @@ class uartStyleDecoder : public QObject
 {
     Q_OBJECT
 public:
-    explicit uartStyleDecoder(double baudRate, QObject *parent = NULL);
+    explicit uartStyleDecoder(double baudRate, QObject *parent = nullptr);
 	~uartStyleDecoder() = default;
 
 

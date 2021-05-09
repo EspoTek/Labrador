@@ -11,7 +11,7 @@ class bufferControl : public QLabel
 {
     Q_OBJECT
 public:
-    explicit bufferControl(QWidget *parent = 0);
+    explicit bufferControl(QWidget *parent = nullptr);
     void refreshImage(void);
     bool busSnifferState_CH1 = false;
     bool scopeDsrDisableOverride = false;

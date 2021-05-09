@@ -11,7 +11,7 @@ class deviceConnectedDisplay : public QLabel
 {
     Q_OBJECT
 public:
-    explicit deviceConnectedDisplay(QWidget *parent = 0);
+    explicit deviceConnectedDisplay(QWidget *parent = nullptr);
 signals:
 public slots:
     void connectedStatusChanged(bool status);

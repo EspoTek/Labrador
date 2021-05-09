@@ -14,7 +14,7 @@ class espoComboBox : public QComboBox
 {
     Q_OBJECT
 public:
-    explicit espoComboBox(QWidget *parent = 0);
+    explicit espoComboBox(QWidget *parent = nullptr);
     void readWaveformList(void);
 private:
 signals:

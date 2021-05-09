@@ -17,7 +17,7 @@ class scopeRangeEnterDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit scopeRangeEnterDialog(QWidget *parent = 0, bool buttonVisible = true, double yTop = 20, double yBot = -20, double window = -10, double delay = 0);
+    explicit scopeRangeEnterDialog(QWidget *parent = nullptr, bool buttonVisible = true, double yTop = 20, double yBot = -20, double window = -10, double delay = 0);
     ~scopeRangeEnterDialog();
 
 public slots:

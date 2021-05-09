@@ -47,7 +47,7 @@ public:
     };
     Q_ENUM(ChannelMode);
 
-    explicit isoDriver(QWidget *parent = 0);
+    explicit isoDriver(QWidget *parent = nullptr);
     ~isoDriver();
 
     void autoGain(void);
@@ -55,7 +55,7 @@ public:
     isoBuffer *internalBuffer375_CH1;
     isoBuffer *internalBuffer375_CH2;
     isoBuffer *internalBuffer750;
-    isoBuffer_file *internalBufferFile = NULL;
+    isoBuffer_file *internalBufferFile = nullptr;
     QCPItemText *cursorTextPtr;
     QPointer<genericUsbDriver> driver;
     bool doNotTouchGraph = true;
@@ -174,9 +174,9 @@ private:
     i2c::i2cDecoder* twoWire = nullptr;
     bool twoWireStateInvalid = true;
     //Generic Vars
-    QTimer* isoTimer = NULL;
-    QTimer *slowTimer = NULL;
-    QTimer *fileTimer = NULL;
+    QTimer* isoTimer = nullptr;
+    QTimer *slowTimer = nullptr;
+    QTimer *fileTimer = nullptr;
     long total_read = 0;
     unsigned int length;
     QFile *snapshotFile_CH1;

@@ -55,7 +55,7 @@ class isoBuffer : public QWidget
 {
 	Q_OBJECT
 public:
-	isoBuffer(QWidget* parent = 0, int bufferLen = 0, isoDriver* caller = 0, unsigned char channel_value = 0);
+	isoBuffer(QWidget* parent = nullptr, int bufferLen = 0, isoDriver* caller = nullptr, unsigned char channel_value = 0);
 	~isoBuffer() = default;
 
 //	Basic buffer operations
@@ -129,7 +129,7 @@ public:
     short m_triggerSensitivity = 0;
     QVector<uint32_t> m_triggerPositionList = {};
 //	UARTS decoding
-	uartStyleDecoder* m_decoder = NULL;
+    uartStyleDecoder* m_decoder = nullptr;
 	bool m_isDecoding = true;
 private:
 //	File I/O

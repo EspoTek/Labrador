@@ -1353,7 +1353,7 @@ void isoDriver::enableFileMode(){
 void isoDriver::disableFileMode(){
     fileModeEnabled = false;
     emit showRealtimeButton(false);
-    if(fileTimer != NULL){
+    if(fileTimer != nullptr){
         fileTimer->stop();
     }
 

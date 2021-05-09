@@ -11,7 +11,7 @@ class noCloseMenu : public QMenu
 {
     Q_OBJECT
 public:
-    explicit noCloseMenu(QWidget *parent = 0);
+    explicit noCloseMenu(QWidget *parent = nullptr);
 private:
     void mouseReleaseEvent(QMouseEvent *e);
 signals:

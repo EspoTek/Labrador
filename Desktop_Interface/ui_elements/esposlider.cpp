@@ -44,9 +44,9 @@ void espoSlider::moveEvent(QMoveEvent *event){
 
 
 void espoSlider::setTickInterval(int ti){
-    addressBook.resize(maxTick(ti) + 1, NULL); //Leaky, but not significantly.  Old qlabels never deleted.
+    addressBook.resize(maxTick(ti) + 1, nullptr); //Leaky, but not significantly.  Old qlabels never deleted.
     for (size_t i=0; i<addressBook.size();i++){
-        if (addressBook.at(i)==NULL)
+        if (addressBook.at(i)==nullptr)
             addressBook.at(i) = new QLabel(windowPointer);
     }
     QSlider::setTickInterval(ti);

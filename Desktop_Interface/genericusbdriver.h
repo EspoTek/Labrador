@@ -88,7 +88,7 @@ protected:
     //State Vars
     unsigned char fGenTriple=0;
     unsigned short gainMask = 2056;
-	functionGen::SingleChannelController* fGenPtrData[2] = {NULL, NULL};
+    functionGen::SingleChannelController* fGenPtrData[2] = {nullptr, nullptr};
     int dutyPsu = 0;
     double currentPsuVoltage;
     int digitalPinState = 0;

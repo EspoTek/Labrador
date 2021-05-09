@@ -16,7 +16,7 @@ public:
     void clearBuffer();
     double samplesPerSecond;
     int bufferEnd, back = 0;
-    float *buffer, *readData = NULL;
+    float *buffer, *readData = nullptr;
 signals:
 
 public slots:
