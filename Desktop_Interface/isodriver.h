@@ -281,6 +281,8 @@ public slots:
     void attenuationChanged_CH2(int attenuationIndex);
     void setHexDisplay_CH1(bool enabled);
     void setHexDisplay_CH2(bool enabled);
+
+    void setDownsampleMethod(const DownsamplingMethod method);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(isoDriver::Channels);

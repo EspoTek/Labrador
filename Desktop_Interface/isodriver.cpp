@@ -1491,3 +1491,10 @@ void isoDriver::setHexDisplay_CH2(bool enabled)
 {
     hexDisplay_CH2 = enabled;
 }
+
+void isoDriver::setDownsampleMethod(const DownsamplingMethod method)
+{
+    internalBuffer375_CH1->setDownsampleMethod(method);
+    internalBuffer375_CH2->setDownsampleMethod(method);
+    internalBuffer750->setDownsampleMethod(method);
+}

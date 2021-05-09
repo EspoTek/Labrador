@@ -34,6 +34,14 @@ enum class TriggerSeekState : uint8_t
     AboveTriggerLevel
 };
 
+enum class DownsamplingMethod
+{
+    Decimate,
+    Peak,
+    Bottom,
+    AverageDelta
+};
+
 // isoBuffer is a generic class that enables O(1) read times (!!!) on all
 // read/write operations, while maintaining a huge buffer size.
 // Imagine it as a circular buffer, but with access functions specifically
@@ -73,6 +81,7 @@ private:
 public:
 	double sampleConvert(short sample, int TOP, bool AC) const;
 	short inverseSampleConvert(double voltageLevel, int TOP, bool AC) const;
+    void setDownsampleMethod(const DownsamplingMethod method) { m_downsamplingMethod = method; }
 
 private:
 	template<typename Function>
@@ -111,6 +120,7 @@ public:
 	int m_sampleRate_bit;
     TriggerType m_triggerType = TriggerType::Disabled;
     TriggerSeekState m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
+    DownsamplingMethod m_downsamplingMethod = DownsamplingMethod::Decimate;
     short m_triggerLevel = 0;
     short m_triggerSensitivity = 0;
     QVector<uint32_t> m_triggerPositionList = {};

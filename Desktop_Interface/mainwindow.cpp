@@ -415,6 +415,13 @@ void MainWindow::menuSetup(){
     gainGroup->addAction(ui->actionGain64);
     ui->actionGainAuto->setChecked(true);
 
+    QActionGroup *downsampleGroup = new QActionGroup(this);
+    downsampleGroup->addAction(ui->actionDownsampleAverageDelta);
+    downsampleGroup->addAction(ui->actionDownsamplePeak);
+    downsampleGroup->addAction(ui->actionDownsampleBottom);
+    downsampleGroup->addAction(ui->actionDownsampleDecimate);
+    ui->actionDownsampleAverageDelta->setChecked(true);
+
     rangeGroupV = new QActionGroup(this);
     rangeGroupV->addAction(ui->actionAutoV);
     rangeGroupV->addAction(ui->actionMV);
@@ -1244,6 +1251,26 @@ void MainWindow::on_actionEnter_Manually_triggered()
     connect(&dialog, &scopeRangeEnterDialog::windowUpdated, ui->controller_iso, &isoDriver::setTimeWindow);
     connect(&dialog, &scopeRangeEnterDialog::delayUpdated, ui->controller_iso, &isoDriver::setDelay);
     dialog.exec();
+}
+
+void MainWindow::on_actionDownsampleDecimate_triggered()
+{
+    ui->controller_iso->setDownsampleMethod(DownsamplingMethod::Decimate);
+}
+
+void MainWindow::on_actionDownsamplePeak_triggered()
+{
+    ui->controller_iso->setDownsampleMethod(DownsamplingMethod::Peak);
+}
+
+void MainWindow::on_actionDownsampleBottom_triggered()
+{
+    ui->controller_iso->setDownsampleMethod(DownsamplingMethod::Bottom);
+}
+
+void MainWindow::on_actionDownsampleAverageDelta_triggered()
+{
+    ui->controller_iso->setDownsampleMethod(DownsamplingMethod::AverageDelta);
 }
 
 void MainWindow::helloWorld(){

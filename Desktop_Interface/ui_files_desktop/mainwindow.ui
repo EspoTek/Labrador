@@ -1522,6 +1522,15 @@
      <addaction name="actionGain32"/>
      <addaction name="actionGain64"/>
     </widget>
+    <widget class="QMenu" name="menuDownsampleMethod">
+     <property name="title">
+      <string>&amp;Downsampling method</string>
+     </property>
+     <addaction name="actionDownsampleAverageDelta"/>
+     <addaction name="actionDownsamplePeak"/>
+     <addaction name="actionDownsampleBottom"/>
+     <addaction name="actionDownsampleDecimate"/>
+    </widget>
     <widget class="noCloseMenu" name="menuCH1_Stats">
      <property name="title">
       <string>&amp;CH1 Stats</string>
@@ -1563,6 +1572,8 @@
     <addaction name="menuFrame_rate"/>
     <addaction name="separator"/>
     <addaction name="menuGain_2"/>
+    <addaction name="separator"/>
+    <addaction name="menuDownsampleMethod"/>
     <addaction name="separator"/>
     <addaction name="menuCH1_Stats"/>
     <addaction name="menuCH2_Stats"/>
@@ -1848,6 +1859,38 @@
    </property>
    <property name="menuRole">
     <enum>QAction::TextHeuristicRole</enum>
+   </property>
+  </action>
+  <action name="actionDownsampleDecimate">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Decimate</string>
+   </property>
+  </action>
+  <action name="actionDownsamplePeak">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Peak</string>
+   </property>
+  </action>
+  <action name="actionDownsampleBottom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Bottom</string>
+   </property>
+  </action>
+  <action name="actionDownsampleAverageDelta">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Maximum delta</string>
    </property>
   </action>
   <action name="actionCalibrate">

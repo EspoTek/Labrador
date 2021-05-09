@@ -132,19 +132,49 @@ std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSampl
         // TODO: to optimize:
         // - reverse the loop (I thought the prefetching would be smart enough, but maybe not)
         // - Split loop into blocks with constant length, to avoid the pshuflw and whatnot
-        if (timeBetweenSamples > 1) {
+        if (timeBetweenSamples > 1 && m_downsamplingMethod != DownsamplingMethod::Decimate) {
             short minimum = std::numeric_limits<short>::max();
             short maximum = std::numeric_limits<short>::min();
             const int end = qMin<int>(m_insertedCount, itr + timeBetweenSamples);
-            double average = 0.;
-            for (int i=itr; i<end; i++) {
-                const short val = data[-i];
-                minimum = (val < minimum) ? val : minimum;
-                maximum = (maximum < val) ? val : maximum;
-                average += val;
+            short result = 0;
+
+            // For performance reasons we can't check the method inside each loop, so a bit of repetition of code
+            switch (m_downsamplingMethod) {
+            case DownsamplingMethod::AverageDelta: {
+                double average = 0.;
+                for (int i=itr; i<end; i++) {
+                    const short val = data[-i];
+                    minimum = (val < minimum) ? val : minimum;
+                    maximum = (maximum < val) ? val : maximum;
+                    average += val;
+                }
+                average /= end - itr;
+                result = qAbs(maximum - average) > qAbs(average - minimum) ? maximum : minimum;
+                break;
             }
-            average /= end - itr;
-            readData[pos] = qAbs(maximum - average) > qAbs(average - minimum) ? maximum : minimum;
+            case DownsamplingMethod::Bottom:
+                for (int i=itr; i<end; i++) {
+                    const short val = data[-i];
+                    minimum = (val < minimum) ? val : minimum;
+                }
+                result = minimum;
+                break;
+
+            case DownsamplingMethod::Peak:
+                for (int i=itr; i<end; i++) {
+                    const short val = data[-i];
+                    maximum = (maximum < val) ? val : maximum;
+                }
+                result = maximum;
+                break;
+            case DownsamplingMethod::Decimate:
+            default:
+                assert(!"Invalid downsampling method");
+                result = bufferAt(int(itr));
+                break;
+            }
+
+            readData[pos] = result;
         } else {
             readData[pos] = bufferAt(int(itr));
         }

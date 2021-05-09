@@ -67,6 +67,11 @@ private slots:
     void on_actionSnap_to_Cursors_triggered();
     void on_actionEnter_Manually_triggered();
 
+    void on_actionDownsampleDecimate_triggered();
+    void on_actionDownsamplePeak_triggered();
+    void on_actionDownsampleBottom_triggered();
+    void on_actionDownsampleAverageDelta_triggered();
+
     void connectDisplaySignals();
     void calibrateStage2();
     void calibrateStage3();
