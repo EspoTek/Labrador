@@ -17,8 +17,8 @@ public:
     double y1 = 0;
     double x0 = 0;
     double x1 = 0;
-    double topRange = 5.1;
-    double botRange = -0.5;
+    double topRange = DEFAULT_TOP_RANGE;
+    double botRange = DEFAULT_BOTTOM_RANGE;
 
     void setVoltageRange (const QPointF &position, const QPoint zoomDelta, const Qt::KeyboardModifiers modifiers, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes);
 
