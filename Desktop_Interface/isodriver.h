@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QDebug>
 #include <QVector>
-#include <drfftw.h>
+#include <rfftw.h>
 
 #include "qcustomplot.h"
 #include "genericusbdriver.h"
@@ -195,7 +195,8 @@ private:
     uint8_t deviceMode_prev;
     //DAQ
     double daqLoad_startTime, daqLoad_endTime;
-
+    //DFT
+    QVector<double> getDFTAmplitude(QVector<double> input);
 signals:
     void setGain(double newGain);
     void disableWindow(bool enabled);

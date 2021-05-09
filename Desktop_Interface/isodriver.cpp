@@ -4,6 +4,7 @@
 #include "platformspecific.h"
 #include <math.h>
 #include "daqloadprompt.h"
+#include <iostream>
 
 isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 {
@@ -35,12 +36,10 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 
     /*Creating DFT plan*/
     /*Create more plans, for larger input sizes*/
-    this->N = MAX_WINDOW_SIZE*ADC_SPS/20*21;
+    this->N = GRAPH_SAMPLES;
     this->plan = rfftw_create_plan(N, FFTW_REAL_TO_COMPLEX, FFTW_ESTIMATE);
-    this->in_buffer = (fftw_real *) malloc(sizeof(fftw_real)*N);
-    this->out_buffer = (fftw_real *) malloc(sizeof(fftw_real)*N);
-    this->power_spectrum = (fftw_real *) malloc(sizeof(fftw_real)*N);
-
+    this->power_spectrum = (fftw_real *) malloc(sizeof(fftw_real)*N/2 + 1);
+    qDebug() << "Created buffers";
 }
 
 void isoDriver::setDriver(genericUsbDriver *newDriver){
@@ -619,6 +618,25 @@ void isoDriver::setTriggerMode(int newMode)
     triggerStateChanged();
 }
 
+QVector<double> isoDriver::getDFTAmplitude(QVector<double> input)
+{
+    QVector<double> out(N), amplitude(N);
+    rfftw_one(this->plan,input.data(), out.data());
+
+    amplitude[0] = sqrt(out[0]*out[0]);  /* DC component */
+    amplitude[N-1] = amplitude[0];
+    for (int k = 1; k < (N+1)/2; ++k) {  /* (k < N/2 rounded up) */
+         amplitude[k] = sqrt(out[k]*out[k] + out[N-k]*out[N-k]);
+         amplitude[N-k] = sqrt(out[k]*out[k] + out[N-k]*out[N-k]);
+    }
+    if (N % 2 == 0) { /* N is even */
+         amplitude[N/2] = sqrt(out[N/2]*out[N/2]);  /* Nyquist freq. */
+    }
+
+    return amplitude;
+}
+
+
 //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
 void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  
 {
@@ -726,44 +744,27 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
 
     udateCursors();
 
-    /* After having gathered all infos in CH1, CH2 if spectrum is true
-     * we calculate the FFT, and subsitute FFT values to CH1,CH2 vectors.
-     * It is also needed to change the graph indications.
-    */
-    if (spectrum) {
-        if (CH2_mode) {
-            /*Then size of buffer is doubled 750ks*/
-        } else {
-            /*Size of input buffer is 375ks*/
-        }
-        /*Compute FFT, real to complex*/
-        rfftw_one(this->plan, CH1.data(), this->out_buffer);
-        power_spectrum[0] = out_buffer[0]*out_buffer[0];  /* DC component */
-        for (int k = 1; k < (N+1)/2; ++k)  /* (k < N/2 rounded up) */
-             power_spectrum[k] = out_buffer[k]*out_buffer[k] + out_buffer[N-k]*out_buffer[N-k];
-        if (N % 2 == 0) /* N is even */
-             power_spectrum[N/2] = out_buffer[N/2]*out_buffer[N/2];  /* Nyquist freq. */
-        /*Write output to new arrays, and plot them*/
-        QVector<double> pow_spec_vect;
-        pow_spec_vect.reserve(N/2);
-        std::copy(power_spectrum, power_spectrum + N/2, std::back_inserter(pow_spec_vect));
-        /*Power spectrum is on power_spectrum N/2 array, it represents positive frequencies*/
-        QCPCurve* curve = reinterpret_cast<QCPCurve*>(axes->plottable(0));
-        curve->setData(pow_spec_vect, CH2);
-        /*Should only print half of the total screen output*/
-        axes->xAxis->setRange(xmin, xmax);
-        axes->yAxis->setRange(ymin, ymax);
-    } else if(XYmode){
+    if(XYmode){
         QCPCurve* curve = reinterpret_cast<QCPCurve*>(axes->plottable(0));
         curve->setData(CH1, CH2);
         axes->xAxis->setRange(xmin, xmax);
         axes->yAxis->setRange(ymin, ymax);
     } else{
-        /*@HINT here plotting graph*/
-        axes->graph(0)->setData(x,CH1);
-        if(CH2_mode) axes->graph(1)->setData(x,CH2);
-        axes->xAxis->setRange(-display.window - display.delay, -display.delay);
-        axes->yAxis->setRange(display.topRange, display.botRange);
+        if (spectrum) { /*If frequency spectrum mode*/
+            QVector<double> amplitude = getDFTAmplitude(CH1);
+            axes->graph(0)->setData(x,amplitude);
+            if(CH2_mode) {
+                amplitude = getDFTAmplitude(CH2);
+                axes->graph(1)->setData(x,amplitude);
+            }
+            axes->xAxis->setRange(-display.window - display.delay, -display.delay);
+            axes->yAxis->setRange(display.topRange, display.botRange);
+        } else {
+            axes->graph(0)->setData(x,CH1);
+            if(CH2_mode) axes->graph(1)->setData(x,CH2);
+            axes->xAxis->setRange(-display.window - display.delay, -display.delay);
+            axes->yAxis->setRange(display.topRange, display.botRange);
+        }
     }
 
     if(snapshotEnabled_CH1){
