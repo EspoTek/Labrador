@@ -96,31 +96,31 @@ void SingleChannelController::waveformName(QString newName)
     double newMaxFreq = DAC_SPS / divisor;
 	double newMinFreq = double(CLOCK_FREQ) / 1024.0 / 65535.0 / static_cast<double>(length);
 
-	setMaxFreq(newMaxFreq);
-	setMinFreq(newMinFreq);
+    emit setMaxFreq(newMaxFreq);
+    emit setMinFreq(newMinFreq);
 
-    notifyUpdate(this);
+    emit notifyUpdate(this);
 }
 
 void SingleChannelController::freqUpdate(double newFreq)
 {
 	qDebug() << "newFreq = " << newFreq;
 	m_data.freq = newFreq;
-	notifyUpdate(this);
+    emit notifyUpdate(this);
 }
 
 void SingleChannelController::amplitudeUpdate(double newAmplitude)
 {
 	qDebug() << "newAmplitude = " << newAmplitude;
 	m_data.amplitude = newAmplitude;
-	notifyUpdate(this);
+    emit notifyUpdate(this);
 }
 
 void SingleChannelController::offsetUpdate(double newOffset)
 {
 	qDebug() << "newOffset = " << newOffset;
 	m_data.offset = newOffset;
-	notifyUpdate(this);
+    emit notifyUpdate(this);
 }
 
 
@@ -132,7 +132,7 @@ DualChannelController::DualChannelController(QWidget *parent) : QLabel(parent)
 	SingleChannelController* controller2 = getChannelController(ChannelID::CH2);
 
 	connect(controller1, &SingleChannelController::notifyUpdate,
-	        this, [=](SingleChannelController* ptr){ this->functionGenToUpdate(ChannelID::CH1, ptr); });
+            this, [=](SingleChannelController* ptr){ emit this->functionGenToUpdate(ChannelID::CH1, ptr); });
 
 	connect(controller1, &SingleChannelController::setMaxFreq,
 	        this, &DualChannelController::setMaxFreq_CH1);
@@ -142,7 +142,7 @@ DualChannelController::DualChannelController(QWidget *parent) : QLabel(parent)
 
 
 	connect(controller2, &SingleChannelController::notifyUpdate,
-	        this, [=](SingleChannelController* ptr){ this->functionGenToUpdate(ChannelID::CH2, ptr); });
+            this, [=](SingleChannelController* ptr){ emit this->functionGenToUpdate(ChannelID::CH2, ptr); });
 
 	connect(controller1, &SingleChannelController::setMaxFreq,
 	        this, &DualChannelController::setMaxFreq_CH2);

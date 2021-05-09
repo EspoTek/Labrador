@@ -58,7 +58,6 @@ GobindarDialog::GobindarDialog()
 
 genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
 {
-    connectedStatus(false);
     qDebug() << "Making USB Driver invisible!!";
     this->hide();
 
@@ -81,6 +80,11 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
     connect(connectTimer.data(), &QTimer::timeout, this, &genericUsbDriver::checkConnection);
     qDebug()<< "Generic Usb Driver setup complete";
 	messageBox = new QMessageBox();
+
+    // Emitting in a constructor does not work
+    QMetaObject::invokeMethod(this, [this]() {
+        emit this->connectedStatus(false);
+    });
 }
 
 genericUsbDriver::~genericUsbDriver(void){
@@ -264,46 +268,46 @@ void genericUsbDriver::setDeviceMode(int mode){
     //switch on new deviceMode!!
     switch(deviceMode){
         case DeviceCH1Analog:
-            if(oldMode > DeviceCH1AnalogCH2Analog) sendClearBuffer(true,false,false);
-            setVisible_CH2(false);
-            checkXY(false);
+            if(oldMode > DeviceCH1AnalogCH2Analog) emit sendClearBuffer(true,false,false);
+            emit setVisible_CH2(false);
+            emit checkXY(false);
             break;
         case DeviceCH1AnalogCH2Digital:
-            if(oldMode > 2) sendClearBuffer(true,false,false);
-            sendClearBuffer(false,true,false);
-            setVisible_CH2(true);
-            checkXY(false);
+            if(oldMode > 2) emit sendClearBuffer(true,false,false);
+            emit sendClearBuffer(false,true,false);
+            emit setVisible_CH2(true);
+            emit checkXY(false);
             break;
         case DeviceCH1AnalogCH2Analog:
-            if(oldMode > 2) sendClearBuffer(true,false,false);
-            sendClearBuffer(false,true,false);
-            setVisible_CH2(true);
+            if(oldMode > 2) emit sendClearBuffer(true,false,false);
+            emit sendClearBuffer(false,true,false);
+            emit setVisible_CH2(true);
             break;
         case DeviceCH1Digital:
-            if(oldMode != 4) sendClearBuffer(true,false,false);
-            sendClearBuffer(false,true,false);
-            setVisible_CH2(true);
-            checkXY(false);
+            if(oldMode != 4) emit sendClearBuffer(true,false,false);
+            emit sendClearBuffer(false,true,false);
+            emit setVisible_CH2(true);
+            emit checkXY(false);
             break;
         case DeviceCH1DigitalCH2Digital :
-            if(oldMode != 3) sendClearBuffer(true,false,false);
-            sendClearBuffer(false,true,false);
-            setVisible_CH2(true);
-            checkXY(false);
+            if(oldMode != 3) emit sendClearBuffer(true,false,false);
+            emit sendClearBuffer(false,true,false);
+            emit setVisible_CH2(true);
+            emit checkXY(false);
             break;
         case 5:
-            setVisible_CH2(false);
-            checkXY(false);
+            emit setVisible_CH2(false);
+            emit checkXY(false);
             break;
         case DeviceCH1Analog750 :
-            sendClearBuffer(false,false,true);
-            setVisible_CH2(false);
-            checkXY(false);
+            emit sendClearBuffer(false,false,true);
+            emit setVisible_CH2(false);
+            emit checkXY(false);
             break;
         case DeviceMultimeter:
-            sendClearBuffer(true,false,false);
-            enableMMTimer();
-            checkXY(false);
+            emit sendClearBuffer(true,false,false);
+            emit enableMMTimer();
+            emit checkXY(false);
             break;
         default:
             qFatal("Error in genericUsbDriver::setDeviceMode.  Invalid device mode.");
@@ -334,7 +338,7 @@ void genericUsbDriver::psuTick(){
 
 void genericUsbDriver::setGain(double newGain){
     if (newGain == scopeGain) return; //No update!
-    gainBuffers(scopeGain/newGain);
+    emit gainBuffers(scopeGain/newGain);
     scopeGain = newGain;
     //See XMEGA_AU Manual, page 359.  ADC.CTRL.GAIN.
         if(newGain==0.5) gainMask = 0x07;
@@ -427,7 +431,7 @@ void genericUsbDriver::checkConnection(){
     unsigned char initReturnValue;
 
     if(!connected){
-        connectedStatus(false);
+        emit connectedStatus(false);
         qDebug() << "CHECKING CONNECTION!";
         initReturnValue = usbInit(BOARD_VID, BOARD_PID);
         connected = !(initReturnValue);
@@ -479,7 +483,7 @@ void genericUsbDriver::checkConnection(){
     connectTimer->stop();
     delete(connectTimer);
 
-    connectedStatus(true);
+    emit connectedStatus(true);
 
 
     setDeviceMode(deviceMode);
@@ -503,10 +507,10 @@ void genericUsbDriver::checkConnection(){
     recoveryTimer->setTimerType(Qt::PreciseTimer);
     recoveryTimer->start(RECOVERY_PERIOD);
     connect(recoveryTimer.data(), &QTimer::timeout, this, &genericUsbDriver::recoveryTick);
-    initialConnectComplete();
+    emit initialConnectComplete();
 
     if(!killOnConnect && calibrateOnConnect){
-        calibrateMe();
+        emit calibrateMe();
     }
 }
 

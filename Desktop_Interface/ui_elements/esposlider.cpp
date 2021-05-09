@@ -98,13 +98,13 @@ void espoSlider::selfMoved(int newval)
     QString newstring;
     newstring.setNum((double) newval/20, 'f', 2);
     //qDebug() << newstring;
-    voltageChanged(((double) newval) / 20);
-    lcdOut(newstring);
+    emit voltageChanged(((double) newval) / 20);
+    emit lcdOut(newstring);
     return;
 }
 
 void espoSlider::poke(void){
     //qDebug() << "Refreshing to voltage" <<  ((double) (this->value())) / 20;
-    voltageChanged(((double) (this->value())) / 20);
+    emit voltageChanged(((double) (this->value())) / 20);
 }
 

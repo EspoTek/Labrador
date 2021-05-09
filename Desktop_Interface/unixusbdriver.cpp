@@ -124,8 +124,8 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
     } //else qDebug() << "unixUsbDriver::usbSendControl SUCCESS";
     if((error == LIBUSB_ERROR_NO_DEVICE) && (Request!=0xa7)){ //Bootloader Jump won't return; this is expected behaviour.
         qDebug() << "Device not found.  Becoming an hero.";
-        connectedStatus(false);
-        killMe();
+        emit connectedStatus(false);
+        emit killMe();
     }
     return;
 }
@@ -288,7 +288,7 @@ void unixUsbDriver::isoTimerTick(void){
 
     tcBlockMutex.unlock();
     //qDebug() << "Calling upTick()";
-    upTick();
+    emit upTick();
    return;
 }
 
@@ -335,7 +335,7 @@ int unixUsbDriver::flashFirmware(void){
     sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
     qDebug() << "FLASHING " << fname;
 
-    signalFirmwareFlash();
+    emit signalFirmwareFlash();
     QApplication::processEvents();
 
     //Go to bootloader mode

@@ -68,17 +68,17 @@ void daqForm::updateValues(){
 
     //Averaging
     if(ui->sampleAveragingGroup->isChecked()){
-        updatedAveraging(ui->numberOfPointsSpinBox->value());
-    } else updatedAveraging(1);
+        emit updatedAveraging(ui->numberOfPointsSpinBox->value());
+    } else emit updatedAveraging(1);
 
     //File Size
     if(ui->limitFileSizeGroupBox->isChecked()){
-        updatedMaxFileSize(ui->fileSizeSpinBox->value() * 1000000);
-    } else updatedMaxFileSize(0);
+        emit updatedMaxFileSize(ui->fileSizeSpinBox->value() * 1000000);
+    } else emit updatedMaxFileSize(0);
 
 }
 
 void daqForm::trigger_saveButtonPressed(){
-    saveButtonPressed();
+    emit saveButtonPressed();
 }
 

@@ -268,7 +268,7 @@ void isoBuffer::maybeOutputSampleToFile(double convertedSample)
         if (m_fileIO_numBytesWritten >= m_fileIO_maxFileSize)
         {
             m_fileIOEnabled = false; // Just in case signalling fails.
-            fileIOinternalDisable();
+            emit fileIOinternalDisable();
         }
     }
 }

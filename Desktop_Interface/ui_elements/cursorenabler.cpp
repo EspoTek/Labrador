@@ -20,12 +20,12 @@ void cursorEnabler::clickDetected(QMouseEvent* event){
     if(m_turnedOn){
         if (event->button() == Qt::LeftButton)
         {
-            tickHori(true);
+            emit tickHori(true);
         }
         else if (event->button() == Qt::RightButton)
         {
-            tickVert(true);
+            emit tickVert(true);
         }
     }
-    passOnSignal(event);
+    emit passOnSignal(event);
 }

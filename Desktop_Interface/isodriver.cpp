@@ -382,7 +382,7 @@ void isoDriver::autoGain(){
 
     for (int i=0;i<8;i++){
         if (maxgain>snap[i]){
-            setGain(snap[i]);
+            emit setGain(snap[i]);
             return;
         }
     }
@@ -619,7 +619,7 @@ void isoDriver::frameActionGeneric(const ChannelMode CH1_mode, const ChannelMode
     }
 
     if(singleShotEnabled && (triggerDelay > 0))
-        singleShotTriggered(true);
+        emit singleShotTriggered(true);
 
     if (triggerDelay < 0)
         triggerDelay = 0;
@@ -740,7 +740,7 @@ void isoDriver::multimeterAction(){
     }
 
     if(singleShotEnabled && (triggerDelay != 0)) {
-        singleShotTriggered(true);
+        emit singleShotTriggered(true);
     }
     
 	readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES, false, display.delay + triggerDelay);
@@ -778,13 +778,13 @@ void isoDriver::setMultimeterType(int type){
     switch (type){
 
     case R:
-        multimeterREnabled(multimeterRsource);
+        emit multimeterREnabled(multimeterRsource);
         break;
     case C:
-        multimeterREnabled(254);
+        emit multimeterREnabled(254);
         break;
     default:
-        multimeterREnabled(255);
+        emit multimeterREnabled(255);
     }
 
     qDebug() << "multimeterType = " << multimeterType;
@@ -867,57 +867,57 @@ void isoDriver::multimeterStats(){
     if(multimeterType == V){
         if(mvMax){
             currentVmax *= 1000;
-            sendMultimeterLabel1("Max (mV)");
-        }else sendMultimeterLabel1("Max (V)");
+            emit sendMultimeterLabel1("Max (mV)");
+        }else emit sendMultimeterLabel1("Max (V)");
 
         if(mvMin){
             currentVmin *= 1000;
-            sendMultimeterLabel2("Min (mV)");
-        }else sendMultimeterLabel2("Min (V)");
+            emit sendMultimeterLabel2("Min (mV)");
+        }else emit sendMultimeterLabel2("Min (V)");
 
         if(mvMean){
             currentVmean *= 1000;
-            sendMultimeterLabel3("Mean (mV)");
-        }else sendMultimeterLabel3("Mean (V)");
+            emit sendMultimeterLabel3("Mean (mV)");
+        }else emit sendMultimeterLabel3("Mean (V)");
 
         if(mvRMS){
             currentVRMS *= 1000;
-            sendMultimeterLabel4("RMS (mV)");
-        }else sendMultimeterLabel4("RMS (V)");
+            emit sendMultimeterLabel4("RMS (mV)");
+        }else emit sendMultimeterLabel4("RMS (V)");
 
-        multimeterMax(currentVmax);
-        multimeterMin(currentVmin);
-        multimeterMean(currentVmean);
-        multimeterRMS(currentVRMS);
+        emit multimeterMax(currentVmax);
+        emit multimeterMin(currentVmin);
+        emit multimeterMean(currentVmean);
+        emit multimeterRMS(currentVRMS);
         return;
     }
 
     if(multimeterType == I){
         if(maMax){
             currentVmax *= 1000;
-            sendMultimeterLabel1("Max (mA)");
-        }else sendMultimeterLabel1("Max (A)");
+            emit sendMultimeterLabel1("Max (mA)");
+        }else emit sendMultimeterLabel1("Max (A)");
 
         if(maMin){
             currentVmin *= 1000;
-            sendMultimeterLabel2("Min (mA)");
-        }else sendMultimeterLabel2("Min (A)");
+            emit sendMultimeterLabel2("Min (mA)");
+        }else emit sendMultimeterLabel2("Min (A)");
 
         if(maMean){
             currentVmean *= 1000;
-            sendMultimeterLabel3("Mean (mA)");
-        }else sendMultimeterLabel3("Mean (A)");
+            emit sendMultimeterLabel3("Mean (mA)");
+        }else emit sendMultimeterLabel3("Mean (A)");
 
         if(maRMS){
             currentVRMS *= 1000;
-            sendMultimeterLabel4("RMS (mA)");
-        }else sendMultimeterLabel4("RMS (A)");
+            emit sendMultimeterLabel4("RMS (mA)");
+        }else emit sendMultimeterLabel4("RMS (A)");
 
 
-        multimeterMax(currentVmax / seriesResistance);
-        multimeterMin(currentVmin / seriesResistance);
-        multimeterMean(currentVmean / seriesResistance);
-        multimeterRMS(currentVRMS / seriesResistance);
+        emit multimeterMax(currentVmax / seriesResistance);
+        emit multimeterMin(currentVmin / seriesResistance);
+        emit multimeterMean(currentVmean / seriesResistance);
+        emit multimeterRMS(currentVRMS / seriesResistance);
         return;
     }
 
@@ -939,9 +939,9 @@ void isoDriver::multimeterStats(){
         //qDebug() << "Vrat = " << Vrat;
         //qDebug() << "Rp = " << Rp;
         //qDebug() << "estimated_resistance = " << estimated_resistance;
-        multimeterMax(0);
-        multimeterMin(0);
-        multimeterMean(0);
+        emit multimeterMax(0);
+        emit multimeterMin(0);
+        emit multimeterMean(0);
 
         if(autoMultimeterR){
             kOhms = (estimated_resistance) > 1000;
@@ -949,9 +949,9 @@ void isoDriver::multimeterStats(){
 
         if(kOhms){
             estimated_resistance /= 1000;
-            sendMultimeterLabel4("Resistance (kΩ)");
-        }else sendMultimeterLabel4("Resistance (Ω)");
-        multimeterRMS(estimated_resistance);
+            emit sendMultimeterLabel4("Resistance (kΩ)");
+        }else emit sendMultimeterLabel4("Resistance (Ω)");
+        emit multimeterRMS(estimated_resistance);
     }
     if(multimeterType == C){
         double cap_vbot = 0.8;
@@ -986,13 +986,13 @@ void isoDriver::multimeterStats(){
         }
 
         if(uFarads){
-            sendMultimeterLabel4("Capacitance (μF)");
+            emit sendMultimeterLabel4("Capacitance (μF)");
             Cm = Cm*1000000;
         } else {
-            sendMultimeterLabel4("Capacitance (nF)");
+            emit sendMultimeterLabel4("Capacitance (nF)");
             Cm = Cm*1000000000;
         }
-        multimeterRMS(Cm);
+        emit multimeterRMS(Cm);
     }
 
 }
@@ -1093,24 +1093,24 @@ void isoDriver::setXYmode(bool enabled){
 }
 
 void isoDriver::triggerGroupStateChange(bool enabled){
-    if(enabled) sendTriggerValue((currentVmax-currentVmin)*0.85 + currentVmin);
+    if(enabled) emit sendTriggerValue((currentVmax-currentVmin)*0.85 + currentVmin);
 }
 
 void isoDriver::broadcastStats(bool CH2){
     if(CH2){
         if(!update_CH2) return;
         update_CH2 = false;
-        sendVmax_CH2(currentVmax);
-        sendVmin_CH2(currentVmin);
-        sendVmean_CH2(currentVmean);
-        sendVRMS_CH2(currentVRMS);
+        emit sendVmax_CH2(currentVmax);
+        emit sendVmin_CH2(currentVmin);
+        emit sendVmean_CH2(currentVmean);
+        emit sendVRMS_CH2(currentVRMS);
     } else{
         if(!update_CH1) return;
         update_CH1 = false;
-        sendVmax_CH1(currentVmax);
-        sendVmin_CH1(currentVmin);
-        sendVmean_CH1(currentVmean);
-        sendVRMS_CH1(currentVRMS);
+        emit sendVmax_CH1(currentVmax);
+        emit sendVmin_CH1(currentVmin);
+        emit sendVmean_CH1(currentVmean);
+        emit sendVRMS_CH1(currentVRMS);
     }
 }
 
@@ -1187,7 +1187,7 @@ void isoDriver::rSourceChanged(int newSource){
 
 void isoDriver::serialNeedsDisabling(int channel){
     qDebug("isoDriver acknowledges disconnect from channel %d", channel);
-    mainWindowPleaseDisableSerial(channel);
+    emit mainWindowPleaseDisableSerial(channel);
 }
 
 //Thank you https://stackoverflow.com/questions/27318631/parsing-through-a-csv-file-in-qt

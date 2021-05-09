@@ -33,8 +33,8 @@ void daqLoadPrompt::valueChange(){
     ui->startTimeDoubleSpinBox->setMaximum(ui->endTimeDoubleSpinBox->value() - min_interval);
     ui->endTimeDoubleSpinBox->setMinimum(ui->startTimeDoubleSpinBox->value() + min_interval);
 
-    startTime(ui->startTimeDoubleSpinBox->value());
-    endTime(ui->endTimeDoubleSpinBox->value());
+    emit startTime(ui->startTimeDoubleSpinBox->value());
+    emit endTime(ui->endTimeDoubleSpinBox->value());
 
     char units[2] = "B";
     double contig_ram_required = ((ui->endTimeDoubleSpinBox->value() - ui->startTimeDoubleSpinBox->value()) / min_interval) * 4 + 512;  //4 bytes per sample (float), each sample is stored only once.  512 is just a bullshit value to represent the overhead required to store the other variables in the buffer object
