@@ -19,7 +19,7 @@ TARGET = Labrador
 TEMPLATE = app
 
 
-!contains(CONFIG, "USE_SYSTEM_QCP") {
+!contains(CONFIG, "USE_SYSTEM_LIBS") {
     message("Using bundled version of qcustomplot")
     QCP_VER = 1
 } else {
@@ -173,6 +173,7 @@ unix:!android:!macx{
     }
 
     contains(CONFIG, "USE_SYSTEM_LIBS") {
+        message("Using system version of libusb")
         INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/libusb-1.0
     } else {
         INCLUDEPATH += build_linux/libusb

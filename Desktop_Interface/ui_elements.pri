@@ -1,7 +1,7 @@
 @INCLUDEPATH += $$PWD/ui_elements
 @DEPENDPATH += $$PWD/ui_elements
 
-!contains(CONFIG, "USE_SYSTEM_QCP") {
+!contains(CONFIG, "USE_SYSTEM_LIBS") {
     INCLUDEPATH += $$PWD/ui_elements/qcp$${QCP_VER}
     DEPENDPATH += $$PWD/ui_elements/qcp$${QCP_VER}
     SOURCES += ui_elements/qcp$${QCP_VER}/qcustomplot.cpp
