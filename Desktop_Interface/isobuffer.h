@@ -87,6 +87,7 @@ private:
 	template<typename Function>
 	int capSample(int offset, int target, double seconds, double value, Function comp);
     void checkTriggered();
+    void updateTriggerLevel();
 public:
 	int cap_x0fromLast(double seconds, double vbot);
 	int cap_x1fromLast(double seconds, int x0, double vbot);
@@ -121,6 +122,9 @@ public:
     TriggerType m_triggerType = TriggerType::Disabled;
     TriggerSeekState m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
     DownsamplingMethod m_downsamplingMethod = DownsamplingMethod::AverageDelta;
+    double m_triggerVoltage = 0.;
+    uint16_t m_triggerTop = 0;
+    bool m_triggerACCoupled = false;
     short m_triggerLevel = 0;
     short m_triggerSensitivity = 0;
     QVector<uint32_t> m_triggerPositionList = {};

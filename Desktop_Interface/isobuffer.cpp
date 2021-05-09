@@ -219,6 +219,7 @@ void isoBuffer::gainBuffer(int gain_log)
             m_buffer[i+m_bufferLen] >>= gain_log;
         }
     }
+    updateTriggerLevel();
 }
 
 
@@ -417,10 +418,22 @@ void isoBuffer::setTriggerType(TriggerType newType)
 void isoBuffer::setTriggerLevel(double voltageLevel, uint16_t top, bool acCoupled)
 {
     m_triggerPositionList.clear();
-    m_triggerLevel = inverseSampleConvert(voltageLevel, top, acCoupled);
-    m_triggerSensitivity = static_cast<short>(1 + abs(voltageLevel * kTriggerSensitivityMultiplier * static_cast<double>(top) / 128.));
+
+    // Because inverseSampleConvert() depends on e. g. gain, we have to store this and update the level when we change gain
+    m_triggerVoltage = voltageLevel;
+    m_triggerTop = top;
+    m_triggerACCoupled = acCoupled;
+
+    updateTriggerLevel();
+}
+
+void isoBuffer::updateTriggerLevel()
+{
+    m_triggerLevel = inverseSampleConvert(m_triggerVoltage, m_triggerTop, m_triggerACCoupled);
+    m_triggerSensitivity = static_cast<short>(1 + abs(m_triggerVoltage * kTriggerSensitivityMultiplier * static_cast<double>(m_triggerTop) / 128.));
     qDebug() << "Trigger Level: " << m_triggerLevel;
     qDebug() << "Trigger sensitivity:" << m_triggerSensitivity;
+
 }
 
 // TODO: Clear trigger
