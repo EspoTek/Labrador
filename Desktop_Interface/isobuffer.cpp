@@ -149,7 +149,7 @@ std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSampl
                     average += val;
                 }
                 average /= end - itr;
-                result = qAbs(maximum - average) > qAbs(average - minimum) ? maximum : minimum;
+                result = qAbs(average - maximum) > qAbs(average - minimum) ? maximum : minimum;
                 break;
             }
             case DownsamplingMethod::Bottom:
