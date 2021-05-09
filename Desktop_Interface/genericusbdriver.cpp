@@ -27,7 +27,7 @@ GobindarDialog::GobindarDialog()
     setWindowFlags(Qt::Window);
 
     QPalette palette;
-    palette.setColor(QPalette::Background, Qt::white);
+    palette.setColor(QPalette::Window, Qt::white);
     setPalette(palette);
 
     QFont largeFont;

@@ -24,7 +24,7 @@ public:
 private:
     int debug_var = 0;
     void rearrange();
-    std::vector<QLabel*> addressBook;
+    QVector<QLabel*> addressBook;
     QWidget* windowPointer;
     int labelMargin;
 signals:

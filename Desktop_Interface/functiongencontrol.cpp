@@ -93,7 +93,7 @@ void SingleChannelController::waveformName(QString newName)
         qWarning() << "Invalid divisor" << divisor;
         return;
     }
-    double newMaxFreq = DAC_SPS / divisor;
+    double newMaxFreq = double(DAC_SPS) / divisor;
 	double newMinFreq = double(CLOCK_FREQ) / 1024.0 / 65535.0 / static_cast<double>(length);
 
     emit setMaxFreq(newMaxFreq);

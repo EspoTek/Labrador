@@ -31,12 +31,12 @@ QString espoSpinBox::textFromValue(double value) const{
 		lastValidValue = value;
         return windowText;
     }
-    if (abs(value) >= 1/1000){
+    if (abs(value) >= 1./1000){
         QTextStream(&windowText) << value * 1000 << "m";
 		lastValidValue = value;
         return windowText;
     }
-    if (abs(value) >= 1/1000000){
+    if (abs(value) >= 1./1000000){
         QTextStream(&windowText) << value * 1000000 << "u";
 		lastValidValue = value;
         return windowText;

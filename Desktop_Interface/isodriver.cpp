@@ -1169,6 +1169,9 @@ double isoDriver::meanVoltageLast(double seconds, unsigned char channel, int TOP
     case 3:
         currentBuffer = internalBuffer750;
         break;
+    default:
+        qWarning() << "Invalid channel!" << channel;
+        return 0;
     }
 
 	std::unique_ptr<short[]> tempBuffer = currentBuffer->readBuffer(seconds, 1024, false, 0);

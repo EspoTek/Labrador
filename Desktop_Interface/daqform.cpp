@@ -20,7 +20,7 @@ daqForm::daqForm(QWidget *parent, int initialAverage, qulonglong initialMaxFileS
         ui->limitFileSizeGroupBox->setChecked(false);
     } else {
         ui->limitFileSizeGroupBox->setChecked(true);
-        ui->fileSizeSpinBox->setValue(initialMaxFileSize/1000000);
+        ui->fileSizeSpinBox->setValue(initialMaxFileSize/1000000ull);
     }
 
     updateLabels();
