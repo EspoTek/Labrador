@@ -72,7 +72,11 @@ unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
             return 1;
         } else qDebug() << "Libusb context initialised";
 
+#if defined(LIBUSB_API_VERSION) && (LIBUSB_API_VERSION >= 0x01000108)
         libusb_set_option(ctx, LIBUSB_OPTION_LOG_LEVEL, LIBUSB_LOG_LEVEL_INFO);
+#else
+        libusb_set_debug(ctx, 3);
+#endif
     }
 
     if(handle == NULL){

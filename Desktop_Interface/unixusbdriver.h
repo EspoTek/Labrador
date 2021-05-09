@@ -7,7 +7,7 @@
 #include <QDateTime>
 
 #include "genericusbdriver.h"
-#include "libusb.h"
+#include <libusb.h>
 extern "C"
 {
     #include "libdfuprog.h"
