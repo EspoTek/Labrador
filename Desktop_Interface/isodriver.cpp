@@ -616,13 +616,13 @@ void isoDriver::frameActionGeneric(const ChannelMode CH1_mode, const ChannelMode
     {
         isoBuffer* internalBuffer_CH1 = (CH1_mode == ChannelMode::Analog750) ? internalBuffer750 : internalBuffer375_CH1;
         triggerDelay = (triggerMode < 2) ? internalBuffer_CH1->getDelayedTriggerPoint(display.window) - display.window : internalBuffer375_CH2->getDelayedTriggerPoint(display.window) - display.window;
-
-        if (triggerDelay < 0)
-            triggerDelay = 0;
     }
 
-    if(singleShotEnabled && (triggerDelay != 0))
+    if(singleShotEnabled && (triggerDelay > 0))
         singleShotTriggered(true);
+
+    if (triggerDelay < 0)
+        triggerDelay = 0;
 
     readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==ChannelMode::Digital, display.delay + triggerDelay);
     if(CH2_mode != ChannelMode::Off) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES, CH2_mode==ChannelMode::Digital, display.delay + triggerDelay);

@@ -411,10 +411,12 @@ void isoBuffer::setTriggerType(TriggerType newType)
 {
     qDebug() << "Trigger Type: " << (uint8_t)newType;
     m_triggerType = newType;
+    m_triggerPositionList.clear();
 }
 
 void isoBuffer::setTriggerLevel(double voltageLevel, uint16_t top, bool acCoupled)
 {
+    m_triggerPositionList.clear();
     m_triggerLevel = inverseSampleConvert(voltageLevel, top, acCoupled);
     m_triggerSensitivity = static_cast<short>(1 + abs(voltageLevel * kTriggerSensitivityMultiplier * static_cast<double>(top) / 128.));
     qDebug() << "Trigger Level: " << m_triggerLevel;
@@ -447,7 +449,7 @@ void isoBuffer::checkTriggered()
 double isoBuffer::getDelayedTriggerPoint(double delay)
 {
     if (m_triggerPositionList.isEmpty()) {
-        return 0;
+        return -1;
     }
 	
     // Holy fuck the STL APIs suck,
@@ -477,5 +479,5 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
         return (m_bufferLen + (m_back-1) - index) / double(m_samplesPerSecond);
     }
 
-    return 0;
+    return -1;
 }
