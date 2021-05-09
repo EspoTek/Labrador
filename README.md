@@ -29,7 +29,9 @@ There are community contributed 3D printable cases available at Thingiverse, cou
 * https://www.thingiverse.com/thing:4705392
 
 # Licence
-All software files are licenced under GNU GPL v3.  https://www.gnu.org/licenses/gpl.html
+All Dekstop software files are licenced under GNU GPL v3.  https://www.gnu.org/licenses/gpl.html
+
+All Microcontroller software files, with the exception of those provided by Atmel, are licenced under the 3-Clause BSD License.  https://opensource.org/licenses/BSD-3-Clause
 
 All hardware files (schematics, PCB) are licenced under Creative Commons 4.0 (CC BY-NC-SA).  https://creativecommons.org/licenses/by-nc-sa/4.0/
 
