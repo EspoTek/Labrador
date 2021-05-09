@@ -120,7 +120,7 @@ public:
 	int m_sampleRate_bit;
     TriggerType m_triggerType = TriggerType::Disabled;
     TriggerSeekState m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
-    DownsamplingMethod m_downsamplingMethod = DownsamplingMethod::Decimate;
+    DownsamplingMethod m_downsamplingMethod = DownsamplingMethod::AverageDelta;
     short m_triggerLevel = 0;
     short m_triggerSensitivity = 0;
     QVector<uint32_t> m_triggerPositionList = {};
