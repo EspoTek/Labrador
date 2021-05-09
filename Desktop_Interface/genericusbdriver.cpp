@@ -87,7 +87,7 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
     });
 }
 
-genericUsbDriver::~genericUsbDriver(void){
+genericUsbDriver::~genericUsbDriver(){
     qDebug() << "genericUsbDriver dectructor entering";
     if(connected){
 		if (psuTimer)
@@ -364,7 +364,7 @@ void genericUsbDriver::setGain(double newGain){
     usbSendControl(0x40, 0xa5, deviceMode, gainMask, 0, nullptr);
 }
 
-void genericUsbDriver::avrDebug(void){
+void genericUsbDriver::avrDebug(){
     usbSendControl(0xc0, 0xa0, 0, 0, sizeof(unified_debug), nullptr);
 
     qDebug() << "unified debug is of size" << sizeof(unified_debug);
@@ -394,17 +394,17 @@ void genericUsbDriver::avrDebug(void){
 */
 }
 
-void genericUsbDriver::kickstartIso(void){
+void genericUsbDriver::kickstartIso(){
     qDebug() << "Attempting to kickstart iso...";
     usbSendControl(0x40, 0xaa, 0, 0, 0, nullptr);
 }
 
-void genericUsbDriver::requestFirmwareVersion(void){
+void genericUsbDriver::requestFirmwareVersion(){
     usbSendControl(0xc0, 0xa8, 0, 0, 2, nullptr);
     firmver = *((unsigned short *) inBuffer);
 }
 
-void genericUsbDriver::requestFirmwareVariant(void){
+void genericUsbDriver::requestFirmwareVariant(){
     usbSendControl(0xc0, 0xa9, 0, 0, 1, nullptr);
     variant = *((unsigned char *) inBuffer);
 }

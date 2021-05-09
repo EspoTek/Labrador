@@ -67,7 +67,7 @@ void isoDriver::setAxes(QCustomPlot *newAxes){
     qDebug() << "axes = " << axes;
 }
 
-void isoDriver::timerTick(void){
+void isoDriver::timerTick(){
     //qDebug() << "isoDriver SEZ Tick!";
     if(firstFrame){
         autoGain();
@@ -393,7 +393,7 @@ void isoDriver::gainBuffers(double multiplier){
     QTimer::singleShot(TIMER_PERIOD*4, this, SLOT(gainTick()));
 }
 
-void isoDriver::gainTick(void){
+void isoDriver::gainTick(){
 #ifdef PLATFORM_ANDROID
 #warning: "gainTick does nothing on Android!!"
 #else
@@ -479,7 +479,7 @@ void isoDriver::cursorEnableVert(bool enabled){
     axes->graph(3)->setVisible(enabled);
 }
 
-void isoDriver::udateCursors(void){
+void isoDriver::udateCursors(){
     if(!(vertCursorEnabled || horiCursorEnabled)){
         cursorTextPtr->setVisible(false);
         return;

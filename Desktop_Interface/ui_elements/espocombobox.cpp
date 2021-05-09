@@ -6,7 +6,7 @@ espoComboBox::espoComboBox(QWidget *parent) : QComboBox(parent)
 }
 
 
-void espoComboBox::readWaveformList(void)
+void espoComboBox::readWaveformList()
 {
     const QStringList potentialDirs = {
 #ifdef PLATFORM_ANDROID

@@ -5,7 +5,7 @@ bufferControl::bufferControl(QWidget *parent) : QLabel(parent)
     //refreshImage();
 }
 
-void bufferControl::refreshImage(void){
+void bufferControl::refreshImage(){
     //qDebug() << "Trying to show bitmap " << numBuffers;
 
     switch(numBuffers){
@@ -197,7 +197,7 @@ void bufferControl::digIn_CH4(bool state){
     }    emit updateDig(digState);
 }
 
-void bufferControl::updateMode(void){
+void bufferControl::updateMode(){
     if(multimeterState){
         emit modeChange(7);
         qDebug() << "Changed to mode 7";
@@ -241,7 +241,7 @@ void bufferControl::updateMode(void){
 
 }
 
-void bufferControl::poke(void){
+void bufferControl::poke(){
     emit updateDig(digState);
     updateMode();
     updateBuffer(false,0);

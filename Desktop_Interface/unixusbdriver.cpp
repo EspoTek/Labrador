@@ -16,7 +16,7 @@ unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
     }
 }
 
-unixUsbDriver::~unixUsbDriver(void){
+unixUsbDriver::~unixUsbDriver(){
     qDebug() << "\n\nunixUsbDriver destructor ran!";
     //unixDriverDeleteMutex.lock();
     shutdownMode = true;
@@ -130,7 +130,7 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
     return;
 }
 
-int unixUsbDriver::usbIsoInit(void){
+int unixUsbDriver::usbIsoInit(){
     int error;
 	
     for(int n=0;n<NUM_FUTURE_CTX;n++){
@@ -189,7 +189,7 @@ int unixUsbDriver::usbIsoInit(void){
     return 0;
 }
 
-void unixUsbDriver::isoTimerTick(void){
+void unixUsbDriver::isoTimerTick(){
     timerCount++;
 
     char subString[3] = "th";
@@ -300,7 +300,7 @@ std::shared_ptr<char[]> unixUsbDriver::isoRead(unsigned int *newLength){
     return outBuffers[(unsigned char) !currentWriteBuffer];
 }
 
-void unixUsbDriver::recoveryTick(void){
+void unixUsbDriver::recoveryTick(){
     //This should not be called in shutdown mode since it cause double deletion!
     if(!shutdownMode){
         avrDebug();
@@ -328,7 +328,7 @@ void unixUsbDriver::backupCleanup(){
 	    isoHandler->stopTime = true;
 }
 
-int unixUsbDriver::flashFirmware(void){
+int unixUsbDriver::flashFirmware(){
 #ifndef PLATFORM_ANDROID
     char fname[128];
     qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
@@ -404,7 +404,7 @@ int unixUsbDriver::flashFirmware(void){
 
 
 // TODO: port to QWizard, less annoying than an endless list of popup dialogs
-void unixUsbDriver::manualFirmwareRecovery(void){
+void unixUsbDriver::manualFirmwareRecovery(){
 #ifndef PLATFORM_ANDROID
     //Get location of firmware file
     const QString fname = QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);

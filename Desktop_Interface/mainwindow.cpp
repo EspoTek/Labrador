@@ -1337,7 +1337,7 @@ void MainWindow::readSettingsFile(){
     }
 }
 
-void MainWindow::reinitUsb(void){
+void MainWindow::reinitUsb(){
     ui->controller_iso->doNotTouchGraph = true;
     ui->controller_iso->driver->saveState(&reinitdeviceMode, &reinitScopeGain, &reinitCurrentPsuVoltage, &reinitDigitalPinState);
 
@@ -1354,7 +1354,7 @@ void MainWindow::reinitUsb(void){
     qDebug() << "ReinitUsb Stage 1 complete";
 }
 
-void MainWindow::reinitUsbStage2(void){
+void MainWindow::reinitUsbStage2(){
     qDebug() << "ReinitUsb entering stage 2";
     delete(ui->controller_iso->driver);
     qDebug() << "Reinitialising USB driver!";
@@ -1398,7 +1398,7 @@ void MainWindow::reinitUsbStage2(void){
     qDebug() << "ReinitUsbStage2 is returning";
 }
 
-void MainWindow::resetUsbState(void){
+void MainWindow::resetUsbState(){
 	using functionGen::ChannelID;
     //ui->controller_iso->driver->setDeviceMode(deviceMode);
     //ui->controller_iso->driver->setPsu(currentPsuVoltage);
@@ -2154,7 +2154,7 @@ void MainWindow::on_actionResetDisplay()
 
 }
 
-void MainWindow::fileLimitReached_CH1(void){
+void MainWindow::fileLimitReached_CH1(){
     ui->actionRecord_CH1->setChecked(false);
 
     QMessageBox recordingStoppedMessageBox;
@@ -2164,7 +2164,7 @@ void MainWindow::fileLimitReached_CH1(void){
     recordingStoppedMessageBox.exec();
 }
 
-void MainWindow::fileLimitReached_CH2(void){
+void MainWindow::fileLimitReached_CH2(){
     ui->actionRecord_CH2->setChecked(false);
 
     QMessageBox recordingStoppedMessageBox;
