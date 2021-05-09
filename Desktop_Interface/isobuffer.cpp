@@ -430,14 +430,14 @@ void isoBuffer::checkTriggered()
     if (m_triggerType == TriggerType::Disabled)
         return;
 
-    if ((bufferAt(0) >= (m_triggerLevel + m_triggerSensitivity)) && (m_triggerSeekState == TriggerSeekState::BelowTriggerLevel))
+    if ((m_triggerSeekState == TriggerSeekState::BelowTriggerLevel) && (bufferAt(0) >= (m_triggerLevel + m_triggerSensitivity)))
     {
         // Rising Edge
         m_triggerSeekState = TriggerSeekState::AboveTriggerLevel;
         if (m_triggerType == TriggerType::Rising)
             m_triggerPositionList.push_back(m_back - 1);
     }
-    else if ((bufferAt(0) < (m_triggerLevel - m_triggerSensitivity)) && (m_triggerSeekState == TriggerSeekState::AboveTriggerLevel))
+    else if ((m_triggerSeekState == TriggerSeekState::AboveTriggerLevel) && (bufferAt(0) < (m_triggerLevel - m_triggerSensitivity)))
     {
         // Falling Edge
         m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
