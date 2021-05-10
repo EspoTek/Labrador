@@ -1,3 +1,18 @@
+// Copyright (C) 2017, 2018, 2019, 2020, 2021 Christopher Paul Esposito
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #include "isodriver.h"
 #include "isobuffer.h"
 #include "isobuffer_file.h"
@@ -270,7 +285,7 @@ void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused,
         QCPRange range = axes->yAxis->range();
 
         double pixPct = (double)100 - ((double)100 * (((double)axes->yAxis->pixelToCoord(event->y())-range.lower) / range.size()));
-        if (pixPct < 0) pixPct = 0; 
+        if (pixPct < 0) pixPct = 0;
         if (pixPct > 100) pixPct = 100;
 
         qDebug() << "WHEEL @ " << pixPct << "%";
@@ -612,7 +627,7 @@ void isoDriver::setTriggerMode(int newMode)
 }
 
 //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
-void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  
+void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
 {
     //qDebug() << "made it to frameActionGeneric";
     if(!paused_CH1 && CH1_mode == - 1){
@@ -780,7 +795,7 @@ void isoDriver::multimeterAction(){
 
     if(singleShotEnabled && (triggerDelay != 0))
         singleShotTriggered(1);
-    
+
 	readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES, false, display.delay + triggerDelay);
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES);
@@ -1114,7 +1129,7 @@ void isoDriver::setXYmode(bool enabled){
             axes->graph(i)->setVisible(graphState[i]);
         }
     }
-    
+
     QCPCurve* curve = reinterpret_cast<QCPCurve*>(axes->plottable(0));
     curve->setVisible(enabled);
     emit enableCursorGroup(!enabled);

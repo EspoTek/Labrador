@@ -1,10 +1,25 @@
+// Copyright (C) 2018 Christopher Paul Esposito
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 //MATLAB INCLUDES
 #ifdef COMPILE_FOR_OCTAVE
   #define USING_OCTAVE 1
 #elif defined COMPILE_FOR_MATLAB
   #define USING_OCTAVE 0
 #else
-    #error "IDE not defined.  Please add -DCOMPILE_FOR_MATLAB to your mex call if you use MATLAB, or -DCOMPILE_FOR_OCTAVE if using GNU Octave." 
+    #error "IDE not defined.  Please add -DCOMPILE_FOR_MATLAB to your mex call if you use MATLAB, or -DCOMPILE_FOR_OCTAVE if using GNU Octave."
 #endif
 
 #if !USING_OCTAVE
@@ -36,7 +51,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     uint8_t *ptr_data_out;
     mwSize dims[2] = {0,0};
     int ndims = 2;
-    
+
     //Internals
     int channel;
     double sampleRate_hz;
@@ -44,13 +59,13 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     double timeWindow_seconds;
     int* length_int;
     std::vector<uint8_t>* dll_return;
-    
+
     //Fetch inputs.
     ptr_channel_in = mxGetPr(prhs[0]); //Mex get pointer to real (double);
     ptr_timeWindow_seconds_in = mxGetPr(prhs[1]);
     ptr_sampleRate_hz_in = mxGetPr(prhs[2]);
     ptr_delay_seconds_in = mxGetPr(prhs[3]);
-    
+
     //Copy to internals
     channel = (int)(*ptr_channel_in);
     sampleRate_hz = (*ptr_sampleRate_hz_in);
@@ -72,15 +87,15 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         mxSetData(plhs[0], ptr_zero);
         return;
     }
-    
+
     //Malloc all the outputs!
     //We need to copy from the DLL to MATLAB so that it can work with the data without cracking the sads.
     ptr_data_out = (uint8_t*)mxCalloc(length_int[0], sizeof(uint8_t));
     memcpy(ptr_data_out, dll_return->data(), length_int[0] * sizeof(uint8_t));
     dims[0] = 1;
     dims[1] = length_int[0];
-    
-    //plhs[0] = mxCreateDoubleScalar((double)ptr_length_out[0]);  
+
+    //plhs[0] = mxCreateDoubleScalar((double)ptr_length_out[0]);
     plhs[0] = mxCreateNumericArray(ndims, dims, mxUINT8_CLASS, mxREAL);
     mxSetData(plhs[0], ptr_data_out);
 }

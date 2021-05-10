@@ -1,3 +1,33 @@
+/* Copyright (C) 2018 Christopher Paul Esposito
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are
+   met:
+
+   (1) Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+   (2) Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in
+   the documentation and/or other materials provided with the
+   distribution.
+
+   (3)The name of the author may not be used to
+   endorse or promote products derived from this software without
+   specific prior written permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+   IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+   WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+   INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+   (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+   HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+   IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+   POSSIBILITY OF SUCH DAMAGE.
+*/
 //Include the ASF Licence!
 
 #include <stdio.h>
@@ -82,7 +112,7 @@ void jump_to_bootloader(){
 	start_bootloader();
 }
 
-int main(void){	
+int main(void){
 	eeprom_safe_read();
 	if(eeprom_buffer_read[0]){
 			memcpy(eeprom_buffer_write, eeprom_buffer_read, EEPROM_PAGE_SIZE);
@@ -91,12 +121,12 @@ int main(void){
 			//eeprom_safe_read();
 			jump_to_bootloader();
 	}
-	
+
 	irq_initialize_vectors();
 	cpu_irq_enable();
-//	sysclk_init();	
+//	sysclk_init();
 	tiny_calibration_init();
-		
+
 	board_init();
 	udc_start();
 	tiny_dac_setup();
@@ -108,14 +138,14 @@ int main(void){
 	tiny_uart_setup();
 	tiny_spi_setup();
 	tiny_dig_setup();
-			
+
 	//USARTC0.DATA = 0x55;
 	//asm("nop");
-	
+
 
 
 	strcpy(uds.header, "debug123");
-	
+
 	while (true) {
 			asm("nop");
 			asm("nop");
@@ -208,7 +238,7 @@ void main_sof_action(void)
 	#endif
 
 	uds.trfcntL0 = DMA.CH0.TRFCNTL;
-	uds.trfcntH0 = DMA.CH0.TRFCNTH;	
+	uds.trfcntH0 = DMA.CH0.TRFCNTH;
 	uds.trfcntL1 = DMA.CH1.TRFCNTL;
 	uds.trfcntH1 = DMA.CH1.TRFCNTH;
 	uds.counterL = TC_CALI.CNTL;
@@ -240,7 +270,7 @@ void main_sof_action(void)
 			else debug_divider++;*/
 		}
 	}
-	
+
 	if(debugOnNextEnd){
 		currentTrfcnt = DMA.CH0.TRFCNT;
 		debugOnNextEnd = 0;
@@ -255,7 +285,7 @@ void main_sof_action(void)
 	#else
 		usb_state = !usb_state;
 	#endif
-		
+
 	return;
 }
 

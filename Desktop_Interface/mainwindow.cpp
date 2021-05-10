@@ -1,3 +1,18 @@
+// Copyright (C) 2017, 2018, 2019, 2020, 2021 Christopher Paul Esposito
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #include "mainwindow.h"
 #include "uartstyledecoder.h"
 #include "daqform.h"
@@ -150,7 +165,7 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->bufferDisplay, SIGNAL(modeChange(int)), ui->controller_iso->driver, SLOT(setDeviceMode(int)));
 		connect(ui->bufferDisplay, &bufferControl::modeChange, this, [this](){
 			// Force a trigger refresh
-			ui->controller_iso->setTriggerLevel(ui->triggerLevelValue->value());	
+			ui->controller_iso->setTriggerLevel(ui->triggerLevelValue->value());
 		});
         connect(ui->bufferDisplay, SIGNAL(updateDig(int)), ui->controller_iso->driver, SLOT(newDig(int)));
 
@@ -207,7 +222,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->realTimeButton, SIGNAL(pressed()), ui->controller_iso, SLOT(disableFileMode()));
 
 
-	
+
     connect(ui->pausedLabeL_CH1, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
     connect(ui->pausedLabel_CH2, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
     connect(ui->pause_LA, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
@@ -1382,7 +1397,7 @@ void MainWindow::reinitUsbStage2(void){
     connect(ui->bufferDisplay, SIGNAL(modeChange(int)), ui->controller_iso->driver, SLOT(setDeviceMode(int)));
 	connect(ui->bufferDisplay, &bufferControl::modeChange, this, [this](){
 		// Force a trigger refresh
-		ui->controller_iso->setTriggerLevel(ui->triggerLevelValue->value());	
+		ui->controller_iso->setTriggerLevel(ui->triggerLevelValue->value());
 	});
     connect(ui->bufferDisplay, SIGNAL(updateDig(int)), ui->controller_iso->driver, SLOT(newDig(int)));
 
@@ -2410,7 +2425,7 @@ void MainWindow::paused(bool enabled)
 	qDebug() << "MainWindow::paused(" << enabled << ")";
 	ui->hideCH1Box->setVisible(enabled);
 	ui->hideCH2Box->setVisible(enabled);
-	
+
 	if (! enabled)
 	{
 		ui->hideCH1Box->setChecked(false);
@@ -2478,7 +2493,7 @@ void MainWindow::cursorGroupEnabled(bool enabled)
         ui->makeCursorsNicer->setTurnedOn(false);
         ui->cursorGroup->setEnabled(false);
     }
-    
+
 }
 
 void MainWindow::on_actionHide_Widget_Oscilloscope_triggered(bool checked)

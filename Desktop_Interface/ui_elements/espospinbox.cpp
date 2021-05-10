@@ -1,3 +1,18 @@
+// Copyright (C) 2017, 2018, 2019, 2020, 2021 Christopher Paul Esposito
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #include "espospinbox.h"
 
 espoSpinBox::espoSpinBox(QWidget *parent) : QDoubleSpinBox(parent)
@@ -8,7 +23,7 @@ espoSpinBox::espoSpinBox(QWidget *parent) : QDoubleSpinBox(parent)
 
 QString espoSpinBox::textFromValue(double value) const{
     QString windowText;
-	
+
 	double approximatelyZero = pow(10, -1 * (decimals() + 1));
 
     if (abs(value) <= approximatelyZero){
@@ -64,7 +79,7 @@ void espoSpinBox::changeStepping(double value){
 
 QValidator::State espoSpinBox::validate(QString& text, int& pos) const
 {
-	return QValidator::State::Acceptable;	
+	return QValidator::State::Acceptable;
 }
 
 double espoSpinBox::valueFromText(const QString &text) const
@@ -74,29 +89,29 @@ double espoSpinBox::valueFromText(const QString &text) const
 
 	uint32_t prefixLength = text.length() - suffix().length();
 
-	qDebug() << text.mid(0, prefixLength - 1) << text.at(prefixLength - 1).toLatin1(); 
-	
+	qDebug() << text.mid(0, prefixLength - 1) << text.at(prefixLength - 1).toLatin1();
+
 	switch (text.at(prefixLength - 1).toLatin1())
 	{
 		case 'M':
 			ret = text.mid(0, prefixLength - 1).toDouble(&isValid) * 1000000;
-			break; 
+			break;
 
 		case 'k':
 			ret = text.mid(0, prefixLength - 1).toDouble(&isValid) * 1000;
-			break; 
+			break;
 
 		case 'm':
 			ret = text.mid(0, prefixLength - 1).toDouble(&isValid) / 1000;
-			break; 
-		
+			break;
+
 		case 'u':
 			ret = text.mid(0, prefixLength - 1).toDouble(&isValid) / 1000000;
-			break; 
+			break;
 
 		default:
-			ret = text.mid(0, prefixLength).toDouble(&isValid); 
-	}		
+			ret = text.mid(0, prefixLength).toDouble(&isValid);
+	}
 
 	if (isValid)
 	{
@@ -107,4 +122,4 @@ double espoSpinBox::valueFromText(const QString &text) const
 		qDebug() << "espoSpinBox: warning: invalid text input." << "Defaulting to last known good value of" << lastValidValue;
 		return lastValidValue;
 	}
-} 
+}

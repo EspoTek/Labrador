@@ -3,7 +3,38 @@
  *
  * Created: 9/01/2017 4:20:59 PM
  *  Author: Esposch
- */ 
+ */
+
+/* Copyright (C) 2018 Christopher Paul Esposito
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are
+   met:
+
+   (1) Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+   (2) Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in
+   the documentation and/or other materials provided with the
+   distribution.
+
+   (3)The name of the author may not be used to
+   endorse or promote products derived from this software without
+   specific prior written permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+   IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+   WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+   INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+   (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+   HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+   IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+   POSSIBILITY OF SUCH DAMAGE.
+*/
 
 #include "tiny_calibration.h"
 #include "globals.h"
@@ -18,29 +49,29 @@ void tiny_calibration_init(){
 		DFLLRC32M.COMP2 = 0xBB;
 		DFLLRC32M.COMP1= 0x80;  //0xBB80 = 48,000.
 		DFLLRC32M.CTRL = 0x01; //Enable
-		
+
 		//Turn on the 48MHz clock and scale it down to 24MHz
 		CCP = CCP_IOREG_gc;
 		#if OVERCLOCK == 48
 			CLK.PSCTRL = CLK_PSADIV_1_gc | CLK_PSBCDIV_1_1_gc;  //All peripheral clocks = CLKsys / 2.
 		#else
 			CLK.PSCTRL = CLK_PSADIV_2_gc | CLK_PSBCDIV_1_1_gc;  //All peripheral clocks = CLKsys / 2.
-		#endif 
+		#endif
 		//CLK.USBCTRL handled by udc
 		OSC.CTRL = OSC_RC32MEN_bm | OSC_RC2MEN_bm;  //Enable 32MHz reference.  Keep 2MHz on.
 		while(OSC.STATUS != (OSC_RC32MRDY_bm | OSC_RC2MRDY_bm)); //Wait for it to be ready before continuing
-		
+
 		//4 step process from ASF manual.  Puts a 48MHz clock on the PLL output
 		OSC.CTRL |= OSC_RC2MEN_bm;  //1. Enable reference clock source.
 		OSC.PLLCTRL = OSC_PLLSRC_RC2M_gc | 24; //2. Set the multiplication factor and select the clock reference for the PLL.
 		while(!(OSC.STATUS & OSC_RC2MRDY_bm)); //3. Wait until the clock reference source is stable.
 		OSC.CTRL |= OSC_PLLEN_bm; //4. Enable the PLL
-		
+
 		//Move CPU + Peripherals to 48MHz PLLL clock.
 		while(!(OSC.STATUS & OSC_PLLRDY_bm));
 		CCP = CCP_IOREG_gc;
 		CLK.CTRL = CLK_SCLKSEL_PLL_gc;
-		
+
 		//DFLLRC2M.CALB -= 1;
 		//DFLLRC2M.CALA -= 21;
 		return;
@@ -54,7 +85,7 @@ tiny_calibration_first_sof(){
 			TC_CALI.CTRLA = TC_CLKSEL_DIV2_gc;
 		#else
 			TC_CALI.CTRLA = TC_CLKSEL_DIV1_gc;
-		#endif 
+		#endif
 		return;
 }
 
@@ -64,7 +95,7 @@ volatile unsigned long outOfRange = 0;
 volatile unsigned char warmup = 10;
 void tiny_calibration_maintain(){
 	unsigned int cnt = TC_CALI.CNT;
-	
+
 	if(cnt > 12000){
 		DFLLRC2M.CALA = cali_value_negative_gradient;
 	}
@@ -82,10 +113,10 @@ void tiny_calibration_maintain(){
 		uds.outOfRangeL = outOfRange & 0xff;
 		warmup = 6;
 	}
-	
+
 	if((median_TRFCNT == 65535) && (global_mode != 255)){
-		if(!median_TRFCNT_delay){  
-			median_TRFCNT_delay--;  
+		if(!median_TRFCNT_delay){
+			median_TRFCNT_delay--;
 		} else median_TRFCNT = DMA.CH0.TRFCNT;
 	}
 	return;
@@ -126,7 +157,7 @@ void tiny_calibration_safe_add(int rawValue){
 		calTemp += addValue;
 	}
 	DFLLRC2M.CALA = calTemp & 0x7f;
-	//DFLLRC2M.CALB = calTemp >> 7;	
+	//DFLLRC2M.CALB = calTemp >> 7;
 	}
 
 int tiny_distance_from_centre(unsigned int point){
@@ -144,7 +175,7 @@ volatile unsigned char inarow = NUM_INAROW;
 void tiny_calibration_find_values(){
 	unsigned int cnt = TC_CALI.CNT;
 	gradient = cnt - last_val;
-	
+
 	//Find the negative value first.
 	if(calibration_values_found == 0x00){
 		if((gradient < -50) && (gradient > -150)){
@@ -163,7 +194,7 @@ void tiny_calibration_find_values(){
 			tiny_calibration_safe_add(calChange);
 		}
 	}
-	
+
 	//Search for the positive gradient
 	if(calibration_values_found == 0x01){
 		if(gradient > 50){
@@ -189,14 +220,14 @@ void tiny_calibration_layer2(){
 		return;
 	}
 	layer2_counter = LAYER2_INTERVAL;
-	
+
 	//Return if a median TRFCNT hasn't been set yet.
 	if(median_TRFCNT == 65535){
 		return;
 	}
 	unsigned int TRFCNT_temp = DMA.CH0.TRFCNT;
 	TRFCNT_temp = TRFCNT_temp % (global_mode > 5 ? PACKET_SIZE : HALFPACKET_SIZE);
-	
+
 	if((TRFCNT_temp > median_TRFCNT) &&  (magnitude_difference(TRFCNT_temp, median_TRFCNT) > MAXIMUM_DEVIATION)){
 		TC_CALI.PERBUF = 24000;
 		return;

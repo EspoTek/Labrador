@@ -3,7 +3,38 @@
  *
  * Created: 25/06/2015 9:00:42 AM
  *  Author: Esposch
- */ 
+ */
+
+/* Copyright (C) 2018 Christopher Paul Esposito
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are
+   met:
+
+   (1) Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+   (2) Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in
+   the documentation and/or other materials provided with the
+   distribution.
+
+   (3)The name of the author may not be used to
+   endorse or promote products derived from this software without
+   specific prior written permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+   IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+   WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+   DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+   INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+   (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+   SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+   HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+   STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+   IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+   POSSIBILITY OF SUCH DAMAGE.
+*/
 
 #include "tiny_dma.h"
 #include "tiny_adc.h"
@@ -27,11 +58,11 @@ void tiny_dma_setup(void){
 	PR.PRGEN &=0b111111110; //Turn on DMA clk
 	#ifndef SINGLE_ENDPOINT_INTERFACE
 		DMA.CTRL = DMA_ENABLE_bm | DMA_PRIMODE_CH0123_gc;
-	#else 
+	#else
 		DMA.CTRL = DMA_ENABLE_bm | DMA_PRIMODE_RR0123_gc;
 		#warning "Round Robin on DMA"
 	#endif
-	
+
 }
 void tiny_dma_flush(void){
 	DMA.CH0.CTRLA = 0x00;
@@ -39,30 +70,30 @@ void tiny_dma_flush(void){
 
 	DMA.CH1.CTRLA = 0x00;
 	DMA.CH1.CTRLA = DMA_CH_RESET_bm;
-	
+
 	DMA.CH2.CTRLA = 0x00;
 	DMA.CH2.CTRLA = DMA_CH_RESET_bm;
-	
+
 	DMA.CH3.CTRLA = 0x00;
 	DMA.CH3.CTRLA = DMA_CH_RESET_bm;
-	
+
 	b1_state = 0;
 	b2_state = 0;
 	usb_state = 0;
-	
+
 	dma_ch0_ran = 0;
 	dma_ch1_ran = 0;
 }
 void tiny_dma_delayed_set(unsigned char mode){
 	futureMode = mode;
-	modeChanged = 1;	
+	modeChanged = 1;
 }
 void tiny_dma_set_mode_0(void){
-	
+
 	global_mode = 0;
-	
+
 	tiny_dma_flush();
-	
+
 	DMA.CH2.REPCNT = 0; //Repeat forever!
 	DMA.CH2.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
 	DMA.CH2.CTRLB = 0x00; //No interrupt for DacBuf!!
@@ -73,14 +104,14 @@ void tiny_dma_set_mode_0(void){
 	DMA.CH2.SRCADDR0 = (( (uint16_t) &dacBuf_CH2[0]) >> 0) & 0xFF; //Source address is dacbuf
 	DMA.CH2.SRCADDR1 = (( (uint16_t) &dacBuf_CH2[0]) >> 8) & 0xFF;
 	DMA.CH2.SRCADDR2 = 0x00;
-	
+
 	DMA.CH2.DESTADDR0 = (( (uint16_t) &DACB.CH1DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 	DMA.CH2.DESTADDR1 = (( (uint16_t) &DACB.CH1DATAH) >> 8) & 0xFF;
 	DMA.CH2.DESTADDR2 = 0x00;
-	
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH2.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-		
+
 	DMA.CH3.REPCNT = 0; //Repeat forever!
 	DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
 	DMA.CH3.CTRLB = 0x00; //Hi interrupt on block complete
@@ -91,36 +122,36 @@ void tiny_dma_set_mode_0(void){
 	DMA.CH3.SRCADDR0 = (( (uint16_t) &dacBuf_CH1[0]) >> 0) & 0xFF; //Source address is dacbuf
 	DMA.CH3.SRCADDR1 = (( (uint16_t) &dacBuf_CH1[0]) >> 8) & 0xFF;
 	DMA.CH3.SRCADDR2 = 0x00;
-	
+
 	DMA.CH3.DESTADDR0 = (( (uint16_t) &DACB.CH0DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 	DMA.CH3.DESTADDR1 = (( (uint16_t) &DACB.CH0DATAH) >> 8) & 0xFF;
 	DMA.CH3.DESTADDR2 = 0x00;
-	
+
 	//Must enable last for REPCNT won't work!
-	DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!	
-	
+	DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
+
 	DMA.CH0.CTRLA = 0x00;
 	DMA.CH0.CTRLA = DMA_CH_RESET_bm;
-		
+
 	DMA.CH0.CTRLA = DMA_STANDARD_CTRLA;
 	DMA.CH0.CTRLB = DMA_STANDARD_INTERRUPT;
 	DMA.CH0.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_DESTRELOAD_BLOCK_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH0.TRIGSRC = DMA_CH_TRIGSRC_ADCA_CH0_gc;	//Triggered from ADCA channel 0
 	DMA.CH0.TRFCNT = DMA_STANDARD_TRANSFER_LENGTH;
-		
+
 	DMA.CH0.SRCADDR0 = (( (uint16_t) &ADCA.CH0.RESL) >> 0) & 0xFF; //Source address is ADC
 	DMA.CH0.SRCADDR1 = (( (uint16_t) &ADCA.CH0.RESL) >> 8) & 0xFF;
 	DMA.CH0.SRCADDR2 = 0x00;
-		
+
 	DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[0]) >> 0) & 0xFF;  //Dest address is isoBuf
 	DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[0]) >> 8) & 0xFF;
 	DMA.CH0.DESTADDR2 = 0x00;
-		
+
 	tiny_calibration_synchronise_phase(500, 200);
 	median_TRFCNT = 200;
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	
+
 }
 
 void tiny_dma_loop_mode_0(void){
@@ -129,28 +160,28 @@ void tiny_dma_loop_mode_0(void){
 
 void tiny_dma_set_mode_1(void){
 	global_mode = 1;
-	
+
 	tiny_dma_flush();
-	
+
 	//AUX channel (to keep it tx, therefore always rx)
 	DMA.CH2.CTRLA = 0x00;
 	DMA.CH2.CTRLA = DMA_CH_RESET_bm;
-		
+
 	DMA.CH2.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm; //Do not repeat!
 	DMA.CH2.CTRLB = 0x00;  //No int
 	DMA.CH2.ADDRCTRL = DMA_CH_SRCDIR_FIXED_gc | DMA_CH_DESTDIR_FIXED_gc;   //Source and address fixed.
 	DMA.CH2.TRIGSRC = DMA_CH_TRIGSRC_USARTC0_RXC_gc;
 	DMA.CH2.TRFCNT = 0;
 	DMA.CH2.REPCNT = 0;
-		
+
 	DMA.CH2.SRCADDR0 = (( (uint16_t) &dummy) >> 0) & 0xFF;
 	DMA.CH2.SRCADDR1 = (( (uint16_t) &dummy) >> 8) & 0xFF;
 	DMA.CH2.SRCADDR2 = 0x00;
-		
+
 	DMA.CH2.DESTADDR0 = (( (uint16_t) &USARTC0.DATA) >> 0) & 0xFF;
 	DMA.CH2.DESTADDR1 = (( (uint16_t) &USARTC0.DATA) >> 8) & 0xFF;
 	DMA.CH2.DESTADDR2 = 0x00;
-		
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH2.CTRLA |= DMA_CH_REPEAT_bm | DMA_CH_ENABLE_bm;  //Enable!
 
@@ -167,47 +198,47 @@ void tiny_dma_set_mode_1(void){
 	DMA.CH3.SRCADDR0 = (( (uint16_t) &dacBuf_CH2[0]) >> 0) & 0xFF; //Source address is dacbuf
 	DMA.CH3.SRCADDR1 = (( (uint16_t) &dacBuf_CH2[0]) >> 8) & 0xFF;
 	DMA.CH3.SRCADDR2 = 0x00;
-	
+
 	DMA.CH3.DESTADDR0 = (( (uint16_t) &DACB.CH1DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 	DMA.CH3.DESTADDR1 = (( (uint16_t) &DACB.CH1DATAH) >> 8) & 0xFF;
 	DMA.CH3.DESTADDR2 = 0x00;
-	
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	
+
 	DMA.CH1.CTRLA = DMA_STANDARD_CTRLA;
 	DMA.CH1.CTRLB = DMA_STANDARD_INTERRUPT;
 	DMA.CH1.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_DESTRELOAD_BLOCK_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH1.TRIGSRC = DMA_CH_TRIGSRC_USARTC0_RXC_gc;
 	DMA.CH1.TRFCNT = DMA_STANDARD_TRANSFER_LENGTH;
-		
+
 	DMA.CH1.SRCADDR0 = (( (uint16_t) &USARTC0.DATA) >> 0) & 0xFF;
 	DMA.CH1.SRCADDR1 = (( (uint16_t) &USARTC0.DATA) >> 8) & 0xFF;
 	DMA.CH1.SRCADDR2 = 0x00;
-		
+
 	DMA.CH1.DESTADDR0 = (( (uint16_t) &isoBuf[PACKET_SIZE]) >> 0) & 0xFF;  //Dest address is isoBuf
 	DMA.CH1.DESTADDR1 = (( (uint16_t) &isoBuf[PACKET_SIZE]) >> 8) & 0xFF;
 	DMA.CH1.DESTADDR2 = 0x00;
-	
+
 	DMA.CH0.CTRLA = DMA_STANDARD_CTRLA;
 	DMA.CH0.CTRLB = DMA_STANDARD_INTERRUPT;
 	DMA.CH0.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_DESTRELOAD_BLOCK_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH0.TRIGSRC = DMA_CH_TRIGSRC_ADCA_CH0_gc;	//Triggered from ADCA channel 0
 	DMA.CH0.TRFCNT = DMA_STANDARD_TRANSFER_LENGTH;
-	
+
 	DMA.CH0.SRCADDR0 = (( (uint16_t) &ADCA.CH0.RESL) >> 0) & 0xFF; //Source address is ADC
 	DMA.CH0.SRCADDR1 = (( (uint16_t) &ADCA.CH0.RESL) >> 8) & 0xFF;
 	DMA.CH0.SRCADDR2 = 0x00;
-	
+
 	DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[0]) >> 0) & 0xFF;  //Dest address is isoBuf
 	DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[0]) >> 8) & 0xFF;
 	DMA.CH0.DESTADDR2 = 0x00;
-	
+
 	tiny_calibration_synchronise_phase(500, 200);
 	median_TRFCNT = 200;
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
 	DMA.CH1.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!	
+	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 }
 
 void tiny_dma_loop_mode_1(void){
@@ -215,11 +246,11 @@ void tiny_dma_loop_mode_1(void){
 }
 
 void tiny_dma_set_mode_2(void){
-	
+
 	global_mode = 2;
-	
+
 	tiny_dma_flush();
-	
+
 	DMA.CH2.REPCNT = 0; //Repeat forever!
 	DMA.CH2.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
 	DMA.CH2.CTRLB = 0x00; //No interrupt for DacBuf!!
@@ -230,14 +261,14 @@ void tiny_dma_set_mode_2(void){
 	DMA.CH2.SRCADDR0 = (( (uint16_t) &dacBuf_CH2[0]) >> 0) & 0xFF; //Source address is dacbuf
 	DMA.CH2.SRCADDR1 = (( (uint16_t) &dacBuf_CH2[0]) >> 8) & 0xFF;
 	DMA.CH2.SRCADDR2 = 0x00;
-	
+
 	DMA.CH2.DESTADDR0 = (( (uint16_t) &DACB.CH1DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 	DMA.CH2.DESTADDR1 = (( (uint16_t) &DACB.CH1DATAH) >> 8) & 0xFF;
 	DMA.CH2.DESTADDR2 = 0x00;
-	
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH2.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	
+
 	DMA.CH3.REPCNT = 0; //Repeat forever!
 	DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
 	DMA.CH3.CTRLB = 0x00; //Hi interrupt on block complete
@@ -248,46 +279,46 @@ void tiny_dma_set_mode_2(void){
 	DMA.CH3.SRCADDR0 = (( (uint16_t) &dacBuf_CH1[0]) >> 0) & 0xFF; //Source address is dacbuf
 	DMA.CH3.SRCADDR1 = (( (uint16_t) &dacBuf_CH1[0]) >> 8) & 0xFF;
 	DMA.CH3.SRCADDR2 = 0x00;
-	
+
 	DMA.CH3.DESTADDR0 = (( (uint16_t) &DACB.CH0DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 	DMA.CH3.DESTADDR1 = (( (uint16_t) &DACB.CH0DATAH) >> 8) & 0xFF;
 	DMA.CH3.DESTADDR2 = 0x00;
-	
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	
+
 	DMA.CH0.CTRLA = 0x00;
 	DMA.CH0.CTRLA = DMA_CH_RESET_bm;
-	
+
 	DMA.CH0.CTRLA = DMA_STANDARD_CTRLA;
 	DMA.CH0.CTRLB = DMA_STANDARD_INTERRUPT;
 	DMA.CH0.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_DESTRELOAD_BLOCK_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH0.TRIGSRC = DMA_CH_TRIGSRC_ADCA_CH0_gc;	//Triggered from ADCA channel 0
 	DMA.CH0.TRFCNT = DMA_STANDARD_TRANSFER_LENGTH;
-	
+
 	DMA.CH0.SRCADDR0 = (( (uint16_t) &ADCA.CH0.RESL) >> 0) & 0xFF; //Source address is ADC
 	DMA.CH0.SRCADDR1 = (( (uint16_t) &ADCA.CH0.RESL) >> 8) & 0xFF;
 	DMA.CH0.SRCADDR2 = 0x00;
-	
+
 	DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[0]) >> 0) & 0xFF;  //Dest address is isoBuf
 	DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[0]) >> 8) & 0xFF;
 	DMA.CH0.DESTADDR2 = 0x00;
-	
-				
+
+
 	DMA.CH1.CTRLA = DMA_STANDARD_CTRLA;
 	DMA.CH1.CTRLB = DMA_STANDARD_INTERRUPT;
 	DMA.CH1.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_DESTRELOAD_BLOCK_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH1.TRIGSRC = DMA_CH_TRIGSRC_ADCA_CH0_gc;	//Triggered from ADCA channel 0
 	DMA.CH1.TRFCNT = DMA_STANDARD_TRANSFER_LENGTH;
-				
+
 	DMA.CH1.SRCADDR0 = (( (uint16_t) &ADCA.CH2.RESL) >> 0) & 0xFF; //Source address is ADC
 	DMA.CH1.SRCADDR1 = (( (uint16_t) &ADCA.CH2.RESL) >> 8) & 0xFF;
 	DMA.CH1.SRCADDR2 = 0x00;
-				
+
 	DMA.CH1.DESTADDR0 = (( (uint16_t) &isoBuf[PACKET_SIZE]) >> 0) & 0xFF;  //Dest address is isoBuf
 	DMA.CH1.DESTADDR1 = (( (uint16_t) &isoBuf[PACKET_SIZE]) >> 8) & 0xFF;
 	DMA.CH1.DESTADDR2 = 0x00;
-				
+
 	//Must enable last for REPCNT won't work!
 
 	tiny_calibration_synchronise_phase(500, 200);
@@ -295,7 +326,7 @@ void tiny_dma_set_mode_2(void){
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
 	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 	DMA.CH1.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	
+
 }
 
 void tiny_dma_loop_mode_2(void){
@@ -306,7 +337,7 @@ void tiny_dma_loop_mode_2(void){
 
 void tiny_dma_set_mode_3(void){
 	global_mode = 3;
-	tiny_dma_flush();	
+	tiny_dma_flush();
 
 	DMA.CH3.REPCNT = 0; //Repeat forever!
 	DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
@@ -318,11 +349,11 @@ void tiny_dma_set_mode_3(void){
 	DMA.CH3.SRCADDR0 = (( (uint16_t) &dacBuf_CH2[0]) >> 0) & 0xFF; //Source address is dacbuf
 	DMA.CH3.SRCADDR1 = (( (uint16_t) &dacBuf_CH2[0]) >> 8) & 0xFF;
 	DMA.CH3.SRCADDR2 = 0x00;
-		
+
 	DMA.CH3.DESTADDR0 = (( (uint16_t) &DACB.CH1DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 	DMA.CH3.DESTADDR1 = (( (uint16_t) &DACB.CH1DATAH) >> 8) & 0xFF;
 	DMA.CH3.DESTADDR2 = 0x00;
-		
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 
@@ -336,57 +367,57 @@ void tiny_dma_set_mode_3(void){
 	DMA.CH2.SRCADDR0 = (( (uint16_t) &dacBuf_CH1[0]) >> 0) & 0xFF; //Source address is dacbuf
 	DMA.CH2.SRCADDR1 = (( (uint16_t) &dacBuf_CH1[0]) >> 8) & 0xFF;
 	DMA.CH2.SRCADDR2 = 0x00;
-		
+
 	DMA.CH2.DESTADDR0 = (( (uint16_t) &DACB.CH0DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 	DMA.CH2.DESTADDR1 = (( (uint16_t) &DACB.CH0DATAH) >> 8) & 0xFF;
 	DMA.CH2.DESTADDR2 = 0x00;
-		
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH2.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 
-	
+
 	//AUX channel (to keep it tx, therefore always rx)
 	DMA.CH1.CTRLA = 0x00;
 	DMA.CH1.CTRLA = DMA_CH_RESET_bm;
-	
+
 	DMA.CH1.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm; //Do not repeat!
 	DMA.CH1.CTRLB = 0x00;  //No int
 	DMA.CH1.ADDRCTRL = DMA_CH_SRCDIR_FIXED_gc | DMA_CH_DESTDIR_FIXED_gc;   //Source and address fixed.
 	DMA.CH1.TRIGSRC = DMA_CH_TRIGSRC_USARTC0_RXC_gc;
 	DMA.CH1.TRFCNT = 0;
 	DMA.CH1.REPCNT = 0;
-	
+
 	DMA.CH1.SRCADDR0 = (( (uint16_t) &dummy) >> 0) & 0xFF;
 	DMA.CH1.SRCADDR1 = (( (uint16_t) &dummy) >> 8) & 0xFF;
 	DMA.CH1.SRCADDR2 = 0x00;
-	
+
 	DMA.CH1.DESTADDR0 = (( (uint16_t) &USARTC0.DATA) >> 0) & 0xFF;
 	DMA.CH1.DESTADDR1 = (( (uint16_t) &USARTC0.DATA) >> 8) & 0xFF;
 	DMA.CH1.DESTADDR2 = 0x00;
-	
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH1.CTRLA |= DMA_CH_REPEAT_bm | DMA_CH_ENABLE_bm;  //Enable!
-	
+
 	USARTC0.DATA = 0x55;
-		
+
 	//Actual data being transferred
 	DMA.CH0.CTRLA = 0x00;
 	DMA.CH0.CTRLA = DMA_CH_RESET_bm;
-		
+
 	DMA.CH0.CTRLA = DMA_STANDARD_CTRLA;
 	DMA.CH0.CTRLB = DMA_STANDARD_INTERRUPT;
 	DMA.CH0.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_DESTRELOAD_BLOCK_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH0.TRIGSRC = DMA_CH_TRIGSRC_USARTC0_RXC_gc;
 	DMA.CH0.TRFCNT = DMA_STANDARD_TRANSFER_LENGTH;
-		
+
 	DMA.CH0.SRCADDR0 = (( (uint16_t) &USARTC0.DATA) >> 0) & 0xFF; //Source address is ADC
 	DMA.CH0.SRCADDR1 = (( (uint16_t) &USARTC0.DATA) >> 8) & 0xFF;
 	DMA.CH0.SRCADDR2 = 0x00;
-		
+
 	DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[0]) >> 0) & 0xFF;  //Dest address is isoBuf
 	DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[0]) >> 8) & 0xFF;
 	DMA.CH0.DESTADDR2 = 0x00;
-		
+
 	tiny_calibration_synchronise_phase(500, 200);
 	median_TRFCNT = 200;
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
@@ -400,11 +431,11 @@ void tiny_dma_loop_mode_3(void){
 }
 
 void tiny_dma_set_mode_4(void){
-	
+
 	global_mode = 4;
-	
+
 	tiny_dma_flush();
-	
+
 	//AUX channel (to keep it tx, therefore always rx)
 	DMA.CH2.CTRLA = 0x00;
 	DMA.CH2.CTRLA = DMA_CH_RESET_bm;
@@ -415,20 +446,20 @@ void tiny_dma_set_mode_4(void){
 	DMA.CH2.TRIGSRC = DMA_CH_TRIGSRC_USARTC0_RXC_gc;
 	DMA.CH2.TRFCNT = 0;
 	DMA.CH2.REPCNT = 0;
-	
+
 	DMA.CH2.SRCADDR0 = (( (uint16_t) &dummy) >> 0) & 0xFF;
 	DMA.CH2.SRCADDR1 = (( (uint16_t) &dummy) >> 8) & 0xFF;
 	DMA.CH2.SRCADDR2 = 0x00;
-	
+
 	DMA.CH2.DESTADDR0 = (( (uint16_t) &USARTC0.DATA) >> 0) & 0xFF;
 	DMA.CH2.DESTADDR1 = (( (uint16_t) &USARTC0.DATA) >> 8) & 0xFF;
 	DMA.CH2.DESTADDR2 = 0x00;
-	
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH2.CTRLA |= DMA_CH_REPEAT_bm | DMA_CH_ENABLE_bm;  //Enable!
-	
+
 	USARTC0.DATA = 0x55;
-	
+
 	DMA.CH3.REPCNT = 0; //Repeat forever!
 	DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
 	DMA.CH3.CTRLB = 0x00; //No interrupt for DacBuf!!
@@ -439,44 +470,44 @@ void tiny_dma_set_mode_4(void){
 	DMA.CH3.SRCADDR0 = (( (uint16_t) &dacBuf_CH2[0]) >> 0) & 0xFF; //Source address is dacbuf
 	DMA.CH3.SRCADDR1 = (( (uint16_t) &dacBuf_CH2[0]) >> 8) & 0xFF;
 	DMA.CH3.SRCADDR2 = 0x00;
-	
+
 	DMA.CH3.DESTADDR0 = (( (uint16_t) &DACB.CH1DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 	DMA.CH3.DESTADDR1 = (( (uint16_t) &DACB.CH1DATAH) >> 8) & 0xFF;
 	DMA.CH3.DESTADDR2 = 0x00;
-	
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	
+
 	//Actual data being transferred
 	DMA.CH0.CTRLA = DMA_STANDARD_CTRLA;
 	DMA.CH0.CTRLB = DMA_STANDARD_INTERRUPT;
 	DMA.CH0.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_DESTRELOAD_BLOCK_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH0.TRIGSRC = DMA_CH_TRIGSRC_USARTC0_RXC_gc;
 	DMA.CH0.TRFCNT = DMA_STANDARD_TRANSFER_LENGTH;
-		
+
 	DMA.CH0.SRCADDR0 = (( (uint16_t) &USARTC0.DATA) >> 0) & 0xFF; //Source address is ADC
 	DMA.CH0.SRCADDR1 = (( (uint16_t) &USARTC0.DATA) >> 8) & 0xFF;
 	DMA.CH0.SRCADDR2 = 0x00;
-		
+
 	DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[0]) >> 0) & 0xFF;  //Dest address is isoBuf
 	DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[0]) >> 8) & 0xFF;
 	DMA.CH0.DESTADDR2 = 0x00;
-		
-		
+
+
 	DMA.CH1.CTRLA = DMA_STANDARD_CTRLA;
 	DMA.CH1.CTRLB = DMA_STANDARD_INTERRUPT;
 	DMA.CH1.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_DESTRELOAD_BLOCK_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH1.TRIGSRC = DMA_CH_TRIGSRC_SPIC_gc;
 	DMA.CH1.TRFCNT = DMA_STANDARD_TRANSFER_LENGTH;
-		
+
 	DMA.CH1.SRCADDR0 = (( (uint16_t) &SPIC.DATA) >> 0) & 0xFF; //Source address is ADC
 	DMA.CH1.SRCADDR1 = (( (uint16_t) &SPIC.DATA) >> 8) & 0xFF;
 	DMA.CH1.SRCADDR2 = 0x00;
-		
+
 	DMA.CH1.DESTADDR0 = (( (uint16_t) &isoBuf[PACKET_SIZE]) >> 0) & 0xFF;  //Dest address is isoBuf
 	DMA.CH1.DESTADDR1 = (( (uint16_t) &isoBuf[PACKET_SIZE]) >> 8) & 0xFF;
 	DMA.CH1.DESTADDR2 = 0x00;
-		
+
 	tiny_calibration_synchronise_phase(500, 200);
 	median_TRFCNT = 200;
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
@@ -490,18 +521,18 @@ void tiny_dma_set_mode_4(void){
 void tiny_dma_loop_mode_4(void){
 return;
 }
-	
-	
+
+
 void tiny_dma_set_mode_5(void){
 	while(1); //Deliberate Crash!  Mode 5 should be invalid.
 }
 
 void tiny_dma_set_mode_6(void){
-		
+
 	global_mode = 6;
-	
+
 	tiny_dma_flush();
-	
+
 	DMA.CH2.REPCNT = 0; //Repeat forever!
 	DMA.CH2.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
 	DMA.CH2.CTRLB = 0x00; //Hi interrupt on block complete
@@ -512,14 +543,14 @@ void tiny_dma_set_mode_6(void){
 	DMA.CH2.SRCADDR0 = (( (uint16_t) &dacBuf_CH1[0]) >> 0) & 0xFF; //Source address is dacbuf
 	DMA.CH2.SRCADDR1 = (( (uint16_t) &dacBuf_CH1[0]) >> 8) & 0xFF;
 	DMA.CH2.SRCADDR2 = 0x00;
-	
+
 	DMA.CH2.DESTADDR0 = (( (uint16_t) &DACB.CH0DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 	DMA.CH2.DESTADDR1 = (( (uint16_t) &DACB.CH0DATAH) >> 8) & 0xFF;
 	DMA.CH2.DESTADDR2 = 0x00;
-	
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH2.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	
+
 	DMA.CH3.REPCNT = 0; //Repeat forever!
 	DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
 	DMA.CH3.CTRLB = 0x00; //No interrupt for DacBuf!!
@@ -530,37 +561,37 @@ void tiny_dma_set_mode_6(void){
 	DMA.CH3.SRCADDR0 = (( (uint16_t) &dacBuf_CH2[0]) >> 0) & 0xFF; //Source address is dacbuf
 	DMA.CH3.SRCADDR1 = (( (uint16_t) &dacBuf_CH2[0]) >> 8) & 0xFF;
 	DMA.CH3.SRCADDR2 = 0x00;
-	
+
 	DMA.CH3.DESTADDR0 = (( (uint16_t) &DACB.CH1DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 	DMA.CH3.DESTADDR1 = (( (uint16_t) &DACB.CH1DATAH) >> 8) & 0xFF;
 	DMA.CH3.DESTADDR2 = 0x00;
-	
+
 	//Must enable last for REPCNT won't work!
 	DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-	
+
 	DMA.CH0.CTRLA = 0x00;
 	DMA.CH0.CTRLA = DMA_CH_RESET_bm;
-		
+
 	DMA.CH0.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
 	DMA.CH0.CTRLB = 0x00; //No interrupt!
 	DMA.CH0.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_DESTRELOAD_BLOCK_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 	DMA.CH0.TRIGSRC = DMA_CH_TRIGSRC_ADCA_CH0_gc;	//Triggered from ADCA channel 0
 	DMA.CH0.TRFCNT = BUFFER_SIZE;
-		
+
 	DMA.CH0.SRCADDR0 = (( (uint16_t) &ADCA.CH0.RESL) >> 0) & 0xFF; //Source address is ADC
 	DMA.CH0.SRCADDR1 = (( (uint16_t) &ADCA.CH0.RESL) >> 8) & 0xFF;
 	DMA.CH0.SRCADDR2 = 0x00;
-		
+
 	DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[0]) >> 0) & 0xFF;  //Dest address is isoBuf
 	DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[0]) >> 8) & 0xFF;
 	DMA.CH0.DESTADDR2 = 0x00;
-		
+
 	tiny_calibration_synchronise_phase(500, 200);
 	median_TRFCNT = 400;
 	median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
-	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!	
-	
-	
+	DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
+
+
 }
 
 void tiny_dma_loop_mode_6(void){
@@ -568,11 +599,11 @@ void tiny_dma_loop_mode_6(void){
 }
 
 void tiny_dma_set_mode_7(void){
-				
+
 		global_mode = 7;
-		
+
 		tiny_dma_flush();
-		
+
 		DMA.CH2.REPCNT = 0; //Repeat forever!
 		DMA.CH2.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
 		DMA.CH2.CTRLB = 0x00; //Hi interrupt on block complete
@@ -583,14 +614,14 @@ void tiny_dma_set_mode_7(void){
 		DMA.CH2.SRCADDR0 = (( (uint16_t) &dacBuf_CH1[0]) >> 0) & 0xFF; //Source address is dacbuf
 		DMA.CH2.SRCADDR1 = (( (uint16_t) &dacBuf_CH1[0]) >> 8) & 0xFF;
 		DMA.CH2.SRCADDR2 = 0x00;
-			
+
 		DMA.CH2.DESTADDR0 = (( (uint16_t) &DACB.CH0DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 		DMA.CH2.DESTADDR1 = (( (uint16_t) &DACB.CH0DATAH) >> 8) & 0xFF;
 		DMA.CH2.DESTADDR2 = 0x00;
-			
+
 		//Must enable last for REPCNT won't work!
 		DMA.CH2.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
-		
+
 		DMA.CH3.REPCNT = 0; //Repeat forever!
 		DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
 		DMA.CH3.CTRLB = 0x00; //No interrupt for DacBuf!!
@@ -601,36 +632,36 @@ void tiny_dma_set_mode_7(void){
 		DMA.CH3.SRCADDR0 = (( (uint16_t) &dacBuf_CH2[0]) >> 0) & 0xFF; //Source address is dacbuf
 		DMA.CH3.SRCADDR1 = (( (uint16_t) &dacBuf_CH2[0]) >> 8) & 0xFF;
 		DMA.CH3.SRCADDR2 = 0x00;
-		
+
 		DMA.CH3.DESTADDR0 = (( (uint16_t) &DACB.CH1DATAH) >> 0) & 0xFF;  //Dest address is high byte of DAC register
 		DMA.CH3.DESTADDR1 = (( (uint16_t) &DACB.CH1DATAH) >> 8) & 0xFF;
 		DMA.CH3.DESTADDR2 = 0x00;
-		
+
 		//Must enable last for REPCNT won't work!
-		DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!	
-		
+		DMA.CH3.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
+
 		DMA.CH0.CTRLA = 0x00;
 		DMA.CH0.CTRLA = DMA_CH_RESET_bm;
-				
+
 		DMA.CH0.CTRLA = DMA_CH_BURSTLEN_2BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm; //Do not repeat!
 		DMA.CH0.CTRLB = 0x00; //No interrupt!
 		DMA.CH0.ADDRCTRL = DMA_CH_SRCRELOAD_BURST_gc | DMA_CH_SRCDIR_INC_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_DESTRELOAD_BLOCK_gc;   //Source reloads after each burst, with byte incrementing.  Dest does not reload, but does increment address.
 		DMA.CH0.TRIGSRC = DMA_CH_TRIGSRC_ADCA_CH0_gc;	//Triggered from ADCA channel 0
 		DMA.CH0.TRFCNT = BUFFER_SIZE;
-				
+
 		DMA.CH0.SRCADDR0 = (( (uint16_t) &ADCA.CH0.RESL) >> 0) & 0xFF; //Source address is ADC
 		DMA.CH0.SRCADDR1 = (( (uint16_t) &ADCA.CH0.RESL) >> 8) & 0xFF;
 		DMA.CH0.SRCADDR2 = 0x00;
-				
+
 		DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[0]) >> 0) & 0xFF;  //Dest address is isoBuf
 		DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[0]) >> 8) & 0xFF;
 		DMA.CH0.DESTADDR2 = 0x00;
-				
+
 		tiny_calibration_synchronise_phase(500, 200);
 		median_TRFCNT = 400;
 		median_TRFCNT_delay = 1; //Wait a few frames before actually setting median_TRFCNT, in case a SOF interrupt was queued during tiny_dma_set_mode_xxx.
-		DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!	
-		
+		DMA.CH0.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
+
 }
 
 void tiny_dma_loop_mode_7(void){
@@ -641,14 +672,14 @@ ISR(DMA_CH0_vect){
 	//dma_ch0_ran++;
 	//uds.dma_ch0_cntL = dma_ch0_ran & 0xff;
 	//uds.dma_ch0_cntH = (dma_ch0_ran >> 8) & 0xff;
-	
+
 	#ifdef SINGLE_ENDPOINT_INTERFACE
-	DMA.CH0.CTRLA = 0x00;	
+	DMA.CH0.CTRLA = 0x00;
 	DMA.CH0.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm; //Do not repeat!
 	DMA.CH0.TRFCNT = HALFPACKET_SIZE;
-			
+
 	short ptr = usb_state ? 0 : PACKET_SIZE;
-			
+
 	DMA.CH0.DESTADDR0 = (( (uint16_t) &isoBuf[ptr]) >> 0) & 0xFF;  //Dest address is isoBuf
 	DMA.CH0.DESTADDR1 = (( (uint16_t) &isoBuf[ptr]) >> 8) & 0xFF;
 
@@ -666,9 +697,9 @@ ISR(DMA_CH1_vect){
 	DMA.CH1.CTRLA = 0x00;
 	DMA.CH1.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm; //Do not repeat!
 	DMA.CH1.TRFCNT = HALFPACKET_SIZE;
-	
+
 	short ptr = usb_state ? HALFPACKET_SIZE : PACKET_SIZE + HALFPACKET_SIZE;
-	
+
 	DMA.CH1.DESTADDR0 = (( (uint16_t) &isoBuf[ptr]) >> 0) & 0xFF;  //Dest address is isoBuf
 	DMA.CH1.DESTADDR1 = (( (uint16_t) &isoBuf[ptr]) >> 8) & 0xFF;
 
