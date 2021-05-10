@@ -709,11 +709,11 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
          * the buffer each time.
          * @TODO improve this limitation.
         */
-        double const_displ_window = 1;
+        double const_displ_window = ((double)N)/(internalBuffer375_CH1->m_samplesPerSecond);
         double const_displ_delay = 0;
         display.delay = const_displ_delay;
         display.window = const_displ_window;
-        readData375_CH1 = internalBuffer375_CH1->readBuffer(const_displ_window,GRAPH_SAMPLES,CH1_mode==2, const_displ_delay);
+        readData375_CH1 = internalBuffer375_CH1->readBuffer(const_displ_window,N,CH1_mode==2, const_displ_delay);
         if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(const_displ_window,GRAPH_SAMPLES,CH2_mode==2,const_displ_delay);
         if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(const_displ_window,GRAPH_SAMPLES,false, const_displ_delay);
         if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(const_displ_window,GRAPH_SAMPLES,false, const_displ_delay);
