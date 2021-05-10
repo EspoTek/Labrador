@@ -1,12 +1,13 @@
 #!/bin/bash
 
-if [ ! -d fftw-2.1.5 ]
+FFTW=fftw-3.3.9
+if [ ! -d $FFTW ]
 then
-	wget http://fftw.org/fftw-2.1.5.tar.gz
-	tar xvf fftw-2.1.5.tar.gz
-	rm fftw-2.1.5.tar.gz
+	wget "http://fftw.org/$FFTW.tar.gz"
+	tar xvf "$FFTW.tar.gz"
+	rm "$FFTW.tar.gz"
 fi
-cd fftw-2.1.5
+cd $FFTW
 ./configure \
                  F77=gfortran \
                  --with-gcc \

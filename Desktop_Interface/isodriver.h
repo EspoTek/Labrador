@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QDebug>
 #include <QVector>
-#include <rfftw.h>
+#include <fftw3.h>
 
 #include "qcustomplot.h"
 #include "genericusbdriver.h"
@@ -127,10 +127,9 @@ private:
     bool hexDisplay_CH1 = false;
     bool hexDisplay_CH2 = false;
     //DFT
-    rfftw_plan plan;
-    fftw_real *in_buffer;
-    fftw_real *out_buffer;
-    fftw_real *power_spectrum;
+    fftw_plan plan;
+    double *in_buffer;
+    fftw_complex *out_buffer;
     int N;
 
 
@@ -197,6 +196,8 @@ private:
     double daqLoad_startTime, daqLoad_endTime;
     //DFT
     QVector<double> getDFTAmplitude(QVector<double> input);
+    QVector<double> getFrequencies();
+
 signals:
     void setGain(double newGain);
     void disableWindow(bool enabled);

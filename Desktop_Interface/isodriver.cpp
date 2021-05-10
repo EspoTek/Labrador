@@ -35,11 +35,10 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     connect(slowTimer, SIGNAL(timeout()), this, SLOT(slowTimerTick()));
 
     /*Creating DFT plan*/
-    /*Create more plans, for larger input sizes*/
-    this->N = GRAPH_SAMPLES;
-    this->plan = rfftw_create_plan(N, FFTW_REAL_TO_COMPLEX, FFTW_ESTIMATE);
-    this->power_spectrum = (fftw_real *) malloc(sizeof(fftw_real)*N/2 + 1);
-    qDebug() << "Created buffers";
+    this->N = 375000;
+    this->in_buffer = fftw_alloc_real(N);
+    this->out_buffer = fftw_alloc_complex(N);
+    this->plan = fftw_plan_dft_r2c_1d(N,in_buffer, out_buffer,FFTW_FORWARD);
 }
 
 void isoDriver::setDriver(genericUsbDriver *newDriver){
@@ -620,20 +619,37 @@ void isoDriver::setTriggerMode(int newMode)
 
 QVector<double> isoDriver::getDFTAmplitude(QVector<double> input)
 {
-    QVector<double> out(N), amplitude(N);
-    rfftw_one(this->plan,input.data(), out.data());
+    /*Zero-padding for better resolution of DFT*/
+    QVector<double> amplitude(N/2+1,0);
+    for (int i = 0; i < input.length(); i++) {
+        in_buffer[i] = input[i];
+    }
 
-    amplitude[0] = sqrt(out[0]*out[0]);  /* DC component */
-    amplitude[N-1] = amplitude[0];
+    fftw_execute(plan);
+
+    amplitude[0] = sqrt(out_buffer[0][0]*out_buffer[0][0] + out_buffer[0][1]*out_buffer[0][1]);  /* DC component */
     for (int k = 1; k < (N+1)/2; ++k) {  /* (k < N/2 rounded up) */
-         amplitude[k] = sqrt(out[k]*out[k] + out[N-k]*out[N-k]);
-         amplitude[N-k] = sqrt(out[k]*out[k] + out[N-k]*out[N-k]);
+         amplitude[k] = sqrt(out_buffer[k][0]*out_buffer[k][0] + out_buffer[k][1]*out_buffer[k][1]);
     }
     if (N % 2 == 0) { /* N is even */
-         amplitude[N/2] = sqrt(out[N/2]*out[N/2]);  /* Nyquist freq. */
+         amplitude[N/2] = sqrt(out_buffer[N/2][0]*out_buffer[N/2][0]);  /* Nyquist freq. */
     }
 
     return amplitude;
+}
+
+QVector<double> isoDriver::getFrequencies()
+{
+    QVector<double> f(N/2+1,0);
+    double sample_rate = 375000;
+    double res = sample_rate/N;
+    double tot = 0.0;
+
+    for (int i = 0; i < (N+1)/2; i++) {
+        f[i] = tot;
+        tot += res;
+    }
+    return f;
 }
 
 
@@ -752,13 +768,15 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
     } else{
         if (spectrum) { /*If frequency spectrum mode*/
             QVector<double> amplitude = getDFTAmplitude(CH1);
-            axes->graph(0)->setData(x,amplitude);
+            QVector<double> f = getFrequencies();
+            axes->graph(0)->setData(f,amplitude);
             if(CH2_mode) {
                 amplitude = getDFTAmplitude(CH2);
-                axes->graph(1)->setData(x,amplitude);
+                axes->graph(1)->setData(f,amplitude);
             }
-            axes->xAxis->setRange(-display.window - display.delay, -display.delay);
-            axes->yAxis->setRange(display.topRange, display.botRange);
+            /*N number of sam*/
+            axes->xAxis->setRange(0, N);
+            axes->yAxis->setRange(100, 0);
         } else {
             axes->graph(0)->setData(x,CH1);
             if(CH2_mode) axes->graph(1)->setData(x,CH2);
