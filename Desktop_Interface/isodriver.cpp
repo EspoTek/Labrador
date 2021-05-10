@@ -35,10 +35,10 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     connect(slowTimer, SIGNAL(timeout()), this, SLOT(slowTimerTick()));
 
     /*Creating DFT plan*/
-    this->N = 375000;
+    this->N = 1<<17;
     this->in_buffer = fftw_alloc_real(N);
     this->out_buffer = fftw_alloc_complex(N);
-    this->plan = fftw_plan_dft_r2c_1d(N,in_buffer, out_buffer,FFTW_FORWARD);
+    this->plan = fftw_plan_dft_r2c_1d(N,in_buffer, out_buffer,0);
 }
 
 void isoDriver::setDriver(genericUsbDriver *newDriver){
@@ -624,9 +624,7 @@ QVector<double> isoDriver::getDFTAmplitude(QVector<double> input)
     for (int i = 0; i < input.length(); i++) {
         in_buffer[i] = input[i];
     }
-
     fftw_execute(plan);
-
     amplitude[0] = sqrt(out_buffer[0][0]*out_buffer[0][0] + out_buffer[0][1]*out_buffer[0][1]);  /* DC component */
     for (int k = 1; k < (N+1)/2; ++k) {  /* (k < N/2 rounded up) */
          amplitude[k] = sqrt(out_buffer[k][0]*out_buffer[k][0] + out_buffer[k][1]*out_buffer[k][1]);
