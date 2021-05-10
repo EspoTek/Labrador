@@ -639,13 +639,9 @@ QVector<double> isoDriver::getDFTAmplitude(QVector<double> input)
 QVector<double> isoDriver::getFrequencies()
 {
     QVector<double> f(N/2+1,0);
-    double sample_rate = 375000;
-    double res = sample_rate/N;
-    double tot = 0.0;
 
     for (int i = 0; i < (N+1)/2; i++) {
-        f[i] = tot;
-        tot += res;
+        f[i] += i;
     }
     return f;
 }
@@ -773,7 +769,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
                 axes->graph(1)->setData(f,amplitude);
             }
             /*N number of sam*/
-            axes->xAxis->setRange(0, N);
+            axes->xAxis->setRange(0, f.length());
             axes->yAxis->setRange(100, 0);
         } else {
             axes->graph(0)->setData(x,CH1);
