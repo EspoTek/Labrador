@@ -638,10 +638,10 @@ QVector<double> isoDriver::getDFTAmplitude(QVector<double> input)
 
 QVector<double> isoDriver::getFrequencies()
 {
-    QVector<double> f(N/2+1,0);
+    QVector<double> f(N/2+1);
 
     for (int i = 0; i < (N+1)/2; i++) {
-        f[i] += i;
+        f[i] = i;
     }
     return f;
 }
@@ -698,11 +698,26 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
 
     if(singleShotEnabled && (triggerDelay != 0))
         singleShotTriggered(1);
-
-    readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==2, display.delay + triggerDelay);
-    if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES,CH2_mode==2, display.delay + triggerDelay);
-    if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay + triggerDelay);
-    if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
+    if (!spectrum) {
+        readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==2, display.delay + triggerDelay);
+        if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES,CH2_mode==2, display.delay + triggerDelay);
+        if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay + triggerDelay);
+        if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
+    } else {
+        /*Don't allow moving frequency spectrum right or left
+         * by overwriting display window and delay before reading
+         * the buffer each time.
+         * @TODO improve this limitation.
+        */
+        double const_displ_window = 1;
+        double const_displ_delay = 0;
+        display.delay = const_displ_delay;
+        display.window = const_displ_window;
+        readData375_CH1 = internalBuffer375_CH1->readBuffer(const_displ_window,GRAPH_SAMPLES,CH1_mode==2, const_displ_delay);
+        if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(const_displ_window,GRAPH_SAMPLES,CH2_mode==2,const_displ_delay);
+        if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(const_displ_window,GRAPH_SAMPLES,false, const_displ_delay);
+        if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(const_displ_window,GRAPH_SAMPLES,false, const_displ_delay);
+    }
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES);
 
@@ -768,9 +783,8 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
                 amplitude = getDFTAmplitude(CH2);
                 axes->graph(1)->setData(f,amplitude);
             }
-            /*N number of sam*/
-            axes->xAxis->setRange(0, f.length());
-            axes->yAxis->setRange(100, 0);
+            axes->xAxis->setRange(f.length(), 0);
+            axes->yAxis->setRange(100,0);
         } else {
             axes->graph(0)->setData(x,CH1);
             if(CH2_mode) axes->graph(1)->setData(x,CH2);
