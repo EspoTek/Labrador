@@ -107,6 +107,9 @@ win32{
         message("Building for Windows (x64)")
         CONFIG(release, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
         else:CONFIG(debug, debug|release): LIBS += -L$$PWD/build_win/libusbk/bin/lib/amd64/ -llibusbK
+        INCLUDEPATH += $$PWD/build_win/fftw/x64
+        LIBS += -L$$PWD/build_win/fftw/x64 -llibfftw3-3
+
         DEFINES += "WINDOWS_64_BIT"
     }
     INCLUDEPATH += $$PWD/build_win/libusbk/includes
@@ -120,6 +123,7 @@ win32{
 
 unix:!android:!macx{
     INCLUDEPATH += $$PWD/build_linux
+    LIBS += -lfftw3
     contains(QT_ARCH, arm) {
             message("Building for Raspberry Pi")
             #libusb include
@@ -350,4 +354,3 @@ DISTFILES += \
     build_android/package_source/gradle/wrapper/gradle-wrapper.properties \
     build_android/package_source/gradlew.bat \
     build_android/package_source/res/xml/device_filter.xml
-unix|win32: LIBS += -lfftw3
