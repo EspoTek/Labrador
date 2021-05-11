@@ -628,16 +628,31 @@ QVector<double> isoDriver::getDFTAmplitude(QVector<double> input)
 {
     /*Zero-padding for better resolution of DFT*/
     QVector<double> amplitude(N/2+1,0);
+    double maximum = 0;
+
     for (int i = 0; i < input.length(); i++) {
         in_buffer[i] = input[i];
     }
     fftw_execute(plan);
     amplitude[0] = sqrt(out_buffer[0][0]*out_buffer[0][0] + out_buffer[0][1]*out_buffer[0][1]);  /* DC component */
+
+    maximum = (amplitude[0] > maximum ) ? amplitude[0] : maximum;
+
     for (int k = 1; k < (N+1)/2; ++k) {  /* (k < N/2 rounded up) */
          amplitude[k] = sqrt(out_buffer[k][0]*out_buffer[k][0] + out_buffer[k][1]*out_buffer[k][1]);
+
+         maximum = (amplitude[k] > maximum ) ? amplitude[k] : maximum;
     }
     if (N % 2 == 0) { /* N is even */
          amplitude[N/2] = sqrt(out_buffer[N/2][0]*out_buffer[N/2][0]);  /* Nyquist freq. */
+
+         maximum = (amplitude[N/2] > maximum ) ? amplitude[N/2] : maximum;
+
+    }
+
+    for (int k = 0; k < (N+1)/2 ; k++) {
+        /*Scaling amplitude for display purposes*/
+        amplitude[k] = amplitude[k]/maximum*100;
     }
 
     return amplitude;
