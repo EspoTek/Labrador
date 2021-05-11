@@ -35,7 +35,14 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     connect(slowTimer, SIGNAL(timeout()), this, SLOT(slowTimerTick()));
 
     /*Creating DFT plan*/
-    this->N = 1<<17;
+    this->N = 1<<17; /*In order to achieve 1:1 frequency point on x-axis mapping*/
+    /*The huge number is the cause of the slow start of the program, cause it needs
+     * to allocate the arrays. In fact delta_freq is calculated as fs/N, where
+     * fs is the sampling frequency, that we know to be 375kHz. So in order to get
+     * delta_freq = 1, we can adjust the number N of samples.
+     * If N < 375k => delta_freq > 1
+     * Now using a multiple of 2 to achieve Nlog(N) complexity in DFT calculus.
+    */
     this->in_buffer = fftw_alloc_real(N);
     this->out_buffer = fftw_alloc_complex(N);
     this->plan = fftw_plan_dft_r2c_1d(N,in_buffer, out_buffer,0);
@@ -638,10 +645,12 @@ QVector<double> isoDriver::getDFTAmplitude(QVector<double> input)
 
 QVector<double> isoDriver::getFrequencies()
 {
-    QVector<double> f(N/2+1);
+    int max_freq = 62500;
+    double delta_freq = ((double) 375000)/ ((double) N);
+    QVector<double> f(max_freq);
 
-    for (int i = 0; i < (N+1)/2; i++) {
-        f[i] = i;
+    for (int i = 0; i*delta_freq < max_freq; i++) {
+        f[i] = i*delta_freq;
     }
     return f;
 }
@@ -714,9 +723,8 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         display.delay = const_displ_delay;
         display.window = const_displ_window;
         readData375_CH1 = internalBuffer375_CH1->readBuffer(const_displ_window,N,CH1_mode==2, const_displ_delay);
-        if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(const_displ_window,GRAPH_SAMPLES,CH2_mode==2,const_displ_delay);
-        if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(const_displ_window,GRAPH_SAMPLES,false, const_displ_delay);
-        if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(const_displ_window,GRAPH_SAMPLES,false, const_displ_delay);
+        if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(const_displ_window,N,CH2_mode==2,const_displ_delay);
+        /*Doubled data rate, is not supported yet and doesn't provide a correct representation.*/
     }
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES);
