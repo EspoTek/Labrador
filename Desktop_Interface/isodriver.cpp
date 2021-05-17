@@ -739,6 +739,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         display.window = const_displ_window;
         readData375_CH1 = internalBuffer375_CH1->readBuffer(const_displ_window,N,CH1_mode==2, const_displ_delay);
         if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(const_displ_window,N,CH2_mode==2,const_displ_delay);
+        if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(const_displ_window,N,false, const_displ_delay);
         /*Doubled data rate, is not supported yet and doesn't provide a correct representation.*/
     }
 
