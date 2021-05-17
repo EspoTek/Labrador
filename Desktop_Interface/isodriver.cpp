@@ -35,14 +35,7 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     connect(slowTimer, SIGNAL(timeout()), this, SLOT(slowTimerTick()));
 
     /*Creating DFT plan*/
-    this->N = 1<<17; /*In order to achieve 1:1 frequency point on x-axis mapping*/
-    /*The huge number is the cause of the slow start of the program, cause it needs
-     * to allocate the arrays. In fact delta_freq is calculated as fs/N, where
-     * fs is the sampling frequency, that we know to be 375kHz. So in order to get
-     * delta_freq = 1, we can adjust the number N of samples.
-     * If N < 375k => delta_freq > 1
-     * Now using a multiple of 2 to achieve Nlog(N) complexity in DFT calculus.
-    */
+    this->N = 1<<17;
     this->in_buffer = fftw_alloc_real(N);
     this->out_buffer = fftw_alloc_complex(N);
     this->plan = fftw_plan_dft_r2c_1d(N,in_buffer, out_buffer,0);
@@ -628,32 +621,42 @@ QVector<double> isoDriver::getDFTAmplitude(QVector<double> input)
 {
     /*Zero-padding for better resolution of DFT*/
     QVector<double> amplitude(N/2+1,0);
-    double maximum = 0;
-
+    static int count = 100;
+    double cur_maximum = -1;
     for (int i = 0; i < input.length(); i++) {
         in_buffer[i] = input[i];
     }
     fftw_execute(plan);
     amplitude[0] = sqrt(out_buffer[0][0]*out_buffer[0][0] + out_buffer[0][1]*out_buffer[0][1]);  /* DC component */
 
-    maximum = (amplitude[0] > maximum ) ? amplitude[0] : maximum;
+    cur_maximum = (amplitude[0] > cur_maximum ) ? amplitude[0] : cur_maximum;
 
     for (int k = 1; k < (N+1)/2; ++k) {  /* (k < N/2 rounded up) */
          amplitude[k] = sqrt(out_buffer[k][0]*out_buffer[k][0] + out_buffer[k][1]*out_buffer[k][1]);
 
-         maximum = (amplitude[k] > maximum ) ? amplitude[k] : maximum;
+         cur_maximum = (amplitude[k] > cur_maximum ) ? amplitude[k] : cur_maximum;
     }
     if (N % 2 == 0) { /* N is even */
          amplitude[N/2] = sqrt(out_buffer[N/2][0]*out_buffer[N/2][0]);  /* Nyquist freq. */
 
-         maximum = (amplitude[N/2] > maximum ) ? amplitude[N/2] : maximum;
+         cur_maximum = (amplitude[N/2] > cur_maximum ) ? amplitude[N/2] : cur_maximum;
 
     }
 
-    for (int k = 0; k < (N+1)/2 ; k++) {
-        /*Scaling amplitude for display purposes*/
-        amplitude[k] = amplitude[k]/maximum*100;
+    if (cur_maximum < maximum) {
+        count--;
+    } else {
+        /*current maximum is higher resetting count to 10*/
+        maximum = cur_maximum;
+        count = 100;
     }
+
+    if (count == 0) {
+        /*current maximum is lower for 10 consecutive samples*/
+        maximum = cur_maximum;
+        count = 100;
+    }
+
 
     return amplitude;
 }
@@ -740,7 +743,6 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         readData375_CH1 = internalBuffer375_CH1->readBuffer(const_displ_window,N,CH1_mode==2, const_displ_delay);
         if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(const_displ_window,N,CH2_mode==2,const_displ_delay);
         if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(const_displ_window,N,false, const_displ_delay);
-        /*Doubled data rate, is not supported yet and doesn't provide a correct representation.*/
     }
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES);
@@ -808,7 +810,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
                 axes->graph(1)->setData(f,amplitude);
             }
             axes->xAxis->setRange(f.length(), 0);
-            axes->yAxis->setRange(100,0);
+            axes->yAxis->setRange(maximum,0);
         } else {
             axes->graph(0)->setData(x,CH1);
             if(CH2_mode) axes->graph(1)->setData(x,CH2);
