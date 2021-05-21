@@ -673,9 +673,10 @@ QVector<double> isoDriver::getFrequencies()
 {
     int max_freq = 62500;
     double delta_freq = ((double) 375000)/ ((double) N);
-    QVector<double> f(max_freq);
+    int tot = max_freq/delta_freq + 1;
+    QVector<double> f(tot);
 
-    for (int i = 0; i < max_freq; i++) {
+    for (int i = 0; i < tot; i++) {
         f[i] = i*delta_freq;
     }
     return f;
