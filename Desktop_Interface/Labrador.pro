@@ -354,3 +354,9 @@ DISTFILES += \
     build_android/package_source/gradle/wrapper/gradle-wrapper.properties \
     build_android/package_source/gradlew.bat \
     build_android/package_source/res/xml/device_filter.xml
+
+unix|win32: LIBS += -lomp
+
+unix|win32: LIBS += -lfftw3f_omp
+
+unix|win32: LIBS += -lfftw3_threads

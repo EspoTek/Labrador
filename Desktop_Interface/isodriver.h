@@ -131,6 +131,7 @@ private:
     double *in_buffer;
     fftw_complex *out_buffer;
     int N;
+    double maximum = -1;
 
 
     //Generic Functions

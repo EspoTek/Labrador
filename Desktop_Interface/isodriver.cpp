@@ -5,6 +5,7 @@
 #include <math.h>
 #include "daqloadprompt.h"
 #include <iostream>
+#include <omp.h>
 
 isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 {
@@ -35,10 +36,17 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     connect(slowTimer, SIGNAL(timeout()), this, SLOT(slowTimerTick()));
 
     /*Creating DFT plan*/
+    fftw_init_threads();
+    fftw_plan_with_nthreads(omp_get_max_threads());
+    std::cout << "Starting with " << omp_get_max_threads() << "threads" << std::endl;
     this->N = 1<<17;
+    this->N *= omp_get_max_threads();
     this->in_buffer = fftw_alloc_real(N);
     this->out_buffer = fftw_alloc_complex(N);
+    std::cout << in_buffer << " " << out_buffer << " " << N<<  std::endl;
     this->plan = fftw_plan_dft_r2c_1d(N,in_buffer, out_buffer,0);
+    std::cout << plan <<  std::endl;
+
 }
 
 void isoDriver::setDriver(genericUsbDriver *newDriver){
@@ -667,7 +675,7 @@ QVector<double> isoDriver::getFrequencies()
     double delta_freq = ((double) 375000)/ ((double) N);
     QVector<double> f(max_freq);
 
-    for (int i = 0; i*delta_freq < max_freq; i++) {
+    for (int i = 0; i < max_freq; i++) {
         f[i] = i*delta_freq;
     }
     return f;
