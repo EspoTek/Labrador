@@ -1,11 +1,3 @@
-## IMPORTANT NOTICE
-
-The batch of Labrador boards produced in February 2020 were configured incorrectly at the factory and **will not be detected** by older releases of the Labrador software interface.
-
-There is a fix in the latest version of the software (July 2020 Continuous release) that will automatically reconfigure the board upon connection.
-
-Please update your software if you are having any issues!
-
 # What is it?
 The EspoTek Labrador is an open-source board that converts your PC, Raspberry Pi or Android Smartphone and into a full-featured electronics lab bench, complete with oscilloscope, signal generator and more.
 
@@ -14,6 +6,11 @@ http://espotek.com/labrador
 
 This repo hosts all of the software and hardware that makes Labrador possible.
 
+# Getting Started
+If you're new to Labrador or oscilloscopes in general, I strongly recommend checking out the fantastic tutorial series produced by Lief Koepsel (start from the bottom of the page and work your way up):   
+https://wellys.com/tags/labrador/  
+It features well-written, rich articles as well as video content that explains everything more clearly than I ever could!  
+
 # Documentation and Software
 To download binary (executable) versions of the software, go to:  
 https://github.com/espotek/labrador/releases
@@ -21,7 +18,7 @@ https://github.com/espotek/labrador/releases
 The software is re-built automatically each time I make a change to the source code.  I recommend always downloading the latest win32, osx-dmg or linux-appimage version, depending on whether you're on Windows, macOS or Linux.  Raspberry Pi downloads are not currently automatically built, but an older version is provided at the link above.
 
 For the documentation, please visit:  
-https://github.com/espotek/labrador/wiki
+https://github.com/espotek/labrador/wiki 
 
 # Additional Extras
 There are community contributed 3D printable cases available at Thingiverse, courtesy of SpaceBex and Bostwickenator:
@@ -55,6 +52,8 @@ The PCB files can be edited in KiCAD 4.0.
 # Known bugs
 Most of the main bugs from the pre-launch period have now been fixed, including synchronisation issues.  
 Please open an issue if you're aware of any in particular.
+
+The batch of Labrador boards produced in February 2020 were configured incorrectly at the factory and **will not be detected** by older releases of the Labrador software interface.  There is a fix in the newer versions of the software that will automatically reconfigure the board upon connection.  Please update your software if you are having any issues!
 
 # Collaboration
 If you want to make any suggestions, or better yet, submit some code, please do so here at GitHub.
