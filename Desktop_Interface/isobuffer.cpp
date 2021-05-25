@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 
 #include "isodriver.h"
 #include "uartstyledecoder.h"

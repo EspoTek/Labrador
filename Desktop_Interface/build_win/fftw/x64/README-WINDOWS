@@ -1,0 +1,29 @@
+This .zip archive contains DLL libraries and the associated header (.h)
+and module-definition (.def) files of FFTW compiled for Win64.  It
+also contains the corresponding bench.exe test/benchmark programs
+and wisdom utilities.
+
+There are three libraries: single precision (float), double precision,
+and extended precision (long double).  To use the third library,
+your compiler must have sizeof(long double) == 12.
+
+In order to link to these .dll files from Visual C++, you need to
+create .lib "import libraries" for them, and can do so with the "lib"
+command that comes with VC++.  In particular, run:
+     lib /def:libfftw3f-3.def
+     lib /def:libfftw3-3.def
+     lib /def:libfftw3l-3.def
+
+On Visual Studio 2008 in 64-bit mode, and possibly in
+other cases, you may need to specify the machine explicitly:
+
+     lib /machine:x64 /def:libfftw3f-3.def
+     lib /machine:x64 /def:libfftw3-3.def
+     lib /machine:x64 /def:libfftw3l-3.def
+
+The single- and double-precision libraries use SSE and SSE2, respectively,
+but should also work on older processors (the library checks at runtime
+to see whether SSE/SSE2 is supported and disables the relevant code if not).
+
+They were compiled by the GNU C compiler for MinGW, specifically:
+x86_64-w64-mingw32-gcc (GCC) 4.9.1

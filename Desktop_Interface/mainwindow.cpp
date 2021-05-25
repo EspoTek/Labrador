@@ -2511,3 +2511,12 @@ void MainWindow::on_actionHide_Widget_LogicAnalyzer_triggered(bool checked)
     ui->busSnifferGroup_CH2->setVisible(!checked);
     ui->digitalOutputGroup->setVisible(!checked);
 }
+
+void MainWindow::on_actionFrequency_Spectrum_triggered(bool checked)
+{
+    ui->controller_iso->spectrum = checked;
+    if (checked == true)
+        MAX_WINDOW_SIZE = 1<<17;
+    else
+        MAX_WINDOW_SIZE = 10;
+}
