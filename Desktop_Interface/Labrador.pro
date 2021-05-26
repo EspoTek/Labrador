@@ -11,18 +11,29 @@
 
 QT += core gui
 
-CONFIG += c++14
+CONFIG += c++17
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = Labrador
 TEMPLATE = app
 
-QCP_VER = 1
+
+!contains(CONFIG, "USE_SYSTEM_LIBS") {
+    message("Using bundled version of qcustomplot")
+    QCP_VER = 1
+} else {
+    message("Using system version of qcustomplot")
+    DEFINES += QCUSTOMPLOT_USE_OPENGL
+    QCP_VER = 2
+    LIBS += -lqcustomplot
+}
+
+
 DEFINES += "QCP_VER=$${QCP_VER}"
 equals(QCP_VER,"2"){
     DEFINES += QCUSTOMPLOT_USE_OPENGL
-    LIBS += -lOpenGL32
+    win32: LIBS += -lOpenGL32
     message("Using QCP2 with OpenGL support")
 }
 
@@ -31,11 +42,13 @@ include(ui_elements.pri)
 MOC_DIR = $$PWD/moc
 
 SOURCES += main.cpp\
+    DisplayControl.cpp \
         mainwindow.cpp \
     functiongencontrol.cpp \
     isodriver.cpp \
     isobuffer.cpp \
     desktop_settings.cpp \
+    pinoutDialog.cpp \
     scoperangeenterdialog.cpp \
     genericusbdriver.cpp \
     isobufferbuffer.cpp \
@@ -46,7 +59,9 @@ SOURCES += main.cpp\
 	i2cdecoder.cpp
 
 HEADERS  += mainwindow.h \
+    DisplayControl.h \
     functiongencontrol.h \
+    pinoutDialog.h \
     xmega.h \
     isodriver.h \
     isobuffer.h \
@@ -120,54 +135,58 @@ win32{
 
 unix:!android:!macx{
     INCLUDEPATH += $$PWD/build_linux
+    LIBS += -lusb-1.0 ##make sure you have the libusb-1.0-0-dev package!
+    LIBS += -ldfuprog-0.9
+
+    QMAKE_CXXFLAGS+=-O2
+
     contains(QT_ARCH, arm) {
             message("Building for Raspberry Pi")
-            #libusb include
-            unix:!android:!macx:LIBS += -lusb-1.0  ##make sure you have the libusb-1.0-0-dev package!
-            unix:!android:!macx:INCLUDEPATH += build_linux/libusb
-            unix:!android:!macx:DEPENDPATH += build_linux/libusb
 
-            #libdfuprog include
-            unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/arm -ldfuprog-0.9
-            unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
-            unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
+            #All ARM-Linux GCC treats char as unsigned by default???
             QMAKE_CFLAGS += -fsigned-char
             QMAKE_CXXFLAGS += -fsigned-char
             DEFINES += "PLATFORM_RASPBERRY_PI"
-            #All ARM-Linux GCC treats char as unsigned by default???
-            lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/arm/libdfuprog-0.9.so
-            lib_deploy.path = /usr/lib
+
+            !contains(CONFIG, "USE_SYSTEM_LIBS") {
+                LIBS += -L$$PWD/build_linux/libdfuprog/lib/arm
+                lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/arm/libdfuprog-0.9.so
+            }
 
     } else {
         contains(QT_ARCH, i386) {
             message("Building for Linux (x86)")
-            unix:!android:!macx:LIBS += -lusb-1.0  ##make sure you have the libusb-1.0-0-dev package!
-            unix:!android:!macx:INCLUDEPATH += build_linux/libusb
-            unix:!android:!macx:DEPENDPATH += build_linux/libusb
 
-            #libdfuprog include
-            unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/x86 -ldfuprog-0.9
-            unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
-            unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
-            lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x86/libdfuprog-0.9.so
-            lib_deploy.path = /usr/lib
-
+            !contains(CONFIG, "USE_SYSTEM_LIBS") {
+                LIBS += -L$$PWD/build_linux/libdfuprog/lib/x86
+                lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x86/libdfuprog-0.9.so
+            }
         } else {
             message("Building for Linux (x64)")
-            #libusb include
-            unix:!android:!macx:LIBS += -Lbuild_linux/libusb -lusb-1.0  ##I suspect the -L here does nothing!
-            unix:!android:!macx:INCLUDEPATH += build_linux/libusb
-            unix:!android:!macx:DEPENDPATH += build_linux/libusb
-
-            #libdfuprog include
-            unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9
-            unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
-            unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
-    	    lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x64/libdfuprog-0.9.so
-            lib_deploy.path = /usr/lib
+            !contains(CONFIG, "USE_SYSTEM_LIBS") {
+                LIBS += -Lbuild_linux/libusb  ##I suspect the -L here does nothing!
+                #libdfuprog include
+                LIBS += -L$$PWD/build_linux/libdfuprog/lib/x64
+                lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x64/libdfuprog-0.9.so
+            }
         }
     }
-    
+
+    contains(CONFIG, "USE_SYSTEM_LIBS") {
+        message("Using system version of libusb")
+        INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/libusb-1.0
+    } else {
+        INCLUDEPATH += build_linux/libusb
+        DEPENDPATH += build_linux/libusb
+
+        #libdfuprog include
+        INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
+        DEPENDPATH += $$PWD/build_linux/libdfuprog/include
+
+        lib_deploy.path = /usr/lib
+        INSTALLS += lib_deploy
+    }
+
     other.files += bin/firmware
     other.files += bin/waveforms
     other.path = /usr/bin/EspoTek-Labrador
@@ -205,7 +224,6 @@ unix:!android:!macx{
     }
 
     INSTALLS += target
-    INSTALLS += lib_deploy
     INSTALLS += other
     INSTALLS += udev
     INSTALLS += icon48
@@ -249,29 +267,6 @@ QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.10
 
 unix:SOURCES += unixusbdriver.cpp
 unix:HEADERS += unixusbdriver.h
-
-#############################################################
-########       SHARED ANDROID/LINUX GCC FLAGS      #########
-###########################################################
-
-unix:!macx: QMAKE_CXXFLAGS_RELEASE -= -O0
-unix:!macx: QMAKE_CXXFLAGS_RELEASE -= -O1
-unix:!macx: QMAKE_CXXFLAGS_RELEASE -= -O2
-unix:!macx: QMAKE_CXXFLAGS_RELEASE -= -O3
-
-android: QMAKE_CXXFLAGS_RELEASE -= -O0
-android: QMAKE_CXXFLAGS_RELEASE -= -O1
-android: QMAKE_CXXFLAGS_RELEASE -= -O2
-android: QMAKE_CXXFLAGS_RELEASE -= -O3
-android: QMAKE_CXXFLAGS_RELEASE -= -Os
-
-
-android: QMAKE_CFLAGS_RELEASE -= -O0
-android: QMAKE_CFLAGS_RELEASE -= -O1
-android: QMAKE_CFLAGS_RELEASE -= -O2
-android: QMAKE_CFLAGS_RELEASE -= -O3
-android: QMAKE_CFLAGS_RELEASE -= -Os
-
 
 #############################################################
 #################    ANDROID BUILD ONLY    #################

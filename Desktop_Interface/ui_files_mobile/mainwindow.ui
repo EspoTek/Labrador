@@ -2776,11 +2776,11 @@
     <signal>multimeterRMS(double)</signal>
     <signal>sendMultimeterLabel4(QString)</signal>
     <slot>setWindow(int)</slot>
-    <slot>setVoltageRange(QWheelEvent*)</slot>
+    <slot>onWheelEvent(QWheelEvent*)</slot>
     <slot>pauseEnable_CH1(bool)</slot>
     <slot>pauseEnable_CH2(bool)</slot>
     <slot>startTimer()</slot>
-    <slot>clearBuffers(bool,bool,bool)</slot>
+    <slot>clearChannelBuffers(bool,bool,bool)</slot>
     <slot>setVisible_CH2(bool)</slot>
     <slot>gainBuffers(double)</slot>
     <slot>setAutoGain(bool)</slot>
@@ -3381,7 +3381,7 @@
    <sender>scopeAxes</sender>
    <signal>mouseWheel(QWheelEvent*)</signal>
    <receiver>controller_iso</receiver>
-   <slot>setVoltageRange(QWheelEvent*)</slot>
+   <slot>onWheelEvent(QWheelEvent*)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>482</x>

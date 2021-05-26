@@ -23,12 +23,11 @@ private:
 };
 
 GobindarDialog::GobindarDialog()
-: QWidget()
 {
     setWindowFlags(Qt::Window);
 
     QPalette palette;
-    palette.setColor(QPalette::Background, Qt::white);
+    palette.setColor(QPalette::Window, Qt::white);
     setPalette(palette);
 
     QFont largeFont;
@@ -59,13 +58,12 @@ GobindarDialog::GobindarDialog()
 
 genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
 {
-    connectedStatus(false);
     qDebug() << "Making USB Driver invisible!!";
     this->hide();
 
     //Double buffers are used to send the transfers to isoDriver.  outBuffers and bufferLengths store the actual data from each transfer as well as length.  They are read by isoDriver when it calls isoRead().
-    outBuffers[0] = (unsigned char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX*NUM_ISO_ENDPOINTS + 8, 1);
-    outBuffers[1] = (unsigned char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX*NUM_ISO_ENDPOINTS + 8, 1);
+    outBuffers[0].reset((char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX*NUM_ISO_ENDPOINTS + 8, 1), free);
+    outBuffers[1].reset((char *) calloc(ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX*NUM_ISO_ENDPOINTS + 8, 1), free);
     bufferLengths[0] = 0;
     bufferLengths[1] = 0;
 
@@ -76,15 +74,20 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
         qDebug() << "pipeID" << k << "=" << pipeID[k];
     }
 
-    connectTimer = new QTimer();
+    connectTimer = new QTimer(this);
     connectTimer->setTimerType(Qt::PreciseTimer);
     connectTimer->start(USB_RECONNECT_PERIOD);
-    connect(connectTimer, SIGNAL(timeout()), this, SLOT(checkConnection()));
+    connect(connectTimer.data(), &QTimer::timeout, this, &genericUsbDriver::checkConnection);
     qDebug()<< "Generic Usb Driver setup complete";
 	messageBox = new QMessageBox();
+
+    // Emitting in a constructor does not work
+    QMetaObject::invokeMethod(this, [this]() {
+        emit this->connectedStatus(false);
+    });
 }
 
-genericUsbDriver::~genericUsbDriver(void){
+genericUsbDriver::~genericUsbDriver(){
     qDebug() << "genericUsbDriver dectructor entering";
     if(connected){
 		if (psuTimer)
@@ -174,9 +177,9 @@ void genericUsbDriver::sendFunctionGenData(functionGen::ChannelID channelID)
     unsigned char fGenTemp = 0;
     fGenTemp |= (fGenTriple & 0x01)<<1;
     fGenTemp |= (fGenTriple & 0x02)>>1;
-    usbSendControl(0x40, 0xa4, fGenTemp, 0, 0, NULL);
+    usbSendControl(0x40, 0xa4, fGenTemp, 0, 0, nullptr);
 #else
-    usbSendControl(0x40, 0xa4, fGenTriple, 0, 0, NULL);
+    usbSendControl(0x40, 0xa4, fGenTriple, 0, 0, nullptr);
 #endif
 
 	auto applyAmplitudeAndOffset = [&](unsigned char sample) -> unsigned char
@@ -213,19 +216,21 @@ void genericUsbDriver::sendFunctionGenData(functionGen::ChannelID channelID)
 	}
 
     // Timer Setup
-    int validClockDivs[7] = {1, 2, 4, 8, 64, 256, 1024};
-	auto period = [&](int division) -> int
-	{
-		return CLOCK_FREQ / (division * channelData.samples.size() * channelData.freq);
-	};
+    static const int validClockDivs[7] = {1, 2, 4, 8, 64, 256, 1024};
 
-	int* clkSettingIt = std::find_if(std::begin(validClockDivs), std::end(validClockDivs),
-	                                 [&](int division) -> bool { return period(division) < 65535; });
+    int timerPeriod = 0;
+    int clkSetting = 0;
+    for (size_t i=0; i<sizeof validClockDivs; i++) {
+        const int period = CLOCK_FREQ / (validClockDivs[i] * channelData.samples.size() * channelData.freq);
+        if (period > 0xFFFF && i == 0 /* ensure we always have a valid value */) {
+            continue;
+        }
 
-    int timerPeriod = period(*clkSettingIt);
-
-	// +1 to change from [0:n) to [1:n]
-    int clkSetting = std::distance(std::begin(validClockDivs), clkSettingIt) + 1;
+        // +1 to change from [0:n) to [1:n]
+        clkSetting = i + 1;
+        timerPeriod = period;
+        break;
+    }
 
     if(deviceMode == 5)
         qDebug("DEVICE IS IN MODE 5");
@@ -235,15 +240,12 @@ void genericUsbDriver::sendFunctionGenData(functionGen::ChannelID channelID)
 		usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
     else
 		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
-
-    return;
-
 }
 
 void genericUsbDriver::newDig(int digState){
     qDebug() << "newDig";
     digitalPinState = digState;
-    usbSendControl(0x40, 0xa6, digState, 0, 0, NULL);
+    usbSendControl(0x40, 0xa6, digState, 0, 0, nullptr);
 }
 
 /*
@@ -255,57 +257,57 @@ void genericUsbDriver::setBufferPtr(bufferControl *newPtr){
 void genericUsbDriver::setDeviceMode(int mode){
     int oldMode = deviceMode;
     deviceMode = mode;
-    usbSendControl(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
+    usbSendControl(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, nullptr);
 
-    if (fGenPtrData[(int)functionGen::ChannelID::CH1] != NULL)
+    if (fGenPtrData[(int)functionGen::ChannelID::CH1] != nullptr)
 		sendFunctionGenData(functionGen::ChannelID::CH1);
 
-	if (fGenPtrData[(int)functionGen::ChannelID::CH2] != NULL)
+    if (fGenPtrData[(int)functionGen::ChannelID::CH2] != nullptr)
 		sendFunctionGenData(functionGen::ChannelID::CH2);
 
     //switch on new deviceMode!!
     switch(deviceMode){
-        case 0:
-            if(oldMode > 2) sendClearBuffer(1,0,0);
-            setVisible_CH2(0);
-            checkXY(0);
+        case DeviceCH1Analog:
+            if(oldMode > DeviceCH1AnalogCH2Analog) emit sendClearBuffer(true,false,false);
+            emit setVisible_CH2(false);
+            emit checkXY(false);
             break;
-        case 1:
-            if(oldMode > 2) sendClearBuffer(1,0,0);
-            sendClearBuffer(0,1,0);
-            setVisible_CH2(1);
-            checkXY(0);
+        case DeviceCH1AnalogCH2Digital:
+            if(oldMode > 2) emit sendClearBuffer(true,false,false);
+            emit sendClearBuffer(false,true,false);
+            emit setVisible_CH2(true);
+            emit checkXY(false);
             break;
-        case 2:
-            if(oldMode > 2) sendClearBuffer(1,0,0);
-            sendClearBuffer(0,1,0);
-            setVisible_CH2(1);
+        case DeviceCH1AnalogCH2Analog:
+            if(oldMode > 2) emit sendClearBuffer(true,false,false);
+            emit sendClearBuffer(false,true,false);
+            emit setVisible_CH2(true);
             break;
-        case 3:
-            if(oldMode != 4) sendClearBuffer(1,0,0);
-            sendClearBuffer(0,1,0);
-            setVisible_CH2(0);
-            checkXY(0);
+        case DeviceCH1Digital:
+            if(oldMode != 4) emit sendClearBuffer(true,false,false);
+            emit sendClearBuffer(false,true,false);
+            emit setVisible_CH2(true);
+            emit checkXY(false);
             break;
-        case 4:
-            if(oldMode != 3) sendClearBuffer(1,0,0);
-            sendClearBuffer(0,1,0);
-            setVisible_CH2(1);
-            checkXY(0);
+        case DeviceCH1DigitalCH2Digital :
+            if(oldMode != 3) emit sendClearBuffer(true,false,false);
+            emit sendClearBuffer(false,true,false);
+            emit setVisible_CH2(true);
+            emit checkXY(false);
             break;
         case 5:
-            setVisible_CH2(0);
-            checkXY(0);
+            emit setVisible_CH2(false);
+            emit checkXY(false);
             break;
-        case 6:
-            sendClearBuffer(0,0,1);
-            setVisible_CH2(0);
-            checkXY(0);
+        case DeviceCH1Analog750 :
+            emit sendClearBuffer(false,false,true);
+            emit setVisible_CH2(false);
+            emit checkXY(false);
             break;
-        case 7:
-            sendClearBuffer(1,0,0);
-            enableMMTimer();
-            checkXY(0);
+        case DeviceMultimeter:
+            emit sendClearBuffer(true,false,false);
+            emit enableMMTimer();
+            emit checkXY(false);
             break;
         default:
             qFatal("Error in genericUsbDriver::setDeviceMode.  Invalid device mode.");
@@ -331,12 +333,12 @@ void genericUsbDriver::psuTick(){
     if ((dutyTemp>106) || (dutyTemp<21)){
         qDebug("PSU DUTY CYCLE of dutyTemp = %d OUT OF RANGE (could underflow on SOF)!!!  ABORTING!!!", dutyTemp);
     }
-    usbSendControl(0x40, 0xa3, dutyTemp, 0, 0, NULL);
+    usbSendControl(0x40, 0xa3, dutyTemp, 0, 0, nullptr);
 }
 
 void genericUsbDriver::setGain(double newGain){
     if (newGain == scopeGain) return; //No update!
-    gainBuffers(scopeGain/newGain);
+    emit gainBuffers(scopeGain/newGain);
     scopeGain = newGain;
     //See XMEGA_AU Manual, page 359.  ADC.CTRL.GAIN.
         if(newGain==0.5) gainMask = 0x07;
@@ -359,11 +361,11 @@ void genericUsbDriver::setGain(double newGain){
     */
     qDebug("newGain = %f", newGain);
     qDebug("gainMask = %x", gainMask);
-    usbSendControl(0x40, 0xa5, deviceMode, gainMask, 0, NULL);
+    usbSendControl(0x40, 0xa5, deviceMode, gainMask, 0, nullptr);
 }
 
-void genericUsbDriver::avrDebug(void){
-    usbSendControl(0xc0, 0xa0, 0, 0, sizeof(unified_debug), NULL);
+void genericUsbDriver::avrDebug(){
+    usbSendControl(0xc0, 0xa0, 0, 0, sizeof(unified_debug), nullptr);
 
     qDebug() << "unified debug is of size" << sizeof(unified_debug);
     /*
@@ -392,18 +394,18 @@ void genericUsbDriver::avrDebug(void){
 */
 }
 
-void genericUsbDriver::kickstartIso(void){
+void genericUsbDriver::kickstartIso(){
     qDebug() << "Attempting to kickstart iso...";
-    usbSendControl(0x40, 0xaa, 0, 0, 0, NULL);
+    usbSendControl(0x40, 0xaa, 0, 0, 0, nullptr);
 }
 
-void genericUsbDriver::requestFirmwareVersion(void){
-    usbSendControl(0xc0, 0xa8, 0, 0, 2, NULL);
+void genericUsbDriver::requestFirmwareVersion(){
+    usbSendControl(0xc0, 0xa8, 0, 0, 2, nullptr);
     firmver = *((unsigned short *) inBuffer);
 }
 
-void genericUsbDriver::requestFirmwareVariant(void){
-    usbSendControl(0xc0, 0xa9, 0, 0, 1, NULL);
+void genericUsbDriver::requestFirmwareVariant(){
+    usbSendControl(0xc0, 0xa9, 0, 0, 1, nullptr);
     variant = *((unsigned char *) inBuffer);
 }
 
@@ -421,7 +423,6 @@ void genericUsbDriver::saveState(int *_out_deviceMode, double *_out_scopeGain, d
     *(_out_scopeGain) = scopeGain;
     *(_out_currentPsuVoltage) = currentPsuVoltage;
     *(_out_digitalPinState) = digitalPinState;
-    return;
 }
 
 void genericUsbDriver::checkConnection(){
@@ -430,7 +431,7 @@ void genericUsbDriver::checkConnection(){
     unsigned char initReturnValue;
 
     if(!connected){
-        connectedStatus(false);
+        emit connectedStatus(false);
         qDebug() << "CHECKING CONNECTION!";
         initReturnValue = usbInit(BOARD_VID, BOARD_PID);
         connected = !(initReturnValue);
@@ -459,16 +460,18 @@ void genericUsbDriver::checkConnection(){
     connectTimer->stop();
 
     requestFirmwareVersion();
-    qDebug("BOARD IS RUNNING FIRMWARE VERSION 0x%04hx", firmver);
-    qDebug("EXPECTING FIRMWARE VERSION 0x%04hx", EXPECTED_FIRMWARE_VERSION);
+    qDebug("BOARD IS RUNNING FIRMWARE VERSION 0x%04hhx", firmver);
+    qDebug("EXPECTING FIRMWARE VERSION 0x%04x", EXPECTED_FIRMWARE_VERSION);
     requestFirmwareVariant();
-    qDebug("FIRMWARE VARIANT = 0x%02hx", variant);
-    qDebug("EXPECTED VARIANT = 0x%02hx", DEFINED_EXPECTED_VARIANT);
+    qDebug("FIRMWARE VARIANT = 0x%02hhx", variant);
+    qDebug("EXPECTED VARIANT = 0x%02x", DEFINED_EXPECTED_VARIANT);
 
     if((firmver != EXPECTED_FIRMWARE_VERSION) || (variant != DEFINED_EXPECTED_VARIANT)){
         qDebug() << "Unexpected Firmware!!";
         int flashRet = flashFirmware();
-        qDebug("flashRet: %d", flashRet);
+        if (flashRet != 0) {
+            QMessageBox::warning(window(), tr("Flashing firmware failed"), tr("Flashing firmware failed with error code %1").arg(flashRet));
+        }
         connected = false;
         connectTimer->start();
         return;
@@ -480,7 +483,7 @@ void genericUsbDriver::checkConnection(){
     connectTimer->stop();
     delete(connectTimer);
 
-    connectedStatus(true);
+    emit connectedStatus(true);
 
 
     setDeviceMode(deviceMode);
@@ -496,22 +499,22 @@ void genericUsbDriver::checkConnection(){
     psuTimer = new QTimer();
     psuTimer->setTimerType(Qt::PreciseTimer);
     psuTimer->start(PSU_PERIOD);
-    connect(psuTimer, SIGNAL(timeout()), this, SLOT(psuTick()));
+    connect(psuTimer, &QTimer::timeout, this, &genericUsbDriver::psuTick);
 
-    if(killOnConnect) usbSendControl(0x40, 0xa7, 0, 0, 0, NULL);
+    if(killOnConnect) usbSendControl(0x40, 0xa7, 0, 0, 0, nullptr);
 
     recoveryTimer = new QTimer();
     recoveryTimer->setTimerType(Qt::PreciseTimer);
     recoveryTimer->start(RECOVERY_PERIOD);
-    connect(recoveryTimer, SIGNAL(timeout()), this, SLOT(recoveryTick()));
-    initialConnectComplete();
+    connect(recoveryTimer.data(), &QTimer::timeout, this, &genericUsbDriver::recoveryTick);
+    emit initialConnectComplete();
 
     if(!killOnConnect && calibrateOnConnect){
-        calibrateMe();
+        emit calibrateMe();
     }
 }
 
 void genericUsbDriver::bootloaderJump(){
-    usbSendControl(0x40, 0xa7, 1, 0, 0, NULL);
+    usbSendControl(0x40, 0xa7, 1, 0, 0, nullptr);
 }
 

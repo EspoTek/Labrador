@@ -14,7 +14,7 @@ class espoSpinBox : public QDoubleSpinBox
 {
     Q_OBJECT
 public:
-    explicit espoSpinBox(QWidget *parent = 0);
+    explicit espoSpinBox(QWidget *parent = nullptr);
 	QValidator::State validate(QString& text, int& pos) const override;
 private:
     QString textFromValue(double value) const override;

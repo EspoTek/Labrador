@@ -11,7 +11,7 @@ class bufferControl : public QLabel
 {
     Q_OBJECT
 public:
-    explicit bufferControl(QWidget *parent = 0);
+    explicit bufferControl(QWidget *parent = nullptr);
     void refreshImage(void);
     bool busSnifferState_CH1 = false;
     bool scopeDsrDisableOverride = false;
@@ -46,7 +46,6 @@ public slots:
     void scopeIn_CH1(bool state);
     void scopeIn_CH2(bool state);
     void scopeDsrIn(bool state);
-    //void signalGenIn(bool state);
     void busSnifferIn_CH1(bool state);
     void busSnifferIn_CH2(bool state);
     void multimeterIn(bool state);

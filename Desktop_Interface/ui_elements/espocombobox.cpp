@@ -6,58 +6,43 @@ espoComboBox::espoComboBox(QWidget *parent) : QComboBox(parent)
 }
 
 
-void espoComboBox::readWaveformList(void)
+void espoComboBox::readWaveformList()
 {
-    //This code gets the name of the current directory, regardless of platform.
-    //This is so the interface knows where to find the waveform data
-    //QDir *dir = new QDir();
-    //qDebug() << dir->currentPath();
+    const QStringList potentialDirs = {
 #ifdef PLATFORM_ANDROID
-    QFile qt_list("assets:/waveforms/_list.wfl");
+        "assets:",
+#else
+       QCoreApplication::applicationDirPath(),
+#endif
+       ":/", // fall back to builtin
+    };
+
+    QString filename;
+    for (const QString &dir : potentialDirs) {
+        const QString potential = dir + "/waveforms/_list.wfl";
+        if (QFileInfo::exists(potential)) {
+            filename = potential;
+            break;
+        }
+    }
+    if (filename.isEmpty()) {
+        qWarning() << "Failed to find a waveform list!";
+        return;
+    }
+
+    QFile qt_list(filename);
     bool success = qt_list.open(QIODevice::ReadOnly | QIODevice::Text);
     if(!success){
-        qFatal("Could not load _list.wfl");
+        qWarning("Could not load _list.wfl");
+        return;
     }
 
-    char nameBuffer[255];
-    QStringList *newNames = new QStringList();
+    QStringList newNames;
 
     while (!qt_list.atEnd()) {
-        QByteArray line = qt_list.readLine();
-        strcpy(nameBuffer, line.data());
-        strtok(nameBuffer, "\n\r");
-        newNames->append(nameBuffer);
-        qDebug() << nameBuffer;
+        this->addItem(qt_list.readLine().trimmed());
     }
-    this->addItems(*(newNames));
-    delete newNames;
     qt_list.close();
-#else
-    QString dirString = QCoreApplication::applicationDirPath();
-    dirString.append("/waveforms/_list.wfl");
-    QByteArray array = dirString.toLocal8Bit();
-    char* buffer = array.data();
-    //qDebug() << buffer;
 
-    qDebug() << "Attempting to open" << dirString;
-
-    FILE *listPtr = fopen(buffer, "r");
-    QStringList *newNames = new QStringList();
-    char nameBuffer[255];
-
-    if(listPtr == NULL){
-        qFatal("Could not load _list.wfl");
-    }
-
-    while (fgets(nameBuffer,256,listPtr) !=NULL){
-        qDebug() << "nameBuffer = " << nameBuffer;
-        strtok(nameBuffer, "\n\r");
-        newNames->append(nameBuffer);
-    }
-    this->addItems(*(newNames));
-    delete newNames;
-
-    fclose(listPtr);
-#endif
     qDebug() << "List loaded!!";
 }

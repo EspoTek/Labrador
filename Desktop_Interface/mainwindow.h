@@ -16,7 +16,7 @@
 #include <QGridLayout>
 
 #include <math.h>
-#include "qcustomplot.h"
+#include <qcustomplot.h>
 
 #include "platformspecific.h"
 #include "qcustomplot.h"
@@ -29,7 +29,7 @@
 
 //The Main Window object.  This has a lot of control information too (keyboard shortcuts etc.)!
 
-
+class pinoutDialog;
 
 namespace Ui {
 class MainWindow;
@@ -40,9 +40,9 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void resizeEvent(QResizeEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
     void showFileDialog(QString *fileName);
     void openFileDialog(QString *fileName);
 private slots:
@@ -66,6 +66,11 @@ private slots:
     void on_action5FPS_toggled(bool enabled);
     void on_actionSnap_to_Cursors_triggered();
     void on_actionEnter_Manually_triggered();
+
+    void on_actionDownsampleDecimate_triggered();
+    void on_actionDownsamplePeak_triggered();
+    void on_actionDownsampleBottom_triggered();
+    void on_actionDownsampleAverageDelta_triggered();
 
     void connectDisplaySignals();
     void calibrateStage2();
@@ -104,7 +109,6 @@ private slots:
     void cycleBaudRateBackwards_CH2();
 
     //Deprecated/Unsupported
-    void timeBaseNeedsChanging(bool positive);
     void on_actionForce_Square_triggered(bool checked);
     void helloWorld();
 
@@ -123,8 +127,6 @@ private slots:
     void on_actionAuto_Lock_toggled(bool arg1);
 
     //File/other
-    void on_actionRecord_triggered(bool checked);
-    void on_actionTake_Snapshot_triggered();
     void reinitUsb(void);
     void reinitUsbStage2(void);
     void resetUsbState(void);
@@ -167,6 +169,7 @@ private slots:
     void on_actionShow_Debug_Console_triggered();
 
     void on_actionDAQ_Settings_triggered();
+    void on_actionResetDisplay();
 
     void fileLimitReached_CH1(void);
     void fileLimitReached_CH2(void);
@@ -175,8 +178,10 @@ private slots:
     void daq_updatedMaxFileSize(qulonglong newVal);
     void daq_saveButtonPressed();
 
+    void onChannel2Toggled();
 
 
+public slots:
     void on_actionAbout_triggered();
 
     void on_actionOpen_DAQ_File_triggered();
@@ -227,12 +232,19 @@ private slots:
 
     void on_actionHide_Widget_LogicAnalyzer_triggered(bool checked);
 
+    void on_setAutoScopeRange();
+
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+    bool eventFilter(QObject *obj, QEvent *event) override;
+    bool maybeHandleKeypress(QKeyEvent *event);
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
-    QWheelEvent *wheelEmu;
     bool forceSquare = false;
     QCPItemText *textLabel;
+    QCPItemText *ch2Label = nullptr;
     QFile *output375_CH1, *output375_CH2, *output750;
     unsigned char caibrateStage;
     QMessageBox *calibrationMessages;
@@ -267,30 +279,6 @@ private:
     QActionGroup *fpsGroup;
     QActionGroup *connectionTypeGroup;
     QActionGroup *serialProtocolGroup;
-    QShortcut *shortcut_cycleBaudRate_CH1;
-    QShortcut *shortcut_cycleBaudRateBackwards_CH1;
-    QShortcut *shortcut_cycleBaudRate_CH2;
-    QShortcut *shortcut_cycleBaudRateBackwards_CH2;
-    QShortcut *shortcut_ArrowUp;
-    QShortcut *shortcut_ArrowDown;
-    QShortcut *shortcut_CtrlArrowUp;
-    QShortcut *shortcut_CtrlArrowDown;
-    QShortcut *shortcut_w;
-    QShortcut *shortcut_ctrlW;
-    QShortcut *shortcut_s;
-    QShortcut *shortcut_ctrlS;
-    QShortcut *shortcut_a;
-    QShortcut *shortcut_d;
-    QShortcut *shortcut_ArrowLeft;
-    QShortcut *shortcut_ArrowRight;
-    QShortcut *shortcut_CtrlArrowLeft;
-    QShortcut *shortcut_CtrlArrowRight;
-    QShortcut *shortcut_snapScopeToCursors;\
-    QShortcut *shortcut_manualRange;
-    QShortcut *shortcut_snapshot_CH1;
-    QShortcut *shortcut_snapshot_CH2;
-    QShortcut *shortcut_Debug;
-    QShortcut *shortcut_Esc;
 
     //Duct Tape
     bool dt_AlreadyAskedAboutCalibration = false;
@@ -299,6 +287,8 @@ private:
     qulonglong daq_max_file_size;
 
     scopeRangeEnterDialog* scopeRangeSwitch = nullptr;
+
+    QPointer<pinoutDialog> m_pinoutDialog; // QPointer automatically resets when object is deleted
 
 #ifdef PLATFORM_ANDROID
     //Android Special

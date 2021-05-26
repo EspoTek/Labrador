@@ -1,5 +1,9 @@
 #include "functiongencontrol.h"
+
+#include <utility>
 #include "platformspecific.h"
+
+#include <QRegularExpression>
 
 namespace functionGen {
 
@@ -14,118 +18,109 @@ void SingleChannelController::waveformName(QString newName)
 
 	int length;
 
+    const QStringList potentialDirs = {
 #ifdef PLATFORM_ANDROID
-    QString waveformFilePath("assets:/waveforms/");
-    waveformFilePath.append(newName);
+        "assets:",
+#else
+       QCoreApplication::applicationDirPath(),
+#endif
+       ":", // fall back to builtin
+    };
+
+    QString filename;
+    for (const QString &dir : potentialDirs) {
+        const QString potential = dir + "/waveforms/" + newName;
+        if (QFileInfo::exists(potential)) {
+            filename = potential;
+            break;
+        }
+    }
+
+    QString waveformFilePath(filename);
 
     QFile fptr(waveformFilePath);
-    bool success = fptr.open(QIODevice::ReadOnly);
+    if (!fptr.open(QIODevice::ReadOnly)) {
+        qWarning() << "Failed to open" << newName;
+        return;
+    }
 
     QByteArray line;
-    char lengthString[16];
-    char divisibilityString[16];
 
-    line = fptr.readLine();
-    strcpy(lengthString, line.data());
-    sscanf(lengthString, "%d", &length);
-    qDebug() << "lengthString" << lengthString;
+    line = fptr.readLine().trimmed();
+    bool ok;
+    length = line.toInt(&ok);
+    if (!ok) {
+        qWarning() << "Invalid length line" << line << "in" << filename;
+        return;
+    }
+    if (length == 0) {
+        qWarning() << "No samples in" << filename;
+        return;
+    }
 
-    line = fptr.readLine();
-    strcpy(divisibilityString, line.data());
-    sscanf(divisibilityString, "%d", &m_data.divisibility);
-    qDebug() << "divisibilityString" << divisibilityString;
+    line = fptr.readLine().trimmed();
+    m_data.divisibility = line.toInt(&ok);
+    if (!ok) {
+        qWarning() << "Invalid divisibility line" << line << "in" << filename;
+        return;
+    }
+
 
     qDebug() << "Length = " << length;
     qDebug() << "Divisibility = " << m_data.divisibility;
 
-    QByteArray remainingData = fptr.readAll();
-    char *dataString = remainingData.data();
+    QString remainingData = QString::fromLatin1(fptr.readAll().simplified());
 
 	m_data.samples.resize(length);
 
-    int dummy;
-    char *dataStringCurrent = dataString;
-    for (int i = 0; i < length; i++)
-	{
-        sscanf(dataStringCurrent, "%d", &dummy);
-        dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        m_data.samples[i] = static_cast<uint8_t>(dummy);
+    // Should use tabs for separating, but we support any kind of whitespace
+    const QStringList values = remainingData.split(QRegularExpression("\\s+"), Qt::SkipEmptyParts);
+    if (values.count() != length) {
+        qWarning() << "Invalid amount of values" << values.count() << "in" << filename << "expected" << length;
+        m_data.samples.resize(values.count());
+    }
+    for (int i=0; i<values.count(); i++) {
+        ushort sample = values[i].toUShort(&ok);
+        if (!ok || sample > 255) {
+            qWarning() << "Invalid sample value" << values[i];
+        }
+        m_data.samples[i] = uint8_t(sample);
     }
 
-#else
 
-    QByteArray filePath = QCoreApplication::applicationDirPath()
-		.append("/waveforms/").append(newName).toLocal8Bit();
-
-    qDebug() << "opening" << filePath;
-
-    FILE *fptr = fopen(filePath.constData(), "r");
-    if (fptr == NULL)
-        qFatal("%s could not be opened!", filePath.constData());
-
-    char lengthString[16];
-    fgets(lengthString, 5, fptr);
-    sscanf(lengthString, "%d", &length);
-
-    char divisibilityString[16];
-    //Bit of bullshit to deal with CRLF line endings on Mac.
-    do
-	{
-		fgets(divisibilityString, 5, fptr);
-	}
-	while ((divisibilityString[0] == '\r') || (divisibilityString[0] == '\n'));
-
-    sscanf(divisibilityString, "%d", &m_data.divisibility);
-
-    qDebug() << "Length = " << length;
-    qDebug() << "Divisibility = " << m_data.divisibility;
-
-	m_data.samples.resize(length);
-
-    char *dataString = (char *) malloc(length*5+1);
-    fgets(dataString, length*5+1, fptr);
-
-    int dummy;
-    char *dataStringCurrent = dataString;
-    for (int i = 0; i < length; i++)
-	{
-        sscanf(dataStringCurrent, "%d", &dummy);
-        dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
-        m_data.samples[i] = static_cast<uint8_t>(dummy);
+    const unsigned divisor = length >> (m_data.divisibility - 1);
+    if (divisor == 0) {
+        qWarning() << "Invalid divisor" << divisor;
+        return;
     }
-
-    free(dataString);
-    fclose(fptr);
-#endif
-
-	double newMaxFreq = DAC_SPS / (length >> (m_data.divisibility - 1));
+    double newMaxFreq = double(DAC_SPS) / divisor;
 	double newMinFreq = double(CLOCK_FREQ) / 1024.0 / 65535.0 / static_cast<double>(length);
 
-	setMaxFreq(newMaxFreq);
-	setMinFreq(newMinFreq);
+    emit setMaxFreq(newMaxFreq);
+    emit setMinFreq(newMinFreq);
 
-    notifyUpdate(this);
+    emit notifyUpdate(this);
 }
 
 void SingleChannelController::freqUpdate(double newFreq)
 {
 	qDebug() << "newFreq = " << newFreq;
 	m_data.freq = newFreq;
-	notifyUpdate(this);
+    emit notifyUpdate(this);
 }
 
 void SingleChannelController::amplitudeUpdate(double newAmplitude)
 {
 	qDebug() << "newAmplitude = " << newAmplitude;
 	m_data.amplitude = newAmplitude;
-	notifyUpdate(this);
+    emit notifyUpdate(this);
 }
 
 void SingleChannelController::offsetUpdate(double newOffset)
 {
 	qDebug() << "newOffset = " << newOffset;
 	m_data.offset = newOffset;
-	notifyUpdate(this);
+    emit notifyUpdate(this);
 }
 
 
@@ -137,7 +132,7 @@ DualChannelController::DualChannelController(QWidget *parent) : QLabel(parent)
 	SingleChannelController* controller2 = getChannelController(ChannelID::CH2);
 
 	connect(controller1, &SingleChannelController::notifyUpdate,
-	        this, [=](SingleChannelController* ptr){ this->functionGenToUpdate(ChannelID::CH1, ptr); });
+            this, [=](SingleChannelController* ptr){ emit this->functionGenToUpdate(ChannelID::CH1, ptr); });
 
 	connect(controller1, &SingleChannelController::setMaxFreq,
 	        this, &DualChannelController::setMaxFreq_CH1);
@@ -147,7 +142,7 @@ DualChannelController::DualChannelController(QWidget *parent) : QLabel(parent)
 
 
 	connect(controller2, &SingleChannelController::notifyUpdate,
-	        this, [=](SingleChannelController* ptr){ this->functionGenToUpdate(ChannelID::CH2, ptr); });
+            this, [=](SingleChannelController* ptr){ emit this->functionGenToUpdate(ChannelID::CH2, ptr); });
 
 	connect(controller1, &SingleChannelController::setMaxFreq,
 	        this, &DualChannelController::setMaxFreq_CH2);
@@ -168,7 +163,7 @@ SingleChannelController* DualChannelController::getChannelController(ChannelID c
 // Hopefuly it can be mostly removed eventually
 void DualChannelController::waveformName(ChannelID channelID, QString newName)
 {
-	getChannelController(channelID)->waveformName(newName);
+	getChannelController(channelID)->waveformName(std::move(newName));
 }
 
 void DualChannelController::freqUpdate(ChannelID channelID, double newFreq)
@@ -189,7 +184,7 @@ void DualChannelController::offsetUpdate(ChannelID channelID, double newOffset)
 
 void DualChannelController::waveformName_CH1(QString newName)
 {
-	waveformName(ChannelID::CH1, newName);
+	waveformName(ChannelID::CH1, std::move(newName));
 }
 
 void DualChannelController::freqUpdate_CH1(double newFreq)
@@ -210,7 +205,7 @@ void DualChannelController::offsetUpdate_CH1(double newOffset)
 
 void DualChannelController::waveformName_CH2(QString newName)
 {
-	waveformName(ChannelID::CH2, newName);
+	waveformName(ChannelID::CH2, std::move(newName));
 }
 
 void DualChannelController::freqUpdate_CH2(double newFreq)
@@ -228,5 +223,5 @@ void DualChannelController::offsetUpdate_CH2(double newOffset)
 	offsetUpdate(ChannelID::CH2, newOffset);
 }
 
-}
+} // namespace functionGen
 

@@ -7,7 +7,7 @@
 #include <QDateTime>
 
 #include "genericusbdriver.h"
-#include "libusb.h"
+#include <libusb.h>
 extern "C"
 {
     #include "libdfuprog.h"
@@ -33,7 +33,7 @@ public:
     ~worker(){};
     libusb_context *ctx;
     bool stopTime = false;
-    unsigned char cleanupRemaining = 4;
+    unsigned char cleanupRemaining = NUM_FUTURE_CTX ;
 public slots:
     void handle(){
         qDebug() << "SUB THREAD ID" << QThread::currentThreadId();
@@ -43,7 +43,7 @@ public slots:
                 libusb_handle_events_timeout(ctx, &tv);
                 //qDebug() << "HANDLED";
             }
-            if(stopTime){
+            if(stopTime || QThread::currentThread()->isInterruptionRequested()){
                 if(cleanupRemaining){
                     cleanupRemaining--;
                     qDebug("Cleaning... #%hhu phases remain.\n", cleanupRemaining);
@@ -61,15 +61,15 @@ class unixUsbDriver : public genericUsbDriver
 {
     Q_OBJECT
 public:
-    explicit unixUsbDriver(QWidget *parent = 0);
+    explicit unixUsbDriver(QWidget *parent);
     ~unixUsbDriver();
     void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA);
-    char *isoRead(unsigned int *newLength);
+    std::shared_ptr<char[]> isoRead(unsigned int *newLength);
     void manualFirmwareRecovery(void);
 protected:
     //USB Vars
-    libusb_context *ctx = NULL;
-    libusb_device_handle *handle = NULL;
+    libusb_context *ctx = nullptr;
+    libusb_device_handle *handle = nullptr;
     //USBIso Vars
     unsigned char *midBuffer_current[NUM_ISO_ENDPOINTS];
     unsigned char *midBuffer_prev[NUM_ISO_ENDPOINTS];
@@ -78,7 +78,7 @@ protected:
     tcBlock transferCompleted[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX];
     unsigned char dataBuffer[NUM_ISO_ENDPOINTS][NUM_FUTURE_CTX][ISO_PACKET_SIZE*ISO_PACKETS_PER_CTX];
     worker *isoHandler = nullptr;
-    QThread *workerThread = nullptr;
+    QPointer<QThread> workerThread;
     int cumulativeFramePhaseErrors = 0;
     //Generic Functions
     virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
@@ -96,7 +96,7 @@ public slots:
 };
 
 //Callback on iso transfer complete.
-static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
+inline void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
     tcBlockMutex.lock();
     //int number = ((tcBlock *)transfer->user_data)->number;
     //bool completed = ((tcBlock *)transfer->user_data)->completed;

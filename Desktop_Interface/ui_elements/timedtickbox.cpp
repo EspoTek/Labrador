@@ -2,10 +2,10 @@
 
 timedTickBox::timedTickBox(QWidget *parent) : QCheckBox(parent)
 {
-    timer = new QTimer();
+    timer = new QTimer(this);
     timer->setTimerType(Qt::PreciseTimer);
     timer->start(timerLength);
-    connect(timer, SIGNAL(timeout()), this, SLOT(timerTick()));
+    connect(timer, &QTimer::timeout, this, &timedTickBox::timerTick);
 
 }
 

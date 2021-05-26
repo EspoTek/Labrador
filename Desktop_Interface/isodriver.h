@@ -5,12 +5,13 @@
 #include <QLabel>
 #include <QDebug>
 #include <QVector>
-#include "qcustomplot.h"
+#include <qcustomplot.h>
 #include "genericusbdriver.h"
 #include "desktop_settings.h"
 #include "siprint.h"
 #include "i2cdecoder.h"
 #include "uartstyledecoder.h"
+#include "DisplayControl.h"
 
 class isoBuffer;
 class isoBuffer_file;
@@ -25,44 +26,38 @@ class isoBuffer_file;
 // That is one of the things I plan on fixing, and in fact
 // the reason why I began the commenting!
 
-class DisplayControl : public QObject
-{
-    Q_OBJECT
-public:
-
-    double delay = 0;
-    double window = 0.01;
-    double y0 = 0;
-    double y1 = 0;
-    double x0 = 0;
-    double x1 = 0;
-    double topRange = 2.5;
-    double botRange = -0.5;
-
-    void setVoltageRange (QWheelEvent* event, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes);
-
-signals:
-    void topRangeUpdated(double);
-    void botRangeUpdated(double);
-    void timeWindowUpdated(double);
-    void delayUpdated(double);
-};
-
 class isoDriver : public QLabel
 {
     Q_OBJECT
 public:
-    explicit isoDriver(QWidget *parent = 0);
+    enum Channel {
+        Channel3751 = 1 << 0,
+        Channel3752 = 1 << 1,
+        Channel750 =  1 << 2,
+    };
+    Q_DECLARE_FLAGS(Channels, Channel);
+    Q_FLAG(Channel);
+
+    enum class ChannelMode {
+        Off = 0,
+        Analog = 1,
+        Digital = 2,
+        Analog750 = -1,
+        File = -2
+    };
+    Q_ENUM(ChannelMode);
+
+    explicit isoDriver(QWidget *parent = nullptr);
+    ~isoDriver();
+
     void autoGain(void);
     //Generic Vars
     isoBuffer *internalBuffer375_CH1;
     isoBuffer *internalBuffer375_CH2;
     isoBuffer *internalBuffer750;
-    isoBuffer_file *internalBufferFile = NULL;
-#if QCP_VER == 1
+    isoBuffer_file *internalBufferFile = nullptr;
     QCPItemText *cursorTextPtr;
-#endif
-    genericUsbDriver *driver;
+    QPointer<genericUsbDriver> driver;
     bool doNotTouchGraph = true;
     double ch1_ref = 1.65;
     double ch2_ref = 1.65;
@@ -88,6 +83,11 @@ public:
     //DAQ
     bool fileModeEnabled = false;
     double daq_maxWindowSize;
+
+    double vMax() const { return qMax(xmax, ymax); }
+    double vMin() const { return qMin(xmin, ymin); }
+    long numSamples() const { return total_read; }
+
 private:
     //Those bloody bools that just Enable/Disable a single property
     bool paused_CH1 = false;
@@ -132,16 +132,16 @@ private:
     short reverseFrontEnd(double voltage);
     void multimeterAction();
     void broadcastStats(bool CH2);
-    void frameActionGeneric(char CH1_mode, char CH2_mode);
+    void frameActionGeneric(const ChannelMode CH1_mode, const ChannelMode CH2_mode);
     void triggerStateChanged();
     //Variables that are just pointers to other classes/vars
-    QCustomPlot *axes; // TODO: move into DisplayControl
+    QPointer<QCustomPlot> axes; // TODO: move into DisplayControl
 	std::unique_ptr<short[]> readData375_CH1;
 	std::unique_ptr<short[]> readData375_CH2;
 	std::unique_ptr<short[]> readData750;
     float *readDataFile;
-    char *isoTemp = NULL;
-    short *isoTemp_short = NULL;
+    std::shared_ptr<char[]> isoTemp;
+    short *isoTemp_short = nullptr;
     siprint *v0;
     siprint *v1;
     siprint *dv;
@@ -174,9 +174,9 @@ private:
     i2c::i2cDecoder* twoWire = nullptr;
     bool twoWireStateInvalid = true;
     //Generic Vars
-    QTimer* isoTimer = NULL;
-    QTimer *slowTimer = NULL;
-    QTimer *fileTimer = NULL;
+    QTimer* isoTimer = nullptr;
+    QTimer *slowTimer = nullptr;
+    QTimer *fileTimer = nullptr;
     long total_read = 0;
     unsigned int length;
     QFile *snapshotFile_CH1;
@@ -199,7 +199,6 @@ signals:
     void sendMultimeterLabel2(QString);
     void sendMultimeterLabel3(QString);
     void sendMultimeterLabel4(QString);
-    void changeTimeAxis(bool positive);
     void sendTriggerValue(double);
     void sendVmax_CH1(double);
     void sendVmin_CH1(double);
@@ -218,13 +217,14 @@ signals:
     void delayUpdated(double);
     void enableCursorGroup(bool);
 public slots:
-    void setVoltageRange(QWheelEvent *event);
+    void onWheelEvent(QWheelEvent *event);
     void timerTick(void);
     void pauseEnable_CH1(bool enabled);
     void pauseEnable_CH2(bool enabled);
     void pauseEnable_multimeter(bool enabled);
     void startTimer();
-    void clearBuffers(bool ch3751, bool ch3752, bool ch750);
+    void clearChannelBuffers(bool ch3751, bool ch3752, bool ch750);
+    void clearBuffers(const isoDriver::Channels channels);
     void setVisible_CH2(bool visible);
     void gainBuffers(double multiplier);
     void gainTick(void);
@@ -281,6 +281,10 @@ public slots:
     void attenuationChanged_CH2(int attenuationIndex);
     void setHexDisplay_CH1(bool enabled);
     void setHexDisplay_CH2(bool enabled);
+
+    void setDownsampleMethod(const DownsamplingMethod method);
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(isoDriver::Channels);
 
 #endif // ISODRIVER_H

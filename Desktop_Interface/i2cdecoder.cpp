@@ -59,7 +59,7 @@ void i2cDecoder::run()
 
 int i2cDecoder::serialDistance(isoBuffer* buffer)
 {
-    int back_bit = buffer->m_back * 8;
+    uint64_t back_bit = buffer->m_back * 8;
     int bufferEnd_bit = buffer->m_bufferLen * 8;
     if (back_bit >= serialPtr_bit)
         return back_bit - serialPtr_bit;
@@ -117,7 +117,12 @@ void i2cDecoder::runStateMachine()
 		case transmissionState::data:
 			decodeData(sdaEdge, sclEdge);
 			break;		
-	}
+        case transmissionState::unknown:
+        default:
+            throw std::runtime_error("State machine is in an invalid state!");
+            return;
+
+    }
 }
 
 edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)

@@ -14,8 +14,8 @@ class espoSlider : public QSlider
 {
     Q_OBJECT
 public:
-    explicit espoSlider(QWidget *parent = 0);
-    bool setTickLabel(QString label, int position);
+    explicit espoSlider(QWidget *parent = nullptr);
+    bool setTickLabel(const QString& label, int position);
     void resizeEvent(QResizeEvent *event);
     void moveEvent(QMoveEvent *event);
     void setTickInterval(int ti);
@@ -24,7 +24,7 @@ public:
 private:
     int debug_var = 0;
     void rearrange();
-    std::vector<QLabel*> addressBook;
+    QVector<QLabel*> addressBook;
     QWidget* windowPointer;
     int labelMargin;
 signals:

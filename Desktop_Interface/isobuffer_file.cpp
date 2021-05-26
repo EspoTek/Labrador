@@ -9,7 +9,7 @@ isoBuffer_file::isoBuffer_file(QWidget *parent, int bufferlen, double sampleRate
     samplesPerSecond = sampleRate_Hz;
 }
 
-void isoBuffer_file::writeBuffer_float(float* data, int len)
+void isoBuffer_file::writeBuffer_float(const float* data, int len)
 {
     for (int i=0; i<len;i++){
         buffer[back] = (float) data[i];
@@ -40,8 +40,8 @@ float *isoBuffer_file::readBuffer(double sampleWindow, int numSamples, bool sing
     qDebug() << "back" << back;
     qDebug() << "front" << front;
 */
-    int idx, subIdx;
-    if(readData!=NULL) free(readData);
+    int idx;
+    if(readData!=nullptr) free(readData);
     readData = (float *) calloc(numSamples, sizeof(float));
 
 

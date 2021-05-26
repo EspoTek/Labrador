@@ -14,7 +14,7 @@ class swipeyStack : public QStackedWidget
 {
     Q_OBJECT
 public:
-    explicit swipeyStack(QWidget *parent = 0);
+    explicit swipeyStack(QWidget *parent = nullptr);
 private:
     int initial_x;
     int initial_y;

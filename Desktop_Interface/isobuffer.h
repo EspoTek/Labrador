@@ -34,6 +34,14 @@ enum class TriggerSeekState : uint8_t
     AboveTriggerLevel
 };
 
+enum class DownsamplingMethod
+{
+    Decimate,
+    Peak,
+    Bottom,
+    AverageDelta
+};
+
 // isoBuffer is a generic class that enables O(1) read times (!!!) on all
 // read/write operations, while maintaining a huge buffer size.
 // Imagine it as a circular buffer, but with access functions specifically
@@ -47,7 +55,7 @@ class isoBuffer : public QWidget
 {
 	Q_OBJECT
 public:
-	isoBuffer(QWidget* parent = 0, int bufferLen = 0, isoDriver* caller = 0, unsigned char channel_value = 0);
+	isoBuffer(QWidget* parent = nullptr, int bufferLen = 0, isoDriver* caller = nullptr, unsigned char channel_value = 0);
 	~isoBuffer() = default;
 
 //	Basic buffer operations
@@ -73,11 +81,13 @@ private:
 public:
 	double sampleConvert(short sample, int TOP, bool AC) const;
 	short inverseSampleConvert(double voltageLevel, int TOP, bool AC) const;
+    void setDownsampleMethod(const DownsamplingMethod method) { m_downsamplingMethod = method; }
 
 private:
 	template<typename Function>
 	int capSample(int offset, int target, double seconds, double value, Function comp);
     void checkTriggered();
+    void updateTriggerLevel();
 public:
 	int cap_x0fromLast(double seconds, double vbot);
 	int cap_x1fromLast(double seconds, int x0, double vbot);
@@ -111,11 +121,15 @@ public:
 	int m_sampleRate_bit;
     TriggerType m_triggerType = TriggerType::Disabled;
     TriggerSeekState m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
+    DownsamplingMethod m_downsamplingMethod = DownsamplingMethod::AverageDelta;
+    double m_triggerVoltage = 0.;
+    uint16_t m_triggerTop = 0;
+    bool m_triggerACCoupled = false;
     short m_triggerLevel = 0;
     short m_triggerSensitivity = 0;
-    std::vector<uint32_t> m_triggerPositionList = {};
+    QVector<uint32_t> m_triggerPositionList = {};
 //	UARTS decoding
-	uartStyleDecoder* m_decoder = NULL;
+    uartStyleDecoder* m_decoder = nullptr;
 	bool m_isDecoding = true;
 private:
 //	File I/O

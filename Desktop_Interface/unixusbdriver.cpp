@@ -16,19 +16,18 @@ unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
     }
 }
 
-unixUsbDriver::~unixUsbDriver(void){
+unixUsbDriver::~unixUsbDriver(){
     qDebug() << "\n\nunixUsbDriver destructor ran!";
     //unixDriverDeleteMutex.lock();
+    shutdownMode = true;
     if(connected){
 		if (workerThread)
 			{
-			workerThread->deleteLater();
-			while(workerThread->isRunning()){
-				workerThread->quit();
-				qDebug() << "isRunning?" << workerThread->isFinished();
-				QThread::msleep(100);
-			}
-		}	
+            workerThread->requestInterruption();
+            workerThread->quit();
+            workerThread->wait();
+            workerThread->deleteLater();
+        }
 		if (isoHandler)
 	        delete(isoHandler);
         //delete(workerThread);
@@ -43,18 +42,22 @@ unixUsbDriver::~unixUsbDriver(void){
         qDebug() << "Transfers freed.";
     }
 
-    if(handle != NULL){
+    if(handle != nullptr){
     libusb_release_interface(handle, 0);
         qDebug() << "Interface released";
         libusb_close(handle);
         qDebug() << "Device Closed";
     }
-    if(ctx != NULL){
+    if(ctx != nullptr){
         libusb_exit(ctx);
         qDebug() << "Libusb exited";
     }
     //unixDriverDeleteMutex.unlock();
     qDebug() << "unixUsbDriver destructor completed!\n\n";
+    for (unsigned char k=0; k<NUM_ISO_ENDPOINTS; k++){
+        free(midBuffer_current[k]);
+        free(midBuffer_prev[k]);
+    }
 }
 
 unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
@@ -62,19 +65,23 @@ unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
 
     int error;
     //Should only run once.
-    if(ctx == NULL){
+    if(ctx == nullptr){
         error = libusb_init(&ctx);
         if(error){
             qDebug() << "libusb_init FAILED";
             return 1;
         } else qDebug() << "Libusb context initialised";
 
+#if defined(LIBUSB_API_VERSION) && (LIBUSB_API_VERSION >= 0x01000108)
+        libusb_set_option(ctx, LIBUSB_OPTION_LOG_LEVEL, LIBUSB_LOG_LEVEL_INFO);
+#else
         libusb_set_debug(ctx, 3);
+#endif
     }
 
-    if(handle == NULL){
+    if(handle == nullptr){
         handle = libusb_open_device_with_vid_pid(ctx, VIDin, PIDin);
-        if(handle==NULL){
+        if(handle==nullptr){
             qDebug() << "DEVICE NOT FOUND";
             return 1;
         }
@@ -89,7 +96,7 @@ unsigned char unixUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     if(error){
         qDebug() << "libusb_claim_interface FAILED";
         qDebug() << "ERROR" << error << libusb_error_name(error);
-        handle = NULL;
+        handle = nullptr;
         return 1;
     } else qDebug() << "Interface claimed!";
 
@@ -105,7 +112,7 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
         return;
     }
 
-    if (LDATA==NULL){
+    if (LDATA==nullptr){
         controlBuffer = inBuffer;
     }
     else controlBuffer = LDATA;
@@ -117,13 +124,13 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
     } //else qDebug() << "unixUsbDriver::usbSendControl SUCCESS";
     if((error == LIBUSB_ERROR_NO_DEVICE) && (Request!=0xa7)){ //Bootloader Jump won't return; this is expected behaviour.
         qDebug() << "Device not found.  Becoming an hero.";
-        connectedStatus(false);
-        killMe();
+        emit connectedStatus(false);
+        emit killMe();
     }
     return;
 }
 
-int unixUsbDriver::usbIsoInit(void){
+int unixUsbDriver::usbIsoInit(){
     int error;
 	
     for(int n=0;n<NUM_FUTURE_CTX;n++){
@@ -136,6 +143,7 @@ int unixUsbDriver::usbIsoInit(void){
         }
     }
 
+    qint64 t0 = QDateTime::currentMSecsSinceEpoch();
     for(int n=0;n<NUM_FUTURE_CTX;n++){
         for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
             error = libusb_submit_transfer(isoCtx[k][n]);
@@ -145,7 +153,6 @@ int unixUsbDriver::usbIsoInit(void){
 				return -1;
             } else {
                 if(n == 0){
-                    qint64 t0;
                     qint64 t = QDateTime::currentMSecsSinceEpoch();
                     if(k==0){
                         t0 = t;
@@ -160,19 +167,19 @@ int unixUsbDriver::usbIsoInit(void){
         }
     }
 
-    isoTimer = new QTimer();
+    isoTimer = new QTimer(this);
     isoTimer->setTimerType(Qt::PreciseTimer);
     isoTimer->start(ISO_TIMER_PERIOD);
-    connect(isoTimer, SIGNAL(timeout()), this, SLOT(isoTimerTick()));
+    connect(isoTimer.data(), &QTimer::timeout, this, &unixUsbDriver::isoTimerTick);
 
     qDebug() << "Setup successful!";
 
     isoHandler = new worker();
-    workerThread = new QThread();
+    workerThread = new QThread(this);
 
     isoHandler->ctx = ctx;
     isoHandler->moveToThread(workerThread);
-    connect(workerThread, SIGNAL(started()), isoHandler, SLOT(handle()));
+    connect(workerThread, &QThread::started, isoHandler, &worker::handle);
 
     workerThread->start();
 
@@ -182,7 +189,7 @@ int unixUsbDriver::usbIsoInit(void){
     return 0;
 }
 
-void unixUsbDriver::isoTimerTick(void){
+void unixUsbDriver::isoTimerTick(){
     timerCount++;
 
     char subString[3] = "th";
@@ -196,7 +203,8 @@ void unixUsbDriver::isoTimerTick(void){
     int n, error, earliest = MAX_OVERLAP;
     qint64 minFrame = 9223372036854775807; //max value for 64 bit signed
 
-    unsigned int i, packetLength = 0;
+    int i;
+    unsigned packetLength = 0;
     unsigned char* packetPointer;
 
     tcBlockMutex.lock();
@@ -247,7 +255,7 @@ void unixUsbDriver::isoTimerTick(void){
             }else{
                 srcPtr = &midBuffer_prev[k][ISO_PACKET_SIZE * (ISO_PACKETS_PER_CTX + current_offset)];
             }
-            memcpy(&(outBuffers[currentWriteBuffer][packetLength]), srcPtr, ISO_PACKET_SIZE);
+            memcpy(&outBuffers[currentWriteBuffer].get()[packetLength], srcPtr, ISO_PACKET_SIZE);
             packetLength += ISO_PACKET_SIZE;
         }
     }
@@ -280,19 +288,19 @@ void unixUsbDriver::isoTimerTick(void){
 
     tcBlockMutex.unlock();
     //qDebug() << "Calling upTick()";
-    upTick();
+    emit upTick();
    return;
 }
 
-char *unixUsbDriver::isoRead(unsigned int *newLength){
+std::shared_ptr<char[]> unixUsbDriver::isoRead(unsigned int *newLength){
     //*(newLength) = 0;
     //return (char*) NULL;
     //qDebug() << "unixUsbDriver::isoRead";
     *(newLength) = bufferLengths[!currentWriteBuffer];
-    return (char*) outBuffers[(unsigned char) !currentWriteBuffer];
+    return outBuffers[(unsigned char) !currentWriteBuffer];
 }
 
-void unixUsbDriver::recoveryTick(void){
+void unixUsbDriver::recoveryTick(){
     //This should not be called in shutdown mode since it cause double deletion!
     if(!shutdownMode){
         avrDebug();
@@ -320,14 +328,14 @@ void unixUsbDriver::backupCleanup(){
 	    isoHandler->stopTime = true;
 }
 
-int unixUsbDriver::flashFirmware(void){
+int unixUsbDriver::flashFirmware(){
 #ifndef PLATFORM_ANDROID
     char fname[128];
     qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
     sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
     qDebug() << "FLASHING " << fname;
 
-    signalFirmwareFlash();
+    emit signalFirmwareFlash();
     QApplication::processEvents();
 
     //Go to bootloader mode
@@ -387,37 +395,28 @@ int unixUsbDriver::flashFirmware(void){
     libusb_exit(ctx);
     qDebug() << "Libusb exited";
     connected = false;
-    handle = NULL;
-    ctx = NULL;
+    handle = nullptr;
+    ctx = nullptr;
 
     return 0;
 #endif
 }
 
 
-void unixUsbDriver::manualFirmwareRecovery(void){
+// TODO: port to QWizard, less annoying than an endless list of popup dialogs
+void unixUsbDriver::manualFirmwareRecovery(){
 #ifndef PLATFORM_ANDROID
     //Get location of firmware file
-    char fname[128];
-    sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
-
-    QString dirString = QCoreApplication::applicationDirPath();
-    dirString.append(fname);
-    QByteArray array = dirString.toLocal8Bit();
-    char* buffer = array.data();
+    const QString fname = QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
+    const QString dirString = QCoreApplication::applicationDirPath() + fname;
 
     //Vars
     QMessageBox manualFirmwareMessages;
-    int messageBoxReturn;
 
-
-    char leaveBootloaderCommand[256];
-    sprintf(leaveBootloaderCommand, "dfu-programmer atxmega32a4u launch");
+    QByteArray leaveBootloaderCommand = "dfu-programmer atxmega32a4u launch";
     int exit_code;
-    char eraseCommand[256];
-    sprintf(eraseCommand, "dfu-programmer atxmega32a4u erase --force");
-    char flashCommand[256];
-    sprintf(flashCommand, "dfu-programmer atxmega32a4u flash %s", buffer);
+    QByteArray eraseCommand = "dfu-programmer atxmega32a4u erase --force";
+    QByteArray flashCommand = "dfu-programmer atxmega32a4u flash " + dirString.toLocal8Bit();
 
 
 
@@ -432,13 +431,12 @@ void unixUsbDriver::manualFirmwareRecovery(void){
     manualFirmwareMessages.exec();
     manualFirmwareMessages.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
     manualFirmwareMessages.setText("Did that fix things?");
-    messageBoxReturn = manualFirmwareMessages.exec();
-    manualFirmwareMessages.setStandardButtons(QMessageBox::Ok);
-    if(messageBoxReturn == 16384){ //"Yes" is 16384, no is 65536
-        manualFirmwareMessages.setText("Awesome!  Have fun!");
-        messageBoxReturn = manualFirmwareMessages.exec();
+    if(manualFirmwareMessages.exec() == QMessageBox::Yes){
+        QMessageBox::information(this, tr("Success"), tr("Awesome!  Have fun!"));
         return;
     }
+
+    manualFirmwareMessages.setStandardButtons(QMessageBox::Ok);
 
     //Real troubleshooting begins here.....
 
@@ -457,34 +455,36 @@ void unixUsbDriver::manualFirmwareRecovery(void){
         manualFirmwareMessages.setText("If that doesn't fix it, please open an issue on github.com/espotek/labrador, or contact me at admin@espotek.com.");
         manualFirmwareMessages.exec();
         return;
-    } else {
-        exit_code = dfuprog_virtual_cmd(leaveBootloaderCommand);
-        manualFirmwareMessages.setText("No Labrador board could be detected.\n\nIt's possible that you're stuck in booloader mode.\n\nI've attempted to launch the firmware manually.");
+    }
+    exit_code = dfuprog_virtual_cmd(leaveBootloaderCommand.data());
+    manualFirmwareMessages.setText("No Labrador board could be detected.\n\nIt's possible that you're stuck in booloader mode.\n\nI've attempted to launch the firmware manually.");
+    manualFirmwareMessages.exec();
+    if(exit_code){
+        manualFirmwareMessages.setText("Command failed.  This usually means that no device is detected.\n\nPlease Ensure that the cable you're using can carry data (for example, by using it to transfer data to your phone).\n\nSome cables are for charging only, and not physically contain data lines.\n\nAlso note that the red light on the Labrador board is a power indicator for the PSU output pins.\nIt will turn on even if no data lines are present.");
         manualFirmwareMessages.exec();
-        if(exit_code){
-            manualFirmwareMessages.setText("Command failed.  This usually means that no device is detected.\n\nPlease Ensure that the cable you're using can carry data (for example, by using it to transfer data to your phone).\n\nSome cables are for charging only, and not physically contain data lines.\n\nAlso note that the red light on the Labrador board is a power indicator for the PSU output pins.\nIt will turn on even if no data lines are present.");
-            manualFirmwareMessages.exec();
-            return;
-        }
-        //Firmware launch failed, but bootloader preset
-        if(!connected){
-            exit_code = dfuprog_virtual_cmd(eraseCommand);
-            exit_code += dfuprog_virtual_cmd(flashCommand);
-            manualFirmwareMessages.setText("The bootloader is present, but firmware launch failed.  I've attempted to reprogram it.");
-            manualFirmwareMessages.exec();
-
-            if(!exit_code){            //Reprogramming was successful, but board is still in bootloader mode.
-                exit_code = dfuprog_virtual_cmd(leaveBootloaderCommand);
-                manualFirmwareMessages.setText("Reprogramming was successful!  Attempting to launch the board.\n\nIf it does not start working immediately, please wait 10 seconds and then reconnect the board.");
-                manualFirmwareMessages.exec();
-            } else { //Programming failed.
-                manualFirmwareMessages.setText("Automatic Reprogramming failed.\n\nPlease contact me at admin@espotek.com for further support.");
-                manualFirmwareMessages.exec();
-            }
-
-            return;
-        }
+        return;
     }
 
+    //Firmware launch failed, but bootloader preset
+    if(!connected){
+        exit_code = dfuprog_virtual_cmd(eraseCommand.data());
+        exit_code += dfuprog_virtual_cmd(flashCommand.data());
+        manualFirmwareMessages.setText("The bootloader is present, but firmware launch failed.  I've attempted to reprogram it.");
+        manualFirmwareMessages.exec();
+
+        if(!exit_code){            //Reprogramming was successful, but board is still in bootloader mode.
+            exit_code = dfuprog_virtual_cmd(leaveBootloaderCommand.data());
+            Q_UNUSED(exit_code);
+            manualFirmwareMessages.setText("Reprogramming was successful!  Attempting to launch the board.\n\nIf it does not start working immediately, please wait 10 seconds and then reconnect the board.");
+            manualFirmwareMessages.exec();
+        } else { //Programming failed.
+            manualFirmwareMessages.setText("Automatic Reprogramming failed.\n\nPlease contact me at admin@espotek.com for further support.");
+            manualFirmwareMessages.exec();
+        }
+
+        return;
+    }
+
+    // ???
 #endif
 }

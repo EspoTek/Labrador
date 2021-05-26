@@ -11,12 +11,12 @@ public:
     explicit isoBuffer_file(QWidget *parent, int bufferlen, double sampleRate_Hz);
 
     //Required Functions
-    void writeBuffer_float(float* data, int len);
+    void writeBuffer_float(const float* data, int len);
     float *readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
     void clearBuffer();
     double samplesPerSecond;
     int bufferEnd, back = 0;
-    float *buffer, *readData = NULL;
+    float *buffer, *readData = nullptr;
 signals:
 
 public slots:

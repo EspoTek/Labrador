@@ -82,37 +82,6 @@
        <widget class="QTextEdit" name="debugConsole"/>
       </item>
       <item>
-       <widget class="QSlider" name="timeBaseSlider">
-        <property name="minimum">
-         <number>-60</number>
-        </property>
-        <property name="maximum">
-         <number>10</number>
-        </property>
-        <property name="pageStep">
-         <number>10</number>
-        </property>
-        <property name="value">
-         <number>-20</number>
-        </property>
-        <property name="sliderPosition">
-         <number>-20</number>
-        </property>
-        <property name="tracking">
-         <bool>true</bool>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="tickPosition">
-         <enum>QSlider::TicksBelow</enum>
-        </property>
-        <property name="tickInterval">
-         <number>10</number>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPlainTextEdit" name="console1">
         <property name="enabled">
          <bool>true</bool>
@@ -1512,7 +1481,7 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>&amp;File</string>
     </property>
     <widget class="QMenu" name="menuTake_Snapshot">
      <property name="title">
@@ -1537,7 +1506,7 @@
    </widget>
    <widget class="QMenu" name="menuOscilloscope_2">
     <property name="title">
-     <string>Oscilloscope</string>
+     <string>&amp;Oscilloscope</string>
     </property>
     <widget class="QMenu" name="menuGain_2">
      <property name="title">
@@ -1552,6 +1521,15 @@
      <addaction name="actionGain16"/>
      <addaction name="actionGain32"/>
      <addaction name="actionGain64"/>
+    </widget>
+    <widget class="QMenu" name="menuDownsampleMethod">
+     <property name="title">
+      <string>&amp;Downsampling method</string>
+     </property>
+     <addaction name="actionDownsampleAverageDelta"/>
+     <addaction name="actionDownsamplePeak"/>
+     <addaction name="actionDownsampleBottom"/>
+     <addaction name="actionDownsampleDecimate"/>
     </widget>
     <widget class="noCloseMenu" name="menuCH1_Stats">
      <property name="title">
@@ -1594,6 +1572,8 @@
     <addaction name="menuFrame_rate"/>
     <addaction name="separator"/>
     <addaction name="menuGain_2"/>
+    <addaction name="separator"/>
+    <addaction name="menuDownsampleMethod"/>
     <addaction name="separator"/>
     <addaction name="menuCH1_Stats"/>
     <addaction name="menuCH2_Stats"/>
@@ -1774,7 +1754,7 @@
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help</string>
+     <string>&amp;Help</string>
     </property>
     <addaction name="actionDocumentation"/>
     <addaction name="actionPinout"/>
@@ -1879,6 +1859,38 @@
    </property>
    <property name="menuRole">
     <enum>QAction::TextHeuristicRole</enum>
+   </property>
+  </action>
+  <action name="actionDownsampleDecimate">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Decimate</string>
+   </property>
+  </action>
+  <action name="actionDownsamplePeak">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Peak</string>
+   </property>
+  </action>
+  <action name="actionDownsampleBottom">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Bottom</string>
+   </property>
+  </action>
+  <action name="actionDownsampleAverageDelta">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Maximum delta</string>
    </property>
   </action>
   <action name="actionCalibrate">
@@ -2664,7 +2676,6 @@
     <signal>setDSR(bool)</signal>
     <slot>scopeIn_CH1(bool)</slot>
     <slot>scopeIn_CH2(bool)</slot>
-    <slot>signalGenIn(bool)</slot>
     <slot>busSnifferIn_CH1(bool)</slot>
     <slot>busSnifferIn_CH2(bool)</slot>
     <slot>multimeterIn(bool)</slot>
@@ -2748,12 +2759,11 @@
     <signal>multimeterREnabled(int)</signal>
     <signal>multimeterRMS(double)</signal>
     <signal>sendMultimeterLabel4(QString)</signal>
-    <slot>setWindow(int)</slot>
-    <slot>setVoltageRange(QWheelEvent*)</slot>
+    <slot>onWheelEvent(QWheelEvent*)</slot>
     <slot>pauseEnable_CH1(bool)</slot>
     <slot>pauseEnable_CH2(bool)</slot>
     <slot>startTimer()</slot>
-    <slot>clearBuffers(bool,bool,bool)</slot>
+    <slot>clearChannelBuffers(bool,bool,bool)</slot>
     <slot>setVisible_CH2(bool)</slot>
     <slot>gainBuffers(double)</slot>
     <slot>setAutoGain(bool)</slot>
@@ -2841,22 +2851,6 @@
     <hint type="sourcelabel">
      <x>1249</x>
      <y>176</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1356</x>
-     <y>891</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>signalGenGroup_CH2</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>bufferDisplay</receiver>
-   <slot>signalGenIn(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1250</x>
-     <y>853</y>
     </hint>
     <hint type="destinationlabel">
      <x>1356</x>
@@ -3329,26 +3323,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>timeBaseSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>controller_iso</receiver>
-   <slot>setWindow(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>441</x>
-     <y>559</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1251</x>
-     <y>892</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>scopeAxes</sender>
    <signal>mouseWheel(QWheelEvent*)</signal>
    <receiver>controller_iso</receiver>
-   <slot>setVoltageRange(QWheelEvent*)</slot>
+   <slot>onWheelEvent(QWheelEvent*)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>499</x>
@@ -3777,22 +3755,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>controller_iso</sender>
-   <signal>changeTimeAxis(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>timeBaseNeedsChanging(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1251</x>
-     <y>892</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>800</x>
-     <y>696</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>xyDisplayLabel</sender>
    <signal>toggled(bool)</signal>
    <receiver>controller_iso</receiver>
@@ -4052,7 +4014,7 @@
    <sender>lockPsuCheckBox</sender>
    <signal>toggled(bool)</signal>
    <receiver>lockPsuCheckBox</receiver>
-   <slot>resetTimer(bool)</slot>
+   <slot>resetTimer()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1424</x>
@@ -4466,7 +4428,6 @@
   </connection>
  </connections>
  <slots>
-  <slot>timeBaseNeedsChanging(bool)</slot>
   <slot>reinitUsb()</slot>
   <slot>rSourceIndexChanged(int)</slot>
   <slot>multimeterStateChange(bool)</slot>

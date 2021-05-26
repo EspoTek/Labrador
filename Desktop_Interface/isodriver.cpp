@@ -13,7 +13,8 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     internalBuffer375_CH2 = new isoBuffer(this, MAX_WINDOW_SIZE*ADC_SPS/20*21, this, 2);
     internalBuffer750 = new isoBuffer(this, MAX_WINDOW_SIZE*ADC_SPS/10*21, this, 1);
 
-    isoTemp = (char *) malloc(TIMER_PERIOD*ADC_SPF + 8); //8-byte header contains (unsigned long) length
+    // use malloc, it gives us aligned data
+    isoTemp.reset((char *) malloc(TIMER_PERIOD*ADC_SPF + 8), free); //8-byte header contains (unsigned long) length
 
     char volts[2] = "V";
     char seconds[2] = "s";
@@ -29,13 +30,34 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 
     startTimer();
 
-    slowTimer = new QTimer;
+    slowTimer = new QTimer(this);
     slowTimer->setTimerType(Qt::PreciseTimer);
     slowTimer->start(MULTIMETER_PERIOD);
-    connect(slowTimer, SIGNAL(timeout()), this, SLOT(slowTimerTick()));
+    connect(slowTimer, &QTimer::timeout, this, &isoDriver::slowTimerTick);
+
+    connect(&display, &DisplayControl::delayUpdated, this, &isoDriver::delayUpdated);
+    connect(&display, &DisplayControl::timeWindowUpdated, this, &isoDriver::timeWindowUpdated);
+    connect(&display, &DisplayControl::topRangeUpdated, this, &isoDriver::topRangeUpdated);
+    connect(&display, &DisplayControl::botRangeUpdated, this, &isoDriver::botRangeUpdated);
+}
+
+isoDriver::~isoDriver()
+{
+    delete v0;
+    delete v1;
+    delete dv;
+
+    delete t0;
+    delete t1;
+    delete dt;
+
+    delete f;
 }
 
 void isoDriver::setDriver(genericUsbDriver *newDriver){
+    if (driver) {
+        driver->deleteLater();
+    }
     driver = newDriver;
     qDebug() << "driver = " << driver;
 }
@@ -45,7 +67,7 @@ void isoDriver::setAxes(QCustomPlot *newAxes){
     qDebug() << "axes = " << axes;
 }
 
-void isoDriver::timerTick(void){
+void isoDriver::timerTick(){
     //qDebug() << "isoDriver SEZ Tick!";
     if(firstFrame){
         autoGain();
@@ -71,50 +93,58 @@ void isoDriver::timerTick(void){
     // TODO: Do we need to invalidate state when the device is reconnected?
     bool invalidateTwoWireState = true;
     switch(driver->deviceMode){
-        case 0:
-            if (deviceMode_prev != 0 && deviceMode_prev != 1 && deviceMode_prev != 2)
-                clearBuffers(true, false, false);
+        case DeviceCH1Analog:
+            if (deviceMode_prev != DeviceCH1Analog && deviceMode_prev != DeviceCH1AnalogCH2Digital && deviceMode_prev != DeviceCH1AnalogCH2Analog) {
+                clearBuffers(Channel3751);
+            }
 
-            frameActionGeneric(1,0);
+            frameActionGeneric(ChannelMode::Analog, ChannelMode::Off);
             break;
-        case 1:
-            if (deviceMode_prev != 0 && deviceMode_prev != 1 && deviceMode_prev != 2)
-                clearBuffers(true, false, false);
+        case DeviceCH1AnalogCH2Digital:
+            if (deviceMode_prev != DeviceCH1Analog && deviceMode_prev != 1 && deviceMode_prev != DeviceCH1AnalogCH2Analog) {
+                clearBuffers(Channel3751);
+            }
 
-            if (deviceMode_prev != 1)
-                clearBuffers(false, true, false);
+            if (deviceMode_prev != DeviceCH1AnalogCH2Digital) {
+                clearBuffers(Channel3752);
+            }
 
             internalBuffer375_CH2->m_channel = 1;
-            frameActionGeneric(1,2);
+            frameActionGeneric(ChannelMode::Analog, ChannelMode::Digital);
             if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH2->serialManage(baudRate_CH1, parity_CH1, hexDisplay_CH1);
             }
             break;
-        case 2:
-            if (deviceMode_prev != 0 && deviceMode_prev != 1 && deviceMode_prev != 2)
-                clearBuffers(true, false, false);
-            if (deviceMode_prev != 2)
-                clearBuffers(false, true, false);
+        case DeviceCH1AnalogCH2Analog:
+            if (deviceMode_prev != DeviceCH1Analog  && deviceMode_prev != DeviceCH1AnalogCH2Digital  && deviceMode_prev != DeviceCH1AnalogCH2Analog) {
+                clearBuffers(Channel3751);
+            }
+            if (deviceMode_prev != DeviceCH1AnalogCH2Analog) {
+                clearBuffers(Channel3752);
+            }
 
-            frameActionGeneric(1,1);
+            frameActionGeneric(ChannelMode::Analog, ChannelMode::Analog);
             break;
-        case 3:
-            if (deviceMode_prev != 3 && deviceMode_prev != 4)
-                clearBuffers(true, false, false);
+        case DeviceCH1Digital:
+            if (deviceMode_prev != DeviceCH1Digital  && deviceMode_prev != DeviceCH1DigitalCH2Digital) {
+                clearBuffers(Channel3751);
+            }
 
-            frameActionGeneric(2,0);
+            frameActionGeneric(ChannelMode::Digital, ChannelMode::Off);
             if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1, hexDisplay_CH1);
             }
             break;
-        case 4:
-            if (deviceMode_prev != 3 && deviceMode_prev != 4)
-                clearBuffers(true, false, false);
-            if (deviceMode_prev != 4)
-                clearBuffers(false, true, false);
+        case DeviceCH1DigitalCH2Digital:
+            if (deviceMode_prev != DeviceCH1Digital && deviceMode_prev != DeviceCH1DigitalCH2Digital) {
+                clearBuffers(Channel3751);
+            }
+            if (deviceMode_prev != DeviceCH1DigitalCH2Digital) {
+                clearBuffers(Channel3752);
+            }
 
             internalBuffer375_CH2->m_channel = 2;
-            frameActionGeneric(2,2);
+            frameActionGeneric(ChannelMode::Digital, ChannelMode::Digital);
             if(serialDecodeEnabled_CH1 && serialType == 0){
                 internalBuffer375_CH1->serialManage(baudRate_CH1, parity_CH1, hexDisplay_CH1);
             }
@@ -140,14 +170,16 @@ void isoDriver::timerTick(void){
             break;
         case 5:
             break;
-        case 6:
-            if (deviceMode_prev != 6)
-                clearBuffers(false, false, true);
-            frameActionGeneric(-1,0);
+        case DeviceCH1Analog750:
+            if (deviceMode_prev != DeviceCH1Analog750) {
+                clearBuffers(Channel750);
+            }
+            frameActionGeneric(ChannelMode::Analog750, ChannelMode::Off);
             break;
-        case 7:
-            if (deviceMode_prev != 7)
-                clearBuffers(true, false, false);
+        case DeviceMultimeter:
+            if (deviceMode_prev != DeviceMultimeter) {
+                clearBuffers(Channel3751);
+            }
             multimeterAction();
             break;
         default:
@@ -174,9 +206,9 @@ void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int T
     double *data = doublePtr->data();
     for (int i=0;i<GRAPH_SAMPLES;i++){
         data[i] = (shortPtr[i] * (vcc/2)) / (frontendGain*scope_gain*TOP);
-        if (driver->deviceMode != 7) data[i] += ref;
+        if (driver->deviceMode != DeviceMultimeter) data[i] += ref;
         #ifdef INVERT_MM
-            if(driver->deviceMode == 7) data[i] *= -1;
+            if(driver->deviceMode == DeviceMultimeter) data[i] *= -1;
         #endif
 
         accumulated += data[i];
@@ -238,109 +270,44 @@ void isoDriver::startTimer(){
     //qFatal("ISO TIMER STARTED");*/
 }
 
-void isoDriver::clearBuffers(bool ch3751, bool ch3752, bool ch750){
+void isoDriver::clearChannelBuffers(bool ch3751, bool ch3752, bool ch750){
     if(ch3751) internalBuffer375_CH1->clearBuffer();
     if(ch3752) internalBuffer375_CH2->clearBuffer();
     if(ch750) internalBuffer750->clearBuffer();
+    total_read = 0;
+}
+
+void isoDriver::clearBuffers(const Channels channels)
+{
+    if (channels & Channel3751) {
+        internalBuffer375_CH1->clearBuffer();
+    }
+    if (channels & Channel3752) {
+        internalBuffer375_CH2->clearBuffer();
+    }
+    if (channels & Channel750) {
+        internalBuffer750->clearBuffer();
+    }
+
+    total_read = 0;
 }
 
 void isoDriver::setVisible_CH2(bool visible){
     axes->graph(1)->setVisible(visible);
 }
 
-void isoDriver::setVoltageRange(QWheelEvent* event)
+void isoDriver::onWheelEvent(QWheelEvent* event)
 {
     if(doNotTouchGraph && !fileModeEnabled) return;
 
     bool isProperlyPaused = properlyPaused();
     double maxWindowSize = fileModeEnabled ? daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
 
-    display.setVoltageRange(event, isProperlyPaused, maxWindowSize, axes);
+    display.setVoltageRange(event->position(), event->angleDelta(), event->modifiers(), isProperlyPaused, maxWindowSize, axes);
 
     if (!(event->modifiers() == Qt::ControlModifier))
         if (autoGainEnabled && !isProperlyPaused)
             autoGain();
-}
-
-void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused, double maxWindowSize, QCustomPlot* axes)
-{
-    if (!(event->modifiers() == Qt::ControlModifier) && event->orientation() == Qt::Orientation::Vertical) {
-        double c = (topRange - botRange) / (double)400;
-
-        QCPRange range = axes->yAxis->range();
-
-        double pixPct = (double)100 - ((double)100 * (((double)axes->yAxis->pixelToCoord(event->y())-range.lower) / range.size()));
-        if (pixPct < 0) pixPct = 0; 
-        if (pixPct > 100) pixPct = 100;
-
-        qDebug() << "WHEEL @ " << pixPct << "%";
-        qDebug() << range.upper;
-
-        topRange -= event->delta() / 120.0 * c * pixPct;
-        botRange += event->delta() / 120.0 * c * (100.0 - pixPct);
-
-        if (topRange > (double)20) topRange = (double)20;
-        if (botRange < -(double)20) botRange = (double)-20;
-        topRangeUpdated(topRange);
-        botRangeUpdated(botRange);
-    }
-    else
-    {
-        double c = (window) / (double)200;
-        QCPRange range = axes->xAxis->range();
-
-        double pixPct = (double)100 * ((double)axes->xAxis->pixelToCoord(event->x()) - range.lower);
-
-        pixPct /= isProperlyPaused ? (double)(range.upper - range.lower)
-                                   : (double)(window);
-
-        if (pixPct < 0)
-            pixPct = 0;
-
-        if (pixPct > 100)
-            pixPct = 100;
-
-        qDebug() << "WHEEL @ " << pixPct << "%";
-        qDebug() << event->delta();
-
-        if (! isProperlyPaused)
-        {
-            qDebug() << "TIGGERED";
-            qDebug() << "upper = " << range.upper << "lower = " << range.lower;
-            qDebug() << "window = " << window;
-            qDebug() << c * ((double)pixPct);
-            qDebug() << c * ((double)100 - (double)pixPct) * pixPct / 100;
-        }
-
-        window -= event->delta() / 120.0 * c * pixPct;
-        delay += event->delta() / 120.0 * c * (100.0 - pixPct) * pixPct / 100.0;
-
-        // NOTE: delayUpdated and timeWindowUpdated are called more than once beyond here,
-        // maybe they should only be called once at the end?
-
-        delayUpdated(delay);
-        timeWindowUpdated(window);
-
-        qDebug() << window << delay;
-
-        if (window > maxWindowSize)
-        {
-            window = maxWindowSize;
-            timeWindowUpdated(window);
-        }
-        if ((window + delay) > maxWindowSize)
-        {
-            delay = maxWindowSize - window;
-            delayUpdated(delay);
-        }
-        if (delay < 0)
-        {
-            delay = 0;
-            delayUpdated(delay);
-        }
-
-    }
-
 }
 
 bool isoDriver::properlyPaused(){
@@ -348,7 +315,7 @@ bool isoDriver::properlyPaused(){
         qDebug() << "Properly paused";
         return true;
     }
-    if ((driver->deviceMode == 0) || (driver->deviceMode == 3) || (driver->deviceMode == 6)){
+    if ((driver->deviceMode == DeviceCH1Analog) || (driver->deviceMode == DeviceCH1Digital) || (driver->deviceMode == DeviceCH1Analog750)){
         if(paused_CH1) qDebug() << "Properly paused"; else qDebug() << "Not properly paused";
         return paused_CH1;
     }
@@ -365,11 +332,13 @@ void isoDriver::pauseEnable_CH1(bool enabled){
 
     if(!properlyPaused()) {
         display.delay = 0;
-        delayUpdated(display.delay);
+        emit delayUpdated(display.delay);
         if (autoGainEnabled) autoGain();
     }
 
-    if(!enabled) clearBuffers(1,0,1);
+    if (!enabled) {
+        clearBuffers(Channel3751 | Channel750);
+    }
     qDebug() << "pauseEnable_CH1" << enabled;
 }
 
@@ -379,11 +348,14 @@ void isoDriver::pauseEnable_CH2(bool enabled){
 
     if(!properlyPaused()){
         display.delay = 0;
-        delayUpdated(display.delay);
+        emit delayUpdated(display.delay);
         if (autoGainEnabled) autoGain();
     }
 
-    if(!enabled) clearBuffers(0,1,0);
+    if (!enabled) {
+        clearBuffers(Channel3752);
+    }
+    qDebug() << "pauseEnable_CH2" << enabled;
 }
 
 void isoDriver::pauseEnable_multimeter(bool enabled){
@@ -391,10 +363,12 @@ void isoDriver::pauseEnable_multimeter(bool enabled){
 
     if(!properlyPaused()) {
         display.delay = 0;
-        delayUpdated(display.delay);
+        emit delayUpdated(display.delay);
     }
 
-    if(!enabled) clearBuffers(1,0,0);
+    if (!enabled) {
+        clearBuffers(Channel3751);
+    }
     qDebug() << "pauseEnable_multimeter" << enabled;
 }
 
@@ -408,7 +382,7 @@ void isoDriver::autoGain(){
 
     for (int i=0;i<8;i++){
         if (maxgain>snap[i]){
-            setGain(snap[i]);
+            emit setGain(snap[i]);
             return;
         }
     }
@@ -419,14 +393,29 @@ void isoDriver::gainBuffers(double multiplier){
     QTimer::singleShot(TIMER_PERIOD*4, this, SLOT(gainTick()));
 }
 
-void isoDriver::gainTick(void){
+void isoDriver::gainTick(){
 #ifdef PLATFORM_ANDROID
 #warning: "gainTick does nothing on Android!!"
 #else
     qDebug() << "Multiplying by " << multi;
-    if (driver->deviceMode <5) internalBuffer375_CH1->gainBuffer(log2(multi));
-    if ((driver->deviceMode == 1) | (driver->deviceMode == 2) | (driver->deviceMode == 4)) internalBuffer375_CH2->gainBuffer(log2(multi));
-    if ((driver->deviceMode == 6) | (driver->deviceMode == 7)) internalBuffer750->gainBuffer(log2(multi));
+    if (driver->deviceMode <= DeviceCH1DigitalCH2Digital) {
+        internalBuffer375_CH1->gainBuffer(log2(multi));
+    }
+
+    switch(driver->deviceMode) {
+    case DeviceCH1AnalogCH2Digital:
+    case DeviceCH1AnalogCH2Analog:
+    case DeviceCH1DigitalCH2Digital:
+        internalBuffer375_CH2->gainBuffer(log2(multi));
+        break;
+    case DeviceCH1Analog750:
+    case DeviceMultimeter:
+        internalBuffer750->gainBuffer(log2(multi));
+        break;
+    default:
+        qWarning() << "Invalid device mode" << driver->deviceMode;
+        break;
+    }
 #endif
 }
 
@@ -490,11 +479,9 @@ void isoDriver::cursorEnableVert(bool enabled){
     axes->graph(3)->setVisible(enabled);
 }
 
-void isoDriver::udateCursors(void){
+void isoDriver::udateCursors(){
     if(!(vertCursorEnabled || horiCursorEnabled)){
-#if QCP_VER == 1
-        cursorTextPtr->setVisible(0);
-#endif
+        cursorTextPtr->setVisible(false);
         return;
     }
 
@@ -528,12 +515,12 @@ void isoDriver::udateCursors(void){
         axes->graph(4)->setData(hori0x, hori0y);
         axes->graph(5)->setData(hori1x, hori1y);
     }
-#if QCP_VER == 1
+
     cursorTextPtr->setVisible(cursorStatsEnabled);
-#endif
+
     if (!cursorStatsEnabled) return;
 
-    QString *cursorStatsString = new QString();
+    QString cursorStatsString;
 
     v0->value = display.y0;
     v1->value = display.y1;
@@ -541,38 +528,29 @@ void isoDriver::udateCursors(void){
     t0->value = display.x0;
     t1->value = display.x1;
     dt->value = fabs(display.x0 - display.x1);
-    f->value = 1 / (display.x1 - display.x0);
+    f->value = display.x1 != display.x0 ? 1 / (display.x1 - display.x0) : 0.;
 
-    char temp_hori[64];
-    char temp_vert[64];
-    char temp_separator[2];
-    sprintf(temp_hori, "V0=%s,  V1=%s,  ΔV=%s", v0->printVal(), v1->printVal(), dv->printVal());
-    sprintf(temp_vert, "t0=%s, t1=%s,  Δt=%s,  f=%s", t0->printVal(), t1->printVal(), dt->printVal(), f->printVal());
-    sprintf(temp_separator, "\n");
+    const QString temp_hori = QString::asprintf("V0=%s,  V1=%s,  ΔV=%s", v0->printVal(), v1->printVal(), dv->printVal());
+    const QString temp_vert = QString::asprintf("t0=%s, t1=%s,  Δt=%s,  f=%s", t0->printVal(), t1->printVal(), dt->printVal(), f->printVal());
 
-    //sprintf(temp, "hello!");
-    if(horiCursorEnabled) cursorStatsString->append(temp_hori);
-    if(horiCursorEnabled && vertCursorEnabled) cursorStatsString->append(temp_separator);
-    if(vertCursorEnabled) cursorStatsString->append(temp_vert);
-    //qDebug() << temp;
-#if QCP_VER == 1
-    cursorTextPtr->setText(*(cursorStatsString));
-#endif
-    delete cursorStatsString;
+    if(horiCursorEnabled) cursorStatsString.append(temp_hori);
+    if(horiCursorEnabled && vertCursorEnabled) cursorStatsString.append("\n");
+    if(vertCursorEnabled) cursorStatsString.append(temp_vert);
+    cursorTextPtr->setText(cursorStatsString);
 }
 
 short isoDriver::reverseFrontEnd(double voltage){
     //qFatal("reverseFrontEnd driver mode 7");
     #ifdef INVERT_MM
-        if(driver->deviceMode == 7) voltage *= -1;
+        if(driver->deviceMode == DeviceMultimeter) voltage *= -1;
     #endif
 
 
     double vn = vcc * (R2/(R1+R2));
     double vx = vn + (voltage - vn) * (R4 / (R3+R4));
-    double TOP = (driver->deviceMode == 7) ? 2048 : 128;
+    double TOP = (driver->deviceMode == DeviceMultimeter) ? 2048 : 128;
 
-    if (driver->deviceMode == 7){
+    if (driver->deviceMode == DeviceMultimeter){
         qDebug() << "SEEEKING";
         qDebug() <<  ((vx - vn)/vref * (double)driver->scopeGain * (double)TOP + (double)0.5);
         qDebug() << "SEEEKING";
@@ -593,7 +571,7 @@ void isoDriver::setTriggerEnabled(bool enabled)
 
 void isoDriver::setTriggerLevel(double level)
 {
-    internalBuffer375_CH1->setTriggerLevel(level, (driver->deviceMode == 7 ? 2048 : 128), AC_CH1);
+    internalBuffer375_CH1->setTriggerLevel(level, (driver->deviceMode == DeviceMultimeter ? 2048 : 128), AC_CH1);
     internalBuffer375_CH2->setTriggerLevel(level, 128, AC_CH2);
     internalBuffer750->setTriggerLevel(level, 128, AC_CH1);
     triggerStateChanged();
@@ -612,65 +590,48 @@ void isoDriver::setTriggerMode(int newMode)
 }
 
 //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
-void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  
+void isoDriver::frameActionGeneric(const ChannelMode CH1_mode, const ChannelMode CH2_mode)
 {
     //qDebug() << "made it to frameActionGeneric";
-    if(!paused_CH1 && CH1_mode == - 1){
+    if(!paused_CH1 && CH1_mode == ChannelMode::Analog750) {
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer750->writeBuffer_char(&isoTemp[ADC_SPF*i], VALID_DATA_PER_750);
         }
     }
 
-    if(!paused_CH1 && CH1_mode > 0){
+    if(!paused_CH1 && (CH1_mode == ChannelMode::Analog || CH1_mode == ChannelMode::Digital)){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer375_CH1->writeBuffer_char(&isoTemp[ADC_SPF*i], VALID_DATA_PER_375);
         }
     }
 
-    if(!paused_CH2 && CH2_mode > 0){
+    if(!paused_CH2 && (CH2_mode == ChannelMode::Analog || CH2_mode == ChannelMode::Digital)){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer375_CH2->writeBuffer_char(&isoTemp[ADC_SPF*i+ADC_SPF/2], VALID_DATA_PER_375);  //+375 to get the second half of the packet
         }
     }
 
-    if(!paused_CH1)
-    {
-        int offset = -2; //No trigger!
-
-        int backLength = length/750;
-        backLength *= (CH1_mode == -1) ? VALID_DATA_PER_750 : VALID_DATA_PER_375;
-
-        if(offset>0){
-            int temp_offset = offset % 750;
-            offset /= 750;
-            offset *= (CH1_mode == -1) ? VALID_DATA_PER_750 : VALID_DATA_PER_375;
-            offset += temp_offset;
-        }
-
-        //qDebug() << "Now offset = " << offset;
-    }
-
     double triggerDelay = 0;
     if (triggerEnabled)
     {
-		isoBuffer* internalBuffer_CH1 = (CH1_mode == -1) ? internalBuffer750 : internalBuffer375_CH1;
+        isoBuffer* internalBuffer_CH1 = (CH1_mode == ChannelMode::Analog750) ? internalBuffer750 : internalBuffer375_CH1;
         triggerDelay = (triggerMode < 2) ? internalBuffer_CH1->getDelayedTriggerPoint(display.window) - display.window : internalBuffer375_CH2->getDelayedTriggerPoint(display.window) - display.window;
-
-        if (triggerDelay < 0)
-            triggerDelay = 0;
     }
 
-    if(singleShotEnabled && (triggerDelay != 0))
-        singleShotTriggered(1);
+    if(singleShotEnabled && (triggerDelay > 0))
+        emit singleShotTriggered(true);
 
-    readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==2, display.delay + triggerDelay);
-    if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES,CH2_mode==2, display.delay + triggerDelay);
-    if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay + triggerDelay);
-    if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
+    if (triggerDelay < 0)
+        triggerDelay = 0;
+
+    readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==ChannelMode::Digital, display.delay + triggerDelay);
+    if(CH2_mode != ChannelMode::Off) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES, CH2_mode==ChannelMode::Digital, display.delay + triggerDelay);
+    if(CH1_mode == ChannelMode::Analog750) readData750 = internalBuffer750->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay + triggerDelay);
+    if(CH1_mode == ChannelMode::File) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES);
 
-    if (CH1_mode == 1){
+    if (CH1_mode == ChannelMode::Analog){
         analogConvert(readData375_CH1.get(), &CH1, 128, AC_CH1, 1);
         for (int i=0; i < GRAPH_SAMPLES; i++)
         {
@@ -679,11 +640,11 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         }
         xmin = (currentVmin < xmin) ? currentVmin : xmin;
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
-        broadcastStats(0);
+        broadcastStats(false);
     }
-    if (CH1_mode == 2) digitalConvert(readData375_CH1.get(), &CH1);
+    if (CH1_mode == ChannelMode::Digital) digitalConvert(readData375_CH1.get(), &CH1);
 
-    if (CH2_mode == 1){
+    if (CH2_mode == ChannelMode::Analog){
         analogConvert(readData375_CH2.get(), &CH2, 128, AC_CH2, 2);
         for (int i=0; i < GRAPH_SAMPLES; i++)
         {
@@ -692,23 +653,23 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         }
         ymin = (currentVmin < ymin) ? currentVmin : ymin;
         ymax = (currentVmax > ymax) ? currentVmax : ymax;
-        broadcastStats(1);
+        broadcastStats(true);
     }
-    if (CH2_mode == 2) digitalConvert(readData375_CH2.get(), &CH2);
+    if (CH2_mode == ChannelMode::Digital) digitalConvert(readData375_CH2.get(), &CH2);
 
-    if(CH1_mode == -1) {
+    if(CH1_mode == ChannelMode::Analog750) {
         analogConvert(readData750.get(), &CH1, 128, AC_CH1, 1);
         xmin = (currentVmin < xmin) ? currentVmin : xmin;
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
-        broadcastStats(0);
+        broadcastStats(false);
     }
 
-    if(CH1_mode == -2) {
+    if(CH1_mode == ChannelMode::File) {
         fileStreamConvert(readDataFile, &CH1);
     }
 
 
-    for (double i=0; i<GRAPH_SAMPLES; i++){
+    for (int i=0; i<GRAPH_SAMPLES; i++){
         x[i] = -(display.window*i)/((double)(GRAPH_SAMPLES-1)) - display.delay;
         if (x[i]>0) {
             CH1[i] = 0;
@@ -725,7 +686,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         axes->yAxis->setRange(ymin, ymax);
     }else{
         axes->graph(0)->setData(x,CH1);
-        if(CH2_mode) axes->graph(1)->setData(x,CH2);
+        if(CH2_mode != ChannelMode::Off) axes->graph(1)->setData(x,CH2);
         axes->xAxis->setRange(-display.window - display.delay, -display.delay);
         axes->yAxis->setRange(display.topRange, display.botRange);
     }
@@ -762,7 +723,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
 }
 
 void isoDriver::multimeterAction(){
-    isoTemp_short = (short *)isoTemp;
+    isoTemp_short = (short *)isoTemp.get();
     if(!paused_multimeter){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
             internalBuffer375_CH1->writeBuffer_short(&isoTemp_short[ADC_SPF/2*i], ADC_SPF/2-1);  //Offset because the first 8 bytes of the array contain the length (no samples!!)!
@@ -778,15 +739,16 @@ void isoDriver::multimeterAction(){
             triggerDelay = 0;
     }
 
-    if(singleShotEnabled && (triggerDelay != 0))
-        singleShotTriggered(1);
+    if(singleShotEnabled && (triggerDelay != 0)) {
+        emit singleShotTriggered(true);
+    }
     
 	readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES, false, display.delay + triggerDelay);
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES);
-    analogConvert(readData375_CH1.get(), &CH1, 2048, 0, 1);  //No AC coupling!
+    analogConvert(readData375_CH1.get(), &CH1, 2048, false, 1);  //No AC coupling!
 
-    for (double i=0; i<GRAPH_SAMPLES; i++){
+    for (int i=0; i<GRAPH_SAMPLES; i++){
         x[i] = -(display.window*i)/((double)(GRAPH_SAMPLES-1)) - display.delay;
         if (x[i]>0) {
             CH1[i] = 0;
@@ -816,13 +778,13 @@ void isoDriver::setMultimeterType(int type){
     switch (type){
 
     case R:
-        multimeterREnabled(multimeterRsource);
+        emit multimeterREnabled(multimeterRsource);
         break;
     case C:
-        multimeterREnabled(254);
+        emit multimeterREnabled(254);
         break;
     default:
-        multimeterREnabled(255);
+        emit multimeterREnabled(255);
     }
 
     qDebug() << "multimeterType = " << multimeterType;
@@ -840,7 +802,16 @@ void isoDriver::multimeterStats(){
     QTimer::singleShot(MULTIMETER_PERIOD, this, SLOT(enableMM()));
 
     multimeterShow = false;
-    bool mvMax, mvMin, mvMean, mvRMS, maMax, maMin, maMean, maRMS, kOhms, uFarads;  //We'll let the compiler work out this one.
+    bool mvMax = false;
+    bool mvMin = false;
+    bool mvMean = false;
+    bool mvRMS = false;
+    bool maMax = false;
+    bool maMin = false;
+    bool maMean = false;
+    bool maRMS = false;
+    bool kOhms = false;
+    bool uFarads = false;  //We'll let the compiler work out this one.
 
     if(autoMultimeterV){
         mvMax = abs(currentVmax) < 1.;
@@ -896,57 +867,57 @@ void isoDriver::multimeterStats(){
     if(multimeterType == V){
         if(mvMax){
             currentVmax *= 1000;
-            sendMultimeterLabel1("Max (mV)");
-        }else sendMultimeterLabel1("Max (V)");
+            emit sendMultimeterLabel1("Max (mV)");
+        }else emit sendMultimeterLabel1("Max (V)");
 
         if(mvMin){
             currentVmin *= 1000;
-            sendMultimeterLabel2("Min (mV)");
-        }else sendMultimeterLabel2("Min (V)");
+            emit sendMultimeterLabel2("Min (mV)");
+        }else emit sendMultimeterLabel2("Min (V)");
 
         if(mvMean){
             currentVmean *= 1000;
-            sendMultimeterLabel3("Mean (mV)");
-        }else sendMultimeterLabel3("Mean (V)");
+            emit sendMultimeterLabel3("Mean (mV)");
+        }else emit sendMultimeterLabel3("Mean (V)");
 
         if(mvRMS){
             currentVRMS *= 1000;
-            sendMultimeterLabel4("RMS (mV)");
-        }else sendMultimeterLabel4("RMS (V)");
+            emit sendMultimeterLabel4("RMS (mV)");
+        }else emit sendMultimeterLabel4("RMS (V)");
 
-        multimeterMax(currentVmax);
-        multimeterMin(currentVmin);
-        multimeterMean(currentVmean);
-        multimeterRMS(currentVRMS);
+        emit multimeterMax(currentVmax);
+        emit multimeterMin(currentVmin);
+        emit multimeterMean(currentVmean);
+        emit multimeterRMS(currentVRMS);
         return;
     }
 
     if(multimeterType == I){
         if(maMax){
             currentVmax *= 1000;
-            sendMultimeterLabel1("Max (mA)");
-        }else sendMultimeterLabel1("Max (A)");
+            emit sendMultimeterLabel1("Max (mA)");
+        }else emit sendMultimeterLabel1("Max (A)");
 
         if(maMin){
             currentVmin *= 1000;
-            sendMultimeterLabel2("Min (mA)");
-        }else sendMultimeterLabel2("Min (A)");
+            emit sendMultimeterLabel2("Min (mA)");
+        }else emit sendMultimeterLabel2("Min (A)");
 
         if(maMean){
             currentVmean *= 1000;
-            sendMultimeterLabel3("Mean (mA)");
-        }else sendMultimeterLabel3("Mean (A)");
+            emit sendMultimeterLabel3("Mean (mA)");
+        }else emit sendMultimeterLabel3("Mean (A)");
 
         if(maRMS){
             currentVRMS *= 1000;
-            sendMultimeterLabel4("RMS (mA)");
-        }else sendMultimeterLabel4("RMS (A)");
+            emit sendMultimeterLabel4("RMS (mA)");
+        }else emit sendMultimeterLabel4("RMS (A)");
 
 
-        multimeterMax(currentVmax / seriesResistance);
-        multimeterMin(currentVmin / seriesResistance);
-        multimeterMean(currentVmean / seriesResistance);
-        multimeterRMS(currentVRMS / seriesResistance);
+        emit multimeterMax(currentVmax / seriesResistance);
+        emit multimeterMin(currentVmin / seriesResistance);
+        emit multimeterMean(currentVmean / seriesResistance);
+        emit multimeterRMS(currentVRMS / seriesResistance);
         return;
     }
 
@@ -968,9 +939,9 @@ void isoDriver::multimeterStats(){
         //qDebug() << "Vrat = " << Vrat;
         //qDebug() << "Rp = " << Rp;
         //qDebug() << "estimated_resistance = " << estimated_resistance;
-        multimeterMax(0);
-        multimeterMin(0);
-        multimeterMean(0);
+        emit multimeterMax(0);
+        emit multimeterMin(0);
+        emit multimeterMean(0);
 
         if(autoMultimeterR){
             kOhms = (estimated_resistance) > 1000;
@@ -978,9 +949,9 @@ void isoDriver::multimeterStats(){
 
         if(kOhms){
             estimated_resistance /= 1000;
-            sendMultimeterLabel4("Resistance (kΩ)");
-        }else sendMultimeterLabel4("Resistance (Ω)");
-        multimeterRMS(estimated_resistance);
+            emit sendMultimeterLabel4("Resistance (kΩ)");
+        }else emit sendMultimeterLabel4("Resistance (Ω)");
+        emit multimeterRMS(estimated_resistance);
     }
     if(multimeterType == C){
         double cap_vbot = 0.8;
@@ -1015,13 +986,13 @@ void isoDriver::multimeterStats(){
         }
 
         if(uFarads){
-            sendMultimeterLabel4("Capacitance (μF)");
+            emit sendMultimeterLabel4("Capacitance (μF)");
             Cm = Cm*1000000;
         } else {
-            sendMultimeterLabel4("Capacitance (nF)");
+            emit sendMultimeterLabel4("Capacitance (nF)");
             Cm = Cm*1000000000;
         }
-        multimeterRMS(Cm);
+        emit multimeterRMS(Cm);
     }
 
 }
@@ -1122,24 +1093,24 @@ void isoDriver::setXYmode(bool enabled){
 }
 
 void isoDriver::triggerGroupStateChange(bool enabled){
-    if(enabled) sendTriggerValue((currentVmax-currentVmin)*0.85 + currentVmin);
+    if(enabled) emit sendTriggerValue((currentVmax-currentVmin)*0.85 + currentVmin);
 }
 
 void isoDriver::broadcastStats(bool CH2){
     if(CH2){
         if(!update_CH2) return;
         update_CH2 = false;
-        sendVmax_CH2(currentVmax);
-        sendVmin_CH2(currentVmin);
-        sendVmean_CH2(currentVmean);
-        sendVRMS_CH2(currentVRMS);
+        emit sendVmax_CH2(currentVmax);
+        emit sendVmin_CH2(currentVmin);
+        emit sendVmean_CH2(currentVmean);
+        emit sendVRMS_CH2(currentVRMS);
     } else{
         if(!update_CH1) return;
         update_CH1 = false;
-        sendVmax_CH1(currentVmax);
-        sendVmin_CH1(currentVmin);
-        sendVmean_CH1(currentVmean);
-        sendVRMS_CH1(currentVRMS);
+        emit sendVmax_CH1(currentVmax);
+        emit sendVmin_CH1(currentVmin);
+        emit sendVmean_CH1(currentVmean);
+        emit sendVRMS_CH1(currentVRMS);
     }
 }
 
@@ -1152,24 +1123,24 @@ void isoDriver::setTopRange(double newTop)
 {
     // NOTE: Should this be clamped to 20?
     display.topRange = newTop;
-    topRangeUpdated(display.topRange);
+    emit topRangeUpdated(display.topRange);
 }
 
 void isoDriver::setBotRange(double newBot)
 {
     // NOTE: Should this be clamped to 20?
     display.botRange = newBot;
-    botRangeUpdated(display.botRange);
+    emit botRangeUpdated(display.botRange);
 }
 
 void isoDriver::setTimeWindow(double newWindow){
     display.window = newWindow;
-    timeWindowUpdated(display.window);
+    emit timeWindowUpdated(display.window);
 }
 
 void isoDriver::setDelay(double newDelay){
     display.delay = newDelay;
-    delayUpdated(display.delay);
+    emit delayUpdated(display.delay);
 }
 
 void isoDriver::takeSnapshot(QString *fileName, unsigned char channel){
@@ -1198,13 +1169,16 @@ double isoDriver::meanVoltageLast(double seconds, unsigned char channel, int TOP
     case 3:
         currentBuffer = internalBuffer750;
         break;
+    default:
+        qWarning() << "Invalid channel!" << channel;
+        return 0;
     }
 
-	std::unique_ptr<short[]> tempBuffer = currentBuffer->readBuffer(seconds, 1024, 0, 0);
+	std::unique_ptr<short[]> tempBuffer = currentBuffer->readBuffer(seconds, 1024, false, 0);
     double sum = 0;
     double temp;
     for(int i = 0; i<1024; i++){
-        temp = currentBuffer->sampleConvert(tempBuffer[i], TOP, 0);
+        temp = currentBuffer->sampleConvert(tempBuffer[i], TOP, false);
         sum += temp;
     }
     return sum / 1024;
@@ -1216,7 +1190,7 @@ void isoDriver::rSourceChanged(int newSource){
 
 void isoDriver::serialNeedsDisabling(int channel){
     qDebug("isoDriver acknowledges disconnect from channel %d", channel);
-    mainWindowPleaseDisableSerial(channel);
+    emit mainWindowPleaseDisableSerial(channel);
 }
 
 //Thank you https://stackoverflow.com/questions/27318631/parsing-through-a-csv-file-in-qt
@@ -1225,9 +1199,7 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
 
     disableFileMode();
 
-    if(internalBufferFile != NULL){
-        delete internalBufferFile;
-    }
+    delete internalBufferFile;
 
     //Load the file
     if (!fileToLoad->open(QIODevice::ReadOnly)) {
@@ -1271,7 +1243,7 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
         tempList.clear();
     }
 
-    qDebug("There are %d elements!", numel);
+    qDebug("There are %llu elements!", numel);
 
     //Prompt user for start and end times
     double defaultSampleRate = 375000;
@@ -1283,8 +1255,8 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
     qDebug() << "maxTime =" << maxTime;
 
     daqLoadPrompt dlp(this, minTime, maxTime);
-    connect(&dlp, SIGNAL(startTime(double)), this, SLOT(daqLoad_startChanged(double)));
-    connect(&dlp, SIGNAL(endTime(double)), this, SLOT(daqLoad_endChanged(double)));
+    connect(&dlp, &daqLoadPrompt::startTime, this, &isoDriver::daqLoad_startChanged);
+    connect(&dlp, &daqLoadPrompt::endTime, this, &isoDriver::daqLoad_endChanged);
 
     //Defaults
     daqLoad_startTime = minTime;
@@ -1350,13 +1322,11 @@ void isoDriver::loadFileBuffer(QFile *fileToLoad){
 
     qDebug() << "Initialising timer";
     //Initialise the file timer.
-    if (fileTimer != NULL){
-        delete fileTimer;
-    }
+    delete fileTimer;
     fileTimer = new QTimer();
     fileTimer->setTimerType(Qt::PreciseTimer);
     fileTimer->start(TIMER_PERIOD);
-    connect(fileTimer, SIGNAL(timeout()), this, SLOT(fileTimerTick()));
+    connect(fileTimer, &QTimer::timeout, this, &isoDriver::fileTimerTick);
     qDebug() << "File Buffer loaded!";
     enableFileMode();
     qDebug() << "File Mode Enabled";
@@ -1374,19 +1344,19 @@ void isoDriver::daqLoad_endChanged(double newEnd){
 
 void isoDriver::fileTimerTick(){
     //qDebug() << "isoDriver::fileTimerTick()";
-    frameActionGeneric(-2,0);
+    frameActionGeneric(ChannelMode::File, ChannelMode::Off);
 }
 
 void isoDriver::enableFileMode(){
     fileModeEnabled = true;
     daq_maxWindowSize = daqLoad_endTime - daqLoad_startTime;
-    showRealtimeButton(true);
+    emit showRealtimeButton(true);
 }
 
 void isoDriver::disableFileMode(){
     fileModeEnabled = false;
-    showRealtimeButton(false);
-    if(fileTimer != NULL){
+    emit showRealtimeButton(false);
+    if(fileTimer != nullptr){
         fileTimer->stop();
     }
 
@@ -1395,17 +1365,17 @@ void isoDriver::disableFileMode(){
     if (display.window > mws)
     {
         display.window = mws;
-        timeWindowUpdated(display.window);
+        emit timeWindowUpdated(display.window);
     }
     if ((display.window + display.delay) > mws)
     {
         display.delay -= display.window + display.delay - mws;
-        delayUpdated(display.delay);
+        emit delayUpdated(display.delay);
     }
     if (display.delay < 0)
     {
         display.delay = 0;
-        delayUpdated(display.delay);
+        emit delayUpdated(display.delay);
     }
 }
 
@@ -1523,4 +1493,11 @@ void isoDriver::setHexDisplay_CH1(bool enabled)
 void isoDriver::setHexDisplay_CH2(bool enabled)
 {
     hexDisplay_CH2 = enabled;
+}
+
+void isoDriver::setDownsampleMethod(const DownsamplingMethod method)
+{
+    internalBuffer375_CH1->setDownsampleMethod(method);
+    internalBuffer375_CH2->setDownsampleMethod(method);
+    internalBuffer750->setDownsampleMethod(method);
 }

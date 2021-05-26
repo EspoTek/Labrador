@@ -56,7 +56,7 @@ class DualChannelController : public QLabel
 {
     Q_OBJECT
 public:
-    explicit DualChannelController(QWidget *parent = 0);
+    explicit DualChannelController(QWidget *parent = nullptr);
 
 public:
 	SingleChannelController* getChannelController(ChannelID channelID);

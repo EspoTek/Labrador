@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "uartstyledecoder.h"
 #include "daqform.h"
+#include "pinoutDialog.h"
 #include <QDesktopServices>
 #include "espospinbox.h"
+
 
 #include <algorithm>
 
@@ -17,7 +19,6 @@ namespace
 {
    constexpr uint32_t MAX_CONSOLE_BLOCK_COUNT = 512;
    constexpr char kDocumentationUrl[] = "https://github.com/EspoTek/Labrador/wiki";
-   constexpr char kPinoutUrl[] = "https://github.com/EspoTek/Labrador/wiki/Pinout";
    constexpr char kAboutString[] = "<h4>EspoTek Labrador</h4>"
                                    "Continuous Release<br>"\
                                    "Git hash: <a href='https://github.com/EspoTek/Labrador/commits/" QUOTE(GIT_HASH_SHORT) "'>" QUOTE(GIT_HASH_SHORT) "</a><br>"\
@@ -47,10 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->psuDisplay->display("4.50");
 
-    ui->controller_iso->setDriver(new _PLATFORM_DEPENDENT_USB_OBJECT());
+    ui->controller_iso->setDriver(new _PLATFORM_DEPENDENT_USB_OBJECT(this));
     ui->controller_iso->setAxes(ui->scopeAxes);
-
-    ui->timeBaseSlider->setMaximum(10*log10(MAX_WINDOW_SIZE));
 
     //ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
     ui->cursorStatsLabel->hide();
@@ -71,10 +70,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->controller_iso->internalBuffer375_CH2->m_console2 = ui->console2;
     initShortcuts();
 
-    ui->debugButton1->setVisible(0);
-    ui->debugButton2->setVisible(0);
-    ui->debugButton3->setVisible(0);
-    ui->debugConsole->setVisible(0);
+    ui->debugButton1->setVisible(false);
+    ui->debugButton2->setVisible(false);
+    ui->debugButton3->setVisible(false);
+    ui->debugConsole->setVisible(false);
 
 //    // Set the consoles to be resizeable
 //    for (const auto & console : {ui->console1, ui->console2})
@@ -93,15 +92,14 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 #ifndef PLATFORM_ANDROID
-    ui->kickstartIsoButton->setVisible(0);
-    ui->console1->setVisible(0);
-    ui->console2->setVisible(0);
+    ui->kickstartIsoButton->setVisible(false);
+    ui->console1->setVisible(false);
+    ui->console2->setVisible(false);
 #endif
-    ui->timeBaseSlider->setVisible(0);
 
     //ui->pausedLabel_CH2->setVisible(0);
-    ui->filterLabel_CH1->setVisible(0);
-    ui->filterLabel_CH2->setVisible(0);
+    ui->filterLabel_CH1->setVisible(false);
+    ui->filterLabel_CH2->setVisible(false);
 
     //Reset the device to ensure Labrador_libusbk gets handle!!
     #ifdef PLATFORM_WINDOWS
@@ -157,7 +155,7 @@ MainWindow::MainWindow(QWidget *parent) :
         //Set the settings again!
         connect(ui->controller_iso->driver, SIGNAL(gainBuffers(double)), ui->controller_iso, SLOT(gainBuffers(double)));
         connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), this, SLOT(setEnabled(bool)));
-        connect(ui->controller_iso->driver, SIGNAL(sendClearBuffer(bool,bool,bool)), ui->controller_iso, SLOT(clearBuffers(bool,bool,bool)));
+        connect(ui->controller_iso->driver, SIGNAL(sendClearBuffer(bool,bool,bool)), ui->controller_iso, SLOT(clearChannelBuffers(bool,bool,bool)));
         //connect(ui->controller_iso->driver, SIGNAL(startIsoTimer()), ui->controller_iso, SLOT(startTimer()));
         connect(ui->controller_iso->driver, SIGNAL(setVisible_CH2(bool)), ui->controller_iso, SLOT(setVisible_CH2(bool)));
         //connect(ui->controller_iso->driver, SIGNAL(enableMMTimer()), ui->controller_iso, SLOT(enableMM()));
@@ -178,7 +176,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->menuAndroid_Special->menuAction()->setVisible(false);
     #endif
 
-    connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::killMe, this, &MainWindow::reinitUsb);
     ui->console1->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
     ui->console2->setMaximumBlockCount(MAX_CONSOLE_BLOCK_COUNT);
     //ui->frequencyValue_CH2->setValue(369);
@@ -190,32 +188,32 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->multimeterRComboBox->setVisible(false);
 #endif
 
-    connect(ui->controller_iso, SIGNAL(multimeterREnabled(int)), this, SLOT(rSourceIndexChanged(int)));
-    connect(ui->controller_iso, SIGNAL(multimeterRMS(double)), ui->multimeterRmsDisplay, SLOT(display(double)));
-    connect(ui->controller_iso, SIGNAL(sendMultimeterLabel4(QString)), ui->multimeterRmsLabel, SLOT(setText(QString)));
-    connect(ui->controller_iso, SIGNAL(sendVRMS_CH1(double)), ui->voltageInfoRmsDisplay_CH1, SLOT(display(double)));
-    connect(ui->controller_iso, SIGNAL(sendVRMS_CH2(double)), ui->voltageInfoRmsDisplay_CH2, SLOT(display(double)));
+    connect(ui->controller_iso, &isoDriver::multimeterREnabled, this, &MainWindow::rSourceIndexChanged);
+    connect(ui->controller_iso, &isoDriver::multimeterRMS, ui->multimeterRmsDisplay, qOverload<double>(&QLCDNumber::display));
+    connect(ui->controller_iso, &isoDriver::sendMultimeterLabel4, ui->multimeterRmsLabel, &QLabel::setText);
+    connect(ui->controller_iso, &isoDriver::sendVRMS_CH1, ui->voltageInfoRmsDisplay_CH1, qOverload<double>(&QLCDNumber::display));
+    connect(ui->controller_iso, &isoDriver::sendVRMS_CH2, ui->voltageInfoRmsDisplay_CH2, qOverload<double>(&QLCDNumber::display));
 
-    connect(ui->controller_iso, SIGNAL(mainWindowPleaseDisableSerial(int)), this, SLOT(serialEmergencyDisable(int)));
+    connect(ui->controller_iso, &isoDriver::mainWindowPleaseDisableSerial, this, &MainWindow::serialEmergencyDisable);
 
-    connect(ui->controller_iso->driver, SIGNAL(signalFirmwareFlash(void)), ui->deviceConnected, SLOT(flashingFirmware(void)));
-    connect(ui->controller_iso->internalBuffer375_CH1, SIGNAL(fileIOinternalDisable()), this, SLOT(fileLimitReached_CH1()));
-    connect(ui->controller_iso->internalBuffer750, SIGNAL(fileIOinternalDisable()), this, SLOT(fileLimitReached_CH1()));
-    connect(ui->controller_iso->internalBuffer375_CH2, SIGNAL(fileIOinternalDisable()), this, SLOT(fileLimitReached_CH2()));
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::signalFirmwareFlash, ui->deviceConnected, &deviceConnectedDisplay::flashingFirmware);
+    connect(ui->controller_iso->internalBuffer375_CH1, &isoBuffer::fileIOinternalDisable, this, &MainWindow::fileLimitReached_CH1);
+    connect(ui->controller_iso->internalBuffer750, &isoBuffer::fileIOinternalDisable, this, &MainWindow::fileLimitReached_CH1);
+    connect(ui->controller_iso->internalBuffer375_CH2, &isoBuffer::fileIOinternalDisable, this, &MainWindow::fileLimitReached_CH2);
 
-    connect(ui->controller_iso, SIGNAL(showRealtimeButton(bool)), ui->realTimeButton, SLOT(setVisible(bool)));
-    connect(ui->realTimeButton, SIGNAL(pressed()), ui->controller_iso, SLOT(disableFileMode()));
+    connect(ui->controller_iso, &isoDriver::showRealtimeButton, ui->realTimeButton, &QWidget::setVisible);
+    connect(ui->realTimeButton, &QAbstractButton::pressed, ui->controller_iso, &isoDriver::disableFileMode);
 
 
 	
-    connect(ui->pausedLabeL_CH1, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
-    connect(ui->pausedLabel_CH2, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
-    connect(ui->pause_LA, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
-    connect(ui->multimeterPauseCheckBox, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
+    connect(ui->pausedLabeL_CH1, &QAbstractButton::toggled, this, &MainWindow::paused);
+    connect(ui->pausedLabel_CH2, &QAbstractButton::toggled, this, &MainWindow::paused);
+    connect(ui->pause_LA, &QAbstractButton::toggled, this, &MainWindow::paused);
+    connect(ui->multimeterPauseCheckBox, &QAbstractButton::toggled, this, &MainWindow::paused);
 
 #ifndef PLATFORM_ANDROID
-    connect(ui->hideCH1Box, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(hideCH1(bool)));
-    connect(ui->hideCH2Box, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(hideCH2(bool)));
+    connect(ui->hideCH1Box, &QAbstractButton::toggled, ui->controller_iso, &isoDriver::hideCH1);
+    connect(ui->hideCH2Box, &QAbstractButton::toggled, ui->controller_iso, &isoDriver::hideCH2);
 
     connect(ui->actionHexDisplay, &QAction::toggled, ui->controller_iso, &isoDriver::setHexDisplay_CH1);
     connect(ui->actionHexDisplay_2, &QAction::toggled, ui->controller_iso, &isoDriver::setHexDisplay_CH2);
@@ -225,9 +223,9 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
     ui->realTimeButton->setVisible(false);
 
-    if ((QApplication::desktop()->availableGeometry().width() < 1520) || (QApplication::desktop()->geometry().height() < 800))
+    if ((screen()->availableGeometry().width() < 1520) || (screen()->availableGeometry().height() < 800))
     {
-        qDebug() << "Low resolution detected:" << QApplication::desktop()->availableGeometry().width() << "x" << QApplication::desktop()->availableGeometry().height();
+        qDebug() << "Low resolution detected:" << screen()->availableGeometry().width() << "x" << screen()->availableGeometry().height();
         this->setMinimumSize(1280, 700);
         this->resize(1280, 700);
     }
@@ -238,12 +236,19 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 #ifndef PLATFORM_ANDROID
-    connect(ui->offsetSpinBox_CH1, SIGNAL(valueChanged(double)), ui->controller_iso, SLOT(offsetChanged_CH1(double)));
-    connect(ui->offsetSpinBox_CH2, SIGNAL(valueChanged(double)), ui->controller_iso, SLOT(offsetChanged_CH2(double)));
-    connect(ui->attenuationComboBox_CH1, SIGNAL(currentIndexChanged(int)), ui->controller_iso, SLOT(attenuationChanged_CH1(int)));
-    connect(ui->attenuationComboBox_CH2, SIGNAL(currentIndexChanged(int)), ui->controller_iso, SLOT(attenuationChanged_CH2(int)));
+    // So sue me
+    for (QWidget *child : findChildren<QWidget*>()) {
+        child->installEventFilter(this);
+    }
+
+    connect(ui->offsetSpinBox_CH1, qOverload<double>(&QDoubleSpinBox::valueChanged), ui->controller_iso, &isoDriver::offsetChanged_CH1);
+    connect(ui->offsetSpinBox_CH2, qOverload<double>(&QDoubleSpinBox::valueChanged), ui->controller_iso, &isoDriver::offsetChanged_CH2);
+    connect(ui->attenuationComboBox_CH1, qOverload<int>(&QComboBox::currentIndexChanged), ui->controller_iso, &isoDriver::attenuationChanged_CH1);
+    connect(ui->attenuationComboBox_CH2, qOverload<int>(&QComboBox::currentIndexChanged), ui->controller_iso, &isoDriver::attenuationChanged_CH2);
 #endif
     connect(ui->controller_iso, &isoDriver::enableCursorGroup, this, &MainWindow::cursorGroupEnabled);
+
+    connect(ui->scopeGroup_CH2, &QGroupBox::toggled, this, &MainWindow::onChannel2Toggled);
 }
 
 MainWindow::~MainWindow()
@@ -255,7 +260,11 @@ void MainWindow::initialisePlot()
 {
     QCPCurve *xyCurve = new QCPCurve(ui->scopeAxes->xAxis, ui->scopeAxes->yAxis);
     xyCurve->setPen(QPen(Qt::yellow, 1));
+
+#if QCP_VER == 1
     ui->scopeAxes->addPlottable(xyCurve);
+#endif
+
     ui->scopeAxes->addGraph();
     ui->scopeAxes->addGraph();
     ui->scopeAxes->addGraph();
@@ -263,9 +272,23 @@ void MainWindow::initialisePlot()
     ui->scopeAxes->addGraph();
     ui->scopeAxes->addGraph();
 
-#if QCP_VER == 1
+    // TODO: port to QWT to get rid of the horrible flickering issues etc.
+//    ui->scopeAxes->graph(0)->setAntialiased(true);
+//    ui->scopeAxes->graph(1)->setAntialiased(true);
+//    ui->scopeAxes->graph(2)->setAntialiased(true);
+//    ui->scopeAxes->graph(3)->setAntialiased(true);
+//    ui->scopeAxes->graph(4)->setAntialiased(true);
+//    ui->scopeAxes->graph(5)->setAntialiased(true);
+
+//    ui->scopeAxes->graph(0)->setAdaptiveSampling(false);
+//    ui->scopeAxes->graph(1)->setAdaptiveSampling(false);
+//    ui->scopeAxes->graph(2)->setAdaptiveSampling(false);
+
     textLabel = new QCPItemText(ui->scopeAxes);
+#if QCP_VER == 1
     ui->scopeAxes->addItem(textLabel);
+#endif
+
     textLabel->setPositionAlignment(Qt::AlignTop|Qt::AlignRight);
     textLabel->position->setType(QCPItemPosition::ptAxisRectRatio);
     textLabel->position->setCoords(0.99, 0); // place position at center/top of axis rect
@@ -275,15 +298,31 @@ void MainWindow::initialisePlot()
     textLabel->setPen(QPen(Qt::white));
     textLabel->setBrush(QBrush(Qt::black));
 
-    textLabel->setVisible(0);
+    textLabel->setVisible(false);
     ui->controller_iso->cursorTextPtr = textLabel;
 
+    QCPItemText *ch1Label = new QCPItemText(ui->scopeAxes);
+    ch1Label->setText("Channel 1");
+    ch1Label->setPositionAlignment(Qt::AlignLeft|Qt::AlignTop); // holy fuck qcustomplot is a clusterfuck
+    ch1Label->position->setType(QCPItemPosition::ptAxisRectRatio);
+    ch1Label->position->setCoords(0.01, 0);
+    ch1Label->setColor(Qt::yellow);
+
+    ch2Label = new QCPItemText(ui->scopeAxes);
+    ch2Label->setPositionAlignment(Qt::AlignLeft|Qt::AlignTop);
+    ch2Label->setText("Channel 2");
+    ch2Label->position->setParentAnchorY(ch1Label->bottom); // this API is horribly confusing
+    ch2Label->position->setParentAnchorX(ch1Label->left);
+    ch2Label->setColor(Qt::cyan);
+    ch2Label->setVisible(false);
+
+#if QCP_VER == 1
     ui->scopeAxes->yAxis->setAutoTickCount(9);
     ui->scopeAxes->xAxis->setAutoTickCount(9);
 #endif
 
 #if QCP_VER == 2
-    ui->scopeAxes->setOpenGl(true);
+//    ui->scopeAxes->setOpenGl(true);
     QSharedPointer<QCPAxisTicker> xTicker(new QCPAxisTicker);
     xTicker->setTickCount(9);
     ui->scopeAxes->xAxis->setTicker(xTicker);
@@ -293,15 +332,15 @@ void MainWindow::initialisePlot()
     ui->scopeAxes->yAxis->setTicker(yTicker);
 #endif
 
-    QPen *dashPen = new QPen(Qt::white, 2);
-    dashPen->setStyle(Qt::DashLine);
+    QPen dashPen(Qt::white, 2);
+    dashPen.setStyle(Qt::DashLine);
 
-    ui->scopeAxes->graph(0)->setPen(QPen(Qt::yellow, 1));
-    ui->scopeAxes->graph(1)->setPen(QPen(Qt::cyan, 1));
+    ui->scopeAxes->graph(0)->setPen(QPen(QColor(255, 255, 0, 192), 1));
+    ui->scopeAxes->graph(1)->setPen(QPen(QColor(0, 255, 255, 192), 1));
     ui->scopeAxes->graph(2)->setPen(QPen(Qt::white, 2));
-    ui->scopeAxes->graph(3)->setPen(*(dashPen));
+    ui->scopeAxes->graph(3)->setPen(dashPen);
     ui->scopeAxes->graph(4)->setPen(QPen(Qt::white, 2));
-    ui->scopeAxes->graph(5)->setPen(*(dashPen));
+    ui->scopeAxes->graph(5)->setPen(dashPen);
 
 
     ui->scopeAxes->xAxis->setBasePen(QPen(Qt::white, 1));
@@ -323,12 +362,10 @@ void MainWindow::initialisePlot()
 }
 
 void MainWindow::labelPsu(){
-    char tempString[4];
     int tempInt = ui->psuSlider->maximum();
     int tempCounter = 0;
     while(tempInt>90){
-        sprintf(tempString, "%dV", tempInt/20);
-        ui->psuSlider->setTickLabel(tempString, tempCounter);
+        ui->psuSlider->setTickLabel(QString::asprintf("%dV", tempInt/20), tempCounter);
         tempInt -= 20;
         tempCounter++;
     }
@@ -336,6 +373,8 @@ void MainWindow::labelPsu(){
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event){
+    Q_UNUSED(event);
+
     //ui->scopeAxes->yAxis->setAutoTickCount((ui->scopeAxes->height() + TICK_SEPARATION / 2) / TICK_SEPARATION);
     //ui->scopeAxes->xAxis->setAutoTickCount((ui->scopeAxes->width() + TICK_SEPARATION / 2) / TICK_SEPARATION);
 
@@ -376,6 +415,13 @@ void MainWindow::menuSetup(){
     gainGroup->addAction(ui->actionGain64);
     ui->actionGainAuto->setChecked(true);
 
+    QActionGroup *downsampleGroup = new QActionGroup(this);
+    downsampleGroup->addAction(ui->actionDownsampleAverageDelta);
+    downsampleGroup->addAction(ui->actionDownsamplePeak);
+    downsampleGroup->addAction(ui->actionDownsampleBottom);
+    downsampleGroup->addAction(ui->actionDownsampleDecimate);
+    ui->actionDownsampleAverageDelta->setChecked(true);
+
     rangeGroupV = new QActionGroup(this);
     rangeGroupV->addAction(ui->actionAutoV);
     rangeGroupV->addAction(ui->actionMV);
@@ -411,18 +457,18 @@ void MainWindow::menuSetup(){
 #endif
 
 
-    connect(ui->actionAutoV, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setAutoMultimeterV(bool)));
-    connect(ui->actionV, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceVolts(bool)));
-    connect(ui->actionMV, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceMillivolts(bool)));
-    connect(ui->actionAutoI, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setAutoMultimeterI(bool)));
-    connect(ui->actionA, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceAmps(bool)));
-    connect(ui->actionMA, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceMilliamps(bool)));
-    connect(ui->actionAutoR, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setAutoMultimeterR(bool)));
-    connect(ui->actionOhm, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceOhms(bool)));
-    connect(ui->actionKOhm, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceKiloOhms(bool)));
-    connect(ui->actionAutoC, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setAutoMultimeterC(bool)));
-    connect(ui->actionNF, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceNFarads(bool)));
-    connect(ui->action_F, SIGNAL(toggled(bool)), ui->controller_iso, SLOT(setForceUFarads(bool)));
+    connect(ui->actionAutoV, &QAction::toggled, ui->controller_iso, &isoDriver::setAutoMultimeterV);
+    connect(ui->actionV, &QAction::toggled, ui->controller_iso, &isoDriver::setForceVolts);
+    connect(ui->actionMV, &QAction::toggled, ui->controller_iso, &isoDriver::setForceMillivolts);
+    connect(ui->actionAutoI, &QAction::toggled, ui->controller_iso, &isoDriver::setAutoMultimeterI);
+    connect(ui->actionA, &QAction::toggled, ui->controller_iso, &isoDriver::setForceAmps);
+    connect(ui->actionMA, &QAction::toggled, ui->controller_iso, &isoDriver::setForceMilliamps);
+    connect(ui->actionAutoR, &QAction::toggled, ui->controller_iso, &isoDriver::setAutoMultimeterR);
+    connect(ui->actionOhm, &QAction::toggled, ui->controller_iso, &isoDriver::setForceOhms);
+    connect(ui->actionKOhm, &QAction::toggled, ui->controller_iso, &isoDriver::setForceKiloOhms);
+    connect(ui->actionAutoC, &QAction::toggled, ui->controller_iso, &isoDriver::setAutoMultimeterC);
+    connect(ui->actionNF, &QAction::toggled, ui->controller_iso, &isoDriver::setForceNFarads);
+    connect(ui->action_F, &QAction::toggled, ui->controller_iso, &isoDriver::setForceUFarads);
 
 
     uartBaudGroup_CH1 = new QActionGroup(this);
@@ -491,53 +537,53 @@ void MainWindow::menuSetup(){
 void MainWindow::on_actionGain0_5_triggered()
 {
     ui->controller_iso->driver->setGain(0.5);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain1_triggered()
 {
     ui->controller_iso->driver->setGain(1);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain2_triggered()
 {
     ui->controller_iso->driver->setGain(2);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain4_triggered()
 {
     ui->controller_iso->driver->setGain(4);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain8_triggered()
 {
     ui->controller_iso->driver->setGain(8);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain16_triggered()
 {
     ui->controller_iso->driver->setGain(16);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain32_triggered()
 {
     ui->controller_iso->driver->setGain(32);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 
 void MainWindow::on_actionGain64_triggered()
 {
     ui->controller_iso->driver->setGain(64);
-    ui->controller_iso->setAutoGain(0);
+    ui->controller_iso->setAutoGain(false);
 }
 void MainWindow::on_actionGainAuto_triggered()
 {
-    ui->controller_iso->setAutoGain(1);
+    ui->controller_iso->setAutoGain(true);
 }
 
 void MainWindow::on_actionCursor_Stats_triggered(bool checked)
@@ -546,47 +592,47 @@ void MainWindow::on_actionCursor_Stats_triggered(bool checked)
 }
 
 void MainWindow::connectDisplaySignals(){
-    connect(ui->actionMax, SIGNAL(toggled(bool)), ui->voltageInfoMaxLabel_CH1, SLOT(setVisible(bool)));
-    connect(ui->actionMax, SIGNAL(toggled(bool)), ui->voltageInfoMaxDisplay_CH1, SLOT(setVisible(bool)));
+    connect(ui->actionMax, &QAction::toggled, ui->voltageInfoMaxLabel_CH1, &QWidget::setVisible);
+    connect(ui->actionMax, &QAction::toggled, ui->voltageInfoMaxDisplay_CH1, &QWidget::setVisible);
 
-    connect(ui->actionMin, SIGNAL(toggled(bool)), ui->voltageInfoMinLabel_CH1, SLOT(setVisible(bool)));
-    connect(ui->actionMin, SIGNAL(toggled(bool)), ui->voltageInfoMinDisplay_CH1, SLOT(setVisible(bool)));
+    connect(ui->actionMin, &QAction::toggled, ui->voltageInfoMinLabel_CH1, &QWidget::setVisible);
+    connect(ui->actionMin, &QAction::toggled, ui->voltageInfoMinDisplay_CH1, &QWidget::setVisible);
 
-    connect(ui->actionMean, SIGNAL(toggled(bool)), ui->VoltageInfoMeanLabel_CH1, SLOT(setVisible(bool)));
-    connect(ui->actionMean, SIGNAL(toggled(bool)), ui->voltageInfoMeanDisplay_CH1, SLOT(setVisible(bool)));
+    connect(ui->actionMean, &QAction::toggled, ui->VoltageInfoMeanLabel_CH1, &QWidget::setVisible);
+    connect(ui->actionMean, &QAction::toggled, ui->voltageInfoMeanDisplay_CH1, &QWidget::setVisible);
 
-    connect(ui->actionRMS, SIGNAL(toggled(bool)), ui->voltageInfoRmsLabel_CH1, SLOT(setVisible(bool)));
-    connect(ui->actionRMS, SIGNAL(toggled(bool)), ui->voltageInfoRmsDisplay_CH1, SLOT(setVisible(bool)));
+    connect(ui->actionRMS, &QAction::toggled, ui->voltageInfoRmsLabel_CH1, &QWidget::setVisible);
+    connect(ui->actionRMS, &QAction::toggled, ui->voltageInfoRmsDisplay_CH1, &QWidget::setVisible);
 
-    ui->voltageInfoMaxLabel_CH1->setVisible(0);
-    ui->voltageInfoMaxDisplay_CH1->setVisible(0);
-    ui->voltageInfoMinLabel_CH1->setVisible(0);
-    ui->voltageInfoMinDisplay_CH1->setVisible(0);
-    ui->VoltageInfoMeanLabel_CH1->setVisible(0);
-    ui->voltageInfoMeanDisplay_CH1->setVisible(0);
-    ui->voltageInfoRmsLabel_CH1->setVisible(0);
-    ui->voltageInfoRmsDisplay_CH1->setVisible(0);
+    ui->voltageInfoMaxLabel_CH1->setVisible(false);
+    ui->voltageInfoMaxDisplay_CH1->setVisible(false);
+    ui->voltageInfoMinLabel_CH1->setVisible(false);
+    ui->voltageInfoMinDisplay_CH1->setVisible(false);
+    ui->VoltageInfoMeanLabel_CH1->setVisible(false);
+    ui->voltageInfoMeanDisplay_CH1->setVisible(false);
+    ui->voltageInfoRmsLabel_CH1->setVisible(false);
+    ui->voltageInfoRmsDisplay_CH1->setVisible(false);
 
-    connect(ui->actionMax_2, SIGNAL(toggled(bool)), ui->voltageInfoMaxLabel_CH2, SLOT(setVisible(bool)));
-    connect(ui->actionMax_2, SIGNAL(toggled(bool)), ui->voltageInfoMaxDisplay_CH2, SLOT(setVisible(bool)));
+    connect(ui->actionMax_2, &QAction::toggled, ui->voltageInfoMaxLabel_CH2, &QWidget::setVisible);
+    connect(ui->actionMax_2, &QAction::toggled, ui->voltageInfoMaxDisplay_CH2, &QWidget::setVisible);
 
-    connect(ui->actionMin_2, SIGNAL(toggled(bool)), ui->voltageInfoMinLabel_CH2, SLOT(setVisible(bool)));
-    connect(ui->actionMin_2, SIGNAL(toggled(bool)), ui->voltageInfoMinDisplay_CH2, SLOT(setVisible(bool)));
+    connect(ui->actionMin_2, &QAction::toggled, ui->voltageInfoMinLabel_CH2, &QWidget::setVisible);
+    connect(ui->actionMin_2, &QAction::toggled, ui->voltageInfoMinDisplay_CH2, &QWidget::setVisible);
 
-    connect(ui->actionMean_2, SIGNAL(toggled(bool)), ui->VoltageInfoMeanLabel_CH2, SLOT(setVisible(bool)));
-    connect(ui->actionMean_2, SIGNAL(toggled(bool)), ui->voltageInfoMeanDisplay_CH2, SLOT(setVisible(bool)));
+    connect(ui->actionMean_2, &QAction::toggled, ui->VoltageInfoMeanLabel_CH2, &QWidget::setVisible);
+    connect(ui->actionMean_2, &QAction::toggled, ui->voltageInfoMeanDisplay_CH2, &QWidget::setVisible);
 
-    connect(ui->actionRMS_2, SIGNAL(toggled(bool)), ui->voltageInfoRmsLabel_CH2, SLOT(setVisible(bool)));
-    connect(ui->actionRMS_2, SIGNAL(toggled(bool)), ui->voltageInfoRmsDisplay_CH2, SLOT(setVisible(bool)));
+    connect(ui->actionRMS_2, &QAction::toggled, ui->voltageInfoRmsLabel_CH2, &QWidget::setVisible);
+    connect(ui->actionRMS_2, &QAction::toggled, ui->voltageInfoRmsDisplay_CH2, &QWidget::setVisible);
 
-    ui->voltageInfoMaxLabel_CH2->setVisible(0);
-    ui->voltageInfoMaxDisplay_CH2->setVisible(0);
-    ui->voltageInfoMinLabel_CH2->setVisible(0);
-    ui->voltageInfoMinDisplay_CH2->setVisible(0);
-    ui->VoltageInfoMeanLabel_CH2->setVisible(0);
-    ui->voltageInfoMeanDisplay_CH2->setVisible(0);
-    ui->voltageInfoRmsLabel_CH2->setVisible(0);
-    ui->voltageInfoRmsDisplay_CH2->setVisible(0);
+    ui->voltageInfoMaxLabel_CH2->setVisible(false);
+    ui->voltageInfoMaxDisplay_CH2->setVisible(false);
+    ui->voltageInfoMinLabel_CH2->setVisible(false);
+    ui->voltageInfoMinDisplay_CH2->setVisible(false);
+    ui->VoltageInfoMeanLabel_CH2->setVisible(false);
+    ui->voltageInfoMeanDisplay_CH2->setVisible(false);
+    ui->voltageInfoRmsLabel_CH2->setVisible(false);
+    ui->voltageInfoRmsDisplay_CH2->setVisible(false);
 }
 
 
@@ -976,73 +1022,35 @@ void MainWindow::cycleBaudRateBackwards_CH2(){
 }
 
 void MainWindow::initShortcuts(){
-    shortcut_cycleBaudRate_CH1 = new QShortcut(QKeySequence("Ctrl+B"), ui->menuBar);
-    shortcut_cycleBaudRateBackwards_CH1 = new QShortcut(QKeySequence("Ctrl+Shift+B"), ui->menuBar);
-    shortcut_cycleBaudRate_CH2 = new QShortcut(QKeySequence("Ctrl+Alt+B"), ui->menuBar);
-    shortcut_cycleBaudRateBackwards_CH2 = new QShortcut(QKeySequence("Ctrl+Shift+Alt+B"), ui->menuBar);
-    shortcut_snapScopeToCursors = new QShortcut(QKeySequence("Z"), ui->menuBar);
-    shortcut_manualRange = new QShortcut(QKeySequence("M"), ui->menuBar);
-    shortcut_snapshot_CH1 = new QShortcut(QKeySequence("c"), this);
-    shortcut_snapshot_CH2 = new QShortcut(QKeySequence("v"), this);
+    new QShortcut(QKeySequence("Ctrl+B"), this, SLOT(cycleBaudRate_CH1()));
+    new QShortcut(QKeySequence("Ctrl+Shift+B"), this, SLOT(cycleBaudRateBackwards_CH1()));
+    new QShortcut(QKeySequence("Ctrl+Alt+B"), this, SLOT(cycleBaudRate_CH2()));
+    new QShortcut(QKeySequence("Ctrl+Shift+Alt+B"), this, SLOT(cycleBaudRateBackwards_CH2()));
+    new QShortcut(QKeySequence("z"), this, SLOT(on_actionSnap_to_Cursors_triggered()));
+    new QShortcut(QKeySequence("Shift+Z"), this, SLOT(on_actionResetDisplay()));
+    new QShortcut(QKeySequence("M"), this, SLOT(on_actionEnter_Manually_triggered()));
+    new QShortcut(QKeySequence("c"), this, SLOT(on_actionSnapshot_CH1_triggered()));
+    new QShortcut(QKeySequence("v"), this, SLOT(on_actionSnapshot_CH2_triggered()));
 
-    shortcut_ArrowUp = new QShortcut(QKeySequence("Up"), ui->menuBar);
-    shortcut_ArrowDown = new QShortcut(QKeySequence("Down"), ui->menuBar);
-    shortcut_CtrlArrowUp = new QShortcut(QKeySequence("Ctrl+Up"), ui->menuBar);
-    shortcut_CtrlArrowDown = new QShortcut(QKeySequence("Ctrl+Down"), ui->menuBar);
-    shortcut_w = new QShortcut(QKeySequence("w"), ui->menuBar);
-    shortcut_s = new QShortcut(QKeySequence("s"), ui->menuBar);
-    shortcut_ctrlW = new QShortcut(QKeySequence("Ctrl+w"), ui->menuBar);
-    shortcut_ctrlS = new QShortcut(QKeySequence("Ctrl+s"), ui->menuBar);
+    new QShortcut(QKeySequence("w"), this, SLOT(arrowUpTriggered()));
+    new QShortcut(QKeySequence("s"), this, SLOT(arrowDownTriggered()));
+    new QShortcut(QKeySequence("Ctrl+w"), this, SLOT(ctrlArrowUpTriggered()));
+    new QShortcut(QKeySequence("Ctrl+s"), this, SLOT(ctrlArrowDownTriggered()));
 
-    shortcut_a = new QShortcut(QKeySequence("a"), this);
-    shortcut_d = new QShortcut(QKeySequence("d"), this);
-    shortcut_ArrowLeft = new QShortcut(QKeySequence("Left"), this);
-    shortcut_ArrowRight = new QShortcut(QKeySequence("Right"), this);
-    shortcut_CtrlArrowLeft = new QShortcut(QKeySequence("Ctrl+Left"), this);
-    shortcut_CtrlArrowRight = new QShortcut(QKeySequence("Ctrl+Right"), this);
+    new QShortcut(QKeySequence("a"), this, SLOT(cycleDelayLeft()));
+    new QShortcut(QKeySequence("d"), this, SLOT(cycleDelayRight()));
+    new QShortcut(QKeySequence("Left"), this, SLOT(cycleDelayLeft()));
+    new QShortcut(QKeySequence("Right"), this, SLOT(cycleDelayRight()));
 
+    new QShortcut(QKeySequence("Ctrl+Left"), this, SLOT(cycleDelayLeft_large()));
+    new QShortcut(QKeySequence("Ctrl+Right"), this, SLOT(cycleDelayRight_large()));
 
+    new QShortcut(QKeySequence("Home"), this, SLOT(enableLabradorDebugging()));
+    new QShortcut(QKeySequence("Esc"), this, SLOT(reinitUsb()));
 
-    shortcut_Debug = new QShortcut(QKeySequence("Home"), this);
-    shortcut_Esc = new QShortcut(QKeySequence("Esc"), this);
+    ui->actionQuit->setShortcut(Qt::CTRL + Qt::Key_Q); // on macOS CTRL is automaticall translated to the command key
+    ui->actionPinout->setShortcut(Qt::Key_F1);
 
-
-    connect(shortcut_cycleBaudRate_CH1, SIGNAL(activated()), this, SLOT(cycleBaudRate_CH1()));
-    connect(shortcut_cycleBaudRateBackwards_CH1, SIGNAL(activated()), this, SLOT(cycleBaudRateBackwards_CH1()));
-    connect(shortcut_cycleBaudRate_CH2, SIGNAL(activated()), this, SLOT(cycleBaudRate_CH2()));
-    connect(shortcut_cycleBaudRateBackwards_CH2, SIGNAL(activated()), this, SLOT(cycleBaudRateBackwards_CH2()));
-    connect(shortcut_snapshot_CH1, SIGNAL(activated()), this, SLOT(on_actionSnapshot_CH1_triggered()));
-    connect(shortcut_snapshot_CH2, SIGNAL(activated()), this, SLOT(on_actionSnapshot_CH2_triggered()));
-
-    connect(shortcut_ArrowUp, SIGNAL(activated()), this, SLOT(arrowUpTriggered()));
-    connect(shortcut_ArrowDown, SIGNAL(activated()), this, SLOT(arrowDownTriggered()));
-    connect(shortcut_CtrlArrowUp, SIGNAL(activated()), this, SLOT(ctrlArrowUpTriggered()));
-    connect(shortcut_CtrlArrowDown, SIGNAL(activated()), this, SLOT(ctrlArrowDownTriggered()));
-    connect(shortcut_w, SIGNAL(activated()), this, SLOT(arrowUpTriggered()));
-    connect(shortcut_s, SIGNAL(activated()), this, SLOT(arrowDownTriggered()));
-    connect(shortcut_ctrlW, SIGNAL(activated()), this, SLOT(ctrlArrowUpTriggered()));
-    connect(shortcut_ctrlS, SIGNAL(activated()), this, SLOT(ctrlArrowDownTriggered()));
-
-    connect(shortcut_a, SIGNAL(activated()), this, SLOT(cycleDelayLeft()));
-    connect(shortcut_d, SIGNAL(activated()), this, SLOT(cycleDelayRight()));
-
-    connect(shortcut_ArrowLeft, SIGNAL(activated()), this, SLOT(cycleDelayLeft()));
-    connect(shortcut_ArrowRight, SIGNAL(activated()), this, SLOT(cycleDelayRight()));
-    connect(shortcut_CtrlArrowLeft, SIGNAL(activated()), this, SLOT(cycleDelayLeft_large()));
-    connect(shortcut_CtrlArrowRight, SIGNAL(activated()), this, SLOT(cycleDelayRight_large()));
-
-    connect(shortcut_snapScopeToCursors, SIGNAL(activated()), this, SLOT(on_actionSnap_to_Cursors_triggered()));
-    connect(shortcut_manualRange, SIGNAL(activated()), this, SLOT(on_actionEnter_Manually_triggered()));
-
-    connect(shortcut_Debug, SIGNAL(activated()), this, SLOT(enableLabradorDebugging()));
-    connect(shortcut_Esc, SIGNAL(activated()), this, SLOT(reinitUsb()));
-
-}
-
-void MainWindow::timeBaseNeedsChanging(bool positive){
-    int tempVal = ui->timeBaseSlider->value();
-    tempVal += positive ? 1 : -1;
-    ui->timeBaseSlider->setValue(tempVal);
 }
 
 void MainWindow::on_actionForce_Square_triggered(bool checked)
@@ -1055,22 +1063,40 @@ void MainWindow::on_actionForce_Square_triggered(bool checked)
     this->resize(tempWidth, tempHeight);
 }
 
+// In Qt 6 they have gone insane
+static QWheelEvent createWheelEvent(const bool negative, const QPoint &point, const Qt::KeyboardModifier modifier = Qt::NoModifier)
+{
+    return QWheelEvent(point, // pos
+                           QCursor::pos(), // globalpos
+                           QPoint(0, negative ? -0 : 0), // pixelDelta
+                           QPoint(0, negative ? -120 : 120), // angleDelta
+                           Qt::NoButton, // buttons
+                           modifier, // keyboard modifiers
+                           Qt::NoScrollPhase, // scroll phase
+                           false // inverted
+        );
+}
+
 void MainWindow::arrowUpTriggered(){
     qDebug() << "Boy UP!";
     if(!(ui->scopeAxes->underMouse())) return;
 
     QPoint point = ui->scopeAxes->mapFromGlobal(QCursor::pos());
-    wheelEmu = new QWheelEvent(point, 120, 0, 0, Qt::Vertical);
-    ui->controller_iso->setVoltageRange(wheelEmu);
+
+    QWheelEvent wheelEmu = createWheelEvent(false, point);
+    qApp->sendEvent(ui->scopeAxes, &wheelEmu);
 }
 
 void MainWindow::arrowDownTriggered(){
     qDebug() << "Boy DOWN!";
-    if(!(ui->scopeAxes->underMouse())) return;
+    if(!(ui->scopeAxes->underMouse())){
+        qDebug() << "Not under mouse";
+        return;
+    }
 
     QPoint point = ui->scopeAxes->mapFromGlobal(QCursor::pos());
-    wheelEmu = new QWheelEvent(point, -120, 0, 0, Qt::Vertical);
-    ui->controller_iso->setVoltageRange(wheelEmu);
+    QWheelEvent wheelEmu = createWheelEvent(true, point);
+    qApp->sendEvent(ui->scopeAxes, &wheelEmu);
 }
 
 void MainWindow::ctrlArrowUpTriggered(){
@@ -1078,8 +1104,8 @@ void MainWindow::ctrlArrowUpTriggered(){
     if(!(ui->scopeAxes->underMouse())) return;
 
     QPoint point = ui->scopeAxes->mapFromGlobal(QCursor::pos());
-    wheelEmu = new QWheelEvent(point, 120, 0, Qt::ControlModifier, Qt::Vertical);
-    ui->controller_iso->setVoltageRange(wheelEmu);
+    QWheelEvent wheelEmu = createWheelEvent(false, point, Qt::ControlModifier);
+    qApp->sendEvent(ui->scopeAxes, &wheelEmu);
 }
 
 void MainWindow::ctrlArrowDownTriggered(){
@@ -1087,15 +1113,15 @@ void MainWindow::ctrlArrowDownTriggered(){
     if(!(ui->scopeAxes->underMouse())) return;
 
     QPoint point = ui->scopeAxes->mapFromGlobal(QCursor::pos());
-    wheelEmu = new QWheelEvent(point, -120, 0, Qt::ControlModifier, Qt::Vertical);
-    ui->controller_iso->setVoltageRange(wheelEmu);
+    QWheelEvent wheelEmu = createWheelEvent(true, point, Qt::ControlModifier);
+    qApp->sendEvent(ui->scopeAxes, &wheelEmu);
 }
 
 void MainWindow::cycleDelayRight(){
     qDebug() << "RIGHT";
     ui->controller_iso->display.delay -= ui->controller_iso->display.window/10;
     if(ui->controller_iso->display.delay < 0) ui->controller_iso->display.delay = 0;
-    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
+    emit ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::cycleDelayLeft(){
@@ -1103,14 +1129,14 @@ void MainWindow::cycleDelayLeft(){
     double mws = ui->controller_iso->fileModeEnabled ? ui->controller_iso->daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
     ui->controller_iso->display.delay += ui->controller_iso->display.window/10;
     if(ui->controller_iso->display.delay > (mws - ui->controller_iso->display.window)) ui->controller_iso->display.delay = (mws - ui->controller_iso->display.window);
-    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
+    emit ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::cycleDelayRight_large(){
     qDebug() << "RIGHT";
     ui->controller_iso->display.delay -= ui->controller_iso->display.window/2;
     if(ui->controller_iso->display.delay < 0) ui->controller_iso->display.delay = 0;
-    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
+    emit ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::cycleDelayLeft_large(){
@@ -1118,19 +1144,19 @@ void MainWindow::cycleDelayLeft_large(){
     double mws = ui->controller_iso->fileModeEnabled ? ui->controller_iso->daq_maxWindowSize : ((double)MAX_WINDOW_SIZE);
     ui->controller_iso->display.delay += ui->controller_iso->display.window/2;
     if(ui->controller_iso->display.delay > (mws - ui->controller_iso->display.window)) ui->controller_iso->display.delay = (mws - ui->controller_iso->display.window);
-    ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
+    emit ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
 void MainWindow::enableLabradorDebugging(){
     qDebug() << "DEBUG MODE ACTIVE";
 
-    ui->debugButton1->setVisible(1);
-    ui->debugButton2->setVisible(1);
-    ui->debugButton3->setVisible(1);
+    ui->debugButton1->setVisible(true);
+    ui->debugButton2->setVisible(true);
+    ui->debugButton3->setVisible(true);
 #ifndef PLATFORM_ANDROID
-    ui->kickstartIsoButton->setVisible(1);
+    ui->kickstartIsoButton->setVisible(true);
 #endif
-    ui->debugConsole->setVisible(1);
+    ui->debugConsole->setVisible(true);
 
     new Q_DebugStream(std::cout, ui->debugConsole); //Redirect Console output to QTextEdit
     Q_DebugStream::registerQDebugMessageHandler(); //Redirect qDebug() output to QTextEdit
@@ -1220,11 +1246,31 @@ void MainWindow::on_actionEnter_Manually_triggered()
     ui->controller_iso->display.delay = 0;
     scopeRangeEnterDialog dialog(this, ui->controller_iso->display.topRange, ui->controller_iso->display.botRange, ui->controller_iso->display.window, ui->controller_iso->display.delay);
     dialog.setModal(true);
-    connect(&dialog, SIGNAL(yTopUpdated(double)), ui->controller_iso, SLOT(setTopRange(double)));
-    connect(&dialog, SIGNAL(yBotUpdated(double)), ui->controller_iso, SLOT(setBotRange(double)));
-    connect(&dialog, SIGNAL(windowUpdated(double)), ui->controller_iso, SLOT(setTimeWindow(double)));
-    connect(&dialog, SIGNAL(delayUpdated(double)), ui->controller_iso, SLOT(setDelay(double)));
+    connect(&dialog, &scopeRangeEnterDialog::yTopUpdated, ui->controller_iso, &isoDriver::setTopRange);
+    connect(&dialog, &scopeRangeEnterDialog::yBotUpdated, ui->controller_iso, &isoDriver::setBotRange);
+    connect(&dialog, &scopeRangeEnterDialog::windowUpdated, ui->controller_iso, &isoDriver::setTimeWindow);
+    connect(&dialog, &scopeRangeEnterDialog::delayUpdated, ui->controller_iso, &isoDriver::setDelay);
     dialog.exec();
+}
+
+void MainWindow::on_actionDownsampleDecimate_triggered()
+{
+    ui->controller_iso->setDownsampleMethod(DownsamplingMethod::Decimate);
+}
+
+void MainWindow::on_actionDownsamplePeak_triggered()
+{
+    ui->controller_iso->setDownsampleMethod(DownsamplingMethod::Peak);
+}
+
+void MainWindow::on_actionDownsampleBottom_triggered()
+{
+    ui->controller_iso->setDownsampleMethod(DownsamplingMethod::Bottom);
+}
+
+void MainWindow::on_actionDownsampleAverageDelta_triggered()
+{
+    ui->controller_iso->setDownsampleMethod(DownsamplingMethod::AverageDelta);
 }
 
 void MainWindow::helloWorld(){
@@ -1233,7 +1279,7 @@ void MainWindow::helloWorld(){
 
 #define QSETTINGS_DEFAULT_RETURN 42069
 void MainWindow::readSettingsFile(){
-    settings = new QSettings();
+    settings = new QSettings(this);
     int connectionType = settings->value("ConnectionType", QSETTINGS_DEFAULT_RETURN).toInt();
     double calibrate_vref_ch1 = settings->value("CalibrateVrefCH1", 1.65).toDouble();
     double calibrate_vref_ch2 = settings->value("CalibrateVrefCH2", 1.65).toDouble();
@@ -1291,65 +1337,7 @@ void MainWindow::readSettingsFile(){
     }
 }
 
-void MainWindow::on_actionRecord_triggered(bool checked)
-{
-    /*
-    if(!checked){
-        ui->controller_iso->internalBuffer375_CH1->disableFileIO();
-        ui->controller_iso->internalBuffer375_CH2->disableFileIO();
-        ui->controller_iso->internalBuffer750->disableFileIO();
-
-        delete(output375_CH1);
-        delete(output375_CH2);
-        delete(output750);
-        return;
-    }
-    QDateTime now = QDateTime::currentDateTime();
-    QString dateString = now.toString("yyyyMMddhhmmsszzz");
-    qDebug() << dateString;
-
-    qDebug() << "QStandardPaths::DocumentsLocation" << QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-    outputDir = new QDir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
-    outputDir->mkdir("EspoTek");
-    outputDir->cd("EspoTek");
-    outputDir->mkdir("recordings");
-    outputDir->cd("recordings");
-    outputDir->mkdir(dateString);
-    outputDir->cd(dateString);
-
-    qDebug() << outputDir->absolutePath();
-
-    output375_CH1 = new QFile(outputDir->filePath("375_CH1.csv"));
-    output375_CH2 = new QFile(outputDir->filePath("375_CH2.csv"));
-    output750 = new QFile(outputDir->filePath("750.csv"));
-
-    ui->controller_iso->internalBuffer375_CH1->enableFileIO(output375_CH1);
-    ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2);
-    ui->controller_iso->internalBuffer750->enableFileIO(output750);
-
-    delete(outputDir);
-    return;
-    */
-}
-
-void MainWindow::on_actionTake_Snapshot_triggered()
-{
-    /*
-    QString fileName;
-    showFileDialog(&fileName);
-    qDebug() << fileName;
-    int len = fileName.length();
-
-    if(len==0) return; //User cancelled
-
-    qDebug() << len;
-    fileName.remove(len-4, 4);
-    qDebug() << fileName;
-    ui->controller_iso->takeSnapshot(&fileName);
-    */
-}
-
-void MainWindow::reinitUsb(void){
+void MainWindow::reinitUsb(){
     ui->controller_iso->doNotTouchGraph = true;
     ui->controller_iso->driver->saveState(&reinitdeviceMode, &reinitScopeGain, &reinitCurrentPsuVoltage, &reinitDigitalPinState);
 
@@ -1366,51 +1354,51 @@ void MainWindow::reinitUsb(void){
     qDebug() << "ReinitUsb Stage 1 complete";
 }
 
-void MainWindow::reinitUsbStage2(void){
+void MainWindow::reinitUsbStage2(){
     qDebug() << "ReinitUsb entering stage 2";
     delete(ui->controller_iso->driver);
     qDebug() << "Reinitialising USB driver!";
-    ui->controller_iso->driver = new _PLATFORM_DEPENDENT_USB_OBJECT();
+    ui->controller_iso->setDriver(new _PLATFORM_DEPENDENT_USB_OBJECT(this));
 
     //Reconnect the other objects.
     //ui->controller_iso->driver->setBufferPtr(ui->bufferDisplay);
-    connect(ui->debugButton1, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(avrDebug()));
-    connect(ui->debugButton3, SIGNAL(clicked()), ui->controller_iso->driver, SLOT(bootloaderJump()));
-    connect(ui->psuSlider, SIGNAL(voltageChanged(double)), ui->controller_iso->driver, SLOT(setPsu(double)));
-    connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
+    connect(ui->debugButton1, &QAbstractButton::clicked, ui->controller_iso->driver.data(), &genericUsbDriver::avrDebug);
+    connect(ui->debugButton3, &QAbstractButton::clicked, ui->controller_iso->driver.data(), &genericUsbDriver::bootloaderJump);
+    connect(ui->psuSlider, &espoSlider::voltageChanged, ui->controller_iso->driver.data(), &genericUsbDriver::setPsu);
+    connect(ui->controller_iso, &isoDriver::setGain, ui->controller_iso->driver.data(), &genericUsbDriver::setGain);
     connect(ui->controller_fg, &functionGenControl::functionGenToUpdate, ui->controller_iso->driver, &genericUsbDriver::setFunctionGen);
-    connect(ui->bufferDisplay, SIGNAL(modeChange(int)), ui->controller_iso->driver, SLOT(setDeviceMode(int)));
+    connect(ui->bufferDisplay, &bufferControl::modeChange, ui->controller_iso->driver.data(), &genericUsbDriver::setDeviceMode);
 	connect(ui->bufferDisplay, &bufferControl::modeChange, this, [this](){
 		// Force a trigger refresh
 		ui->controller_iso->setTriggerLevel(ui->triggerLevelValue->value());	
 	});
-    connect(ui->bufferDisplay, SIGNAL(updateDig(int)), ui->controller_iso->driver, SLOT(newDig(int)));
+    connect(ui->bufferDisplay, &bufferControl::updateDig, ui->controller_iso->driver.data(), &genericUsbDriver::newDig);
 
     //Set the settings again!
-    connect(ui->controller_iso->driver, SIGNAL(gainBuffers(double)), ui->controller_iso, SLOT(gainBuffers(double)));
-    connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), this, SLOT(setEnabled(bool)));
-    connect(ui->controller_iso->driver, SIGNAL(sendClearBuffer(bool,bool,bool)), ui->controller_iso, SLOT(clearBuffers(bool,bool,bool)));
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::gainBuffers, ui->controller_iso, &isoDriver::gainBuffers);
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::disableWindow, this, &QWidget::setEnabled);
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::sendClearBuffer, ui->controller_iso, &isoDriver::clearChannelBuffers);
     //connect(ui->controller_iso->driver, SIGNAL(startIsoTimer()), ui->controller_iso, SLOT(startTimer()));
-    connect(ui->controller_iso->driver, SIGNAL(setVisible_CH2(bool)), ui->controller_iso, SLOT(setVisible_CH2(bool)));
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::setVisible_CH2, ui->controller_iso, &isoDriver::setVisible_CH2);
     //connect(ui->controller_iso->driver, SIGNAL(enableMMTimer()), ui->controller_iso, SLOT(enableMM()));
-    connect(ui->controller_iso->driver, SIGNAL(checkXY(bool)), ui->xyDisplayLabel, SLOT(setChecked(bool)));
-    connect(ui->controller_iso->driver, SIGNAL(disableWindow(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
-    connect(ui->controller_iso->driver, SIGNAL(upTick()), ui->controller_iso, SLOT(timerTick()));
-    connect(ui->controller_iso->driver, SIGNAL(killMe()), this, SLOT(reinitUsb()));
-    connect(ui->controller_iso->driver, SIGNAL(connectedStatus(bool)), ui->deviceConnected, SLOT(connectedStatusChanged(bool)));
-    connect(ui->controller_iso->driver, SIGNAL(signalFirmwareFlash(void)), ui->deviceConnected, SLOT(flashingFirmware(void)));
-    connect(ui->controller_iso->driver, SIGNAL(initialConnectComplete()), this, SLOT(resetUsbState()));
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::checkXY, ui->xyDisplayLabel, &QAbstractButton::setChecked);
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::disableWindow, ui->deviceConnected, &deviceConnectedDisplay::connectedStatusChanged);
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::upTick, ui->controller_iso, &isoDriver::timerTick);
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::killMe, this, &MainWindow::reinitUsb);
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::connectedStatus, ui->deviceConnected, &deviceConnectedDisplay::connectedStatusChanged);
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::signalFirmwareFlash, ui->deviceConnected, &deviceConnectedDisplay::flashingFirmware);
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::initialConnectComplete, this, &MainWindow::resetUsbState);
     ui->controller_iso->driver->setGain(reinitScopeGain);
     ui->controller_iso->driver->psu_offset = psu_voltage_calibration_offset;
 
     readSettingsFile();
 
     ui->controller_iso->driver->calibrateOnConnect = (dt_userWantsToCalibrate == 16384); //Yes/No are 16384/65536 for some reason.  I think 0/1 are reserved for OK/Cancel.
-    connect(ui->controller_iso->driver, SIGNAL(calibrateMe()), this, SLOT(on_actionCalibrate_triggered()));
+    connect(ui->controller_iso->driver.data(), &genericUsbDriver::calibrateMe, this, &MainWindow::on_actionCalibrate_triggered);
     qDebug() << "ReinitUsbStage2 is returning";
 }
 
-void MainWindow::resetUsbState(void){
+void MainWindow::resetUsbState(){
 	using functionGen::ChannelID;
     //ui->controller_iso->driver->setDeviceMode(deviceMode);
     //ui->controller_iso->driver->setPsu(currentPsuVoltage);
@@ -1420,7 +1408,7 @@ void MainWindow::resetUsbState(void){
     ui->controller_iso->driver->setFunctionGen(ChannelID::CH1, ui->controller_fg->getChannelController(ChannelID::CH1));
     ui->controller_iso->driver->setFunctionGen(ChannelID::CH2, ui->controller_fg->getChannelController(ChannelID::CH2));
 
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     ui->controller_iso->doNotTouchGraph = false;
 }
 
@@ -1699,7 +1687,7 @@ bool MainWindow::gestureFilter(QGestureEvent *event){
         } else{
             wheelEmu = new QWheelEvent(point, (embiggen ? 120 : -120), 0, 0, Qt::Vertical);
         }
-        ui->controller_iso->setVoltageRange(wheelEmu);
+        ui->controller_iso->onWheelEvent(wheelEmu);
 
         return true;
     } else {
@@ -1740,7 +1728,7 @@ void MainWindow::on_actionCalibrate_triggered()
         calibrationMessages->exec();
         return;
     }
-    if(ui->controller_iso->driver->deviceMode!=4){
+    if(ui->controller_iso->driver->deviceMode != DeviceCH1DigitalCH2Digital){
         calibrationMessages->setStandardButtons(QMessageBox::Ok|QMessageBox::Cancel);
         calibrationMessages->setText("The calibration sequence requires all devices to be turned off, except for the oscilloscope CH1 and CH2.  Is it OK for me to change your workspace?");
         int choice = calibrationMessages->exec();
@@ -1788,7 +1776,7 @@ void MainWindow::on_actionCalibrate_triggered()
     calibrationMessages->setText("Please disconnect all wires from your Labrador board then press OK to continue.");
     calibrationMessages->exec();
 
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     QTimer::singleShot(1200, this, SLOT(calibrateStage2()));
 }
 
@@ -1817,7 +1805,7 @@ void MainWindow::calibrateStage2(){
     calibrationMessages->setText("Please connect both oscilloscope channels to the outer shield of the USB connector then press OK to continue.");
     calibrationMessages->exec();
 
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     QTimer::singleShot(1200, this, SLOT(calibrateStage3()));
 }
 
@@ -2039,7 +2027,7 @@ void MainWindow::on_actionRecord_CH1_triggered(bool checked)
     qDebug() << "on_actionRecord_CH1_triggered(bool checked)";
     qDebug() << daq_max_file_size;
     if(!checked){
-        if(ui->controller_iso->driver->deviceMode!=6){
+        if(ui->controller_iso->driver->deviceMode != DeviceCH1Analog750) {
             ui->controller_iso->internalBuffer375_CH1->disableFileIO();
             delete(output375_CH1);
         } else {
@@ -2061,7 +2049,7 @@ void MainWindow::on_actionRecord_CH1_triggered(bool checked)
         return; //User cancelled
     }
 #endif
-    if(ui->controller_iso->driver->deviceMode!=6){
+    if(ui->controller_iso->driver->deviceMode != DeviceCH1Analog750) {
         output375_CH1 = new QFile(fileName);
         ui->controller_iso->internalBuffer375_CH1->enableFileIO(output375_CH1, daq_num_to_average, daq_max_file_size);
     } else {
@@ -2095,7 +2083,7 @@ void MainWindow::on_actionRecord_CH2_triggered(bool checked)
     output375_CH2 = new QFile(fileName);
     ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2, daq_num_to_average, daq_max_file_size);
 
-    if((checked) && (ui->controller_iso->driver->deviceMode != 4))
+    if((checked) && (ui->controller_iso->driver->deviceMode != DeviceCH1DigitalCH2Digital))
         QMessageBox::warning(nullptr, "Warning", "CH2 is disabled.  The DAQ will NOT RECORD any data from from CH2 until it has been enabled!");
 }
 
@@ -2150,29 +2138,38 @@ void MainWindow::on_actionDAQ_Settings_triggered()
     qDebug() << "on_actionDAQ_Settings_triggered()";
     daqForm df(this, daq_num_to_average, daq_max_file_size);
     df.setModal(true);
-    connect(&df, SIGNAL(updatedAveraging(int)), this, SLOT(daq_updatedAveraging(int)));
-    connect(&df, SIGNAL(updatedMaxFileSize(qulonglong)), this, SLOT(daq_updatedMaxFileSize(qulonglong)));
-    connect(&df, SIGNAL(saveButtonPressed()), this, SLOT(daq_saveButtonPressed()));
+    connect(&df, &daqForm::updatedAveraging, this, &MainWindow::daq_updatedAveraging);
+    connect(&df, &daqForm::updatedMaxFileSize, this, &MainWindow::daq_updatedMaxFileSize);
+    connect(&df, &daqForm::saveButtonPressed, this, &MainWindow::daq_saveButtonPressed);
 
     df.exec();
 }
 
-void MainWindow::fileLimitReached_CH1(void){
+void MainWindow::on_actionResetDisplay()
+{
+    ui->controller_iso->setBotRange(DEFAULT_BOTTOM_RANGE);
+    ui->controller_iso->setTopRange(DEFAULT_TOP_RANGE);
+    ui->controller_iso->setDelay(0.);
+    ui->controller_iso->setTimeWindow(MAX_WINDOW_SIZE);
+
+}
+
+void MainWindow::fileLimitReached_CH1(){
     ui->actionRecord_CH1->setChecked(false);
 
     QMessageBox recordingStoppedMessageBox;
     char recordingStoppedMessage[256];
-    sprintf(recordingStoppedMessage, "Maximum file size limit of %uMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
+    sprintf(recordingStoppedMessage, "Maximum file size limit of %lluMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
     recordingStoppedMessageBox.setText(recordingStoppedMessage);
     recordingStoppedMessageBox.exec();
 }
 
-void MainWindow::fileLimitReached_CH2(void){
+void MainWindow::fileLimitReached_CH2(){
     ui->actionRecord_CH2->setChecked(false);
 
     QMessageBox recordingStoppedMessageBox;
     char recordingStoppedMessage[256];
-    sprintf(recordingStoppedMessage, "Maximum file size limit of %uMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
+    sprintf(recordingStoppedMessage, "Maximum file size limit of %lluMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
     recordingStoppedMessageBox.setText(recordingStoppedMessage);
     recordingStoppedMessageBox.exec();
 }
@@ -2191,6 +2188,12 @@ void MainWindow::daq_saveButtonPressed(){
     qDebug() << "MainWindow::daq_saveButtonPressed";
     settings->setValue("daq_defaultAverage", daq_num_to_average);
     settings->setValue("daq_defaultFileSize", daq_max_file_size);
+}
+
+void MainWindow::onChannel2Toggled()
+{
+    ch2Label->setVisible(ui->scopeGroup_CH2->isChecked());
+    ui->scopeAxes->replot(); // what the fuck qcustomplot
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -2306,7 +2309,7 @@ void MainWindow::on_actionCalibrate_2_triggered()
     ui->multimeterPauseCheckBox->setChecked(false);
 
     ui->controller_iso->setAutoGain(false);
-    ui->controller_iso->setGain(4);
+    emit ui->controller_iso->setGain(4);
 
     //Remove the offset before setting it again; don't want them to stack!
     ui->controller_iso->driver->psu_offset = 0;
@@ -2317,7 +2320,7 @@ void MainWindow::on_actionCalibrate_2_triggered()
     calibrationMessages->exec();
 
     ui->controller_iso->driver->setPsu(5);
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     QTimer::singleShot(1800, this, SLOT(calibrate_psu_stage2()));
 }
 
@@ -2328,16 +2331,16 @@ void MainWindow::calibrate_psu_stage2()
     if((PSU5 > 6) | (PSU5 < 4) ){
         ui->controller_iso->driver->setPsu(4.5);
         ui->psuSlider->setValue(0);
-        ui->controller_iso->clearBuffers(1,1,1);
+        ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
         ui->controller_iso->setAutoGain(true);
         ui->controller_iso->autoGain();
         calibrationMessages->setText("Calibration has been abandoned due to out-of-range values.  The oscilloscope should show approximately 5V.  Please check all wires on your Labrador board and try again.");
         calibrationMessages->exec();
         return;
     }
-    ui->controller_iso->setGain(1);
+    emit ui->controller_iso->setGain(1);
     ui->controller_iso->driver->setPsu(10);
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     QTimer::singleShot(1800, this, SLOT(calibrate_psu_stage3()));
 }
 
@@ -2347,7 +2350,7 @@ void MainWindow::calibrate_psu_stage3()
     qDebug() << "PSU10 =" << PSU10;
     ui->controller_iso->driver->setPsu(4.5);
     ui->psuSlider->setValue(0);
-    ui->controller_iso->clearBuffers(1,1,1);
+    ui->controller_iso->clearBuffers(isoDriver::Channel3751 | isoDriver::Channel3752 | isoDriver::Channel750);
     ui->controller_iso->setAutoGain(true);
     ui->controller_iso->autoGain();
 
@@ -2371,11 +2374,13 @@ void MainWindow::calibrate_psu_stage3()
 
 void MainWindow::on_actionSerial_triggered(bool checked)
 {
+    Q_UNUSED(checked);
     ui->controller_iso->setSerialType(0);
 }
 
 void MainWindow::on_actionI2C_triggered(bool checked)
 {
+    Q_UNUSED(checked);
     ui->controller_iso->setSerialType(1);
 }
 
@@ -2387,15 +2392,16 @@ void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
         scopeRangeSwitch = new scopeRangeEnterDialog(nullptr, false, ui->controller_iso->display.topRange, ui->controller_iso->display.botRange, ui->controller_iso->display.window, ui->controller_iso->display.delay);
         scopeRangeSwitch->setWindowFlags(Qt::Widget);
         ui->verticalLayout_5->insertWidget(2, scopeRangeSwitch);
-        connect(scopeRangeSwitch, SIGNAL(yTopUpdated(double)), ui->controller_iso, SLOT(setTopRange(double)));
-        connect(scopeRangeSwitch, SIGNAL(yBotUpdated(double)), ui->controller_iso, SLOT(setBotRange(double)));
-        connect(scopeRangeSwitch, SIGNAL(windowUpdated(double)), ui->controller_iso, SLOT(setTimeWindow(double)));
-        connect(scopeRangeSwitch, SIGNAL(delayUpdated(double)), ui->controller_iso, SLOT(setDelay(double)));
+        connect(scopeRangeSwitch, &scopeRangeEnterDialog::yTopUpdated, ui->controller_iso, &isoDriver::setTopRange);
+        connect(scopeRangeSwitch, &scopeRangeEnterDialog::yBotUpdated, ui->controller_iso, &isoDriver::setBotRange);
+        connect(scopeRangeSwitch, &scopeRangeEnterDialog::windowUpdated, ui->controller_iso, &isoDriver::setTimeWindow);
+        connect(scopeRangeSwitch, &scopeRangeEnterDialog::delayUpdated, ui->controller_iso, &isoDriver::setDelay);
+        connect(scopeRangeSwitch, &scopeRangeEnterDialog::autoClicked, this, &MainWindow::on_setAutoScopeRange);
 
-        connect(ui->controller_iso, SIGNAL(topRangeUpdated(double)), scopeRangeSwitch, SLOT(yTopChanged(double)));
-        connect(ui->controller_iso, SIGNAL(botRangeUpdated(double)), scopeRangeSwitch, SLOT(yBotChanged(double)));
-        connect(ui->controller_iso, SIGNAL(timeWindowUpdated(double)), scopeRangeSwitch, SLOT(windowChanged(double)));
-        connect(ui->controller_iso, SIGNAL(delayUpdated(double)), scopeRangeSwitch, SLOT(delayChanged(double)));
+        connect(ui->controller_iso, &isoDriver::topRangeUpdated, scopeRangeSwitch, &scopeRangeEnterDialog::yTopChanged);
+        connect(ui->controller_iso, &isoDriver::botRangeUpdated, scopeRangeSwitch, &scopeRangeEnterDialog::yBotChanged);
+        connect(ui->controller_iso, &isoDriver::timeWindowUpdated, scopeRangeSwitch, &scopeRangeEnterDialog::windowChanged);
+        connect(ui->controller_iso, &isoDriver::delayUpdated, scopeRangeSwitch, &scopeRangeEnterDialog::delayChanged);
     }
     qDebug() << "on_actionShow_Range_Dialog_on_Main_Page_triggered" << checked;
     settings->setValue("ShowRangeDialog", checked);
@@ -2456,7 +2462,11 @@ void MainWindow::on_actionDocumentation_triggered()
 
 void MainWindow::on_actionPinout_triggered()
 {
-    QDesktopServices::openUrl(QUrl(kPinoutUrl, QUrl::TolerantMode));
+    if (m_pinoutDialog) { // only allow one to exist
+        return;
+    }
+    m_pinoutDialog = new pinoutDialog;
+    m_pinoutDialog->show(); // don't exec, allows
 }
 
 void MainWindow::cursorGroupEnabled(bool enabled)
@@ -2510,4 +2520,71 @@ void MainWindow::on_actionHide_Widget_LogicAnalyzer_triggered(bool checked)
     ui->busSifferGroup_CH1->setVisible(!checked);
     ui->busSnifferGroup_CH2->setVisible(!checked);
     ui->digitalOutputGroup->setVisible(!checked);
+}
+
+void MainWindow::on_setAutoScopeRange()
+{
+    if (ui->controller_iso->numSamples() <= 0) {
+        return;
+    }
+
+    const double max = ui->controller_iso->vMax();
+    const double min = ui->controller_iso->vMin();
+    ui->controller_iso->setTopRange(max + max * 0.1); // 10% extra above
+    ui->controller_iso->setBotRange(min - min * 0.1); // 10% extra below
+
+
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (maybeHandleKeypress(event)) {
+        event->setAccepted(true);
+        return;
+    }
+
+    QMainWindow::keyPressEvent(event);
+}
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        if (maybeHandleKeypress(static_cast<QKeyEvent*>(event))) {
+            QWidget *original = qobject_cast<QWidget*>(obj);
+            if (original) {
+                original->clearFocus();
+            }
+            event->setAccepted(true);
+            return true;
+        }
+    }
+
+    return QObject::eventFilter(obj, event);
+}
+
+bool MainWindow::maybeHandleKeypress(QKeyEvent *event)
+{
+    if (!(ui->scopeAxes->underMouse())) {
+        return false;
+    }
+    switch(event->key()) {
+    case Qt::Key_Down:
+        if (event->modifiers() & Qt::ControlModifier) {
+            ctrlArrowDownTriggered();
+        } else {
+            arrowDownTriggered();
+        }
+        break;
+    case Qt::Key_Up:
+        if (event->modifiers() & Qt::ControlModifier) {
+            ctrlArrowUpTriggered();
+        } else {
+            arrowUpTriggered();
+        }
+        break;
+    default:
+        return false;
+    }
+
+    return true;
 }

@@ -22,7 +22,7 @@ void deviceConnectedDisplay::connectedStatusChanged(bool status){
     #endif
 }
 
-void deviceConnectedDisplay::flashingFirmware(void){
+void deviceConnectedDisplay::flashingFirmware(){
     qDebug() << "deviceConnectedDisplay::flashingFirmware";
     this->setText("Flashing Device Firmware");
     this->setStyleSheet("QLabel { color:green; }");

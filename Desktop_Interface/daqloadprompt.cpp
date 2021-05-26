@@ -18,8 +18,8 @@ daqLoadPrompt::daqLoadPrompt(QWidget *parent, double minTime, double maxTime) :
     ui->endTimeDoubleSpinBox->setValue(maxTime);
 
     //Internal signals
-    connect(ui->startTimeDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(valueChange()));
-    connect(ui->endTimeDoubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(valueChange()));
+    connect(ui->startTimeDoubleSpinBox, &QDoubleSpinBox::textChanged, this, &daqLoadPrompt::valueChange);
+    connect(ui->endTimeDoubleSpinBox, &QDoubleSpinBox::textChanged, this, &daqLoadPrompt::valueChange);
 
     valueChange();
 }
@@ -33,8 +33,8 @@ void daqLoadPrompt::valueChange(){
     ui->startTimeDoubleSpinBox->setMaximum(ui->endTimeDoubleSpinBox->value() - min_interval);
     ui->endTimeDoubleSpinBox->setMinimum(ui->startTimeDoubleSpinBox->value() + min_interval);
 
-    startTime(ui->startTimeDoubleSpinBox->value());
-    endTime(ui->endTimeDoubleSpinBox->value());
+    emit startTime(ui->startTimeDoubleSpinBox->value());
+    emit endTime(ui->endTimeDoubleSpinBox->value());
 
     char units[2] = "B";
     double contig_ram_required = ((ui->endTimeDoubleSpinBox->value() - ui->startTimeDoubleSpinBox->value()) / min_interval) * 4 + 512;  //4 bytes per sample (float), each sample is stored only once.  512 is just a bullshit value to represent the overhead required to store the other variables in the buffer object

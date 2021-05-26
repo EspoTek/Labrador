@@ -6,7 +6,8 @@ int MAX_PENDING_TRANSFERS = 512;
 int MAX_PENDING_IO = 16;
 
 //Plot settings
-int GRAPH_SAMPLES = 1024;
+// this should be int GRAPH_SAMPLES = 375000 * 10; to avoid downsampling
+int GRAPH_SAMPLES = 8192;
 int TIMER_PERIOD = 17;
 int ISO_RECOVERY_TIME = (200);
 int MAX_WINDOW_SIZE = 10;

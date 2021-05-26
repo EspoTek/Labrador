@@ -152,7 +152,8 @@ Q_DECLARE_FLAGS(PlottingHints, PlottingHint)
   
   \see QCustomPlot::setInteractions
 */
-enum Interaction { iRangeDrag         = 0x001 ///< <tt>0x001</tt> Axis ranges are draggable (see \ref QCPAxisRect::setRangeDrag, \ref QCPAxisRect::setRangeDragAxes)
+enum Interaction { iNoInteraction = 0,
+    iRangeDrag         = 0x001 ///< <tt>0x001</tt> Axis ranges are draggable (see \ref QCPAxisRect::setRangeDrag, \ref QCPAxisRect::setRangeDragAxes)
                    ,iRangeZoom        = 0x002 ///< <tt>0x002</tt> Axis ranges are zoomable with the mouse wheel (see \ref QCPAxisRect::setRangeZoom, \ref QCPAxisRect::setRangeZoomAxes)
                    ,iMultiSelect      = 0x004 ///< <tt>0x004</tt> The user can select multiple objects by holding the modifier set by \ref QCustomPlot::setMultiSelectModifier while clicking
                    ,iSelectPlottables = 0x008 ///< <tt>0x008</tt> Plottables are selectable (e.g. graphs, curves, bars,... see QCPAbstractPlottable)
@@ -416,7 +417,7 @@ class QCP_LIB_DECL QCPLayerable : public QObject
   Q_PROPERTY(bool antialiased READ antialiased WRITE setAntialiased)
   /// \endcond
 public:
-  QCPLayerable(QCustomPlot *plot, QString targetLayer=QString(), QCPLayerable *parentLayerable=0);
+  QCPLayerable(QCustomPlot *plot, const QString& targetLayer=QString(), QCPLayerable *parentLayerable=0);
   ~QCPLayerable();
   
   // getters:
@@ -746,7 +747,7 @@ protected:
   void sizeConstraintsChanged() const;
   void adoptElement(QCPLayoutElement *el);
   void releaseElement(QCPLayoutElement *el);
-  QVector<int> getSectionSizes(QVector<int> maxSizes, QVector<int> minSizes, QVector<double> stretchFactors, int totalSize) const;
+  QVector<int> getSectionSizes(const QVector<int>& maxSizes, QVector<int> minSizes, QVector<double> stretchFactors, int totalSize) const;
   
 private:
   Q_DISABLE_COPY(QCPLayout)
@@ -1503,7 +1504,7 @@ private:
 class QCP_LIB_DECL QCPItemAnchor
 {
 public:
-  QCPItemAnchor(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString name, int anchorId=-1);
+  QCPItemAnchor(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString& name, int anchorId=-1);
   virtual ~QCPItemAnchor();
   
   // getters:
@@ -1556,7 +1557,7 @@ public:
                       ,ptPlotCoords     ///< Dynamic positioning at a plot coordinate defined by two axes (see \ref setAxes).
                     };
   
-  QCPItemPosition(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString name);
+  QCPItemPosition(QCustomPlot *parentPlot, QCPAbstractItem *parentItem, const QString& name);
   virtual ~QCPItemPosition();
   
   // getters:
@@ -2482,7 +2483,7 @@ Q_DECLARE_TYPEINFO(QCPData, Q_MOVABLE_TYPE);
   This is the container in which QCPGraph holds its data.
   \see QCPData, QCPGraph::setData
 */
-typedef QMap<double, QCPData> QCPDataMap;
+typedef QMultiMap<double, QCPData> QCPDataMap;
 typedef QMapIterator<double, QCPData> QCPDataMapIterator;
 typedef QMutableMapIterator<double, QCPData> QCPDataMutableMapIterator;
 
@@ -2579,7 +2580,7 @@ public:
   
 protected:
   // property members:
-  QCPDataMap *mData;
+  QMultiMap<double, QCPData> *mData;
   QPen mErrorPen;
   LineStyle mLineStyle;
   QCPScatterStyle mScatterStyle;
@@ -2652,7 +2653,7 @@ Q_DECLARE_TYPEINFO(QCPCurveData, Q_MOVABLE_TYPE);
   \see QCPCurveData, QCPCurve::setData
 */
 
-typedef QMap<double, QCPCurveData> QCPCurveDataMap;
+typedef QMultiMap<double, QCPCurveData> QCPCurveDataMap;
 typedef QMapIterator<double, QCPCurveData> QCPCurveDataMapIterator;
 typedef QMutableMapIterator<double, QCPCurveData> QCPCurveDataMutableMapIterator;
 
@@ -2815,7 +2816,7 @@ Q_DECLARE_TYPEINFO(QCPBarData, Q_MOVABLE_TYPE);
   This is the container in which QCPBars holds its data.
   \see QCPBarData, QCPBars::setData
 */
-typedef QMap<double, QCPBarData> QCPBarDataMap;
+typedef QMultiMap<double, QCPBarData> QCPBarDataMap;
 typedef QMapIterator<double, QCPBarData> QCPBarDataMapIterator;
 typedef QMutableMapIterator<double, QCPBarData> QCPBarDataMutableMapIterator;
 
@@ -3137,7 +3138,7 @@ Q_DECLARE_TYPEINFO(QCPFinancialData, Q_MOVABLE_TYPE);
   This is the container in which QCPFinancial holds its data.
   \see QCPFinancial, QCPFinancial::setData
 */
-typedef QMap<double, QCPFinancialData> QCPFinancialDataMap;
+typedef QMultiMap<double, QCPFinancialData> QCPFinancialDataMap;
 typedef QMapIterator<double, QCPFinancialData> QCPFinancialDataMapIterator;
 typedef QMutableMapIterator<double, QCPFinancialData> QCPFinancialDataMutableMapIterator;
 

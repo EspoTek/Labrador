@@ -20,23 +20,23 @@ daqForm::daqForm(QWidget *parent, int initialAverage, qulonglong initialMaxFileS
         ui->limitFileSizeGroupBox->setChecked(false);
     } else {
         ui->limitFileSizeGroupBox->setChecked(true);
-        ui->fileSizeSpinBox->setValue(initialMaxFileSize/1000000);
+        ui->fileSizeSpinBox->setValue(initialMaxFileSize/1000000ull);
     }
 
     updateLabels();
     //Internal Signal Connect
     //Changed values
-    connect(ui->fileSizeSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateValues()));
-    connect(ui->numberOfPointsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateValues()));
-    connect(ui->limitFileSizeGroupBox, SIGNAL(toggled(bool)), this, SLOT(updateValues()));
-    connect(ui->sampleAveragingGroup, SIGNAL(toggled(bool)), this, SLOT(updateValues()));
+    connect(ui->fileSizeSpinBox, &QSpinBox::textChanged, this, &daqForm::updateValues);
+    connect(ui->numberOfPointsSpinBox, &QSpinBox::textChanged, this, &daqForm::updateValues);
+    connect(ui->limitFileSizeGroupBox, &QGroupBox::toggled, this, &daqForm::updateValues);
+    connect(ui->sampleAveragingGroup, &QGroupBox::toggled, this, &daqForm::updateValues);
 
     //Label
-    connect(ui->numberOfPointsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateLabels()));
-    connect(ui->fileSizeSpinBox, SIGNAL(valueChanged(int)), this, SLOT(updateLabels()));
+    connect(ui->numberOfPointsSpinBox, &QSpinBox::textChanged, this, &daqForm::updateLabels);
+    connect(ui->fileSizeSpinBox, &QSpinBox::textChanged, this, &daqForm::updateLabels);
 
     //Save Button
-    connect(ui->saveAsDefaultsButton, SIGNAL(clicked(bool)), this, SLOT(trigger_saveButtonPressed()));
+    connect(ui->saveAsDefaultsButton, &QAbstractButton::clicked, this, &daqForm::trigger_saveButtonPressed);
 
 }
 
@@ -68,17 +68,17 @@ void daqForm::updateValues(){
 
     //Averaging
     if(ui->sampleAveragingGroup->isChecked()){
-        updatedAveraging(ui->numberOfPointsSpinBox->value());
-    } else updatedAveraging(1);
+        emit updatedAveraging(ui->numberOfPointsSpinBox->value());
+    } else emit updatedAveraging(1);
 
     //File Size
     if(ui->limitFileSizeGroupBox->isChecked()){
-        updatedMaxFileSize(ui->fileSizeSpinBox->value() * 1000000);
-    } else updatedMaxFileSize(0);
+        emit updatedMaxFileSize(ui->fileSizeSpinBox->value() * 1000000);
+    } else emit updatedMaxFileSize(0);
 
 }
 
 void daqForm::trigger_saveButtonPressed(){
-    saveButtonPressed();
+    emit saveButtonPressed();
 }
 

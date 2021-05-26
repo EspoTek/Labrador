@@ -39,7 +39,7 @@ Desktop_Interface/bin/Labrador
 *.so
 *.so.*
 *.qmake.stash
-pinout.png
+/pinout.png
 Matlab_Octave_API/___librador/build-librador-Desktop_Qt_5_10_0_GCC_64bit-Release
 Matlab_Octave_API/___librador/build-librador-Desktop_Qt_5_10_0_GCC_64bit-Debug
 

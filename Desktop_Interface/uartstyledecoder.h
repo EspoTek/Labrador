@@ -19,7 +19,7 @@ class uartStyleDecoder : public QObject
 {
     Q_OBJECT
 public:
-    explicit uartStyleDecoder(double baudRate, QObject *parent = NULL);
+    explicit uartStyleDecoder(double baudRate, QObject *parent = nullptr);
 	~uartStyleDecoder() = default;
 
 
@@ -27,7 +27,7 @@ private:
     isoBuffer *m_parent;
 
 	// Indicates the current bit being decoded.
-    int serialPtr_bit;
+    unsigned serialPtr_bit;
 
     bool uartTransmitting = false;
     bool newUartSymbol = false;
@@ -61,8 +61,8 @@ public slots:
     void setHexDisplay(bool enabled);
 
 private:
-    char decodeDatabit(int mode, short symbol) const;
-    char decodeBaudot(short symbol) const;
+    char decodeDatabit(int mode, short symbol);
+    char decodeBaudot(short symbol);
 
 	std::mutex mutex;
     UartParity parity = UartParity::None;
@@ -71,6 +71,7 @@ private:
 	UartParity parityOf(uint32_t bitField) const;
 
     bool parityCheckFailed = false;
+    bool m_baudotFigures = false;
 
 };
 

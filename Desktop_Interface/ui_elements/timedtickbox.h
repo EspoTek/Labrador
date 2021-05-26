@@ -12,10 +12,10 @@ class timedTickBox : public QCheckBox
 {
     Q_OBJECT
 public:
-    explicit timedTickBox(QWidget *parent = 0);
+    explicit timedTickBox(QWidget *parent = nullptr);
     bool timerEnabled = true;
     int timerLength = 7500;
-    QTimer *timer = NULL;
+    QTimer *timer = nullptr;
 
 signals:
 

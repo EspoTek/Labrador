@@ -17,6 +17,8 @@ extern int TIMER_PERIOD;
 extern int ISO_RECOVERY_TIME;
 extern int MAX_WINDOW_SIZE;
 extern int TICK_SEPARATION;
+static constexpr double DEFAULT_TOP_RANGE = 5.1;
+static constexpr double DEFAULT_BOTTOM_RANGE = -0.5;
 
 //Multimeter settings
 extern int MULTIMETER_PERIOD;

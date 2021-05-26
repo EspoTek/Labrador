@@ -13,7 +13,7 @@ espoSlider::espoSlider(QWidget *parent) : QSlider(parent)
     labelMargin = 3;
 }
 
-bool espoSlider::setTickLabel(QString label, int position)
+bool espoSlider::setTickLabel(const QString& label, int position)
 {
     if (position > maxTick()){
             //qDebug() << "Tried to label tick at position " << position << "but ticks range from 0 to " << maxTick();
@@ -29,12 +29,14 @@ bool espoSlider::setTickLabel(QString label, int position)
 }
 
 void espoSlider::resizeEvent(QResizeEvent *event){
+    Q_UNUSED(event);
     this->debug_var++;
     //qDebug() << "move/resize event" << debug_var;
     rearrange();
 }
 
 void espoSlider::moveEvent(QMoveEvent *event){
+    Q_UNUSED(event);
     this->debug_var++;
     //qDebug() << "move/resize event" << debug_var;
     rearrange();
@@ -42,10 +44,14 @@ void espoSlider::moveEvent(QMoveEvent *event){
 
 
 void espoSlider::setTickInterval(int ti){
-    addressBook.resize(maxTick(ti) + 1, NULL); //Leaky, but not significantly.  Old qlabels never deleted.
+    // Meh, can't be assed to make sure this is correct, it should only increase anyways
+//    for (int i=ti+2; i<addressBook.size(); i++) {
+//        addressBook[i]->deleteLater();
+//    }
+    addressBook.resize(maxTick(ti) + 1); //Leaky, but not significantly.  Old qlabels never deleted.
     for (int i=0; i<addressBook.size();i++){
-        if (addressBook.at(i)==NULL)
-            addressBook.at(i) = new QLabel(windowPointer);
+        if (addressBook[i]==nullptr)
+            addressBook[i] = new QLabel(windowPointer);
     }
     QSlider::setTickInterval(ti);
     return;
@@ -71,6 +77,8 @@ void espoSlider::rearrange(){
     int c = 5;
 
     int left = this->geometry().left();
+    Q_UNUSED(left);
+
     int right = this->geometry().right();
     int top = this->geometry().top();
     int bottom = this->geometry().bottom();
@@ -94,13 +102,13 @@ void espoSlider::selfMoved(int newval)
     QString newstring;
     newstring.setNum((double) newval/20, 'f', 2);
     //qDebug() << newstring;
-    voltageChanged(((double) newval) / 20);
-    lcdOut(newstring);
+    emit voltageChanged(((double) newval) / 20);
+    emit lcdOut(newstring);
     return;
 }
 
-void espoSlider::poke(void){
+void espoSlider::poke(){
     //qDebug() << "Refreshing to voltage" <<  ((double) (this->value())) / 20;
-    voltageChanged(((double) (this->value())) / 20);
+    emit voltageChanged(((double) (this->value())) / 20);
 }
 

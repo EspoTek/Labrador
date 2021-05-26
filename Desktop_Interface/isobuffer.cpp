@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <limits>
 
 #include "isodriver.h"
 #include "uartstyledecoder.h"
@@ -16,14 +17,13 @@ constexpr char const* fileHeaderFormat =
 constexpr auto kSamplesSeekingCap = 20;
 
 #ifdef INVERT_MM
-constexpr auto fX0Comp = std::greater<int> {};
-constexpr auto fX1X2Comp = std::less<int> {};
+constexpr auto fX0Comp = std::greater<> {};
+constexpr auto fX1X2Comp = std::less<> {};
 #else
-constexpr auto fX0Comp = std::less<int> {};
-constexpr auto fX1X2Comp = std::greater<int> {};
+constexpr auto fX0Comp = std::less<> {};
+constexpr auto fX1X2Comp = std::greater<> {};
 #endif
 
-constexpr auto kTopMultimeter = 2048;
 constexpr double kTriggerSensitivityMultiplier = 4;
 }
 
@@ -62,7 +62,7 @@ void isoBuffer::insertIntoBuffer(short item)
 short isoBuffer::bufferAt(uint32_t idx) const
 {
     if (idx > m_insertedCount)
-        qFatal("isoBuffer::bufferAt: invalid query, idx = %lu, m_insertedCount = %lu", idx, m_insertedCount);
+        qFatal("isoBuffer::bufferAt: invalid query, idx = %u, m_insertedCount = %u", idx, m_insertedCount);
 
     return m_buffer[(m_back-1) + m_bufferLen - idx];
 }
@@ -120,15 +120,69 @@ std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSampl
     std::fill (readData.get(), readData.get() + numSamples, short(0));
 
     double itr = delaySamples;
-    for (int i = 0; i < numSamples && itr < m_insertedCount; i++)
+    short *data = &m_buffer[(m_back-1) + m_bufferLen];
+    for (int pos = 0; pos < numSamples && itr < m_insertedCount; pos++)
     {
+        if (int(itr) < 0 || ((m_back-1) + m_bufferLen - itr) >= m_bufferLen * 2) {
+            qWarning() << "itr out of range" << itr << numSamples << m_insertedCount << pos << timeBetweenSamples;
+            break;
+        }
         assert(int(itr) >= 0);
-        readData[i] = bufferAt(int(itr));
+
+        // TODO: to optimize:
+        // - reverse the loop (I thought the prefetching would be smart enough, but maybe not)
+        // - Split loop into blocks with constant length, to avoid the pshuflw and whatnot
+        if (timeBetweenSamples > 1 && m_downsamplingMethod != DownsamplingMethod::Decimate) {
+            short minimum = std::numeric_limits<short>::max();
+            short maximum = std::numeric_limits<short>::min();
+            const int end = qMin<int>(m_insertedCount, itr + timeBetweenSamples);
+            short result = 0;
+
+            // For performance reasons we can't check the method inside each loop, so a bit of repetition of code
+            switch (m_downsamplingMethod) {
+            case DownsamplingMethod::AverageDelta: {
+                double average = 0.;
+                for (int i=itr; i<end; i++) {
+                    const short val = data[-i];
+                    minimum = (val < minimum) ? val : minimum;
+                    maximum = (maximum < val) ? val : maximum;
+                    average += val;
+                }
+                average /= end - itr;
+                result = qAbs(average - maximum) > qAbs(average - minimum) ? maximum : minimum;
+                break;
+            }
+            case DownsamplingMethod::Bottom:
+                for (int i=itr; i<end; i++) {
+                    const short val = data[-i];
+                    minimum = (val < minimum) ? val : minimum;
+                }
+                result = minimum;
+                break;
+
+            case DownsamplingMethod::Peak:
+                for (int i=itr; i<end; i++) {
+                    const short val = data[-i];
+                    maximum = (maximum < val) ? val : maximum;
+                }
+                result = maximum;
+                break;
+            case DownsamplingMethod::Decimate:
+            default:
+                assert(!"Invalid downsampling method");
+                result = bufferAt(int(itr));
+                break;
+            }
+
+            readData[pos] = result;
+        } else {
+            readData[pos] = bufferAt(int(itr));
+        }
 
         if (singleBit)
         {
             int subIdx = 8*(-itr-floor(-itr));
-            readData[i] &= (1 << subIdx);
+            readData[pos] &= (1 << subIdx);
         }
 
         itr += timeBetweenSamples;
@@ -165,6 +219,7 @@ void isoBuffer::gainBuffer(int gain_log)
             m_buffer[i+m_bufferLen] >>= gain_log;
         }
     }
+    updateTriggerLevel();
 }
 
 
@@ -213,7 +268,7 @@ void isoBuffer::maybeOutputSampleToFile(double convertedSample)
         if (m_fileIO_numBytesWritten >= m_fileIO_maxFileSize)
         {
             m_fileIOEnabled = false; // Just in case signalling fails.
-            fileIOinternalDisable();
+            emit fileIOinternalDisable();
         }
     }
 }
@@ -249,7 +304,6 @@ void isoBuffer::disableFileIO()
     m_fileIOEnabled = false;
     m_currentColumn = 0;
     m_currentFile->close();
-    return;
 }
 
 
@@ -258,9 +312,9 @@ double isoBuffer::sampleConvert(short sample, int TOP, bool AC) const
     double scope_gain = (double)(m_virtualParent->driver->scopeGain);
 
     double voltageLevel = (sample * (vcc/2)) / (m_frontendGain*scope_gain*TOP);
-    if (m_virtualParent->driver->deviceMode != 7) voltageLevel += m_voltage_ref;
+    if (m_virtualParent->driver->deviceMode != DeviceMultimeter) voltageLevel += m_voltage_ref;
 #ifdef INVERT_MM
-    if (m_virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
+    if (m_virtualParent->driver->deviceMode == DeviceMultimeter) voltageLevel *= -1;
 #endif
 
     if (AC)
@@ -284,9 +338,9 @@ short isoBuffer::inverseSampleConvert(double voltageLevel, int TOP, bool AC) con
     }
 
 #ifdef INVERT_MM
-    if (m_virtualParent->driver->deviceMode == 7) voltageLevel *= -1;
+    if (m_virtualParent->driver->deviceMode == DeviceMultimeter) voltageLevel *= -1;
 #endif
-    if (m_virtualParent->driver->deviceMode != 7) voltageLevel -= m_voltage_ref;
+    if (m_virtualParent->driver->deviceMode != DeviceMultimeter) voltageLevel -= m_voltage_ref;
 
     // voltageLevel = (sample * (vcc/2)) / (frontendGain*scope_gain*TOP);
     short sample = (voltageLevel * (m_frontendGain*scope_gain*TOP))/(vcc/2);
@@ -303,7 +357,7 @@ int isoBuffer::capSample(int offset, int target, double seconds, double value, F
     if (static_cast<int32_t>(m_back) < (samples + offset))
         return -1;
 
-    short sample = inverseSampleConvert(value, 2048, 0);
+    short sample = inverseSampleConvert(value, 2048, false);
 
     int found = 0;
     for (int i = samples + offset; i--;)
@@ -338,7 +392,7 @@ int isoBuffer::cap_x2fromLast(double seconds, int x1, double vtop)
 
 void isoBuffer::serialManage(double baudRate, UartParity parity, bool hexDisplay)
 {
-    if (m_decoder == NULL)
+    if (m_decoder == nullptr)
     {
         m_decoder = new uartStyleDecoder(baudRate, this);
     }
@@ -358,14 +412,28 @@ void isoBuffer::setTriggerType(TriggerType newType)
 {
     qDebug() << "Trigger Type: " << (uint8_t)newType;
     m_triggerType = newType;
+    m_triggerPositionList.clear();
 }
 
 void isoBuffer::setTriggerLevel(double voltageLevel, uint16_t top, bool acCoupled)
 {
-    m_triggerLevel = inverseSampleConvert(voltageLevel, top, acCoupled);
-    m_triggerSensitivity = static_cast<short>(1 + abs(voltageLevel * kTriggerSensitivityMultiplier * static_cast<double>(top) / 128.));
+    m_triggerPositionList.clear();
+
+    // Because inverseSampleConvert() depends on e. g. gain, we have to store this and update the level when we change gain
+    m_triggerVoltage = voltageLevel;
+    m_triggerTop = top;
+    m_triggerACCoupled = acCoupled;
+
+    updateTriggerLevel();
+}
+
+void isoBuffer::updateTriggerLevel()
+{
+    m_triggerLevel = inverseSampleConvert(m_triggerVoltage, m_triggerTop, m_triggerACCoupled);
+    m_triggerSensitivity = static_cast<short>(1 + abs(m_triggerVoltage * kTriggerSensitivityMultiplier * static_cast<double>(m_triggerTop) / 128.));
     qDebug() << "Trigger Level: " << m_triggerLevel;
     qDebug() << "Trigger sensitivity:" << m_triggerSensitivity;
+
 }
 
 // TODO: Clear trigger
@@ -375,14 +443,14 @@ void isoBuffer::checkTriggered()
     if (m_triggerType == TriggerType::Disabled)
         return;
 
-    if ((bufferAt(0) >= (m_triggerLevel + m_triggerSensitivity)) && (m_triggerSeekState == TriggerSeekState::BelowTriggerLevel))
+    if ((m_triggerSeekState == TriggerSeekState::BelowTriggerLevel) && (bufferAt(0) >= (m_triggerLevel + m_triggerSensitivity)))
     {
         // Rising Edge
         m_triggerSeekState = TriggerSeekState::AboveTriggerLevel;
         if (m_triggerType == TriggerType::Rising)
             m_triggerPositionList.push_back(m_back - 1);
     }
-    else if ((bufferAt(0) < (m_triggerLevel - m_triggerSensitivity)) && (m_triggerSeekState == TriggerSeekState::AboveTriggerLevel))
+    else if ((m_triggerSeekState == TriggerSeekState::AboveTriggerLevel) && (bufferAt(0) < (m_triggerLevel - m_triggerSensitivity)))
     {
         // Falling Edge
         m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
@@ -393,51 +461,36 @@ void isoBuffer::checkTriggered()
 
 double isoBuffer::getDelayedTriggerPoint(double delay)
 {
-    if (m_triggerPositionList.size() == 0)
-        return 0;
+    if (m_triggerPositionList.isEmpty()) {
+        return -1;
+    }
 	
+    // Holy fuck the STL APIs suck,
+    // TODO: port to something sane that is readable
+
     const uint32_t delaySamples = delay * m_samplesPerSecond;
 
-    auto isValid = [=](uint32_t index)->bool
+    QVector<uint32_t>::reverse_iterator it = std::find_if(m_triggerPositionList.rbegin(), m_triggerPositionList.rend(), [=](uint32_t index)
     {
-        if (m_back > delaySamples)
+        if (m_back > delaySamples) {
             return (index < m_back - delaySamples) || (index >= m_back);
-        else
-            return (index < m_bufferLen + m_back - delaySamples) && (index >= m_back);
-    };
+        }
 
-    auto getDelay = [=](uint32_t index)->double
-    {
-        if (m_back > index)
-            return (m_back - index) / static_cast<double>(m_samplesPerSecond);
-        else
-            return (m_bufferLen + (m_back-1) - index) / static_cast<double>(m_samplesPerSecond);
-    };
+        return (index < m_bufferLen + m_back - delaySamples) && (index >= m_back);
+    });
 
-    // Like std::find_if but returns the last element matching the predicate instead of the first one
-    // TODO: Move this elsewhere (maybe a utils / algorithms file??)
-    // requires first and last to be Bidirectional iters, and form a valid range
-    // requires p to be a valid unaryPredicate
-    // Full signature would be:
-    // template<typename It, typename Predicate>
-    // It find_last_if(It begin, It end, Predicate p)
-    auto find_last_if = [](auto begin, auto end, auto p)
-    {
-        using It = decltype(begin); // TODO: remove this line once this is a proper function
-        std::reverse_iterator<It> rlast(begin), rfirst(end);
-        auto found = std::find_if(rfirst, rlast, p);
-        return found == rlast
-               ? end
-               : std::prev(found.base());
-    };
-
-    auto it = find_last_if(m_triggerPositionList.begin(), m_triggerPositionList.end(), isValid);
-    if (it != m_triggerPositionList.end())
+    if (it != m_triggerPositionList.rend())
     {
         // NOTE: vector::erase does not remove the element pointed to by the second iterator.
-        m_triggerPositionList.erase(m_triggerPositionList.begin(), it);
-        return getDelay(m_triggerPositionList[0]);
+        m_triggerPositionList.erase(m_triggerPositionList.begin(), std::prev(it.base()));
+        const uint32_t index = m_triggerPositionList[0];
+
+        if (m_back > index) {
+            return (m_back - index) / double(m_samplesPerSecond);
+        }
+
+        return (m_bufferLen + (m_back-1) - index) / double(m_samplesPerSecond);
     }
 
-    return 0;
+    return -1;
 }

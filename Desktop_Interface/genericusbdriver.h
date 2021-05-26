@@ -9,6 +9,7 @@
 #include <math.h>
 #include <stdint.h>
 #include <QMessageBox>
+#include <QPointer>
 
 #include "functiongencontrol.h"
 #include "xmega.h"
@@ -28,19 +29,23 @@
     #define NUM_ISO_ENDPOINTS (1)
 #endif
 
-#ifdef PLATFORM_WINDOWS
+#ifdef Q_OS_WINDOWS
     #define ISO_PACKETS_PER_CTX 17
     #define NUM_FUTURE_CTX 40
 #elif defined PLATFORM_RASPBERRY_PI
     #define ISO_PACKETS_PER_CTX 66 // 15fps...
     #define NUM_FUTURE_CTX 4
-#elif defined PLATFORM_LINUX
+#elif defined Q_OS_LINUX
     #define ISO_PACKETS_PER_CTX 17
     #define NUM_FUTURE_CTX 20
-#else
+#elif defined Q_OS_MACOS
     // A real Mac may be capable of higher refresh rates and more parallel contexts, but these settings work on a hackintosh too.
     #define ISO_PACKETS_PER_CTX 33
     #define NUM_FUTURE_CTX 4
+#else
+    #warning "Unknown OS"
+    #define ISO_PACKETS_PER_CTX 17
+    #define NUM_FUTURE_CTX 20
 #endif
 
 #define ISO_TIMER_PERIOD 1
@@ -66,14 +71,14 @@ public:
     int dutyTemp = 21;
     bool killOnConnect = false;
     //Generic Vars
-    unsigned char *outBuffers[2];
+    std::shared_ptr<char[]> outBuffers[2];
     unsigned int bufferLengths[2];
     bool connected = false;
     bool calibrateOnConnect = false;
     //Generic Functions
-    explicit genericUsbDriver(QWidget *parent = 0);
+    explicit genericUsbDriver(QWidget *parent);
     ~genericUsbDriver();
-    virtual char *isoRead(unsigned int *newLength) = 0;
+    virtual std::shared_ptr<char[]> isoRead(unsigned int *newLength) = 0;
     //void setBufferPtr(bufferControl *newPtr);
     void saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState);
     virtual void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA) = 0;
@@ -83,7 +88,7 @@ protected:
     //State Vars
     unsigned char fGenTriple=0;
     unsigned short gainMask = 2056;
-	functionGen::SingleChannelController* fGenPtrData[2] = {NULL, NULL};
+    functionGen::SingleChannelController* fGenPtrData[2] = {nullptr, nullptr};
     int dutyPsu = 0;
     double currentPsuVoltage;
     int digitalPinState = 0;
@@ -93,9 +98,9 @@ protected:
     //bufferControl *bufferPtr = NULL;
     QTimer *psuTimer = nullptr;
     unsigned char pipeID[3];
-    QTimer *isoTimer = nullptr;
-    QTimer *connectTimer = nullptr;
-    QTimer *recoveryTimer;
+    QPointer<QTimer> isoTimer;
+    QPointer<QTimer> connectTimer;
+    QPointer<QTimer> recoveryTimer;
     unsigned char currentWriteBuffer = 0;
     unsigned long timerCount = 0;
     unsigned char inBuffer[256];
