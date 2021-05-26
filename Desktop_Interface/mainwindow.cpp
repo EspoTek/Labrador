@@ -335,8 +335,8 @@ void MainWindow::initialisePlot()
     QPen dashPen(Qt::white, 2);
     dashPen.setStyle(Qt::DashLine);
 
-    ui->scopeAxes->graph(0)->setPen(QPen(Qt::yellow, 1));
-    ui->scopeAxes->graph(1)->setPen(QPen(Qt::cyan, 1));
+    ui->scopeAxes->graph(0)->setPen(QPen(QColor(255, 255, 0, 192), 1));
+    ui->scopeAxes->graph(1)->setPen(QPen(QColor(0, 255, 255, 192), 1));
     ui->scopeAxes->graph(2)->setPen(QPen(Qt::white, 2));
     ui->scopeAxes->graph(3)->setPen(dashPen);
     ui->scopeAxes->graph(4)->setPen(QPen(Qt::white, 2));
