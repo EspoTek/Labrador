@@ -1797,6 +1797,12 @@
     <addaction name="separator"/>
     <addaction name="actionHide_Widget_SignalGen"/>
    </widget>
+   <widget class="QMenu" name="menuAccessibility">
+    <property name="title">
+     <string>Accessibility</string>
+    </property>
+    <addaction name="actionDark_Mode"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOscilloscope_2"/>
    <addaction name="menuSignal_Generator"/>
@@ -1805,6 +1811,7 @@
    <addaction name="menuPower_Supply"/>
    <addaction name="menuConnection_Type"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuAccessibility"/>
   </widget>
   <action name="actionGainAuto">
    <property name="checkable">
@@ -2627,6 +2634,14 @@
    </property>
    <property name="text">
     <string>Hide Widget</string>
+   </property>
+  </action>
+  <action name="actionDark_Mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Dark Mode</string>
    </property>
   </action>
  </widget>

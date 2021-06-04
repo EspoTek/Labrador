@@ -31,6 +31,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    defaultPalette = qApp->palette();
+    defaultStyleName = qApp->style()->objectName();
+
     QCoreApplication::setOrganizationName(kOrganisationName);
     QCoreApplication::setApplicationName(kApplicationName);
 
@@ -1246,6 +1249,12 @@ void MainWindow::readSettingsFile(){
         qDebug() << "ShowRangeDialog setting true";
         ui->actionShow_Range_Dialog_on_Main_Page->setChecked(true);
         on_actionShow_Range_Dialog_on_Main_Page_triggered(true);
+    }
+
+    if(settings->value("DarkModeEnabled").toBool())
+    {
+        ui->actionDark_Mode->setChecked(true);
+        setDarkMode(true);
     }
 #endif
 
@@ -2510,4 +2519,51 @@ void MainWindow::on_actionHide_Widget_LogicAnalyzer_triggered(bool checked)
     ui->busSifferGroup_CH1->setVisible(!checked);
     ui->busSnifferGroup_CH2->setVisible(!checked);
     ui->digitalOutputGroup->setVisible(!checked);
+}
+
+// Thanks Medo
+// https://www.medo64.com/2020/08/dark-mode-for-qt-application/
+void MainWindow::setDarkMode(bool dark)
+{
+    if(dark)
+    {
+        qApp->setStyle(QStyleFactory::create("Fusion"));
+
+        QPalette newPalette;
+        newPalette.setColor(QPalette::Window,          QColor( 37,  37,  37));
+        newPalette.setColor(QPalette::WindowText,      QColor(212, 212, 212));
+        newPalette.setColor(QPalette::Base,            QColor( 60,  60,  60));
+        newPalette.setColor(QPalette::AlternateBase,   QColor( 45,  45,  45));
+        newPalette.setColor(QPalette::PlaceholderText, QColor(127, 127, 127));
+        newPalette.setColor(QPalette::Text,            QColor(212, 212, 212));
+        newPalette.setColor(QPalette::Button,          QColor( 45,  45,  45));
+        newPalette.setColor(QPalette::ButtonText,      QColor(212, 212, 212));
+        newPalette.setColor(QPalette::BrightText,      QColor(240, 240, 240));
+        newPalette.setColor(QPalette::Highlight,       QColor( 38,  79, 120));
+        newPalette.setColor(QPalette::HighlightedText, QColor(240, 240, 240));
+
+        newPalette.setColor(QPalette::Light,           QColor( 60,  60,  60));
+        newPalette.setColor(QPalette::Midlight,        QColor( 52,  52,  52));
+        newPalette.setColor(QPalette::Dark,            QColor( 30,  30,  30) );
+        newPalette.setColor(QPalette::Mid,             QColor( 37,  37,  37));
+        newPalette.setColor(QPalette::Shadow,          QColor( 0,    0,   0));
+
+        newPalette.setColor(QPalette::Disabled, QPalette::Text, QColor(127, 127, 127));
+
+        qApp->setPalette(newPalette);
+    }
+    else
+    {
+        qApp->setStyle(defaultStyleName);
+        qApp->setPalette(defaultPalette);
+    }
+
+    QSettings settings;
+    settings.setValue("DarkModeEnabled", dark);
+}
+
+
+void MainWindow::on_actionDark_Mode_triggered(bool checked)
+{
+    setDarkMode(checked);
 }

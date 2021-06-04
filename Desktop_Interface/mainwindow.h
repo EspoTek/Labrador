@@ -227,6 +227,8 @@ private slots:
 
     void on_actionHide_Widget_LogicAnalyzer_triggered(bool checked);
 
+    void on_actionDark_Mode_triggered(bool checked);
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
@@ -247,12 +249,16 @@ private:
     QSettings *settings;
 	bool calibrationCanceled = false;
 
+    QPalette defaultPalette;
+    QString defaultStyleName;
+
     //Generic Functions
     void initialisePlot();
     void labelPsu();
     void menuSetup();
     void initShortcuts();
     void readSettingsFile();
+    void setDarkMode(bool dark);
 
     //Shortcut pointers
     QActionGroup *gainGroup;

@@ -1,21 +1,22 @@
 #include "deviceconnecteddisplay.h"
 #include "platformspecific.h"
+#include <QApplication>
 
 deviceConnectedDisplay::deviceConnectedDisplay(QWidget *parent) : QLabel(parent)
 {
-    this->setText("Device Not Connected!");
-    this->setStyleSheet("QLabel { color:red; }");
+    setText("Device Not Connected!");
+    setStyleSheet("QLabel { color:red; }");
 }
 
 void deviceConnectedDisplay::connectedStatusChanged(bool status){
     qDebug() << "deviceConnectedDisplay::connectedStatusChanged running!";
     if(status){
-        this->setText("Device Connected");
-        this->setStyleSheet("QLabel { color:black; }");
+        setText("Device Connected");
+        setStyleSheet("");
     }
     else{
-        this->setText("Device Not Connected!");
-        this->setStyleSheet("QLabel { color:red; }");
+        setText("Device Not Connected!");
+        setStyleSheet("QLabel { color:red; }");
     }
     #ifdef PLATFORM_ANDROID
         this->setVisible(!status);
@@ -24,6 +25,6 @@ void deviceConnectedDisplay::connectedStatusChanged(bool status){
 
 void deviceConnectedDisplay::flashingFirmware(void){
     qDebug() << "deviceConnectedDisplay::flashingFirmware";
-    this->setText("Flashing Device Firmware");
-    this->setStyleSheet("QLabel { color:green; }");
+    setText("Flashing Device Firmware");
+    setStyleSheet("QLabel { color:green; }");
 }
