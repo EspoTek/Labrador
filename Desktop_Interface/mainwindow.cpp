@@ -2531,9 +2531,12 @@ void MainWindow::setDarkMode(bool dark)
 
         QPalette newPalette;
         newPalette.setColor(QPalette::Window,          QColor( 37,  37,  37));
-        newPalette.setColor(QPalette::WindowText,      QColor(212, 212, 212));
+        newPalette.setColor(QPalette::WindowText,      QColor( 212, 212, 212));
         newPalette.setColor(QPalette::Base,            QColor( 60,  60,  60));
         newPalette.setColor(QPalette::AlternateBase,   QColor( 45,  45,  45));
+        newPalette.setColor(QPalette::Link,            QColor( 0,   160, 255));
+        newPalette.setColor(QPalette::LinkVisited,     QColor( 60,  127, 255));
+
         //newPalette.setColor(QPalette::PlaceholderText, QColor(127, 127, 127));
         newPalette.setColor(QPalette::Text,            QColor(212, 212, 212));
         newPalette.setColor(QPalette::Button,          QColor( 45,  45,  45));
