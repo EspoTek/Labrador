@@ -1124,20 +1124,23 @@ void MainWindow::cycleDelayLeft_large(){
     ui->controller_iso->delayUpdated(ui->controller_iso->display.delay);
 }
 
-void MainWindow::enableLabradorDebugging(){
+void MainWindow::enableLabradorDebugging(bool enabled){
     qDebug() << "DEBUG MODE ACTIVE";
 
-    ui->debugButton1->setVisible(1);
-    ui->debugButton2->setVisible(1);
-    ui->debugButton3->setVisible(1);
+    ui->debugButton1->setVisible(enabled);
+    ui->debugButton2->setVisible(enabled);
+    ui->debugButton3->setVisible(enabled);
 #ifndef PLATFORM_ANDROID
-    ui->kickstartIsoButton->setVisible(1);
+    ui->kickstartIsoButton->setVisible(enabled);
 #endif
-    ui->debugConsole->setVisible(1);
+    ui->debugConsole->setVisible(enabled);
 
-    new Q_DebugStream(std::cout, ui->debugConsole); //Redirect Console output to QTextEdit
-    Q_DebugStream::registerQDebugMessageHandler(); //Redirect qDebug() output to QTextEdit
-    qDebug() << "DEBUG MODE ACTIVE";
+    if (enabled)
+    {
+        new Q_DebugStream(std::cout, ui->debugConsole); //Redirect Console output to QTextEdit
+        Q_DebugStream::registerQDebugMessageHandler(); //Redirect qDebug() output to QTextEdit
+        qDebug() << "DEBUG MODE ACTIVE";
+    }
 }
 
 void MainWindow::on_actionAutomatically_Enable_Cursors_toggled(bool enabled)
@@ -2149,11 +2152,6 @@ void MainWindow::on_actionFirmware_Recovery_triggered()
     ui->controller_iso->driver->manualFirmwareRecovery();
 }
 
-void MainWindow::on_actionShow_Debug_Console_triggered()
-{
-    enableLabradorDebugging();
-}
-
 void MainWindow::on_actionDAQ_Settings_triggered()
 {
     qDebug() << "on_actionDAQ_Settings_triggered()";
@@ -2569,4 +2567,9 @@ void MainWindow::setDarkMode(bool dark)
 void MainWindow::on_actionDark_Mode_triggered(bool checked)
 {
     setDarkMode(checked);
+}
+
+void MainWindow::on_actionShow_Debug_Console_triggered(bool checked)
+{
+    enableLabradorDebugging(checked);
 }

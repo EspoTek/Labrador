@@ -1779,8 +1779,8 @@
     <addaction name="actionDocumentation"/>
     <addaction name="actionPinout"/>
     <addaction name="actionFirmware_Recovery"/>
-    <addaction name="actionShow_Debug_Console"/>
     <addaction name="actionAbout"/>
+    <addaction name="actionShow_Debug_Console"/>
    </widget>
    <widget class="QMenu" name="menuSignal_Generator">
     <property name="title">
@@ -2467,6 +2467,9 @@
    </property>
   </action>
   <action name="actionShow_Debug_Console">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>&amp;Show Debug Console</string>
    </property>

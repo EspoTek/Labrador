@@ -117,7 +117,7 @@ private slots:
     void cycleDelayRight();
     void cycleDelayLeft_large();
     void cycleDelayRight_large();
-    void enableLabradorDebugging();
+    void enableLabradorDebugging(bool enabled);
 
     //Power Supply
     void on_actionAuto_Lock_toggled(bool arg1);
@@ -163,8 +163,6 @@ private slots:
     void serialEmergencyDisable(int channel);
 
     void on_actionFirmware_Recovery_triggered();
-
-    void on_actionShow_Debug_Console_triggered();
 
     void on_actionDAQ_Settings_triggered();
 
@@ -228,6 +226,8 @@ private slots:
     void on_actionHide_Widget_LogicAnalyzer_triggered(bool checked);
 
     void on_actionDark_Mode_triggered(bool checked);
+
+    void on_actionShow_Debug_Console_triggered(bool checked);
 
 private:
     //Generic Vars
