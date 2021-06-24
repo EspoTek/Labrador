@@ -358,6 +358,7 @@ void isoBuffer::setTriggerType(TriggerType newType)
 {
     qDebug() << "Trigger Type: " << (uint8_t)newType;
     m_triggerType = newType;
+    m_lastTriggerDetlaT = 0;
 }
 
 void isoBuffer::setTriggerLevel(double voltageLevel, uint16_t top, bool acCoupled)
@@ -366,6 +367,7 @@ void isoBuffer::setTriggerLevel(double voltageLevel, uint16_t top, bool acCouple
     m_triggerSensitivity = static_cast<short>(1 + abs(voltageLevel * kTriggerSensitivityMultiplier * static_cast<double>(top) / 128.));
     qDebug() << "Trigger Level: " << m_triggerLevel;
     qDebug() << "Trigger sensitivity:" << m_triggerSensitivity;
+    m_lastTriggerDetlaT = 0;
 }
 
 // TODO: Clear trigger
@@ -440,6 +442,11 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
     }
 
     return 0;
+}
+
+double isoBuffer::getTriggerFrequencyHz()
+{
+    return (m_lastTriggerDetlaT == 0) ? -1. : static_cast<double>(m_samplesPerSecond) / static_cast<double>(m_lastTriggerDetlaT);
 }
 
 void isoBuffer::addTriggerPosition(uint32_t position)

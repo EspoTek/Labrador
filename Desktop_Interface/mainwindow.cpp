@@ -278,8 +278,22 @@ void MainWindow::initialisePlot()
     textLabel->setPen(QPen(Qt::white));
     textLabel->setBrush(QBrush(Qt::black));
 
-    textLabel->setVisible(0);
+    QCPItemText* triggerFrequencyLabel = new QCPItemText(ui->scopeAxes);
+    ui->scopeAxes->addItem(triggerFrequencyLabel);
+    triggerFrequencyLabel->setPositionAlignment(Qt::AlignBottom|Qt::AlignHCenter);
+    triggerFrequencyLabel->position->setType(QCPItemPosition::ptAxisRectRatio);
+    triggerFrequencyLabel->position->setCoords(0.5, 0.98);
+    triggerFrequencyLabel->setText("Default Trigger Frequency Text");
+    triggerFrequencyLabel->setFont(QFont("Courier New", 16));
+    triggerFrequencyLabel->setColor(Qt::white);
+    triggerFrequencyLabel->setPen(QPen(Qt::white));
+    triggerFrequencyLabel->setBrush(QBrush(Qt::black));
+
+
+    textLabel->setVisible(false);
+    triggerFrequencyLabel->setVisible(false);
     ui->controller_iso->cursorTextPtr = textLabel;
+    ui->controller_iso->triggerFrequencyLabel = triggerFrequencyLabel;
 
     ui->scopeAxes->yAxis->setAutoTickCount(9);
     ui->scopeAxes->xAxis->setAutoTickCount(9);

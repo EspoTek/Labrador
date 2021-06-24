@@ -61,6 +61,7 @@ public:
     isoBuffer_file *internalBufferFile = NULL;
 #if QCP_VER == 1
     QCPItemText *cursorTextPtr;
+    QCPItemText *triggerFrequencyLabel;
 #endif
     genericUsbDriver *driver;
     bool doNotTouchGraph = true;

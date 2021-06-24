@@ -1126,15 +1126,16 @@ void isoDriver::triggerGroupStateChange(bool enabled){
 }
 
 void isoDriver::broadcastStats(bool CH2){
-    if(CH2){
-        if(!update_CH2) return;
+    if (CH2 && update_CH2)
+    {
         update_CH2 = false;
         sendVmax_CH2(currentVmax);
         sendVmin_CH2(currentVmin);
         sendVmean_CH2(currentVmean);
         sendVRMS_CH2(currentVRMS);
-    } else{
-        if(!update_CH1) return;
+    }
+    else if (update_CH1)
+    {
         update_CH1 = false;
         sendVmax_CH1(currentVmax);
         sendVmin_CH1(currentVmin);
@@ -1146,6 +1147,39 @@ void isoDriver::broadcastStats(bool CH2){
 void isoDriver::slowTimerTick(){
     update_CH1 = true;
     update_CH2 = true;
+
+    bool frequencyLabelVisible = false;
+
+    if (triggerEnabled)
+    {
+        double triggerFrequency;
+        switch(triggerMode)
+        {
+        case 0:
+        case 1:
+            triggerFrequency = (driver->deviceMode == 6) ? internalBuffer750->getTriggerFrequencyHz() : internalBuffer375_CH1->getTriggerFrequencyHz();
+            break;
+
+        case 2:
+        case 3:
+            triggerFrequency = internalBuffer375_CH2->getTriggerFrequencyHz();
+            break;
+        }
+
+        if (triggerFrequency > 0.)
+        {
+            frequencyLabelVisible = true;
+            siprint triggerFreqSiprint("Hz", triggerFrequency);
+            siprint periodSiprint("s", 1. / triggerFrequency);
+
+            QString cursorString;
+            cursorString.sprintf(" Trigger ΔT = %s, f = %s ", periodSiprint.printVal(), triggerFreqSiprint.printVal());
+            triggerFrequencyLabel->setText(cursorString);
+        }
+        qDebug() << triggerFrequency << "Hz";
+    }
+
+    triggerFrequencyLabel->setVisible(frequencyLabelVisible);
 }
 
 void isoDriver::setTopRange(double newTop)

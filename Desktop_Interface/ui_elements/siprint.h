@@ -9,7 +9,7 @@
 class siprint
 {
 public:
-    siprint(char *unitsInit, double valInit);
+    siprint(const char *unitsInit, double valInit);
     char* printVal();
     char units[6];
     double value;

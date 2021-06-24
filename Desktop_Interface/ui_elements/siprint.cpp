@@ -1,6 +1,6 @@
 #include "siprint.h"
 
-siprint::siprint(char *unitsInit, double valInit)
+siprint::siprint(const char *unitsInit, double valInit)
 {
     strncpy(units, unitsInit, 6);
     value = valInit;
