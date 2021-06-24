@@ -1434,6 +1434,14 @@ void isoDriver::hideCH2(bool enable)
 
 void isoDriver::triggerStateChanged()
 {
+    if (!triggerEnabled)
+    {
+        internalBuffer375_CH1->setTriggerType(TriggerType::Disabled);
+        internalBuffer375_CH2->setTriggerType(TriggerType::Disabled);
+        internalBuffer750->setTriggerType(TriggerType::Disabled);
+        return;
+    }
+
     qDebug() << "triggerStateChanged()";
     switch(triggerMode)
     {

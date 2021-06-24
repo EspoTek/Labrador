@@ -127,8 +127,11 @@ private:
 	qulonglong m_fileIO_maxFileSize;
 	qulonglong m_fileIO_numBytesWritten;
 	unsigned int m_currentColumn = 0;
+    uint32_t m_lastTriggerDetlaT = 0;
 
 	isoDriver* m_virtualParent;
+
+    void addTriggerPosition(uint32_t position);
 signals:
 	void fileIOinternalDisable();
 public slots:

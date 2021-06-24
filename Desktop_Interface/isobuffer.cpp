@@ -380,14 +380,14 @@ void isoBuffer::checkTriggered()
         // Rising Edge
         m_triggerSeekState = TriggerSeekState::AboveTriggerLevel;
         if (m_triggerType == TriggerType::Rising)
-            m_triggerPositionList.push_back(m_back - 1);
+            addTriggerPosition(m_back - 1);
     }
     else if ((bufferAt(0) < (m_triggerLevel - m_triggerSensitivity)) && (m_triggerSeekState == TriggerSeekState::AboveTriggerLevel))
     {
         // Falling Edge
         m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
         if (m_triggerType == TriggerType::Falling)
-            m_triggerPositionList.push_back(m_back - 1);
+            addTriggerPosition(m_back - 1);
     }
 }
 
@@ -411,7 +411,7 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
         if (m_back > index)
             return (m_back - index) / static_cast<double>(m_samplesPerSecond);
         else
-            return (m_bufferLen + (m_back-1) - index) / static_cast<double>(m_samplesPerSecond);
+            return (m_bufferLen + (m_back - 1) - index) / static_cast<double>(m_samplesPerSecond);
     };
 
     // Like std::find_if but returns the last element matching the predicate instead of the first one
@@ -440,4 +440,15 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
     }
 
     return 0;
+}
+
+void isoBuffer::addTriggerPosition(uint32_t position)
+{
+    static uint32_t s_lastPosition = 0;
+    m_triggerPositionList.push_back(m_back - 1);
+    m_lastTriggerDetlaT = (position > s_lastPosition) ? (position - s_lastPosition) : position + m_bufferLen - s_lastPosition;
+
+    s_lastPosition = position;
+
+    //qDebug() << position << s_lastPosition << static_cast<double>(m_samplesPerSecond) / static_cast<double>(m_lastTriggerDetlaT) << "Hz";
 }
