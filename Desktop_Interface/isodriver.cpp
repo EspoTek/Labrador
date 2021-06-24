@@ -546,8 +546,8 @@ void isoDriver::udateCursors(void){
     char temp_hori[64];
     char temp_vert[64];
     char temp_separator[2];
-    sprintf(temp_hori, "V0=%s,  V1=%s,  ΔV=%s", v0->printVal(), v1->printVal(), dv->printVal());
-    sprintf(temp_vert, "t0=%s, t1=%s,  Δt=%s,  f=%s", t0->printVal(), t1->printVal(), dt->printVal(), f->printVal());
+    sprintf(temp_hori, "V0 = %s,  V1 = %s,  ΔV = %s", v0->printVal(), v1->printVal(), dv->printVal());
+    sprintf(temp_vert, "t0 = %s, t1 = %s,  Δt = %s,  f = %s", t0->printVal(), t1->printVal(), dt->printVal(), f->printVal());
     sprintf(temp_separator, "\n");
 
     //sprintf(temp, "hello!");

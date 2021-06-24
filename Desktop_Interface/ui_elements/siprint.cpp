@@ -1,65 +1,59 @@
 #include "siprint.h"
 
 siprint::siprint(const char *unitsInit, double valInit)
+: value(valInit)
 {
     strncpy(units, unitsInit, 6);
-    value = valInit;
 }
 
 char* siprint::printVal(){
-    double tempValue = value;
-    bool negative = false;
+    std::string suffix;
+    double modifiedValue;
+    bool negative = (value < 0);
 
-    if (tempValue == 0){
-        sprintf(printString, "0%s", units);
-        return printString;
-    }
-    if (value < 0){
-        negative = true;
-        tempValue *= -1;
-    }
-    if (tempValue >= 1000000000000000000){
-        sprintf(printString, "Inf %s", units);
-        return printString;
+    char* tempStringPtr = printString;
+    if (negative)
+    {
+        printString[0] = '-';
+        tempStringPtr++;
     }
 
-
-    if (tempValue >= 1000000){
-        sprintf(printString, "%c%.2fM%s", (negative ? '-':' '), tempValue/1000000, units);
-        return printString;
+    if (abs(value) >= 1000000000000000000)
+    {
+        sprintf(tempStringPtr, "Inf %s", units);
+    }
+    else if (abs(value) >= 1000000)
+    {
+        sprintf(tempStringPtr, "%.2fM%s", abs(value)/1000000, units);
+    }
+    else if (abs(value) >= 1000)
+    {
+        sprintf(tempStringPtr, "%.2fk%s",  abs(value)/1000, units);
+    }
+    else if (abs(value) >= 1)
+    {
+        sprintf(tempStringPtr, "%.2f%s",  abs(value), units);
+    }
+    else if (abs(value) >= 0.001)
+    {
+        sprintf(tempStringPtr, "%.2fm%s", abs(value)*1000, units);
+    }
+    else if (abs(value) >= 0.000001)
+    {
+        sprintf(tempStringPtr, "%.2fu%s",  abs(value)*1000000, units);
+    }
+    else if (abs(value) >= 0.000000001)
+    {
+        sprintf(tempStringPtr, "%.2fn%s",  abs(value)*1000000000, units);
+    }
+    else if (abs(value) >= 0.000000000001)
+    {
+        sprintf(tempStringPtr, "%.2fp%s",  abs(value)*1000000000000, units);
+    }
+    else if (abs(value) >= 1)
+    {
+        sprintf(tempStringPtr, "%.2f%s",  abs(value), units);
     }
 
-    if (tempValue >= 1000){
-        sprintf(printString, "%c%.2fk%s", (negative ? '-':' '), tempValue/1000, units);
-        return printString;
-    }
-
-    if (tempValue >= 1){
-        sprintf(printString, "%c%.2f%s", (negative ? '-':' '), tempValue, units);
-        return printString;
-    }
-
-    if (tempValue >= 0.001){
-        sprintf(printString, "%c%.2fm%s", (negative ? '-' : ' '), tempValue*1000, units);
-        return printString;
-    }
-
-    if (tempValue >= 0.000001){
-        sprintf(printString, "%c%.2fu%s", (negative ? '-':' '), tempValue*1000000, units);
-        return printString;
-    }
-
-    if (tempValue >= 0.000000001){
-        sprintf(printString, "%c%.2fn%s", (negative ? '-':' '), tempValue*1000000000, units);
-        return printString;
-    }
-
-    if (tempValue >= 0.000000000001){
-        sprintf(printString, "%c%.2fp%s", (negative ? '-':' '), tempValue*1000000000000, units);
-        return printString;
-    }
-
-
-    sprintf(printString, "0%s", units);
     return printString;
 }
