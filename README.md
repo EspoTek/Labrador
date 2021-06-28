@@ -53,8 +53,6 @@ The PCB files can be edited in KiCAD 4.0.
 Most of the main bugs from the pre-launch period have now been fixed, including synchronisation issues.  
 Please open an issue if you're aware of any in particular.
 
-The batch of Labrador boards produced in February 2020 were configured incorrectly at the factory and **will not be detected** by older releases of the Labrador software interface.  There is a fix in the newer versions of the software that will automatically reconfigure the board upon connection.  Please update your software if you are having any issues!
-
 # Collaboration
 If you want to make any suggestions, or better yet, submit some code, please do so here at GitHub.
 
