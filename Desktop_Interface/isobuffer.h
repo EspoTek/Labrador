@@ -16,6 +16,7 @@
 #include "xmega.h"
 #include "desktop_settings.h"
 #include "genericusbdriver.h"
+#include "asyncdft.h"
 
 class isoDriver;
 class uartStyleDecoder;
@@ -65,7 +66,6 @@ public:
 	void writeBuffer_short(short* data, int len);
 
 	std::unique_ptr<short[]> readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
-
 //	file I/O
 private:
 	void outputSampleToFile(double averageSample);
@@ -86,6 +86,10 @@ public:
     void setTriggerType(TriggerType newType);
     void setTriggerLevel(double voltageLevel, uint16_t top, bool acCoupled);
     double getDelayedTriggerPoint(double delay);
+    // DFT
+    AsyncDFT async_dft;
+    QVector<double> getDFTPowerSpectrum();
+    QVector<double> getFrequenciyWindow();
 
 // ---- MEMBER VARIABLES ----
 
@@ -129,6 +133,8 @@ private:
 	unsigned int m_currentColumn = 0;
 
 	isoDriver* m_virtualParent;
+    //DFT
+
 signals:
 	void fileIOinternalDisable();
 public slots:

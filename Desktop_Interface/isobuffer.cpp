@@ -57,6 +57,8 @@ void isoBuffer::insertIntoBuffer(short item)
         m_back = 0;
     }
 
+    async_dft.addSample(item);
+
     checkTriggered();
 }
 
@@ -441,4 +443,29 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
     }
 
     return 0;
+}
+
+QVector<double> isoBuffer::getDFTPowerSpectrum()
+{
+    try {
+        return async_dft.getPowerSpectrum();
+    }  catch (std::exception) {
+        /*If DFT is not ready, returning a 0s array*/
+        std::cout << "DFT not yet ready " <<  std::endl;
+        return QVector<double>(async_dft.n_samples, 0);
+    }
+}
+
+QVector<double> isoBuffer::getFrequenciyWindow()
+{
+    int max_freq = 62500;
+    double delta_freq = ((double) 350000)/ ((double) async_dft.n_samples);
+    int tot = max_freq/delta_freq + 1;
+    QVector<double> f(tot);
+
+    for (int i = 0; i < tot; i++) {
+        f[i] = i*delta_freq;
+    }
+
+    return f;
 }

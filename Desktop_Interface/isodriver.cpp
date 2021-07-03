@@ -4,6 +4,7 @@
 #include "platformspecific.h"
 #include <math.h>
 #include "daqloadprompt.h"
+#include "sliding_dft.hpp"
 #include <iostream>
 #include <omp.h>
 
@@ -34,19 +35,6 @@ isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
     slowTimer->setTimerType(Qt::PreciseTimer);
     slowTimer->start(MULTIMETER_PERIOD);
     connect(slowTimer, SIGNAL(timeout()), this, SLOT(slowTimerTick()));
-
-    /*Creating DFT plan*/
-    fftw_init_threads();
-    fftw_plan_with_nthreads(omp_get_max_threads());
-    std::cout << "Starting with " << omp_get_max_threads() << "threads" << std::endl;
-    this->N = 1<<17;
-    this->N *= omp_get_max_threads();
-    this->in_buffer = fftw_alloc_real(N);
-    this->out_buffer = fftw_alloc_complex(N);
-    std::cout << in_buffer << " " << out_buffer << " " << N<<  std::endl;
-    this->plan = fftw_plan_dft_r2c_1d(N,in_buffer, out_buffer,0);
-    std::cout << plan <<  std::endl;
-
 }
 
 void isoDriver::setDriver(genericUsbDriver *newDriver){
@@ -625,64 +613,6 @@ void isoDriver::setTriggerMode(int newMode)
     triggerStateChanged();
 }
 
-QVector<double> isoDriver::getDFTAmplitude(QVector<double> input)
-{
-    /*Zero-padding for better resolution of DFT*/
-    QVector<double> amplitude(N/2+1,0);
-    static int count = 100;
-    double cur_maximum = -1;
-    for (int i = 0; i < input.length(); i++) {
-        in_buffer[i] = input[i];
-    }
-    fftw_execute(plan);
-    amplitude[0] = sqrt(out_buffer[0][0]*out_buffer[0][0] + out_buffer[0][1]*out_buffer[0][1]);  /* DC component */
-
-    cur_maximum = (amplitude[0] > cur_maximum ) ? amplitude[0] : cur_maximum;
-
-    for (int k = 1; k < (N+1)/2; ++k) {  /* (k < N/2 rounded up) */
-         amplitude[k] = sqrt(out_buffer[k][0]*out_buffer[k][0] + out_buffer[k][1]*out_buffer[k][1]);
-
-         cur_maximum = (amplitude[k] > cur_maximum ) ? amplitude[k] : cur_maximum;
-    }
-    if (N % 2 == 0) { /* N is even */
-         amplitude[N/2] = sqrt(out_buffer[N/2][0]*out_buffer[N/2][0]);  /* Nyquist freq. */
-
-         cur_maximum = (amplitude[N/2] > cur_maximum ) ? amplitude[N/2] : cur_maximum;
-
-    }
-
-    if (cur_maximum < maximum) {
-        count--;
-    } else {
-        /*current maximum is higher resetting count to 10*/
-        maximum = cur_maximum;
-        count = 100;
-    }
-
-    if (count == 0) {
-        /*current maximum is lower for 10 consecutive samples*/
-        maximum = cur_maximum;
-        count = 100;
-    }
-
-
-    return amplitude;
-}
-
-QVector<double> isoDriver::getFrequencies()
-{
-    int max_freq = 62500;
-    double delta_freq = ((double) 375000)/ ((double) N);
-    int tot = max_freq/delta_freq + 1;
-    QVector<double> f(tot);
-
-    for (int i = 0; i < tot; i++) {
-        f[i] = i*delta_freq;
-    }
-    return f;
-}
-
-
 //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
 void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  
 {
@@ -739,19 +669,6 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES,CH2_mode==2, display.delay + triggerDelay);
         if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay + triggerDelay);
         if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
-    } else {
-        /*Don't allow moving frequency spectrum right or left
-         * by overwriting display window and delay before reading
-         * the buffer each time.
-         * @TODO improve this limitation.
-        */
-        double const_displ_window = ((double)N)/(internalBuffer375_CH1->m_samplesPerSecond);
-        double const_displ_delay = 0;
-        display.delay = const_displ_delay;
-        display.window = const_displ_window;
-        readData375_CH1 = internalBuffer375_CH1->readBuffer(const_displ_window,N,CH1_mode==2, const_displ_delay);
-        if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(const_displ_window,N,CH2_mode==2,const_displ_delay);
-        if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(const_displ_window,N,false, const_displ_delay);
     }
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES);
@@ -811,15 +728,22 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         axes->yAxis->setRange(ymin, ymax);
     } else{
         if (spectrum) { /*If frequency spectrum mode*/
-            QVector<double> amplitude = getDFTAmplitude(CH1);
-            QVector<double> f = getFrequencies();
-            axes->graph(0)->setData(f,amplitude);
-            if(CH2_mode) {
-                amplitude = getDFTAmplitude(CH2);
-                axes->graph(1)->setData(f,amplitude);
+            try {
+                QVector<double> amplitude = this->internalBuffer375_CH1->getDFTPowerSpectrum();
+                QVector<double> f = this->internalBuffer375_CH1->getFrequenciyWindow();
+                axes->graph(0)->setData(f,amplitude);
+#if 0
+                if(CH2_mode) {
+                    amplitude = getDFTAmplitude(CH2);
+                    axes->graph(1)->setData(f,amplitude);
+                }
+#endif
+                axes->xAxis->setRange(f.length(), 0);
+                axes->yAxis->setRange(100,0);
+            }  catch (std::exception) {
+                std::cout << "Cannot yet get correct value for DFT" << std::endl;
             }
-            axes->xAxis->setRange(f.length(), 0);
-            axes->yAxis->setRange(maximum,0);
+
         } else {
             axes->graph(0)->setData(x,CH1);
             if(CH2_mode) axes->graph(1)->setData(x,CH2);
