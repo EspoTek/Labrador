@@ -4,7 +4,6 @@
 #include "platformspecific.h"
 #include <math.h>
 #include "daqloadprompt.h"
-#include "sliding_dft.hpp"
 #include <iostream>
 #include <omp.h>
 
@@ -731,6 +730,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
             try {
                 QVector<double> amplitude = this->internalBuffer375_CH1->getDFTPowerSpectrum();
                 QVector<double> f = this->internalBuffer375_CH1->getFrequenciyWindow();
+                double maximum = this->internalBuffer375_CH1->async_dft.maximum;
                 axes->graph(0)->setData(f,amplitude);
 #if 0
                 if(CH2_mode) {
@@ -739,7 +739,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
                 }
 #endif
                 axes->xAxis->setRange(f.length(), 0);
-                axes->yAxis->setRange(100,0);
+                axes->yAxis->setRange(maximum,0);
             }  catch (std::exception) {
                 std::cout << "Cannot yet get correct value for DFT" << std::endl;
             }

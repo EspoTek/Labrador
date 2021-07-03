@@ -451,7 +451,6 @@ QVector<double> isoBuffer::getDFTPowerSpectrum()
         return async_dft.getPowerSpectrum();
     }  catch (std::exception) {
         /*If DFT is not ready, returning a 0s array*/
-        std::cout << "DFT not yet ready " <<  std::endl;
         return QVector<double>(async_dft.n_samples, 0);
     }
 }
