@@ -59,8 +59,8 @@ public:
 
 // Advanced buffer operations
 private:
-	template<typename T, typename Function>
-	void writeBuffer(T* data, int len, int TOP, Function transform);
+    template<typename T, typename Function>
+    void writeBuffer(T* data, int len, int TOP, Function transform);
 public:
 	void writeBuffer_char(char* data, int len);
 	void writeBuffer_short(short* data, int len);
@@ -86,10 +86,6 @@ public:
     void setTriggerType(TriggerType newType);
     void setTriggerLevel(double voltageLevel, uint16_t top, bool acCoupled);
     double getDelayedTriggerPoint(double delay);
-    // DFT
-    AsyncDFT async_dft;
-    QVector<double> getDFTPowerSpectrum();
-    QVector<double> getFrequenciyWindow();
 
 // ---- MEMBER VARIABLES ----
 
@@ -121,6 +117,8 @@ public:
 //	UARTS decoding
 	uartStyleDecoder* m_decoder = NULL;
 	bool m_isDecoding = true;
+//DFT
+    AsyncDFT async_dft;
 private:
 //	File I/O
 	bool m_fileIOEnabled = false;
@@ -133,7 +131,6 @@ private:
 	unsigned int m_currentColumn = 0;
 
 	isoDriver* m_virtualParent;
-    //DFT
 
 signals:
 	void fileIOinternalDisable();

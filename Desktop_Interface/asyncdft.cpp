@@ -3,6 +3,7 @@
 #include <math.h>
 #define DBG 0
 
+
 AsyncDFT::AsyncDFT()
 {
     /*Creating the main thread, which will manage everything*/
@@ -19,18 +20,16 @@ AsyncDFT::AsyncDFT()
     std::cout << "Starting with " << omp_get_max_threads() << "threads" << std::endl;
 #endif
     out_buffer = fftw_alloc_complex(n_samples);
-    plan = fftw_plan_dft_r2c_1d(n_samples,window, out_buffer,0);
-    /*Starting manager*/
-    manager = std::thread(&AsyncDFT::threadManager, this);
+    plan = fftw_plan_dft_r2c_1d(n_samples,in_buffer, out_buffer,0);
 }
 
 AsyncDFT::~AsyncDFT()
 {
+#if DBG
     stopping = true;
     mtx_samples.unlock();   //Unlock thread manager if blocked and waiting for more samples
     while (!manager.joinable());
     manager.join();
-#if DBG
     std::cout << "Joined manager thread [DESTRUCTOR]" << std::endl;
 #endif
 }
@@ -39,11 +38,18 @@ void AsyncDFT::threadManager()
 {
     while(stopping == false) {
         /*Calculating DFT if there are new samples, otherwise DFT would be the same*/
-        mtx_samples.lock();
-        /*Data is now valid*/
-        data_valid = true;
-        /*Shifting window by 1*/
-        shift();
+        if (samples_count >= n_samples) {
+            mtx_samples.lock();
+            if (!window.empty()) {
+                window.pop_front();
+            }
+            short tmp = pending_samples.front();
+            pending_samples.pop();
+            window.push_back(tmp);
+            /*Data is now valid*/
+            data_valid = true;
+            mtx_samples.unlock();
+        }
     }
 }
 
@@ -51,78 +57,84 @@ void AsyncDFT::threadManager()
 void AsyncDFT::addSample(short sample)
 {
     /*Adding to the waiting jobs the sample*/
-    accumulated_samples.push(sample);
     if (samples_count >= n_samples) {
-        /*Add the last sample to the window*/
-        short oldest_sample = accumulated_samples.front();
-        window[n_samples-1] = oldest_sample;
-        accumulated_samples.pop();
-        mtx_samples.unlock(); //unlock the thread Manager for computing DFT
+        /*Shifting window by 1 by removing first element and adding an element to the end*/
+        window.pop_front();
+        window.push_back(sample);
+        samples_count = n_samples;
+        data_valid = true;
     } else {
         /*Fill the window*/
-        window[samples_count] = sample;
+        window.push_back(sample);
     }
     /*Updating the number of samples*/
     samples_count++;
 }
 
-QVector<double> AsyncDFT::getPowerSpectrum()
+QVector<double> AsyncDFT::getPowerSpectrum(QVector<double> input)
 {
     /*Before doing anything, check if sliding DFT is computable*/
     if (data_valid == false) {
         throw std::exception();
     }
 
+    for(int i = 0; i < n_samples; i++) {
+        in_buffer[i] = input[i];
+    }
+
     /*Zero-padding for better resolution of DFT*/
     QVector<double> amplitude(n_samples/2+1,0);
     static int count = 100;
-    double cur_maximum = -1;
+    maximum = -1;
 
     /*Executing FFTW plan*/
     fftw_execute(plan);
     amplitude[0] = sqrt(out_buffer[0][0]*out_buffer[0][0] + out_buffer[0][1]*out_buffer[0][1]);  /* DC component */
 
-    cur_maximum = (amplitude[0] > cur_maximum ) ? amplitude[0] : cur_maximum;
+    maximum = (amplitude[0] > maximum ) ? amplitude[0] : maximum;
 
     for (int k = 1; k < (n_samples+1)/2; ++k) {  /* (k < N/2 rounded up) */
          amplitude[k] = sqrt(out_buffer[k][0]*out_buffer[k][0] + out_buffer[k][1]*out_buffer[k][1]);
 
-         cur_maximum = (amplitude[k] > cur_maximum ) ? amplitude[k] : cur_maximum;
+         maximum = (amplitude[k] > maximum ) ? amplitude[k] : maximum;
     }
     if (n_samples % 2 == 0) { /* N is even */
          amplitude[n_samples/2] = sqrt(out_buffer[n_samples/2][0]*out_buffer[n_samples/2][0]);  /* Nyquist freq. */
 
-         cur_maximum = (amplitude[n_samples/2] > cur_maximum ) ? amplitude[n_samples/2] : cur_maximum;
+         maximum = (amplitude[n_samples/2] > maximum ) ? amplitude[n_samples/2] : maximum;
 
     }
 
-    if (cur_maximum < maximum) {
-        count--;
-    } else {
-        /*current maximum is higher resetting count to 10*/
-        maximum = cur_maximum;
-        count = 100;
+    for(int i = 0; i < (n_samples+1)/2; i++) {
+        amplitude[i] /= maximum;
+        amplitude[i] *= 100;
     }
-
-    if (count == 0) {
-        /*current maximum is lower for 10 consecutive samples*/
-        maximum = cur_maximum;
-        count = 100;
-    }
-
-    std::cout << "Cur Maximum: " << cur_maximum << std::endl;
+    maximum = 100;
     return amplitude;
 }
 
-void AsyncDFT::shift()
+QVector<double> AsyncDFT::getFrequenciyWindow()
 {
-#if DBG
-    std::cout << "Shifting [S]" << std::endl;
-#endif
-    for(int i = 0; i+1 < n_samples; i++) {
-        window[i] = window[i+1];
+    int max_freq = 62500;
+    double delta_freq = ((double) 350000)/ ((double) n_samples);
+    int tot = max_freq/delta_freq + 1;
+    QVector<double> f(tot);
+
+    for (int i = 0; i < tot; i++) {
+        f[i] = i*delta_freq;
     }
-#if DBG
-    std::cout << "Shifting [E]" << std::endl;
-#endif
+
+    return f;
+}
+
+std::unique_ptr<short[]> AsyncDFT::getWindow()
+{
+    std::unique_ptr<short[]> readData = std::make_unique<short[]>(n_samples);
+    int i = 0;
+    for (auto& item : window) {
+        readData[i] = item;
+        i++;
+    }
+
+    return readData;
 }
