@@ -84,7 +84,6 @@ QVector<double> AsyncDFT::getPowerSpectrum(QVector<double> input)
 
     /*Zero-padding for better resolution of DFT*/
     QVector<double> amplitude(n_samples/2+1,0);
-    static int count = 100;
     maximum = -1;
 
     /*Executing FFTW plan*/
@@ -109,7 +108,9 @@ QVector<double> AsyncDFT::getPowerSpectrum(QVector<double> input)
         amplitude[i] /= maximum;
         amplitude[i] *= 100;
     }
+
     maximum = 100;
+
     return amplitude;
 }
 

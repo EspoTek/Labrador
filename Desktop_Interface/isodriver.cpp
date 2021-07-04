@@ -185,8 +185,8 @@ void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int T
         if (data[i] > currentVmax) currentVmax = data[i];
         if (data[i] < currentVmin) currentVmin = data[i];
     }
-    currentVmean  = accumulated / GRAPH_SAMPLES;
-    currentVRMS = sqrt(accumulated_square / GRAPH_SAMPLES);
+    currentVmean  = accumulated / doublePtr->size();
+    currentVRMS = sqrt(accumulated_square / doublePtr->size());
     if(AC){
         //Previous measurments are wrong, edit and redo.
         accumulated = 0;
@@ -194,7 +194,7 @@ void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int T
         currentVmax = -20;
         currentVmin = 20;
 
-        for (int i=0;i<GRAPH_SAMPLES;i++){
+        for (int i=0;i<doublePtr->size();i++){
             data[i] -= currentVmean;
 
             accumulated += data[i];
@@ -202,8 +202,8 @@ void isoDriver::analogConvert(short *shortPtr, QVector<double> *doublePtr, int T
             if (data[i] > currentVmax) currentVmax = data[i];
             if (data[i] < currentVmin) currentVmin = data[i];
         }
-        currentVmean  = accumulated / GRAPH_SAMPLES;
-        currentVRMS = sqrt(accumulated_square / GRAPH_SAMPLES);
+        currentVmean  = accumulated / doublePtr->size();
+        currentVRMS = sqrt(accumulated_square / doublePtr->size());
     }
     //cool_waveform = cool_waveform - AC_offset;
 }
