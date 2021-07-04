@@ -1,6 +1,7 @@
 #include "asyncdft.h"
 #include <iostream>
 #include <math.h>
+#include "isobuffer.h"
 #define DBG 0
 
 
@@ -15,7 +16,7 @@ AsyncDFT::AsyncDFT()
     /*Initializing time domain window to 0s*/
     /*FFTW3 inits*/
     fftw_init_threads();
-    fftw_plan_with_nthreads(omp_get_max_threads());
+    fftw_plan_with_nthreads(omp_get_max_threads() * 2);
 #if DBG
     std::cout << "Starting with " << omp_get_max_threads() << "threads" << std::endl;
 #endif
@@ -114,14 +115,12 @@ QVector<double> AsyncDFT::getPowerSpectrum(QVector<double> input)
     return amplitude;
 }
 
-QVector<double> AsyncDFT::getFrequenciyWindow()
+QVector<double> AsyncDFT::getFrequenciyWindow(int samplesPerSeconds)
 {
-    int max_freq = 62500;
-    double delta_freq = ((double) 350000)/ ((double) n_samples);
-    int tot = max_freq/delta_freq + 1;
-    QVector<double> f(tot);
+    double delta_freq = ((double)  samplesPerSeconds)/ ((double) n_samples);
+    QVector<double> f(n_samples/2 + 1);
 
-    for (int i = 0; i < tot; i++) {
+    for (int i = 0; i < n_samples/2 + 1; i++) {
         f[i] = i*delta_freq;
     }
 

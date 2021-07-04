@@ -740,7 +740,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
         if (spectrum) { /*If frequency spectrum mode*/
             try {
                 QVector<double> amplitude = internalBuffer375_CH1->async_dft.getPowerSpectrum(converted_dt_samples);
-                QVector<double> f = internalBuffer375_CH1->async_dft.getFrequenciyWindow();
+                QVector<double> f = internalBuffer375_CH1->async_dft.getFrequenciyWindow(internalBuffer375_CH1->m_samplesPerSecond);
                 double maximum = internalBuffer375_CH1->async_dft.maximum;
                 axes->graph(0)->setData(f,amplitude);
 #if 0
@@ -749,7 +749,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
                     axes->graph(1)->setData(f,amplitude);
                 }
 #endif
-                axes->xAxis->setRange(f.length(), 0);
+                axes->xAxis->setRange(f.last(), f.front());
                 axes->yAxis->setRange(maximum,0);
             }  catch (std::exception) {
                 std::cout << "Cannot yet get correct value for DFT" << std::endl;
