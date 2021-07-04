@@ -669,24 +669,27 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
     if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
 
     /*Convert data also for spectrum CH1 and CH2*/
-    std::unique_ptr<short[]> dt_samples = internalBuffer375_CH1->async_dft.getWindow();
+    std::unique_ptr<short[]> dt_samples1 = internalBuffer375_CH1->async_dft.getWindow();
+    std::unique_ptr<short[]> dt_samples2 = internalBuffer375_CH2->async_dft.getWindow();
+
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES), CH2(GRAPH_SAMPLES),
-            converted_dt_samples(internalBuffer375_CH1->async_dft.n_samples);
+            converted_dt_samples1(internalBuffer375_CH1->async_dft.n_samples),
+            converted_dt_samples2(internalBuffer375_CH2->async_dft.n_samples);
 
     if (CH1_mode == 1){
         analogConvert(readData375_CH1.get(), &CH1, 128, AC_CH1, 1);
-        analogConvert(dt_samples.get(), &converted_dt_samples, 128, AC_CH1, 1);
+        analogConvert(dt_samples1.get(), &converted_dt_samples1, 128, AC_CH1, 1);
 
         for (int i=0; i < CH1.size(); i++)
         {
             CH1[i] /= m_attenuation_CH1;
             CH1[i] += m_offset_CH1;
         }
-        for (int i=0; i < converted_dt_samples.size(); i++)
+        for (int i=0; i < converted_dt_samples1.size(); i++)
         {
-            converted_dt_samples[i] /= m_attenuation_CH1;
-            converted_dt_samples[i] += m_offset_CH1;
+            converted_dt_samples1[i] /= m_attenuation_CH1;
+            converted_dt_samples1[i] += m_offset_CH1;
         }
         xmin = (currentVmin < xmin) ? currentVmin : xmin;
         xmax = (currentVmax > xmax) ? currentVmax : xmax;
@@ -698,10 +701,17 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
 
     if (CH2_mode == 1){
         analogConvert(readData375_CH2.get(), &CH2, 128, AC_CH2, 2);
+        analogConvert(dt_samples2.get(), &converted_dt_samples2, 128, AC_CH2, 2);
+
         for (int i=0; i < GRAPH_SAMPLES; i++)
         {
             CH2[i] /= m_attenuation_CH2;
             CH2[i] += m_offset_CH2;
+        }
+        for (int i=0; i < converted_dt_samples2.size(); i++)
+        {
+            converted_dt_samples2[i] /= m_attenuation_CH1;
+            converted_dt_samples2[i] += m_offset_CH1;
         }
         ymin = (currentVmin < ymin) ? currentVmin : ymin;
         ymax = (currentVmax > ymax) ? currentVmax : ymax;
@@ -739,18 +749,29 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
     } else{
         if (spectrum) { /*If frequency spectrum mode*/
             try {
-                QVector<double> amplitude = internalBuffer375_CH1->async_dft.getPowerSpectrum(converted_dt_samples);
+                /*Creating DFT amplitudes*/
+                QVector<double> amplitude1 = internalBuffer375_CH1->async_dft.getPowerSpectrum(converted_dt_samples1);
+                /*Getting array of frequencies for display purposes*/
                 QVector<double> f = internalBuffer375_CH1->async_dft.getFrequenciyWindow(internalBuffer375_CH1->m_samplesPerSecond);
-                double maximum = internalBuffer375_CH1->async_dft.maximum;
-                axes->graph(0)->setData(f,amplitude);
-#if 0
+
+                /*Max amplitude for display purposes*/
+                double max1 = internalBuffer375_CH1->async_dft.maximum;
+                double max2 = -1;
+
                 if(CH2_mode) {
-                    amplitude = getDFTAmplitude(CH2);
-                    axes->graph(1)->setData(f,amplitude);
+                    QVector<double> amplitude2 = internalBuffer375_CH2->async_dft.getPowerSpectrum(converted_dt_samples2);
+                    max2 = internalBuffer375_CH2->async_dft.maximum;
+                    /*Normalization with respect to amplitude1*/
+                    amplitude2 = internalBuffer375_CH2->async_dft.normalizeDFT(max1, amplitude2);
+                    axes->graph(1)->setData(f,amplitude2);
                 }
-#endif
+
+                /*Decision for normalization & display purposes*/
+                amplitude1 = internalBuffer375_CH1->async_dft.normalizeDFT(max2, amplitude1);
+                axes->graph(0)->setData(f,amplitude1);
                 axes->xAxis->setRange(f.last(), f.front());
-                axes->yAxis->setRange(maximum,0);
+                /*Setting maximum/minimum y-axis 0%-100%*/
+                axes->yAxis->setRange(100,0);
             }  catch (std::exception) {
                 std::cout << "Cannot yet get correct value for DFT" << std::endl;
             }

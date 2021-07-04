@@ -24,6 +24,9 @@ public:
 
     /*Return the window of samples*/
     std::unique_ptr<short[]> getWindow();
+
+    /*Normalize the DFT*/
+    QVector<double> normalizeDFT(double e_maximum, QVector<double> dft);
 private:
     /*Thread manager method*/
     void threadManager(); //threaded

@@ -105,13 +105,6 @@ QVector<double> AsyncDFT::getPowerSpectrum(QVector<double> input)
 
     }
 
-    for(int i = 0; i < (n_samples+1)/2; i++) {
-        amplitude[i] /= maximum;
-        amplitude[i] *= 100;
-    }
-
-    maximum = 100;
-
     return amplitude;
 }
 
@@ -137,4 +130,24 @@ std::unique_ptr<short[]> AsyncDFT::getWindow()
     }
 
     return readData;
+}
+
+
+QVector<double> AsyncDFT::normalizeDFT(double e_maximum, QVector<double> dft)
+{
+    double u_maximum;
+
+    /*Normalize with the greater maximum*/
+    if (this->maximum > e_maximum) {
+        u_maximum = this->maximum;
+    } else {
+        u_maximum = e_maximum;
+    }
+
+    for(int i=0; i < dft.size(); i++) {
+        dft[i] /= u_maximum;
+        dft[i] *= 100;
+    }
+
+    return dft;
 }
