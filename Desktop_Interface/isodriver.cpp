@@ -663,11 +663,25 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
 
     if(singleShotEnabled && (triggerDelay != 0))
         singleShotTriggered(1);
-    readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==2, display.delay + triggerDelay);
-    if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES,CH2_mode==2, display.delay + triggerDelay);
-    if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay + triggerDelay);
-    if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
-
+    if (!spectrum) {
+        readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==2, display.delay + triggerDelay);
+        if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES,CH2_mode==2, display.delay + triggerDelay);
+        if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay + triggerDelay);
+        if(CH1_mode == -2) readDataFile = internalBufferFile->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay);
+    } else {
+        /*Don't allow moving frequency spectrum right or left
+                 * by overwriting display window and delay before reading
+                 * the buffer each time.
+                 * @TODO improve this limitation.
+                */
+                double const_displ_window = ((double)internalBuffer375_CH1->async_dft.n_samples)/(internalBuffer375_CH1->m_samplesPerSecond);
+                double const_displ_delay = 0;
+                display.delay = const_displ_delay;
+                display.window = const_displ_window;
+                readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES,CH1_mode==2, display.delay + triggerDelay);
+                if(CH2_mode) readData375_CH2 = internalBuffer375_CH2->readBuffer(display.window,GRAPH_SAMPLES,CH2_mode==2, display.delay + triggerDelay);
+                if(CH1_mode == -1) readData750 = internalBuffer750->readBuffer(display.window,GRAPH_SAMPLES,false, display.delay + triggerDelay);
+    }
     /*Convert data also for spectrum CH1 and CH2*/
     std::unique_ptr<short[]> dt_samples1 = internalBuffer375_CH1->async_dft.getWindow();
     std::unique_ptr<short[]> dt_samples2 = internalBuffer375_CH2->async_dft.getWindow();
