@@ -43,7 +43,8 @@ SOURCES += main.cpp\
     daqform.cpp \
     daqloadprompt.cpp \
     isobuffer_file.cpp \
-	i2cdecoder.cpp
+    i2cdecoder.cpp \
+    asyncdft.cpp
 
 HEADERS  += mainwindow.h \
     functiongencontrol.h \
@@ -60,7 +61,8 @@ HEADERS  += mainwindow.h \
     daqform.h \
     daqloadprompt.h \
     isobuffer_file.h \
-	i2cdecoder.h
+    i2cdecoder.h \
+    asyncdft.h
 
 android:{
 FORMS    += ui_files_mobile/mainwindow.ui \
@@ -355,8 +357,7 @@ DISTFILES += \
     build_android/package_source/gradlew.bat \
     build_android/package_source/res/xml/device_filter.xml
 
-unix|win32: LIBS += -lomp
-
-unix|win32: LIBS += -lfftw3f_omp
-
-unix|win32: LIBS += -lfftw3_threads
+# Vincenzo added these to get multithreading on Unix fftw
+unix: LIBS += -lomp
+unix: LIBS += -lfftw3f_omp
+unix: LIBS += -lfftw3_threads
