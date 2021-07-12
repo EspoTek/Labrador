@@ -7,6 +7,8 @@
 #include <iostream>
 #include <omp.h>
 
+static constexpr int kSpectrumCounterMax = 4;
+
 isoDriver::isoDriver(QWidget *parent) : QLabel(parent)
 {
     this->hide();
@@ -615,6 +617,18 @@ void isoDriver::setTriggerMode(int newMode)
 //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
 void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  
 {
+
+    // The Spectrum is computationally expensive to calculate, so we don't want to do it on every frame
+    static int spectrumCounter = 0;
+    if(spectrum)
+    {
+        spectrumCounter = (spectrumCounter + 1) % kSpectrumCounterMax;
+
+        if (spectrumCounter != 0)
+            return;
+    }
+
+
     //qDebug() << "made it to frameActionGeneric";
     if(!paused_CH1 && CH1_mode == - 1){
         for (unsigned int i=0;i<(length/ADC_SPF);i++){
@@ -782,7 +796,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
 
                 /*Decision for normalization & display purposes*/
                 amplitude1 = internalBuffer375_CH1->async_dft.normalizeDFT(max2, amplitude1);
-                axes->graph(0)->setData(f,amplitude1);
+                axes->graph(0)->setData(f, amplitude1);
                 axes->xAxis->setRange(f.last(), f.front());
                 /*Setting maximum/minimum y-axis 0%-100%*/
                 axes->yAxis->setRange(100,0);
