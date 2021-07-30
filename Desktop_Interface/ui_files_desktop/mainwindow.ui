@@ -168,7 +168,7 @@
                  <item>
                   <widget class="QCheckBox" name="pausedLabeL_CH1">
                    <property name="text">
-                    <string>Paused</string>
+                    <string>&amp;Paused</string>
                    </property>
                   </widget>
                  </item>
