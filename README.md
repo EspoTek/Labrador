@@ -7,7 +7,7 @@ http://espotek.com/labrador
 This repo hosts all of the software and hardware that makes Labrador possible.
 
 # Getting Started
-If you're new to Labrador or oscilloscopes in general, I strongly recommend checking out the fantastic tutorial series produced by Lief Koepsel (start from the bottom of the page and work your way up):   
+If you're new to Labrador or oscilloscopes in general, I strongly recommend checking out the fantastic tutorial series produced by Lief Koepsel:   
 https://wellys.com/tags/labrador/  
 It features well-written, rich articles as well as video content that explains everything more clearly than I ever could!  
 
