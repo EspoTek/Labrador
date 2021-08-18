@@ -1,10 +1,12 @@
 # What is it?
-The EspoTek Labrador is an open-source board that converts your PC, Raspberry Pi or Android Smartphone and into a full-featured electronics lab bench, complete with oscilloscope, signal generator and more.
-
-More information available at:
-http://espotek.com/labrador
+The [EspoTek Labrador](http://espotek.com/labrador) is an open-source board that turns your PC, Raspberry Pi or Android Smartphone and into a full-featured electronics lab bench, complete with oscilloscope, signal generator and more.
 
 This repo hosts all of the software and hardware that makes Labrador possible.
+
+# Tutorial
+If you're new to Labrador or oscilloscopes in general, I strongly recommend checking out the fantastic tutorial series produced by Lief Koepsel:   
+https://www.wellys.com/posts/courses_electronics/  
+It features well-written, rich articles as well as video content that explains everything more clearly than I ever could!  
 
 # Getting Started
 To download binary (executable) versions of the software, go to:  
@@ -13,17 +15,14 @@ https://github.com/espotek/labrador/releases
 For the documentation, please visit:  
 https://github.com/espotek/labrador/wiki 
 
-If you're new to Labrador or oscilloscopes in general, I strongly recommend checking out the fantastic tutorial series produced by Lief Koepsel:   
-https://www.wellys.com/posts/courses_electronics/  
-It features well-written, rich articles as well as video content that explains everything more clearly than I ever could!  
-
 # Raspberry Pi Build
 ***Please note that the Raspbian version 9 (Stretch) or later is required to install this software.***
 
 To install Labrador on the Raspberry Pi, open a terminal and paste the following command:  
 `wget -O /tmp/labrador_bootstrap_pi https://raw.githubusercontent.com/EspoTek/Labrador/master/labrador_bootstrap_pi && sudo chmod +x /tmp/labrador_bootstrap_pi && sudo /tmp/labrador_bootstrap_pi`
 
-This will automatically download, compile and installs the latest version of the Labrador software from source. After running it, a desktop entry will appear for the Labrador software (under Education), and running the `labrador` command from the terminal will launch the software interface.
+This will automatically download, compile and install the latest version of the Labrador software from source.  The whole process will take around 20-30 minutes, so don't forget to pack a snack!  
+After running it, a desktop entry will appear for the Labrador software (under Education), and running the `labrador` command from the terminal will launch the software interface.
 
 # Additional Extras
 There are community contributed 3D printable cases available at Thingiverse, courtesy of SpaceBex and Bostwickenator:
@@ -57,7 +56,7 @@ All Microcontroller software files, with the exception of those provided by Atme
 All hardware files (schematics, PCB) are licenced under Creative Commons 4.0 (CC BY-NC-SA).  https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 # Collaboration
-If you want to submit a Pull Request, bug report or feature request please feel free to do so here at GitHub.
+If you want to submit a Pull Request, bug report or feature request please feel free to do so here at GitHub.  
 If you just want to say hello and remind me that people are actually using my product (or if you just don't want to make a GitHub account), please email admin@espotek.com
 
 Thanks to all.  
