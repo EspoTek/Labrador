@@ -6,18 +6,15 @@ http://espotek.com/labrador
 
 This repo hosts all of the software and hardware that makes Labrador possible.
 
-# Documentation and Software
+# Getting Started
 To download binary (executable) versions of the software, go to:  
 https://github.com/espotek/labrador/releases
-
-The software is re-built automatically each time I make a change to the source code.  I recommend always downloading the latest win32, osx-dmg or linux-appimage version, depending on whether you're on Windows, macOS or Linux.  Raspberry Pi downloads are not currently automatically built, but an older version is provided at the link above.
 
 For the documentation, please visit:  
 https://github.com/espotek/labrador/wiki 
 
-# Getting Started
 If you're new to Labrador or oscilloscopes in general, I strongly recommend checking out the fantastic tutorial series produced by Lief Koepsel:   
-https://www.wellys.com/posts/courses_electronics/
+https://www.wellys.com/posts/courses_electronics/  
 It features well-written, rich articles as well as video content that explains everything more clearly than I ever could!  
 
 # Raspberry Pi Build
@@ -34,9 +31,11 @@ There are community contributed 3D printable cases available at Thingiverse, cou
 * https://www.thingiverse.com/thing:4705392
 
 # Building from Source
-I use Qt Creator to build the software interface.  
+If you're looking to build from source but don't know where to start, Qt Creator is the easiest way to get your toes wet!  
 https://www.qt.io/download-open-source/  
-Open Desktop_Interface/Labrador.pro, then Clean All -> Run qmake -> Build All.  
+When installing, make sure you tick the box to install Qt 5.15 or later.
+
+Once it's installed, open Desktop_Interface/Labrador.pro, then Clean All -> Run qmake -> Build All.
 
 If you're on Linux (including Raspberry Pi), then you can also build the software from source by cloning the repo, cd'ing to the Desktop_Interface directory then running:  
 ```
