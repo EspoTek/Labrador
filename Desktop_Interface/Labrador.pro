@@ -361,3 +361,5 @@ DISTFILES += \
 unix: LIBS += -lomp
 unix: LIBS += -lfftw3f_omp
 unix: LIBS += -lfftw3_threads
+macx: INCLUDEPATH += /usr/local/include
+macx: LIBS+= -L/usr/local/lib
