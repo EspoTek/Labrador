@@ -4,7 +4,7 @@ image: Visual Studio 2017
 
 environment:
   access_token:
-    secure: DXAumCpZjJ3erz0OmBJybIJTwux9uSrdtqKtezd4wI9b2ELz3NELPwZfp+WfYKtb
+    secure: 0uxsfE7N2HTcPQtM48XlcCDG1Lxf/xELs0S5GvnoGSDZWOkAJxukffyOOcuj1LGM
   matrix:
     - QT_PATH : C:\Qt\5.12\msvc2017_64\bin
       PLATFORM : amd64
