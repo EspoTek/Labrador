@@ -46,8 +46,8 @@ daqForm::~daqForm()
 }
 
 void daqForm::updateLabels(){
-    double effective_sample_rate_single = 375000/((double)ui->numberOfPointsSpinBox->value());
-    double effective_sample_rate_double = 750000/((double)ui->numberOfPointsSpinBox->value());
+    double effective_sample_rate_single = 375000/(double(ui->numberOfPointsSpinBox->value()));
+    double effective_sample_rate_double = 750000/(double(ui->numberOfPointsSpinBox->value()));
     int num_samples_stored = (ui->fileSizeSpinBox->value() * 1000000) / NUM_BYTES_STORED_PER_DAQ_SAMPLE;
 
     //Print in SI units

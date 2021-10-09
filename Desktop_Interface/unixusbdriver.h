@@ -29,9 +29,9 @@ class worker : public QObject
     Q_OBJECT
 
 public:
-    worker(){};
-    ~worker(){};
-    libusb_context *ctx;
+    worker() = default;
+    ~worker() override {}
+    libusb_context *ctx = nullptr;
     bool stopTime = false;
     unsigned char cleanupRemaining = NUM_FUTURE_CTX ;
 public slots:
@@ -62,10 +62,10 @@ class unixUsbDriver : public genericUsbDriver
     Q_OBJECT
 public:
     explicit unixUsbDriver(QWidget *parent);
-    ~unixUsbDriver();
-    void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA);
-    std::shared_ptr<char[]> isoRead(unsigned int *newLength);
-    void manualFirmwareRecovery(void);
+    ~unixUsbDriver() override;
+    void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA) override;
+    std::shared_ptr<char[]> isoRead(unsigned int *newLength) override;
+    void manualFirmwareRecovery(void) override;
 protected:
     //USB Vars
     libusb_context *ctx = nullptr;
@@ -81,17 +81,17 @@ protected:
     QPointer<QThread> workerThread;
     int cumulativeFramePhaseErrors = 0;
     //Generic Functions
-    virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin);
-    int usbIsoInit(void);
-    virtual int flashFirmware(void);
+    virtual unsigned char usbInit(unsigned long VIDin, unsigned long PIDin) override;
+    int usbIsoInit(void) override;
+    virtual int flashFirmware(void) override;
     bool allEndpointsComplete(int n);
     bool shutdownMode = false;
     int numCancelled = 0;
 signals:
 public slots:
-    void isoTimerTick(void);
-    void recoveryTick(void);
-    void shutdownProcedure(void);
+    void isoTimerTick(void) override;
+    void recoveryTick(void) override;
+    void shutdownProcedure(void) override;
     void backupCleanup(void);
 };
 

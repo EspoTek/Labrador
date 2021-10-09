@@ -127,7 +127,6 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
         emit connectedStatus(false);
         emit killMe();
     }
-    return;
 }
 
 int unixUsbDriver::usbIsoInit(){
@@ -191,14 +190,6 @@ int unixUsbDriver::usbIsoInit(){
 
 void unixUsbDriver::isoTimerTick(){
     timerCount++;
-
-    char subString[3] = "th";
-    if(timerCount%10 == 1) strcpy(subString, "st");
-    if(timerCount%10 == 2) strcpy(subString, "nd");
-    if(timerCount%10 == 3) strcpy(subString, "rd");
-    if((timerCount<20) && (timerCount > 10)) strcpy(subString, "th");
-
-    //qDebug("\n\nThis is the %d%s Tick!", timerCount, subString);
 
     int n, error, earliest = MAX_OVERLAP;
     qint64 minFrame = 9223372036854775807; //max value for 64 bit signed
@@ -289,7 +280,6 @@ void unixUsbDriver::isoTimerTick(){
     tcBlockMutex.unlock();
     //qDebug() << "Calling upTick()";
     emit upTick();
-   return;
 }
 
 std::shared_ptr<char[]> unixUsbDriver::isoRead(unsigned int *newLength){
@@ -297,7 +287,7 @@ std::shared_ptr<char[]> unixUsbDriver::isoRead(unsigned int *newLength){
     //return (char*) NULL;
     //qDebug() << "unixUsbDriver::isoRead";
     *(newLength) = bufferLengths[!currentWriteBuffer];
-    return outBuffers[(unsigned char) !currentWriteBuffer];
+    return outBuffers[uint8_t(!currentWriteBuffer)];
 }
 
 void unixUsbDriver::recoveryTick(){
@@ -319,7 +309,7 @@ bool unixUsbDriver::allEndpointsComplete(int n){
 
 void unixUsbDriver::shutdownProcedure(){
     shutdownMode = true;
-    QTimer::singleShot(100, this, SLOT(backupCleanup()));
+    QTimer::singleShot(100, this, &unixUsbDriver::backupCleanup);
 }
 
 //On physical disconnect, isoTimerTick will not assert stopTime.  Hence this duct-tape function.

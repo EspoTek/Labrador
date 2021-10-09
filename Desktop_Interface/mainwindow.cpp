@@ -2041,10 +2041,9 @@ void MainWindow::on_actionRecord_CH1_triggered(bool checked)
     QString fileName;
     showFileDialog(&fileName);
     qDebug() << fileName;
-    int len = fileName.length();
 
 #ifndef PLATFORM_ANDROID
-    if(len==0){
+    if(fileName.isEmpty()){
         ui->actionRecord_CH1->setChecked(false);
         return; //User cancelled
     }
@@ -2072,10 +2071,9 @@ void MainWindow::on_actionRecord_CH2_triggered(bool checked)
     QString fileName;
     showFileDialog(&fileName);
     qDebug() << fileName;
-    int len = fileName.length();
 
 #ifndef PLATFORM_ANDROID
-    if(len==0){
+    if(fileName.isEmpty()){
         ui->actionRecord_CH2->setChecked(false);
         return; //User cancelled
     }
@@ -2159,7 +2157,7 @@ void MainWindow::fileLimitReached_CH1(){
 
     QMessageBox recordingStoppedMessageBox;
     char recordingStoppedMessage[256];
-    sprintf(recordingStoppedMessage, "Maximum file size limit of %lluMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
+    sprintf(recordingStoppedMessage, "Maximum file size limit of %lluMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000ull);
     recordingStoppedMessageBox.setText(recordingStoppedMessage);
     recordingStoppedMessageBox.exec();
 }
@@ -2168,9 +2166,7 @@ void MainWindow::fileLimitReached_CH2(){
     ui->actionRecord_CH2->setChecked(false);
 
     QMessageBox recordingStoppedMessageBox;
-    char recordingStoppedMessage[256];
-    sprintf(recordingStoppedMessage, "Maximum file size limit of %lluMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000);
-    recordingStoppedMessageBox.setText(recordingStoppedMessage);
+    recordingStoppedMessageBox.setText(QString::asprintf("Maximum file size limit of %lluMB reached.  Data Acquisition Stopped.", daq_max_file_size/1000000ull));
     recordingStoppedMessageBox.exec();
 }
 

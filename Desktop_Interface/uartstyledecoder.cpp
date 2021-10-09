@@ -68,7 +68,7 @@ void uartStyleDecoder::serialDecode()
         else
         {
 			// Uart starts transmitting after start bit (logic low).
-            uartTransmitting = uart_bit == false;
+            uartTransmitting = !uart_bit;
             jitterCompensationNeeded = true;
         }
 
