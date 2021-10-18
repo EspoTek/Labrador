@@ -7,7 +7,7 @@ branches:
 matrix:
   include:
     - os: linux
-      dist: trusty
+      dist: xenial
       sudo: required
       compiler: gcc
       addons:
@@ -18,7 +18,9 @@ matrix:
             - g++-7
             - gcc-7
             - libfftw3-dev
-            - libiomp-dev
+            - libomp-dev
+            - qt5-default
+            - libusb-1.0-0-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     - os: osx
@@ -34,8 +36,7 @@ before_install:
       brew update
     # Linux
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      sudo add-apt-repository ppa:beineri/opt-qt593-trusty -y
-      sudo apt-get update -qq || true
+      sudo apt-get update -qq
     fi
 
 install:
@@ -48,11 +49,6 @@ install:
       brew install fftw
       #brew install libusb
       #brew install wget
-    # Linux
-    elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      sudo apt-get -y install qt59base libusb-1.0-0-dev
-      source /opt/qt*/bin/qt*-env.sh
-    fi
 
 script:
   - |
