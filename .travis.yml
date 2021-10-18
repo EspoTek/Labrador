@@ -36,6 +36,7 @@ before_install:
       brew update
     # Linux
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      sudo add-apt-repository ppa:beineri/opt-qt-5.12.9-xenial -y
       sudo apt-get update -qq
     fi
 
@@ -45,10 +46,12 @@ install:
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew install qt5
       brew link qt5 --force
-      brew instal libomp
+      brew install libomp
       brew install fftw
-      #brew install libusb
-      #brew install wget
+      # Linux
+      elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+        sudo apt-get -y install qt512base
+        source /opt/qt*/bin/qt*-env.sh
     fi
 script:
   - |
