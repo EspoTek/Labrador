@@ -17,6 +17,8 @@ matrix:
           packages:
             - g++-7
             - gcc-7
+            - libfftw3-dev
+            - libomp-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     - os: osx
@@ -43,7 +45,7 @@ install:
       brew install qt5
       brew link qt5 --force
       brew instal libomp
-      brew install libfftw3-dev
+      brew install fftw
       #brew install libusb
       #brew install wget
     # Linux
