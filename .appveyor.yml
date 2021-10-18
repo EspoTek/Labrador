@@ -8,9 +8,11 @@ environment:
   matrix:
     - QT_PATH : C:\Qt\5.12\msvc2017_64\bin
       PLATFORM : amd64
+      PLATFORM_ALT_NAME: x64
       OUTPUT_BIN_DIR : bin64
     - QT_PATH : C:\Qt\5.12\msvc2017\bin
       PLATFORM : x86
+      PLATFORM_ALT_NAME: x86
       OUTPUT_BIN_DIR : bin32
 
 clone_folder: c:\dev\labrador
@@ -37,6 +39,7 @@ build_script:
 
 after_build:
   - windeployqt bin\Labrador.exe
+  - copy build_win/fftw/%PLATFORM_ALT_NAME%/libfftw3-3.dll bin
   - del bin\vcredist*.exe
   - del bin\*.pdb
 
