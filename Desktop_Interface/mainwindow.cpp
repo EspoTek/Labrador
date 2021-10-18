@@ -1349,64 +1349,6 @@ void MainWindow::readSettingsFile(){
     }
 }
 
-void MainWindow::on_actionRecord_triggered(bool checked)
-{
-    /*
-    if(!checked){
-        ui->controller_iso->internalBuffer375_CH1->disableFileIO();
-        ui->controller_iso->internalBuffer375_CH2->disableFileIO();
-        ui->controller_iso->internalBuffer750->disableFileIO();
-
-        delete(output375_CH1);
-        delete(output375_CH2);
-        delete(output750);
-        return;
-    }
-    QDateTime now = QDateTime::currentDateTime();
-    QString dateString = now.toString("yyyyMMddhhmmsszzz");
-    qDebug() << dateString;
-
-    qDebug() << "QStandardPaths::DocumentsLocation" << QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-    outputDir = new QDir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
-    outputDir->mkdir("EspoTek");
-    outputDir->cd("EspoTek");
-    outputDir->mkdir("recordings");
-    outputDir->cd("recordings");
-    outputDir->mkdir(dateString);
-    outputDir->cd(dateString);
-
-    qDebug() << outputDir->absolutePath();
-
-    output375_CH1 = new QFile(outputDir->filePath("375_CH1.csv"));
-    output375_CH2 = new QFile(outputDir->filePath("375_CH2.csv"));
-    output750 = new QFile(outputDir->filePath("750.csv"));
-
-    ui->controller_iso->internalBuffer375_CH1->enableFileIO(output375_CH1);
-    ui->controller_iso->internalBuffer375_CH2->enableFileIO(output375_CH2);
-    ui->controller_iso->internalBuffer750->enableFileIO(output750);
-
-    delete(outputDir);
-    return;
-    */
-}
-
-void MainWindow::on_actionTake_Snapshot_triggered()
-{
-    /*
-    QString fileName;
-    showFileDialog(&fileName);
-    qDebug() << fileName;
-    int len = fileName.length();
-
-    if(len==0) return; //User cancelled
-
-    qDebug() << len;
-    fileName.remove(len-4, 4);
-    qDebug() << fileName;
-    ui->controller_iso->takeSnapshot(&fileName);
-    */
-}
-
 void MainWindow::reinitUsb(void){
     ui->controller_iso->doNotTouchGraph = true;
     ui->controller_iso->driver->saveState(&reinitdeviceMode, &reinitScopeGain, &reinitCurrentPsuVoltage, &reinitDigitalPinState);
@@ -2618,6 +2560,8 @@ void MainWindow::on_actionDark_Mode_triggered(bool checked)
 void MainWindow::on_actionShow_Debug_Console_triggered(bool checked)
 {
     enableLabradorDebugging(checked);
+}
+
 void MainWindow::on_actionFrequency_Spectrum_triggered(bool checked)
 {
     ui->controller_iso->spectrum = checked;

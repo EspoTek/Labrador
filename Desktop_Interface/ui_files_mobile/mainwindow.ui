@@ -2427,14 +2427,6 @@
     <string>None</string>
    </property>
   </action>
-  <action name="actionRecord">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Record</string>
-   </property>
-  </action>
   <action name="actionForce_Square">
    <property name="checkable">
     <bool>true</bool>
@@ -2524,11 +2516,6 @@
   <action name="actionEnter_Manually">
    <property name="text">
     <string>Enter Manually</string>
-   </property>
-  </action>
-  <action name="actionTake_Snapshot">
-   <property name="text">
-    <string>Take Snapshot</string>
    </property>
   </action>
   <action name="actionOld_Person_Mode">

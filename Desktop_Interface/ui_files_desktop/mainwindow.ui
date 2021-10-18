@@ -1507,7 +1507,7 @@
      <x>0</x>
      <y>0</y>
      <width>1493</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1535,6 +1535,78 @@
     <addaction name="actionExportImage"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuOscilloscope_2">
+    <property name="title">
+     <string>Oscilloscope</string>
+    </property>
+    <widget class="QMenu" name="menuGain_2">
+     <property name="title">
+      <string>&amp;Gain</string>
+     </property>
+     <addaction name="actionGainAuto"/>
+     <addaction name="actionGain0_5"/>
+     <addaction name="actionGain1"/>
+     <addaction name="actionGain2"/>
+     <addaction name="actionGain4"/>
+     <addaction name="actionGain8"/>
+     <addaction name="actionGain16"/>
+     <addaction name="actionGain32"/>
+     <addaction name="actionGain64"/>
+    </widget>
+    <widget class="noCloseMenu" name="menuCH1_Stats">
+     <property name="title">
+      <string>&amp;CH1 Stats</string>
+     </property>
+     <addaction name="actionMax"/>
+     <addaction name="actionMin"/>
+     <addaction name="actionMean"/>
+     <addaction name="actionRMS"/>
+    </widget>
+    <widget class="noCloseMenu" name="menuCH2_Stats">
+     <property name="title">
+      <string>C&amp;H2 Stats</string>
+     </property>
+     <addaction name="actionMax_2"/>
+     <addaction name="actionMin_2"/>
+     <addaction name="actionMean_2"/>
+     <addaction name="actionRMS_2"/>
+    </widget>
+    <widget class="QMenu" name="menuFrame_rate">
+     <property name="title">
+      <string>&amp;Frame rate</string>
+     </property>
+     <addaction name="action60FPS"/>
+     <addaction name="action30FPS"/>
+     <addaction name="action20FPS"/>
+     <addaction name="action15FPS"/>
+     <addaction name="action10FPS"/>
+     <addaction name="action5FPS"/>
+    </widget>
+    <widget class="QMenu" name="menuRange">
+     <property name="title">
+      <string>&amp;Range</string>
+     </property>
+     <addaction name="actionSnap_to_Cursors"/>
+     <addaction name="actionEnter_Manually"/>
+    </widget>
+    <addaction name="menuRange"/>
+    <addaction name="separator"/>
+    <addaction name="menuFrame_rate"/>
+    <addaction name="separator"/>
+    <addaction name="menuGain_2"/>
+    <addaction name="separator"/>
+    <addaction name="menuCH1_Stats"/>
+    <addaction name="menuCH2_Stats"/>
+    <addaction name="actionCursor_Stats"/>
+    <addaction name="separator"/>
+    <addaction name="actionCalibrate"/>
+    <addaction name="actionForce_Square"/>
+    <addaction name="actionAutomatically_Enable_Cursors"/>
+    <addaction name="actionShow_Range_Dialog_on_Main_Page"/>
+    <addaction name="separator"/>
+    <addaction name="actionHide_Widget_Oscilloscope"/>
+    <addaction name="actionFrequency_Spectrum"/>
+   </widget>
    <widget class="QMenu" name="menuMultimeter_2">
     <property name="title">
      <string>&amp;Multimeter</string>
@@ -1544,8 +1616,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>172</width>
-       <height>130</height>
+       <width>160</width>
+       <height>120</height>
       </rect>
      </property>
      <property name="title">
@@ -1731,77 +1803,6 @@
      <string>Accessibility</string>
     </property>
     <addaction name="actionDark_Mode"/>
-   <widget class="QMenu" name="menuOscilloscope_2">
-    <property name="title">
-     <string>Oscilloscope</string>
-    </property>
-    <widget class="QMenu" name="menuGain_2">
-     <property name="title">
-      <string>&amp;Gain</string>
-     </property>
-     <addaction name="actionGainAuto"/>
-     <addaction name="actionGain0_5"/>
-     <addaction name="actionGain1"/>
-     <addaction name="actionGain2"/>
-     <addaction name="actionGain4"/>
-     <addaction name="actionGain8"/>
-     <addaction name="actionGain16"/>
-     <addaction name="actionGain32"/>
-     <addaction name="actionGain64"/>
-    </widget>
-    <widget class="noCloseMenu" name="menuCH1_Stats">
-     <property name="title">
-      <string>&amp;CH1 Stats</string>
-     </property>
-     <addaction name="actionMax"/>
-     <addaction name="actionMin"/>
-     <addaction name="actionMean"/>
-     <addaction name="actionRMS"/>
-    </widget>
-    <widget class="noCloseMenu" name="menuCH2_Stats">
-     <property name="title">
-      <string>C&amp;H2 Stats</string>
-     </property>
-     <addaction name="actionMax_2"/>
-     <addaction name="actionMin_2"/>
-     <addaction name="actionMean_2"/>
-     <addaction name="actionRMS_2"/>
-    </widget>
-    <widget class="QMenu" name="menuFrame_rate">
-     <property name="title">
-      <string>&amp;Frame rate</string>
-     </property>
-     <addaction name="action60FPS"/>
-     <addaction name="action30FPS"/>
-     <addaction name="action20FPS"/>
-     <addaction name="action15FPS"/>
-     <addaction name="action10FPS"/>
-     <addaction name="action5FPS"/>
-    </widget>
-    <widget class="QMenu" name="menuRange">
-     <property name="title">
-      <string>&amp;Range</string>
-     </property>
-     <addaction name="actionSnap_to_Cursors"/>
-     <addaction name="actionEnter_Manually"/>
-    </widget>
-    <addaction name="menuRange"/>
-    <addaction name="separator"/>
-    <addaction name="menuFrame_rate"/>
-    <addaction name="separator"/>
-    <addaction name="menuGain_2"/>
-    <addaction name="separator"/>
-    <addaction name="menuCH1_Stats"/>
-    <addaction name="menuCH2_Stats"/>
-    <addaction name="actionCursor_Stats"/>
-    <addaction name="separator"/>
-    <addaction name="actionCalibrate"/>
-    <addaction name="actionForce_Square"/>
-    <addaction name="actionAutomatically_Enable_Cursors"/>
-    <addaction name="actionShow_Range_Dialog_on_Main_Page"/>
-    <addaction name="separator"/>
-    <addaction name="actionHide_Widget_Oscilloscope"/>
-    <addaction name="actionFrequency_Spectrum"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOscilloscope_2"/>
@@ -2645,17 +2646,11 @@
    </property>
    <property name="text">
     <string>Dark Mode</string>
-  <action name="actionWidget">
-   <property name="text">
-    <string>Hide Widget</string>
    </property>
   </action>
   <action name="actionFrequency_Spectrum">
    <property name="checkable">
     <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
    </property>
    <property name="text">
     <string>Frequency Spectrum</string>

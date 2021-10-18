@@ -123,8 +123,6 @@ private slots:
     void on_actionAuto_Lock_toggled(bool arg1);
 
     //File/other
-    void on_actionRecord_triggered(bool checked);
-    void on_actionTake_Snapshot_triggered();
     void reinitUsb(void);
     void reinitUsbStage2(void);
     void resetUsbState(void);
