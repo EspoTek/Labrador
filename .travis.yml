@@ -18,6 +18,7 @@ matrix:
             - g++-7
             - gcc-7
             - libfftw3-dev
+            - libiomp-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     - os: osx
