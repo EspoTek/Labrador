@@ -21,7 +21,6 @@ matrix:
             - libomp-dev
             - qt5-default
             - libusb-1.0-0-dev
-            - qt5
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     - os: osx
