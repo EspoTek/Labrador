@@ -49,7 +49,7 @@ install:
       brew install fftw
       #brew install libusb
       #brew install wget
-
+    fi
 script:
   - |
     # OSX
