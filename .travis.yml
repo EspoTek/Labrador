@@ -84,6 +84,7 @@ after_success:
       find appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
       export UPLOADTOOL_BODY="EspoTek Labrador software for Linux.  This should be compatible with all modern 64-bit distros.  If you need help building it on an older or 32-bit system, please contact admin@espotek.com"
       wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+      bash upload.sh EspoTek_Labrador*.AppImage
     fi
   
 branches:
