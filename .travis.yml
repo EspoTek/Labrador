@@ -31,11 +31,7 @@ matrix:
 before_install:
   - eval "${MATRIX_EVAL}"
   - |
-    # OSX
-    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      brew update
-    # Linux
-    elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo add-apt-repository ppa:beineri/opt-qt-5.12.9-xenial -y
       sudo apt-get update -qq
     fi
