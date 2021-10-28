@@ -24,26 +24,32 @@ matrix:
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     - os: osx
-      osx_image: xcode12.5
+      osx_image: xcode11.6
       compiler: clang
-      addons:
-        homebrew:
-          packages:
-          - libomp
-          - fftw
 
 
 before_install:
   - eval "${MATRIX_EVAL}"
   - |
-    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    # OSX
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew update
+    # Linux
+    elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo add-apt-repository ppa:beineri/opt-qt-5.12.9-xenial -y
       sudo apt-get update -qq
     fi
 
 install:
   - |
-    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    # OSX
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew install qt5
+      brew link qt5 --force
+      brew install libomp
+      brew install fftw
+      # Linux
+      elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
         sudo apt-get -y install qt512base
         source /opt/qt*/bin/qt*-env.sh
     fi
