@@ -26,6 +26,12 @@ matrix:
     - os: osx
       osx_image: xcode12.5
       compiler: clang
+      addons:
+        homebrew:
+          packages:
+          - qt5
+          - libomp
+          - fftw
 
 
 before_install:
@@ -40,10 +46,7 @@ install:
   - |
     # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      brew install qt5
       brew link qt5 --force
-      brew install libomp
-      brew install fftw
       # Linux
       elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
         sudo apt-get -y install qt512base
