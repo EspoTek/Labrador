@@ -251,7 +251,7 @@ MainWindow::MainWindow(QWidget *parent) :
     spectrumMinXSpinbox = new QSpinBox();
     spectrumMaxXSpinbox = new QSpinBox();
     spectrumLayoutWidget = new QWidget();
-    QHBoxLayout* spectrumLayout = new QHBoxLayout();
+    QHBoxLayout* spectrumLayout = new QHBoxLayout(spectrumLayoutWidget);
     QLabel* spectrumMinFreqLabel = new QLabel("Min Frequency (Hz)");
     QLabel* spectrumMaxFreqLabel = new QLabel("Max Frequency (Hz)");
     QSpacerItem* spacer = new QSpacerItem(20, 40, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -283,7 +283,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    // delete ui;
 }
 
 void MainWindow::initialisePlot()
