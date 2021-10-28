@@ -34,6 +34,7 @@ before_install:
     # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew update
+      brew remove --force $(brew list --formula)
     # Linux
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       sudo add-apt-repository ppa:beineri/opt-qt-5.12.9-xenial -y
