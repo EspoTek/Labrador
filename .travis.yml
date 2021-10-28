@@ -29,7 +29,6 @@ matrix:
       addons:
         homebrew:
           packages:
-          - qt5
           - libomp
           - fftw
 
