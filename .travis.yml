@@ -7,7 +7,7 @@ branches:
 matrix:
   include:
     - os: linux
-      dist: xenial
+      dist: trusty
       sudo: required
       compiler: gcc
       addons:
@@ -17,10 +17,6 @@ matrix:
           packages:
             - g++-7
             - gcc-7
-            - libfftw3-dev
-            - libomp-dev
-            - qt5-default
-            - libusb-1.0-0-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     - os: osx
@@ -36,20 +32,24 @@ before_install:
       brew update
     # Linux
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      sudo add-apt-repository ppa:beineri/opt-qt-5.12.9-xenial -y
-      sudo apt-get update -qq
+      sudo add-apt-repository ppa:beineri/opt-qt593-trusty -y
+      sudo apt-get update -qq || true
     fi
 
 install:
   - |
     # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      brew install fftw
-      # Linux
+      brew install qt5
+      brew link qt5 --force
+      #brew install libusb
+      #brew install wget
+    # Linux
     elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-        sudo apt-get -y install qt512base
-        source /opt/qt*/bin/qt*-env.sh
+      sudo apt-get -y install qt59base libusb-1.0-0-dev
+      source /opt/qt*/bin/qt*-env.sh
     fi
+
 script:
   - |
     # OSX
@@ -84,7 +84,6 @@ after_success:
       find appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
       export UPLOADTOOL_BODY="EspoTek Labrador software for Linux.  This should be compatible with all modern 64-bit distros.  If you need help building it on an older or 32-bit system, please contact admin@espotek.com"
       wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-      bash upload.sh EspoTek_Labrador*.AppImage
     fi
   
 branches:
