@@ -44,12 +44,9 @@ install:
   - |
     # OSX
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      brew install qt5
-      brew link qt5 --force
-      brew install libomp
       brew install fftw
       # Linux
-      elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+    elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
         sudo apt-get -y install qt512base
         source /opt/qt*/bin/qt*-env.sh
     fi
