@@ -11,7 +11,7 @@
 
 QT += core gui
 
-CONFIG += c++17
+CONFIG += c++14
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
@@ -246,7 +246,10 @@ macx:DEPENDPATH += $$PWD/build_mac/libdfuprog/include
 
 macx:QMAKE_LFLAGS += "-undefined dynamic_lookup"
 
-QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.15
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.10
+
+
+
 
 #############################################################
 ########   SHARED UNIX-LIKE BUILDS (MAC + LINUX)   #########
@@ -360,3 +363,5 @@ DISTFILES += \
 unix: LIBS += -lomp
 unix: LIBS += -lfftw3f_omp
 unix: LIBS += -lfftw3_threads
+macx: INCLUDEPATH += /usr/local/include
+macx: LIBS+= -L/usr/local/lib
