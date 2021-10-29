@@ -40,7 +40,7 @@ float *isoBuffer_file::readBuffer(double sampleWindow, int numSamples, bool sing
     qDebug() << "back" << back;
     qDebug() << "front" << front;
 */
-    int idx, subIdx;
+    int idx;
     if(readData!=NULL) free(readData);
     readData = (float *) calloc(numSamples, sizeof(float));
 
