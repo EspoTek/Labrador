@@ -95,22 +95,4 @@ public slots:
     void backupCleanup(void);
 };
 
-//Callback on iso transfer complete.
-static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
-    tcBlockMutex.lock();
-    //int number = ((tcBlock *)transfer->user_data)->number;
-    //bool completed = ((tcBlock *)transfer->user_data)->completed;
-
-    //qDebug() << "CALLBACK" << number;
-    //qDebug() << completed;
-
-    if(transfer->status!=LIBUSB_TRANSFER_CANCELLED){
-        ((tcBlock *)transfer->user_data)->completed = true;
-        ((tcBlock *)transfer->user_data)->timeReceived = QDateTime::currentMSecsSinceEpoch();
-    }
-    //qDebug() << ((tcBlock *)transfer->user_data)->timeReceived;
-    tcBlockMutex.unlock();
-    return;
-}
-
 #endif // unixUsbDriver_H
