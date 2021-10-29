@@ -49,7 +49,7 @@ void espoComboBox::readWaveformList(void)
         qFatal("Could not load _list.wfl");
     }
 
-    while (fgets(nameBuffer,256,listPtr) !=NULL){
+    while (fgets(nameBuffer, sizeof(nameBuffer), listPtr) != NULL){
         qDebug() << "nameBuffer = " << nameBuffer;
         strtok(nameBuffer, "\n\r");
         newNames->append(nameBuffer);
