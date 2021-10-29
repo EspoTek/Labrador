@@ -862,8 +862,8 @@ void isoDriver::multimeterAction(){
 
     if(singleShotEnabled && (triggerDelay != 0))
         singleShotTriggered(1);
-    
-	readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES, false, display.delay + triggerDelay);
+
+    readData375_CH1 = internalBuffer375_CH1->readBuffer(display.window,GRAPH_SAMPLES, false, display.delay + triggerDelay);
 
     QVector<double> x(GRAPH_SAMPLES), CH1(GRAPH_SAMPLES);
     analogConvert(readData375_CH1.get(), &CH1, 2048, 0, 1);  //No AC coupling!
