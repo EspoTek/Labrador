@@ -18,7 +18,6 @@ matrix:
             - g++-7
             - gcc-7
             - libfftw3-dev
-            - libomp-dev
             - qt5-default
             - libusb-1.0-0-dev
       env:
