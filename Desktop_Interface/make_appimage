@@ -1,27 +1,5 @@
 #!/bin/bash
 
-FFTW=fftw-3.3.9
-if [ ! -d $FFTW ]
-then
-	wget "http://fftw.org/$FFTW.tar.gz"
-	tar xvf "$FFTW.tar.gz"
-	rm "$FFTW.tar.gz"
-fi
-cd $FFTW
-./configure \
-                 F77=gfortran \
-                 --with-gcc \
-                 --prefix=/usr \
-                 --infodir=/usr/share/info \
-                 --enable-type-prefix \
-                 --enable-shared \
-                 --enable-threads \
-                 --enable-openmp \
-                 --enable-mpi
-make -j8
-sudo make install
-cd ..
-
 set -e
 
 qmake APPIMAGE=1 CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
