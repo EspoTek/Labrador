@@ -70,7 +70,7 @@ void espoSlider::rearrange(){
     int k = 7;
     int c = 5;
 
-    int left = this->geometry().left();
+    //int left = this->geometry().left();
     int right = this->geometry().right();
     int top = this->geometry().top();
     int bottom = this->geometry().bottom();

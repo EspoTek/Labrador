@@ -8,7 +8,6 @@ siprint::siprint(const char *unitsInit, double valInit)
 
 char* siprint::printVal(){
     std::string suffix;
-    double modifiedValue;
     bool negative = (value < 0);
 
     char* tempStringPtr = printString;

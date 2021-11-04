@@ -123,6 +123,24 @@ void unixUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_
     return;
 }
 
+//Callback on iso transfer complete.
+static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
+    tcBlockMutex.lock();
+    //int number = ((tcBlock *)transfer->user_data)->number;
+    //bool completed = ((tcBlock *)transfer->user_data)->completed;
+
+    //qDebug() << "CALLBACK" << number;
+    //qDebug() << completed;
+
+    if(transfer->status!=LIBUSB_TRANSFER_CANCELLED){
+        ((tcBlock *)transfer->user_data)->completed = true;
+        ((tcBlock *)transfer->user_data)->timeReceived = QDateTime::currentMSecsSinceEpoch();
+    }
+    //qDebug() << ((tcBlock *)transfer->user_data)->timeReceived;
+    tcBlockMutex.unlock();
+    return;
+}
+
 int unixUsbDriver::usbIsoInit(void){
     int error;
 	
