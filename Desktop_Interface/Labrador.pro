@@ -360,7 +360,8 @@ DISTFILES += \
     build_android/package_source/res/xml/device_filter.xml
 
 # Vincenzo added these to get multithreading on Unix fftw
-unix: LIBS += -lomp
+unix:!macx: LIBS += -fopenmp
+macx: LIBS += -lomp
 unix: LIBS += -lfftw3f_omp
 unix: LIBS += -lfftw3_threads
 macx: INCLUDEPATH += /usr/local/include
