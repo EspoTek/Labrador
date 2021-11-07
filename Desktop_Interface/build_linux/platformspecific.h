@@ -4,6 +4,6 @@
 #include "unixusbdriver.h"
 #define PLATFORM_LINUX
 #define _PLATFORM_DEPENDENT_USB_OBJECT unixUsbDriver
-#define _PLATFORM_DEPENDENT_FOLDER_ACTION 
+#define _PLATFORM_DEPENDENT_FOLDER_ACTION
 
 #endif // PLATFORMSPECIFIC_H

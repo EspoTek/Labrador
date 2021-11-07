@@ -254,4 +254,3 @@ void bufferControl::poke(void){
     updateMode();
     updateBuffer(0,0);
 }
-

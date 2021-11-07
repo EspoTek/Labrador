@@ -350,7 +350,7 @@ void isoBuffer::serialManage(double baudRate, UartParity parity, bool hexDisplay
         m_isDecoding = true;
     }
 
-	m_decoder->m_baudRate = baudRate;
+    m_decoder->m_baudRate = baudRate;
     m_decoder->setParityMode(parity);
     m_decoder->setHexDisplay(hexDisplay);
     m_decoder->serialDecode();
@@ -399,7 +399,7 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
 {
     if (m_triggerPositionList.size() == 0)
         return 0;
-	
+
     const uint32_t delaySamples = delay * m_samplesPerSecond;
 
     auto isValid = [=](uint32_t index)->bool

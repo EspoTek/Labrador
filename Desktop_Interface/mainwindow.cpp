@@ -151,10 +151,10 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
         connect(ui->controller_fg, &functionGenControl::functionGenToUpdate, ui->controller_iso->driver, &genericUsbDriver::setFunctionGen);
         connect(ui->bufferDisplay, SIGNAL(modeChange(int)), ui->controller_iso->driver, SLOT(setDeviceMode(int)));
-		connect(ui->bufferDisplay, &bufferControl::modeChange, this, [this](){
-			// Force a trigger refresh
-			ui->controller_iso->setTriggerLevel(ui->triggerLevelValue->value());	
-		});
+        connect(ui->bufferDisplay, &bufferControl::modeChange, this, [this](){
+            // Force a trigger refresh
+            ui->controller_iso->setTriggerLevel(ui->triggerLevelValue->value());
+        });
         connect(ui->bufferDisplay, SIGNAL(updateDig(int)), ui->controller_iso->driver, SLOT(newDig(int)));
 
         //Set the settings again!
@@ -210,7 +210,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->realTimeButton, SIGNAL(pressed()), ui->controller_iso, SLOT(disableFileMode()));
 
 
-	
+
     connect(ui->pausedLabeL_CH1, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
     connect(ui->pausedLabel_CH2, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
     connect(ui->pause_LA, SIGNAL(toggled(bool)), this, SLOT(paused(bool)));
@@ -223,8 +223,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionHexDisplay, &QAction::toggled, ui->controller_iso, &isoDriver::setHexDisplay_CH1);
     connect(ui->actionHexDisplay_2, &QAction::toggled, ui->controller_iso, &isoDriver::setHexDisplay_CH2);
 
-	ui->hideCH1Box->setVisible(false);
-	ui->hideCH2Box->setVisible(false);
+    ui->hideCH1Box->setVisible(false);
+    ui->hideCH2Box->setVisible(false);
 #endif
     ui->realTimeButton->setVisible(false);
 
@@ -1380,10 +1380,10 @@ void MainWindow::reinitUsbStage2(void){
     connect(ui->controller_iso, SIGNAL(setGain(double)), ui->controller_iso->driver, SLOT(setGain(double)));
     connect(ui->controller_fg, &functionGenControl::functionGenToUpdate, ui->controller_iso->driver, &genericUsbDriver::setFunctionGen);
     connect(ui->bufferDisplay, SIGNAL(modeChange(int)), ui->controller_iso->driver, SLOT(setDeviceMode(int)));
-	connect(ui->bufferDisplay, &bufferControl::modeChange, this, [this](){
-		// Force a trigger refresh
-		ui->controller_iso->setTriggerLevel(ui->triggerLevelValue->value());	
-	});
+    connect(ui->bufferDisplay, &bufferControl::modeChange, this, [this](){
+        // Force a trigger refresh
+        ui->controller_iso->setTriggerLevel(ui->triggerLevelValue->value());
+    });
     connect(ui->bufferDisplay, SIGNAL(updateDig(int)), ui->controller_iso->driver, SLOT(newDig(int)));
 
     //Set the settings again!
@@ -1411,7 +1411,7 @@ void MainWindow::reinitUsbStage2(void){
 }
 
 void MainWindow::resetUsbState(void){
-	using functionGen::ChannelID;
+    using functionGen::ChannelID;
     //ui->controller_iso->driver->setDeviceMode(deviceMode);
     //ui->controller_iso->driver->setPsu(currentPsuVoltage);
     ui->psuSlider->poke();
@@ -2402,15 +2402,15 @@ void MainWindow::on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked)
 void MainWindow::paused(bool enabled)
 {
 #ifndef PLATFORM_ANDROID
-	qDebug() << "MainWindow::paused(" << enabled << ")";
-	ui->hideCH1Box->setVisible(enabled);
-	ui->hideCH2Box->setVisible(enabled);
-	
-	if (! enabled)
-	{
-		ui->hideCH1Box->setChecked(false);
-		ui->hideCH2Box->setChecked(false);
-	}
+    qDebug() << "MainWindow::paused(" << enabled << ")";
+    ui->hideCH1Box->setVisible(enabled);
+    ui->hideCH2Box->setVisible(enabled);
+
+    if (! enabled)
+    {
+        ui->hideCH1Box->setChecked(false);
+        ui->hideCH2Box->setChecked(false);
+    }
 #endif
 }
 
@@ -2473,7 +2473,6 @@ void MainWindow::cursorGroupEnabled(bool enabled)
         ui->makeCursorsNicer->setTurnedOn(false);
         ui->cursorGroup->setEnabled(false);
     }
-    
 }
 
 void MainWindow::on_actionHide_Widget_Oscilloscope_triggered(bool checked)
