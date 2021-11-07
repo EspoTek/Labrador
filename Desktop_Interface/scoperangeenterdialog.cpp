@@ -16,10 +16,10 @@ scopeRangeEnterDialog::scopeRangeEnterDialog(QWidget *parent, bool buttonVisible
     ui->buttonBox->setVisible(buttonVisible);
 
     for (espoSpinBox* spinBox : {ui->vMaxBox, ui->vMinBox, ui->timeWindowBox, ui->delayBox})
-	{
-		spinBox->changeStepping(spinBox->value());
+    {
+        spinBox->changeStepping(spinBox->value());
         connect(spinBox, SIGNAL(valueChanged(double)), spinBox, SLOT(changeStepping(double)));
-	}
+    }
 }
 
 scopeRangeEnterDialog::~scopeRangeEnterDialog()
@@ -90,4 +90,3 @@ void scopeRangeEnterDialog::delayChanged(double val)
 {
     ui->delayBox->setValue(val);
 }
-

@@ -295,4 +295,3 @@ int androidUsbDriver::flashFirmware(void){
     mainActivity.callMethod<void>("closeDevice");
     return 0;
 }
-

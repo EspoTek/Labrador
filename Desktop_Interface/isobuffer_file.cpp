@@ -79,4 +79,3 @@ void isoBuffer_file::clearBuffer()
 
     back = 0;
 }
-
