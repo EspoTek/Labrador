@@ -41,6 +41,8 @@ if [ -n "$cxxpath" ] || [ -n "$gccpath" ]; then
   export LD_LIBRARY_PATH="${cxxpath}${gccpath}${LD_LIBRARY_PATH}"
 fi
 
+export XDG_DATA_DIRS="$HERE/usr/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+
 if [ ! -f /etc/udev/rules.d/69-labrador.rules ]; then
 cat > /tmp/roothelper <<\EOoF
 #!/bin/bash

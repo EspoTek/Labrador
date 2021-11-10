@@ -4,6 +4,7 @@
 #endif
 #include <QApplication>
 #include <QMessageBox>
+#include <QStandardPaths>
 
 unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
@@ -350,8 +351,13 @@ int unixUsbDriver::flashFirmware(void){
     qDebug() << "BA94 closed";
 
     //Get location of firmware file
+#ifdef PLATFORM_LINUX
+    QString dirString = QString::asprintf("firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
+    dirString = QStandardPaths::locate(QStandardPaths::AppDataLocation, dirString);
+#else
     QString dirString = QCoreApplication::applicationDirPath();
     dirString.append(QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT));
+#endif
     qDebug() << "FLASHING " << dirString;
 
     //Set up interface to dfuprog
@@ -410,8 +416,13 @@ int unixUsbDriver::flashFirmware(void){
 void unixUsbDriver::manualFirmwareRecovery(void){
 #ifndef PLATFORM_ANDROID
     //Get location of firmware file
+#ifdef PLATFORM_LINUX
+    QString dirString = QString::asprintf("firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
+    dirString = QStandardPaths::locate(QStandardPaths::AppDataLocation, dirString);
+#else
     QString dirString = QCoreApplication::applicationDirPath();
     dirString.append(QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT));
+#endif
 
     //Vars
     QMessageBox manualFirmwareMessages;

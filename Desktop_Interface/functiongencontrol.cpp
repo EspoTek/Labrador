@@ -1,5 +1,6 @@
 #include "functiongencontrol.h"
 #include "platformspecific.h"
+#include <QStandardPaths>
 
 namespace functionGen {
 
@@ -9,9 +10,13 @@ ChannelData const& SingleChannelController::getData() const {
 
 void SingleChannelController::waveformName(QString newName)
 {
-#ifdef PLATFORM_ANDROID
+#if defined(PLATFORM_ANDROID)
     QString path("assets:/waveforms/");
     QFile file(path.append(newName).append(".tlw"));
+#elif defined(PLATFORM_LINUX)
+    QString path("waveforms/");
+    path.append(newName).append(".tlw");
+    QFile file(QStandardPaths::locate(QStandardPaths::AppDataLocation, path));
 #else
     QString path = QCoreApplication::applicationDirPath();
     QFile file(path.append("/waveforms/").append(newName).append(".tlw"));

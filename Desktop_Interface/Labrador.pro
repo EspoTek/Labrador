@@ -164,11 +164,13 @@ unix:!android:!macx{
         }
     }
 
-    other.files += bin/firmware
-    other.files += bin/waveforms
-    other.path = /usr/bin/EspoTek-Labrador
-
     target.path = /usr/bin/EspoTek-Labrador
+
+    firmware.files += $$files(bin/firmware/labrafirm*)
+    firmware.path = /usr/share/EspoTek/Labrador/firmware
+
+    waveforms.files += $$files(bin/waveforms/*)
+    waveforms.path = /usr/share/EspoTek/Labrador/waveforms
 
     udev.path = /etc/udev/rules.d
     udev.files = rules.d/69-labrador.rules
@@ -196,13 +198,13 @@ unix:!android:!macx{
     }
 
     equals(APPIMAGE, 1){
-        other.path = /usr/bin
         target.path = /usr/bin
     }
 
     INSTALLS += target
     INSTALLS += lib_deploy
-    INSTALLS += other
+    INSTALLS += firmware
+    INSTALLS += waveforms
     INSTALLS += udev
     INSTALLS += icon48
     INSTALLS += icon256
