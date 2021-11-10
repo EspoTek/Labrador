@@ -6,6 +6,7 @@ qmake DEB=1 CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse 
 make -j$(nproc) CXX=${CXX} CC=${CC} LINK=${CXX}
 sudo rm -rf deb
 sudo make INSTALL_ROOT=deb install; find deb/
+sudo chmod -x deb/usr/lib/*
 sudo cp -r resources/debian deb/DEBIAN
 dpkg-deb --build deb
 mv deb.deb EspoTek_Labrador-$(git rev-parse --short HEAD)-amd64.deb
