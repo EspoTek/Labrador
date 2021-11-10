@@ -340,10 +340,7 @@ void unixUsbDriver::backupCleanup(){
 
 int unixUsbDriver::flashFirmware(void){
 #ifndef PLATFORM_ANDROID
-    char fname[128];
     qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
-    sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
-    qDebug() << "FLASHING " << fname;
 
     signalFirmwareFlash();
     QApplication::processEvents();
@@ -354,18 +351,15 @@ int unixUsbDriver::flashFirmware(void){
 
     //Get location of firmware file
     QString dirString = QCoreApplication::applicationDirPath();
-    dirString.append(fname);
-    QByteArray array = dirString.toLocal8Bit();
-    char* buffer = array.data();
-    //qDebug() << buffer;
-
+    dirString.append(QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT));
+    qDebug() << "FLASHING " << dirString;
 
     //Set up interface to dfuprog
     int exit_code = 1;
     char command1[256];
     sprintf(command1, "dfu-programmer atxmega32a4u erase --force");
     char command2[256];
-    sprintf(command2, "dfu-programmer atxmega32a4u flash %s", buffer);
+    sprintf(command2, "dfu-programmer atxmega32a4u flash %s", qPrintable(dirString));
     char command3[256];
     sprintf(command3, "dfu-programmer atxmega32a4u launch");
     char command4[256];
@@ -416,13 +410,8 @@ int unixUsbDriver::flashFirmware(void){
 void unixUsbDriver::manualFirmwareRecovery(void){
 #ifndef PLATFORM_ANDROID
     //Get location of firmware file
-    char fname[128];
-    sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
-
     QString dirString = QCoreApplication::applicationDirPath();
-    dirString.append(fname);
-    QByteArray array = dirString.toLocal8Bit();
-    char* buffer = array.data();
+    dirString.append(QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT));
 
     //Vars
     QMessageBox manualFirmwareMessages;
@@ -435,7 +424,7 @@ void unixUsbDriver::manualFirmwareRecovery(void){
     char eraseCommand[256];
     sprintf(eraseCommand, "dfu-programmer atxmega32a4u erase --force");
     char flashCommand[256];
-    sprintf(flashCommand, "dfu-programmer atxmega32a4u flash %s", buffer);
+    sprintf(flashCommand, "dfu-programmer atxmega32a4u flash %s", qPrintable(dirString));
 
 
 

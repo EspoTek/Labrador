@@ -327,10 +327,7 @@ void winUsbDriver::shutdownProcedure(){
 }
 
 int winUsbDriver::flashFirmware(void){
-    char fname[64];
     qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
-    sprintf(fname, "labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
-    qDebug() << "FLASHING " << fname;
 
     signalFirmwareFlash();
     QApplication::processEvents();
@@ -339,12 +336,14 @@ int winUsbDriver::flashFirmware(void){
     //Go to bootloader mode
     bootloaderJump();
 
-    //Set up interface to dfuprog
+    //Get location of firmware file
     QString dfuprog_location = QCoreApplication::applicationDirPath();
     dfuprog_location.append("/firmware/dfu-programmer");
     QString file_location = QCoreApplication::applicationDirPath();
-    file_location.append("/firmware/");
-    file_location.append(fname);
+    file_location.append(QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT));
+    qDebug() << "FLASHING " << file_location;
+
+    //Set up interface to dfuprog
     QProcess dfu_exe;
     QStringList args_stage1;
     args_stage1 << "atxmega32a4u" << "erase" << "--force";
@@ -411,11 +410,8 @@ int winUsbDriver::flashFirmware(void){
 
 void winUsbDriver::manualFirmwareRecovery(void){
     //Get location of firmware file
-    char fname[128];
-    sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
-
     QString file_location = QCoreApplication::applicationDirPath();
-    file_location.append(fname);
+    file_location.append(QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT));
 
     //Set up interface to dfuprog
     QString dfuprog_location = QCoreApplication::applicationDirPath();

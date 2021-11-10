@@ -148,14 +148,11 @@ int androidUsbDriver::get_new_bootloader_ctx(libusb_device **device_ptr, libusb_
 
 int androidUsbDriver::flashFirmware(void){
 
-    //File name
-    char fname[128];
     qDebug() << "\n\n\n\n\n\n\n\nFLASHING FIRMWARE....\n\n\n\n\n\n\n";
-    sprintf(fname, "assets:/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
-    qDebug() << "FLASHING " << fname;
 
     //Copy to somewhere that fopen can access
-    QFile asset_file(fname);
+    QFile asset_file(QString::asprintf("assets:/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT));
+    qDebug() << "FLASHING " << asset_file.fileName();
     qDebug() << "asset_file.exists()" << asset_file.exists();
 
      QString filePath = QStandardPaths::writableLocation( QStandardPaths::StandardLocation::AppDataLocation );
@@ -173,12 +170,6 @@ int androidUsbDriver::flashFirmware(void){
              qDebug() << "\n\n\nERROR: COULD NOT CREATE TEMP FIRMWARE FILE\n\n\n";
          }
      } else qDebug() << "File not found in assets";
-
-     std::string filePath_stdstr = filePath.toStdString();
-     char filePath_cstring[256];
-     strcpy(filePath_cstring, filePath_stdstr.c_str());
-
-     qDebug() << "File path is" << filePath_cstring;
 
     if(connected) {
         //Switch from application mode to bootloader mode.  Otherwise assume we are in bootloader.
@@ -231,7 +222,7 @@ int androidUsbDriver::flashFirmware(void){
     char command1[256];
     sprintf(command1, "dfu-programmer atxmega32a4u erase --force --debug 300");
     char command2[256];
-    sprintf(command2, "dfu-programmer atxmega32a4u flash %s --debug 300", filePath_cstring);
+    sprintf(command2, "dfu-programmer atxmega32a4u flash %s --debug 300", qPrintable(filePath));
     char command3[256];
     sprintf(command3, "dfu-programmer atxmega32a4u launch");
     char command4[256];
