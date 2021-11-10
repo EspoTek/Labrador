@@ -1,6 +1,6 @@
 Package: espotek-labrador
 Version: 2.0
-Section: base
+Section: electronics
 Priority: optional
 Architecture: amd64
 Depends: libusb-1.0-0 (>= 1.0.19), qt5-default
