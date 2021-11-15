@@ -5,14 +5,17 @@ dpkg -s qt5-default
 QT5_NOT_INSTALLED=$?
 dpkg -s libusb-1.0-0-dev
 LIBUSB_NOT_INSTALLED=$?
+dpkg -s libfftw3-dev
+FFTW_NOT_INSTALLED=$?
 
 # We don't want to bail if one of the first 4 lines returns error.  That's what they're meant to do!
 set -e
 
-if [ $QT5_NOT_INSTALLED != 0 ] || [ $LIBUSB_NOT_INSTALLED != 0 ]; then
+if [ $QT5_NOT_INSTALLED != 0 ] || [ $LIBUSB_NOT_INSTALLED != 0 ] ||  $FFTW_NOT_INSTALLED != 0 ]; then
     sudo apt-get update
     sudo apt-get install qt5-default
     sudo apt-get install libusb-1.0-0-dev
+    sudo apt-get install -y libfftw3-dev
 else
     echo "Prerequesites are already installed.  Skipping step."
 fi
