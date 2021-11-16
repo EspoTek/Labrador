@@ -20,13 +20,13 @@ class uartStyleDecoder : public QObject
     Q_OBJECT
 public:
     explicit uartStyleDecoder(double baudRate, QObject *parent = NULL);
-    ~uartStyleDecoder() = default;
+	~uartStyleDecoder() = default;
 
 
 private:
     isoBuffer *m_parent;
 
-    // Indicates the current bit being decoded.
+	// Indicates the current bit being decoded.
     int serialPtr_bit;
 
     bool uartTransmitting = false;
@@ -47,7 +47,7 @@ private:
     QPlainTextEdit *console;
     isoBufferBuffer m_serialBuffer;
 public:
-    double m_baudRate;
+	double m_baudRate;
     QTimer m_updateTimer; // IMPORTANT: must be after m_serialBuffer. construction / destruction order matters
     void serialDecode();
     int serialDistance() const;
@@ -64,11 +64,11 @@ private:
     char decodeDatabit(int mode, short symbol) const;
     char decodeBaudot(short symbol) const;
 
-    std::mutex mutex;
+	std::mutex mutex;
     UartParity parity = UartParity::None;
 
     bool isParityCorrect(uint32_t bitField) const;
-    UartParity parityOf(uint32_t bitField) const;
+	UartParity parityOf(uint32_t bitField) const;
 
     bool parityCheckFailed = false;
 

@@ -81,3 +81,4 @@ void daqForm::updateValues(){
 void daqForm::trigger_saveButtonPressed(){
     saveButtonPressed();
 }
+

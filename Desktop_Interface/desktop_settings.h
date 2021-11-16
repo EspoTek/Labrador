@@ -47,3 +47,4 @@ extern unsigned char expected_variant;
 #define NUM_BYTES_STORED_PER_DAQ_SAMPLE 9
 
 #endif // DESKTOP_SETTINGS_H
+

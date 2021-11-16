@@ -3,37 +3,37 @@
 #include <cassert>
 
 uartStyleDecoder::uartStyleDecoder(double baudRate, QObject *parent)
-    : QObject(parent)
-    , m_parent{static_cast<isoBuffer*>(parent)}
-    , m_serialBuffer{SERIAL_BUFFER_LENGTH}
-    , m_baudRate{baudRate}
+	: QObject(parent)
+	, m_parent{static_cast<isoBuffer*>(parent)}
+	, m_serialBuffer{SERIAL_BUFFER_LENGTH}
+	, m_baudRate{baudRate}
 {
 
-    // Begin decoding SAMPLE_DELAY seconds in the past.
-    serialPtr_bit = (int)(m_parent->m_back * 8 - SERIAL_DELAY * m_parent->m_sampleRate_bit + m_parent->m_bufferLen * 8) % (m_parent->m_bufferLen*8);
+	// Begin decoding SAMPLE_DELAY seconds in the past.
+	serialPtr_bit = (int)(m_parent->m_back * 8 - SERIAL_DELAY * m_parent->m_sampleRate_bit + m_parent->m_bufferLen * 8) % (m_parent->m_bufferLen*8);
 
     m_updateTimer.setTimerType(Qt::PreciseTimer);
     m_updateTimer.start(CONSOLE_UPDATE_TIMER_PERIOD);
     connect(&m_updateTimer, &QTimer::timeout, this, &uartStyleDecoder::updateConsole);
 
     if (m_parent->m_channel == 1)
-        console = m_parent->m_console1;
+		console = m_parent->m_console1;
     else if (m_parent->m_channel == 2)
-        console = m_parent->m_console2;
+		console = m_parent->m_console2;
     else
-        qFatal("Nonexistant console requested in uartStyleDecoder::serialDecode");
+		qFatal("Nonexistant console requested in uartStyleDecoder::serialDecode");
 }
 
 void uartStyleDecoder::updateConsole()
 {
-    if (!newUartSymbol)
-        return;
+	if (!newUartSymbol)
+		return;
 
     std::lock_guard<std::mutex> lock(mutex);
 
     console->setPlainText(QString::fromLocal8Bit(m_serialBuffer.begin(), m_serialBuffer.size()));
     if (m_parent->m_serialAutoScroll)
-    {
+	{
         //http://stackoverflow.com/questions/21059678/how-can-i-set-auto-scroll-for-a-qtgui-qtextedit-in-pyqt4   DANKON
         QTextCursor c = console->textCursor();
         c.movePosition(QTextCursor::End);
@@ -53,7 +53,7 @@ void uartStyleDecoder::serialDecode()
     bool allZeroes = true;
 
     while(dist_seconds > (bitPeriod_seconds + SERIAL_DELAY))
-    {
+	{
         // Read next uart bit
         bool uart_bit = getNextUartBit();
 
@@ -67,7 +67,7 @@ void uartStyleDecoder::serialDecode()
         }
         else
         {
-            // Uart starts transmitting after start bit (logic low).
+			// Uart starts transmitting after start bit (logic low).
             uartTransmitting = uart_bit == false;
             jitterCompensationNeeded = true;
         }
@@ -80,7 +80,7 @@ void uartStyleDecoder::serialDecode()
 
     //Not a single stop bit, or idle bit, in the whole stream.  Wire must be disconnected.
     if (allZeroes)
-    {
+	{
         qDebug() << "Wire Disconnect detected!";
         wireDisconnected(m_parent->m_channel);
         m_parent->m_isDecoding = false;
@@ -95,7 +95,7 @@ int uartStyleDecoder::serialDistance() const
     if (back_bit >= serialPtr_bit)
         return back_bit - serialPtr_bit;
     else
-        return bufferEnd_bit - serialPtr_bit + back_bit;
+		return bufferEnd_bit - serialPtr_bit + back_bit;
 }
 
 void uartStyleDecoder::updateSerialPtr(bool current_bit)
@@ -106,8 +106,8 @@ void uartStyleDecoder::updateSerialPtr(bool current_bit)
     int distance_between_bits = (m_parent->m_sampleRate_bit)/ m_baudRate;
     if (uartTransmitting)
         serialPtr_bit += distance_between_bits;
-    else
-        serialPtr_bit += (distance_between_bits - 1);  //Less than one baud period so that it will always see that start bit.
+	else
+		serialPtr_bit += (distance_between_bits - 1);  //Less than one baud period so that it will always see that start bit.
 
     if (serialPtr_bit >= (m_parent->m_bufferLen * 8))
         serialPtr_bit -= (m_parent->m_bufferLen * 8);
@@ -115,7 +115,7 @@ void uartStyleDecoder::updateSerialPtr(bool current_bit)
 
 bool uartStyleDecoder::getNextUartBit() const
 {
-    int bitIndex = serialPtr_bit;
+	int bitIndex = serialPtr_bit;
 
     int coord_byte = bitIndex/8;
     int coord_bit = bitIndex - (8*coord_byte);
@@ -140,11 +140,11 @@ void uartStyleDecoder::decodeNextUartBit(bool bitValue)
     {
         char decodedDatabit = decodeDatabit(dataBit_max + 1, currentUartSymbol);
 
-        if (parityCheckFailed)
-        {
-            m_serialBuffer.insert("\n<ERROR: Following character contains parity error>\n");
-            parityCheckFailed = false;
-        }
+		if (parityCheckFailed)
+		{
+			m_serialBuffer.insert("\n<ERROR: Following character contains parity error>\n");
+			parityCheckFailed = false;
+		}
 
         if (m_hexDisplay)
         {
@@ -183,11 +183,11 @@ bool uartStyleDecoder::jitterCompensationProcedure(bool current_bit)
     uint8_t left_byte = (m_parent->m_buffer[left_coord/8] & 0xff);
     //Only run when a zero is detected in the leftmost symbol.
     if (left_byte != 0xff)
-    {
+	{
         //Step back, one sample at a time, to the 0->1 transition point
         bool temp_bit = 1;
         while(temp_bit)
-        {
+		{
             temp_bit = getNextUartBit();
             serialPtr_bit--;
         }
@@ -203,7 +203,7 @@ bool uartStyleDecoder::jitterCompensationProcedure(bool current_bit)
 char uartStyleDecoder::decodeDatabit(int mode, short symbol) const
 {
     switch(mode)
-    {
+	{
         case 5:
             return decodeBaudot(symbol);
             break;
@@ -212,7 +212,7 @@ char uartStyleDecoder::decodeDatabit(int mode, short symbol) const
             break;
         default:
             qDebug() << "uartStyleDecoder::decodeDatabit is failing...";
-            return -1; // Garbage
+			return -1; // Garbage
     }
 }
 
@@ -243,17 +243,18 @@ void uartStyleDecoder::setHexDisplay(bool enabled)
 
 bool uartStyleDecoder::isParityCorrect(uint32_t bitField) const
 {
-    assert(parity != UartParity::None);
-
-    return parityOf(bitField) == parity;
+	assert(parity != UartParity::None);
+	
+	return parityOf(bitField) == parity;
 }
 
 UartParity uartStyleDecoder::parityOf(uint32_t bitField) const
 {
-    bool result = false;
+	bool result = false;
 
-    for (uint32_t mask = 1 << (dataBit_max-1); mask != 0; mask >>= 1)
-        result ^= static_cast<bool>(bitField & mask);
+	for (uint32_t mask = 1 << (dataBit_max-1); mask != 0; mask >>= 1)
+		result ^= static_cast<bool>(bitField & mask);
 
-    return result ? UartParity::Odd : UartParity::Even;
+	return result ? UartParity::Odd : UartParity::Even;
 }
+

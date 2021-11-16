@@ -25,3 +25,4 @@ unsigned char expected_variant;
 #ifndef PLATFORM_WINDOWS
 struct timeval tv;
 #endif
+

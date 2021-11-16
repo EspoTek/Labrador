@@ -33,7 +33,7 @@ GobindarDialog::GobindarDialog()
 
     QFont largeFont;
     largeFont.setPointSize(18);
-
+    
     QFont smallFont;
     smallFont.setPointSize(12);
 
@@ -81,29 +81,29 @@ genericUsbDriver::genericUsbDriver(QWidget *parent) : QLabel(parent)
     connectTimer->start(USB_RECONNECT_PERIOD);
     connect(connectTimer, SIGNAL(timeout()), this, SLOT(checkConnection()));
     qDebug()<< "Generic Usb Driver setup complete";
-    messageBox = new QMessageBox();
+	messageBox = new QMessageBox();
 }
 
 genericUsbDriver::~genericUsbDriver(void){
     qDebug() << "genericUsbDriver dectructor entering";
     if(connected){
-        if (psuTimer)
-        {
-            psuTimer->stop();
-            delete(psuTimer);
-        }
+		if (psuTimer)
+		{
+			psuTimer->stop();
+			delete(psuTimer);
+		}
+		
+		if (recoveryTimer)
+		{
+			recoveryTimer->stop();
+			delete(recoveryTimer);
+		}
 
-        if (recoveryTimer)
-        {
-            recoveryTimer->stop();
-            delete(recoveryTimer);
-        }
-
-        if (isoTimer)
-        {
-            isoTimer->stop();
-            delete(isoTimer);
-        }
+		if (isoTimer)
+		{
+			isoTimer->stop();
+			delete(isoTimer);
+		}
     }
     qDebug() << "genericUsbDriver dectructor completed";
 }
@@ -136,33 +136,33 @@ void genericUsbDriver::setFunctionGen(functionGen::ChannelID channelID, function
       //////////////////////////////////////
 
     //For recalling on crash.
-    fGenPtrData[(int)channelID] = fGenControl;
+	fGenPtrData[(int)channelID] = fGenControl;
 
-    sendFunctionGenData(channelID);
+	sendFunctionGenData(channelID);
 }
 
 void genericUsbDriver::sendFunctionGenData(functionGen::ChannelID channelID)
 {
     //Reading in data
-    functionGen::ChannelData channelData = fGenPtrData[(int)channelID]->getData();
+	functionGen::ChannelData channelData = fGenPtrData[(int)channelID]->getData();
 
     //Triple mode
     if ((channelData.amplitude + channelData.offset) > FGEN_LIMIT)
-    {
+	{
         channelData.amplitude /= 3.0;
         channelData.offset /= 3.0;
         fGenTriple |= static_cast<uint8_t>(!static_cast<uint8_t>(channelID) + 1);
     }
     else
-    {
-        fGenTriple &= static_cast<uint8_t>(254 - !static_cast<uint8_t>(channelID));
-    }
+	{
+		fGenTriple &= static_cast<uint8_t>(254 - !static_cast<uint8_t>(channelID));
+	}
 
     //Waveform scaling in V
     channelData.amplitude = (channelData.amplitude * 255) / FGEN_LIMIT;
     channelData.offset = (channelData.offset * 255) / FGEN_LIMIT;
     if (channelData.offset < FGEN_OFFSET)
-    {
+	{
         if (channelData.amplitude > 5)
             channelData.amplitude -= FGEN_OFFSET;
         else
@@ -179,61 +179,62 @@ void genericUsbDriver::sendFunctionGenData(functionGen::ChannelID channelID)
     usbSendControl(0x40, 0xa4, fGenTriple, 0, 0, NULL);
 #endif
 
-    auto applyAmplitudeAndOffset = [&](unsigned char sample) -> unsigned char
-    {
-        return sample / 255.0 * channelData.amplitude + channelData.offset;
-    };
+	auto applyAmplitudeAndOffset = [&](unsigned char sample) -> unsigned char
+	{
+		return sample / 255.0 * channelData.amplitude + channelData.offset;
+	};
 
-    std::transform(channelData.samples.begin(), channelData.samples.end(),
-                   channelData.samples.begin(), // transform in place
-                   applyAmplitudeAndOffset);
+	std::transform(channelData.samples.begin(), channelData.samples.end(),
+	               channelData.samples.begin(), // transform in place
+	               applyAmplitudeAndOffset);
 
     //Need to increase size of wave if its freq too high, or too low!
-    {
-        int shift = 0;
-        int newLength = channelData.samples.size();
+	{
+		int shift = 0;
+		int newLength = channelData.samples.size();
 
-        while ((newLength >> shift) * channelData.freq > DAC_SPS)
-            shift++;
+		while ((newLength >> shift) * channelData.freq > DAC_SPS)
+			shift++;
 
-        if (shift != 0)
-        {
-            channelData.divisibility -= shift;
-            newLength >>= shift;
+		if (shift != 0)
+		{
+			channelData.divisibility -= shift;
+			newLength >>= shift;
 
-            for (int i = 0; i < newLength; ++i)
-                channelData.samples[i] = channelData.samples[i << shift];
+			for (int i = 0; i < newLength; ++i)
+				channelData.samples[i] = channelData.samples[i << shift];
 
-            channelData.samples.resize(newLength);
-            channelData.samples.shrink_to_fit();
+			channelData.samples.resize(newLength);
+			channelData.samples.shrink_to_fit();
 
-            if (channelData.divisibility <= 0)
-                qDebug("genericUsbDriver::setFunctionGen: channel divisibility <= 0 after T-stretching");
-        }
-    }
+			if (channelData.divisibility <= 0)
+				qDebug("genericUsbDriver::setFunctionGen: channel divisibility <= 0 after T-stretching");
+		}
+	}
 
     // Timer Setup
     int validClockDivs[7] = {1, 2, 4, 8, 64, 256, 1024};
-    auto period = [&](int division) -> int
-    {
-        return CLOCK_FREQ / (division * channelData.samples.size() * channelData.freq);
-    };
+	auto period = [&](int division) -> int
+	{
+		return CLOCK_FREQ / (division * channelData.samples.size() * channelData.freq);
+	};
 
-    int* clkSettingIt = std::find_if(std::begin(validClockDivs), std::end(validClockDivs),
-                                     [&](int division) -> bool { return period(division) < 65535; });
+	int* clkSettingIt = std::find_if(std::begin(validClockDivs), std::end(validClockDivs),
+	                                 [&](int division) -> bool { return period(division) < 65535; });
 
     int timerPeriod = period(*clkSettingIt);
 
-    // +1 to change from [0:n) to [1:n]
+	// +1 to change from [0:n) to [1:n]
     int clkSetting = std::distance(std::begin(validClockDivs), clkSettingIt) + 1;
 
     if(deviceMode == 5)
         qDebug("DEVICE IS IN MODE 5");
 
+	
     if (channelID == functionGen::ChannelID::CH2)
-        usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
+		usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
     else
-        usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
+		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
 
     return;
 
@@ -257,10 +258,10 @@ void genericUsbDriver::setDeviceMode(int mode){
     usbSendControl(0x40, 0xa5, (mode == 5 ? 0 : mode), gainMask, 0, NULL);
 
     if (fGenPtrData[(int)functionGen::ChannelID::CH1] != NULL)
-        sendFunctionGenData(functionGen::ChannelID::CH1);
+		sendFunctionGenData(functionGen::ChannelID::CH1);
 
-    if (fGenPtrData[(int)functionGen::ChannelID::CH2] != NULL)
-        sendFunctionGenData(functionGen::ChannelID::CH2);
+	if (fGenPtrData[(int)functionGen::ChannelID::CH2] != NULL)
+		sendFunctionGenData(functionGen::ChannelID::CH2);
 
     //switch on new deviceMode!!
     switch(deviceMode){
@@ -486,11 +487,11 @@ void genericUsbDriver::checkConnection(){
     newDig(digitalPinState);
 
     int ret = usbIsoInit();
-    if (ret != 0)
-    {
+	if (ret != 0)
+	{
         messageBox->setText("A USB connection was established, but isochronous communications could not be initialised.<br>This is usually due to bandwidth limitations on the current USB host and can be fixed by moving to a different port.<br>Please see <a href = 'https://github.com/EspoTek/Labrador/wiki/Troubleshooting-Guide#usb-connection-issues-other-platforms'>https://github.com/EspoTek/Labrador/wiki/Troubleshooting-Guide#usb-connection-issues-other-platforms</a>");
         messageBox->exec();
-    }
+	}
 
     psuTimer = new QTimer();
     psuTimer->setTimerType(Qt::PreciseTimer);
@@ -513,3 +514,4 @@ void genericUsbDriver::checkConnection(){
 void genericUsbDriver::bootloaderJump(){
     usbSendControl(0x40, 0xa7, 1, 0, 0, NULL);
 }
+

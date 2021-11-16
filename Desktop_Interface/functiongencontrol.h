@@ -17,29 +17,29 @@ namespace functionGen {
 
 enum class ChannelID
 {
-    CH1 = 0,
-    CH2 = 1
+	CH1 = 0,
+	CH2 = 1
 };
 
 struct ChannelData
 {
-    std::vector<uint8_t> samples;
-    int divisibility;
-    double freq = 1000.0;
-    double amplitude = 0.0;
-    double offset = 0.0;
+	std::vector<uint8_t> samples;
+	int divisibility;
+	double freq = 1000.0;
+	double amplitude = 0.0;
+	double offset = 0.0;
 };
 
 class SingleChannelController : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    ChannelData const& getData() const;
+	ChannelData const& getData() const;
 
 signals:
     void notifyUpdate(SingleChannelController* controller);
-    void setMaxFreq(double maxFreq);
+	void setMaxFreq(double maxFreq);
     void setMinFreq(double minFreq);
 
 public slots:
@@ -49,7 +49,7 @@ public slots:
     void offsetUpdate(double newOffset);
 
 private:
-    ChannelData m_data;
+	ChannelData m_data;
 };
 
 class DualChannelController : public QLabel
@@ -59,7 +59,7 @@ public:
     explicit DualChannelController(QWidget *parent = 0);
 
 public:
-    SingleChannelController* getChannelController(ChannelID channelID);
+	SingleChannelController* getChannelController(ChannelID channelID);
 
 signals:
     void functionGenToUpdate(ChannelID channel, SingleChannelController* fGenControl);
@@ -85,7 +85,7 @@ public slots:
     void offsetUpdate_CH2(double newOffset);
 
 private:
-    SingleChannelController m_channels[2];
+	SingleChannelController m_channels[2];
 };
 
 }

@@ -13,18 +13,18 @@ namespace i2c
 
 enum class transmissionState: uint8_t
 {
-    unknown,
-    idle,
-    address,
-    data
+	unknown,
+	idle,
+	address,
+	data	
 };
 
 enum class edge: uint8_t
 {
-    rising,
-    falling,
-    held_high,
-    held_low
+	rising,
+	falling,
+	held_high,
+	held_low
 };
 
 constexpr uint8_t addressBitStreamLength = 9;
@@ -37,37 +37,37 @@ class i2cDecoder : public QObject
 public:
     explicit i2cDecoder(isoBuffer* sda_in, isoBuffer* scl_in, QPlainTextEdit* console_in);
     ~i2cDecoder();
-    // misc
+	// misc
     isoBuffer* sda;
-    isoBuffer* scl;
+	isoBuffer* scl;
     QPlainTextEdit* console;
     isoBufferBuffer* serialBuffer = nullptr;
     std::mutex mutex;
     QTimer *updateTimer;
 
-    // State vars
-    uint8_t currentSdaValue = 0;
-    uint8_t previousSdaValue = 0;
-    uint8_t currentSclValue = 0;
-    uint8_t previousSclValue = 0;
+	// State vars
+	uint8_t currentSdaValue = 0;
+	uint8_t previousSdaValue = 0;
+	uint8_t currentSclValue = 0;
+	uint8_t previousSclValue = 0;
     uint64_t serialPtr_bit = 0;
-    transmissionState state = transmissionState::unknown;
+	transmissionState state = transmissionState::unknown;
     bool consoleStateInvalid;
 
-    // Data Transmission
-    uint8_t currentBitIndex = 0;
+	// Data Transmission
+	uint8_t currentBitIndex = 0;
     uint16_t currentBitStream;
 
-    // Member functions
-    void updateBitValues();
-    void runStateMachine();
-    void run();
+	// Member functions
+	void updateBitValues();
+	void runStateMachine();
+    void run(); 
     int serialDistance(isoBuffer* buffer);
-    edge edgeDetection(uint8_t current, uint8_t prev);
-    void decodeAddress(edge sdaEdge, edge sclEdge);
-    void decodeData(edge sdaEdge, edge sclEdge);
-    void startCondition();
-    void stopCondition();
+	edge edgeDetection(uint8_t current, uint8_t prev);
+	void decodeAddress(edge sdaEdge, edge sclEdge);
+	void decodeData(edge sdaEdge, edge sclEdge);
+	void startCondition();
+	void stopCondition();
     void reset();
 signals:
 public slots:

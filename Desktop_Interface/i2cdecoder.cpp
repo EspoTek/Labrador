@@ -48,14 +48,14 @@ void i2cDecoder::run()
 {
 //    qDebug() << "i2cDecoder::run()";
     while (serialDistance(sda) > SERIAL_DELAY * sda->m_sampleRate_bit)
-    {
-        updateBitValues();
-        runStateMachine();
-        serialPtr_bit ++;
+	{
+		updateBitValues();
+		runStateMachine();
+		serialPtr_bit ++;
         if (serialPtr_bit >= (sda->m_bufferLen * 8))
             serialPtr_bit -= (sda->m_bufferLen * 8);
-    }
-}
+	}	
+} 
 
 int i2cDecoder::serialDistance(isoBuffer* buffer)
 {
@@ -64,7 +64,7 @@ int i2cDecoder::serialDistance(isoBuffer* buffer)
     if (back_bit >= serialPtr_bit)
         return back_bit - serialPtr_bit;
     else
-        return bufferEnd_bit - serialPtr_bit + back_bit;
+		return bufferEnd_bit - serialPtr_bit + back_bit;
 }
 
 void i2cDecoder::updateBitValues(){
@@ -77,66 +77,66 @@ void i2cDecoder::updateBitValues(){
     unsigned char dataByteScl = scl->m_buffer[coord_byte];
     unsigned char mask = (0x01 << coord_bit);
     currentSdaValue = dataByteSda & mask;
-    currentSclValue = dataByteScl & mask;
+	currentSclValue = dataByteScl & mask;
 }
 
 void i2cDecoder::runStateMachine()
 {
     edge sdaEdge = edgeDetection(currentSdaValue, previousSdaValue);
-    edge sclEdge = edgeDetection(currentSclValue, previousSclValue);
+	edge sclEdge = edgeDetection(currentSclValue, previousSclValue);
 
-    if ((sdaEdge == edge::rising) && (sclEdge == edge::falling)) // INVALID STATE TRANSITION
-    {
+	if ((sdaEdge == edge::rising) && (sclEdge == edge::falling)) // INVALID STATE TRANSITION
+	{
         state = transmissionState::unknown;
         qDebug() << "Dumping I2C state and aborting...";
         for (int i=31; i>=0; i--)
             qDebug("%02x\t%02x", sda->m_buffer[serialPtr_bit/8 - i] & 0xFF, scl->m_buffer[serialPtr_bit/8 - i] & 0xFF);
         throw std::runtime_error("unknown i2c transmission state");
         return;
-    }
+	}
 
-    if ((sdaEdge == edge::rising) && (sclEdge == edge::held_high)) // START
-    {
+	if ((sdaEdge == edge::rising) && (sclEdge == edge::held_high)) // START
+	{
         stopCondition();
-        return;
-    }
+		return;
+	}
 
-    if ((sdaEdge == edge::falling) && (sclEdge == edge::held_high)) // STOP
-    {
+	if ((sdaEdge == edge::falling) && (sclEdge == edge::held_high)) // STOP
+	{
         startCondition();
-        return;
-    }
+		return;
+	}
 
-    switch (state)
-    {
-        case transmissionState::idle:
-            return;
-        case transmissionState::address:
-            decodeAddress(sdaEdge, sclEdge);
-            break;
-        case transmissionState::data:
-            decodeData(sdaEdge, sclEdge);
-            break;
-    }
+	switch (state)
+	{
+		case transmissionState::idle:
+			return;
+		case transmissionState::address:
+			decodeAddress(sdaEdge, sclEdge);
+			break;
+		case transmissionState::data:
+			decodeData(sdaEdge, sclEdge);
+			break;		
+	}
 }
 
 edge i2cDecoder::edgeDetection(uint8_t current, uint8_t prev)
 {
-    if (current && prev)
-        return edge::held_high;
-    if (!current && !prev)
-        return edge::held_low;
-    if (current && !prev)
-        return edge::rising;
+	if (current && prev)
+		return edge::held_high;
+	if (!current && !prev)
+		return edge::held_low;
+	if (current && !prev)
+		return edge::rising;
     if (!current && prev)
-        return edge::falling;
+		return edge::falling;
 
     throw std::runtime_error("i2c Edge Detection critical failure");
 }
 
 void i2cDecoder::decodeAddress(edge sdaEdge, edge sclEdge)
 {
-    // Read in the next bit.
+	// Read in the next bit.
     if (sclEdge == edge::rising && sdaEdge == edge::held_high && currentBitIndex++ < addressBitStreamLength)
           currentBitStream = (currentBitStream << 1) | 0x0001;
     else if (sclEdge == edge::rising && sdaEdge == edge::held_low && currentBitIndex++ < addressBitStreamLength)
@@ -197,9 +197,9 @@ void i2cDecoder::decodeData(edge sdaEdge, edge sclEdge)
 
 void i2cDecoder::startCondition()
 {
-    currentBitIndex = 0;
+	currentBitIndex = 0;
     currentBitStream = 0x0000;
-    state = transmissionState::address;
+	state = transmissionState::address;	
     qDebug() << "I2C START";
 }
 

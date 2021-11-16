@@ -5,22 +5,59 @@ espoComboBox::espoComboBox(QWidget *parent) : QComboBox(parent)
 
 }
 
+
 void espoComboBox::readWaveformList(void)
 {
+    //This code gets the name of the current directory, regardless of platform.
+    //This is so the interface knows where to find the waveform data
+    //QDir *dir = new QDir();
+    //qDebug() << dir->currentPath();
 #ifdef PLATFORM_ANDROID
-    QFile file("assets:/waveforms/_list.wfl");
+    QFile qt_list("assets:/waveforms/_list.wfl");
+    bool success = qt_list.open(QIODevice::ReadOnly | QIODevice::Text);
+    if(!success){
+        qFatal("Could not load _list.wfl");
+    }
+
+    char nameBuffer[255];
+    QStringList *newNames = new QStringList();
+
+    while (!qt_list.atEnd()) {
+        QByteArray line = qt_list.readLine();
+        strcpy(nameBuffer, line.data());
+        strtok(nameBuffer, "\n\r");
+        newNames->append(nameBuffer);
+        qDebug() << nameBuffer;
+    }
+    this->addItems(*(newNames));
+    delete newNames;
+    qt_list.close();
 #else
-    QString path = QCoreApplication::applicationDirPath();
-    QFile file(path.append("/waveforms/_list.wfl"));
+    QString dirString = QCoreApplication::applicationDirPath();
+    dirString.append("/waveforms/_list.wfl");
+    QByteArray array = dirString.toLocal8Bit();
+    char* buffer = array.data();
+    //qDebug() << buffer;
+
+    qDebug() << "Attempting to open" << dirString;
+
+    FILE *listPtr = fopen(buffer, "r");
+    QStringList *newNames = new QStringList();
+    char nameBuffer[255];
+
+    if(listPtr == NULL){
+        qFatal("Could not load _list.wfl");
+    }
+
+    while (fgets(nameBuffer, sizeof(nameBuffer), listPtr) != NULL){
+        qDebug() << "nameBuffer = " << nameBuffer;
+        strtok(nameBuffer, "\n\r");
+        newNames->append(nameBuffer);
+    }
+    this->addItems(*(newNames));
+    delete newNames;
+
+    fclose(listPtr);
 #endif
-
-    qDebug() << "opening" << file.fileName();
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        qFatal("could not open %s", qUtf8Printable(file.fileName()));
-
-    QStringList newNames;
-    while (!file.atEnd())
-        newNames.append(file.readLine().trimmed());
-    this->addItems(newNames);
-    file.close();
+    qDebug() << "List loaded!!";
 }

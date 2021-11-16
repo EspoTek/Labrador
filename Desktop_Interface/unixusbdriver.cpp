@@ -20,24 +20,24 @@ unixUsbDriver::~unixUsbDriver(void){
     qDebug() << "\n\nunixUsbDriver destructor ran!";
     //unixDriverDeleteMutex.lock();
     if(connected){
-        if (workerThread)
-            {
-            workerThread->deleteLater();
-            while(workerThread->isRunning()){
-                workerThread->quit();
-                qDebug() << "isRunning?" << workerThread->isFinished();
-                QThread::msleep(100);
-            }
-        }
-        if (isoHandler)
-            delete(isoHandler);
+		if (workerThread)
+			{
+			workerThread->deleteLater();
+			while(workerThread->isRunning()){
+				workerThread->quit();
+				qDebug() << "isRunning?" << workerThread->isFinished();
+				QThread::msleep(100);
+			}
+		}	
+		if (isoHandler)
+	        delete(isoHandler);
         //delete(workerThread);
         qDebug() << "THREAD Gone!";
 
         for (int i=0; i<NUM_FUTURE_CTX; i++){
             for (int k=0; k<NUM_ISO_ENDPOINTS; k++){
-                if (isoCtx[k][i])
-                    libusb_free_transfer(isoCtx[k][i]);
+				if (isoCtx[k][i])
+	                libusb_free_transfer(isoCtx[k][i]);
             }
         }
         qDebug() << "Transfers freed.";
@@ -143,7 +143,7 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
 
 int unixUsbDriver::usbIsoInit(void){
     int error;
-
+	
     for(int n=0;n<NUM_FUTURE_CTX;n++){
         for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
             isoCtx[k][n] = libusb_alloc_transfer(ISO_PACKETS_PER_CTX);
@@ -160,7 +160,7 @@ int unixUsbDriver::usbIsoInit(void){
             if(error){
                 qDebug() << "libusb_submit_transfer FAILED";
                 qDebug() << "ERROR" << libusb_error_name(error);
-                return -1;
+				return -1;
             } else {
                 if(n == 0){
                     qint64 t0;
@@ -334,8 +334,8 @@ void unixUsbDriver::shutdownProcedure(){
 
 //On physical disconnect, isoTimerTick will not assert stopTime.  Hence this duct-tape function.
 void unixUsbDriver::backupCleanup(){
-    if (isoHandler)
-        isoHandler->stopTime = true;
+	if (isoHandler)
+	    isoHandler->stopTime = true;
 }
 
 int unixUsbDriver::flashFirmware(void){

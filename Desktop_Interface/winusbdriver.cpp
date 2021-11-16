@@ -9,7 +9,7 @@ winUsbDriver::winUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
 }
 
-winUsbDriver::~winUsbDriver(void){
+winUsbDriver::~winUsbDriver(void){    
 
     //Like any decent destructor, this just frees resources
 
@@ -42,7 +42,7 @@ unsigned char winUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     KLST_HANDLE deviceList = NULL;
 
     //List libusbk devices connected
-    if (!LstK_Init(&deviceList, (KLST_FLAG) 0)) {
+    if (!LstK_Init(&deviceList, (KLST_FLAG) 0))	{
         qDebug("Error initializing device list");
         return 1;
     } //else qDebug() << "Device List initialised!";
@@ -51,7 +51,7 @@ unsigned char winUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     LstK_Count(deviceList, &deviceCount);
     if (!deviceCount) {
         qDebug("Device list empty");
-        LstK_Free(deviceList);  // If LstK_Init returns TRUE, the list must be freed.
+        LstK_Free(deviceList);	// If LstK_Init returns TRUE, the list must be freed.
         return 0;
     } //else qDebug() << "Device Count initialised!";
 */
@@ -87,7 +87,7 @@ void winUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t
 
     //////////////////////////////////////////////////////////////////////////////////////////
     //IF YOU'RE SEEING AN ERROR, CHECK THAT REQUESTTYPE AND REQUEST ARE FORMATTED AS HEX
-    //////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////    
 
     WINUSB_SETUP_PACKET setupPacket;
     unsigned char controlSuccess;

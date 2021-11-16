@@ -23,78 +23,80 @@
  */
 
 isoBufferBuffer::isoBufferBuffer(uint32_t length)
-    : m_data(std::make_unique<char[]>(length*2))
-    , m_capacity(length)
+	: m_data(std::make_unique<char[]>(length*2))
+	, m_capacity(length)
 {
 }
 
 // Adds a character to the end of the buffer
 void isoBufferBuffer::insert(char c)
 {
-    char* dataPtr = m_data.get();
+	char* dataPtr = m_data.get();
 
-    // Add character to first half of the buffer
-    dataPtr[m_top] = c;
-    // Then to the second
-    dataPtr[m_top+m_capacity] = c;
+	// Add character to first half of the buffer
+	dataPtr[m_top] = c;
+	// Then to the second
+	dataPtr[m_top+m_capacity] = c;
 
-    // Loop the buffer index if necessary and update size accordingly
-    m_top = (m_top + 1) % m_capacity;
-    m_size = std::min(m_size + 1, m_capacity);
+	// Loop the buffer index if necessary and update size accordingly
+	m_top = (m_top + 1) % m_capacity;
+	m_size = std::min(m_size + 1, m_capacity);
 }
 
 void isoBufferBuffer::insert(char const * s)
 {
-    while (*s != '\0')
-        insert(*s++);
+	while (*s != '\0')
+		insert(*s++);
 }
 
 void isoBufferBuffer::insert(std::string const & s)
 {
-    for (char c : s)
-        insert(c);
+	for (char c : s)
+		insert(c);
 }
 
 void isoBufferBuffer::insert_hex(uint8_t x)
 {
-    char str[5];
-    sprintf(str, "0x%02hhx", x);
-    insert((char const *)str);
+	char str[5];
+	sprintf(str, "0x%02hhx", x);
+	insert((char const *)str);
 }
 
 char const* isoBufferBuffer::query(uint32_t count) const
 {
-    if (count > m_capacity)
-        qFatal("isoBufferBuffer::query : you may not request more items than the capacity of the buffer");
+	if (count > m_capacity)
+		qFatal("isoBufferBuffer::query : you may not request more items than the capacity of the buffer");
 
-    if (count > m_size)
-        qFatal("isoBufferBuffer::query : you may not request more items than inserted");
+	if (count > m_size)
+		qFatal("isoBufferBuffer::query : you may not request more items than inserted");
 
-    return end() - count;
+	return end() - count;
 }
 
 void isoBufferBuffer::clear()
 {
-    m_top = 0;
-    m_size = 0;
+	m_top = 0;
+	m_size = 0;
 }
 
 char const * isoBufferBuffer::begin() const
 {
-    return m_data.get() + m_top - m_size + m_capacity;
+	return m_data.get() + m_top - m_size + m_capacity;
 }
 
 char const * isoBufferBuffer::end() const
 {
-    return m_data.get() + m_top + m_capacity;
+	return m_data.get() + m_top + m_capacity;
 }
 
 uint32_t isoBufferBuffer::size() const
 {
-    return m_size;
+	return m_size;
 }
 
 uint32_t isoBufferBuffer::capacity() const
 {
-    return m_capacity;
+	return m_capacity;
 }
+
+
