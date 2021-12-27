@@ -2347,7 +2347,7 @@ void MainWindow::calibrate_psu_stage3()
     ui->controller_iso->autoGain();
 
 
-    if((PSU10 > 11) | (PSU10 < 9) ){
+    if((PSU10 > 12) | (PSU10 < 8) ){
         calibrationMessages->setText("Calibration has been abandoned due to out-of-range values.  The oscilloscope should show approximately 10V.  Please check all wires on your Labrador board and try again.");
         calibrationMessages->exec();
         return;
