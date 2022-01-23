@@ -132,7 +132,6 @@ std::unique_ptr<short[]> AsyncDFT::getWindow()
     return readData;
 }
 
-
 QVector<double> AsyncDFT::normalizeDFT(double e_maximum, QVector<double> dft)
 {
     double u_maximum;

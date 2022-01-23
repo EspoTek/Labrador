@@ -57,6 +57,8 @@ public:
 	void clearBuffer();
 	void gainBuffer(int gain_log);
 
+	void enableDftWrite(bool enable);
+
 // Advanced buffer operations
 private:
     template<typename T, typename Function>
@@ -119,7 +121,7 @@ public:
 	uartStyleDecoder* m_decoder = NULL;
 	bool m_isDecoding = true;
 //DFT
-    AsyncDFT async_dft;
+    AsyncDFT* async_dft;
 private:
 //	File I/O
 	bool m_fileIOEnabled = false;
@@ -131,6 +133,8 @@ private:
 	qulonglong m_fileIO_numBytesWritten;
 	unsigned int m_currentColumn = 0;
     uint32_t m_lastTriggerDetlaT = 0;
+
+	bool m_asyncDftActive = false;
 
 	isoDriver* m_virtualParent;
 

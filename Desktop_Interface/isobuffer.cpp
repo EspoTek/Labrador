@@ -37,6 +37,7 @@ isoBuffer::isoBuffer(QWidget* parent, int bufferLen, isoDriver* caller, unsigned
     , m_sampleRate_bit(bufferLen/21.0/375*VALID_DATA_PER_375*8)
     , m_virtualParent(caller)
 {
+    async_dft = new AsyncDFT();
     m_buffer = m_bufferPtr.get();
 }
 
@@ -56,7 +57,9 @@ void isoBuffer::insertIntoBuffer(short item)
     {
         m_back = 0;
     }
-    async_dft.addSample(item);
+
+    if (m_asyncDftActive)
+        async_dft->addSample(item);
 
     checkTriggered();
 }
@@ -169,6 +172,16 @@ void isoBuffer::gainBuffer(int gain_log)
     }
 }
 
+void isoBuffer::enableDftWrite(bool enable)
+{
+    if ((enable == true) && (m_asyncDftActive == false))
+    {
+        delete async_dft;
+        async_dft = new AsyncDFT();
+    }
+
+    m_asyncDftActive = enable;
+}
 
 void isoBuffer::outputSampleToFile(double averageSample)
 {
@@ -350,7 +363,7 @@ void isoBuffer::serialManage(double baudRate, UartParity parity, bool hexDisplay
         m_isDecoding = true;
     }
 
-	m_decoder->m_baudRate = baudRate;
+    m_decoder->m_baudRate = baudRate;
     m_decoder->setParityMode(parity);
     m_decoder->setHexDisplay(hexDisplay);
     m_decoder->serialDecode();
@@ -399,7 +412,7 @@ double isoBuffer::getDelayedTriggerPoint(double delay)
 {
     if (m_triggerPositionList.size() == 0)
         return 0;
-	
+
     const uint32_t delaySamples = delay * m_samplesPerSecond;
 
     auto isValid = [=](uint32_t index)->bool
