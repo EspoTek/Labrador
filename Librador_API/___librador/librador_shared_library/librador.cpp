@@ -1,6 +1,7 @@
 #include "librador.h"
 #include "librador_internal.h"
 #include "usbcallhandler.h"
+#include "logging_internal.h"
 
 #include <vector>
 #include <math.h>
@@ -94,7 +95,7 @@ std::vector<uint8_t> * librador_get_digital_data(int channel, double timeWindow_
     int delay_subsamples = round(delay_seconds * subsamples_per_second);
     int numToGet = round(timeWindow_seconds * subsamples_per_second)/interval_subsamples;
 
-    printf("interval_subsamples = %d\ndelay_subsamples = %d\nnumToGet=%d\n", interval_subsamples, delay_subsamples, numToGet);
+    LIBRADOR_LOG(LOG_DEBUG, "interval_subsamples = %d\ndelay_subsamples = %d\nnumToGet=%d\n", interval_subsamples, delay_subsamples, numToGet);
 
     return internal_librador_object->usb_driver->getMany_singleBit(channel, numToGet, interval_subsamples, delay_subsamples);
 }
@@ -295,3 +296,15 @@ int librador_synchronise_end(){
     return internal_librador_object->usb_driver->set_synchronous_pause_state(false);
 }
 */
+
+void
+librador_global_logger(
+		const int level,
+		const char * format,
+		... )
+{
+	va_list args;
+	va_start(args, format);
+	vfprintf((level > LOG_ERROR) ?  stdout : stderr , format, args);
+	va_end(args);
+}

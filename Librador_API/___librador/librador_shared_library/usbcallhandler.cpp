@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "o1buffer.h"
+#include "logging_internal.h"
 #include <mutex>
 #include <chrono>
 #include <thread>
@@ -88,20 +89,20 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
     if(usb_iso_needs_rearming()){
         int error = libusb_submit_transfer(transfer);
         if(error){
-            printf("Error re-arming the endpoint!\n");
+            LIBRADOR_LOG(LOG_DEBUG, "Error re-arming the endpoint!\n");
             begin_usb_thread_shutdown();
             decrement_remaining_transfers();
-            printf("Transfer not being rearmed!  %d armed transfers remaining\n", usb_shutdown_remaining_transfers);
+            LIBRADOR_LOG(LOG_WARNING, "Transfer not being rearmed!  %d armed transfers remaining\n", usb_shutdown_remaining_transfers);
         }
     } else {
         decrement_remaining_transfers();
-        printf("Transfer not being rearmed!  %d armed transfers remaining\n", usb_shutdown_remaining_transfers);
+        LIBRADOR_LOG(LOG_WARNING, "Transfer not being rearmed!  %d armed transfers remaining\n", usb_shutdown_remaining_transfers);
     }
     return;
 }
 
 void usb_polling_function(libusb_context *ctx){
-    printf("usb_polling_function thread spawned\n");
+    LIBRADOR_LOG(LOG_DEBUG, "usb_polling_function thread spawned\n");
     struct timeval tv;
     tv.tv_sec = 1;
     tv.tv_usec = 0;//ISO_PACKETS_PER_CTX*4000;
@@ -120,7 +121,7 @@ usbCallHandler::usbCallHandler(unsigned short VID_in, unsigned short PID_in)
 
     for(int k=0; k<NUM_ISO_ENDPOINTS; k++){
         pipeID[k] = 0x81+k;
-        printf("pipeID %d = %d\n", k, pipeID[k]);
+        LIBRADOR_LOG(LOG_DEBUG, "pipeID %d = %d\n", k, pipeID[k]);
     }
 
     internal_o1_buffer_375_CH1 = new o1buffer();
@@ -135,12 +136,12 @@ usbCallHandler::usbCallHandler(unsigned short VID_in, unsigned short PID_in)
 
 usbCallHandler::~usbCallHandler(){
     //Kill off usb_polling_thread.  Maybe join then get it to detect its own timeout condition.
-    printf("Calling destructor for librador USB call handler\n");
+    LIBRADOR_LOG(LOG_DEBUG, "Calling destructor for librador USB call handler\n");
     begin_usb_thread_shutdown();
 
-    printf("Shutting down USB polling thread...\n");
+    LIBRADOR_LOG(LOG_DEBUG, "Shutting down USB polling thread...\n");
     usb_polling_thread->join();
-    printf("USB polling thread stopped.\n");
+    LIBRADOR_LOG(LOG_DEBUG, "USB polling thread stopped.\n");
     delete usb_polling_thread;
 
     for (int i=0; i<NUM_FUTURE_CTX; i++){
@@ -148,58 +149,58 @@ usbCallHandler::~usbCallHandler(){
             libusb_free_transfer(isoCtx[k][i]);
         }
     }
-    printf("Transfers freed.\n");
+    LIBRADOR_LOG(LOG_DEBUG, "Transfers freed.\n");
 
     if(handle != NULL){
     libusb_release_interface(handle, 0);
-        printf("Interface released\n");
+        LIBRADOR_LOG(LOG_DEBUG, "Interface released\n");
         libusb_close(handle);
-        printf("Device Closed\n");
+        LIBRADOR_LOG(LOG_DEBUG, "Device Closed\n");
     }
     if(ctx != NULL){
         libusb_exit(ctx);
-        printf("Libusb exited\n");
+        LIBRADOR_LOG(LOG_DEBUG, "Libusb exited\n");
     }
 
-    printf("librador USB call handler deleted\n");
+    LIBRADOR_LOG(LOG_DEBUG, "librador USB call handler deleted\n");
 }
 
 
 int usbCallHandler::setup_usb_control(){
-    printf("usbCallHandler::setup_usb_control()\n");
+    LIBRADOR_LOG(LOG_DEBUG, "usbCallHandler::setup_usb_control()\n");
 
     if(ctx != NULL){
-        printf("There is already a libusb context!\n");
+        LIBRADOR_LOG(LOG_ERROR, "There is already a libusb context!\n");
         return 1;
-    } else printf("libusb context is null\n");
+    } else LIBRADOR_LOG(LOG_WARNING, "libusb context is null\n");
 
     //Initialise the Library
     int error;
     error = libusb_init(&ctx);
     if(error){
-        printf("libusb_init FAILED\n");
+        LIBRADOR_LOG(LOG_ERROR, "libusb_init FAILED\n");
         return -1;
-    } else printf("Libusb context initialised\n");
+    } else LIBRADOR_LOG(LOG_DEBUG, "Libusb context initialised\n");
     libusb_set_debug(ctx, 3);
 
     //Get a handle on the Labrador device
     handle = libusb_open_device_with_vid_pid(ctx, VID, PID);
     if(handle==NULL){
-        printf("DEVICE NOT FOUND\n");
+        LIBRADOR_LOG(LOG_ERROR, "DEVICE NOT FOUND\n");
         libusb_exit(ctx);
         ctx = NULL;
         return -2;
     }
-    printf("Device found!!\n");
+    LIBRADOR_LOG(LOG_DEBUG, "Device found!!\n");
 
     //Claim the interface
     error = libusb_claim_interface(handle, 0);
     if(error){
-        printf("libusb_claim_interface FAILED\n");
+        LIBRADOR_LOG(LOG_ERROR, "libusb_claim_interface FAILED\n");
         libusb_close(handle);
         handle = NULL;
         return -3;
-    } else printf("Interface claimed!\n");
+    } else LIBRADOR_LOG(LOG_DEBUG, "Interface claimed!\n");
 /*
     error = libusb_set_interface_alt_setting(handle, 0, 0);
     if(error){
@@ -219,7 +220,7 @@ int usbCallHandler::setup_usb_control(){
 
 int usbCallHandler::setup_usb_iso(){
     int error;
-    printf("usbCallHandler::setup_usb_iso()\n");
+    LIBRADOR_LOG(LOG_DEBUG, "usbCallHandler::setup_usb_iso()\n");
 
     for(int n=0;n<NUM_FUTURE_CTX;n++){
         for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
@@ -228,7 +229,7 @@ int usbCallHandler::setup_usb_iso(){
             libusb_set_iso_packet_lengths(isoCtx[k][n], ISO_PACKET_SIZE);
             error = libusb_submit_transfer(isoCtx[k][n]);
             if(error){
-                printf("libusb_submit_transfer #%d:%d FAILED with error %d %s\n", n, k, error, libusb_error_name(error));
+                LIBRADOR_LOG(LOG_ERROR, "libusb_submit_transfer #%d:%d FAILED with error %d %s\n", n, k, error, libusb_error_name(error));
                 return error;
             }
         }
@@ -242,7 +243,7 @@ int usbCallHandler::send_control_transfer(uint8_t RequestType, uint8_t Request, 
     unsigned char *controlBuffer;
 
     if(!connected){
-        printf("Control packet requested before device has connected!\n");
+        LIBRADOR_LOG(LOG_ERROR, "Control packet requested before device has connected!\n");
         return -1;
     }
 
@@ -253,7 +254,7 @@ int usbCallHandler::send_control_transfer(uint8_t RequestType, uint8_t Request, 
 
     int error = libusb_control_transfer(handle, RequestType, Request, Value, Index, controlBuffer, Length, 4000);
     if(error<0){
-        printf("send_control_transfer FAILED with error %s", libusb_error_name(error));
+        LIBRADOR_LOG(LOG_ERROR, "send_control_transfer FAILED with error %s", libusb_error_name(error));
         return error - 100;
     }
     /*
@@ -270,7 +271,7 @@ int usbCallHandler::send_control_transfer(uint8_t RequestType, uint8_t Request, 
 int usbCallHandler::avrDebug(void){
     send_control_transfer_with_error_checks(0xc0, 0xa0, 0, 0, sizeof(unified_debug), NULL);
 
-    printf("unified debug is of size %lu\n", sizeof(unified_debug));
+    LIBRADOR_LOG(LOG_DEBUG, "unified debug is of size %lu\n", sizeof(unified_debug));
 
     unified_debug *udsPtr = (unified_debug *) inBuffer;
     uint16_t trfcnt0 = (udsPtr->trfcntH0 << 8) + udsPtr->trfcntL0;
@@ -281,18 +282,18 @@ int usbCallHandler::avrDebug(void){
     uint16_t dma_ch0_cnt = (udsPtr->dma_ch0_cntH << 8) + udsPtr->dma_ch0_cntL;
     uint16_t dma_ch1_cnt = (udsPtr->dma_ch1_cntH << 8) + udsPtr->dma_ch1_cntL;
 
-    printf("%s", udsPtr->header);
-    printf("trfcnt0 = %d\n", trfcnt0);
-    printf("trfcnt1 = %d\n", trfcnt1);
-    printf("medianTrfcnt = %d\n", medianTrfcnt);
-    printf("outOfRange = %d\n", outOfRange);
-    printf("counter = %d\n", counter);
-    printf("calValNeg = %d\n", udsPtr->calValNeg);
-    printf("calValPos = %d\n", udsPtr->calValPos);
-    printf("CALA = %d\n", udsPtr->CALA);
-    printf("CALB = %d\n", udsPtr->CALB);
-    printf("dma_ch0_cnt = %d\n", dma_ch0_cnt);
-    printf("dma_ch1_cnt = %d\n", dma_ch1_cnt);
+    LIBRADOR_LOG(LOG_DEBUG, "%s", udsPtr->header);
+    LIBRADOR_LOG(LOG_DEBUG, "trfcnt0 = %d\n", trfcnt0);
+    LIBRADOR_LOG(LOG_DEBUG, "trfcnt1 = %d\n", trfcnt1);
+    LIBRADOR_LOG(LOG_DEBUG, "medianTrfcnt = %d\n", medianTrfcnt);
+    LIBRADOR_LOG(LOG_DEBUG, "outOfRange = %d\n", outOfRange);
+    LIBRADOR_LOG(LOG_DEBUG, "counter = %d\n", counter);
+    LIBRADOR_LOG(LOG_DEBUG, "calValNeg = %d\n", udsPtr->calValNeg);
+    LIBRADOR_LOG(LOG_DEBUG, "calValPos = %d\n", udsPtr->calValPos);
+    LIBRADOR_LOG(LOG_DEBUG, "CALA = %d\n", udsPtr->CALA);
+    LIBRADOR_LOG(LOG_DEBUG, "CALB = %d\n", udsPtr->CALB);
+    LIBRADOR_LOG(LOG_DEBUG, "dma_ch0_cnt = %d\n", dma_ch0_cnt);
+    LIBRADOR_LOG(LOG_DEBUG, "dma_ch1_cnt = %d\n", dma_ch1_cnt);
 
     return 0;
 }
@@ -404,7 +405,7 @@ int usbCallHandler::set_gain(double newGain){
     else if (newGain == 32) gainMask = 0x05;
     else if (newGain == 64) gainMask = 0x06;
     else{
-      printf("Invalid gain value.  Valid values are 0.1, 1, 2, 4, 8, 16, 32, 64\n");
+      LIBRADOR_LOG(LOG_ERROR, "Invalid gain value.  Valid values are 0.1, 1, 2, 4, 8, 16, 32, 64\n");
       return -1;
     }
 
