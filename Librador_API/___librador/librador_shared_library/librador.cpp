@@ -297,14 +297,31 @@ int librador_synchronise_end(){
 }
 */
 
-void
-librador_global_logger(
-		const int level,
-		const char * format,
-		... )
-{
+static void std_logger(void * userdata, const int level, const char * format, va_list ap);
+static librador_logger_p _librador_global_logger = std_logger;
+static void * _librador_global_userdata = NULL;
+
+void librador_global_logger(const int level, const char * format, ...){
 	va_list args;
 	va_start(args, format);
-	vfprintf((level > LOG_ERROR) ?  stdout : stderr , format, args);
+	if (_librador_global_logger)
+		_librador_global_logger(_librador_global_userdata, level, format, args);
 	va_end(args);
+}
+
+void librador_logger_set(void * userdata, librador_logger_p logger){
+	_librador_global_logger = logger ? logger : std_logger;
+	_librador_global_userdata = userdata;
+}
+
+librador_logger_p librador_logger_get(void){
+	return _librador_global_logger;
+}
+
+void * librador_logger_get_userdata(void){
+	return _librador_global_userdata;
+}
+
+static void std_logger(void * userdata, const int level, const char * format, va_list ap){
+	vfprintf((level > LOG_ERROR) ?  stdout : stderr , format, ap);
 }
