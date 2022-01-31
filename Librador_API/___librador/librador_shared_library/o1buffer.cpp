@@ -1,4 +1,5 @@
 #include "o1buffer.h"
+#include "logging_internal.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -34,7 +35,7 @@ void o1buffer::add(int value, int address){
         address = address % NUM_SAMPLES_PER_CHANNEL;
     }
     if(address<0){
-        fprintf(stderr, "ERROR: o1buffer::add was given a negative address\n");
+        LIBRADOR_LOG(LOG_ERROR, "ERROR: o1buffer::add was given a negative address\n");
     }
     //Assign the value
     buffer[address] = value;
@@ -88,7 +89,7 @@ int o1buffer::get(int address){
         address = address % NUM_SAMPLES_PER_CHANNEL;
     }
     if(address<0){
-        fprintf(stderr, "ERROR: o1buffer::get was given a negative address\n");
+        LIBRADOR_LOG(LOG_ERROR, "ERROR: o1buffer::get was given a negative address\n");
     }
     //Return the value
     return buffer[address];

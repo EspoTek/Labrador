@@ -2,7 +2,9 @@
 #define LIBRADOR_H
 
 #include "librador_global.h"
+#include "logging.h"
 #include <vector>
+#include <stdarg.h>
 #include <stdint.h>
 
 int LIBRADORSHARED_EXPORT librador_init();
@@ -51,6 +53,12 @@ std::vector<uint8_t> * LIBRADORSHARED_EXPORT librador_get_digital_data(int chann
 int LIBRADORSHARED_EXPORT librador_synchronise_begin();
 int LIBRADORSHARED_EXPORT librador_synchronise_end();
 */
+
+typedef void (*librador_logger_p)(void * userdata, const int level, const char * format, va_list);
+
+void LIBRADORSHARED_EXPORT librador_logger_set(void * userdata, librador_logger_p logger);
+librador_logger_p LIBRADORSHARED_EXPORT librador_logger_get(void);
+void * LIBRADORSHARED_EXPORT librador_logger_get_userdata(void);
 
 
 #endif // LIBRADOR_H
