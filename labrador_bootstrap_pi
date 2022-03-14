@@ -51,6 +51,9 @@ git clone --depth 1 https://github.com/espotek/labrador
 # Set PATH so that make can find gcc-8.10
 export PATH=/usr/local/gcc-8.1.0-labrador/bin:$PATH
 
+# Set QT_SELECT so qtchooser picks the right version
+export QT_SELECT=qt5
+
 # Build labrador
 cd labrador/Desktop_Interface
 qmake
