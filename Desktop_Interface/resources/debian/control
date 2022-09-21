@@ -3,7 +3,7 @@ Version: 2.0
 Section: electronics
 Priority: optional
 Architecture: amd64
-Depends: libusb-1.0-0 (>= 1.0.19), qt5-default
+Depends: libfftw3-double3, libqt5core5a, libqt5gui5, libqt5printsupport5, libqt5widgets5, libstdc++6, libusb-1.0-0 (>= 1.0.19)
 Maintainer: Chris Esposito <admin@espotek.com>
 Homepage: https://espotek.com
 Description: EspoTek Labrador
