@@ -799,7 +799,7 @@
            <item>
             <widget class="QLabel" name="multimeterResistanceLabel">
              <property name="text">
-              <string>Series Resistance</string>
+              <string>Reference Resistance</string>
              </property>
             </widget>
            </item>
