@@ -5,6 +5,7 @@ set -e
 qmake APPIMAGE=1 CONFIG+=release PREFIX=/usr DEFINES+=GIT_HASH_SHORT=$(git rev-parse --short HEAD)
 make -j$(nproc) CXX=${CXX} CC=${CC} LINK=${CXX}
 make INSTALL_ROOT=appdir install ; find appdir/
+test -e /etc/debian_version && chmod -x appdir/usr/lib/*
 wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage"
 chmod a+x linuxdeployqt-*.AppImage
 unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH

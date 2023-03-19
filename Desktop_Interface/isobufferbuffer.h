@@ -24,30 +24,30 @@
 class isoBufferBuffer
 {
 public:
-	isoBufferBuffer(uint32_t length);
-	~isoBufferBuffer() = default;
+    isoBufferBuffer(uint32_t length);
+    ~isoBufferBuffer() = default;
 
-	void insert(char c);
-	void insert(char const * s);
-	void insert(std::string const & s);
-	void insert_hex(uint8_t x);
+    void insert(char c);
+    void insert(char const * s);
+    void insert(std::string const & s);
+    void insert_hex(uint8_t x);
 
-	char const * query(uint32_t length) const;
-	// TODO?: add ability to get a copy of the content
-	// (e.g. return std::string or Qstring)
+    char const * query(uint32_t length) const;
+    // TODO?: add ability to get a copy of the content
+    // (e.g. return std::string or Qstring)
 
-	void clear();
+    void clear();
 
-	char const * begin() const;
-	char const * end() const;
+    char const * begin() const;
+    char const * end() const;
 
-	uint32_t size() const;
-	uint32_t capacity() const;
+    uint32_t size() const;
+    uint32_t capacity() const;
 private:
-	std::unique_ptr<char[]> m_data;
-	uint32_t m_capacity;
-	uint32_t m_size = 0;
-	uint32_t m_top = 0;
+    std::unique_ptr<char[]> m_data;
+    uint32_t m_capacity;
+    uint32_t m_size = 0;
+    uint32_t m_top = 0;
 };
 
 #endif // ISOBUFFERBUFFER_H

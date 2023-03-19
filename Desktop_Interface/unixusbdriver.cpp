@@ -4,6 +4,7 @@
 #endif
 #include <QApplication>
 #include <QMessageBox>
+#include <QStandardPaths>
 
 unixUsbDriver::unixUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
@@ -20,24 +21,24 @@ unixUsbDriver::~unixUsbDriver(void){
     qDebug() << "\n\nunixUsbDriver destructor ran!";
     //unixDriverDeleteMutex.lock();
     if(connected){
-		if (workerThread)
-			{
-			workerThread->deleteLater();
-			while(workerThread->isRunning()){
-				workerThread->quit();
-				qDebug() << "isRunning?" << workerThread->isFinished();
-				QThread::msleep(100);
-			}
-		}	
-		if (isoHandler)
-	        delete(isoHandler);
+        if (workerThread)
+            {
+            workerThread->deleteLater();
+            while(workerThread->isRunning()){
+                workerThread->quit();
+                qDebug() << "isRunning?" << workerThread->isFinished();
+                QThread::msleep(100);
+            }
+        }
+        if (isoHandler)
+            delete(isoHandler);
         //delete(workerThread);
         qDebug() << "THREAD Gone!";
 
         for (int i=0; i<NUM_FUTURE_CTX; i++){
             for (int k=0; k<NUM_ISO_ENDPOINTS; k++){
-				if (isoCtx[k][i])
-	                libusb_free_transfer(isoCtx[k][i]);
+                if (isoCtx[k][i])
+                    libusb_free_transfer(isoCtx[k][i]);
             }
         }
         qDebug() << "Transfers freed.";
@@ -143,7 +144,7 @@ static void LIBUSB_CALL isoCallback(struct libusb_transfer * transfer){
 
 int unixUsbDriver::usbIsoInit(void){
     int error;
-	
+
     for(int n=0;n<NUM_FUTURE_CTX;n++){
         for (unsigned char k=0;k<NUM_ISO_ENDPOINTS;k++){
             isoCtx[k][n] = libusb_alloc_transfer(ISO_PACKETS_PER_CTX);
@@ -160,7 +161,7 @@ int unixUsbDriver::usbIsoInit(void){
             if(error){
                 qDebug() << "libusb_submit_transfer FAILED";
                 qDebug() << "ERROR" << libusb_error_name(error);
-				return -1;
+                return -1;
             } else {
                 if(n == 0){
                     qint64 t0;
@@ -334,16 +335,13 @@ void unixUsbDriver::shutdownProcedure(){
 
 //On physical disconnect, isoTimerTick will not assert stopTime.  Hence this duct-tape function.
 void unixUsbDriver::backupCleanup(){
-	if (isoHandler)
-	    isoHandler->stopTime = true;
+    if (isoHandler)
+        isoHandler->stopTime = true;
 }
 
 int unixUsbDriver::flashFirmware(void){
 #ifndef PLATFORM_ANDROID
-    char fname[128];
     qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
-    sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
-    qDebug() << "FLASHING " << fname;
 
     signalFirmwareFlash();
     QApplication::processEvents();
@@ -353,19 +351,21 @@ int unixUsbDriver::flashFirmware(void){
     qDebug() << "BA94 closed";
 
     //Get location of firmware file
+#ifdef PLATFORM_LINUX
+    QString dirString = QString::asprintf("firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
+    dirString = QStandardPaths::locate(QStandardPaths::AppDataLocation, dirString);
+#else
     QString dirString = QCoreApplication::applicationDirPath();
-    dirString.append(fname);
-    QByteArray array = dirString.toLocal8Bit();
-    char* buffer = array.data();
-    //qDebug() << buffer;
-
+    dirString.append(QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT));
+#endif
+    qDebug() << "FLASHING " << dirString;
 
     //Set up interface to dfuprog
     int exit_code = 1;
     char command1[256];
     sprintf(command1, "dfu-programmer atxmega32a4u erase --force");
     char command2[256];
-    sprintf(command2, "dfu-programmer atxmega32a4u flash %s", buffer);
+    sprintf(command2, "dfu-programmer atxmega32a4u flash %s", qPrintable(dirString));
     char command3[256];
     sprintf(command3, "dfu-programmer atxmega32a4u launch");
     char command4[256];
@@ -416,13 +416,13 @@ int unixUsbDriver::flashFirmware(void){
 void unixUsbDriver::manualFirmwareRecovery(void){
 #ifndef PLATFORM_ANDROID
     //Get location of firmware file
-    char fname[128];
-    sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
-
+#ifdef PLATFORM_LINUX
+    QString dirString = QString::asprintf("firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
+    dirString = QStandardPaths::locate(QStandardPaths::AppDataLocation, dirString);
+#else
     QString dirString = QCoreApplication::applicationDirPath();
-    dirString.append(fname);
-    QByteArray array = dirString.toLocal8Bit();
-    char* buffer = array.data();
+    dirString.append(QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT));
+#endif
 
     //Vars
     QMessageBox manualFirmwareMessages;
@@ -435,7 +435,7 @@ void unixUsbDriver::manualFirmwareRecovery(void){
     char eraseCommand[256];
     sprintf(eraseCommand, "dfu-programmer atxmega32a4u erase --force");
     char flashCommand[256];
-    sprintf(flashCommand, "dfu-programmer atxmega32a4u flash %s", buffer);
+    sprintf(flashCommand, "dfu-programmer atxmega32a4u flash %s", qPrintable(dirString));
 
 
 

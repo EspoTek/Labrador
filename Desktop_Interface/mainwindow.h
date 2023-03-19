@@ -193,7 +193,7 @@ private slots:
 
     void on_actionShow_Range_Dialog_on_Main_Page_triggered(bool checked);
 
-	void paused(bool enabled);
+    void paused(bool enabled);
 
     void on_actionNone_triggered();
 
@@ -246,7 +246,7 @@ private:
     int reinitDigitalPinState;
 
     QSettings *settings;
-	bool calibrationCanceled = false;
+    bool calibrationCanceled = false;
 
     QPalette defaultPalette;
     QString defaultStyleName;

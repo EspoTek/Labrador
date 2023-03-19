@@ -140,9 +140,9 @@ private:
     void triggerStateChanged();
     //Variables that are just pointers to other classes/vars
     QCustomPlot *axes; // TODO: move into DisplayControl
-	std::unique_ptr<short[]> readData375_CH1;
-	std::unique_ptr<short[]> readData375_CH2;
-	std::unique_ptr<short[]> readData750;
+    std::unique_ptr<short[]> readData375_CH1;
+    std::unique_ptr<short[]> readData375_CH2;
+    std::unique_ptr<short[]> readData750;
     float *readDataFile;
     char *isoTemp = NULL;
     short *isoTemp_short = NULL;
@@ -280,8 +280,8 @@ public slots:
     void fileTimerTick();
     void enableFileMode();
     void disableFileMode();
-	void hideCH1(bool enable);
-	void hideCH2(bool enable);
+    void hideCH1(bool enable);
+    void hideCH2(bool enable);
     void offsetChanged_CH1(double newOffset);
     void offsetChanged_CH2(double newOffset);
     void attenuationChanged_CH1(int attenuationIndex);

@@ -273,7 +273,7 @@ void DisplayControl::setVoltageRange (QWheelEvent* event, bool isProperlyPaused,
         QCPRange range = axes->yAxis->range();
 
         double pixPct = (double)100 - ((double)100 * (((double)axes->yAxis->pixelToCoord(event->y())-range.lower) / range.size()));
-        if (pixPct < 0) pixPct = 0; 
+        if (pixPct < 0) pixPct = 0;
         if (pixPct > 100) pixPct = 100;
 
         qDebug() << "WHEEL @ " << pixPct << "%";
@@ -615,7 +615,7 @@ void isoDriver::setTriggerMode(int newMode)
 }
 
 //0 for off, 1 for ana, 2 for dig, -1 for ana750, -2 for file
-void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)  
+void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
 {
 
     // The Spectrum is computationally expensive to calculate, so we don't want to do it on every frame
@@ -671,7 +671,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
     double triggerDelay = 0;
     if (triggerEnabled)
     {
-		isoBuffer* internalBuffer_CH1 = (CH1_mode == -1) ? internalBuffer750 : internalBuffer375_CH1;
+        isoBuffer* internalBuffer_CH1 = (CH1_mode == -1) ? internalBuffer750 : internalBuffer375_CH1;
         triggerDelay = (triggerMode < 2) ? internalBuffer_CH1->getDelayedTriggerPoint(display.window) - display.window : internalBuffer375_CH2->getDelayedTriggerPoint(display.window) - display.window;
 
         if (triggerDelay < 0)
@@ -748,7 +748,7 @@ void isoDriver::frameActionGeneric(char CH1_mode, char CH2_mode)
             CH2[i] /= m_attenuation_CH2;
             CH2[i] += m_offset_CH2;
         }
-        
+
         if (spectrum)
         {
             analogConvert(dt_samples2.get(), &converted_dt_samples2, 128, AC_CH2, 2);
@@ -1213,7 +1213,7 @@ void isoDriver::setXYmode(bool enabled){
             axes->graph(i)->setVisible(graphState[i]);
         }
     }
-    
+
     QCPCurve* curve = reinterpret_cast<QCPCurve*>(axes->plottable(0));
     curve->setVisible(enabled);
     emit enableCursorGroup(!enabled);
@@ -1333,7 +1333,7 @@ double isoDriver::meanVoltageLast(double seconds, unsigned char channel, int TOP
         break;
     }
 
-	std::unique_ptr<short[]> tempBuffer = currentBuffer->readBuffer(seconds, 1024, 0, 0);
+    std::unique_ptr<short[]> tempBuffer = currentBuffer->readBuffer(seconds, 1024, 0, 0);
     double sum = 0;
     double temp;
     for(int i = 0; i<1024; i++){
@@ -1557,12 +1557,12 @@ void isoDriver::setSerialType(unsigned char type)
 
 void isoDriver::hideCH1(bool enable)
 {
-	axes->graph(0)->setVisible(!enable);
+    axes->graph(0)->setVisible(!enable);
 }
 
 void isoDriver::hideCH2(bool enable)
 {
-	axes->graph(1)->setVisible(!enable);
+    axes->graph(1)->setVisible(!enable);
 }
 
 void isoDriver::triggerStateChanged()
@@ -1675,4 +1675,3 @@ void isoDriver::setMaxSpectrum(int maxSpectrum)
 {
     m_spectrumMaxX = static_cast<double>(maxSpectrum);
 }
-

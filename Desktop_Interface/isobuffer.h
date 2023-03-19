@@ -46,45 +46,45 @@ constexpr uint32_t CONSOLE_UPDATE_TIMER_PERIOD = ISO_PACKETS_PER_CTX * 4;
 // TODO: Change integer types to cstdint types
 class isoBuffer : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	isoBuffer(QWidget* parent = 0, int bufferLen = 0, isoDriver* caller = 0, unsigned char channel_value = 0);
-	~isoBuffer() = default;
+    isoBuffer(QWidget* parent = 0, int bufferLen = 0, isoDriver* caller = 0, unsigned char channel_value = 0);
+    ~isoBuffer() = default;
 
-//	Basic buffer operations
-	short bufferAt(uint32_t idx) const;
-	void insertIntoBuffer(short item);
-	void clearBuffer();
-	void gainBuffer(int gain_log);
+// Basic buffer operations
+    short bufferAt(uint32_t idx) const;
+    void insertIntoBuffer(short item);
+    void clearBuffer();
+    void gainBuffer(int gain_log);
 
-	void enableDftWrite(bool enable);
+    void enableDftWrite(bool enable);
 
 // Advanced buffer operations
 private:
     template<typename T, typename Function>
     void writeBuffer(T* data, int len, int TOP, Function transform);
 public:
-	void writeBuffer_char(char* data, int len);
-	void writeBuffer_short(short* data, int len);
+    void writeBuffer_char(char* data, int len);
+    void writeBuffer_short(short* data, int len);
 
-	std::unique_ptr<short[]> readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
-//	file I/O
+    std::unique_ptr<short[]> readBuffer(double sampleWindow, int numSamples, bool singleBit, double delayOffset);
+// file I/O
 private:
-	void outputSampleToFile(double averageSample);
-	void maybeOutputSampleToFile(double convertedSample);
+    void outputSampleToFile(double averageSample);
+    void maybeOutputSampleToFile(double convertedSample);
 public:
-	double sampleConvert(short sample, int TOP, bool AC) const;
-	short inverseSampleConvert(double voltageLevel, int TOP, bool AC) const;
+    double sampleConvert(short sample, int TOP, bool AC) const;
+    short inverseSampleConvert(double voltageLevel, int TOP, bool AC) const;
 
 private:
-	template<typename Function>
-	int capSample(int offset, int target, double seconds, double value, Function comp);
+    template<typename Function>
+    int capSample(int offset, int target, double seconds, double value, Function comp);
     void checkTriggered();
 public:
-	int cap_x0fromLast(double seconds, double vbot);
-	int cap_x1fromLast(double seconds, int x0, double vbot);
-	int cap_x2fromLast(double seconds, int x1, double vtop);
-	void serialManage(double baudRate, UartParity parity, bool hexDisplay);
+    int cap_x0fromLast(double seconds, double vbot);
+    int cap_x1fromLast(double seconds, int x0, double vbot);
+    int cap_x2fromLast(double seconds, int x1, double vtop);
+    void serialManage(double baudRate, UartParity parity, bool hexDisplay);
     void setTriggerType(TriggerType newType);
     void setTriggerLevel(double voltageLevel, uint16_t top, bool acCoupled);
     double getDelayedTriggerPoint(double delay);
@@ -92,58 +92,58 @@ public:
 
 // ---- MEMBER VARIABLES ----
 
-//	Presentation?
+// Presentation?
 // TODO: Add consoles as constructor arguments
 // NOTE: These are initialized in mainwindow.cpp
-	QPlainTextEdit* m_console1;
-	QPlainTextEdit* m_console2;
-	unsigned char m_channel = 255;
-	bool m_serialAutoScroll = true;
+    QPlainTextEdit* m_console1;
+    QPlainTextEdit* m_console2;
+    unsigned char m_channel = 255;
+    bool m_serialAutoScroll = true;
 
-//	Internal Storage
+// Internal Storage
     std::unique_ptr<short[]> m_bufferPtr;
     short* m_buffer;
-	uint32_t m_back = 0;
-	uint32_t m_insertedCount = 0;
-	uint32_t m_bufferLen;
+    uint32_t m_back = 0;
+    uint32_t m_insertedCount = 0;
+    uint32_t m_bufferLen;
 
 // Conversion And Sampling
-	double m_voltage_ref = 1.65;
-	double m_frontendGain = (R4 / (R3 + R4));
-	int m_samplesPerSecond;
-	int m_sampleRate_bit;
+    double m_voltage_ref = 1.65;
+    double m_frontendGain = (R4 / (R3 + R4));
+    int m_samplesPerSecond;
+    int m_sampleRate_bit;
     TriggerType m_triggerType = TriggerType::Disabled;
     TriggerSeekState m_triggerSeekState = TriggerSeekState::BelowTriggerLevel;
     short m_triggerLevel = 0;
     short m_triggerSensitivity = 0;
     std::vector<uint32_t> m_triggerPositionList = {};
-//	UARTS decoding
-	uartStyleDecoder* m_decoder = NULL;
-	bool m_isDecoding = true;
-//DFT
+// UARTS decoding
+    uartStyleDecoder* m_decoder = NULL;
+    bool m_isDecoding = true;
+// DFT
     AsyncDFT* async_dft;
 private:
-//	File I/O
-	bool m_fileIOEnabled = false;
-	QFile* m_currentFile;
-	int m_fileIO_sampleCountPerWrite;
-	int m_fileIO_sampleCount;
-	double m_fileIO_sampleAccumulator;
-	qulonglong m_fileIO_maxFileSize;
-	qulonglong m_fileIO_numBytesWritten;
-	unsigned int m_currentColumn = 0;
+// File I/O
+    bool m_fileIOEnabled = false;
+    QFile* m_currentFile;
+    int m_fileIO_sampleCountPerWrite;
+    int m_fileIO_sampleCount;
+    double m_fileIO_sampleAccumulator;
+    qulonglong m_fileIO_maxFileSize;
+    qulonglong m_fileIO_numBytesWritten;
+    unsigned int m_currentColumn = 0;
     uint32_t m_lastTriggerDetlaT = 0;
 
-	bool m_asyncDftActive = false;
+    bool m_asyncDftActive = false;
 
-	isoDriver* m_virtualParent;
+    isoDriver* m_virtualParent;
 
     void addTriggerPosition(uint32_t position);
 signals:
-	void fileIOinternalDisable();
+    void fileIOinternalDisable();
 public slots:
-	void enableFileIO(QFile* file, int samplesToAverage, qulonglong max_file_size);
-	void disableFileIO();
+    void enableFileIO(QFile* file, int samplesToAverage, qulonglong max_file_size);
+    void disableFileIO();
 };
 
 #endif // ISOBUFFER_H

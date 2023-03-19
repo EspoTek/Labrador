@@ -159,50 +159,43 @@ unix:!android:!macx{
             unix:!android:!macx:LIBS += -L$$PWD/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9
             unix:!android:!macx:INCLUDEPATH += $$PWD/build_linux/libdfuprog/include
             unix:!android:!macx:DEPENDPATH += $$PWD/build_linux/libdfuprog/include
-    	    lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x64/libdfuprog-0.9.so
+            lib_deploy.files = $$PWD/build_linux/libdfuprog/lib/x64/libdfuprog-0.9.so
             lib_deploy.path = /usr/lib
         }
     }
-    
-    other.files += bin/firmware
-    other.files += bin/waveforms
-    other.path = /usr/bin/EspoTek-Labrador
-    
-    target.path = /usr/bin/EspoTek-Labrador
-    
+
+    target.path = /usr/bin
+
+    firmware.files += $$files(bin/firmware/labrafirm*)
+    firmware.path = /usr/share/EspoTek/Labrador/firmware
+
+    waveforms.files += $$files(bin/waveforms/*)
+    waveforms.path = /usr/share/EspoTek/Labrador/waveforms
+
     udev.path = /etc/udev/rules.d
     udev.files = rules.d/69-labrador.rules
-    
+
     icon48.files += resources/icon48/espotek-labrador.png
     icon48.path = /usr/share/icons/hicolor/48x48/apps/
 
     icon256.files += resources/icon256/espotek-labrador.png
     icon256.path = /usr/share/icons/hicolor/256x256/apps/
-    
-    equals(APPIMAGE, 1){
-        desktop.files += resources/appimage/espotek-labrador.desktop
-    }
-    !equals(APPIMAGE, 1){
-        desktop.files += resources/espotek-labrador.desktop
-    }
+
+    desktop.files += resources/espotek-labrador.desktop
     desktop.path = /usr/share/applications
-    
+
     symlink.path = /usr/bin
-    symlink.extra = ln -sf ${INSTALL_ROOT}/usr/bin/EspoTek-Labrador/Labrador /usr/bin/labrador
-    
+    symlink.extra = ln -sf Labrador ${INSTALL_ROOT}/usr/bin/labrador
+
     udevextra.path = /etc/udev/rules.d
     !equals(DEB, 1){
         udevextra.extra = udevadm control --reload-rules && udevadm trigger
     }
 
-    equals(APPIMAGE, 1){
-        other.path = /usr/bin
-        target.path = /usr/bin
-    }
-
     INSTALLS += target
     INSTALLS += lib_deploy
-    INSTALLS += other
+    INSTALLS += firmware
+    INSTALLS += waveforms
     INSTALLS += udev
     INSTALLS += icon48
     INSTALLS += icon256

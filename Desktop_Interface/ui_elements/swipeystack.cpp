@@ -57,4 +57,3 @@ void swipeyStack::cycleStack(int delta){
 void swipeyStack::enableWrapping(bool enabled){
     wrapEnabled = enabled;
 }
-

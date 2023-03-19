@@ -9,7 +9,7 @@ winUsbDriver::winUsbDriver(QWidget *parent) : genericUsbDriver(parent)
 {
 }
 
-winUsbDriver::~winUsbDriver(void){    
+winUsbDriver::~winUsbDriver(void){
 
     //Like any decent destructor, this just frees resources
 
@@ -42,7 +42,7 @@ unsigned char winUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     KLST_HANDLE deviceList = NULL;
 
     //List libusbk devices connected
-    if (!LstK_Init(&deviceList, (KLST_FLAG) 0))	{
+    if (!LstK_Init(&deviceList, (KLST_FLAG) 0)) {
         qDebug("Error initializing device list");
         return 1;
     } //else qDebug() << "Device List initialised!";
@@ -51,7 +51,7 @@ unsigned char winUsbDriver::usbInit(unsigned long VIDin, unsigned long PIDin){
     LstK_Count(deviceList, &deviceCount);
     if (!deviceCount) {
         qDebug("Device list empty");
-        LstK_Free(deviceList);	// If LstK_Init returns TRUE, the list must be freed.
+        LstK_Free(deviceList);  // If LstK_Init returns TRUE, the list must be freed.
         return 0;
     } //else qDebug() << "Device Count initialised!";
 */
@@ -87,7 +87,7 @@ void winUsbDriver::usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t
 
     //////////////////////////////////////////////////////////////////////////////////////////
     //IF YOU'RE SEEING AN ERROR, CHECK THAT REQUESTTYPE AND REQUEST ARE FORMATTED AS HEX
-    //////////////////////////////////////////////////////////////////////////////////////////    
+    //////////////////////////////////////////////////////////////////////////////////////////
 
     WINUSB_SETUP_PACKET setupPacket;
     unsigned char controlSuccess;
@@ -327,10 +327,7 @@ void winUsbDriver::shutdownProcedure(){
 }
 
 int winUsbDriver::flashFirmware(void){
-    char fname[64];
     qDebug() << "\n\n\n\n\n\n\n\nFIRMWARE MISMATCH!!!!  FLASHING....\n\n\n\n\n\n\n";
-    sprintf(fname, "labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
-    qDebug() << "FLASHING " << fname;
 
     signalFirmwareFlash();
     QApplication::processEvents();
@@ -339,12 +336,14 @@ int winUsbDriver::flashFirmware(void){
     //Go to bootloader mode
     bootloaderJump();
 
-    //Set up interface to dfuprog
+    //Get location of firmware file
     QString dfuprog_location = QCoreApplication::applicationDirPath();
     dfuprog_location.append("/firmware/dfu-programmer");
     QString file_location = QCoreApplication::applicationDirPath();
-    file_location.append("/firmware/");
-    file_location.append(fname);
+    file_location.append(QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT));
+    qDebug() << "FLASHING " << file_location;
+
+    //Set up interface to dfuprog
     QProcess dfu_exe;
     QStringList args_stage1;
     args_stage1 << "atxmega32a4u" << "erase" << "--force";
@@ -411,11 +410,8 @@ int winUsbDriver::flashFirmware(void){
 
 void winUsbDriver::manualFirmwareRecovery(void){
     //Get location of firmware file
-    char fname[128];
-    sprintf(fname, "/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT);
-
     QString file_location = QCoreApplication::applicationDirPath();
-    file_location.append(fname);
+    file_location.append(QString::asprintf("/firmware/labrafirm_%04x_%02x.hex", EXPECTED_FIRMWARE_VERSION, DEFINED_EXPECTED_VARIANT));
 
     //Set up interface to dfuprog
     QString dfuprog_location = QCoreApplication::applicationDirPath();
