@@ -216,7 +216,7 @@ void genericUsbDriver::sendFunctionGenData(functionGen::ChannelID channelID)
     int validClockDivs[7] = {1, 2, 4, 8, 64, 256, 1024};
 	auto period = [&](int division) -> int
 	{
-		return CLOCK_FREQ / (division * channelData.samples.size() * channelData.freq);
+		return CLOCK_FREQ / (division * channelData.samples.size() * channelData.freq) - 0.5;
 	};
 
 	int* clkSettingIt = std::find_if(std::begin(validClockDivs), std::end(validClockDivs),
