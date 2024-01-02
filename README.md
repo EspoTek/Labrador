@@ -29,6 +29,14 @@ There are community contributed 3D printable cases available at Thingiverse, cou
 * https://www.thingiverse.com/thing:3188243
 * https://www.thingiverse.com/thing:4705392
 
+* Dave Messink has designed [a case that can be laser cut from foam](https://github.com/EspoTek/Labrador/files/13813693/Re__Labrador_Case.1.zip)  
+The binding posts and cables he used are from Amazon.  
+https://www.amazon.com/dp/B07YKYP8MN?psc=1&ref=ppx_yo2ov_dt_b_product_details  
+https://www.amazon.com/dp/B08KZGPTLM?ref=ppx_yo2ov_dt_b_product_details&th=1  
+https://www.amazon.com/dp/B08KZGPTLM?ref=ppx_yo2ov_dt_b_product_details&th=1  
+![20231217_120235](https://github.com/EspoTek/Labrador/assets/22040436/7245c645-ce89-41ae-a505-a47f29ab8875)
+![20231217_120248](https://github.com/EspoTek/Labrador/assets/22040436/7ac3882c-1c8f-4fad-9f9a-03112eef8ff8)
+
 # Building from Source
 If you're looking to build from source but don't know where to start, Qt Creator is the easiest way to get your toes wet!  
 https://www.qt.io/download-open-source/  
