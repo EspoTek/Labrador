@@ -29,7 +29,7 @@ There are community contributed 3D printable cases available at Thingiverse, cou
 * https://www.thingiverse.com/thing:3188243
 * https://www.thingiverse.com/thing:4705392
 
-* Dave Messink has designed [a case that can be laser cut from foam](https://github.com/EspoTek/Labrador/files/13813693/Re__Labrador_Case.1.zip)  
+* Dave Messink has designed [a case that can be laser cut from 3mm plywood](https://github.com/EspoTek/Labrador/files/13813693/Re__Labrador_Case.1.zip)  
 The binding posts and cables he used are from Amazon.  
 https://www.amazon.com/dp/B07YKYP8MN?psc=1&ref=ppx_yo2ov_dt_b_product_details  
 https://www.amazon.com/dp/B08KZGPTLM?ref=ppx_yo2ov_dt_b_product_details&th=1  
