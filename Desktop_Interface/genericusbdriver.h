@@ -76,6 +76,7 @@ public:
     virtual char *isoRead(unsigned int *newLength) = 0;
     //void setBufferPtr(bufferControl *newPtr);
     void saveState(int *_out_deviceMode, double *_out_scopeGain, double *_out_currentPsuVoltage, int *_out_digitalPinState);
+    void setTxUart(int baudRate_CH1, std::vector<uint8_t> samples, functionGen::ChannelID channelID, functionGen::SingleChannelController* fGenControl);
     virtual void usbSendControl(uint8_t RequestType, uint8_t Request, uint16_t Value, uint16_t Index, uint16_t Length, unsigned char *LDATA) = 0;
     virtual void manualFirmwareRecovery(void) = 0;
     double psu_offset = 0;
