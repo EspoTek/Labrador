@@ -88,7 +88,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //        layout->addWidget(sizeGrip, 0,0,1,1,Qt::AlignBottom | Qt::AlignLeft);
 //    }
 
-    for (const auto & console : {ui->console1, ui->console2})
+    for (const auto & console : {ui->console1, ui->console2, ui->txuart})
     {
         QFont font("Monospace");
         font.setStyleHint(QFont::Monospace);
@@ -99,6 +99,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->kickstartIsoButton->setVisible(0);
     ui->console1->setVisible(0);
     ui->console2->setVisible(0);
+    ui->txuart->setVisible(0);
 #endif
     ui->timeBaseSlider->setVisible(0);
 
@@ -2572,3 +2573,133 @@ void MainWindow::on_actionFrequency_Spectrum_triggered(bool checked)
     else
         MAX_WINDOW_SIZE = 10;
 }
+
+std::vector<uint8_t> MainWindow::uartEncode(const QString& text, UartParity parity)
+{
+    std::vector<uint8_t> uartData;
+    int i;
+
+    // Prepend Initialization data
+    for (i = 0; i < 300; i++)
+        uartData.push_back(255);
+
+    for (const QChar& character : text)
+    {
+        // Convert character to ASCII value
+        int ascii = character.toLatin1();
+
+        // Append start bit
+        uartData.push_back(0);
+
+        // Append data bits (least significant bit first)
+        for (i = 0; i < 8; i++)
+        {
+            if((ascii >> i) & 1)
+                uartData.push_back(255);
+            else
+                uartData.push_back(0);
+        }
+
+        if(parity == UartParity::Even || parity == UartParity::Odd)
+        {
+            // Calculate and append parity bit
+            int numOneBits = 0;
+            for (bool bit : uartData)
+            {
+                if (bit)
+                    numOneBits++;
+            }
+            if(parity == UartParity::Even)
+            {
+                if(numOneBits % 2 == 0)
+                    uartData.push_back(0);
+                else
+                    uartData.push_back(255);
+            }
+            else
+            {
+                if(numOneBits % 2 == 0)
+                    uartData.push_back(255);
+                else
+                    uartData.push_back(0);
+            }
+
+        }
+        // Append stop bit
+        uartData.push_back(255);
+    }
+
+    return uartData;
+}
+
+void MainWindow::on_serialEncodingCheck_CH1_toggled(bool checked)
+{
+    int baudRate_CH1;
+    UartParity parity_CH1;
+    std::vector<uint8_t> data;
+
+    // If uart encoding is enabled
+    if(checked)
+    {
+        // Enable uart decoding
+        ui->serialDecodingCheck_CH1->setChecked(true);
+
+        /* transmit IDLE signal */
+        // txuart parameters
+        baudRate_CH1 = ui->controller_iso->baudRate_CH1;
+        parity_CH1 = ui->controller_iso->parity_CH1;
+
+        // Encode txuart data
+        data = uartEncode("\r\n", parity_CH1);
+
+        // Transmit txuart data
+        using functionGen::ChannelID;
+        ui->controller_fg->txuartUpdate(ChannelID::CH1, baudRate_CH1, data);
+    }
+}
+
+void MainWindow::on_txuart_textChanged()
+{
+    QString text, new_char;
+    int baudRate_CH1;
+    UartParity parity_CH1;
+    std::vector<uint8_t> data;
+
+    // Retrieve text displayed
+    text = ui->txuart->toPlainText();
+
+    // Check if key pressed in backspace
+    if (text.length() == prev_text.length()-1)
+        new_char = '\b';
+    else
+        new_char = text.right(1);
+
+    // txuart parameters
+    baudRate_CH1 = ui->controller_iso->baudRate_CH1;
+    parity_CH1 = ui->controller_iso->parity_CH1;
+
+    // Encode txuart data
+    if (new_char == '\n')
+        new_char = "\r\n";
+    data = uartEncode(new_char, parity_CH1);
+
+    // Transmit txuart data
+    using functionGen::ChannelID;
+    ui->controller_fg->txuartUpdate(ChannelID::CH1, baudRate_CH1, data);
+
+    // Check if the last character is newline
+    if (new_char == '\r')
+    {
+        // Clear txuart screen
+        ui->txuart->clear();
+
+        // Update previous text
+        prev_text = "";
+    }
+    else
+    {
+        // Update previous text
+        prev_text = text;
+    }
+}
+
