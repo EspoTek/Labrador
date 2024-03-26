@@ -2639,8 +2639,12 @@ void MainWindow::on_serialEncodingCheck_CH1_toggled(bool checked)
     std::vector<uint8_t> data;
 
     // If uart encoding is enabled
+    using functionGen::ChannelID;
     if(checked)
     {
+        // Backup waveform on CH1
+        ui->controller_fg->backup_waveform(ChannelID::CH1);
+
         // Enable uart decoding
         ui->serialDecodingCheck_CH1->setChecked(true);
 
@@ -2653,8 +2657,12 @@ void MainWindow::on_serialEncodingCheck_CH1_toggled(bool checked)
         data = uartEncode("\r\n", parity_CH1);
 
         // Transmit txuart data
-        using functionGen::ChannelID;
         ui->controller_fg->txuartUpdate(ChannelID::CH1, baudRate_CH1, data);
+    }
+    else
+    {
+        // Restore waveform on CH1
+        ui->controller_fg->restore_waveform(ChannelID::CH1);
     }
 }
 
