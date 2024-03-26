@@ -13,7 +13,7 @@
 
 //#define VERO
 #define OVERCLOCK 48
-#define FIRMWARE_VERSION_ID 0x0006
+#define FIRMWARE_VERSION_ID 0x0007
 #define ATMEL_DFU_OFFSET 0x01fc
 
 #define TC_SPISLAVE TCD0
@@ -48,6 +48,7 @@ extern volatile uint16_t auxDacBufLen;
 extern volatile unsigned char dummy;
 
 extern volatile unsigned char global_mode;
+extern volatile bool repeat_forever;
 
 extern volatile char PSU_target;
 

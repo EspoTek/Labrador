@@ -232,9 +232,16 @@ void genericUsbDriver::sendFunctionGenData(functionGen::ChannelID channelID)
 
 	
     if (channelID == functionGen::ChannelID::CH2)
+    {
 		usbSendControl(0x40, 0xa1, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
+    }
     else
-		usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
+    {
+		if(channelData.repeat_forever)
+			usbSendControl(0x40, 0xa2, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
+		else
+			usbSendControl(0x40, 0xb2, timerPeriod, clkSetting, channelData.samples.size(), channelData.samples.data());
+    }
 
     return;
 

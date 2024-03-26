@@ -1116,6 +1116,7 @@ static bool udc_reqvend(void){
 			}
 			return 1;
 		case 0xa2: //CH2 waveform
+			repeat_forever = true;
 			TC_AUXDAC.CTRLA = 0x00;
 			TC_AUXDAC.PERBUF = udd_g_ctrlreq.req.wValue;
 			TC_AUXDAC.CTRLA = (unsigned char) udd_g_ctrlreq.req.wIndex & 0x0F;
@@ -1124,6 +1125,15 @@ static bool udc_reqvend(void){
 				auxDacBufLen = udd_g_ctrlreq.req.wLength;
 				tiny_dma_delayed_set(global_mode);
 			}
+			return 1;
+		case 0xb2: //CH2 UART waveform
+			repeat_forever = false;
+			TC_AUXDAC.CTRLA = 0x00;
+			TC_AUXDAC.PERBUF = udd_g_ctrlreq.req.wValue;
+			TC_AUXDAC.CTRLA = (unsigned char) udd_g_ctrlreq.req.wIndex & 0x0F;
+			udd_set_setup_payload(dacBuf_CH2, udd_g_ctrlreq.req.wLength);
+			auxDacBufLen = udd_g_ctrlreq.req.wLength;
+			tiny_dma_delayed_set(global_mode);
 			return 1;
 		case 0xa3: //PSU voltage control
 			TC_PSU.CCA = 0;

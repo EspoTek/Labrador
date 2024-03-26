@@ -31,6 +31,7 @@ volatile uint16_t dacBuf_len = 128;
 volatile uint16_t auxDacBufLen = 128;
 volatile unsigned char dummy = 0x55;
 volatile unsigned char global_mode = 255;
+volatile bool repeat_forever = true;
 
 volatile char PSU_target = 0;
 

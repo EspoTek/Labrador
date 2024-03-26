@@ -228,6 +228,9 @@ private slots:
     void on_actionShow_Debug_Console_triggered(bool checked);
     void on_actionFrequency_Spectrum_triggered(bool checked);
 
+    void on_serialEncodingCheck_CH1_toggled(bool checked);
+    void on_txuart_textChanged();
+
 private:
     //Generic Vars
     Ui::MainWindow *ui;
@@ -250,6 +253,7 @@ private:
 
     QPalette defaultPalette;
     QString defaultStyleName;
+    QString prev_text;
 
     //Generic Functions
     void initialisePlot();
@@ -258,6 +262,8 @@ private:
     void initShortcuts();
     void readSettingsFile();
     void setDarkMode(bool dark);
+    std::vector<uint8_t> uartEncode(const QString& line, UartParity parity);
+    std::vector<uint8_t> resampler(std::vector<uint8_t>, int input_baudRate, int output_baudRate);
 
     //Shortcut pointers
     QActionGroup *gainGroup;
