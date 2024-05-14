@@ -6,7 +6,7 @@
 #else
     #ifdef _WIN32 | _WIN64
         #define Q_DECL_EXPORT __declspec(dllexport)
-        #define Q_DECL_IMPORT __declspec(dllimport)
+        #define Q_DECL_IMPORT
     #else
         #define Q_DECL_EXPORT
         #define Q_DECL_IMPORT

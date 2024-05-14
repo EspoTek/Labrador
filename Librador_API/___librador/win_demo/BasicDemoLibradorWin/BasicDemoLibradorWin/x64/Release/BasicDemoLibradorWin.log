@@ -1,0 +1,12 @@
+﻿  BasicDemoLibradorWin.cpp
+C:\Users\Esposch\git\labrador\Librador_API\___librador\librador_shared_library\librador_global.h(7,1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  (compiling source file 'BasicDemoLibradorWin.cpp')
+  
+  Generating code
+  1 of 131 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  BasicDemoLibradorWin.vcxproj -> C:\Users\Esposch\git\labrador\Librador_API\___librador\win_demo\BasicDemoLibradorWin\x64\Release\BasicDemoLibradorWin.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.

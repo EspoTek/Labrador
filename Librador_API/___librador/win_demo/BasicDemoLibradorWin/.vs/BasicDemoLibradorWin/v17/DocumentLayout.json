@@ -1,0 +1,127 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\win_demo\\BasicDemoLibradorWin\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4DC3B53B-227E-4355-BD23-B40DCA97B6A4}|BasicDemoLibradorWin\\BasicDemoLibradorWin.vcxproj|C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\win_demo\\BasicDemoLibradorWin\\BasicDemoLibradorWin\\BasicDemoLibradorWin.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4DC3B53B-227E-4355-BD23-B40DCA97B6A4}|BasicDemoLibradorWin\\BasicDemoLibradorWin.vcxproj|solutionrelative:BasicDemoLibradorWin\\BasicDemoLibradorWin.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DC3B53B-227E-4355-BD23-B40DCA97B6A4}|BasicDemoLibradorWin\\BasicDemoLibradorWin.vcxproj|C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\usbcallhandler.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DC3B53B-227E-4355-BD23-B40DCA97B6A4}|BasicDemoLibradorWin\\BasicDemoLibradorWin.vcxproj|C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\logging_internal.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DC3B53B-227E-4355-BD23-B40DCA97B6A4}|BasicDemoLibradorWin\\BasicDemoLibradorWin.vcxproj|C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\librador.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DC3B53B-227E-4355-BD23-B40DCA97B6A4}|BasicDemoLibradorWin\\BasicDemoLibradorWin.vcxproj|C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\o1buffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DC3B53B-227E-4355-BD23-B40DCA97B6A4}|BasicDemoLibradorWin\\BasicDemoLibradorWin.vcxproj|C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\librador_global.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4DC3B53B-227E-4355-BD23-B40DCA97B6A4}|BasicDemoLibradorWin\\BasicDemoLibradorWin.vcxproj|C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\librador.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "usbcallhandler.cpp",
+              "DocumentMoniker": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\usbcallhandler.cpp",
+              "RelativeDocumentMoniker": "..\\..\\librador_shared_library\\usbcallhandler.cpp",
+              "ToolTip": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\usbcallhandler.cpp",
+              "RelativeToolTip": "..\\..\\librador_shared_library\\usbcallhandler.cpp",
+              "ViewState": "AQIAAJ4AAAAAAAAAAAD4v7cAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-14T01:14:01.415Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "logging_internal.h",
+              "DocumentMoniker": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\logging_internal.h",
+              "RelativeDocumentMoniker": "..\\..\\librador_shared_library\\logging_internal.h",
+              "ToolTip": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\logging_internal.h",
+              "RelativeToolTip": "..\\..\\librador_shared_library\\logging_internal.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-14T01:07:47.215Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "librador.cpp",
+              "DocumentMoniker": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\librador.cpp",
+              "RelativeDocumentMoniker": "..\\..\\librador_shared_library\\librador.cpp",
+              "ToolTip": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\librador.cpp",
+              "RelativeToolTip": "..\\..\\librador_shared_library\\librador.cpp",
+              "ViewState": "AQIAABYAAAAAAAAAAAD4vzAAAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-14T01:04:00.02Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "o1buffer.cpp",
+              "DocumentMoniker": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\o1buffer.cpp",
+              "RelativeDocumentMoniker": "..\\..\\librador_shared_library\\o1buffer.cpp",
+              "ToolTip": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\o1buffer.cpp",
+              "RelativeToolTip": "..\\..\\librador_shared_library\\o1buffer.cpp",
+              "ViewState": "AQIAANAAAAAAAAAAAAAswAIBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-14T00:53:46.534Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BasicDemoLibradorWin.cpp",
+              "DocumentMoniker": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\win_demo\\BasicDemoLibradorWin\\BasicDemoLibradorWin\\BasicDemoLibradorWin.cpp",
+              "RelativeDocumentMoniker": "BasicDemoLibradorWin\\BasicDemoLibradorWin.cpp",
+              "ToolTip": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\win_demo\\BasicDemoLibradorWin\\BasicDemoLibradorWin\\BasicDemoLibradorWin.cpp",
+              "RelativeToolTip": "BasicDemoLibradorWin\\BasicDemoLibradorWin.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-14T00:52:22.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "librador_global.h",
+              "DocumentMoniker": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\librador_global.h",
+              "RelativeDocumentMoniker": "..\\..\\librador_shared_library\\librador_global.h",
+              "ToolTip": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\librador_global.h",
+              "RelativeToolTip": "..\\..\\librador_shared_library\\librador_global.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-14T00:53:13.755Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "librador.h",
+              "DocumentMoniker": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\librador.h",
+              "RelativeDocumentMoniker": "..\\..\\librador_shared_library\\librador.h",
+              "ToolTip": "C:\\Users\\Esposch\\git\\labrador\\Librador_API\\___librador\\librador_shared_library\\librador.h",
+              "RelativeToolTip": "..\\..\\librador_shared_library\\librador.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-14T01:04:32.981Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,8 @@
 #include "usbcallhandler.h"
 #include "logging_internal.h"
 
+#define _USE_MATH_DEFINES
+
 #include <vector>
 #include <math.h>
 

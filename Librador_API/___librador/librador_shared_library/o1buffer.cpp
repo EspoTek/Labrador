@@ -249,7 +249,7 @@ double o1buffer::sampleConvert(int sample, double scope_gain, bool AC, bool twel
     }
 
     if(twelve_bit_multimeter){
-        #warning Hack here.  Do not know why this line works, but it does.
+        #pragma message("Hack here.Do not know why this line works, but it does.")
         voltageLevel = voltageLevel / 16;
     }
 

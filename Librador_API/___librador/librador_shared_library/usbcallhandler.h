@@ -53,7 +53,6 @@ typedef struct fGenSettings{
         return temp_control_transfer_error_value - 1000; \
     }
 
-
 class usbCallHandler
 {
 public:

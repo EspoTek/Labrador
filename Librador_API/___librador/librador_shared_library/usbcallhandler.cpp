@@ -181,7 +181,7 @@ int usbCallHandler::setup_usb_control(){
         LIBRADOR_LOG(LOG_ERROR, "libusb_init FAILED\n");
         return -1;
     } else LIBRADOR_LOG(LOG_DEBUG, "Libusb context initialised\n");
-    libusb_set_debug(ctx, 3);
+    //libusb_set_debug(ctx, 3);
 
     //Get a handle on the Labrador device
     handle = libusb_open_device_with_vid_pid(ctx, VID, PID);
