@@ -24,8 +24,10 @@ enum class ChannelID
 struct ChannelData
 {
 	std::vector<uint8_t> samples;
+	QString waveform;
+	bool repeat_forever;
 	int divisibility;
-	double freq = 1000.0;
+	double freq = 1000.0, freq2 = 1000.0;
 	double amplitude = 0.0;
 	double offset = 0.0;
 };
@@ -47,6 +49,9 @@ public slots:
     void freqUpdate(double newFreq);
     void amplitudeUpdate(double newAmplitude);
     void offsetUpdate(double newOffset);
+    void txuartUpdate(int baudRate, std::vector<uint8_t> samples);
+    void backup_waveform();
+    void restore_waveform();
 
 private:
 	ChannelData m_data;
@@ -60,6 +65,9 @@ public:
 
 public:
 	SingleChannelController* getChannelController(ChannelID channelID);
+	void txuartUpdate(ChannelID channelID, int baudRate, std::vector<uint8_t> samples);
+	void backup_waveform(ChannelID channelID);
+	void restore_waveform(ChannelID channelID);
 
 signals:
     void functionGenToUpdate(ChannelID channel, SingleChannelController* fGenControl);

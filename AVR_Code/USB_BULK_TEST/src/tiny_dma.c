@@ -63,8 +63,18 @@ void tiny_dma_set_mode_0(void){
 	
 	tiny_dma_flush();
 	
-	DMA.CH2.REPCNT = 0; //Repeat forever!
-	DMA.CH2.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	// TX UART waveform
+	if(!repeat_forever)
+	{
+		DMA.CH2.REPCNT = 1; //Do not repeat
+		DMA.CH2.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm;
+	}
+	// Remaining waveforms
+	else
+	{
+		DMA.CH2.REPCNT = 0; //Repeat forever!
+		DMA.CH2.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	}
 	DMA.CH2.CTRLB = 0x00; //No interrupt for DacBuf!!
 	DMA.CH2.ADDRCTRL = DMA_CH_DESTRELOAD_BURST_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_SRCRELOAD_BLOCK_gc | DMA_CH_SRCDIR_INC_gc;   //Dest reloads after each burst, with byte incrementing.  Src reloads at end of block, also incrementing address.
 	DMA.CH2.TRIGSRC = DMA_CH_TRIGSRC_EVSYS_CH1_gc;	//Triggered from TCC0 when it hits PER
@@ -157,8 +167,18 @@ void tiny_dma_set_mode_1(void){
 	USARTC0.DATA = 0x55;
 	USARTC0.DATA = 0x55;
 
-	DMA.CH3.REPCNT = 0; //Repeat forever!
-	DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	// TX UART waveform
+	if(!repeat_forever)
+	{
+		DMA.CH3.REPCNT = 1; //Do not repeat
+		DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm;
+	}
+	// Remaining waveforms
+	else
+	{
+		DMA.CH3.REPCNT = 0; //Repeat forever!
+		DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	}
 	DMA.CH3.CTRLB = 0x00; //No interrupt for DacBuf!!
 	DMA.CH3.ADDRCTRL = DMA_CH_DESTRELOAD_BURST_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_SRCRELOAD_BLOCK_gc | DMA_CH_SRCDIR_INC_gc;   //Dest reloads after each burst, with byte incrementing.  Src reloads at end of block, also incrementing address.
 	DMA.CH3.TRIGSRC = DMA_CH_TRIGSRC_EVSYS_CH1_gc;	//Triggered from TCC0 when it hits PER
@@ -220,8 +240,18 @@ void tiny_dma_set_mode_2(void){
 	
 	tiny_dma_flush();
 	
-	DMA.CH2.REPCNT = 0; //Repeat forever!
-	DMA.CH2.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	// TX UART waveform
+	if(!repeat_forever)
+	{
+		DMA.CH2.REPCNT = 1; //Do not repeat
+		DMA.CH2.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm;
+	}
+	// Remaining waveforms
+	else
+	{
+		DMA.CH2.REPCNT = 0; //Repeat forever!
+		DMA.CH2.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	}
 	DMA.CH2.CTRLB = 0x00; //No interrupt for DacBuf!!
 	DMA.CH2.ADDRCTRL = DMA_CH_DESTRELOAD_BURST_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_SRCRELOAD_BLOCK_gc | DMA_CH_SRCDIR_INC_gc;   //Dest reloads after each burst, with byte incrementing.  Src reloads at end of block, also incrementing address.
 	DMA.CH2.TRIGSRC = DMA_CH_TRIGSRC_EVSYS_CH1_gc;	//Triggered from TCC0 when it hits PER
@@ -308,8 +338,18 @@ void tiny_dma_set_mode_3(void){
 	global_mode = 3;
 	tiny_dma_flush();	
 
-	DMA.CH3.REPCNT = 0; //Repeat forever!
-	DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	// TX UART waveform
+	if(!repeat_forever)
+	{
+		DMA.CH3.REPCNT = 1; //Do not repeat
+		DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm;
+	}
+	// Remaining waveforms
+	else
+	{
+		DMA.CH3.REPCNT = 0; //Repeat forever!
+		DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	}
 	DMA.CH3.CTRLB = 0x00; //No interrupt for DacBuf!!
 	DMA.CH3.ADDRCTRL = DMA_CH_DESTRELOAD_BURST_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_SRCRELOAD_BLOCK_gc | DMA_CH_SRCDIR_INC_gc;   //Dest reloads after each burst, with byte incrementing.  Src reloads at end of block, also incrementing address.
 	DMA.CH3.TRIGSRC = DMA_CH_TRIGSRC_EVSYS_CH1_gc;	//Triggered from TCC0 when it hits PER
@@ -429,8 +469,18 @@ void tiny_dma_set_mode_4(void){
 	
 	USARTC0.DATA = 0x55;
 	
-	DMA.CH3.REPCNT = 0; //Repeat forever!
-	DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	// TX UART waveform
+	if(!repeat_forever)
+	{
+		DMA.CH3.REPCNT = 1; //Do not repeat
+		DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm;
+	}
+	// Remaining waveforms
+	else
+	{
+		DMA.CH3.REPCNT = 0; //Repeat forever!
+		DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	}
 	DMA.CH3.CTRLB = 0x00; //No interrupt for DacBuf!!
 	DMA.CH3.ADDRCTRL = DMA_CH_DESTRELOAD_BURST_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_SRCRELOAD_BLOCK_gc | DMA_CH_SRCDIR_INC_gc;   //Dest reloads after each burst, with byte incrementing.  Src reloads at end of block, also incrementing address.
 	DMA.CH3.TRIGSRC = DMA_CH_TRIGSRC_EVSYS_CH1_gc;	//Triggered from TCC0 when it hits PER
@@ -520,8 +570,18 @@ void tiny_dma_set_mode_6(void){
 	//Must enable last for REPCNT won't work!
 	DMA.CH2.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 	
-	DMA.CH3.REPCNT = 0; //Repeat forever!
-	DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	// TX UART waveform
+	if(!repeat_forever)
+	{
+		DMA.CH3.REPCNT = 1; //Do not repeat
+		DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm;
+	}
+	// Remaining waveforms
+	else
+	{
+		DMA.CH3.REPCNT = 0; //Repeat forever!
+		DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+	}
 	DMA.CH3.CTRLB = 0x00; //No interrupt for DacBuf!!
 	DMA.CH3.ADDRCTRL = DMA_CH_DESTRELOAD_BURST_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_SRCRELOAD_BLOCK_gc | DMA_CH_SRCDIR_INC_gc;   //Dest reloads after each burst, with byte incrementing.  Src reloads at end of block, also incrementing address.
 	DMA.CH3.TRIGSRC = DMA_CH_TRIGSRC_EVSYS_CH1_gc;	//Triggered from TCC0 when it hits PER
@@ -591,8 +651,18 @@ void tiny_dma_set_mode_7(void){
 		//Must enable last for REPCNT won't work!
 		DMA.CH2.CTRLA |= DMA_CH_ENABLE_bm;  //Enable!
 		
-		DMA.CH3.REPCNT = 0; //Repeat forever!
-		DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+		// TX UART waveform
+		if(!repeat_forever)
+		{
+			DMA.CH3.REPCNT = 1; //Do not repeat
+			DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm;
+		}
+		// Remaining waveforms
+		else
+		{
+			DMA.CH3.REPCNT = 0; //Repeat forever!
+			DMA.CH3.CTRLA = DMA_CH_BURSTLEN_1BYTE_gc | DMA_CH_SINGLE_bm | DMA_CH_REPEAT_bm;
+		}
 		DMA.CH3.CTRLB = 0x00; //No interrupt for DacBuf!!
 		DMA.CH3.ADDRCTRL = DMA_CH_DESTRELOAD_BURST_gc | DMA_CH_DESTDIR_INC_gc | DMA_CH_SRCRELOAD_BLOCK_gc | DMA_CH_SRCDIR_INC_gc;   //Dest reloads after each burst, with byte incrementing.  Src reloads at end of block, also incrementing address.
 		DMA.CH3.TRIGSRC = DMA_CH_TRIGSRC_EVSYS_CH1_gc;	//Triggered from TCC0 when it hits PER
