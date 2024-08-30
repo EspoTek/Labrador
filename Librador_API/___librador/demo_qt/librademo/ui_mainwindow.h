@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.10.0
+** Created by: Qt User Interface Compiler version 5.12.12
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -10,14 +10,11 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
-#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
@@ -91,74 +88,74 @@ public:
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName(QStringLiteral("MainWindow"));
+            MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(1280, 720);
         centralWidget = new QWidget(MainWindow);
-        centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
 
         verticalLayout->addWidget(pushButton);
 
         pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
 
         verticalLayout->addWidget(pushButton_2);
 
         pushButton_3 = new QPushButton(centralWidget);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
 
         verticalLayout->addWidget(pushButton_3);
 
         pushButton_6 = new QPushButton(centralWidget);
-        pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
+        pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
 
         verticalLayout->addWidget(pushButton_6);
 
         pushButton_4 = new QPushButton(centralWidget);
-        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
 
         verticalLayout->addWidget(pushButton_4);
 
         pushButton_7 = new QPushButton(centralWidget);
-        pushButton_7->setObjectName(QStringLiteral("pushButton_7"));
+        pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
 
         verticalLayout->addWidget(pushButton_7);
 
         pushButton_8 = new QPushButton(centralWidget);
-        pushButton_8->setObjectName(QStringLiteral("pushButton_8"));
+        pushButton_8->setObjectName(QString::fromUtf8("pushButton_8"));
 
         verticalLayout->addWidget(pushButton_8);
 
         pushButton_10 = new QPushButton(centralWidget);
-        pushButton_10->setObjectName(QStringLiteral("pushButton_10"));
+        pushButton_10->setObjectName(QString::fromUtf8("pushButton_10"));
 
         verticalLayout->addWidget(pushButton_10);
 
         pushButton_11 = new QPushButton(centralWidget);
-        pushButton_11->setObjectName(QStringLiteral("pushButton_11"));
+        pushButton_11->setObjectName(QString::fromUtf8("pushButton_11"));
 
         verticalLayout->addWidget(pushButton_11);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         pushButton_9 = new QPushButton(centralWidget);
-        pushButton_9->setObjectName(QStringLiteral("pushButton_9"));
+        pushButton_9->setObjectName(QString::fromUtf8("pushButton_9"));
 
         horizontalLayout_3->addWidget(pushButton_9);
 
         powerSupplySpinBox = new QDoubleSpinBox(centralWidget);
-        powerSupplySpinBox->setObjectName(QStringLiteral("powerSupplySpinBox"));
-        powerSupplySpinBox->setMinimum(5);
-        powerSupplySpinBox->setMaximum(12);
+        powerSupplySpinBox->setObjectName(QString::fromUtf8("powerSupplySpinBox"));
+        powerSupplySpinBox->setMinimum(5.000000000000000);
+        powerSupplySpinBox->setMaximum(12.000000000000000);
 
         horizontalLayout_3->addWidget(powerSupplySpinBox);
 
@@ -167,24 +164,24 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         checkBox = new QCheckBox(centralWidget);
-        checkBox->setObjectName(QStringLiteral("checkBox"));
+        checkBox->setObjectName(QString::fromUtf8("checkBox"));
 
         horizontalLayout_2->addWidget(checkBox);
 
         checkBox_2 = new QCheckBox(centralWidget);
-        checkBox_2->setObjectName(QStringLiteral("checkBox_2"));
+        checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
 
         horizontalLayout_2->addWidget(checkBox_2);
 
         checkBox_3 = new QCheckBox(centralWidget);
-        checkBox_3->setObjectName(QStringLiteral("checkBox_3"));
+        checkBox_3->setObjectName(QString::fromUtf8("checkBox_3"));
 
         horizontalLayout_2->addWidget(checkBox_3);
 
         checkBox_4 = new QCheckBox(centralWidget);
-        checkBox_4->setObjectName(QStringLiteral("checkBox_4"));
+        checkBox_4->setObjectName(QString::fromUtf8("checkBox_4"));
 
         horizontalLayout_2->addWidget(checkBox_4);
 
@@ -193,9 +190,9 @@ public:
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
+        label->setObjectName(QString::fromUtf8("label"));
         label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         horizontalLayout_4->addWidget(label);
@@ -209,7 +206,7 @@ public:
         comboBox->addItem(QString());
         comboBox->addItem(QString());
         comboBox->addItem(QString());
-        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox->setObjectName(QString::fromUtf8("comboBox"));
 
         horizontalLayout_4->addWidget(comboBox);
 
@@ -218,9 +215,9 @@ public:
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
-        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         horizontalLayout_5->addWidget(label_2);
@@ -234,7 +231,7 @@ public:
         comboBox_2->addItem(QString());
         comboBox_2->addItem(QString());
         comboBox_2->addItem(QString());
-        comboBox_2->setObjectName(QStringLiteral("comboBox_2"));
+        comboBox_2->setObjectName(QString::fromUtf8("comboBox_2"));
 
         horizontalLayout_5->addWidget(comboBox_2);
 
@@ -243,12 +240,12 @@ public:
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
-        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         label_3 = new QLabel(centralWidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setObjectName(QString::fromUtf8("label_3"));
 
         verticalLayout_2->addWidget(label_3);
 
@@ -256,7 +253,7 @@ public:
         comboBox_3->addItem(QString());
         comboBox_3->addItem(QString());
         comboBox_3->addItem(QString());
-        comboBox_3->setObjectName(QStringLiteral("comboBox_3"));
+        comboBox_3->setObjectName(QString::fromUtf8("comboBox_3"));
 
         verticalLayout_2->addWidget(comboBox_3);
 
@@ -265,19 +262,19 @@ public:
 
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setSpacing(6);
-        verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
+        verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
         pushButton_5 = new QPushButton(centralWidget);
-        pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
+        pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
 
         verticalLayout_8->addWidget(pushButton_5);
 
         pushButton_15 = new QPushButton(centralWidget);
-        pushButton_15->setObjectName(QStringLiteral("pushButton_15"));
+        pushButton_15->setObjectName(QString::fromUtf8("pushButton_15"));
 
         verticalLayout_8->addWidget(pushButton_15);
 
         pushButton_14 = new QPushButton(centralWidget);
-        pushButton_14->setObjectName(QStringLiteral("pushButton_14"));
+        pushButton_14->setObjectName(QString::fromUtf8("pushButton_14"));
 
         verticalLayout_8->addWidget(pushButton_14);
 
@@ -289,17 +286,17 @@ public:
 
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
-        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         label_4 = new QLabel(centralWidget);
-        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setObjectName(QString::fromUtf8("label_4"));
 
         verticalLayout_3->addWidget(label_4);
 
         doubleSpinBox_frequency = new QDoubleSpinBox(centralWidget);
-        doubleSpinBox_frequency->setObjectName(QStringLiteral("doubleSpinBox_frequency"));
+        doubleSpinBox_frequency->setObjectName(QString::fromUtf8("doubleSpinBox_frequency"));
 
         verticalLayout_3->addWidget(doubleSpinBox_frequency);
 
@@ -308,15 +305,15 @@ public:
 
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setSpacing(6);
-        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         label_6 = new QLabel(centralWidget);
-        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setObjectName(QString::fromUtf8("label_6"));
 
         verticalLayout_5->addWidget(label_6);
 
         doubleSpinBox_amplitude = new QDoubleSpinBox(centralWidget);
-        doubleSpinBox_amplitude->setObjectName(QStringLiteral("doubleSpinBox_amplitude"));
-        doubleSpinBox_amplitude->setMaximum(10);
+        doubleSpinBox_amplitude->setObjectName(QString::fromUtf8("doubleSpinBox_amplitude"));
+        doubleSpinBox_amplitude->setMaximum(10.000000000000000);
 
         verticalLayout_5->addWidget(doubleSpinBox_amplitude);
 
@@ -325,15 +322,15 @@ public:
 
         verticalLayout_6 = new QVBoxLayout();
         verticalLayout_6->setSpacing(6);
-        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
         label_7 = new QLabel(centralWidget);
-        label_7->setObjectName(QStringLiteral("label_7"));
+        label_7->setObjectName(QString::fromUtf8("label_7"));
 
         verticalLayout_6->addWidget(label_7);
 
         doubleSpinBox_offset = new QDoubleSpinBox(centralWidget);
-        doubleSpinBox_offset->setObjectName(QStringLiteral("doubleSpinBox_offset"));
-        doubleSpinBox_offset->setMaximum(10);
+        doubleSpinBox_offset->setObjectName(QString::fromUtf8("doubleSpinBox_offset"));
+        doubleSpinBox_offset->setMaximum(10.000000000000000);
 
         verticalLayout_6->addWidget(doubleSpinBox_offset);
 
@@ -342,9 +339,9 @@ public:
 
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setSpacing(6);
-        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         label_5 = new QLabel(centralWidget);
-        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setObjectName(QString::fromUtf8("label_5"));
 
         verticalLayout_4->addWidget(label_5);
 
@@ -353,7 +350,7 @@ public:
         comboBox_signal_gen_type->addItem(QString());
         comboBox_signal_gen_type->addItem(QString());
         comboBox_signal_gen_type->addItem(QString());
-        comboBox_signal_gen_type->setObjectName(QStringLiteral("comboBox_signal_gen_type"));
+        comboBox_signal_gen_type->setObjectName(QString::fromUtf8("comboBox_signal_gen_type"));
 
         verticalLayout_4->addWidget(comboBox_signal_gen_type);
 
@@ -362,14 +359,14 @@ public:
 
         verticalLayout_7 = new QVBoxLayout();
         verticalLayout_7->setSpacing(6);
-        verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
+        verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
         pushButton_12 = new QPushButton(centralWidget);
-        pushButton_12->setObjectName(QStringLiteral("pushButton_12"));
+        pushButton_12->setObjectName(QString::fromUtf8("pushButton_12"));
 
         verticalLayout_7->addWidget(pushButton_12);
 
         pushButton_13 = new QPushButton(centralWidget);
-        pushButton_13->setObjectName(QStringLiteral("pushButton_13"));
+        pushButton_13->setObjectName(QString::fromUtf8("pushButton_13"));
 
         verticalLayout_7->addWidget(pushButton_13);
 
@@ -383,20 +380,20 @@ public:
         horizontalLayout->addLayout(verticalLayout);
 
         widget = new QCustomPlot(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
+        widget->setObjectName(QString::fromUtf8("widget"));
 
         horizontalLayout->addWidget(widget);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
+        menuBar->setObjectName(QString::fromUtf8("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1280, 22));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
+        mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
         MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindow);
-        statusBar->setObjectName(QStringLiteral("statusBar"));
+        statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);
 
         retranslateUi(MainWindow);

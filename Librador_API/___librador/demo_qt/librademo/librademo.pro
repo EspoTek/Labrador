@@ -26,7 +26,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        ../../../../Desktop_Interface/ui_elements/qcp1/qcustomplot.cpp
+        ../../../../Desktop_Interface/ui_elements/qcp1/qcustomplot.cpp \
+        ../../librador_shared_library/librador.cpp \
+        ../../librador_shared_library/o1buffer.cpp \
+        ../../librador_shared_library/usbcallhandler.cpp \
 
 
 HEADERS += \
@@ -40,40 +43,7 @@ INCLUDEPATH += \
 FORMS += \
         mainwindow.ui
 
-
-unix:LIBS += -L../../librador_shared_library -lrador
-unix:INCLUDEPATH += ../../librador_shared_library
-unix:DEPENDPATH += ../../librador_shared_library
-
-unix:!android:!macx {
-    #libusb include
-    LIBS += -L../../../../Desktop_Interface/build_linux/libusb -lusb-1.0  ##I suspect the -L here does nothing!
-    INCLUDEPATH += ../../../../Desktop_Interface/build_linux/libusb
-    DEPENDPATH += ../../../../Desktop_Interface/build_linux/libusb
-
-    #libdfuprog include
-    LIBS += -L../../../../Desktop_Interface/build_linux/libdfuprog/lib/x64 -ldfuprog-0.9
-    INCLUDEPATH += ../../../../Desktop_Interface/build_linux/libdfuprog/include
-    DEPENDPATH += ../../../../Desktop_Interface/build_linux/libdfuprog/include
-
-    #linux defines
-    DEFINES += \
-        PLATFORM_LINUX \
-}
-
-macx {
-    #libusb include
-    LIBS += -L../../../Desktop_Interface/build_mac/libusb/lib -lusb-1.0  ##I suspect the -L here does nothing!
-    INCLUDEPATH += ../../../Desktop_Interface/build_mac/libusb/include/libusb-1.0
-    DEPENDPATH += ../../../Desktop_Interface/build_mac/libusb/include/libusb-1.0
-
-    #libdfuprog include
-    LIBS += -L../../../Desktop_Interface/build_mac/libdfuprog/lib -ldfuprog-0.9
-    INCLUDEPATH += ../../../Desktop_Interface/build_mac/libdfuprog/include
-    DEPENDPATH += ../../../Desktop_Interface/build_mac/libdfuprog/include
-
-    #linux defines
-    DEFINES += \
-        PLATFORM_MAC \
-}
+LIBS += -llibusb-1.0
+INCLUDEPATH += ../../librador_shared_library
+DEPENDPATH += ../../librador_shared_library
 
