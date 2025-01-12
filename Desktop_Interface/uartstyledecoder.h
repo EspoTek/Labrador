@@ -43,6 +43,7 @@ private:
     bool jitterCompensationProcedure(bool current_bit);
 
     bool m_hexDisplay = false;
+    bool escape_code_started = false;
 
     QPlainTextEdit *console;
     isoBufferBuffer m_serialBuffer;

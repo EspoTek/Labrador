@@ -141,6 +141,37 @@
        </widget>
       </item>
       <item>
+       <widget class="QPlainTextEdit" name="txuart">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPlainTextEdit" name="console2">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -1348,6 +1379,22 @@
                <number>0</number>
               </property>
              </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="serialEncodingCheck_CH1">
+             <property name="title">
+              <string>Serial Encoding</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
             </widget>
            </item>
           </layout>
@@ -4488,6 +4535,70 @@
     <hint type="destinationlabel">
      <x>1179</x>
      <y>451</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>serialEncodingCheck_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>txuart</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1394</x>
+     <y>982</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>411</x>
+     <y>1122</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>serialEncodingCheck_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>waveformSelect_CH1</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1394</x>
+     <y>982</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>985</x>
+     <y>1039</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>serialEncodingCheck_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>frequencyValue_CH1</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1394</x>
+     <y>982</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>985</x>
+     <y>1068</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>serialEncodingCheck_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>dcOffsetValue_CH1</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1394</x>
+     <y>982</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>985</x>
+     <y>1126</y>
     </hint>
    </hints>
   </connection>

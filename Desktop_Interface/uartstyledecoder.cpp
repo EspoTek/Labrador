@@ -146,14 +146,27 @@ void uartStyleDecoder::decodeNextUartBit(bool bitValue)
 			parityCheckFailed = false;
 		}
 
-        if (m_hexDisplay)
+        // Start + body of escape code
+        if(decodedDatabit == 0x1b || (escape_code_started && !((decodedDatabit >= 'A' && decodedDatabit <= 'Z') || (decodedDatabit >= 'a' && decodedDatabit <= 'z'))))
         {
-            m_serialBuffer.insert_hex(decodedDatabit);
-            m_serialBuffer.insert(" ");
+            escape_code_started = true;
+        }
+        // End of escape code
+        else if(escape_code_started && ((decodedDatabit >= 'A' && decodedDatabit <= 'Z') || (decodedDatabit >= 'a' && decodedDatabit <= 'z')))
+        {
+            escape_code_started = false;
         }
         else
         {
-            m_serialBuffer.insert(decodedDatabit);
+            if (m_hexDisplay)
+            {
+                m_serialBuffer.insert_hex(decodedDatabit);
+                m_serialBuffer.insert(" ");
+            }
+            else
+            {
+                m_serialBuffer.insert(decodedDatabit);
+            }
         }
 
         currentUartSymbol = 0;

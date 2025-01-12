@@ -10,6 +10,7 @@ ChannelData const& SingleChannelController::getData() const {
 void SingleChannelController::waveformName(QString newName)
 {
     qDebug() << "newName = " << newName;
+    m_data.waveform = newName;
     newName.append(".tlw");
 
 	int length;
@@ -93,6 +94,7 @@ void SingleChannelController::waveformName(QString newName)
         dataStringCurrent += strcspn(dataStringCurrent, "\t") + 1;
         m_data.samples[i] = static_cast<uint8_t>(dummy);
     }
+    m_data.repeat_forever = true;
 
     free(dataString);
     fclose(fptr);
@@ -111,6 +113,7 @@ void SingleChannelController::freqUpdate(double newFreq)
 {
 	qDebug() << "newFreq = " << newFreq;
 	m_data.freq = newFreq;
+	m_data.repeat_forever = true;
 	notifyUpdate(this);
 }
 
@@ -118,6 +121,7 @@ void SingleChannelController::amplitudeUpdate(double newAmplitude)
 {
 	qDebug() << "newAmplitude = " << newAmplitude;
 	m_data.amplitude = newAmplitude;
+	m_data.repeat_forever = true;
 	notifyUpdate(this);
 }
 
@@ -125,7 +129,31 @@ void SingleChannelController::offsetUpdate(double newOffset)
 {
 	qDebug() << "newOffset = " << newOffset;
 	m_data.offset = newOffset;
+	m_data.repeat_forever = true;
 	notifyUpdate(this);
+}
+
+void SingleChannelController::txuartUpdate(int baudRate, std::vector<uint8_t> samples)
+{
+	// Update txUart data
+	int length = samples.size();
+	m_data.samples.resize(length);
+	m_data.samples = samples;
+	m_data.freq = baudRate/length;
+	m_data.repeat_forever = false;
+
+	notifyUpdate(this);
+}
+
+void SingleChannelController::backup_waveform()
+{
+	m_data.freq2 = m_data.freq;
+}
+
+void SingleChannelController::restore_waveform()
+{
+	m_data.freq = m_data.freq2;
+	waveformName(m_data.waveform);
 }
 
 
@@ -184,6 +212,21 @@ void DualChannelController::amplitudeUpdate(ChannelID channelID, double newAmpli
 void DualChannelController::offsetUpdate(ChannelID channelID, double newOffset)
 {
 	getChannelController(channelID)->offsetUpdate(newOffset);
+}
+
+void DualChannelController::txuartUpdate(ChannelID channelID, int baudRate, std::vector<uint8_t> samples)
+{
+	getChannelController(channelID)->txuartUpdate(baudRate, samples);
+}
+
+void DualChannelController::backup_waveform(ChannelID channelID)
+{
+	getChannelController(channelID)->backup_waveform();
+}
+
+void DualChannelController::restore_waveform(ChannelID channelID)
+{
+	getChannelController(channelID)->restore_waveform();
 }
 
 
