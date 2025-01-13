@@ -30,6 +30,7 @@ struct ChannelData
 	double freq = 1000.0, freq2 = 1000.0;
 	double amplitude = 0.0;
 	double offset = 0.0;
+	double dutyCycle = 50;
 };
 
 class SingleChannelController : public QObject
@@ -49,6 +50,7 @@ public slots:
     void freqUpdate(double newFreq);
     void amplitudeUpdate(double newAmplitude);
     void offsetUpdate(double newOffset);
+    void dutyCycleUpdate(double newDutyCycle);
     void txuartUpdate(int baudRate, std::vector<uint8_t> samples);
     void backup_waveform();
     void restore_waveform();
@@ -81,16 +83,19 @@ public slots:
     void freqUpdate(ChannelID channelID, double newFreq);
     void amplitudeUpdate(ChannelID channelID, double newAmplitude);
     void offsetUpdate(ChannelID channelID, double newOffset);
+    void dutyCycleUpdate(ChannelID channelID, double newDutyCycle);
 
     void waveformName_CH1(QString newName);
     void freqUpdate_CH1(double newFreq);
     void amplitudeUpdate_CH1(double newAmplitude);
     void offsetUpdate_CH1(double newOffset);
+    void dutyCycleUpdate_CH1(double newDutyCycle);
 
     void waveformName_CH2(QString newName);
     void freqUpdate_CH2(double newFreq);
     void amplitudeUpdate_CH2(double newAmplitude);
     void offsetUpdate_CH2(double newOffset);
+    void dutyCycleUpdate_CH2(double newDutyCycle);
 
 private:
 	SingleChannelController m_channels[2];
