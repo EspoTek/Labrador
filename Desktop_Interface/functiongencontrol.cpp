@@ -133,6 +133,14 @@ void SingleChannelController::offsetUpdate(double newOffset)
 	notifyUpdate(this);
 }
 
+void SingleChannelController::dutyCycleUpdate(double newDutyCycle)
+{
+	qDebug() << "newDutyCycle = " << newDutyCycle;
+	m_data.dutyCycle = newDutyCycle;
+	m_data.repeat_forever = true;
+	notifyUpdate(this);
+}
+
 void SingleChannelController::txuartUpdate(int baudRate, std::vector<uint8_t> samples)
 {
 	// Update txUart data
@@ -214,6 +222,11 @@ void DualChannelController::offsetUpdate(ChannelID channelID, double newOffset)
 	getChannelController(channelID)->offsetUpdate(newOffset);
 }
 
+void DualChannelController::dutyCycleUpdate(ChannelID channelID, double newDutyCycle)
+{
+	getChannelController(channelID)->dutyCycleUpdate(newDutyCycle);
+}
+
 void DualChannelController::txuartUpdate(ChannelID channelID, int baudRate, std::vector<uint8_t> samples)
 {
 	getChannelController(channelID)->txuartUpdate(baudRate, samples);
@@ -250,6 +263,11 @@ void DualChannelController::offsetUpdate_CH1(double newOffset)
 	offsetUpdate(ChannelID::CH1, newOffset);
 }
 
+void DualChannelController::dutyCycleUpdate_CH1(double newDutyCycle)
+{
+	dutyCycleUpdate(ChannelID::CH1, newDutyCycle);
+}
+
 
 void DualChannelController::waveformName_CH2(QString newName)
 {
@@ -269,6 +287,11 @@ void DualChannelController::amplitudeUpdate_CH2(double newAmplitude)
 void DualChannelController::offsetUpdate_CH2(double newOffset)
 {
 	offsetUpdate(ChannelID::CH2, newOffset);
+}
+
+void DualChannelController::dutyCycleUpdate_CH2(double newDutyCycle)
+{
+    dutyCycleUpdate(ChannelID::CH2, newDutyCycle);
 }
 
 }

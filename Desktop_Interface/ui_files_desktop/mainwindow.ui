@@ -1086,6 +1086,29 @@
                </property>
               </widget>
              </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="dutyCycleLabel_CH1">
+               <property name="text">
+                <string>Duty cycle</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="espoSpinBox" name="dutyCycleValue_CH1">
+               <property name="minimum">
+                <double>0.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>100.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>1.000000000000000</double>
+               </property>
+               <property name="value">
+                <double>50.000000000000000</double>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
           </layout>
@@ -1215,6 +1238,29 @@
                </property>
                <property name="singleStep">
                 <double>0.100000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="dutyCycleLabel_CH2">
+               <property name="text">
+                <string>Duty cycle</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="espoSpinBox" name="dutyCycleValue_CH2">
+               <property name="minimum">
+                <double>0.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>100.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>1.000000000000000</double>
+               </property>
+               <property name="value">
+                <double>50.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -4599,6 +4645,54 @@
     <hint type="destinationlabel">
      <x>985</x>
      <y>1126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dutyCycleValue_CH1</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>dutyCycleUpdate_CH1(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>985</x>
+     <y>1136</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>411</x>
+     <y>477</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dutyCycleValue_CH2</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>controller_fg</receiver>
+   <slot>dutyCycleUpdate_CH2(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1225</x>
+     <y>1136</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>411</x>
+     <y>477</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>serialEncodingCheck_CH1</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>dutyCycleValue_CH1</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1394</x>
+     <y>982</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>985</x>
+     <y>1136</y>
     </hint>
    </hints>
   </connection>

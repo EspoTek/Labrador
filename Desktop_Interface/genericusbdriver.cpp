@@ -179,6 +179,20 @@ void genericUsbDriver::sendFunctionGenData(functionGen::ChannelID channelID)
     usbSendControl(0x40, 0xa4, fGenTriple, 0, 0, NULL);
 #endif
 
+    // Apply duty cycle to Square waveform
+    if(channelData.waveform == "Square")
+    {
+        int length = channelData.samples.size();
+        int dutyCycle = static_cast<int>((channelData.dutyCycle*length)/100);
+        for (int i = 0; i < length; ++i)
+        {
+            if(i < dutyCycle)
+                channelData.samples[i] = 255;
+            else
+                channelData.samples[i] = 0;
+        }
+    }
+
 	auto applyAmplitudeAndOffset = [&](unsigned char sample) -> unsigned char
 	{
 		return sample / 255.0 * channelData.amplitude + channelData.offset;
