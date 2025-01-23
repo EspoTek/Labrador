@@ -111,6 +111,8 @@ std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSampl
     /*
      * The expected behavior is to run backwards over the buffer with a stride
      * of timeBetweenSamples steps, and push the touched elements into readData.
+     * When timeBetweenSamples steps don't land on integer boundaries,
+     * value is estimated by linearly interpolating neighboring boundaries.
      * If more elements are requested than how many are stored (1), the buffer
      * will be populated only partially. Modifying this function to return null
      * or a zero-filled buffer instead should be simple enough.
@@ -124,11 +126,16 @@ std::unique_ptr<short[]> isoBuffer::readBuffer(double sampleWindow, int numSampl
 
     std::fill (readData.get(), readData.get() + numSamples, short(0));
 
-    double itr = delaySamples;
+    double itr = delaySamples, itr_lb, itr_ub;
+    short data_lb, data_ub;
     for (int i = 0; i < numSamples && itr < m_insertedCount; i++)
     {
         assert(int(itr) >= 0);
-        readData[i] = bufferAt(int(itr));
+        itr_lb = floor(itr);
+        itr_ub = ceil(itr);
+        data_lb = bufferAt(int(itr_lb));
+        data_ub = bufferAt(int(itr_ub));
+        readData[i] = data_lb + short(round(((data_ub-data_lb)*(itr-itr_lb))/(itr_ub-itr_lb)));
 
         if (singleBit)
         {
